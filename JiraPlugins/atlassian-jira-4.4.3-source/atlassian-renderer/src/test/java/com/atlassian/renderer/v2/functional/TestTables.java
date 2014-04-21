@@ -1,0 +1,18 @@
+package com.atlassian.renderer.v2.functional;
+
+import junit.framework.Test;
+
+import java.io.IOException;
+
+public class TestTables extends BaseFunctionalTestRunner
+{
+    public static Test suite() throws IOException
+    {
+        return BaseFunctionalTestRunner.makeSuite(new TestTables());
+    }
+    
+    public TestTables() throws IOException
+    {
+        super("table");
+    }
+}

@@ -1,0 +1,22 @@
+#parse ( "/templates/includes/xsrf.vm" )
+#parse ( "/templates/includes/errors.vm" )
+
+<div class="aui-message info">
+	#if ($mailUtility.isMailServerConfigured())
+		#if($mailQueueURL)
+			$i18n.getText('stp.create.support.request.success',$subject) <a href="$mailQueueURL">$i18n.getText('stp.create.support.request.mail.queue.link.text')</a>
+		#else
+			$i18n.getText('stp.create.support.request.success.no.queue',$subject)
+		#end
+    #else
+    $i18n.getText('stp.create.support.request.success.no.mail.server',$subject)
+    #end
+</div>
+
+<form class="aui" action="$servletHomePath/create-support-request/view">
+    #form_xsrfToken()
+    
+    <input type="submit" class="button submit" value="$i18n.getText('stp.start-again')"/>
+</form>
+
+<div class="clearer"></div>

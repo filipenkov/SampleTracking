@@ -1,0 +1,12 @@
+{
+  "date.import.format" : "yyyyMMddHHmmss",
+  "importexistingproject" : "false",
+  "project.name" : "CSV 242",
+  "importsingleproject" : "true",
+  "project.lead" : "admin",
+  "project.key" : "CSVTWOFOURTWO",
+  "user.email.suffix" : "@example.com",
+  "mapfromcsv" : "false",
+  "field.Summary" : "summary",
+  "field.Id" : "issue-id"
+}

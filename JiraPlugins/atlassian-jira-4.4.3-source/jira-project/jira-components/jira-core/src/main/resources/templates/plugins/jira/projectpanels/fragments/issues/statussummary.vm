@@ -1,0 +1,32 @@
+#if ($statuses)
+<div class="mod-header">
+    #if ($statuses.isEmpty() == false)
+    <ul class="ops">
+        <li><a id="frag${fragid}_more" class="icon icon-view" href="${urlUtil.getAllUrl()}" title="$i18n.getText('browseproject.issues.by.status.more')"><span>$i18n.getText('common.concepts.more')</span></a></li>
+    </ul>
+    #end
+    <h3>
+        $i18n.getText('common.concepts.statussummary')
+    </h3>
+</div>
+<div class="mod-content">
+    #if ($statuses.isEmpty() == false)
+    <table cellpadding="2" cellspacing="0">
+        <tbody>
+        #foreach ($status in $statuses.keySet())
+            #if($velocityCount % 2 == 0) #set ($cssClass = "rowAlternateLightGray") #else #set ($cssClass = "") #end
+            #set ($newUrl = $urlUtil.getUrl($status))
+            <tr class="${cssClass}">
+                <td class="icon"><a href="${newUrl}">#displayConstantIcon($status)</a></td>
+                <td class="name"><a href="${newUrl}">$textutils.htmlEncode(${status.getNameTranslation()})</a></td>
+                <td class="count">$statuses.get($status)</td>
+                <td class="graph last">#histogram($statuses.getPercentage($status))</td>
+            </tr>
+        #end
+        </tbody>
+    </table>
+    #else
+    <p>$i18n.getText('common.concepts.noissues')</p>
+    #end
+</div>
+#end

@@ -1,0 +1,24 @@
+##disable_html_escaping() TODO REENABLE
+<div class="mod-header">
+    <ul class="ops">
+        <li><a id="frag${fragid}_more" class="icon icon-view" href="$srUrl" title=""><span>$i18n.getText('common.concepts.more')</span></a></li>
+    </ul>
+    <h3>$i18n.getText('browseproject.summary.unresolved.issues')</h3>
+</div>
+<div class="mod-content">
+    <ul class="issues">
+        #foreach ($issue in $issues)
+        <li class="vevent">
+            #displayConstantIcon($issue.issueTypeObject)
+            <a class="url issue summary" href="${baseurl}/browse/${issue.key}">$issue.key</a>
+            <span class="dtstart hidden">$outlookdate.formatIso8601($issue.created)</span>
+            #if ($issue.dueDate)
+            <span class="date"><span class="label">$i18n.getText('issue.field.duedate'): </span><abbr class="dtend" title="$outlookdate.formatIso8601Date($issue.dueDate)">$dates.formatRelative($issue.dueDate)</abbr></span>
+            #else
+            <span class="dtend hidden">$outlookdate.formatIso8601($issue.updated)</span>
+            #end
+            <span class="description">$textutils.htmlEncode($issue.summary)</span>
+        </li>
+        #end
+    </ul>
+</div>

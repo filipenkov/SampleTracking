@@ -1,0 +1,3 @@
+Summary,Description,Comment
+Test Issue 1, Has comment by existing user, comment:fred:01/10/07 05:07:33 AM:This comment is by fred (existing user)
+Test Issue 2, Has comment by non-existing user, comment:sam:01/10/07 02:08:33 PM:This comment is by sam (non-existing user)

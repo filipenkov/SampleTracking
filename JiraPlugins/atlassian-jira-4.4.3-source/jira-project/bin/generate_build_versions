@@ -1,0 +1,3 @@
+#!/bin/bash
+
+groovy `dirname $0`/../src/etc/groovy/GenerateBuildVersions.groovy $@

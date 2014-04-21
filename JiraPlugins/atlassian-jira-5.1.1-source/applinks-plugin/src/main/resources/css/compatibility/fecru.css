@@ -1,0 +1,65 @@
+div#admin-content {
+    font-size: 100%;
+}
+.plugin {
+    padding: 0 10px 10px;
+}
+.applinks-header {
+    margin-bottom: 1em;
+    min-height: 30px;
+}
+.applinks-header h3 {
+    color: #036;
+    font-size: 2em;
+    font-weight: normal;
+}
+.applinks-header > ul {
+    top: 0;
+}
+.applinks-header > ul > li > a {
+    text-decoration: none;
+}
+
+.applinks-entity-header {
+    margin-bottom: 1em;
+    min-height: 30px;
+}
+.applinks-entity-header h3 {
+    color: #036;
+    font-size: 2em;
+    font-weight: normal;
+}
+.applinks-entity-header > ul {
+    top: 0;
+}
+.applinks-entity-header > ul > li > a {
+    text-decoration: none;
+}
+
+#ual .aui-dropdown li > div, .aui-dropdown li a {
+    line-height: normal;
+}
+
+div .local-app-image {
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/logos/100fisheye.png);
+}
+
+div.applinks-entity-header > ul {
+    top: 0;
+}
+
+
+/*
+ FIXES FOR IE 7.
+*/
+
+.dialog-help-link {
+    *vertical-align: bottom;
+}
+
+/*
+FeCru overrides AUIs style, this will ensure we AUIs default value.
+*/
+#ual .aui-message.closeable .svg-icon.close {
+    left: auto !important;
+}

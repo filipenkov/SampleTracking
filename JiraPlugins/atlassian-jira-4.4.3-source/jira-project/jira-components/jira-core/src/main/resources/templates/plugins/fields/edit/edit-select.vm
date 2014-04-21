@@ -1,0 +1,14 @@
+#customControlHeader ($action $customField.id $customField.name $fieldLayoutItem.required $displayParameters $auiparams)
+<select class="select" name="$customField.id" id="$customField.id">
+    #if (!$fieldLayoutItem || $fieldLayoutItem.required == false)
+        <option value="-1">$i18n.getText("common.words.none")</option>
+    #else
+        <option value="">$i18n.getText("common.words.none")</option>
+    #end
+    #foreach ($option in $configs.options)
+        #if(!$option.disabled || $option.disabled == false || ($value && $value == $option.optionId.toString()))
+            <option#if ($value && $value == $option.optionId.toString()) selected="selected"#end value="$option.optionId">$option.value</option>
+        #end
+    #end
+</select>
+#customControlFooter ($action $customField.id $fieldLayoutItem.fieldDescription $displayParameters $auiparams)

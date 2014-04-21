@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Module>
+    <ModulePrefs title="__MSG_gadget.roadmap.title__" directory_title="__MSG_gadget.roadmap.title__"
+                 description="__MSG_gadget.roadmap.description__"
+                 author="Atlassian" author_affiliation="Atlassian"
+                 author_location="Sydney, Australia" height="100"
+                 screenshot='#staticResourceUrl("com.atlassian.jira.gadgets:road-map-gadget", "roadmap-screenshot.png")'
+                 thumbnail='#staticResourceUrl("com.atlassian.jira.gadgets:road-map-gadget", "roadmap-thumb.png")'>
+        <Optional feature="gadget-directory">
+            <Param name="categories">
+                JIRA
+            </Param>
+        </Optional>
+        <Require feature="setprefs"/>
+        <Require feature="settitle"/>
+        <Require feature="dynamic-height"/>
+        <Require feature="views" />
+        <Optional feature="atlassian.util" />
+        <Optional feature='auth-refresh' />
+        <Require feature="oauthpopup"/>
+        #oauth
+        #supportedLocales("gadget.common,gadget.roadmap")
+    </ModulePrefs>
+    <UserPref name="isConfigured" datatype="hidden" default_value="false"/>
+    <UserPref name="projectsOrCategories" datatype="hidden" default_value="-1"/>
+    <UserPref name="days" datatype="hidden" default_value="30"/>
+    <UserPref name="num" datatype="hidden" default_value="10"/>
+    <UserPref name="refresh" datatype="hidden" default_value="false" />
+    <Content type="html">
+        <![CDATA[
+        #requireResource("com.atlassian.jira.gadgets:g-roadmap")
+        #includeResources()
+
+        <style type="text/css">
+            
+            .g-roadmap {padding:0.5em 1em;}
+            /* styling for the road map (rm) table */
+            .g-roadmap .rm {border-collapse:collapse;color:#333;*font-size:12px;margin-top:0.5em;width:100%;*width:auto;}
+            .g-roadmap .rm td {vertical-align:top;}
+            .g-roadmap .rm tr.head td {padding-top:0.5em; }
+            .g-roadmap .rm tr.desc td {padding-bottom:0.5em; }
+            .g-roadmap .rm tr td.icon {padding-right:0.3em;width:16px; }
+            .g-roadmap .rm tr td.version {width:70%;}
+            .g-roadmap .rm tr td.relDate {width:70px;white-space:nowrap;}
+            .g-roadmap .rm tr td.progress,
+            .g-roadmap .rm tr td.progressDesc {text-align:right;width:100px;}
+            .g-roadmap .rm tr td.versionDesc {font-size:0.9em;width:auto;}
+
+            /* overdue versions */
+            .g-roadmap .rm tr.overdue {background-color:#ffd;}
+            .g-roadmap .rm tr.overdue td.relDate {color:#c00;font-weight:bold;}
+
+            /* styling for the percentage graph */
+            .g-roadmap .percentageGraph {float:right;font-size:0.9em;width:100px;overflow:hidden;}
+            .g-roadmap .percentageGraph .barSection {border-top:13px solid #eee;display:block;height:0;*height:13px;}
+            .g-roadmap .percentageGraph .barSection span {display:none;}
+            .g-roadmap .percentageGraph .barSection.resolved {border-color:#090;}
+            .g-roadmap .percentageGraph .barSection.unresolved {border-color:#c00;}
+        </style>
+
+        <script type="text/javascript">
+            gadgets.window.setTitle("__MSG_gadget.roadmap.title__");
+            (function ()
+            {
+                AJS.Gadget({
+                    baseUrl: "__ATLASSIAN_BASE_URL__",
+                    useOauth: "/rest/gadget/1.0/currentUser",
+                    config: {
+                        descriptor: function (args)
+                        {
+                            var gadget = this;
+                            gadgets.window.setTitle("__MSG_gadget.roadmap.title__");
+                            return  {
+                                action: "/rest/gadget/1.0/roadmap/validate",
+                                theme : function()
+                                {
+                                    if (gadgets.window.getViewportDimensions().width < 450){
+                                        return "gdt top-label";
+                                    }
+                                    else
+                                    {
+                                        return "gdt";
+                                    }
+                                }(),
+                                fields: [
+                                    AJS.gadget.fields.projectsAndCategoriesPicker(gadget, "projectsOrCategories", args.options),
+                                    AJS.gadget.fields.days(gadget, "days",
+                                        {label:"gadget.roadmap.days.label", description:"gadget.roadmap.days.description"}),
+                                    AJS.gadget.fields.numberToShow(gadget, "num"),
+                                    AJS.gadget.fields.nowConfigured()
+                                ]
+                            };
+                        },
+                        args: function()
+                        {
+                            return [
+                                {
+                                    key: "options",
+                                    ajaxOptions: "/rest/gadget/1.0/projectsAndProjectCategories"
+                                }
+                            ];
+                        }()
+                    },
+                    view: {
+                        enableReload: true,
+                        onResizeAdjustHeight: true,
+                        template: function (args)
+                        {
+                            var baseUrl = AJS.$.ajaxSettings.baseUrl;
+                            var gadget = this;
+                            gadget.getView().addClass("g-roadmap");
+                            var roadmap = args.roadmapData;
+                            gadgets.window.setTitle(AJS.format("__MSG_gadget.roadmap.subtitle__", roadmap.days, roadmap.dateBefore));
+                            if (!roadmap.versions)
+                            {
+                                var message = AJS.$("<span>").text(AJS.format("__MSG_gadget.roadmap.none__", roadmap.days));
+                                gadget.getView().empty().append((message));
+                                return;
+                            }
+
+                            var roadmap_table = AJS.$("<table/>").attr("id", "road-map-content").addClass("rm");
+
+                            var lastOverdueTr = null;
+                            AJS.$.each(roadmap.versions, function(i, ver)
+                            {
+                                var proj = ver.owningProject;
+                                var trClass = (i % 2 == 0 ? "evenRow" : "oddRow") + (ver.isOverdue ? " overdue" : "");
+                                var tr = AJS.$("<tr/>").addClass(trClass);
+                                if (ver.isOverdue)
+                                {
+                                    if (!lastOverdueTr)
+                                    {
+                                        tr.addClass("firstoverdue");
+                                    }
+                                }
+                                else
+                                {
+                                    if (lastOverdueTr)
+                                    {
+                                        lastOverdueTr.addClass("lastOverdue");
+                                        lastOverdueTr = null;
+                                    }
+                                }
+                                AJS.$("<td/>").addClass("icon first").append(AJS.$("<img/>").attr({
+                                    src: baseUrl + "/images/icons/box_16.gif",
+                                    height: 16,
+                                    width: 16,
+                                    title: gadget.getMsg("gadget.roadmap.status.unreleased"),
+                                    alt: gadget.getMsg("gadget.roadmap.status.unreleased")
+                                })).appendTo(tr);
+
+                                AJS.$("<td/>").addClass("version").append(AJS.$("<a/>").attr({
+                                    href: baseUrl + "/browse/" + proj.key,
+                                    target: "_parent"
+                                }).text(proj.name)).append(" : ").append(AJS.$("<a/>").attr({
+                                    href: baseUrl + "/browse/" + proj.key + "/fixforversion/" + ver.id,
+                                    target: "_parent",
+                                    title: ver.description
+                                }).text(ver.name)).appendTo(tr);
+
+                                AJS.$("<td/>").addClass("relDate").text(ver.releaseDate).appendTo(tr);
+
+                                var progress = AJS.$("<td/>").addClass("progress last").appendTo(tr);
+
+                                if (ver.allCount < 1)
+                                {
+                                    AJS.$("<span/>").addClass("subtext no-issues").text(gadget.getMsg("gadget.roadmap.issues.none")).appendTo(progress);
+                                }
+                                else
+                                {
+                                    var percentageGraph = AJS.$("<div/>").addClass("percentageGraph").appendTo(progress);
+                                    if (ver.resolved.count > 0)
+                                    {
+                                        AJS.$("<a/>").addClass("barSection resolved").attr({
+                                            title: AJS.format("__MSG_gadget.roadmap.issues.resolved.title__", ver.resolved.percentage, ver.resolved.count),
+                                            href: baseUrl + ver.resolved.issueNavigatorUrl,
+                                            style: "width: " + ver.resolved.percentage + "%",
+                                            target: "_parent"
+                                        }).html("<span>" + AJS.format("__MSG_gadget.roadmap.issues.resolved.percentage__", ver.resolved.percentage) + "</span>").appendTo(percentageGraph);
+                                    }
+                                    if (ver.unresolved.count > 0)
+                                    {
+                                        AJS.$("<a/>").addClass("barSection unresolved").attr({
+                                            title: AJS.format("__MSG_gadget.roadmap.issues.unresolved.title__", ver.unresolved.percentage, ver.unresolved.count),
+                                            href: baseUrl + ver.unresolved.issueNavigatorUrl,
+                                            style: "width: " + ver.unresolved.percentage + "%",
+                                            target: "_parent"
+                                        }).html("<span>" + AJS.format("__MSG_gadget.roadmap.issues.unresolved.percentage__", ver.unresolved.percentage) + "</span>").appendTo(percentageGraph);
+                                    }
+                                }
+
+                                tr.appendTo(roadmap_table);
+
+                                tr = AJS.$("<tr/>").addClass(trClass + " desc").appendTo(roadmap_table);
+                                if (ver.isOverdue)
+                                {
+                                    lastOverdueTr = tr;
+                                }
+                                AJS.$("<td/>").addClass("icon first").appendTo(tr);
+                                AJS.$("<td/>").addClass("versionDesc").attr("colSpan", 2).text(ver.description || "").appendTo(tr);
+                                var progressDesc = AJS.$("<td/>").addClass("progressDesc last");
+                                if (ver.allCount < 1)
+                                {
+                                    progressDesc.html("&nbsp;");
+                                }
+                                else
+                                {
+                                    progressDesc.append(AJS.$("<span/>").addClass("small nowrap").text(
+                                            AJS.format("__MSG_gadget.roadmap.issues.resolved__", ver.resolved.count, ver.allCount)
+                                            ));
+                                }
+                                progressDesc.appendTo(tr);
+                            });
+                            if (lastOverdueTr)
+                            {
+                                lastOverdueTr.addClass("lastOverdue");
+                                lastOverdueTr = null;
+                            }
+                            gadget.getView().empty().append(roadmap_table);
+                        },
+                        args: [
+                            {
+                                key: "roadmapData",
+                                ajaxOptions: function()
+                                {
+                                    var gadget = this;
+                                    return {
+                                        url: "/rest/gadget/1.0/roadmap/generate",
+                                        data: {
+                                            projectsOrCategories: gadget.getPref("projectsOrCategories"),
+                                            days: gadget.getPref("days"),
+                                            num: gadget.getPref("num")
+                                        }
+                                    };
+                                }
+
+                            }
+                        ]
+                    }
+                });
+            })();
+        </script>
+        ]]>
+    </Content>
+</Module>

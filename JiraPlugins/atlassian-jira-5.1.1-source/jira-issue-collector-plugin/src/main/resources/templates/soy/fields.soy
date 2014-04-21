@@ -1,0 +1,28 @@
+{namespace JIRA.Templates}
+
+/**
+* @param fields
+*/
+{template .fieldsToAdd}
+<ul class="user-form-picker-fields ops">
+    {foreach $field in $fields}
+        {if $field.editHtml and not $field.required}
+            <li data-field-id="{$field.id}" class="last user-form-field">
+                {call .singleField}
+                    {param field: $field /}
+                {/call}
+            </li>
+        {/if}
+    {/foreach}
+</ul>
+{/template}
+
+/**
+* @param field
+*/
+{template .singleField}
+<a data-field-id="{$field.id}" class="first last button user-form-picker-field" href="#">
+    <span class="icon {if $field.isActive}icon-tick{else}icon-add12{/if}"><span></span></span>
+    {$field.label}
+</a>
+{/template}

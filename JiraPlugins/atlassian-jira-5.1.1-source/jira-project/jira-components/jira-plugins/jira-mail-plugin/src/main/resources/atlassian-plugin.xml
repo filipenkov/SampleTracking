@@ -1,0 +1,247 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+    </plugin-info>
+    <!--<component key="jira-mail-logging-manager" class="com.atlassian.jira.mail.DefaultMailLoggingManager"-->
+    <!--interface="com.atlassian.jira.mail.MailLoggingManager" public="true"/>-->
+
+    <resource type="i18n" name="i18n" location="com.atlassian.jira.plugins.mail.messages"/>
+
+    <rest name="JIRA Mail Plugin REST" key="rest-plugin" path="/jira-mail-plugin" version="1.0"/>
+
+    <component key="details-validator"
+               class="com.atlassian.jira.plugins.mail.HandlerDetailsValidator"/>
+
+    <component key="message-handler-factory" class="com.atlassian.jira.plugins.mail.internal.DefaultMessageHandlerFactory" public="true">
+        <interface>com.atlassian.jira.service.util.handler.MessageHandlerFactory</interface>
+    </component>
+
+    <web-resource key="global-resources" name="Default HTML resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <dependency>jira.webresources:jira-global</dependency>
+
+        <resource type="download" name="underscore.js" location="javascript/underscore.js"/>
+        <resource type="download" name="backbone.js" location="javascript/backbone.js"/>
+        <resource type="download" name="jira-mail-plugin.css" location="css/jira-mail-plugin.css"/>
+    </web-resource>
+
+    <web-resource key="verifymailserverconnection"
+                  i18n-name-key="admin.web.resources.plugin.verifymailserverconnection.name"
+                  name="verifymailserverconnection" state='enabled'>
+        <dependency>jira.webresources:manageshared</dependency>
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+        <resource type="download" name="verifymailserverconnection.js" location="javascript/verifymailserverconnection.js" />
+    </web-resource>
+
+    <web-resource key="mail-servers"
+                  i18n-name-key="admin.web.resources.plugin.mailservers.name"
+                  name="mail-servers" state='enabled'>
+        <dependency>jira.webresources:jira-global</dependency>
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+        <resource type="download" name="addmailserver.js" location="javascript/addmailserver.js" />
+    </web-resource>
+
+
+    <web-resource key="edit-handler-details-page">
+        <context>admin.mail.incoming</context>
+
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <transformation extension="soy">
+            <transformer key="soyTransformer"/>
+        </transformation>
+
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <dependency>jira.webresources:jira-global</dependency>
+        <dependency>jira.webresources:autocomplete</dependency>
+        <dependency>com.atlassian.jira.jira-mail-plugin:global-resources</dependency>
+
+        <resource type="download" name="edit-handler-details.js" location="javascript/edit-handler-details.js"/>
+
+        <resource type="download" name="edit-handler-details-test-dialog.js"
+                  location="javascript/edit-handler-details-test-dialog.soy"/>
+
+        <resource type="download" name="edit-handler-details.css"
+                  location="css/edit-handler-details.css"/>
+
+    </web-resource>
+
+    <web-resource key="edit-server-details-page">
+        <context>admin.mail.incoming</context>
+
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <dependency>jira.webresources:jira-global</dependency>
+        <dependency>com.atlassian.jira.jira-mail-plugin:global-resources</dependency>
+
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <resource type="download" name="edit-server-details.js" location="javascript/edit-server-details.js"/>
+    </web-resource>
+
+    <web-resource key="incoming-mail-page">
+        <context>admin.mail.incoming</context>
+
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <dependency>jira.webresources:jira-global</dependency>
+        <dependency>com.atlassian.jira.jira-mail-plugin:global-resources</dependency>
+
+        <resource type="download" name="incoming-mail-page.js" location="javascript/incoming-mail-page.js"/>
+    </web-resource>
+
+    <web-resource key="mail-handlers-table">
+        <resource type="download" name="mail-handlers-table.css" location="css/mailHandlersTable.css"/>
+    </web-resource>
+
+    <web-item key="outgoing_mail" name="Outgoing Mail Link" section="top_system_section/mail_section"
+              i18n-name-key="jmp.tabs.mail.outgoing" weight="5">
+        <label key="jmp.tabs.mail.outgoing"/>
+        <link linkId="outgoing_mail">/secure/admin/OutgoingMailServers.jspa</link>
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.UserIsSysAdminCondition"/>
+        <param name="webfragments.keywords">jmp.tabs.mail.outgoing.keywords</param>
+    </web-item>
+
+    <web-item key="incoming_mail" name="Incoming Mail Link" section="top_system_section/mail_section"
+              i18n-name-key="jmp.tabs.mail.incoming" weight="6">
+        <label key="jmp.tabs.mail.incoming"/>
+        <link linkId="incoming_mail">/secure/admin/IncomingMailServers.jspa</link>
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.UserIsAdminCondition"/>
+        <param name="webfragments.keywords">jmp.tabs.mail.incoming.keywords</param>
+    </web-item>
+
+    <webwork1 key="actions" name="Actions" class="java.lang.Object">
+        <actions>
+            <action name="com.atlassian.jira.plugins.mail.webwork.EditServerDetailsWebAction" alias="EditServerDetails"
+                    roles-required="admin">
+                <view name="input">/secure/admin/views/editServerDetails.vm</view>
+                <view name="securitybreach">/secure/views/securitybreach.jsp</view>
+            </action>
+            <action name="com.atlassian.jira.plugins.mail.webwork.EditHandlerDetailsWebAction" alias="EditHandlerDetails"
+                    roles-required="admin">
+                <view name="input">/secure/admin/views/editHandlerDetails.vm</view>
+                <view name="securitybreach">/secure/views/securitybreach.jsp</view>
+            </action>
+            <action name="com.atlassian.jira.plugins.mail.webwork.EditHandlerDetailsUsingParamsWebAction"
+                    alias="EditHandlerDetailsUsingParams" roles-required="admin">
+                <view name="input">/secure/admin/views/editHandlerDetailsUsingParams.vm</view>
+                <view name="securitybreach">/secure/views/securitybreach.jsp</view>
+            </action>
+            <action name="com.atlassian.jira.plugins.mail.webwork.ViewMailServers" alias="OutgoingMailServers"
+                    roles-required="sysadmin">
+                <view name="input">/secure/admin/views/outgoingMailServers.vm</view>
+            </action>
+
+            <action name="com.atlassian.jira.plugins.mail.webwork.UpdateSmtpMailServer" alias="UpdateSmtpMailServer"
+                    roles-required="admin">
+                <view name="input">/secure/admin/views/mail/updatesmtpmailserver.jsp</view>
+                <view name="error">/secure/admin/views/outgoingMailServers.vm</view>
+                <view name="securitybreach">/secure/views/securitybreach.jsp</view>
+                <view name="success">/secure/admin/views/outgoingMailServers.vm</view>
+            </action>
+
+            <action name="com.atlassian.jira.plugins.mail.webwork.ViewMailServers" alias="ViewMailServers"
+                    roles-required="admin">
+                <!-- default for non-fixed code -->
+                <view name="success">/secure/admin/views/incomingMailServers.vm</view>
+            </action>
+
+            <action name="com.atlassian.jira.plugins.mail.webwork.ViewMailServers" alias="IncomingMailServers"
+                    roles-required="admin">
+                <view name="input">/secure/admin/views/incomingMailServers.vm</view>
+            </action>
+
+            <action name="com.atlassian.jira.plugins.mail.webwork.UpdatePopMailServer" alias="UpdatePopMailServer"
+                    roles-required="admin">
+                <view name="input">/secure/admin/views/mail/updatepopmailserver.jsp</view>
+                <view name="error">/secure/admin/views/incomingMailServers.vm</view>
+                <view name="securitybreach">/secure/views/securitybreach.jsp</view>
+                <view name="success">/secure/admin/views/incomingMailServers.vm</view>
+            </action>
+
+            <action name="com.atlassian.jira.plugins.mail.webwork.VerifySmtpServerConnection"
+                    alias="VerifySmtpServerConnection">
+                <view name="add">/secure/admin/views/mail/addsmtpmailserver.jsp</view>
+                <view name="setup">/views/setup3.jsp</view>
+                <view name="update">/secure/admin/views/mail/updatesmtpmailserver.jsp</view>
+            </action>
+
+            <action name="com.atlassian.jira.plugins.mail.webwork.VerifyPopServerConnection" alias="VerifyPopServerConnection">
+                <view name="add">/secure/admin/views/mail/addpopmailserver.jsp</view>
+                <view name="update">/secure/admin/views/mail/updatepopmailserver.jsp</view>
+            </action>
+
+            <action name="com.atlassian.jira.plugins.mail.webwork.SendTestMail" alias="SendTestMail" roles-required="sysadmin">
+                <view name="input">/secure/admin/views/mail/sendtestmail.jsp</view>
+            </action>
+
+            <action name="com.atlassian.jira.plugins.mail.webwork.DeleteMailServer" alias="DeleteMailServer"
+                    roles-required="admin">
+                <view name="input">/secure/admin/views/mail/deletemailserver.jsp</view>
+                <view name="securitybreach">/secure/views/securitybreach.jsp</view>
+            </action>
+
+            <action name="com.atlassian.jira.plugins.mail.webwork.DeleteMailHandler" alias="DeleteMailHandler"
+                    roles-required="admin">
+                <view name="input">/secure/admin/views/deleteMailHandler.vm</view>
+                <view name="securitybreach">/secure/views/securitybreach.jsp</view>
+            </action>
+
+            <action name="com.atlassian.jira.plugins.mail.webwork.AddPopMailServer" alias="AddPopMailServer"
+                    roles-required="admin">
+                <view name="input">/secure/admin/views/mail/addpopmailserver.jsp</view>
+                <view name="error">/secure/admin/views/incomingMailServers.vm</view>
+                <view name="securitybreach">/secure/views/securitybreach.jsp</view>
+            </action>
+
+            <action name="com.atlassian.jira.plugins.mail.webwork.AddSmtpMailServer" alias="AddSmtpMailServer"
+                    roles-required="admin">
+                <view name="input">/secure/admin/views/mail/addsmtpmailserver.jsp</view>
+                <view name="error">/secure/admin/views/outgoingMailServers.vm</view>
+                <view name="securitybreach">/secure/views/securitybreach.jsp</view>
+            </action>
+
+        </actions>
+    </webwork1>
+
+    <module-type key="message-handler" class="com.atlassian.jira.plugins.mail.extensions.MessageHandlerModuleDescriptor">
+        <description>
+            This module type allows external plugins to provide an implementation of a mail handler.
+        </description>
+    </module-type>
+
+    <message-handler i18n-name-key="admin.service.common.handler.create.or.comment"
+                  key="createOrCommentHandler" class="com.atlassian.jira.plugins.mail.handlers.CreateOrCommentHandler"
+                  validator-class="com.atlassian.jira.plugins.mail.extensions.ProjectRequiredMessageHandlerValidator"
+                  add-edit-url="/secure/admin/EditHandlerDetails!default.jspa"
+                  weight="1"/>
+    <message-handler i18n-name-key="admin.service.common.handler.non.quote"
+                  key="nonQuotedCommentHandler" class="com.atlassian.jira.plugins.mail.handlers.NonQuotedCommentHandler"
+                  add-edit-url="/secure/admin/EditHandlerDetails!default.jspa"
+                  weight="2"/>
+    <message-handler i18n-name-key="admin.service.common.handler.full.comment"
+                  key="fullCommentHandler" class="com.atlassian.jira.plugins.mail.handlers.FullCommentHandler"
+                  add-edit-url="/secure/admin/EditHandlerDetails!default.jspa"
+                  weight="3"/>
+    <message-handler i18n-name-key="admin.service.common.handler.create.issue"
+                  key="createIssueHandler" class="com.atlassian.jira.plugins.mail.handlers.CreateIssueHandler"
+                  validator-class="com.atlassian.jira.plugins.mail.extensions.ProjectRequiredMessageHandlerValidator"
+                  add-edit-url="/secure/admin/EditHandlerDetails!default.jspa"
+                  weight="4"/>
+    <message-handler i18n-name-key="admin.service.common.handler.regex"
+                  key="regexCommentHandler" class="com.atlassian.jira.plugins.mail.handlers.RegexCommentHandler"
+                  add-edit-url="/secure/admin/EditHandlerDetails!default.jspa"
+                  weight="5"/>
+
+    <component key="upgradeTask1" class="com.atlassian.jira.plugins.mail.upgrade.UpgradeTask_1_MoveMailHandlers" public="true">
+        <interface>com.atlassian.sal.api.upgrade.PluginUpgradeTask</interface>
+    </component>
+</atlassian-plugin>

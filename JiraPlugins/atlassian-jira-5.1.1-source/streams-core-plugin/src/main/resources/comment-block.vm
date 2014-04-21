@@ -1,0 +1,4 @@
+<blockquote>
+  #if ($commentHtml) $commentHtml #else $comment #end
+  #if($truncated)<a href="$commentUri" class='comment-more'>$i18n.getText("streams.activity.summary.read.more")</a>#end
+</blockquote>

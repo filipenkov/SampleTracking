@@ -1,0 +1,20 @@
+<atlassian-plugin key="com.atlassian.jira.plugins.jim-func-test-plugin" name="Func Test Plugin for JIRA Importers Plugin" plugins-version="2">
+    <plugin-info>
+        <version>1.0</version>
+    </plugin-info>
+
+    <rest name="JIRA Importer REST" key="rest-plugin" path="/jim-func-test-plugin" version="1.0"/>
+
+    <component-import key="createProjectManager" interface="com.atlassian.jira.plugins.importer.managers.CreateProjectManager"/>
+
+    <component-import key="createProjectHandlerProvider" interface="com.atlassian.jira.plugins.importer.managers.CreateProjectHandlerProvider"/>
+
+    <component-import key="sampleDataImporter" interface="com.atlassian.jira.plugins.importer.sample.SampleDataImporter"/>
+
+    <component-import key="projectRoleManager" interface="com.atlassian.jira.security.roles.ProjectRoleManager"/>
+
+    <component-import key="projectManager" interface="com.atlassian.jira.project.ProjectManager"/>
+
+    <component-import key="userUtil" interface="com.atlassian.jira.user.util.UserUtil"/>
+
+</atlassian-plugin>

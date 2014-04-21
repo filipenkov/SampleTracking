@@ -1,0 +1,567 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="Atlassian" url="http://www.atlassian.com/"/>
+        <application-version min="4.4" max="4.4"/>
+    </plugin-info>
+
+    <resource name="jira-project-config-plugin" type="i18n" location="jira-project-config-plugin" />
+
+    <!-- Velocity template renderer -->
+    <component-import key="renderer" interface="com.atlassian.templaterenderer.TemplateRenderer" />
+
+    <component-import key="applicationLinkService" interface="com.atlassian.applinks.api.ApplicationLinkService" />
+
+    <!-- Context provider utils -->
+    <component key="contextproviderutils" class="com.atlassian.jira.projectconfig.contextproviders.ContextProviderUtils" />
+
+    <resource type="download" name="images/" location="global/images/" />
+
+    <!-- qunit tests -->
+    <resource type="qunit" name="components/js/ComponentModel-tests.js" location="components/js/ComponentModel-tests.js" />
+
+    <web-resource key="project-config-global">
+
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <transformation extension="soy">
+            <transformer key="soyTransformer"/>
+        </transformation>
+
+        <dependency>jira.webresources:global-static</dependency>
+        <dependency>jira.webresources:jira-global</dependency>
+        <dependency>jira.webresources:autocomplete</dependency>
+        <dependency>com.atlassian.auiplugin:aui-experimental-restfultable</dependency>
+        <dependency>com.atlassian.soy.soy-template-plugin:soy-deps</dependency>
+        <dependency>jira.webresources:jira-fields</dependency>
+
+        <transformation extension="less">
+            <transformer key="lessTransformer"/>
+        </transformation>
+
+        <resource type="download" name="events.js" location="global/js/events.js" />
+        <resource type="download" name="project-config.js" location="global/js/project-config.js" />
+        <resource type="download" name="project-config.css" location="global/css/global.less" />
+        <resource type="download" name="common-templates.js" location="global/templates/common.soy" />
+        <resource type="download" name="user-soy.js" location="global/templates/UserProfile.soy"/>
+    </web-resource>
+
+    <web-resource key="project-config-workflows">
+
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <dependency>com.atlassian.jira.jira-project-config-plugin:project-config-global</dependency>
+        <dependency>jira.webresources:jquery-fancybox</dependency>
+
+        <!-- init -->
+        <resource type="download" name="workflows-init.js" location="workflows/js/workflows-init.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+
+    </web-resource>
+
+    <web-resource key="project-config-components">
+
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <dependency>com.atlassian.jira.jira-project-config-plugin:project-config-global</dependency>
+
+        <transformation extension="less">
+            <transformer key="lessTransformer"/>
+        </transformation>
+        <transformation extension="soy">
+            <transformer key="soyTransformer"/>
+        </transformation>
+
+        <!-- models -->
+        <resource type="download" name="ComponentModel.js" location="components/js/ComponentModel.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+
+        <!-- views -->
+        <resource type="download" name="DeleteForm.js" location="components/js/DeleteForm.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+
+        <resource type="download" name="ComponentRow.js" location="components/js/ComponentRow.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+
+        <resource type="download" name="EditComponentRow.js" location="components/js/EditComponentRow.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+
+        <!-- templates -->
+        <resource type="download" name="components-soy.js" location="components/templates/components.soy"/>
+
+        <resource type="download" name="components.css" location="components/components.less">
+            <property key="content-type" value="text/css"/>
+        </resource>
+
+        <!-- init -->
+        <resource type="download" name="components-init.js" location="components/js/components-init.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+
+    </web-resource>
+
+    <web-resource key="project-config-versions">
+
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <dependency>com.atlassian.jira.jira-project-config-plugin:project-config-global</dependency>
+
+        <transformation extension="less">
+            <transformer key="lessTransformer"/>
+        </transformation>
+        <transformation extension="soy">
+            <transformer key="soyTransformer"/>
+        </transformation>
+
+
+        <resource type="download" name="versions/images/" location="versions/images/"/>
+
+        <!-- templates -->
+
+        <resource type="download" name="versions-soy.js" location="versions/templates/versions.soy"/>
+
+        <!-- model -->
+
+        <resource type="download" name="VersionModel.js" location="versions/js/VersionModel.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+
+        <!-- views -->
+
+        <resource type="download" name="versionDialogs.js" location="versions/js/versionDialogs.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+
+        <resource type="download" name="VersionRow.js" location="versions/js/VersionRow.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+
+        <resource type="download" name="EditVersionRow.js" location="versions/js/EditVersionRow.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+
+        <!-- init -->
+
+        <resource type="download" name="versions-init.js" location="versions/js/versions-init.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+
+        <resource type="download" name="versions.css" location="versions/css/versions.less">
+            <property key="content-type" value="text/css"/>
+        </resource>
+
+    </web-resource>
+
+    <web-resource key="project-config-people">
+
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <dependency>com.atlassian.jira.jira-project-config-plugin:project-config-global</dependency>
+
+        <transformation extension="less">
+            <transformer key="lessTransformer"/>
+        </transformation>
+        <transformation extension="soy">
+            <transformer key="soyTransformer"/>
+        </transformation>
+
+        <!-- templates -->
+        <resource type="download" name="roles-soy.js" location="people/templates/people.soy"/>
+
+        <!-- Model -->
+        <resource type="download" name="PeopleModel.js" location="people/js/PeopleModel.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+
+        <!-- views -->
+        <resource type="download" name="PeopleRow.js" location="people/js/PeopleRow.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+        <resource type="download" name="EditPeopleRow.js" location="people/js/EditPeopleRow.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+        <resource type="download" name="NoBrowseUserNamePicker.js" location="people/js/NoBrowseUserNamePicker.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+
+
+        <!-- styles -->
+        <resource type="download" name="people.css" location="people/css/people.less">
+            <property key="content-type" value="text/css"/>
+        </resource>
+
+        <!-- init -->
+        <resource type="download" name="roles-init.js" location="people/js/people-init.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+    </web-resource>
+
+    <web-resource key="project-config-summary">
+
+        <context>jira.admin.conf</context>
+
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <dependency>com.atlassian.jira.jira-project-config-plugin:project-config-global</dependency>
+        <dependency>com.atlassian.jira.jira-project-config-plugin:project-config-workflows</dependency>
+
+        <transformation extension="less">
+            <transformer key="lessTransformer"/>
+        </transformation>
+
+        <resource type="download" name="summary-mvc.js" location="summary/js/summary.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+
+        <resource type="download" name="summary.css" location="summary/css/summary.less">
+            <property key="content-type" value="text/css"/>
+        </resource>
+
+    </web-resource>
+
+    <!-- Summary Panel -->
+    <web-panel key="summary" location="tabs.admin.projectconfig.summary" weight="100">
+        <resource name="view" type="velocity" location="summary/summary.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.SummaryContextProvider"/>
+    </web-panel>
+
+    <!-- Summary sub-panels -->
+    <web-panel key="summary-issuetypes" location="webpanels.admin.summary.left-panels" weight="100">
+        <resource name="view" type="velocity" location="summary/summary-issuetypes.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.IssueTypesSummaryPanelContextProvider"/>
+
+        <label key="admin.menu.issuesettings.issue.types" />
+    </web-panel>
+
+    <web-panel key="summary-workflows" location="webpanels.admin.summary.left-panels" weight="110">
+        <resource name="view" type="velocity" location="summary/summary-workflows.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.WorkflowSummaryPanelContextProvider"/>
+
+        <label key="admin.menu.globalsettings.workflows" />
+    </web-panel>
+
+    <web-panel key="summary-screens" location="webpanels.admin.summary.left-panels" weight="120">
+        <resource name="view" type="velocity" location="summary/summary-screens.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.ScreensSummaryPanelContextProvider"/>
+
+        <label key="admin.menu.issuefields.screens" />
+    </web-panel>
+
+    <web-panel key="summary-fields" location="webpanels.admin.summary.left-panels" weight="130">
+        <resource name="view" type="velocity" location="summary/summary-fields.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.FieldsSummaryPanelContextProvider"/>
+
+        <label key="admin.project.config.fields" />
+    </web-panel>
+
+    <web-panel key="summary-settings" location="webpanels.admin.summary.left-panels" weight="140">
+        <resource name="view" type="velocity" location="summary/summary-settings.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.SettingsSummaryPanelContextProvider"/>
+
+        <label key="admin.common.words.settings" />
+
+    </web-panel>
+
+    <web-panel key="summary-people" location="webpanels.admin.summary.right-panels" weight="150">
+        <resource name="view" type="velocity" location="summary/summary-people.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.PeopleSummaryPanelContextProvider"/>
+
+        <label key="admin.project.config.people" />
+
+    </web-panel>
+
+    <web-panel key="summary-versions" location="webpanels.admin.summary.right-panels" weight="160">
+        <resource name="view" type="velocity" location="summary/summary-versions.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.VersionsSummaryPanelContextProvider"/>
+
+        <label key="admin.projects.versions" />
+    </web-panel>
+
+    <web-panel key="summary-components" location="webpanels.admin.summary.right-panels" weight="170">
+        <resource name="view" type="velocity" location="summary/summary-components.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.ComponentsSummaryPanelContextProvider"/>
+
+        <label key="admin.projects.components" />
+
+    </web-panel>
+
+    <web-panel key="summary-permissions" location="webpanels.admin.summary.right-panels" weight="180">
+        <resource name="view" type="velocity" location="summary/summary-permissions.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.PermissionsSummaryPanelContextProvider"/>
+        <label key="admin.common.words.permissions" />
+    </web-panel>
+
+    <web-panel key="summary-notifications" location="webpanels.admin.summary.right-panels" weight="190">
+        <resource name="view" type="velocity" location="summary/summary-notifications.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.NotificationsSummaryPanelContextProvider"/>
+        <label key="admin.schemes.notifications.notifications" />
+    </web-panel>
+
+    <!-- Versions Panel -->
+    <web-panel key="versions" location="tabs.admin.projectconfig.versions" weight="110">
+        <resource name="view" type="velocity" location="versions/versions.vm"/>
+    </web-panel>
+
+    <!-- Components Panel -->
+    <web-panel key="components" location="tabs.admin.projectconfig.components" weight="120">
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.ComponentsContextProvider"/>
+        <resource name="view" type="velocity" location="components/components.vm"/>
+    </web-panel>
+
+    <!-- Permissions Panel -->
+    <web-panel key="permissions" location="tabs.admin.projectconfig.permissions" weight="130">
+        <resource name="view" type="velocity" location="permissions/permissions.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.ProjectPermissionContextProvider"/>
+    </web-panel>
+
+    <!-- Issue Security Panel -->
+    <web-panel key="issuesecurity" location="tabs.admin.projectconfig.issuesecurity" weight="140">
+        <resource name="view" type="velocity" location="issuesecurity/issuesecurity.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.ProjectIssueSecurityContextProvider"/>
+    </web-panel>
+
+    <!-- People Panel -->
+    <web-panel key="people" location="tabs.admin.projectconfig.people" weight="140">
+        <resource name="view" type="velocity" location="people/people.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.ProjectPeopleContextProvider"/>
+    </web-panel>
+
+    <!-- Notifications Panel -->
+    <web-panel key="notifications" location="tabs.admin.projectconfig.notifications" weight="150">
+        <resource name="view" type="velocity" location="notifications/notifications.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.ProjectNotificationContextProvider"/>
+    </web-panel>
+
+    <!-- Issuetypes Panel -->
+    <web-panel key="issuetypes" location="tabs.admin.projectconfig.issuetypes" weight="160">
+        <resource name="view" type="velocity" location="issuetypes/issuetypes.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.ProjectIssueTypeContextProvider"/>
+    </web-panel>
+
+    <!-- Workflows Panel -->
+    <web-panel key="workflows" location="tabs.admin.projectconfig.workflows" weight="170">
+        <resource name="view" type="velocity" location="workflows/workflows.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.WorkflowContextProvider"/>
+    </web-panel>
+
+    <!-- Screens Panel -->
+    <web-panel key="screens" location="tabs.admin.projectconfig.screens" weight="180">
+        <resource name="view" type="velocity" location="screens/screens.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.ProjectScreensContextProvider"/>
+    </web-panel>
+
+    <!-- Fields Panel -->
+    <web-panel key="fields" location="tabs.admin.projectconfig.fields" weight="190">
+        <resource name="view" type="velocity" location="fields/fields.vm"/>
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.ProjectFieldsContextProvider"/>
+    </web-panel>
+
+    <!-- Common Header -->
+    <web-panel key="header" location="atl.jira.proj.config.header" weight="10">
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.HeaderContextProvider"/>
+        <resource name="view" type="velocity" location="global/header.vm"/>
+    </web-panel>
+
+    <!-- Admin decorator header -->
+    <web-panel key="admin-header" location="system.admin.decorator.header" weight="10">
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.AdminContextProvider"/>
+        <resource name="view" type="velocity" location="global/adminheader.vm"/>
+    </web-panel>
+
+    <!-- Return to Project Config header -->
+    <web-panel key="return-to-config" location="system.admin.decorator.header" weight="5">
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.ReturnToConfigContextProvider"/>
+        <resource name="view" type="velocity" location="global/returnToConfig.vm"/>
+    </web-panel>
+
+    <servlet name="Inline Dialog Servlet" key="inlineservlet" class="com.atlassian.jira.projectconfig.servlet.InlineDialogServlet">
+        <url-pattern>/dialog-project-config*</url-pattern>
+    </servlet>
+
+    <servlet name="Panel Servlet" key="panelservlet" class="com.atlassian.jira.projectconfig.servlet.PanelServlet">
+        <url-pattern>/project-config*</url-pattern>
+    </servlet>
+
+    <web-panel key="embedded-header" location="tabs.admin.projectconfig.header" weight="10">
+        <context-provider class="com.atlassian.jira.projectconfig.contextproviders.HeaderContextProvider"/>
+        <resource name="view" type="velocity" location="global/header.vm"/>
+        <conditions type="AND">
+            <condition class="com.atlassian.jira.plugin.webfragment.conditions.IsFeatureEnabledCondition">
+                <param name="featureKey">com.atlassian.jira.config.CoreFeatures.ON_DEMAND</param>
+            </condition>
+            <!-- embed header only on summary page -->
+            <condition class="com.atlassian.jira.projectconfig.conditions.TabOpenCondition">
+                <param name="tabLinkId">view_projects_summary</param>
+                <param name="tabName">summary</param>
+            </condition>
+        </conditions>
+    </web-panel>
+
+    <!-- Tabs on Project Config-->
+    <web-section key="projectgroup1" name="Project Config Group 1" location="atl.jira.proj.config" i18n-name-key="admin.project.section.group1" weight="10"/>
+
+    <!-- TODO Ignite: These need some kind of condition or do we just assume the decorator takes care of this ?-->
+    <web-item key="view_project_summary" name="Summary Tab" section="atl.jira.proj.config/projectgroup1" i18n-name-key="admin.project.com.atlassian.jira.projectconfig.tab.summary" weight="10">
+        <label key="common.concepts.summary" />
+        <link linkId="view_project_summary">/plugins/servlet/project-config/$projectKeyEncoded</link>
+    </web-item>
+
+    <web-section key="projectgroup2" name="Project Config Group 2" location="atl.jira.proj.config" i18n-name-key="admin.project.section.group2" weight="20"/>
+
+    <web-item key="view_project_issuetypes" name="Project Issue Types Tab" section="atl.jira.proj.config/projectgroup2" i18n-name-key="admin.project.tab.issuetypes" weight="10">
+        <label key="admin.menu.issuesettings.issue.types" />
+        <link linkId="view_project_issuetypes">/plugins/servlet/project-config/$projectKeyEncoded/issuetypes</link>
+    </web-item>
+
+    <web-item key="view_project_workflows" name="Project Workflows Tab" section="atl.jira.proj.config/projectgroup2" i18n-name-key="admin.project.tab.workflows" weight="20">
+        <label key="admin.menu.globalsettings.workflows" />
+        <link linkId="view_project_workflows">/plugins/servlet/project-config/$projectKeyEncoded/workflows</link>
+    </web-item>
+
+    <web-item key="view_project_screens" name="Project Screens Tab" section="atl.jira.proj.config/projectgroup2" i18n-name-key="admin.project.tab.screens" weight="30">
+        <label key="admin.menu.issuefields.screens" />
+        <link linkId="view_project_screens">/plugins/servlet/project-config/$projectKeyEncoded/screens</link>
+    </web-item>
+
+    <web-item key="view_project_fields" name="Project Fields Tab" section="atl.jira.proj.config/projectgroup2" i18n-name-key="admin.project.tab.fields" weight="40">
+        <label key="common.words.fields" />
+        <link linkId="view_project_fields">/plugins/servlet/project-config/$projectKeyEncoded/fields</link>
+    </web-item>
+
+    <web-section key="projectgroup3" name="Project Config Group 3" location="atl.jira.proj.config" i18n-name-key="admin.project.section.group3" weight="30"/>
+
+    <web-item key="view_project_people" name="Project People Tab" section="atl.jira.proj.config/projectgroup3" i18n-name-key="admin.project.tab.people" weight="10">
+        <label key="admin.project.config.people" />
+        <link linkId="view_project_people">/plugins/servlet/project-config/$projectKeyEncoded/people</link>
+    </web-item>
+
+    <web-item key="view_project_permissions" name="Project Permissions Tab" section="atl.jira.proj.config/projectgroup3" i18n-name-key="admin.project.tab.permissions.project" weight="20">
+        <label key="admin.common.words.permissions" />
+        <link linkId="view_project_permissions">/plugins/servlet/project-config/$projectKeyEncoded/permissions</link>
+    </web-item>
+
+    <web-item key="view_project_issuesecurity" name="Project Issue Security Tab" section="atl.jira.proj.config/projectgroup3" i18n-name-key="admin.project.tab.issuesecurity" weight="30">
+        <label key="admin.project.issuesecurity.heading" />
+        <link linkId="view_project_issuesecurity">/plugins/servlet/project-config/$projectKeyEncoded/issuesecurity</link>
+    </web-item>
+
+    <web-item key="view_project_notifications" name="Project Notifications Tab" section="atl.jira.proj.config/projectgroup3" i18n-name-key="admin.project.tab.notifications" weight="40">
+        <label key="admin.schemes.notifications.notifications" />
+        <link linkId="view_project_notifications">/plugins/servlet/project-config/$projectKeyEncoded/notifications</link>
+    </web-item>
+
+    <web-section key="projectgroup4" name="Project Config Group 4" location="atl.jira.proj.config" i18n-name-key="admin.project.section.group4" weight="40"/>
+
+    <web-item key="view_project_versions" name="Versions Tab" section="atl.jira.proj.config/projectgroup4" i18n-name-key="admin.project.com.atlassian.jira.projectconfig.tab.versions"  weight="10">
+        <label key="common.concepts.versions" />
+        <link linkId="view_project_versions">/plugins/servlet/project-config/$projectKeyEncoded/versions</link>
+    </web-item>
+
+    <web-item key="view_project_components" name="Components Tab" section="atl.jira.proj.config/projectgroup4" i18n-name-key="admin.project.com.atlassian.jira.projectconfig.tab.components" weight="20">
+        <label key="common.concepts.components" />
+        <link linkId="view_project_components">/plugins/servlet/project-config/$projectKeyEncoded/components</link>
+    </web-item>
+
+    <!-- Utils -->
+    <component class="com.atlassian.jira.projectconfig.tab.DefaultProjectConfigTabManager" key="tabManager"/>
+    <component class="com.atlassian.jira.projectconfig.util.DefaultUrlEncoder" key="urlEncoder"/>
+    <component class="com.atlassian.jira.projectconfig.util.DefaultVelocityContextFactory" key="velocityContextFactory"/>
+    <component class="com.atlassian.jira.projectconfig.util.DefaultTabUrlFactory" key="tabUrlFactory"/>
+    <component class="com.atlassian.jira.projectconfig.util.ServletRequestProjectConfigRequestCache" key="cache"/>
+    <component class="com.atlassian.jira.projectconfig.order.DefaultComparatorFactory" key="order"/>
+    <component class="com.atlassian.jira.projectconfig.workflow.DefaultProjectConfigWorkflowDispatcher" key="workflowdispatcher"/>
+
+    <!-- Tabs -->
+    <component class="com.atlassian.jira.projectconfig.tab.SummaryTab" key="summaryTab"/>
+    <component class="com.atlassian.jira.projectconfig.tab.VersionsTab" key="versionsTab"/>
+    <component class="com.atlassian.jira.projectconfig.tab.ComponentsTab" key="componentsTab"/>
+    <component class="com.atlassian.jira.projectconfig.tab.NotificationsTab" key="notificationsTab"/>
+    <component class="com.atlassian.jira.projectconfig.tab.PeopleTab" key="peopleTab"/>
+    <component class="com.atlassian.jira.projectconfig.tab.IssueTypesTab" key="issuetypesTab"/>
+    <component class="com.atlassian.jira.projectconfig.tab.IssueSecurityTab" key="issueSecurityTab"/>
+    <component class="com.atlassian.jira.projectconfig.tab.WorkflowsTab" key="workflowsTab"/>
+    <component class="com.atlassian.jira.projectconfig.tab.ScreensTab" key="screensTab"/>
+    <component class="com.atlassian.jira.projectconfig.tab.FieldsTab" key="fieldsTab"/>
+    <component class="com.atlassian.jira.projectconfig.tab.PermissionsTab" key="permissionTab"/>
+
+    <!-- Web Items for Version dropdowns-->
+    <web-item key="view_project_unrelease" name="Unrelease Version Operation" section="atl.jira.version.admin.operations" i18n-name-key="admin.project.com.atlassian.jira.projectconfig.versions.operations.unrelease" weight="10">
+        <label key="admin.manageversions.unrelease" />
+        <styleClass>project-config-operations-unrelease</styleClass>
+        <!--This is a trigger for javascript so we don't want a link but this is a required element-->
+        <link></link>
+        <conditions type="AND">
+            <condition class="com.atlassian.jira.plugin.webfragment.conditions.IsVersionArchived" invert="true"/>
+            <condition class="com.atlassian.jira.plugin.webfragment.conditions.IsVersionReleased"/>
+            <condition class="com.atlassian.jira.plugin.webfragment.conditions.CanAdministerProjectCondition"/>
+        </conditions>
+    </web-item>
+    <web-item key="view_project_release" name="Release Version Operation" section="atl.jira.version.admin.operations" i18n-name-key="admin.project.com.atlassian.jira.projectconfig.versions.operations.release" weight="10">
+        <label key="admin.manageversions.release" />
+        <styleClass>project-config-operations-release</styleClass>
+        <!--This is a trigger for javascript so we don't want a link but this is a required element-->
+        <link></link>
+        <conditions type="AND">
+            <condition class="com.atlassian.jira.plugin.webfragment.conditions.IsVersionArchived" invert="true"/>
+            <condition class="com.atlassian.jira.plugin.webfragment.conditions.IsVersionReleased" invert="true"/>
+            <condition class="com.atlassian.jira.plugin.webfragment.conditions.CanAdministerProjectCondition"/>
+        </conditions>
+    </web-item>
+    <web-item key="view_project_archive" name="Archive Version Operation" section="atl.jira.version.admin.operations" i18n-name-key="admin.project.com.atlassian.jira.projectconfig.versions.operations.archive" weight="20">
+        <label key="admin.manageversions.archive" />
+        <styleClass>project-config-operations-archive</styleClass>
+        <!--This is a trigger for javascript so we don't want a link but this is a required element-->
+        <link></link>
+        <conditions type="AND">
+            <condition class="com.atlassian.jira.plugin.webfragment.conditions.IsVersionArchived" invert="true"/>
+            <condition class="com.atlassian.jira.plugin.webfragment.conditions.CanAdministerProjectCondition"/>
+        </conditions>
+    </web-item>
+    <web-item key="view_project_unarchive" name="Unarchive Version Operation" section="atl.jira.version.admin.operations" i18n-name-key="admin.project.com.atlassian.jira.projectconfig.versions.operations.unarchive" weight="90">
+        <label key="admin.manageversions.unarchive" />
+        <styleClass>project-config-operations-unarchive</styleClass>
+        <!--This is a trigger for javascript so we don't want a link but this is a required element-->
+        <link></link>
+        <conditions type="AND">
+            <condition class="com.atlassian.jira.plugin.webfragment.conditions.IsVersionArchived"/>
+            <condition class="com.atlassian.jira.plugin.webfragment.conditions.CanAdministerProjectCondition"/>
+        </conditions>
+    </web-item>
+
+    <web-item key="view_project_delete" name="Delete Version Operation" section="atl.jira.version.admin.operations" i18n-name-key="admin.project.com.atlassian.jira.projectconfig.versions.operations.delete" weight="80">
+        <label key="common.words.delete" />
+        <styleClass>project-config-operations-delete</styleClass>
+        <!--This is a trigger for javascript so we don't want a link-->
+        <link></link>
+        <conditions type="AND">
+            <condition class="com.atlassian.jira.plugin.webfragment.conditions.IsVersionArchived" invert="true"/>
+            <condition class="com.atlassian.jira.plugin.webfragment.conditions.CanAdministerProjectCondition"/>
+        </conditions>
+    </web-item>
+
+    <rest key="rest" path="/projectconfig" version="1">
+        <description>Rest resources for the project config plugin.</description>
+        <package>com.atlassian.jira.projectconfig.rest</package>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+    </rest>
+</atlassian-plugin>

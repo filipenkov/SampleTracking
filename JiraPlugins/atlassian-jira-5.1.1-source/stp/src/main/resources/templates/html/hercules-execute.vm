@@ -1,0 +1,136 @@
+#parse ( "/templates/includes/xsrf.vm" )
+
+<!--start box-model-->
+<div class="stp-module-container-block">
+	<div class="stp-module-main-block logo-neighbor">
+		#parse ( "/templates/includes/errors.vm" )
+		
+		<!-- check to see if we're in progress or not -->
+		#if ( $action.getResultsVisitor() && $action.getResultsVisitor().isScanComplete() )
+			<!-- if we've finished the scan, display the results -->
+			#if(!$action.getResults().isEmpty())
+				#set ($startPosition = 1)
+	            #if ($action.getResults().size() > 10)
+	            	#set ($endPosition = 10)
+	        	#else 
+	        		#set ($endPosition = $action.getResults().size())
+	            #end
+				<div id="stp-hercules-results">
+					
+					<div>
+		                <table class="aui">
+		                    <thead>
+		                    <tr>
+		                        <th>Problem</th>
+		                        <th>Matches</th>
+		                    </tr>
+		                    </thead>
+		                    <tbody>
+								#foreach ($result in $action.getResults())
+				                    <tr>
+						                <td><A target="_BLANK" HREF="$result.getPattern().getURL()">$result.getPattern().getPageName()</A></td>
+						                <td>
+						                	$result.getMatchCount() #if($result.getMatchCount() > 1) matches, last #end match on line $result.getLastMatchedLine()
+										</td>
+						            </tr>
+								#end
+		            		</tbody>
+		            		<tfoot>
+			            		<tr>
+			            			<th></th>
+			            			<th class="right">
+            							<div id="stp-hercules-results-pagination">
+						                    <a href="#" id="stp-hercules-results-first" title="First" class="disabled"><span>First</span></a>
+						                    <a href="#" id="stp-hercules-results-previous" title="Previous" class="disabled"><span>Previous</span></a>
+						                    <span id="stp-hercules-results-count">Showing entries <span id="stp-hercules-results-start-position">$startPosition</span> - <span id="stp-hercules-results-end-position">$endPosition</span> of $action.getResults().size()</span>
+						                    <a href="#" id="stp-hercules-results-next" title="Next" class="disabled"><span>Next</span></a>
+						                    <a href="#" id="stp-hercules-results-last" title="Last" class="disabled"><span>Last</span></a>
+							                <div class="clearer"></div>
+						                </div>
+						                <!-- Wire up the pagination controls -->
+						                #if ($action.getResults().size() > 10)
+											<script type="text/javascript">
+												var startPosition = $startPosition - 1;
+												var endPosition = $endPosition;
+												var numResults = $action.getResults().size();
+						
+												AJS.$(document).ready(function()
+												{
+													setViewport();
+													
+													AJS.$("#stp-hercules-results-next").click(moveHigher);
+													AJS.$("#stp-hercules-results-previous").click(moveLower);
+													AJS.$("#stp-hercules-results-first").click(moveToStart);
+													AJS.$("#stp-hercules-results-last").click(moveToEnd);
+												});
+											</script>
+										#end
+									</th>
+								</tr>
+							</tfoot>
+		                </table>
+					</div>
+					
+					<div class="dialog-button-panel">
+						<form class="aui" action="$servletHomePath/hercules?startAgain=true">
+						    #form_xsrfToken()
+							<input type="hidden" name="startAgain" value="true"/>
+					        <input type="submit" class="button submit" value="$i18n.getText('stp.start-again')"/>
+						</form>
+					</div>
+					
+					<div class="aui-message info">
+						Didn't get the help you need?  Please create a support request using the <a class="stp-module-link" href="#create-support-request">Support Request feature</a> or visit <a target="_BLANK" href="http://support.atlassian.com/">http://support.atlassian.com/</a>.
+					</div>
+				</div>
+			#else
+				<div class="aui-message info">
+					<p>	Hercules didn't find any known problems in the following log file:
+					<div class="toolMessageIndented">$logFilePath</div></p>
+					
+					<p>If you're experiencing problems, please create a support request using the <a class="stp-module-link" href="#create-support-request">Support Request feature</a> or visit <a target="_BLANK" href="http://support.atlassian.com/">http://support.atlassian.com/</a>.</p>
+				</div>
+	
+	
+				<form class="aui" action="$servletHomePath/hercules?startAgain=true">
+					<div class="buttons">
+					    #form_xsrfToken()
+						<input type="hidden" name="startAgain" value="true"/>
+				        <input class="button submit" type="submit" value="$i18n.getText('stp.start-again')"/>
+					</div>							
+				</form>
+			#end
+		#else
+		    <div id="stp-progress">
+		        <img src="$webResourceManager.getStaticPluginResource("com.atlassian.support.stp:resources", "images/in-progress.gif")" alt="Scanning Your Log">
+		        <div class="stp-progress-text">Scanning file $logFilePath...</div>
+		        <div class="stp-progress-bar-container">
+		            <div class="stp-progress-bar"><div class="stp-progress-amount" style="width: 0%;"></div></div>
+			        <span class="stp-progress-bar-percent">0</span>%
+		        </div>
+		    </div>
+	
+			<form class="aui" action="$servletHomePath/hercules?startAgain=true">
+			    #form_xsrfToken()
+				<input type="hidden" name="startAgain" value="true"/>
+		        <input class="button submit" type="submit" value="$i18n.getText('stp.cancel')"/>
+			</form>
+	
+			<script type="text/javascript">
+				AJS.$("#hercules").data("servletHomePath", "$servletHomePath");
+			
+				AJS.$(document).ready(function() { refreshPercentComplete(5); });
+			</script>
+		#end
+		
+	</div>
+</div>
+<div class="stp-module-logo-block">
+	<img src="$webResourceManager.getStaticPluginResource("com.atlassian.support.stp:resources", "images/hercules.png")" class="stp-module-logo" alt="$i18n.getText("stp.hercules.tool.title")"/>
+	<p class="stp-module-logo-caption">$i18n.getText('stp.hercules.tool.description')</p>
+	
+	#parse ( "/templates/includes/hercules-scheduler-blurb.vm")	
+</div>
+<!--end box-model-->
+
+<div class="clearer"></div>

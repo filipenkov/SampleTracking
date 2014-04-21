@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BaseDialog xmlns="com.sysbliss.jira.workflow.ui.dialog.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+            width="600" minWidth="600"
+            height="410" minHeight="410"
+            title="{niceResourceManager.getString('json','workflow.designer.add.global.transition')}"
+            creationComplete="firstRun()">
+    <mx:Script>
+		<![CDATA[
+        import com.sysbliss.diagram.data.Edge;
+        import com.sysbliss.jira.plugins.workflow.model.FlexJiraAction;
+        import com.sysbliss.jira.plugins.workflow.model.FlexJiraFieldScreen;
+        import com.sysbliss.jira.plugins.workflow.model.FlexJiraStep;
+        import com.sysbliss.jira.plugins.workflow.model.FlexJiraStepImpl;
+        import com.sysbliss.jira.plugins.workflow.model.FlexJiraWorkflow;
+        import com.sysbliss.jira.workflow.Il8n.INiceResourceManager;
+        import com.sysbliss.jira.workflow.Il8n.NiceResourceManager;
+        import com.sysbliss.jira.workflow.controller.JiraFieldScreenController;
+        import com.sysbliss.jira.workflow.event.EventTypes;
+        import com.sysbliss.jira.workflow.event.GenericDataEvent;
+
+        import mx.collections.ArrayCollection;
+        import mx.managers.PopUpManager;
+        import mx.utils.StringUtil;
+
+        import org.swizframework.Swiz;
+
+        public static var CREATE:String = "create";
+        public static var CLONE:String = "clone";
+
+        private var _edge:Edge;
+        private var _workflow:FlexJiraWorkflow;
+        private var _names:Array;
+
+        private var createMode:String = CREATE;
+
+        private var viewFormItem:FormItem = transitionViewFormItem;
+        private var cloneFormItem:FormItem = transitionCloneFormItem;
+
+
+        [Autowire]
+        [Bindable]
+        public var fieldScreenController:JiraFieldScreenController;
+
+        private const niceResourceManager:INiceResourceManager = NiceResourceManager.getInstance();
+
+        private function onTextChange(e:Event):void
+        {
+            validateName();
+        }
+
+        override public function doOk(e:Event):void
+        {
+
+            if(!buttons.okButton.enabled) {
+                return;
+            }
+
+            var event:GenericDataEvent;
+
+            if (createMode == CREATE)
+            {
+                var viewId:String = "";
+                var screen:FlexJiraFieldScreen = transitionView.selectedItem as FlexJiraFieldScreen;
+                if (screen)
+                {
+                    viewId = screen.id;
+                }
+
+                var resultId:int = transitionResult.selectedItem.id;
+
+                event = new GenericDataEvent(EventTypes.DO_ADD_GLOBAL_ACTION, {name:transitionName.text,desc:transitionDesc.text,resultId:resultId,view:viewId});
+            } else if (createMode == CLONE)
+            {
+                var actionToClone:FlexJiraAction = transitionToClone.selectedItem as FlexJiraAction;
+                event = new GenericDataEvent(EventTypes.DO_CLONE_GLOBAL_ACTION, {name:transitionName.text,desc:transitionDesc.text,actionIdToClone:actionToClone.id});
+            }
+            Swiz.dispatchEvent(event);
+            clear();
+        }
+
+        override public function doCancel(e:Event):void
+        {
+            super.doCancel(e);
+        }
+
+        override public function clear():void
+        {
+            super.clear();
+            if (_childrenReady)
+            {
+
+                showCreate();
+                errorField.text = "";
+                transitionName.text = "";
+                transitionDesc.text = "";
+                transitionView.selectedIndex = 0;
+                transitionToClone.selectedIndex = 0;
+                transitionResult.selectedIndex = 0;
+                createMode = CREATE;
+                _names = null;
+                _edge = null;
+                _workflow = null;
+                buttons.okButton.enabled = false;
+
+            }
+        }
+
+        public function firstRun():void
+        {
+            this.setFocus();
+            if (_childrenReady)
+            {
+
+                transitionName.text = "";
+                transitionDesc.text = "";
+                transitionView.selectedIndex = 0;
+                transitionToClone.selectedIndex = 0;
+                createMode = CREATE;
+
+
+                if (transitionForm.contains(transitionCloneFormItem))
+                {
+                    transitionForm.removeChild(transitionCloneFormItem);
+                }
+
+                if (!transitionForm.contains(transitionViewFormItem))
+                {
+                    transitionForm.addChild(transitionViewFormItem);
+                }
+
+                transitionToClone.dataProvider = _workflow.allActions;
+
+                transitionResult.dataProvider = createStepDataprovider();
+                errorField.text = "";
+                buttons.okButton.enabled = false;
+                transitionView.dropdown.iconFunction = getScreenIcon;
+            }
+
+        }
+
+        private function getScreenIcon(item:Object):Class {
+            return ScreenListIcon;
+        }
+
+        public function setWorkflow(wf:FlexJiraWorkflow):void
+        {
+            _workflow = wf;
+            if (_childrenReady)
+            {
+                transitionToClone.dataProvider = _workflow.allActions;
+
+
+
+                transitionResult.dataProvider = createStepDataprovider();
+            }
+        }
+
+        private function createStepDataprovider():ArrayCollection {
+            var dp:ArrayCollection = new ArrayCollection();
+                var none:FlexJiraStep = new FlexJiraStepImpl();
+                none.name = niceResourceManager.getString('json','workflow.designer.no.result.step');
+                none.id = 0;
+
+                dp.addItem(none);
+                dp.addAll(_workflow.allSteps);
+            return dp;
+        }
+
+        private function validateName():void
+        {
+            if (!_names)
+            {
+                createNamesArray();
+            }
+            var textToCheck:String = StringUtil.trim(transitionName.text.toLowerCase());
+            //log.debug("name to check " + textToCheck);
+            if (transitionName.text == "")
+            {
+                errorField.text = niceResourceManager.getString('json','workflow.designer.transition.name.required');
+                buttons.okButton.enabled = false;
+            } else if (_names.indexOf(textToCheck) > -1)
+            {
+                errorField.text = niceResourceManager.getString('json','workflow.designer.transition.name.exists');
+                buttons.okButton.enabled = false;
+            } else
+            {
+                errorField.text = "";
+                buttons.okButton.enabled = true;
+            }
+        }
+
+        private function createNamesArray():void
+        {
+            var stepActions:ArrayCollection = _workflow.allActions;
+            var globalActions:ArrayCollection = _workflow.globalActions;
+
+            _names = new Array();
+            for each(var stepAction:FlexJiraAction in stepActions)
+            {
+                //log.debug("adding step name: " + stepAction.name.toLowerCase());
+                _names.push(stepAction.name.toLowerCase());
+            }
+
+            for each(var globalAction:FlexJiraAction in globalActions)
+            {
+                //log.debug("adding global name: " + globalAction.name.toLowerCase());
+                _names.push(globalAction.name.toLowerCase());
+            }
+        }
+
+        
+        private function showCreate():void
+        {
+            transitionViewFormItem.visible = true;
+            transitionNameFormItem.visible = true;
+            transitionDescFormItem.visible = true;
+
+            transitionCloneFormItem.visible = false;
+            if (transitionForm.contains(transitionCloneFormItem))
+            {
+                transitionForm.removeChild(transitionCloneFormItem);
+            }
+
+            if (!transitionForm.contains(transitionNameFormItem))
+            {
+                transitionForm.addChild(transitionNameFormItem);
+            }
+
+            if (!transitionForm.contains(transitionResultFormItem))
+            {
+                transitionForm.addChild(transitionResultFormItem);
+            }
+
+            if (!transitionForm.contains(transitionDescFormItem))
+            {
+                transitionForm.addChild(transitionDescFormItem);
+            }
+
+            if (!transitionForm.contains(transitionViewFormItem))
+            {
+                transitionForm.addChild(transitionViewFormItem);
+            }
+
+            newAction.selected = true;
+            createMode = CREATE;
+        }
+
+        private function showClone():void
+        {
+            transitionViewFormItem.visible = false;
+            transitionNameFormItem.visible = true;
+            transitionDescFormItem.visible = true;
+            transitionCloneFormItem.visible = true;
+            if (transitionForm.contains(transitionViewFormItem))
+            {
+                transitionForm.removeChild(transitionViewFormItem);
+            }
+
+            if (transitionForm.contains(transitionResultFormItem))
+            {
+                transitionForm.removeChild(transitionResultFormItem);
+            }
+
+            if (!transitionForm.contains(transitionNameFormItem))
+            {
+                transitionForm.addChild(transitionNameFormItem);
+            }
+
+            if (!transitionForm.contains(transitionDescFormItem))
+            {
+                transitionForm.addChild(transitionDescFormItem);
+            }
+
+            if (!transitionForm.contains(transitionCloneFormItem))
+            {
+                transitionForm.addChild(transitionCloneFormItem);
+            }
+
+
+            cloneAction.selected = true;
+            createMode = CLONE;
+        }
+
+        private function makeTransitionLabel(item:Object):String
+        {
+
+            return "(" + item.id + ") " + item.name;
+        }
+
+        override public function onShowDialog():void {
+            super.onShowDialog();
+            transitionName.setFocus();
+        }
+
+		]]>
+	</mx:Script>
+
+    <mx:HBox>
+        <mx:RadioButton groupName="createType" id="newAction" label="{niceResourceManager.getString('json','workflow.designer.new.transition')}" selected="true" click="showCreate();"/>
+        <mx:RadioButton groupName="createType" id="cloneAction" label="{niceResourceManager.getString('json','workflow.designer.clone.transition')}" click="showClone();"/>
+    </mx:HBox>
+
+    <mx:Text text="{niceResourceManager.getString('json','workflow.designer.global.transition.dialog.text')}" maxWidth="580" />
+    <mx:Label id="errorField" styleName="errorField" text=""/>
+
+    <mx:Form id="transitionForm" verticalGap="10" width="100%" paddingTop="5" paddingLeft="5" paddingRight="5">
+        <mx:FormItem id="transitionNameFormItem" width="100%" label="{niceResourceManager.getString('json','workflow.designer.transition.name')}" labelStyleName="fieldLabel" required="true">
+            <mx:TextInput id="transitionName" width="100%" change="onTextChange(event);"/>
+        </mx:FormItem>
+        <mx:FormItem id="transitionDescFormItem" width="100%" label="{niceResourceManager.getString('json','workflow.designer.description')}" labelStyleName="fieldLabel" required="false">
+            <mx:TextArea id="transitionDesc" width="100%" height="60"/>
+        </mx:FormItem>
+        <mx:FormItem id="transitionResultFormItem" width="100%" label="{niceResourceManager.getString('json','workflow.designer.transition.destination')}" labelStyleName="fieldLabel">
+            <mx:ComboBox id="transitionResult" labelFunction="makeTransitionLabel" labelField="name" click="PopUpManager.bringToFront(transitionResult.dropdown);"/>
+        </mx:FormItem>
+        <mx:FormItem id="transitionViewFormItem" width="100%" label="{niceResourceManager.getString('json','workflow.designer.transition.view')}" labelStyleName="fieldLabel">
+            <mx:ComboBox id="transitionView" dataProvider="{fieldScreenController.listProvider}" labelField="name" click="PopUpManager.bringToFront(transitionView.dropdown);"/>
+        </mx:FormItem>
+        <mx:FormItem id="transitionCloneFormItem" width="100%" label="{niceResourceManager.getString('json','workflow.designer.transition.to.clone')}" labelStyleName="fieldLabel" visible="false">
+            <mx:ComboBox id="transitionToClone" labelFunction="makeTransitionLabel" click="PopUpManager.bringToFront(transitionToClone.dropdown);"/>
+        </mx:FormItem>
+    </mx:Form>
+
+
+    <mx:StringValidator/>
+
+    <DialogButtonBar id="buttons" buttonFlags="{DialogButtonBar.OK|DialogButtonBar.CANCEL}"/>
+</BaseDialog>

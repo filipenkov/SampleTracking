@@ -1,0 +1,5 @@
+summary,attachment,attachment 1,attachment 2,priority
+Empty issue,,,,Major
+Local attachment fails,file:///etc/fstab,,,Major
+Multiple remote attachments,http://farm4.static.flickr.com/3043/2446204823_f8d412dda5_z.jpg,http://farm3.static.flickr.com/2090/1716530418_ceb0d8c2a9_z.jpg,http://farm3.static.flickr.com/2526/3687761465_edc670eac0_z.jpg,Major
+HTTPS attachment,https://studio.atlassian.com/images/icons/emoticons/smile.gif,,,Major

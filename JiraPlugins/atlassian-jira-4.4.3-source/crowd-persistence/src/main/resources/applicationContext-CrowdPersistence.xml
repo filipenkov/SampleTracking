@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <bean id="sessionFactory" class="com.atlassian.crowd.util.persistence.hibernate.ConfigurableLocalSessionFactoryBean">
+        <property name="mappingResources" ref="mappingResources"/>
+        <property name="hibernateConfig" ref="hibernateConfig"/>
+        <property name="cacheProvider" ref="ehCacheProvider"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</prop>
+                <prop key="hibernate.max_fetch_depth">1</prop>
+                <prop key="hibernate.cache.use_second_level_cache">true</prop>
+                <!--<prop key="hibernate.show_sql">true</prop>-->
+                <!--<prop key="hibernate.format_sql">true</prop>-->
+                <!-- it can be useful to disbable batching during debugging, as HSQLDB doesn't report the exact statement which fails in batch mode -->
+                <prop key="hibernate.jdbc.batch_size">20</prop>
+            </props>
+        </property>
+
+        <!-- currently we don't have any LOBs, so we don't need this -->
+        <!--<property name="lobHandler">-->
+        <!--<bean id="selectedLob" factory-bean="lobSelector" factory-method="getLobHandler"/>-->
+        <!--</property>-->
+
+        <property name="eventListeners">
+            <map>
+                <entry key="merge">
+                    <bean class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean name="ehCacheProvider" class="com.atlassian.crowd.util.persistence.hibernate.EhCacheProvider">
+        <constructor-arg ref="ehcacheManager"/>
+    </bean>
+
+    <!-- bean that will allow access to the hibernate configuration -->
+    <bean id="hibernateConfiguration" factory-bean="&amp;sessionFactory" factory-method="getConfiguration"/>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="resetableHiLoGeneratorHelper" class="com.atlassian.crowd.util.persistence.hibernate.ResetableHiLoGeneratorHelper" autowire="byName"/>
+
+    <bean id="passwordHelper" class="com.atlassian.crowd.util.PasswordHelperImpl"/>
+
+</beans>

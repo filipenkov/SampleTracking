@@ -1,0 +1,96 @@
+
+/* Reference: */
+/* http://www.loscavio.com/downloads/blog/flex3_css_list/flex3_css_list.htm */
+
+DefaultDiagram {
+	background-color:#9A9A9A;
+}
+
+/* actual workflow steps */
+AbstractJiraNodeRenderer {
+	/*background-image: Embed(source='/assets/step_bg.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15, scaleGridBottom=16);*/
+	/*background-size:"100%";*/
+    backgroundColor:#f0f0f0;
+	fontSize: 14px;
+	fontWeight: "bold";
+    color:#111;
+    cornerRadius:5px;
+    borderColor:#bbb;
+    borderThickness:1px;
+    borderStyle:solid;
+    horizontalAlign: "center";
+    verticalAlign: "middle";
+}
+
+.EdgeLabel {
+    backgroundColor:#d0dfee;
+    cornerRadius:3px;
+    borderColor:#3c78b5;
+    selectedBorderColor:#ff0000;
+    borderThickness:1px;
+    borderStyle:solid;
+    horizontalAlign: "center";
+    verticalAlign: "middle";
+}
+
+.EdgeLabelLabel {
+    fontFamily: VWDFont;
+	fontSize: 11;
+	fontWeight: "normal";
+    color:#036;
+    textAlign: "center";
+    fontAntiAliasType: "normal";
+}
+
+.Cog {
+	fontSize: 11;
+	fontWeight: "normal";
+    color:#036;
+    /*cornerRadius: 0;*/
+    icon: Embed(source="../assets/cog.png");
+    upSkin: Embed(source="../assets/spacer.gif");
+    verticalGap: 0;
+}
+
+.CogSmall {
+	fontSize: 11;
+	fontWeight: "normal";
+    color:#036;
+    /*cornerRadius: 0;*/
+    icon: Embed(source="../assets/cog_small.png");
+    upSkin: Embed(source="../assets/spacer.gif");
+    verticalGap: 0;
+}
+
+ToolTip {
+    fontSize: 12;
+}
+
+StickyNote {
+    windowControlsClass: ClassReference("com.sysbliss.diagram.ui.StickyNoteControls");
+    styleNameFocus: stickyStyle;
+	styleNameNoFocus: stickyStyle;
+    paddingLeft:0;
+	paddingRight:0;
+	paddingBottom:0;
+    borderAlpha:1;
+    borderThickness:0;
+    borderThicknessLeft:0;
+    borderThicknessBottom:0;
+    borderThicknessRight:0;
+    borderThicknessTop:0;
+}
+
+.stickyStyle {
+    backgroundColor:#ffff99;
+    borderColor:#E0E081;
+    dropShadowEnabled: true;
+    shadowDirection:right;
+    shadowDistance:3;
+}
+
+.stickyNoteTextStyle {
+    fontSize: 14;
+	fontWeight: "normal";
+    color:#036;
+}

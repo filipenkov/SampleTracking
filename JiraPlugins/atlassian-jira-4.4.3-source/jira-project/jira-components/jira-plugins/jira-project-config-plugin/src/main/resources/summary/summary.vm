@@ -1,0 +1,29 @@
+#* @vtlvariable name="simpleProject" type="com.atlassian.jira.projectconfig.beans.SimpleProject" *#
+#* @vtlvariable name="panel" type="com.atlassian.jira.projectconfig.beans.SimplePanel" *#
+<div id="project-config-panel-summary" class="project-config-panel">
+    #if(${simpleProject.descriptionHtml} && ${simpleProject.descriptionHtml} != '')
+    <div id="project-config-description">
+        ${simpleProject.descriptionHtml}
+    </div>
+    #end
+    <div class="project-config-webpanel-column-wrap">
+        <div class="project-config-webpanel-column">
+            #foreach ($panel in $leftColumn)
+            <div class="project-config-webpanel-column-content">
+                ## Start webpanel content
+                ${panel.contentHtml}
+                ## End webpanel content
+            </div>
+            #end
+        </div>
+        <div class="project-config-webpanel-column">
+            #foreach ($panel in $rightColumn)
+            <div class="project-config-webpanel-column-content">
+                ## Start webpanel content
+                ${panel.contentHtml}
+                ## End webpanel content
+            </div>
+            #end
+        </div>
+    </div>
+</div>

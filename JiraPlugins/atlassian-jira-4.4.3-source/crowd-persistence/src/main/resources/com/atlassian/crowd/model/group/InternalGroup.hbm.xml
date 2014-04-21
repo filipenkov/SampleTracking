@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.atlassian.crowd.model.group.InternalGroup" table="cwd_group" lazy="true">
+
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="com.atlassian.crowd.util.persistence.hibernate.ResettableTableHiLoGenerator"/>
+        </id>
+
+        <property name="name" column="group_name" type="string" not-null="true" length="255"/>
+
+        <property name="lowerName" column="lower_group_name" type="string" not-null="true" length="255"
+                  unique-key="uk_group_name_dir_id" />
+
+        <property name="active" column="active" type="true_false" not-null="true" index="idx_group_active"/>
+
+        <property name="local" column="is_local" type="true_false" not-null="true"/>
+
+        <property name="createdDate" column="created_date" type="timestamp" not-null="true"/>
+
+        <property name="updatedDate" column="updated_date" type="timestamp" not-null="true"/>
+
+        <property name="description" column="description" type="string" not-null="false" length="255"/>
+
+        <property name="type" column="group_type" type="GroupType" not-null="true" length="32"/>
+
+        <many-to-one name="directory" column="directory_id" not-null="true"
+                     foreign-key="fk_directory_id"
+                     unique-key="uk_group_name_dir_id"
+                     index="idx_group_dir_id,idx_group_active" class="com.atlassian.crowd.model.directory.DirectoryImpl"/>
+    </class>
+
+    <class name="com.atlassian.crowd.model.group.InternalGroupAttribute" table="cwd_group_attribute">
+
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="com.atlassian.crowd.util.persistence.hibernate.ResettableTableHiLoGenerator"/>
+        </id>
+
+        <many-to-one name="group" column="group_id" not-null="true" foreign-key="fk_group_attr_id_group_id"
+                     unique-key="uk_group_name_attr_lval" index="idx_group_attr_group_id"/>
+
+        <!-- this only exists so that we can do fast queries on the index for (directory_id, attribute_name, attribute_lower_value) -> group_id -->
+        <many-to-one name="directory" column="directory_id" not-null="true"
+                     foreign-key="fk_group_attr_dir_id" index="idx_group_attr_dir_name_lval"
+                     class="com.atlassian.crowd.model.directory.DirectoryImpl" />
+
+        <property name="name" column="attribute_name" not-null="true" length="255"
+                  index="idx_group_attr_dir_name_lval" unique-key="uk_group_name_attr_lval"/>
+
+        <property name="value" column="attribute_value" length="255"/>
+
+        <property name="lowerValue" column="attribute_lower_value" length="255"
+                  index="idx_group_attr_dir_name_lval" unique-key="uk_group_name_attr_lval"/>
+
+    </class>
+
+    <!-- hql queries -->
+
+    <query name="removeInternalGroupAttributes">
+        delete from InternalGroupAttribute a where a.group = :group and a.name = :attributeName
+    </query>
+
+    <query name="removeAllInternalGroupAttributes">
+        delete from InternalGroupAttribute a where a.group = :group
+    </query>
+
+    <query name="removeAllInternalGroupAttributesInDirectory">
+        delete from InternalGroupAttribute a where a.directory.id = :directoryId
+    </query>
+
+    <query name="removeAllGroupsInDirectory">
+        delete from InternalGroup g where g.directory.id = :directoryId
+    </query>
+
+</hibernate-mapping>

@@ -1,0 +1,286 @@
+form.aui #number-remaining-issues + div.description {
+    clear: none;
+}
+form.aui #unresolved-move-label {
+    margin-right: 0;
+}
+#build-details .bamboo-icon {
+    vertical-align: -4px;
+}
+#build-details dl {
+    margin-bottom: 6px;
+}
+#build-details .completed + dd span,
+#build-details .duration + dd span,
+#build-details .queued + dd span,
+#build-details .successful-since + dd span,
+#build-details .first-to-pass-since + dd span,
+#build-details .failing-since + dd span,
+#build-details .fixed-in + dd span,
+#build-details .restarts + dd span {
+    color: #505050;
+}
+#shared-artifacts {
+    list-style: none;
+    margin: 0;
+}
+#shared-artifacts .filesize {
+    color: #505050;
+    font-size: 0.93em;
+    margin-left: 0.35em;
+}
+
+#bamboo-build-results {
+    display: inline-block;
+}
+#bamboo-build-results > .radio {
+    min-width: 240px;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+#bamboo-build-results > .radio + .radio {
+    border-top: 1px solid #ddd;
+    padding-top: 5px;
+}
+#bamboo-build-results > .radio > label {
+    margin-right: 0;
+}
+#bamboo-build-results label > span.bamboo-icon {
+    margin: 0 3px;
+}
+#bamboo-build-results label > span.trigger-reason {
+    margin-left: 10px;
+}
+#bamboo-build-results > p {
+    margin-bottom: 0;
+    padding: 0;
+}
+#bamboo-plan-stages {
+    display: inline-block;
+}
+#bamboo-plan-stages > legend > span {
+    top: 6px;
+}
+#bamboo-plan-stages > .bamboo-icon-loading {
+    margin-top: 4px;
+}
+#bamboo-plan-stages > .checkbox {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-left: 0;
+    min-width: 226px;
+    padding: 3px 8px 3px 16px;
+    position: relative;
+}
+#bamboo-plan-stages > .checkbox + .checkbox {
+    border-top: 0;
+}
+#bamboo-plan-stages > .checkbox.selected {
+    background: #fff;
+}
+#bamboo-plan-stages > .checkbox:before {
+    background: #bbb;
+    bottom: -1px;
+    content: "";
+    left: 0;
+    position: absolute;
+    top: -1px;
+    width: 8px;
+}
+#bamboo-plan-stages > .checkbox + .checkbox:before {
+    top: 0;
+}
+#bamboo-plan-stages > .checkbox.selected:before {
+    background: #326ca6;
+}
+#bamboo-plan-stages > .checkbox > input {
+    margin-right: 8px;
+    visibility: hidden;
+    width: auto;
+}
+#bamboo-plan-stages > .checkbox > label {
+    margin-right: 0;
+}
+#bamboo-plan-stages > .checkbox.manual > input,
+#bamboo-plan-stages > .checkbox.already-run > input {
+    visibility: visible;
+}
+#bamboo-plan-stages > p {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+#bamboo-override-variables label {
+    display: none;
+}
+#bamboo-override-variables .bamboo-icon-variable-delete {
+    cursor: pointer;
+}
+#override-another {
+    display: block;
+    line-height: 1;
+}
+legend + #override-another {
+    padding-top: 3px;
+}
+.field-group + #override-another {
+    margin-top: -5px;
+}
+
+/* Statuses */
+a.Failed, #Failed, .Failed {
+    color: red;
+}
+a.Successful, #Successful, .Successful,
+.SuccessfulPartial {
+    color: green;
+}
+a.Unknown, #Unknown, .Unknown,
+a.Suspended, #Suspended, .Suspended,
+a.NeverExecuted, #NeverExecuted, .NeverExecuted {
+    color: gray;
+}
+
+/* Icon Setup */
+.bamboo-icon {
+    display: inline-block;
+    height: 16px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    vertical-align: middle;
+    width: 16px;
+}
+
+.bamboo-icon > span {
+    height: 0;
+    left: -5000px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 4000px;
+}
+
+/* Icons */
+
+.bamboo-icon-project-fail,
+.bamboo-icon-failed,
+.bamboo-icon-Failed {
+    background: url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/iconsv3/plan_failed_16.png) no-repeat 50% 50%;
+}
+
+.bamboo-icon-project-success,
+.bamboo-icon-Successful,
+.bamboo-icon-successful {
+    background: url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/iconsv3/plan_successful_16.png) no-repeat 50% 50%;
+}
+
+.bamboo-icon-NotBuilt,
+.bamboo-icon-Unknown,
+.bamboo-icon-unknown {
+    background: url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/iconsv3/plan_canceled_16.png) no-repeat 50% 50%;
+}
+
+.bamboo-icon-project-none,
+.bamboo-icon-NeverExecuted,
+.bamboo-icon-Suspended,
+.bamboo-icon-disabled {
+    background: url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/iconsv3/plan_disabled_16.png) no-repeat 50% 50%;
+}
+
+.bamboo-icon-project-current,
+.bamboo-icon-InProgress,
+.bamboo-icon-building {
+    background: url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/jt/icn_building.gif) no-repeat 50% 50%;
+}
+
+.bamboo-icon-Pending,
+.bamboo-icon-Queued,
+.bamboo-icon-queued {
+    background: url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/iconsv3/queued_16.png) no-repeat 50% 50%;
+}
+
+.bamboo-icon-sync {
+    background: url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/jt/icn_checkinout.gif) no-repeat 50% 50%;
+}
+
+.bamboo-icon-SuccessfulPartial,
+.bamboo-icon-successfulpartial {
+    background: url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/iconsv3/plan_successful_partial_16.png) no-repeat 50% 50%;
+}
+
+.bamboo-icon-artifact {
+    background: url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/iconsv3/artifact_16.png) no-repeat 50% 50%;
+}
+
+.bamboo-icon-artifact-shared {
+    background: url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/iconsv3/shared_16.png) no-repeat 50% 50%;
+}
+
+.bamboo-icon-loading {
+    background: url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/icons/wait.gif) no-repeat 50% 50%;
+}
+
+.bamboo-icon-variable-delete {
+    background: url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/icons/trash_16.gif) no-repeat 50% 50%;
+}
+
+.bamboo-icon-version-released,
+.bamboo-icon-version-unreleased {
+    background: url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/version_closed_48.png) no-repeat 50% 50%;
+    height: 48px;
+    width: 48px;
+}
+
+.bamboo-icon-version-unreleased {
+    background: url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/version_open_48.png) no-repeat 50% 50%;
+}
+
+.clearErrorsLink {
+    float: right;
+    font-size: 90%;
+}
+
+.releaseErrors .aui-message {
+    clear: both;
+}
+
+/* Connect JIRA to Bamboo message & unreleased version Release Status*/
+#connect-message,
+#release-status.version-unreleased {
+    color: #888;
+    text-align: center;
+}
+#connect-message > h3,
+#release-status.version-unreleased > h3 {
+    font-size: 22px;
+    font-weight: normal;
+}
+#connect-message > .ops,
+#release-status.version-unreleased > .ops {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* Release Status */
+#release-status {
+    margin: 16px 0;
+    min-height: 48px;
+    padding-left: 70px;
+    position: relative;
+}
+#release-status > .bamboo-icon {
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+#release-status > h3 {
+    color: inherit;
+    font-size: 16px;
+}
+#release-status > p {
+    margin-bottom: 4px;
+}
+#release-status > .ops {
+    display: inline-block;
+    margin-top: 4px;
+}

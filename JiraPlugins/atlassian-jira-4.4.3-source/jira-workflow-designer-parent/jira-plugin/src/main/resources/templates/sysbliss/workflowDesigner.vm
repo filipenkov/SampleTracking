@@ -1,0 +1,107 @@
+
+<html>
+<head>
+    <title>$action.getText("workflow.designer.title")</title>
+    <meta name="decorator" content="atl.admin"/>
+    <meta name="admin.active.section" content="admin_issues_menu/element_options_section/workflows_section"/>
+    <meta name="admin.active.tab" content="workflows"/>
+    <script language="JavaScript" type="text/javascript">
+        contextPath = "$req.contextPath";
+    </script>
+</head>
+<body id="jira">
+    <script type="text/javascript">
+        //disable keyboard shortcuts since they can interfere with typing in flash text fields.
+        AJS.keys = undefined;
+    </script>
+    <fieldset class="hidden parameters">
+        <input type="hidden" title="translations" value="$action.urlEncode($action.getTranslationsAsJSON())" />
+        <input type="hidden" title="workflowName" value="$action.urlEncode($!action.wfName)"/>
+        <input type="hidden" title="workflowIsDraft" value="$action.draft"/>
+        <input type="hidden" title="editTransition" value="$action.getText("workflow.designer.edit.transition.title")"/>
+        <input type="hidden" title="swfUrl" value="$webResourceManager.getStaticResourcePrefix()/download/resources/$action.pluginKey:workflowdesignerflex/flex/jira-workflow-designer-flex-${action.pluginVersion}.swf"/>
+        <input type="hidden" title="epxpressInstallUrl" value="$webResourceManager.getStaticResourcePrefix()/download/resources/$action.pluginKey:workflowdesignerflex/flex/expressInstall.swf"/>
+    </fieldset>
+    <div class="item-header">
+        <div class="operations-container">
+            <ul class="operations">
+                #if($action.draft)
+                    <li class="aui-dd-parent">
+                        <a id="publish-workflow-trigger" class="lnk aui-dd-link standard icon-tools" href="$baseurl/secure/admin/workflows/PublishDraftWorkflow!default.jspa?workflowName=$action.urlEncode($!action.wfName)&workflowMode=$action.urlEncode(${action.workflowMode})">$action.getText("common.words.publish")</a>
+                    </li>
+                #elseif($action.workflow.active && !$action.workflow.systemWorkflow)
+                    <li class="aui-dd-parent">
+                        #if(!$action.workflow.hasDraftWorkflow())
+                            <a id="draft-workflow-trigger" class="lnk aui-dd-link standard icon-tools" href="$baseurl/secure/admin/workflows/CreateDraftWorkflow.jspa?atl_token=$action.xsrfToken&draftWorkflowName=$action.urlEncode($!action.wfName)&returnUrl=${action.getDraftReturnUrl($!action.wfName)}">$action.getText("admin.workflows.create.draft")</a>
+                        #else
+                            <a id="view-draft-workflow-trigger" class="lnk aui-dd-link standard icon-tools" href="$baseurl/secure/admin/workflows/WorkflowDesigner.jspa?workflowMode=draft&wfName=$action.urlEncode($!action.wfName)">$action.getText("workflow.designer.edit.draft.workflow")</a>
+                        #end
+                    </li>
+                #end
+                <li class="operations-help">
+                    <a class="help-lnk" href="$action.helpLink.url" target="_jirahelp">
+                        <img src="$webResourceManager.getStaticResourcePrefix()/images/icons/ico_help.png" width="16" height="16" align="right" border="0" title="$textutils.htmlEncode($action.helpLink.title)">
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <h1 class="item-name avatar project-config-icon48-workflows">&nbsp;</h1>
+
+        <ul class="breadcrumbs">
+            <li><a id="workflows-link" href="$baseurl/secure/admin/workflows/ListWorkflows.jspa">$action.getText("workflow.designer.workflows")</a></li>
+            <li>$action.getText("workflow.designer.title")</li>
+        </ul>
+
+        <h2 id="issue_header_summary" class="item-summary workflow-name">
+            $textutils.htmlEncode($action.wfName)
+            #if($action.editable)
+                <a id="edit-workflow-trigger" class="icon icon-edit-sml" title="$i18n.getText('admin.workflows.edit')" href="$baseurl/secure/admin/workflows/EditWorkflow!default.jspa?workflowName=$action.urlEncode($!action.wfName)&workflowMode=$action.urlEncode(${action.workflowMode})"><span>$i18n.getText('admin.workflows.edit')</span></a>
+            #end
+            #if($action.systemWorkflow)
+                <span class="status-lozenge status-active workflow-system">$i18n.getText("workflow.designer.workflow.system")</span>
+            #elseif($action.draft)
+                <span class="status-lozenge workflow-draft">$i18n.getText("workflow.designer.workflow.draft")</span>
+            #elseif($action.editable)
+                <span class="status-lozenge workflow-inactive">$i18n.getText("workflow.designer.workflow.inactive")</span>
+            #else
+                <span class="status-lozenge status-active workflow-active">$i18n.getText("workflow.designer.workflow.active")</span>
+            #end
+
+            #if(!$action.usedIn.empty)
+                <span class="shared-by"><em>$i18n.getText('admin.project.shared.by')</em> <a href="\#project-share-info" class="shared-item-trigger">$i18n.getText('admin.project.shared.projects', $action.usedIn.size())</a></span>
+            #end
+        </h2>
+    </div>
+
+
+    <div id="jwd">
+        <p class="workflow-description">$textutils.htmlEncode($action.getWorkflowDescription())</p>
+        #if(!$action.editable)
+            <div class="aui-message info"><span class="aui-icon icon-info"></span>
+                <p>$i18n.getText("workflow.designer.status.active")</p>
+            </div>
+        #end
+        
+        <div id="jwdFlex">
+            <div class="aui-message info"><span class="aui-icon icon-info"></span>
+                <p>$i18n.getText("workflow.designer.flash.required")</p>
+                <p><a href="$req.scheme://www.adobe.com/go/getflashplayer"><img src="$req.scheme://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="$i18n.getText("workflow.designer.flash.get")"/></a></p>
+            </div>
+        </div>
+    </div>
+
+    #if(!$action.usedIn.empty)
+        <div id="project-share-info" class="shared-item-target">
+            <div class="shared-item-content">
+                <h3>$i18n.getText('admin.project.shared.list.heading.workflow')</h3>
+                <ul class="shared-project-list">
+                    #foreach($project in $action.usedIn)
+                        <li><a href="$baseurl/plugins/servlet/project-config/$textutils.htmlEncode($project.key)" class="shared-project-name"><img class="shared-project-icon" width="16" height="16" alt="" src="$baseurl/secure/projectavatar?pid=$project.id&avatarId=$!project.avatar.id">$textutils.htmlEncode($project.name)</a></li>
+                    #end
+                </ul>
+            </div>
+        </div>
+    #end
+</body>
+</html>

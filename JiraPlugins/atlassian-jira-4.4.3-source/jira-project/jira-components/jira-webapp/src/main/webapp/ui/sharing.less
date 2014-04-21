@@ -1,0 +1,84 @@
+/* Styles for the shared by "lozenge" */
+.shared-by {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 13px;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    white-space: nowrap;
+}
+.jiraformheader .shared-by {
+    margin: 0 0 16px 0;
+}
+
+.shared-by > em,
+.shared-by > a {
+    border: 1px solid #bfd071;
+    font-size: 13px;
+    line-height: 16px;
+    margin: 0;
+    float: left;
+    vertical-align: middle;
+}
+
+.shared-by > em {
+    background: #f6fed5;
+    border-right: 0;
+    -moz-border-radius: 5px 0 0 5px;
+    -ms-border-radius: 5px 0 0 5px;
+    -o-border-radius: 5px 0 0 5px;
+    -webkit-border-radius: 5px 0 0 5px;
+    border-radius: 5px 0 0 5px;
+    color: #6b8a0c;
+    font-style: normal;
+    padding: 0 3px 0 8px;
+}
+
+.shared-by > a {
+    border-left: 0;
+    -moz-border-radius: 0 5px 5px 0;
+    -webkit-border-radius: 0 5px 5px 0;
+    border-radius: 0 5px 5px 0;
+    padding: 0 8px 0 3px;
+}
+
+/* Styles for the shared by inline dialog */
+.shared-item-target {
+    display: none;
+}
+
+.shared-item-content {
+    padding: 16px;
+    > h3 {
+        font-size: 14px;
+        line-height: 16px;
+        margin: 0 0 8px 0;
+    }
+}
+
+.shared-project-list {
+    display: block;
+    margin: 0;
+    list-style: none;
+    padding: 0;
+    max-height: 15em;
+    overflow-y: auto;
+    > li {
+        margin: 0;
+        overflow: hidden;
+        padding: 2px;
+        text-align: right;
+    }
+    .shared-project-name {
+        float: left;
+        padding-left: 20px;
+        text-align: left;
+        .shared-project-icon {
+            float: left;
+            margin: 0 4px 0 -20px;
+            text-indent: 999em;
+        }
+    }
+}

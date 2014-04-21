@@ -1,0 +1,96 @@
+#parse ( "/templates/includes/xsrf.vm" )
+#parse ( "/templates/includes/errors.vm" )
+
+<div class="stp-module-main-block">
+	<form class="aui unsectioned" method="POST" action="$servletHomePath/create-support-request/execute">
+		#form_xsrfToken()
+		<div class="field-group">
+			<label for="request-to" accesskey="t">
+				$i18n.getText("stp.create.support.request.to.field.name"):
+				<span class="aui-icon icon-required"></span>
+				<span class="content"> required</span>
+			</label>
+			<span class="field-value">
+				<A HREF="http://support.atlassian.com">$i18n.getText("stp.support.team")</A>
+			</span>
+		</div>
+		
+		<div class="field-group">
+			<label for="contact-email" accesskey="f">
+				$i18n.getText("stp.create.support.request.contactemail.field.name"):
+				<span class="aui-icon icon-required"></span>
+				<span class="content"> required</span>
+			</label>
+			
+			<input type="textField" class="text long-field" name="contactEmail" value="$contactEmail"/>
+			#displayFieldErrors("contactEmail")
+		</div>
+		
+		<div class="field-group">
+			<label for="subject" accesskey="s">
+				$i18n.getText("stp.create.support.request.summary.field.name"):
+				<span class="aui-icon icon-required"></span>
+				<span class="content"> required</span>
+			</label>
+			
+			<input type="textField" class="text long-field" name="subject" value="#if($subject)$subject#end"/>
+			#displayFieldErrors("subject")
+		</div>
+	
+		<div class="field-group">
+			<label for="priority" accesskey="p">
+				$i18n.getText("stp.create.support.request.priority.field.name"):
+				<span class="aui-icon icon-required"></span>
+				<span class="content"> required</span>
+			</label>
+			
+			<select class="select long-field" name="priority">
+				<option value="1" #if($priority == 1)selected="true"#end title="$i18n.getText("stp.create.support.request.priority.l1.description")">$i18n.getText("stp.create.support.request.priority.l1.description")</option>
+				<option value="2" #if($priority == 2)selected="true"#end title="$i18n.getText("stp.create.support.request.priority.l2.description")">$i18n.getText("stp.create.support.request.priority.l2.description")</option>
+				<option value="3" #if(!$priority || $priority == 3)selected="true"#end title="$i18n.getText("stp.create.support.request.priority.l3.description")">$i18n.getText("stp.create.support.request.priority.l3.description")</option>
+				<option value="4" #if($priority == 4)selected="true"#end title="$i18n.getText("stp.create.support.request.priority.l4.description")">$i18n.getText("stp.create.support.request.priority.l4.description")</option>
+	        </select>
+			#displayFieldErrors("priority")
+		</div>
+		
+		<div class="field-group">
+			<label for="description" accesskey="d">
+				$i18n.getText("stp.create.support.request.description.field.name"):
+				<span class="aui-icon icon-required"></span>
+				<span class="content"> required</span>
+			</label>
+			
+			<textarea name="description" rows="7" cols="70">#if($description)$description#end</textarea>
+			#displayFieldErrors("description")
+		</div>
+		
+		<div class="field-group">
+		    <h3>$i18n.getText("stp.create.support.request.support.zip.title")</h3>
+		    
+		    <p>$i18n.getText('stp.attach.most.recent.logs.to.ticket')</p>
+		</div>
+	    
+	    #parse("/templates/includes/support-zip-fields.vm")
+	
+		<div class="buttons">
+	        <input class="button submit" type="submit" value="$i18n.getText('stp.create.support.request.send.name')"/>
+		</div>							
+		
+		<div class="clearer"></div>
+	</form>
+		
+	<script language="JavaScript"> 
+	function setCustomerTimezone()
+	{
+		var tzField = document.getElementById("timeZone");
+		if (tzField) 
+		{
+			offset = new Date().getTimezoneOffset() / 60; // hours from GMT
+			if (offset <= 0) { tzField.value="GMT+"+(-offset);  }
+			else { tzField.value = "GMT-"+offset; }
+		}
+	}
+	
+	window.onload = setCustomerTimezone; 
+	</script>
+</div>

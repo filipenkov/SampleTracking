@@ -1,0 +1,9 @@
+#searcherHeader ($customField)
+#if ($value)
+    #if ($hasAdminPermission)
+        <a href="$baseurl/secure/admin/user/ViewGroup.jspa?name=$urlcodec.encode($value)">$textutils.htmlEncode($value)</a>
+    #else
+        $textutils.htmlEncode($value)
+    #end
+#end
+#searcherFooter ($customField)

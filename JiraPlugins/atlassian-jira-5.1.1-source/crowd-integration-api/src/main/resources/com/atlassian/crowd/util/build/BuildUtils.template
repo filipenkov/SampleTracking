@@ -1,0 +1,65 @@
+package com.atlassian.crowd.util.build;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Build constants.
+ */
+public class BuildUtils
+{
+    private static final Logger log = LoggerFactory.getLogger(BuildUtils.class);
+    /**
+     * Build Version.
+     */
+    public static final String BUILD_VERSION = "@VERSION@";
+
+    /**
+     * Build Number.
+     */
+    public static final String BUILD_NUMBER = "@BUILD_NUMBER@";
+
+    /**
+     * Build Date as String.
+     */
+    public static final String BUILD_DATE = "@BUILD_DATE@";
+
+    /**
+     * Build Date as Date
+     */
+    private static Date parsedDate = null;
+
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("@DATE_FORMAT@", Locale.US);
+
+    /**
+     * Build Version
+     *
+     * @return the current build version number.
+     */
+    public static String getVersion()
+    {
+        return new StringBuffer().append(BUILD_VERSION).append(" (Build:#").append(BUILD_NUMBER).append(" - ").append(BUILD_DATE).append(") ").toString();
+    }
+
+    public static Date getCurrentBuildDate()
+    {
+        if (parsedDate == null)
+        {
+            try
+            {
+                parsedDate = formatter.parse(BUILD_DATE);
+            }
+            catch (ParseException e)
+            {
+                log.error("Cannot Parse date: " + BUILD_DATE + ".  Returning null for date");
+            }
+        }
+
+        return parsedDate;
+    }
+}

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>atlassian-admin-quicksearch-jira</artifactId>
+  <version>1.0</version>
+
+  <parent>
+    <groupId>com.atlassian.administration</groupId>
+    <artifactId>atlassian-admin-quicksearch</artifactId>
+    <version>1.0</version>
+  </parent>
+
+  <organization>
+    <name>Atlassian</name>
+    <url>http://www.atlassian.com/</url>
+  </organization>
+
+  <name>Atlassian - Administration - Quick Search - JIRA</name>
+  <description>Administration Quick Search plugin for JIRA</description>
+  <packaging>atlassian-plugin</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.atlassian.administration</groupId>
+      <artifactId>atlassian-admin-quicksearch-api</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.atlassian.administration</groupId>
+      <artifactId>atlassian-admin-quicksearch-core</artifactId>
+      <version>${project.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.atlassian.applinks</groupId>
+          <artifactId>applinks-core</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.atlassian.administration</groupId>
+      <artifactId>atlassian-admin-quicksearch-jira-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.atlassian.jira</groupId>
+      <artifactId>jira-api</artifactId>
+      <version>${jira.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- Ideally this wouldn't be here - try again for 5.0! -->
+    <dependency>
+      <groupId>com.atlassian.jira</groupId>
+      <artifactId>jira-core</artifactId>
+      <version>${jira.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.atlassian.plugins.rest</groupId>
+      <artifactId>atlassian-rest-common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.atlassian.plugins.rest</groupId>
+      <artifactId>atlassian-rest-doclet</artifactId>
+    </dependency>
+
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+    </dependency>
+
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+    </dependency>
+
+
+    <!--<dependency>-->
+    <!--<groupId>com.atlassian.jira</groupId>-->
+    <!--<artifactId>jira-tests</artifactId>-->
+    <!--<version>${jira.version}</version>-->
+    <!--<scope>test</scope>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+    <!--<groupId>com.atlassian.jira</groupId>-->
+    <!--<artifactId>jira-func-tests</artifactId>-->
+    <!--<version>${jira.version}</version>-->
+    <!--<scope>test</scope>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+    <!--<groupId>com.atlassian.jira</groupId>-->
+    <!--<artifactId>atlassian-jira-pageobjects</artifactId>-->
+    <!--<version>${jira.version}</version>-->
+    <!--<scope>test</scope>-->
+    <!--</dependency>-->
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.atlassian.maven.plugins</groupId>
+        <artifactId>maven-jira-plugin</artifactId>
+        <version>${amps.version}</version>
+        <extensions>true</extensions>
+        <configuration>
+          <systemPropertyVariables>
+            <xvfb.enable>${xvfb.enable}</xvfb.enable>
+            <webdriver.browser>${webdriver.browser}</webdriver.browser>
+          </systemPropertyVariables>
+          <jvmArgs>-Dplugin.webresource.batching.off=false -Xmx512m -XX:MaxPermSize=256m</jvmArgs>
+          <skipManifestValidation>true</skipManifestValidation>
+          <productVersion>${jira.version}</productVersion>
+          <productDataVersion>${jira.data.version}</productDataVersion>
+          <instructions>
+            <Export-Package>com.atlassian.administration.quicksearch.spi.*;version="${pom.version}"</Export-Package>
+            <Private-Package>com.atlassian.administration.quicksearch.impl.*;version="${pom.version}"</Private-Package>
+            <Import-Package>
+              com.atlassian.applinks.core;version="[${applinks.version},3.0)";resolution:=optional,
+              *
+            </Import-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <properties>
+    <sal.version>2.6.1</sal.version>
+
+    <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
+  </properties>
+
+</project>

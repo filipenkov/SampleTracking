@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:osgi="http://www.springframework.org/schema/osgi"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                           http://www.springframework.org/schema/osgi
+                           http://www.springframework.org/schema/osgi/spring-osgi-1.2.xsd">
+
+    <osgi:set id="whatsNewAccessConstraints"
+              interface="com.atlassian.jira.whatsnew.access.WhatsNewAccess$Constraint"
+              cardinality="0..N"/>
+
+    <bean id="whatsNewAccess" class="com.atlassian.jira.whatsnew.access.WhatsNewAccess">
+        <constructor-arg ref="whatsNewAccessConstraints"/>
+    </bean>
+
+    <osgi:set id="welcomeScreenAccessConstraints"
+              interface="com.atlassian.jira.welcome.access.WelcomeScreenAccess$Constraint"
+              cardinality="0..N"/>
+
+    <bean id="welcomeScreenAccess" class="com.atlassian.jira.welcome.access.WelcomeScreenAccess">
+        <constructor-arg ref="welcomeScreenAccessConstraints"/>
+    </bean>
+</beans>

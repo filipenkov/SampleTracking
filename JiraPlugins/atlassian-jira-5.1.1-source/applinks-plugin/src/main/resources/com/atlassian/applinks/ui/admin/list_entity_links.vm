@@ -1,0 +1,162 @@
+#* @vtlvariable name="docLinker" type="com.atlassian.applinks.core.docs.DocumentationLinker" *#
+#parse("/common/_help_link.vm")
+<html>
+<head>
+    <title>$i18n.getText("applinks.entity.links.title", $context.typeLabel, $context.name)</title>
+    <meta name='decorator' content='${decorator}'>
+</head>
+<body>
+<div id="ual" class="ual-$context.applicationType">
+    <script type="text/x-template" title="el-row">
+        <tr class="ual-row">
+            <td headers="icon"        class="ual-cell entity-icon"><img class="icon" src="{iconUrl}" alt=""></td>
+            <td headers="application" class="ual-cell entity-application">{application}</td>
+            <td headers="type"        class="ual-cell entity-type">{typeLabel}</td>
+            <td headers="remote-name" class="ual-cell entity-remote-name">{name}</td>
+            <td headers="remote-key"  class="ual-cell entity-remote-key">{key}</td>
+            <td headers="isPrimary"   class="ual-cell primary-column"><div class="applinks-primary-{isPrimary}">&nbsp;</div></td>
+            <td headers="action"      class="ual-cell entity-actions">
+                <ul class="menu entity-link-actions" data-key="{key}" data-type="{type}" data-app-id="{applicationId}">
+                    <li>
+                       <a href="#" class="entity-delete-link">${i18n.getText("applinks.delete")}</a>
+                    </li>
+                    <li>
+                       <span class="entity-toggleprimary-action">| <a href="#" class="entity-toggleprimary-link">${i18n.getText("applinks.makeprimary")}</a></span>
+                    </li>
+                    <li>
+                       | <a href="#" class="entity-edit-name">${i18n.getText("applinks.entity.edit.name")}</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </script>
+
+    <script type="text/x-template" title="entity">
+        <li><img src="{iconUrl}" style="height:16px;width:16px;border:none;" alt=""><span>{name}</span>&nbsp;<span>({key})</span></li>
+    </script>
+    #parse("com/atlassian/applinks/ui/admin/common_header.vm")
+    <div class="applinks-entity-header">
+        <h3>$context.name $context.typeLabel $i18n.getText("applinks.entity.links.applinks") <span id="add-entity-link-local" data-key="$context.key" data-type="$context.type" data-type-label="$context.typeLabel" data-name="$context.name"></span></h3>
+        <div class="applinks-list-entity-desription">
+            #if($context.applicationType=="jira" || $context.applicationType=="confluence")
+                $i18n.getText("applinks.entity.links.description", $context.typeLabel,  "System Administrator")
+            #else
+                $i18n.getText("applinks.entity.links.description", $context.typeLabel,  "Administrator")
+            #end
+            #help('applinks.docs.administering.entity.links')
+        </div>
+        <ul>
+            <li id="dropDown-standard" class="aui-dd-parent">
+                <a class="aui-dd-trigger icon-add"><span>$i18n.getText("applinks.entity.links.add.link")</span></a>
+                <ul class="aui-dropdown">
+                    #foreach ($link in $context.applications)
+                        <li class="dropdown-item"><a href="#" class="item-link" data-key="$link.id" data-name="$link.name" data-type="$link.typeId" #if($link.ual)data-ual="true"#end#if(!$link.iconUrl || $link.iconUrl!='') style="background-image: url($link.iconUrl);"#end> <span>$link.name ($i18n.getText($link.typeI18nKey))</span></a></li>
+                    #end
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <table class="aui" id="entity-link-list-table" style="display:none">
+    <thead>
+        <tr>
+            <th id="icon"><!-- icon --></th>
+            <th id="application">$i18n.getText("applinks.application")</th>
+            <th id="type">$i18n.getText("applinks.entity.links.type")</th>
+            <th id="remote-name">$i18n.getText("applinks.entity.links.remote.entity.name")</th>
+            <th id="remote-key">$i18n.getText("applinks.entity.links.remote.entity.key")</th>
+            <th id="isPrimary" class="primary-column">$i18n.getText("applinks.entity.links.primary")</th>
+            <th id="actions">$i18n.getText("applinks.entity.links.action")</th>
+        </tr>
+    </thead>
+        <tbody id="entity-link-list"></tbody>
+    </table>
+    <div class="no-links aui-message shadowed" style="display: none;"></div>
+    <div class="links-loading aui-message shadowed">
+        <div class="links-loading-spinner">&nbsp;</div><div class="links-loading-message">$i18n.getText("applinks.entity.links.loading")</div>
+    </div>
+
+    <div id="add-entity-link-dialog" style="display: none;">
+        <div id="authorize-page" title="$i18n.getText('applinks.entity.links.dialog.title.authorization.required')" next="false">
+            <form action="#" method="post" class="aui" id="authorization-form">
+                <div>$i18n.getText('applinks.entity.links.authorization.info')</div>
+                <p id="authorization-form-msg"></p>
+            </form>
+            <div class="authorize-link">
+                <a href="#" id="authorize-link">$i18n.getText('applinks.entity.links.authorize')</a>
+            </div>
+            <div class="skip-link">
+                <a href="#" id="skip-link" title="$i18n.getText('applinks.entity.links.authorize.skip')">$i18n.getText("applinks.entity.links.authorize.skip")</a>
+            </div>
+        </div>
+        <div id="select-entity-ual" title="$i18n.getText('applinks.entity.links.dialog.title.link.details')" submit="true" previous="false">
+            <form class="aui" method="#" id="select-entity-ual-form" onsubmit="return false;">
+                <div class="ual-entity-msg">
+                     <p id="available-entities-msg"></p>
+                </div>
+                <div class="field-group ual-entity-links">
+                    <label for="add-entity-link-entity">$i18n.getText('applinks.entity.links.entity')</label>
+                    <input type="textbox" id="add-entity-link-entity" tabindex="2" autocomplete="off" />
+                    <div class="error"></div>
+                    <div class="aui-dd-parent entity-autocomplete" style="z-index: 3000;"><!-- autocomplete appears here --></div>
+                    <span id="add-entity-link-spinner" style="display:none;">$i18n.getText("applinks.loading")</span>
+                    <span class="field-value add-entity-link-single-value" style="display: none;"></span>
+                </div>
+                <div class="reciprocate-entity-link">
+                    <div class="ual-entity-radio-btn">
+                        <input type="radio" id="create-reciprocal-entity-link" name="reciprocal-entity-link" value="true" />
+                        <label for="create-reciprocal-entity-link" class="create-reciprocal-entity-link-label"></label>
+                    </div>
+                    <div class="ual-entity-radio-btn">
+                        <input type="radio" id="no-reciprocal-entity-link"     name="reciprocal-entity-link" value="false" />
+                        <label for="no-reciprocal-entity-link" class="no-reciprocal-entity-link-label"></label>
+                    </div>
+                </div>
+                <div class="field-group">
+                      <div class="entity-loading-message"></div>
+                </div>
+                <div class="validation-ual-error"></div>
+            </form>
+        </div>
+        <div id="select-entity-non-ual" title="$i18n.getText('applinks.entity.links.dialog.title.link.details')" submit="true" previous="false">
+            <form class="aui" method="#" id="select-entity-non-ual-form">
+                <div class="non-ual-entity-msg">
+                </div>
+                <div class="field-group non-ual-links">
+                    <label for="add-non-ual-entity-link-type">$i18n.getText("applinks.entity.links.type")</label>
+                    <div id="add-non-ual-entity-link-type">
+                    </div>
+                </div>
+                <div class="field-group non-ual-links">
+                    <label for="add-non-ual-entity-link-entity">$i18n.getText('applinks.entity.links.entity.key')<span class="aui-icon icon-required"></span></label>
+                    <input type="textbox" id="add-non-ual-entity-link-entity" title="$i18n.getText('applinks.entity.links.entity')" />
+                    <div class="error"></div>
+                </div>
+                <div class="field-group non-ual-links">
+                    <label for="add-non-ual-entity-link-alias">$i18n.getText('applinks.entity.links.name')</label>
+                    <input type="textbox" id="add-non-ual-entity-link-alias" title="$i18n.getText('applinks.entity.links.alias')" />
+                </div>
+                <div class="validation-non-ual-error"></div>
+            </form>
+        </div>
+    </div>
+    #parse("com/atlassian/applinks/ui/admin/delete_link_dialog.vm")
+    #parse("com/atlassian/applinks/ui/admin/auth_dialog.vm")
+</div>
+
+ <div id="edit-entity-dialog" style="display: none;">
+    <div id="entity-details" title="${i18n.getText('applinks.entity.details')}" submit="true">
+        <div id="entity-details-page" title="${i18n.getText('applinks.entity.details')}">
+            <form action="#" method="post" class="aui" id="entity-link-details-form" onSubmit="return false;">
+                <p class="edit-entity-link-description"></p>
+                <div class="field-group">
+                    <label for="entity-name">${i18n.getText('applinks.entity.links.name')}</label>
+                    <input class="text medium-field" id="entity-name" type="text" title="${i18n.getText('applinks.entity.links.name')}" autocomplete='off' />
+                </div>
+                <div class="update-validation-errors"></div>
+            </form>
+        </div>
+    </div>
+ </div>
+</body>
+</html>

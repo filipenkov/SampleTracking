@@ -1,0 +1,68 @@
+## This wizard page is used in:
+## * create-applink wizard
+## * upgrade non-ual to ual wizard
+## * upgrade an existing TA or OAUTH config to UAL
+#if ($title)
+    #set ($dialogTitle = $title)
+#else
+    #set ($dialogTitle = 'applinks.list.add')
+#end
+<div class="step-2-ual" title="${i18n.getText($dialogTitle)}" #if($submit == true)submit="true"#end >
+    #help('applinks.docs.adding.application.link', '', 'help-step')
+    #if ($steps == 2)
+     <ol class="progress-bar two-step step-two">
+        <li>${i18n.getText('applinks.create.step1')}</li>
+        <li class="active">${i18n.getText('applinks.create.step2')}</li>
+    </ol>
+    #else
+     <ol class="progress-bar step-two">
+        <li>${i18n.getText('applinks.create.step1')}</li>
+        <li class="active">${i18n.getText('applinks.create.step2')}</li>
+        <li>${i18n.getText('applinks.create.step3')}</li>
+    </ol>
+    #end
+    <h1 class="step-title link-to-app-type"></h1>
+    <form action="#" method="post" class="aui reciprocal-link-form" onSubmit="return false;">
+        <div class="image-wrapper-solid">
+            <div class="app-image local-app-image" title="${i18n.getText('applinks.create.local.application')}">
+                <div class="local-app-name">&nbsp;</div>
+            </div>
+            <div class="arrows">
+                <div class="left-to-right-arrow">&nbsp;</div>
+                <div class="right-to-left-arrow ual-arrow">&nbsp;</div>
+            </div>
+            <div class="app-image remote-app-image" title="${i18n.getText('applinks.create.remote.application')}">
+                <div class="remote-app-name">&nbsp;</div>
+            </div>
+        </div>
+        <fieldset class="group">
+            <div class="checkbox reciprocal-link">
+                <input class="checkbox create-reciprocal-link" id="reciprocalLink" type="checkbox"/>
+                <label id="reciprocal-link-back-to-server" for="reciprocalLink">${i18n.getText('applinks.create.link.back.to.server')}</label>
+                <div class="description reciprocal-link-description"></div>
+                <div class="description no-reciprocal-link-description"></div>
+            </div>
+        </fieldset>
+        <div class="field-group two-way-link-details">
+            <label for="reciprocal-link-username" accesskey="u">${i18n.getText("applinks.username")} <span class="aui-icon icon-required"></span></label>
+            <input class="text reciprocal-link-username" type="text" id="reciprocal-link-username" title="${i18n.getText('applinks.username.description')}" autocomplete='off'/>
+        </div>
+        <div class="field-group two-way-link-details">
+            <label for="reciprocal-link-password" accesskey="p">${i18n.getText("applinks.password")} <span class="aui-icon icon-required"></span></label>
+            <input class="text reciprocal-link-password" type="password" id="reciprocal-link-password" title="${i18n.getText('applinks.password.description')}" autocomplete='off'/>
+        </div>
+        <fieldset class="group">
+            <div class="two-way-link-details">   ## only used by the upgrade wizard
+                <div class="reciprocate-entity-links-container hidden">
+                    <input class="checkbox reciprocate-entity-links" type="checkbox">
+                    <span class="reciprocate-entity-links-description"></span>
+                </div>
+            </div>
+        </fieldset>
+        <div class="field-group public-rpc-url two-way-link-details">
+            <label for="reciprocal-rpc-url">${i18n.getText("applinks.public.url")}</label>
+            <input class="text reciprocal-rpc-url" id="reciprocal-rpc-url" type="text" title="${i18n.getText('applinks.create.reciprocal.rpc.url')}" autocomplete='off'/>
+        </div>
+        <div class="error two-way-link-errors"></div>
+    </form>
+</div>

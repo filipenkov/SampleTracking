@@ -1,0 +1,44 @@
+#project-config-components-table {
+    thead th {
+        white-space: nowrap;
+    }
+    tbody td {
+
+        &.project-config-component-lead {
+            width:200px;
+        }
+
+        &.project-config-component-name {
+            width: 170px;
+        }
+
+        &.project-config-component-assignee {
+            width: 140px;
+        }
+    }
+}
+
+#lead-single-select input {
+    width:200px!important;
+}
+
+#lead-single-select .overlabel-apply {
+    top:3px;
+}
+
+#project-config-components-table tbody td.project-config-component-icon{
+    padding-right:0;
+    width:16px;
+    .project-config-icon {
+        margin-top:2px;
+    }
+}
+
+
+.msie-7 #project-config-components-table tbody td.project-config-component-icon {width:25px;}
+.msie-7 #project-config-components-table .project-config-component-assignee {width:180px;}
+.msie-7 #project-config-components-table .project-config-component-lead input {width:88%;}
+.msie-7 #project-config-components-table .project-config-component-description input {width:91%;}
+.msie-7 #project-config-components-table .project-config-component-assignee select,
+.msie-7 #project-config-components-table .project-config-component-name input { width: 90%; }
+.msie-7 #project-config-components-table .project-config-operations {width:140px;}

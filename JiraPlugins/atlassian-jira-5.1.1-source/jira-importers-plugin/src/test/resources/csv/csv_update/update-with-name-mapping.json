@@ -1,0 +1,11 @@
+{
+"value.project name.Test Project" : "Sample Sample",
+"date.import.format" : "yyyyMMddHHmmss",
+"field.issue key" : "issuekey",
+"field.project key" : "project.key",
+"value.project key.TT" : "SS",
+"field.project name" : "project.name",
+"field.summary" : "summary",
+"user.email.suffix" : "@example.com",
+"mapfromcsv" : "true"
+}

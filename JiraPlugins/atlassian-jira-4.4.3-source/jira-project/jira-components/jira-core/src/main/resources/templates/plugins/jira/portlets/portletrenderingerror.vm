@@ -1,0 +1,4 @@
+<span class="errLabel">Error rendering ${template} ${excepion.Message}. <br>
+                       nRemoving and recreating this portlet may solve the problem.<br>
+##                       If not please ask your <a href="Administrators.jspa">JIRA adminstrator</a> to send a <a href="admin/jira/JiraSupportRequest!default.jspa">support request</a>
+</span>

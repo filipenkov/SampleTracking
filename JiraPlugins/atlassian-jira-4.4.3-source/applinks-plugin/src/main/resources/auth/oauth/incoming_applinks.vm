@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+#* @vtlvariable name="i18n" type="com.atlassian.sal.api.message.I18nResolver" *#
+#parse("/common/_help_link.vm")
+#parse("/common/_configured_status.vm")
+#parse("/common/_xsrf_token_element.vm")
+<html>
+<head>
+    ${webResources.get()}
+</head>
+<body class="auth-config">
+<form method="post" class="aui" action="" #if ($remoteURL) onSubmit="return enableDisableOAuthInRemoteApp('$remoteURL');" #end>
+    #xsrfTokenElement()
+    <input type="hidden" name="uiposition" value="$uiposition">
+    #if($fieldErrorMessages.communication)
+        <div class="aui-message error shadowed auth-config-message">$fieldErrorMessages.communication</div>
+    #end
+    #status($enabled)
+    <div>
+        <input type="hidden" id="oauth-incoming-enabled" name="oauth-incoming-enabled" value=#if($enabled)"false"#else"true"#end />
+        <p>
+            #if($uiposition == 'local')
+                #if ($enabled)
+                  ${i18n.getText("auth.oauth.config.enable.incoming.twoway.local.enabled", $remoteApplicationName, $remoteApplicationType, $localApplicationName, $localApplicationType)}
+                #else
+                  ${i18n.getText("auth.oauth.config.enable.incoming.twoway.local.disabled", $remoteApplicationName, $remoteApplicationType, $localApplicationName, $localApplicationType)}
+                #end
+            #else
+                #if ($enabled)
+                  ${i18n.getText("auth.oauth.config.enable.incoming.twoway.remote.enabled", $remoteApplicationName, $remoteApplicationType, $localApplicationName, $localApplicationType)}
+                #else
+                  ${i18n.getText("auth.oauth.config.enable.incoming.twoway.remote.disabled", $remoteApplicationName, $remoteApplicationType, $localApplicationName, $localApplicationType)}
+                #end
+            #end
+            #help('applinks.docs.configuring.auth.oauth')
+        </p>
+    </div>
+    <div class="buttons-container">
+        <div class="buttons">
+            #if ($enabled)
+            <input type="submit" id="auth-oauth-action-disable" value="$i18n.getText("auth.oauth.config.consumer.disable")" class="button" />
+            #else
+            <input type="submit" id="auth-oauth-action-enable" value="$i18n.getText("auth.oauth.config.consumer.enable")" class="button" />
+            #end
+        </div>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,569 @@
+#set($descriptionWithHtml = $i18n.getText("upm.description"))
+#set($featuredDescriptionWithHtml = $i18n.getText("upm.install.featured.description"))
+#set($popularDescriptionWithHtml = $i18n.getText("upm.install.popular.description"))
+#set($supportedDescriptionWithHtml = $i18n.getText("upm.install.supported.description"))
+#set($availableDescriptionWithHtml = $i18n.getText("upm.install.available.description"))
+#set($upmPacAvailabilityCheckingHtml = $i18n.getText("upm.pac.availability.checking", "$pacWebsiteUrl"))
+#set($upmPacAvailabilityDisabledHtml = $i18n.getText("upm.pac.availability.disabled", "$pacWebsiteUrl"))
+#set($upmPacAvailabilityErrorHtml = $i18n.getText("upm.pac.availability.error", "$pacWebsiteUrl"))
+#set($hiddenMessageCountWithHtml = $i18n.getText("upm.messages.more"))
+#set($compatibleDescriptionWithHtml = $i18n.getText("upm.check.compatible.description", "$applicationProperties.getDisplayName()", "$applicationProperties.getVersion()"))
+#set($incompatibleDescriptionWithHtml =$i18n.getText("upm.check.incompatible.description", "$applicationProperties.getDisplayName()", "$applicationProperties.getVersion()"))
+#set($needUpdateDescriptionWithHtml = $i18n.getText("upm.check.needUpdate.description", "$applicationProperties.getDisplayName()", "$applicationProperties.getVersion()"))
+#set($needProductUpdateDescriptionWithHtml = $i18n.getText("upm.check.needProductUpdate.description", "$applicationProperties.getDisplayName()", "$applicationProperties.getVersion()"))
+#set($unknownDescriptionWithHtml = $i18n.getText("upm.check.unknown.description", "$applicationProperties.getDisplayName()", "$applicationProperties.getVersion()"))
+#set($recentProductReleaseWithHtml = $i18n.getText("upm.check.recentProductRelease", "$applicationProperties.getDisplayName()", "$applicationProperties.getVersion()"))
+#set($updateAllUpdatingDescriptionWithHtml = $i18n.getText("upm.progress.updateall.updating.description"))
+#set($updateAllUpdatingProgressWithHtml = $i18n.getText("upm.progress.updateall.updating.progress"))
+#set($updateAllDownloadingDescriptionWithHtml = $i18n.getText("upm.progress.updateall.downloading.description"))
+#set($updateAllDownloadingProgressWithHtml = $i18n.getText("upm.progress.updateall.downloading.progress"))
+#set($jiraUninstallWithHtml = $i18n.getText("upm.manage.jira.uninstall.description"))
+#set($purgePolicyInputWithHtml = $i18n.getText("upm.log.purgeAfter"))
+#set($noProductVersionDevP1WithHtml = $i18n.getText("upm.plugins.noProductVersion.dev.p1", "$applicationProperties.getDisplayName()"))
+#set($noProductVersionDevP2WithHtml = $i18n.getText("upm.plugins.noProductVersion.dev.p2", "$applicationProperties.getDisplayName()"))
+#set($upmVersionTextWithHtml = $i18n.getText("upm.version", "$upmVersion"))
+#set($refreshRequiredWithHtml = $i18n.getText("upm.requiresRefresh.message"))
+#set($selfUpdateWithHtml = $i18n.getText("upm.update.self.update"))
+#set($updateCheckTitle = $i18n.getText("upm.updateCheck.title", $applicationProperties.getDisplayName()))
+
+<input type="hidden" id="upm-product-build-number" value="$applicationProperties.getBuildNumber()">
+
+<!-- Templates -->
+
+<script type="text/x-template" id="upm-plugin-list-template">
+    <div class="upm-development-product-version upm-warning-box">
+        <p>$noProductVersionDevP1WithHtml</p>
+        <p>$noProductVersionDevP2WithHtml</p>
+    </div>
+    <div class="upm-unknown-product-version upm-warning-box">
+        <p>
+            $i18n.getText("upm.plugins.noProductVersion.release", "$applicationProperties.getDisplayName()")
+        </p>
+    </div>
+    <div class="upm-plugin-list-container">
+        <div class="upm-expand-collapse-all">
+            <a href="#" class="upm-expand-all" title="$i18n.getText("upm.plugins.expandAll")"><span>$i18n.getText("upm.plugins.expandAll")</span></a>
+            <a href="#" class="upm-collapse-all" title="$i18n.getText("upm.plugins.collapseAll")"><span>$i18n.getText("upm.plugins.collapseAll")</span></a>
+        </div>
+        <div class="upm-plugin-list"></div>
+        <div class="upm-plugin-list-pager hidden">
+            <span class="upm-pager-text">$i18n.getText("upm.plugins.loading")</span>
+            <button class="upm-pager-button">$i18n.getText("upm.plugins.loadMore")</button>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-template" id="upm-download-nondeployable-template">
+    <div id="upm-download-nondeployable">
+        <span class="upm-nondeployable-instruction"></span>
+        <ul class="upm-nondeployable-ul">
+            <li><a href="#" class="upm-nondeployable-homepage-link" target="_blank"></a></li>
+            <li><a href="#" class="upm-nondeployable-download-link"></a></li>
+        </ul>
+    </div>
+</script>
+
+<script type="text/x-template" id="upm-plugin-template">
+    <div class="upm-plugin">
+        <div class="upm-plugin-row">
+            <span class="twixie"></span>
+            <span class="upm-plugin-icon-container"></span>
+            <h4 class="upm-plugin-name"></h4>
+            <p class="upm-plugin-summary"></p>
+            <span class="upm-requires-restart-icon" title="$i18n.getText("upm.requiresRestart.altText")"></span>
+            <div class="clearer"></div>
+        </div>
+        <input type="hidden" class="upm-plugin-key" name="plugin-key" value="">
+        <input type="hidden" class="upm-plugin-link-self" value="">
+        <input type="hidden" class="upm-plugin-link-modify" value="">
+        <input type="hidden" class="upm-plugin-link-delete" value="">
+        <input type="hidden" class="upm-plugin-link-update-details" value="">
+        <div class="upm-details"></div>
+    </div>
+</script>
+
+<script type="text/x-template" id="upm-plugin-details-install">
+    <div>
+        <div class="upm-message-container"></div>
+
+        <div class="aui-toolbar upm-plugin-actions">
+            <ul class="toolbar-group">
+                <li class="toolbar-item upm-install-item">
+                    <a class="toolbar-trigger upm-install" href="#">$i18n.getText("upm.plugin.action.install")</a>
+                </li>
+            </ul>
+            <ul class="toolbar-group hidden">
+                <li class="toolbar-item upm-try-item">
+                    <a class="toolbar-trigger upm-try" href="#" title="$i18n.getText("upm.plugin.action.try.title")">$i18n.getText("upm.plugin.action.try")</a>
+                </li>
+                <li class="toolbar-item upm-buy-item">
+                    <a class="toolbar-trigger upm-buy" href="#" title="$i18n.getText("upm.plugin.action.buy.title")">$i18n.getText("upm.plugin.action.buy")</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="upm-plugin-details-header">
+            <span class="upm-plugin-logo-container"></span>
+            <h3><span class="upm-plugin-name"></span> <span class="upm-plugin-version"></span></h3>
+            <h4 class="upm-plugin-developer"></h4>
+            <div class="upm-plugin-description"></div>
+        </div>
+        <div class="clearer"></div>
+
+        <dl>
+            <dt>$i18n.getText("upm.plugin.key"):</dt>
+            <dd class="upm-plugin-key"></dd>
+
+            <dt><a class="upm-plugin-system-version-help" target="_blank" href="http://confluence.atlassian.com/display/PLUGINFRAMEWORK/Differences+between+Version+1+Plugins+and+Version+2+Plugins">$i18n.getText("upm.plugin.system.version")</a>:</dt>
+            <dd class="upm-plugin-system-version"></dd>
+
+            <dt>$i18n.getText("upm.plugin.license"):</dt>
+            <dd class="upm-plugin-license"></dd>
+        </dl>
+        <div class="clearer"></div>
+
+        <div class="upm-plugin-pricing hidden"></div>
+        <div class="clearer"></div>
+
+        <input type="hidden" class="upm-plugin-binary" value="">
+        <input type="hidden" class="upm-plugin-homepage" value="">
+    </div>
+</script>
+
+<script type="text/x-template" id="upm-plugin-pricing-template">
+    <a class="upm-pricing-toggle upm-pricing-show" href="#">$i18n.getText("upm.plugin.pricing.show")</a>
+    <a class="upm-pricing-toggle upm-pricing-hide" style="display: none;" href="#">$i18n.getText("upm.plugin.pricing.hide")</a>
+    <div class="upm-pricing-container" style="display: none;">
+        <table class="plugin-pricing aui">
+            <thead>
+            <tr>
+                <th></th>
+                <th>$i18n.getText("upm.plugin.pricing.commercialPurchase")</th>
+                <th>$i18n.getText("upm.plugin.pricing.commercialRenewal")</th>
+                <th>$i18n.getText("upm.plugin.pricing.academicPurchase")</th>
+                <th>$i18n.getText("upm.plugin.pricing.academicRenewal")</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</script>
+
+<script type="text/x-template" id="upm-plugin-pricing-row-template">
+    <tr class="pricing-item">
+        <td class="description"></td>
+        <td class="commercial-purchase active"></td>
+        <td class="commercial-renewal"></td>
+        <td class="academic-purchase"></td>
+        <td class="academic-renewal"></td>
+    </tr>
+</script>
+
+<script type="text/x-template" id="upm-plugin-details-buttons">
+    <div class="aui-toolbar upm-plugin-actions">
+        <ul class="toolbar-group">
+            <li class="toolbar-item upm-disable-item">
+                <a class="toolbar-trigger upm-disable" href="#">$i18n.getText("upm.plugin.action.disable")</a>
+            </li>
+            <li class="toolbar-item upm-uninstall-item">
+                <a class="toolbar-trigger upm-uninstall" href="#">$i18n.getText("upm.plugin.action.uninstall")</a>
+            </li>
+            <li class="toolbar-item upm-configure-link-item">
+                <a href="#" class="toolbar-trigger upm-configure-link">$i18n.getText("upm.plugin.action.configure")</a>
+            </li>
+        </ul>
+        <ul class="toolbar-group">
+            <li class="toolbar-item upm-update-item">
+                <a class="toolbar-trigger upm-update" href="#">$i18n.getText("upm.plugin.action.update")</a>
+            </li>
+        </ul>
+    </div>
+</script>
+
+<script type="text/x-template" id="upm-plugin-details-compatibility">
+    <div>
+        <div class="upm-message-container"></div>
+
+       <div class="aui-toolbar upm-plugin-actions">
+            <ul class="toolbar-group">
+                <li class="toolbar-item upm-disable-item">
+                    <a class="toolbar-trigger upm-disable" href="#">$i18n.getText("upm.plugin.action.disable")</a>
+                </li>
+                <li class="toolbar-item upm-update-item">
+                    <a class="toolbar-trigger upm-update" href="#">$i18n.getText("upm.plugin.action.update")</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="upm-plugin-details-header">
+            <span class="upm-plugin-logo-container"><img class="upm-plugin-logo" src="$webResourceManager.getStaticPluginResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:upm-web-resources", "images/plugin-logo-default.png")" height="48" width="48" alt=""></span>
+            <h3><span class="upm-plugin-name"></span> <span class="upm-plugin-version"></span></h3>
+            <h4 class="upm-plugin-developer"></h4>
+        </div>
+        <div class="clearer"></div>
+
+        <dl>
+            <dt>$i18n.getText("upm.plugin.key"):</dt>
+            <dd class="upm-plugin-key"></dd>
+
+            <div class="upm-plugin-update-version hidden">
+                <dt>$i18n.getText("upm.plugin.updateVersion"):</dt>
+                <dd class="upm-plugin-update-version"></dd>
+            </div>
+
+        </dl>
+        <div class="clearer"></div>
+
+        <input type="hidden" class="upm-plugin-binary" value="">
+        <input type="hidden" class="upm-plugin-homepage" value="">
+    </div>
+</script>
+
+<script type="text/x-template" id="upm-plugin-details-manage">
+    <div>
+        <div class="upm-requires-restart-message aui-message info"></div>
+        <div class="upm-message-container"></div>
+        <div class="action-buttons"></div>
+
+        <div class="upm-plugin-details-header">
+            <span class="upm-plugin-logo-container"><img class="upm-plugin-logo" src="$webResourceManager.getStaticPluginResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:upm-web-resources", "images/plugin-logo-default.png")" height="48" width="48" alt=""></span>
+            <h3><span class="upm-plugin-name"></span> <span class="upm-plugin-installed-version"></span></h3>
+            <h4 class="upm-plugin-developer"></h4>
+        </div>
+        <div class="clearer"></div>
+
+        <dl>
+            <dt>$i18n.getText("upm.plugin.key"):</dt>
+            <dd class="upm-plugin-key"></dd>
+        </dl>
+        <div class="clearer"></div>
+
+        <dl class="upm-update-details">
+            <dt>$i18n.getText("upm.plugin.updateVersion"):</dt>
+            <dd class="upm-plugin-version"></dd>
+
+            <dt><a class="upm-plugin-system-version-help" target="_blank" href="http://confluence.atlassian.com/display/PLUGINFRAMEWORK/Differences+between+Version+1+Plugins+and+Version+2+Plugins">$i18n.getText("upm.plugin.system.version")</a>:</dt>
+            <dd class="upm-plugin-system-version"></dd>
+
+            <dt>$i18n.getText("upm.plugin.license"):</dt>
+            <dd class="upm-plugin-license"></dd>
+        </dl>
+        <div class="clearer"></div>
+
+        <div class="upm-plugin-license-container"></div>
+
+        <div class="upm-plugin-pricing hidden"></div>
+        <div class="clearer"></div>
+
+        <div class="upm-plugin-modules">
+            <span class="upm-module-present hidden"><a class="upm-module-toggle" href="#"><span class="upm-toggle-icon"></span> $i18n.getText("upm.plugin.modules.manage")</a> - <span class="upm-count-enabled"></span></span>
+            <span class="upm-module-none hidden">$i18n.getText("upm.plugin.modules.none.available")</span>
+            <div class="upm-module-container"></div>
+        </div>
+
+        <input type="hidden" class="upm-plugin-binary" value="">
+        <input type="hidden" class="upm-plugin-homepage" value="">
+    </div>
+</script>
+
+<script type="text/x-template" id="upm-progress-template">
+    <div id="upm-progress">
+        <img src="$webResourceManager.getStaticPluginResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:upm-web-resources", "images/in-progress.gif")" alt="$i18n.getText("upm.progress.inProgress")">
+        <div class="upm-progress-text"></div>
+        <div class="upm-progress-bar-container">
+            <div class="upm-progress-bar"><div class="upm-progress-amount"></div></div>
+            <span class="upm-progress-bar-percent">0</span>%
+        </div>
+    </div>
+</script>
+
+<script type="text/x-template" id="upm-plugin-module-template">
+    <div class="upm-module">
+        <div class="upm-module-state">
+            <p>$i18n.getText("upm.plugin.module.disabled")</p>
+        </div>
+        <div class="upm-module-actions">
+            <div class="aui-toolbar upm-plugin-actions">
+                <ul class="toolbar-group">
+                    <li class="toolbar-item upm-module-disable-item">
+                        <a class="toolbar-trigger upm-module-disable" href="#">$i18n.getText("upm.plugin.action.disable")</a>
+                    </li>
+                </ul>
+                <ul class="toolbar-group">
+                    <li class="toolbar-item upm-module-enable-item">
+                        <a class="toolbar-trigger upm-module-enable" href="#">$i18n.getText("upm.plugin.action.enable")</a>
+                    </li>
+                </ul>
+            </div>
+            <p>$i18n.getText("upm.plugin.module.cannot.disable")</p>
+        </div>
+        <h5 class="upm-module-name"></h5>
+        <p class="upm-module-key"></p>
+        <div class="clearer"></div>
+        <p class="upm-module-description"></p>
+        <input type="hidden" class="upm-module-link" value="">
+        <div class="clearer"></div>
+    </div>
+</script>
+
+<script type="text/x-template" id="upm-jira-uninstall-template">
+    <div>
+        $jiraUninstallWithHtml
+    </div>
+</script>
+
+<script type="text/x-template" id="upm-requires-restart-list-template">
+    <li>
+        <span class="upm-requires-restart-item"></span>
+        <a href="#" class="upm-requires-restart-cancel" title="$i18n.getText("upm.requiresRestart.cancel")">[x]</a>
+        <input type="hidden" value="" class="upm-requires-restart-cancel-uri">
+    </li>
+</script>
+
+<script type="text/x-template" id="upm-requires-restart-template">
+    <div>
+        <strong>$i18n.getText("upm.requiresRestart.message", "$applicationProperties.getDisplayName()")</strong>
+        <a href="#" id="upm-requires-restart-show">$i18n.getText("upm.requiresRestart.show")</a>
+        <ul id="upm-requires-restart-list" class="hidden"></ul>
+    </div>
+</script>
+
+ <!-- i18n properties which get convereted to AJS.params['name']-->
+
+<fieldset class="parameters hidden">
+    <input type="hidden" value="$upmVersion" id="upmVersion" name="upmVersion">
+    <input type="hidden" value="$i18n.getText("upm.plugins.up.to.date")" name="upmPluginUpToDate" id="upmPluginUpToDate">
+    <input type="hidden" value="$i18n.getText("upm.plugin.modules.count.enabled")" name="upmCountEnabled" id="upmCountEnabled">
+    <input type="hidden" value="$i18n.getText("upm.tabs.install")" name="upm.tabs.install" id="upm.tabs.install">
+    <input type="hidden" value="$i18n.getText("upm.tabs.manage")" name="upm.tabs.manage" id="upm.tabs.manage">
+    <input type="hidden" value="$i18n.getText("upm.tabs.osgi")" name="upm.tabs.osgi" id="upm.tabs.osgi">
+    <input type="hidden" value="$updateCheckTitle" name="upm.updateCheck.title" id="upm.updateCheck.title">
+
+    <input type="hidden" value="$userManager.getRemoteUsername()" name="upmCurrentUsername" id="upmCurrentUsername">
+    <input type="hidden" value="$applicationProperties.getBaseUrl()" name="upmBaseUrl" id="upmBaseUrl">
+    <input type="hidden" value="$macBaseurl" id="upm.mac.baseurl" name="upm.mac.baseurl">
+    <input type="hidden" value="$isOnDemand" id="isOnDemand" name="isOnDemand">
+    <input type="hidden" value="$upmVersionTracker.isLegacyLicensingCompatibilitySpiUpm20Aware()" id="upm.licensing.aware" name="upm.licensing.aware">
+    <input type="hidden" value="$webResourceManager.getStaticPluginResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:fakedata", "")" name="upmResourcePath" id="upmResourcePath">
+    <input type="hidden" value="$webResourceManager.getStaticPluginResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:upm-web-resources", "images/plugin-logo-default.png")" name="defaultPluginLogo" id="defaultPluginLogo">
+    <input type="hidden" value="$webResourceManager.getStaticPluginResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:upm-web-resources", "images/puzzle-piece.png")" name="defaultPluginIcon" id="defaultPluginIcon">
+
+    <input type="hidden" value="$i18n.getText("upm.unknown")" name="upmTextUnknown" id="upmTextUnknown">
+    <input type="hidden" value="$i18n.getText("upm.close")" name="upmTextClose" id="upmTextClose">
+    <input type="hidden" value="$i18n.getText("upm.filter.filterPlugins")" name="upmTextFilterPlugins" id="upmTextFilterPlugins">
+    <input type="hidden" value="$i18n.getText("upm.filter.filterPlugins.none.available")" name="upmTextFilterPluginsNoneAvailable" id="upmTextFilterPluginsNoneAvailable">
+    <input type="hidden" value="$i18n.getText("upm.filter.filterOsgiBundles")" name="upmTextFilterOsgiBundles" id="upmTextFilterOsgiBundles">
+    <input type="hidden" value="$i18n.getText("upm.filter.filterOsgiBundles.none.available")" name="upmTextFilterOsgiBundlesNoneAvailable" id="upmTextFilterOsgiBundlesNoneAvailable">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.info.text.limited.users")" name="upmTextLicenseInfoLimitedUsers" id="upmTextLicenseInfoLimitedUsers">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.info.text.single.user")" name="upmTextLicenseInfoSingleUser" id="upmTextLicenseInfoSingleUser">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.info.text.unlimited.users")" name="upmTextLicenseInfoUnlimitedUsers" id="upmTextLicenseInfoUnlimitedUsers">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.view.full")" name="upmTextViewFullLicense" id="upmTextViewFullLicense">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.readonly")" name="upmLicenseReadOnly" id="upmLicenseReadOnly">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.error")" name="upmLicenseSubmitError" id="upmLicenseSubmitError">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.success")" name="upmLicenseSubmitSuccess" id="upmLicenseSubmitSuccess">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.success.removed")" name="upmLicenseSubmitSuccessRemoved" id="upmLicenseSubmitSuccessRemoved">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.success.new.purchase")" name="upmLicenseSubmitSuccessNewPurchase" id="upmLicenseSubmitSuccessNewPurchase">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.success.new.evaluation")" name="upmLicenseSubmitSuccessNewEvaluation" id="upmLicenseSubmitSuccessNewEvaluation">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.success.plugin.can.be.enabled")" name="upmLicenseSubmitSuccessPluginEnableable" id="upmLicenseSubmitSuccessPluginEnableable">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.success.disabled")" name="upmLicenseSubmitSuccessDisabled" id="upmLicenseSubmitSuccessDisabled">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.error.invalid.license")" name="upm.plugin.license.error.invalid.license" id="upm.plugin.license.error.invalid.license">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.error.setting.empty.license")" name="upm.plugin.license.error.setting.empty.license" id="upm.plugin.license.error.setting.empty.license">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.status.valid")" name="upmLicenseStatus_valid" id="upmLicenseStatus_valid">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.status.expired")" name="upmLicenseStatus_expired" id="upmLicenseStatus_expired">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.status.type_mismatch")" name="upmLicenseStatus_type_mismatch" id="upmLicenseStatus_type_mismatch">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.status.user_mismatch")" name="upmLicenseStatus_user_mismatch" id="upmLicenseStatus_user_mismatch">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.status.version_mismatch")" name="upmLicenseStatus_version_mismatch" id="upmLicenseStatus_version_mismatch">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.status.unknown")" name="upmLicenseStatus_unknown" id="upmLicenseStatus_unknown">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.status.evaluation")" name="upmLicenseStatus_evaluation" id="upmLicenseStatus_evaluation">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.noconfigure")" name="upm.plugin.license.noconfigure" id="upm.plugin.license.noconfigure">
+    <input type="hidden" value="$i18n.getText("upm.install.search")" name="upmTextInstallSearchBox" id="upmTextInstallSearchBox">
+    <input type="hidden" value="$i18n.getText("upm.install.search.results")" name="upmTextSearchResults" id="upmTextSearchResults">
+    <input type="hidden" value="$i18n.getText("upm.install.search.dropdown")" name="upmTextSearchOption" id="upmTextSearchOption">
+    <input type="hidden" value="$i18n.getText("upm.nondeployable.instruction")" name="upmTextNonDeployableInstruction" id="upmTextNonDeployableInstruction">
+    <input type="hidden" value="$i18n.getText("upm.nondeployable.header")" name="upmTextNonDeployableHeader" id="upmTextNonDeployableHeader">
+    <input type="hidden" value="$i18n.getText("upm.nondeployable.homepage")" name="upmTextNonDeployableHomepage" id="upmTextNonDeployableHomepage">
+    <input type="hidden" value="$i18n.getText("upm.nondeployable.download")" name="upmTextNonDeployableDownload" id="upmTextNonDeployableDownload">
+    <input type="hidden" value="$i18n.getText("upm.manage.safeMode.confirm")" name="upmTextSafeModeConfirm" id="upmTextSafeModeConfirm">
+    <input type="hidden" value="$i18n.getText("upm.manage.safeMode.restore.confirm")" name="upmTextSafeModeRestoreConfirm" id="upmTextSafeModeRestoreConfirm">
+    <input type="hidden" value="$i18n.getText("upm.manage.safeMode.exit.confirm")" name="upmTextSafeModeExitConfirm" id="upmTextSafeModeExitConfirm">
+    <input type="hidden" value="$i18n.getText("upm.manage.uninstall.confirm", $applicationProperties.getDisplayName())" name="upmTextUninstallConfirm" id="upmTextUninstallConfirm">
+    <input type="hidden" value="$i18n.getText("upm.manage.show.system")" name="upmManageShowSystem" id="upmManageShowSystem">
+    <input type="hidden" value="$i18n.getText("upm.manage.hide.system")" name="upmManageHideSystem" id="upmManageHideSystem">
+    <input type="hidden" value="$i18n.getText("upm.upload.uploadPlugin")" name="upmTextUploadPlugin" id="upmTextUploadPlugin">
+    <input type="hidden" value="$i18n.getText("upm.upload.upload")" name="upmTextUpload" id="upmTextUpload">
+    <input type="hidden" value="$i18n.getText("upm.upload.cancel")" name="upmTextCancel" id="upmTextCancel">
+    <input type="hidden" value="$i18n.getText("upm.plugins.notFoundManageUserInstalled", "$applicationProperties.getDisplayName()")" name="upmTextNotFoundManageUserInstalled" id="upmTextNotFoundManageUserInstalled">
+    <input type="hidden" value="$i18n.getText("upm.plugins.notFoundInstall", "$applicationProperties.getDisplayName()")" name="upmTextNotFoundInstall" id="upmTextNotFoundInstall">
+    <input type="hidden" value="$i18n.getText("upm.plugins.notFoundFilter")" name="upmTextFilterNoPlugins" id="upmTextFilterNoPlugins">
+    <input type="hidden" value="$i18n.getText("upm.update.self.update")" name="upmTextUpdateUpm" id="upmTextUpdateUpm">
+    <input type="hidden" value="$i18n.getText("upm.update.self.update.working")" name="upmTextSelfUpdateWorking" id="upmTextSelfUpdateWorking">
+    <input type="hidden" value="$i18n.getText("upm.update.self.update.error")" name="upmTextSelfUpdateError" id="upmTextSelfUpdateError">
+    <input type="hidden" value="$i18n.getText("upm.update.self.skip.confirm")" id="upmSkipUpdateConfirm" name="upmSkipUpdateConfirm">
+    <input type="hidden" value="$i18n.getText("upm.plugin.action.enable")" name="upmTextEnable" id="upmTextEnable">
+    <input type="hidden" value="$i18n.getText("upm.plugin.action.disable")" name="upmTextDisable" id="upmTextDisable">
+    <input type="hidden" value="$i18n.getText("upm.plugin.noRating")" name="upmTextNoRating" id="upmTextNoRating">
+    <input type="hidden" value="$i18n.getText("upm.plugin.error")" name="upmTextPluginDetailsError" id="upmTextPluginDetailsError">
+    <input type="hidden" value="$i18n.getText("upm.plugin.unknown")" name="upmTextUnknownPlugin" id="upmTextUnknownPlugin">
+    <input type="hidden" value="$i18n.getText("upm.plugin.module.unknown")" name="upmTextUnknownPluginModule" id="upmTextUnknownPluginModule">
+    <input type="hidden" value="$i18n.getText("upm.plugin.listError")" name="upmTextPluginListError" id="upmTextPluginListError">
+    <input type="hidden" value="$i18n.getText("upm.progress.update")" name="upmTextProgressUpdate" id="upmTextProgressUpdate">
+    <input type="hidden" value="$i18n.getText("upm.progress.install")" name="upmTextProgressInstall" id="upmTextProgressInstall">
+    <input type="hidden" value="$i18n.getText("upm.progress.uninstall")" name="upmTextProgressUninstall" id="upmTextProgressUninstall">
+    <input type="hidden" value="$i18n.getText("upm.progress.upload")" name="upmTextProgressUpload" id="upmTextProgressUpload">
+    <input type="hidden" value="$i18n.getText("upm.progress.disable")" name="upmTextProgressDisable" id="upmTextProgressDisable">
+    <input type="hidden" value="$i18n.getText("upm.progress.enable")" name="upmTextProgressEnable" id="upmTextProgressEnable">
+    <input type="hidden" value="$i18n.getText("upm.progress.safeMode.enable")" name="upmTextProgressSafeModeEnable" id="upmTextProgressSafeModeEnable">
+    <input type="hidden" value="$i18n.getText("upm.progress.safeMode.restore")" name="upmTextProgressSafeModeRestore" id="upmTextProgressSafeModeRestore">
+    <input type="hidden" value="$i18n.getText("upm.progress.safeMode.keepState")" name="upmTextProgressSafeModeKeepState" id="upmTextProgressSafeModeKeepState">
+    <input type="hidden" value="$i18n.getText("upm.progress.pending")" name="upmTextProgressPendingTasks" id="upmTextProgressPendingTasks">
+    <input type="hidden" value="$i18n.getText("upm.progress.updateall")" name="upmTextProgressUpdateAll" id="upmTextProgressUpdateAll">
+    <input type="hidden" value="$i18n.getText("upm.progress.updateall.updating")" name="upm.progress.updateall.updating" id="upm.progress.updateall.updating">
+    <input type="hidden" value="$i18n.getText("upm.progress.updateall.finding")" name="upm.progress.updateall.finding" id="upm.progress.updateall.finding">
+    <input type="hidden" value="$i18n.getText("upm.progress.updateall.err")" name="upm.progress.updateall.err" id="upm.progress.updateall.err">
+    <input type="hidden" value="$i18n.getText("upm.progress.cancellable.blocking")" name="upm.progress.cancellable.blocking" id="upm.progress.cancellable.blocking">
+    <input type="hidden" value="$i18n.getText("upm.progress.install.downloading")" name="upm.progress.install.downloading" id="upm.progress.install.downloading">
+    <input type="hidden" value="$i18n.getText("upm.progress.install.installing")" name="upm.progress.install.installing" id="upm.progress.install.installing">
+    <input type="hidden" value="$i18n.getText("upm.log.emptyLog")" name="upmTextEmptyLog" id="upmTextEmptyLog">
+    <input type="hidden" value="$i18n.getText("upm.log.error")" name="upmTextLogError" id="upmTextLogError">
+    <input type="hidden" value="$i18n.getText("upm.messages.install.success")" name="upmTextInstallSuccess" id="upmTextInstallSuccess">
+    <input type="hidden" value="$i18n.getText("upm.messages.install.licensing.required")" name="upmTextInstallLicensingRequired" id="upmTextInstallLicensingRequired">
+    <input type="hidden" value="$i18n.getText("upm.messages.install.licensing.already.evaluating", "$applicationProperties.getDisplayName()")" name="upmTextInstallLicensingAlreadyEvaluating" id="upmTextInstallLicensingAlreadyEvaluating">
+    <input type="hidden" value="$i18n.getText("upm.messages.install.licensing.already.purchased", "$applicationProperties.getDisplayName()")" name="upmTextInstallLicensingAlreadyPurchased" id="upmTextInstallLicensingAlreadyPurchased">
+    <input type="hidden" value="$i18n.getText("upm.messages.install.licensing.followup.buy")" name="upmTextInstallLicensingFollowupBuy" id="upmTextInstallLicensingFollowupBuy">
+    <input type="hidden" value="$i18n.getText("upm.messages.install.licensing.followup.try")" name="upmTextInstallLicensingFollowupTry" id="upmTextInstallLicensingFollowupTry">
+    <input type="hidden" value="$i18n.getText("upm.messages.install.notEnabled")" name="upmTextInstallSuccessNotEnabled" id="upmTextInstallSuccessNotEnabled">
+    <input type="hidden" value="$i18n.getText("upm.messages.install.requiresRestart")" name="upmTextInstallNeedsRestart" id="upmTextInstallNeedsRestart">
+    <input type="hidden" value="$i18n.getText("upm.messages.install.unrecognisedModuleTypes")" name="upmTextInstallUnrecognisedModuleTypes" id="upmTextInstallUnrecognisedModuleTypes">
+    <input type="hidden" value="$i18n.getText("upm.messages.install.cannot.enable")" id="upmTextInstallCannotBeEnabled" name="upmTextInstallCannotBeEnabled">
+    <input type="hidden" value="$i18n.getText("upm.messages.install.notAware")" id="upmTextInstallNotAware" name="upmTextInstallNotAware">
+    <input type="hidden" value="$i18n.getText("upm.messages.uninstall.success")" name="upmTextUninstallSuccess" id="upmTextUninstallSuccess">
+    <input type="hidden" value="$i18n.getText("upm.messages.uninstall.requiresRestart")" name="upmTextUninstallNeedsRestart" id="upmTextUninstallNeedsRestart">
+    <input type="hidden" value="$i18n.getText("upm.messages.update.success")" name="upmTextUpdateSuccess" id="upmTextUpdateSuccess">
+    <input type="hidden" value="$i18n.getText("upm.messages.update.requiresRestart")" name="upmTextUpdateNeedsRestart" id="upmTextUpdateNeedsRestart">
+    <input type="hidden" value="$i18n.getText("upm.messages.update.error")" name="upmTextUpdateError" id="upmTextUpdateError">
+    <input type="hidden" value="$i18n.getText("upm.messages.updateAll.complete")" name="upmTextUpdateAllComplete" id="upmTextUpdateAllComplete">
+    <input type="hidden" value="$refreshRequiredWithHtml" name="upmTextRequiresRefresh" id="upmTextRequiresRefresh">
+    <input type="hidden" value="$i18n.getText("upm.requiresRefresh.header")" name="upmTextRequiresRefreshHeader" id="upmTextRequiresRefreshHeader">
+    <input type="hidden" value="$i18n.getText("upm.requiresRefresh.refresh")" name="upmTextRefresh" id="upmTextRefresh">
+    <input type="hidden" value="$i18n.getText("upm.messages.disable.success")" name="upmTextDisableSuccess" id="upmTextDisableSuccess">
+    <input type="hidden" value="$i18n.getText("upm.messages.enable.success")" name="upmTextEnableSuccess" id="upmTextEnableSuccess">
+    <input type="hidden" value="$i18n.getText("upm.messages.module.disable.success")" name="upmTextModuleDisableSuccess" id="upmTextModuleDisableSuccess">
+    <input type="hidden" value="$i18n.getText("upm.messages.module.enable.success")" name="upmTextModuleEnableSuccess" id="upmTextModuleEnableSuccess">
+    <input type="hidden" value="$i18n.getText("upm.messages.install.remote.success")" name="upmTextRemoteInstallSuccess" id="upmTextRemoteInstallSuccess">
+    <input type="hidden" value="$i18n.getText("upm.messages.safeMode.restore.success")" name="upmTextSafeModeRestoreSuccess" id="upmTextSafeModeRestoreSuccess">
+    <input type="hidden" value="$i18n.getText("upm.messages.safeMode.keepState.success")" name="upmTextSafeModeKeepStateSuccess" id="upmTextSafeModeKeepStateSuccess">
+    <input type="hidden" value="$i18n.getText("upm.messages.requiresRestart.cancel.update")" name="upm.messages.requiresRestart.cancel.update" id="upm.messages.requiresRestart.cancel.update">
+    <input type="hidden" value="$i18n.getText("upm.messages.requiresRestart.cancel.install")" name="upm.messages.requiresRestart.cancel.install" id="upm.messages.requiresRestart.cancel.install">
+    <input type="hidden" value="$i18n.getText("upm.messages.requiresRestart.cancel.remove")" name="upm.messages.requiresRestart.cancel.remove" id="upm.messages.requiresRestart.cancel.remove">
+    <input type="hidden" value="$i18n.getText("upm.messages.requiresRestart.no.such.plugin")" name="upm.messages.requiresRestart.no.such.plugin" id="upm.messages.requiresRestart.no.such.plugin">
+    <input type="hidden" value="$i18n.getText("upm.requiresRestart.show")" id="upmTextRequiresRestartShow" name="upmTextRequiresRestartShow">
+    <input type="hidden" value="$i18n.getText("upm.requiresRestart.hide")" id="upmTextRequiresRestartHide" name="upmTextRequiresRestartHide">
+    <input type="hidden" value="$i18n.getText("upm.auditLog.count")" id="upmTextAuditLogCount" name="upmTextAuditLogCount">
+    <input type="hidden" value="$i18n.getText("upm.log.description")" id="upmTextAuditLogDescription" name="upmTextAuditLogDescription">
+    <input type="hidden" value="$i18n.getText("upm.log.description.singular")" id="upmTextAuditLogDescriptionSingular" name="upmTextAuditLogDescriptionSingular">
+    <input type="hidden" value="$i18n.getText("upm.osgi.description")" id="upmOsgiDescription" name="upmOsgiDescription">
+    <input type="hidden" value="$i18n.getText("upm.osgi.count.entry")" id="upmOsgiCountEntry" name="upmOsgiCountEntry">
+    <input type="hidden" value="$i18n.getText("upm.osgi.count.entries")" id="upmOsgiCountEntries" name="upmOsgiCountEntries">
+    <input type="hidden" value="$i18n.getText("upm.osgi.provided.by")" id="upmOsgiProvidedBy" name="upmOsgiProvidedBy">
+    <input type="hidden" value="$i18n.getText("upm.osgi.used.by")" id="upmOsgiUsedBy" name="upmOsgiUsedBy">
+    <input type="hidden" value="$i18n.getText("upm.osgi.service")" id="upmOsgiService" name="upmOsgiService">
+    <input type="hidden" value="$i18n.getText("upm.osgi.search")" name="upmTextOsgiSearchBox" id="upmTextOsgiSearchBox">
+    <input type="hidden" value="$i18n.getText("upm.osgi.bundle.location")" name="upmTextOsgiBundleLocation" id="upmTextOsgiBundleLocation">
+    <input type="hidden" value="$i18n.getText("upm.manage.jira.uninstall.header")" id="upmTextJiraUninstallHeader" name="upmTextJiraUninstallHeader">
+    <input type="hidden" value="$i18n.getText("upm.auditLog.error.invalid.purgeAfter")" id="upmAuditLogErrorInvalidPurgeAfter" name="upmAuditLogErrorInvalidPurgeAfter">
+    <input type="hidden" value="$i18n.getText("upm.confirm.header")" id="upmTextConfirmHeader" name="upmTextConfirmHeader">
+    <input type="hidden" value="$i18n.getText("upm.confirm.continue")" id="upmTextConfirmContinue" name="upmTextConfirmContinue">
+    <input type="hidden" value="$i18n.getText("upm.confirm.cancel")" id="upmTextConfirmCancel" name="upmTextConfirmCancel">
+    <input type="hidden" value="$i18n.getText("upm.pendingTasks.task.detail")" id="upmTextPendingTaskDetail" name="upmTextPendingTaskDetail">
+    <input type="hidden" value="$i18n.getText("upm.pendingTasks.conflict")" id="upmTextPendingTaskConflict" name="upmTextPendingTaskConflict">
+    <input type="hidden" value="$i18n.getText("upm.pendingTasks.conflict.title")" id="upmTextPendingTaskConflictHeader" name="upmTextPendingTaskConflictHeader">
+    <input type="hidden" value="$i18n.getText("upm.plugin.action.download")" id="upmTextDownload" name="upmTextDownload">
+    <input type="hidden" value="$i18n.getText("upm.plugin.action.license.followup.title")" id="upmTextLicenseFollowupTitle" name="upmTextLicenseFollowupTitle">
+    <input type="hidden" value="$i18n.getText("upm.plugin.action.license.followup.message")" id="upmTextLicenseFollowupMessage" name="upmTextLicenseFollowupMessage">
+
+    <!-- Messages -->
+    <input type="hidden" value="$i18n.getText("upm.safeMode.error.cannot.enter.precondition.not.met")" id="upm.safeMode.error.cannot.enter.precondition.not.met" name="upm.safeMode.error.cannot.enter.precondition.not.met">
+    <input type="hidden" value="$i18n.getText("upm.safeMode.error.cannot.save.configuration")" id="upm.safeMode.error.cannot.save.configuration" name="upm.safeMode.error.cannot.save.configuration">
+    <input type="hidden" value="$i18n.getText("upm.safeMode.error.cannot.restore.configuration.not.in.safe.mode")" id="upm.safeMode.error.cannot.restore.configuration.not.in.safe.mode" name="upm.safeMode.error.cannot.restore.configuration.not.in.safe.mode">
+    <input type="hidden" value="$i18n.getText("upm.safeMode.error.cannot.restore.configuration")" id="upm.safeMode.error.cannot.restore.configuration" name="upm.safeMode.error.cannot.restore.configuration">
+    <input type="hidden" value="$i18n.getText("upm.safeMode.error.cannot.go.to.safe.mode")" id="upm.safeMode.error.cannot.go.to.safe.mode" name="upm.safeMode.error.cannot.go.to.safe.mode">
+    <input type="hidden" value="$i18n.getText("upm.safeMode.error.already.entered.safeMode")" id="upm.safeMode.error.already.entered.safeMode" name="upm.safeMode.error.already.entered.safeMode">
+    <input type="hidden" value="$i18n.getText("upm.safeMode.error.already.exited.safeMode")" id="upm.safeMode.error.already.exited.safeMode" name="upm.safeMode.error.already.exited.safeMode">
+    <input type="hidden" value="$i18n.getText("upm.plugin.error.unexpected.error")" id="upm.plugin.error.unexpected.error" name="upm.plugin.error.unexpected.error">
+    <input type="hidden" value="$i18n.getText("upm.plugin.error.invalid.upm.plugin.action")" id="upm.plugin.error.invalid.upm.plugin.action" name="upm.plugin.error.invalid.upm.plugin.action">
+    <input type="hidden" value="$i18n.getText("upm.plugin.error.on.demand.disallowed.action")" id="upm.plugin.error.on.demand.disallowed.action" name="upm.plugin.error.on.demand.disallowed.action">
+    <input type="hidden" value="$i18n.getText("upm.plugin.error.plugin.not.using.licensing")" id="upm.plugin.error.plugin.not.using.licensing" name="upm.plugin.error.plugin.not.using.licensing">
+    <input type="hidden" value="$i18n.getText("upm.plugin.error.cannot.remove.embedded.license", "$applicationProperties.getDisplayName()")" id="upm.plugin.error.cannot.remove.embedded.license" name="upm.plugin.error.cannot.remove.embedded.license">
+    <input type="hidden" value="$i18n.getText("upm.plugin.error.failed.to.enable")" id="upm.plugin.error.failed.to.enable" name="upm.plugin.error.failed.to.enable">
+    <input type="hidden" value="$i18n.getText("upm.plugin.error.failed.to.disable")" id="upm.plugin.error.failed.to.disable" name="upm.plugin.error.failed.to.disable">
+    <input type="hidden" value="$i18n.getText("upm.plugin.error.failed.to.enable.has.license")" name="upm.plugin.error.failed.to.enable.has.license" id="upm.plugin.error.failed.to.enable.has.license">
+    <input type="hidden" value="$i18n.getText("upm.plugin.error.failed.to.enable.has.expired.license")" name="upm.plugin.error.failed.to.enable.has.expired.license" id="upm.plugin.error.failed.to.enable.has.expired.license">
+    <input type="hidden" value="$i18n.getText("upm.plugin.error.failed.to.enable.no.license.entered")" name="upm.plugin.error.failed.to.enable.no.license.entered" id="upm.plugin.error.failed.to.enable.no.license.entered">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.error.validation")" name="upm.plugin.license.error.validation" id="upm.plugin.license.error.validation">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.error.invalid.postback")" name="upm.plugin.license.error.invalid.postback" id="upm.plugin.license.error.invalid.postback">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.error.unauthenticated.postback")" name="upm.plugin.license.error.unauthenticated.postback" id="upm.plugin.license.error.unauthenticated.postback">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.error.disabled.after.postback")" name="upm.plugin.license.error.disabled.after.postback" id="upm.plugin.license.error.disabled.after.postback">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.notaware")" name="upm.plugin.license.notaware" id="upm.plugin.license.notaware">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.cannot.update.before.buy")" name="upm.plugin.license.cannot.update.before.buy" id="upm.plugin.license.cannot.update.before.buy">
+    <input type="hidden" value="$i18n.getText("upm.plugin.license.cannot.update.before.renew")" name="upm.plugin.license.cannot.update.before.renew" id="upm.plugin.license.cannot.update.before.renew">
+    <input type="hidden" value="$i18n.getText("upm.update.error.safe.mode")" id="upm.update.error.safe.mode" name="upm.update.error.safe.mode">
+    <input type="hidden" value="$i18n.getText("upm.update.error.downgrade")" id="upm.update.error.downgrade" name="upm.update.error.downgrade">
+    <input type="hidden" value="$i18n.getText("upm.pluginInstall.error.access.denied")" id="upm.pluginInstall.error.access.denied" name="upm.pluginInstall.error.access.denied">
+    <input type="hidden" value="$i18n.getText("upm.pluginInstall.error.response.exception")" id="upm.pluginInstall.error.response.exception" name="upm.pluginInstall.error.response.exception">
+    <input type="hidden" value="$i18n.getText("upm.pluginInstall.error.install.failed")" id="upm.pluginInstall.error.install.failed" name="upm.pluginInstall.error.install.failed">
+    <input type="hidden" value="$i18n.getText("upm.pluginInstall.error.invalid.uri.syntax")" id="upm.pluginInstall.error.invalid.uri.syntax" name="upm.pluginInstall.error.invalid.uri.syntax">
+    <input type="hidden" value="$i18n.getText("upm.pluginInstall.error.invalid.relative.uri")" id="upm.pluginInstall.error.invalid.relative.uri" name="upm.pluginInstall.error.invalid.relative.uri">
+    <input type="hidden" value="$i18n.getText("upm.pluginInstall.error.safe.mode")" id="upm.pluginInstall.error.safe.mode" name="upm.pluginInstall.error.safe.mode">
+    <input type="hidden" value="$i18n.getText("upm.pluginInstall.error.unknown.plugin.type")" id="upm.pluginInstall.error.unknown.plugin.type" name="upm.pluginInstall.error.unknown.plugin.type">
+    <input type="hidden" value="$i18n.getText("upm.pluginInstall.error.legacy.plugins.unsupported")" id="upm.pluginInstall.error.legacy.plugins.unsupported" name="upm.pluginInstall.error.legacy.plugins.unsupported">
+    <input type="hidden" value="$i18n.getText("upm.pluginInstall.error.xml.plugins.unsupported")" id="upm.pluginInstall.error.xml.plugins.unsupported" name="upm.pluginInstall.error.xml.plugins.unsupported">
+    <input type="hidden" value="$i18n.getText("upm.pluginInstall.error.unrecognised.plugin.version")" id="upm.pluginInstall.error.unrecognised.plugin.version" name="upm.pluginInstall.error.unrecognised.plugin.version">
+    <input type="hidden" value="$i18n.getText("upm.pluginInstall.error.not.deployable")" id="upm.pluginInstall.error.not.deployable" name="upm.pluginInstall.error.not.deployable">
+    <input type="hidden" value="$i18n.getText("upm.pluginInstall.error.not.licensed.to.be.updated")" id="upm.pluginInstall.error.not.licensed.to.be.updated" name="upm.pluginInstall.error.not.licensed.to.be.updated">
+    <input type="hidden" value="$i18n.getText("upm.pluginUninstall.error.plugin.not.uninstallable")" id="upm.pluginUninstall.error.plugin.not.uninstallable" name="upm.pluginUninstall.error.plugin.not.uninstallable">
+    <input type="hidden" value="$i18n.getText("upm.pluginUninstall.error.plugin.is.bundled")" id="upm.pluginUninstall.error.plugin.is.bundled" name="upm.pluginUninstall.error.plugin.is.bundled">
+    <input type="hidden" value="$i18n.getText("upm.pluginUninstall.error.plugin.is.system")" id="upm.pluginUninstall.error.plugin.is.system" name="upm.pluginUninstall.error.plugin.is.system">
+    <input type="hidden" value="$i18n.getText("upm.pluginUninstall.error.plugin.is.static")" id="upm.pluginUninstall.error.plugin.is.static" name="upm.pluginUninstall.error.plugin.is.static">
+    <input type="hidden" value="$i18n.getText("upm.pluginUninstall.error.failed.to.uninstall")" id="upm.pluginUninstall.error.failed.to.uninstall" name="upm.pluginUninstall.error.failed.to.uninstall">
+    <input type="hidden" value="$i18n.getText("upm.pluginUninstall.error.safe.mode")" id="upm.pluginUninstall.error.safe.mode" name="upm.pluginUninstall.error.safe.mode">
+    <input type="hidden" value="$i18n.getText("upm.pluginDisable.error.plugin.is.bundled")" id="upm.pluginDisable.error.plugin.is.bundled" name="upm.pluginDisable.error.plugin.is.bundled">
+    <input type="hidden" value="$i18n.getText("upm.pluginDisable.error.plugin.is.system")" id="upm.pluginDisable.error.plugin.is.system" name="upm.pluginDisable.error.plugin.is.system">
+    <input type="hidden" value="$i18n.getText("upm.pluginModule.error.failed.to.enable")" id="upm.pluginModule.error.failed.to.enable" name="upm.pluginModule.error.failed.to.enable">
+    <input type="hidden" value="$i18n.getText("upm.pluginModule.error.failed.to.disable")" id="upm.pluginModule.error.failed.to.disable" name="upm.pluginModule.error.failed.to.disable">
+    <input type="hidden" value="$i18n.getText("upm.pluginModule.error.cannot.be.disabled")" id="upm.pluginModule.error.cannot.be.disabled" name="upm.pluginModule.error.cannot.be.disabled">
+    <input type="hidden" value="$i18n.getText("upm.pluginModule.error.cannot.recognise.type")" id="upm.pluginModule.error.cannot.recognise.type" name="upm.pluginModule.error.cannot.recognise.type">
+    <input type="hidden" value="$i18n.getText("upm.auditLog.safeMode.enter.success")" id="upm.auditLog.safeMode.enter.success" name="upm.auditLog.safeMode.enter.success">
+    <input type="hidden" value="$i18n.getText("upm.auditLog.safeMode.enter.failure")" id="upm.auditLog.safeMode.enter.failure" name="upm.auditLog.safeMode.enter.failure">
+    <input type="hidden" value="$i18n.getText("upm.auditLog.safeMode.exit.success")" id="upm.auditLog.safeMode.exit.success" name="upm.auditLog.safeMode.exit.success">
+    <input type="hidden" value="$i18n.getText("upm.auditLog.safeMode.exit.failure")" id="upm.auditLog.safeMode.exit.failure" name="upm.auditLog.safeMode.exit.failure">
+    <input type="hidden" value="$i18n.getText("upm.auditLog.error.invalid.purgeAfter")" id="upm.auditLog.error.invalid.purgeAfter" name="upm.auditLog.error.invalid.purgeAfter">
+    <input type="hidden" value="$i18n.getText("upm.auditLog.error.invalid.maxEntries")" id="upm.auditLog.error.invalid.maxEntries" name="upm.auditLog.error.invalid.maxEntries">
+    <input type="hidden" value="$i18n.getText("upm.requiresRestart.update")" id="upm.requiresRestart.update" name="upm.requiresRestart.update">
+    <input type="hidden" value="$i18n.getText("upm.requiresRestart.install")" id="upm.requiresRestart.install" name="upm.requiresRestart.install">
+    <input type="hidden" value="$i18n.getText("upm.requiresRestart.remove")" id="upm.requiresRestart.remove" name="upm.requiresRestart.remove">
+    <input type="hidden" value="$i18n.getText("upm.pac.connection.error")" id="upm.pac.connection.error" name="upm.pac.connection.error">
+    <input type="hidden" value="$i18n.getText("upm.baseurl.connection.error")" id="upm.baseurl.connection.error" name="upm.baseurl.connection.error">
+    <input type="hidden" value="$i18n.getText("upm.error.invalid.token")" id="upm.error.invalid.token" name="upm.error.invalid.token">
+    <input type="hidden" value="$i18n.getText("upm.error.unauthorized")" id="upm.error.unauthorized" name="upm.error.unauthorized" >
+    <input type="hidden" value="$i18n.getText("upm.pluginInstall.error.unsupported.protocol")" id="upm.pluginInstall.error.unsupported.protocol" name="upm.pluginInstall.error.unsupported.protocol">
+    <input type="hidden" value="$i18n.getText("upm.install.upload.empty.error")" id="upm.install.upload.empty.error" name="upm.install.upload.empty.error">
+    <input type="hidden" value="$i18n.getText("upm.plugin.no.description")" id="upm.plugin.no.description" name="upm.plugin.no.description">
+    <input type="hidden" value="$i18n.getText("upm.plugin.details.title")" id="upm.plugin.details.title" name="upm.plugin.details.title">
+    <input type="hidden" value="$i18n.getText("upm.plugin.release.notes.title")" id="upm.plugin.release.notes.title" name="upm.plugin.release.notes.title">
+    <input type="hidden" value="$i18n.getText("upm.plugin.developer.by")" id="upm.plugin.developer.by" name="upm.plugin.developer.by">
+    <input type="hidden" value="$i18n.getText("upm.plugin.action.try")" id="upm.plugin.action.try" name="upm.plugin.action.try">
+    <input type="hidden" value="$i18n.getText("upm.plugin.action.try.title")" id="upm.plugin.action.try.title" name="upm.plugin.action.try.title">
+    <input type="hidden" value="$i18n.getText("upm.plugin.action.buy")" id="upm.plugin.action.new" name="upm.plugin.action.new">
+    <input type="hidden" value="$i18n.getText("upm.plugin.action.buy.title")" id="upm.plugin.action.new.title" name="upm.plugin.action.new.title">
+    <input type="hidden" value="$i18n.getText("upm.plugin.action.upgrade")" id="upm.plugin.action.upgrade" name="upm.plugin.action.upgrade">
+    <input type="hidden" value="$i18n.getText("upm.plugin.action.upgrade.title")" id="upm.plugin.action.upgrade.title" name="upm.plugin.action.upgrade.title">
+    <input type="hidden" value="$i18n.getText("upm.plugin.action.renew")" id="upm.plugin.action.renew" name="upm.plugin.action.renew">
+    <input type="hidden" value="$i18n.getText("upm.plugin.action.renew.title")" id="upm.plugin.action.renew.title" name="upm.plugin.action.renew.title">
+
+    <!-- Resource URIs -->
+    #foreach( $entry in $linkBuilder.buildPermissionedUris().entrySet() )
+        <input type="hidden" value="$entry.getValue()" name="$entry.getKey()" id="$entry.getKey()">
+    #end
+    
+</fieldset>

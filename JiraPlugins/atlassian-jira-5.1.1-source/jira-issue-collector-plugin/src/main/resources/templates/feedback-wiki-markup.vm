@@ -1,0 +1,9 @@
+$i18n.getText("collector.plugin.template.rating", $ratingValue.smiley, $i18n.getText($ratingValue.i18nKey))
+
+{panel:title=$i18n.getText("collector.plugin.template.got.feedback.hot")|borderColor=#ccc| titleBGColor=#c2ffa2|bgColor=#fff}
+$descriptionGoodHtml
+{panel}
+
+{panel:title=$i18n.getText("collector.plugin.template.got.feedback.not")|borderColor=#ccc| titleBGColor=#faacad|bgColor=#fff}
+$descriptionBadHtml
+{panel}

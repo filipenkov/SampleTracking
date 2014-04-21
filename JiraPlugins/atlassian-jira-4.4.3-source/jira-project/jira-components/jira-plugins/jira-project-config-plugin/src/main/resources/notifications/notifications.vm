@@ -1,0 +1,108 @@
+#* @vtlvariable name="notifications" type="java.util.List<com.atlassian.jira.projectconfig.contextproviders.ProjectNotificationContextProvider.Notification>" *#
+<div id="project-config-panel-notifications" class="project-config-panel">
+    <div class="project-config-panel-header project-config-icon48-notifications">
+        #if ($isAdmin)
+            <ul class="operation-menu">
+                <li class="aui-dd-parent">
+                    <a class="operations-menu-link project-config-operations-trigger" id="project-config-tab-actions" href="#"><span class="project-config-icon project-config-icon-manage"></span>Actions <span class="project-config-icon project-config-icon-drop"></span></a>
+                    <div class="aui-list hidden" id="project-config-tab-actions-list">
+                        <ul class="aui-list-section aui-first aui-last">
+                            #if ($schemeId)
+                                <li class="aui-list-item">
+                                    <a id="project-config-notification-scheme-edit" class="aui-list-item-link" data-id="${schemeId}" href="${baseurl}/secure/admin/EditNotifications!default.jspa?schemeId=${schemeId}">$i18n.getText('admin.project.notifications.edit')</a>
+                                </li>
+                                <li class="aui-list-item">
+                                    <a id="project-config-notification-scheme-change" class="aui-list-item-link" data-id="${project.id}" href="${baseurl}/secure/project/SelectProjectScheme!default.jspa?projectId=${project.id}">$i18n.getText('admin.project.config.change.scheme')</span></a>
+                                </li>
+                            #else
+                                <li class="aui-list-item">
+                                    <a id="project-config-notification-scheme-change" class="aui-list-item-link" data-id="${project.id}" href="${baseurl}/secure/project/SelectProjectScheme!default.jspa?projectId=${project.id}">$i18n.getText('admin.project.config.select.scheme')</span></a>
+                                </li>
+                            #end
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        #end
+        <span>$i18n.getText('admin.schemes.notifications.notifications')</span>
+        <h2 class="project-config-scheme-heading">
+            #set ($hasSchemeDescription = ${schemeDescription} && ${schemeDescription} != "")
+            #if($schemeId)
+                <span id="project-config-notification-scheme-name" class="project-config-scheme-name"#if($hasSchemeDescription) title="${schemeDescription}"#end>${schemeName}</span>
+            #else
+                <span id="project-config-notification-scheme-name" class="project-config-scheme-name project-config-none">${schemeName}</span>
+            #end
+            #if ($sharedProjects && $sharedProjects.size() > 1)
+                <span class="shared-by"><em>$i18n.getText('admin.project.shared.by')</em> <a href="#project-config-notifications-${schemeId}-shared" class="shared-item-trigger">$i18n.getText('admin.project.shared.projects', ${sharedProjects.size()})</a></span>
+            #end
+        </h2>
+            <p>
+            $i18n.getText('admin.project.config.summary.notification.desc')
+            <br/>
+            $i18n.getText('admin.project.config.summary.notification.desc.extended')
+        </p>
+        <ul class="project-config-panel-header-list">
+            <li>
+                <span class="project-config-panel-header-label">${i18n.getText("common.words.email")}:</span>
+
+                 #if ($hasConfiguredMailServer)
+
+                    #if ($projectEmail)
+                        <a href="mailto:${projectEmail}" class="project-config-panel-header-value" id="project-config-email">${projectEmail}</a>
+                    #end
+
+                    #if ($isAdmin)
+                        <a id="project-config-email-change" class="project-config-icon project-config-icon-edit" href="${baseurl}/secure/project/ProjectEmail!default.jspa?projectId=${project.id}">${i18n.getText("common.words.change")}</a>
+                    #end
+                #else
+                    #if ($isAdmin)
+                        <a class="project-config-panel-header-value" id="project-config-mailserver-config" href="${baseurl}/secure/admin/ViewMailServers.jspa">${i18n.getText("admin.mailservers.no.server")}</a>
+                    #else
+                        <span class="project-config-panel-header-value" id="project-config-mailserver">${i18n.getText("admin.mailservers.no.server")}</span>
+                    #end
+                #end
+
+            </li>
+        </ul>
+    </div>
+
+    <table id="project-config-notifications-table" border="0" cellpadding="0" cellspacing="0" class="aui project-config-datatable project-config-notifications">
+        <thead>
+            <tr>
+                <th>$i18n.getText('admin.menu.globalsettings.event.types')</th>
+                <th>$i18n.getText('admin.schemes.notifications.notifications')</th>
+            </tr>
+        </thead>
+        <tbody>
+        #foreach($notification in $notifications)
+            <tr class="project-config-notification">
+                <td class="project-config-notification-name">$notification.name</td>
+                <td class="project-config-notification-entitylist">
+                    <ul class="project-config-list">
+                    #foreach ($entity in $notification.entities)
+                        <li>$entity</li>
+                    #end
+                    </ul>
+                </td>
+            </tr>
+        #end
+        #if (!$notifications || $notifications.empty)
+            <tr class="project-config-notification">
+                <td colspan="3" id="project-config-notifications-none">$i18n.getText('admin.project.config.summary.notification.no.notifications')</td>
+            </tr>
+        #end
+        </tbody>
+    </table>
+    #if ($sharedProjects && $sharedProjects.size() > 1)
+    <div id="project-config-notifications-${schemeId}-shared" class="shared-item-target">
+        <div class="shared-item-content">
+            <h3>$i18n.getText('admin.project.shared.list.heading.scheme'):</h3>
+            <ul class="shared-project-list">
+                #foreach ($project in $sharedProjects)
+                <li><a class="shared-project-name" href="${baseurl}/plugins/servlet/project-config/${project.key}"><img class="shared-project-icon" width="16" height="16" alt="" src="${baseurl}/secure/projectavatar?size=small&amp;pid=${project.id}&amp;avatarId=${project.avatar.id}" /> $project.name</a></li>
+                #end
+            </ul>
+        </div>
+    </div>
+    #end
+</div>

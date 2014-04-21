@@ -1,0 +1,6 @@
+#foreach ($commentHtml in $comment.iterator())
+<blockquote>$commentHtml</blockquote>
+#end
+<div class="jira-issue-key">$issueKeyHtml</div>
+<div class="jira-linking-text">$!linkText</div>
+<div class="linked-jira-issue-key">$linkedIssueKeysHtml</div>

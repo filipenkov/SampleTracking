@@ -1,0 +1,45 @@
+@import "dynamic:lookandfeel.less";
+@import "variables.less";
+
+#stepped-process { table-layout:auto; }
+#stepped-process > .content-related {
+    width: 200px;
+    > ol.steps {
+        margin: @gutter 0 0 0;
+        position: relative;
+        .steps {
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
+
+.formtitle img {vertical-align:baseline;}
+
+ul.bulk-details {margin-bottom:1em;}
+.use-for-all {padding-left:14px;}
+
+ul.steps { list-style: none; }
+.steps { padding-left:0;list-style-position:inside;width:200px; }
+.steps li { background-position: 5px 8px; background-repeat: no-repeat; padding:4px 3px 4px 21px; overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;}
+.steps li.current { margin-right: -1px;background-image: url( '../../../images/icons/bullet_inprogress.gif' ); font-weight: bold;background-color:#fff;border:1px solid #bbb;border-right:none;
+.rounded(5px, 0, 0, 5px)}
+.steps li.current li.current {border:none;}
+.steps li.todo { background-image: url( '../../../images/icons/bullet_notdone.gif' ); font-weight: normal !important;color:#505050; }
+.steps li.done { background-image: url( '../../../images/icons/bullet_done.gif' ); font-weight: normal !important; }
+
+/* Aim to remove
+    - List styles for assigned-and-open.vm */
+.stat-list {list-style-type:none;margin:0;padding:0;}
+.stat-list li {margin-bottom:@grid;}
+.stat-list .stat {float:right}
+.stat-list img {vertical-align:top;margin-right:4px;}
+
+/* Manage Links */
+#viewLinks {margin:0 0 1em;}
+#viewLinks .linkDetailTable {width:49%;}
+#viewLinks .linkDetailTable table {border:0;background-color:transparent;}
+#viewLinks .summary {font-size:1em;width:80%}
+#viewLinks thead th {border:none;font-weight:400;}
+.manage-links-title {margin-left:0.166em;}
+.attribute-wrap {float:right;width:40px;}

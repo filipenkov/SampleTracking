@@ -1,0 +1,70 @@
+{namespace JIRA.Templates.AppProperty}
+
+/**
+ * Render a application property row
+ * @param attributes
+ */
+{template .view}
+<td class="application-property-key-col">
+    <strong data-field-name="key" class="application-property-key">{$attributes.key}</strong>
+    {if $attributes.desc}
+        <div class="application-property-description description">{$attributes.desc}</div>
+    {/if}
+</td>
+<td class="application-property-value-col{if not $attributes.value} jira-restfultable-editable-no-value{/if}">
+    <span class="jira-restfultable-editable" data-field-name="value">
+        {if $attributes.value}
+            {$attributes.value}
+        {else}
+            <em>{getText('admin.advancedconfiguration.setvalue')}<em>
+        {/if}
+    </span>
+</td>
+<td class="application-property-operations">
+    {if $attributes.defaultValue and ($attributes.value != $attributes.defaultValue)}
+        <input type="hidden" value="{$attributes.defaultValue}" class="application-property-value-default"/>
+        <div class="aui-toolbar form-buttons noprint">
+            <div class="toolbar-group">
+                <span class="toolbar-item">
+                    <input class="toolbar-trigger spaced application-property-revert" type="submit" value="{getText('admin.advancedconfiguration.revert')}" />
+                </span>
+            </div>
+        </div>
+    {/if}
+</td>
+<td class="application-property-throbber"></td>
+
+{/template}
+
+
+/**
+ * Renders edit/create application property row
+ * @param errors
+ * @param values
+ */
+{template .editRow}
+<td class="application-property-key-col">
+    <strong class="application-property-key">{$values.key}</strong>
+    {if $values.desc}
+        <div class="application-property-description description">{$values.desc}</div>
+    {/if}
+    {if $errors.name}
+        <div class="error application-property-error">{$errors.name}</div>
+    {/if}
+</td>
+<td class="application-property-value-col">
+    {if $values.allowedValues}
+        <select name="value" value="{$values.value ? $values.value : ''}" id="{$values.key}-select">
+        {foreach $allowedValue in $values.allowedValues}
+            <option value="{$allowedValue}" {if $values.value == $allowedValue}selected="selected"{/if}>{$allowedValue}</option>
+        {/foreach}
+    {else}
+        <input name="value" type="text" class="text" value="{$values.value ? $values.value : ''}"  />
+    {/if}
+    {if $errors.errorMessages}
+        {foreach $error in $errors.errorMessages}
+            <div class="error application-property-error">{$error}</div>
+        {/foreach}
+    {/if}
+</td>
+{/template}

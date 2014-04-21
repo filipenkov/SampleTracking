@@ -1,0 +1,28 @@
+#if($isAdmin)
+We've detected a potential problem with JIRA's Dashboard configuration.
+#else
+We've detected a potential problem with JIRA's Dashboard configuration that your administrator can correct.
+#end
+<a id="learn-more-link">Click here to learn more</a>
+
+#if($isAdmin)
+<a class="close">Close</a>
+#end
+
+<div id="diagnostic-content" class="hidden">
+    <h4>Dashboard Diagnostics: Error</h4>
+
+    <p>
+        There was an error running the diagnostics. Please contact <a href="http://support.atlassian.com">Atlassian
+        Support</a>.
+    </p>
+
+    <h4>Detailed Error</h4>
+    <a id="display-error-link">Click here to learn more</a>
+    <div id="error-stack-trace" class="hidden">
+        <pre>
+        $error.stackTraceAsString
+        </pre>
+    </div>
+</div>
+

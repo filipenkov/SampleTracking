@@ -1,0 +1,161 @@
+#enable_html_escaping()
+#* @vtlvariable name="i18n" type="com.atlassian.jira.util.I18nHelper" *#
+#* @vtlvariable name="baseurl" type="java.lang.String" *#
+#* @vtlvariable name="workflowScheme" type="com.atlassian.jira.projectconfig.contextproviders.WorkflowContextProvider.SimpleWorkflowScheme" *#
+#* @vtlvariable name="workflows" type="java.util.List<com.atlassian.jira.projectconfig.contextproviders.WorkflowContextProvider.SimpleWorkflowData>" *#
+<div id="project-config-panel-workflows" class="project-config-panel">
+    <div class="project-config-panel-header project-config-icon48-workflows">
+        #if ($isAdmin)
+            <ul class="operation-menu">
+                <li class="aui-dd-parent">
+                    <a class="operations-menu-link project-config-operations-trigger" id="project-config-tab-actions" href="#"><span class="project-config-icon project-config-icon-manage"></span>Actions <span class="project-config-icon project-config-icon-drop"></span></a>
+                    <div class="aui-list hidden" id="project-config-tab-actions-list">
+                        <ul class="aui-list-section aui-first aui-last">
+                            #if ($workflowScheme)
+                                <li class="aui-list-item">
+                                    <a id="project-config-workflows-scheme-edit" class="aui-list-item-link" data-id="${workflowScheme.id}" href="${baseurl}/secure/admin/EditWorkflowSchemeEntities!default.jspa?schemeId=${workflowScheme.id}">$i18n.getText('admin.project.workflow.edit')</a>
+                                </li>
+                                <li class="aui-list-item">
+                                    <a id="project-config-workflows-scheme-change" class="aui-list-item-link" data-id="${project.id}" href="${baseurl}/secure/project/SelectProjectWorkflowScheme!default.jspa?projectId=${project.id}">$i18n.getText('admin.project.config.change.scheme')</span></a>
+                                </li>
+                            #else
+                                <li class="aui-list-item">
+                                    <a id="project-config-workflows-scheme-change" class="aui-list-item-link" data-id="${project.id}" href="${baseurl}/secure/project/SelectProjectWorkflowScheme!default.jspa?projectId=${project.id}">$i18n.getText('admin.project.config.select.scheme')</span></a>
+                                </li>
+                            #end
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        #end
+        <span>$i18n.getText('admin.menu.globalsettings.workflows')</span>
+        <h2 class="project-config-scheme-heading">
+            <span id="project-config-workflows-scheme-name" class="project-config-scheme-name" title="$!{workflowScheme.description}">#if($workflowScheme)${workflowScheme.name}#else$i18n.getText('admin.schemes.workflows.default')#end</span>
+        </h2>
+        <p>${i18n.getText("admin.project.workflow.scheme.usage", $workflows.size())}</p>
+        <p>
+            $i18n.getText('admin.project.config.summary.workflow.desc')
+            <br/>
+            $i18n.getText('admin.project.config.summary.workflow.desc.extended')
+        </p>
+    </div>
+    #foreach ($data in $workflows)
+    ## If there is more than one we want them to be all collapsed
+    #if ($workflows.size() > 1)
+        #set ($collapsed = " collapsed")
+    #else
+        #set ($collapsed = "")
+    #end
+    #set($workflow = $data.workflow)
+    #set($issueTypes = $data.issueTypes)
+    #set($projects = $data.projects)
+    <div id="project-config-workflows-${workflow.id}" class="project-config-scheme-item project-config-webpanel${collapsed}">
+        <div class="project-config-scheme-item-header">
+            <span class="project-config-icon project-config-icon-twixi"></span>
+            <ul class="ops">
+                <li><a href="${baseurl}/plugins/servlet/workflow/thumbnail/getThumbnail?workflowName=${workflow.name}&amp;width=full&amp;height=full" class="project-config-icon project-config-icon-viewworkflow" title="$i18n.getText('admin.project.workflow.view.diagram')">$i18n.getText('admin.project.workflow.view.diagram')</a></li>
+                #if ($isAdmin)
+                    <li><a class="project-config-icon project-config-icon-edit project-config-workflow-edit#if(!$workflowScheme) project-config-workflow-default#end" href="${baseurl}/secure/admin/workflows/EditWorkflowDispatcher.jspa?atl_token=$urlcodec.encode($atl_token)&wfName=$urlcodec.encode($workflow.name)" title="$i18n.getText('admin.workflows.edit')">$i18n.getText('admin.workflows.edit')</a></li>
+                #end
+            </ul>
+            <h3>
+                <span class="project-config-icon24-workflow project-config-toggle"></span>
+                <span class="project-config-workflow-name project-config-scheme-item-name project-config-toggle" title="$!{workflow.description}">$workflow.name</span>
+                #if($workflow.defaultWorkflow)
+                    <span class="status-lozenge status-default">$i18n.getText('common.words.default')</span>
+                #end
+                #if (${workflow.systemWorkflow})
+                    <span class="status-lozenge status-active workflow-system">${i18n.getText("admin.workflows.readonly.system")}</span>
+                #else
+                    <span class="status-lozenge status-active workflow-active">${i18n.getText("admin.common.words.active")}</span>
+                #end
+            </h3>
+            #if($projects.size() > 1)
+                <span class="shared-by"><em>$i18n.getText('admin.project.shared.by')</em> <a href="#project-config-workflow-${workflow.id}-shared" class="shared-item-trigger">$i18n.getText('admin.project.shared.projects', $projects.size())</a></span>
+            #end
+        </div>
+        <div class="project-config-scheme-item-content project-config-workflow-association project-config-split-panel">
+            <div class="project-config-split-panel-nav project-config-workflow-issuetypes">
+                <h3>$i18n.getText('admin.project.workflow.issuetypes.heading', $issueTypes.size())&hellip;</h3>
+                <ul class="project-config-list project-config-itemlist">
+                    #foreach ($issueType in $issueTypes)
+                    <li>
+                        <span class="project-config-list-label">
+                            ${issueConstantWebComponent.getHtml(${issueType.constant}, 'project-config-icon-issuetype')}
+                            <span class="project-config-issuetype-name" title="$!{issueType.description}">$issueType.name</span>
+                            #if(${issueType.defaultIssueType})
+                                <span class="project-config-list-default">(${i18n.getText("common.words.default")})</span>
+                            #end
+                        </span>
+                    </li>
+                    #end
+                </ul>
+            </div>
+            <div class="project-config-split-panel-content project-config-workflow-definition">
+                <h3>&hellip;$i18n.getText('admin.project.workflow.definition.heading', $issueTypes.size())</h3>
+                <table border="0" cellpadding="0" cellspacing="0" class="aui project-config-datatable">
+                    <thead>
+                        <tr>
+                            <th>$i18n.getText('admin.project.workflow.from.status')</th>
+                            <th>$i18n.getText('admin.workflowtransition.transition')</th>
+                            <th></th>
+                            <th>$i18n.getText('admin.project.workflow.to.status')</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    #foreach ($source in $workflow.sources)
+                        #if ($source.targets.empty)
+                            <tr>
+                                <td >
+                                    ${issueConstantWebComponent.getHtml(${source.fromStatus})} $source.fromStatus.nameTranslation
+                                </td>
+                                <td>$i18n.getText('admin.project.workflow.no.transitions')</td>
+                                <td colspan="2"></td>
+                            </tr>
+                        #else
+                            #foreach ($target in $source.targets)
+                            <tr>
+                                #if($velocityCount == 1)
+                                    <td class="nowrap" rowspan="$source.targets.size()">
+                                        ${issueConstantWebComponent.getHtml(${source.fromStatus})} $source.fromStatus.nameTranslation
+                                    </td>
+                                #end
+                                <td class="nowrap">
+                                    <span class="project-config-transname">$target.transitionName</span><br />
+                                    #if ($target.screen)
+                                        #if ($isAdmin)
+                                            <a class="project-config-screen" href="${baseurl}/secure/admin/ConfigureFieldScreen.jspa?id=${target.screen.id}"><span class="project-config-icon project-config-icon-screen"></span>$target.screen.name</a>
+                                        #else
+                                            <span class="project-config-screen"><span class="project-config-icon project-config-icon-screen"></span>$target.screen.name</span>
+                                        #end
+                                    #else
+                                        <span class="project-config-workflow-no-screen">$i18n.getText('admin.project.workflow.no.screen')</span>
+                                    #end
+                                </td>
+                                <td>&rarr;</td>
+                                <td class="nowrap">
+                                    ${issueConstantWebComponent.getHtml(${target.toStatus})} ${target.toStatus.nameTranslation}
+                                </td>
+                            </tr>
+                            #end
+                        #end
+                    #end
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        #if ($projects.size() > 1)
+        <div id="project-config-workflow-${workflow.id}-shared" class="shared-item-target">
+            <div class="shared-item-content">
+                <h3>$i18n.getText('admin.project.shared.list.heading.workflow'):</h3>
+                <ul class="shared-project-list">
+                    #foreach ($project in $projects)
+                    <li><a class="shared-project-name" href="${baseurl}/plugins/servlet/project-config/${project.key}"><img class="shared-project-icon" width="16" height="16" alt="" src="${baseurl}/secure/projectavatar?size=small&amp;pid=${project.id}&amp;avatarId=${project.avatar.id}" /> $project.name</a></li>
+                    #end
+                </ul>
+            </div>
+        </div>
+        #end
+    </div>
+    #end
+</div>

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>$i18n.getText("gadget.feed.subscriptions")</title>
+        <meta name="decorator" content="atl.admin">
+        $webResourceManager.requireResource("com.atlassian.gadgets.directory:directory-resources")
+    </head>
+    <body>
+        <div class="aui mockalog" id="gadget-feed-subscriptions">
+            <h2>$i18n.getText('gadget.feed.subscriptions')</h2>
+            <div class="info">
+                <p>$i18n.getText("directory.gadget.feed.subscriptions.explanation", $applicationProperties.displayName)</p>
+            </div>
+            <div class="info nobox">
+                <div id="gadget-subscriptions-throbber" class="throbber">&nbsp;</div>
+                <ul></ul>
+            </div>
+            <div class="buttons">
+                <button class="add left">$i18n.getText('add.gadget.feed.subscription.name')</button>
+            </div>
+        </div>
+
+        <div class="aui hidden mockalog" id="add-gadget-feed-subscription">
+            <h2>$i18n.getText('add.gadget.feed.subscription')</h2>
+            <div class="info">
+                <fieldset class="inline">
+                    <div class="centered-form">
+                        <label for="add-gadget-feed-subscription-url">$i18n.getText("directory.add.gadget.feed.subscription.label")</label><br/>
+                        <div id="add-subscription-throbber" class="throbber">&nbsp;</div>
+                        <input class="text" id="add-gadget-feed-subscription-url" type="text" name="url" style="width:325px;">
+                        <input class="button" id="add-subscription-submit" name="add" type="submit" value="$i18n.getText('add.gadget.feed.subscription')"><br/>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="info nobox">
+                <p>$i18n.getText("directory.add.gadget.feed.subscription.explanation")</p>
+                <p><b>$i18n.getText("directory.add.gadget.feed.subscription.warning")</b></p>
+                <p>$i18n.getText("directory.add.gadget.feed.subscription.sources")</p>
+                <p>$i18n.getText("directory.add.gadget.feed.subscription.url") <em>http://example.com/jira</em></p>
+            </div>
+            <div class="buttons">
+                <button class="back left">$i18n.getText('macro.browser.back.button')</button>
+            </div>
+        </div>
+        <div class="parameters hidden">
+            <input id="subscribedGadgetFeedsUrl" value="$urlBuilder.buildSubscribedGadgetFeedsUrl()">
+            <input id="adding" value="$i18n.getText('adding')">
+            <input id="confirmRemoveSubscriptionToGadgetFeed-1" value="$i18n.getText('dashboard.confirm.remove.subscription.to.gadget.feed.1')">
+            <input id="confirmRemoveSubscriptionToGadgetFeed-2" value="$i18n.getText('dashboard.confirm.remove.subscription.to.gadget.feed.2')">
+            <input id="dashboardErrorDirectoryPermissions" value="$i18n.getText('dashboard.error.directory.permissions')">
+            <input id="dashboardErrorFailedToGetGadgetSubscriptions" value="$i18n.getText('dashboard.error.failed.to.get.gadget.subscriptions')">
+            <input id="dashboardErrorFailedToAddGadgetSubscription" value="$i18n.getText('dashboard.error.failed.to.add.gadget.subscription')">
+            <input id="dashboardErrorFailedToRemoveGadgetSubscription" value="$i18n.getText('dashboard.error.failed.to.remove.gadget.subscription')">
+            <input id="removeButtonText" value="$i18n.getText('remove.from.directory')">
+            <input id="subscribedFeedDescription" value="$i18n.getText('gadgets.subscribed.feed.description')">
+            <input id="unsubscribeFromFeed" value="$i18n.getText('gadgets.unsubscribe.from.gadget.feed')">
+        </div>
+    </body>
+</html>
+    

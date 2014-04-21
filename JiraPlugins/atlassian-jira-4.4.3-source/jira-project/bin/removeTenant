@@ -1,0 +1,56 @@
+#! /bin/bash
+
+# This should be run from the JIRA project directory, not the bin directory
+if [ ! -e jira-components ]
+then
+    echo $0 must be run from the JIRA project directory
+    exit 1
+fi
+
+# Defaults
+JIRA_HOST=localhost
+JIRA_PORT=8090
+JIRA_CONTEXT=/jira
+
+usage()
+{
+    echo "Usage: $0 [options] <tenantname>"
+    echo
+    echo "  Valid options are:"
+    echo "      -h      Host for system tenant [$JIRA_HOST]"
+    echo "      -p      Port number [$JIRA_PORT]"
+    echo "      -c      Context [$JIRA_CONTEXT]"
+    exit $1
+}
+
+TENANT_NAME=
+while getopts "h:p:c:" argname
+do
+    case $argname in
+        h)
+            JIRA_HOST="$OPTARG"
+            ;;
+        p)
+            JIRA_PORT="$OPTARG"
+            ;;
+        c)
+            JIRA_CONTEXT="$OPTARG"
+            ;;
+        ?)
+            usage 1
+            ;;
+        :)
+            echo Missing parameter for \"$OPTARG\"
+            usage 1
+    esac
+done
+
+TENANT_NAME=${!OPTIND}
+
+if [ -z "${TENANT_NAME}" ]
+then
+    usage 1
+fi
+
+curl -H "X-Atlassian-Tenant: _jiraSystemTenant" -X DELETE "http://${JIRA_HOST}:${JIRA_PORT}${JIRA_CONTEXT}/multitenant/${TENANT_NAME}?os_username=admin&os_password=admin"
+

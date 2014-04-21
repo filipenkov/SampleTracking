@@ -1,0 +1,15 @@
+#disable_html_escaping()
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.mail.webwork.MailServerActionSupport" *#
+<html>
+<head>
+    <meta name="admin.active.section" content="admin_system_menu/top_system_section/mail_section">
+    <meta name="admin.active.tab" content="outgoing_mail">
+    <title>$action.getText('jmp.tabs.mail.outgoing.title')</title>
+</head>
+<body>
+    #if ($action.canManageSmtpMailServers())
+        #parse("/secure/admin/views/smtpServers.vm")
+    #end
+</body>
+</html>
+

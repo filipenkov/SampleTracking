@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+        var contextPath = "$baseurl";
+    </script>
+    $webResourcesHtml
+</head>
+<body id="atlScriptlet">
+<div class="collector-template-bar"></div>
+<div class="aui-dialog collector-dialog custom-collector">
+    <h2 class="dialog-title">$!{collector.customTemplateTitle}</h2>
+    <form class="aui #if($preview) dont-default-focus #end" action="$canocialBaseurl/rest/collectors/1.0/template/custom/$!{collector.id}" method="POST">
+        <div class="content-body">
+            <div class="event-shield-wrapper">
+                <div class="event-shield"></div>
+                #parse('templates/collector/custommessage.vm')
+                #if($fields)
+                    <fieldset class="hidden parameters">
+                        <input type="hidden" title="projectKey" value="$textutils.htmlEncode($projectKey)"/>
+                        <input type="hidden" title="issueType" value="$issueType"/>
+                        <input type="hidden" title="customTemplate" value="true"/>
+                        <input type="hidden" title="customLabels" value="$textutils.htmlEncode($!customLabels)"/>
+                        <input type="hidden" title="fields" value="$textutils.htmlEncode($fields)"/>
+                    </fieldset>
+                    <input type="hidden" name="atl_token" value="$atl_token"/>
+                    <input type="hidden" name="pid" value="$collector.projectId"/>
+                #end
+                <div class="custom-fields-container">
+
+                </div>
+
+                <fieldset class="hidden parameters">
+                    <input type="hidden" title="collectorId" value="$!collector.id"/>
+                    <input type="hidden" name="pid" value="$!collector.projectId">
+                    <input type="hidden" name="atl_token" value="$atl_token"/>
+                    <div id="attach-max-size" class="hidden">$!maxAttachSize</div>
+    ##                This is a hack to make ajaxForm work correctly when there's on file inputs on the page. Sigh...
+                    <input type="file" class="hidden" name="_tricky_"/>
+                </fieldset>
+                #parse('templates/collector/contactform.vm')
+                <input type="hidden" name="webInfo" id="webInfo" value="$!webInfo">
+           </div>
+        </div>
+        <div class="dialog-button-panel">
+            <input type="submit" class="button-panel-button submit-button"  value="$i18n.getText('admin.common.words.submit')"/>
+            <a href="#" class="cancel">$i18n.getText('admin.common.words.close')</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

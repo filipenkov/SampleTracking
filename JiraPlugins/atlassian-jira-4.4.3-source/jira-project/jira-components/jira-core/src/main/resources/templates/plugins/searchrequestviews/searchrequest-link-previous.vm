@@ -1,0 +1,3 @@
+<div class="previous-view">
+    <a href="$link">&lt;&lt; $i18n.getText('common.concepts.back.to.previous.view')</a>
+</div>

@@ -1,0 +1,4 @@
+#enable_html_escaping()
+#if (${descriptionHtml})
+<div id="description-val">$!{descriptionHtml}</div>
+#end

@@ -1,0 +1,28 @@
+{namespace JIRA.Templates.Gadgets}
+
+
+/**
+* @param issueTable
+* @param linkHtml
+*/
+{template .assignedToMe}
+<div id="jira">
+    {if not $issueTable.empty}
+        <div class="results-wrap">
+            <div {if $issueTable.hasPaging}class="paging-table"{/if}>
+
+                {$issueTable.table|noAutoescape}
+
+                <div class="results-count">
+                    {getText('gadget.issuetable.common.displaying.link', '<strong>' + $issueTable.startIndex +  '</strong>', '<strong>' + $issueTable.end + '</strong>', $linkHtml, '<strong>' + $issueTable.total + '</strong>', '</a>')|noAutoescape}
+                </div>
+            </div>
+        </div>
+    {else}
+        <div class="empty-results">
+            {getText('gadget.issuetable.common.empty', $linkHtml, '</a>')|noAutoescape}
+        </div>
+    {/if}
+</div>
+
+{/template}

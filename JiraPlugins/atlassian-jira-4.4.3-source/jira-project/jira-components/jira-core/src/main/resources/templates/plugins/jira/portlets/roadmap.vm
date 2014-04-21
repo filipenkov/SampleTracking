@@ -1,0 +1,79 @@
+###macro (versions $versions $overdue)
+##    #foreach ($version in $versions)
+##        #set ($trCssClass = "")
+##        #if ($portlet.isOverdue($version))
+##            #set ($trCssClass = "overdue")
+##        #end
+##        #if ($velocityCount % 2 == 0)
+##            #set ($trCssClass = "$trCssClass rowAlternateLightGray")
+##        #else
+##            #set ($trCssClass = "$trCssClass rowNormal")
+##        #end
+##        <tr class="$trCssClass head vevent">
+##            <td class="icon first">#versionStatus ($version 16)</td>
+##            <td class="version"><a href="$baseurl/browse/$version.projectObject.key">$version.projectObject.name</a>&nbsp;:&nbsp;<a href="$baseurl/browse/$version.projectObject.key/fixforversion/$version.id" title="$textutils.htmlEncode($!version.description)"><span class="summary">$version.name</span></a>
+##            <td class="relDate" #if ($portlet.isOverdue($version)) style="color:red; font-weight:bold;" #end>$outlookDate.formatDMY($version.releaseDate)
+##                <span class="dtstart dtend mf-hidden">$outlookDate.formatIso8601($version.releaseDate)</span>
+##            </td>
+##            <td class="progress last">
+##                <table class="bar" cellspacing="0" cellpadding="0">
+##                <tr><td style="vertical-align:middle;padding:0;text-align:right;" class="nowrap">
+##                    #set ($graphModel = $portlet.getGraphModelForVersion($version))
+##                    #percentageGraphDiv ($graphModel $version.project $version)
+##                </td></tr>
+##                </table>
+##            </td>
+##        </tr>
+##        <tr class="$trCssClass desc">
+##            <td class="icon first">&nbsp;</td>
+##            <td class="small" colspan="2" style="width:auto;">$!version.description &nbsp;</td>
+##            <td class="progressDesc last">&nbsp;#if (!$graphModel.rows.empty) <span class="small nowrap">$i18n.getText("portlet.roadmap.progress", [$graphModel.rows.get(0).number, $graphModel.total])</span>#end </td>
+##        </tr>
+##    #end
+###end
+
+<table class="tableBorder maxWidth" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td>
+<table border="0" cellpadding="3" cellspacing="1" width="100%" >
+    <tr class=rowHeader>
+        <td class="colHeaderLink" colspan="2">$i18n.getText("portlet.roadmap.display.name"): <strong>$i18n.getText("portlet.roadmap.next.x.days", $days)</strong> <font size="1">($i18n.getText("portlet.roadmap.until", $outlookDate.formatDMY($dateBefore)))</font></td>
+    </tr>
+    <tr class="rowNormal">
+        <td>
+            #if ($overdueVersions.isEmpty() && $versions.isEmpty())
+                $i18n.getText("portlet.roadmap.no.versions", $days)
+            #else
+            <table class="rm rowNormal" cellspacing="0" style="width:100%; vertical-align:top;">
+                #if (!$overdueVersions.isEmpty())
+                    <tr class="overdue"><td colspan="4" class="first last topBorder">&nbsp;</td></tr>
+                    #versions($overdueVersions true)
+                    <tr class="overdue"><td colspan="4" class="first last bottomBorder">&nbsp;</td></tr>
+                #end
+                #if (!$versions.isEmpty())
+                    #versions($versions false)
+                #end
+            </table>
+            #end
+
+        </td>
+    </tr>
+</table>
+</td></tr>
+</table>
+<!--This CSS needs to be below the table for the spacing between portlets to be correct-->
+<style type="text/css">
+table.rm tr.head td { padding-top:6px; }
+table.rm tr.desc td { padding-bottom:6px; }
+table.rm tr.desc td { padding-bottom:6px; }
+table.rm tr td.icon { width:16px;padding-left:6px;padding-right:4px; }
+table.rm tr td.version { width:70%; }
+table.rm tr td.relDate { width:70px;white-space:nowrap; }
+table.rm tr td.progress { width:100px;text-align:right;vertical-align:middle;padding-right:6px; }
+table.rm tr td.progressDesc { width:100px;text-align:right;vertical-align:top;padding-right:6px; }
+table.bar { height:8px; vertical-align:top;float:right;padding:0;border:0; }
+table.bar tr td { text-align:right; }
+tr.overdue { background-color: #f0f0f0; }
+tr.overdue td.first { border-left:1px solid red; }
+tr.overdue td.last { border-right:1px solid red; }
+tr.overdue td.topBorder { height:1px;border-top:1px solid red;font-size:2px; padding:0; margin:0;}
+tr.overdue td.bottomBorder { height:1px;border-bottom:1px solid red;font-size:2px; padding:0; margin:0 }
+</style>

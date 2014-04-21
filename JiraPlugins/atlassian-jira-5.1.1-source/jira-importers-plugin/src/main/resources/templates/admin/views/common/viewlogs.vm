@@ -1,0 +1,100 @@
+#* @vtlvariable name="importer" type="com.atlassian.jira.plugins.importer.imports.importer.JiraDataImporter" *#
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ImporterLogsPage" *#
+
+#parse("/templates/admin/views/common/html-header.vm")
+
+#set ($auiparams = $map.build())
+#set ($auiparams.title = $action.formTitle)
+
+#parse('/templates/standard/jiraformheader.vm')
+$!{auiparams.clear()}
+
+#set ($steps = $list.build("VALIDATE", "USERS", "PROJECTS", "CUSTOM_FIELDS", "ISSUES", "LINKS"))
+#set ($titles = $list.build("", "Validate requirements", "Import Users", "Import Projects", "Import Custom Fields", "Import Issues", "Import Links"))
+
+<ul id="importSteps">
+	#foreach($step in $steps)
+	<li id="importStep-${step}">
+		<span class="jim-icon icon loading"></span>
+		<span class="jim-icon icon success"></span>
+		<span class="jim-icon icon error"></span>
+		<div class="title">${titles.get($velocityCount)}</div>
+	</li>
+	#end
+</ul>
+
+<p>
+	$i18n.getText('jira-importer-plugin.importlogs.download', [$req.contextPath, $action.externalSystem])
+
+    #if ($action.controller.usingConfiguration)
+	    $i18n.getText('jira-importer-plugin.config.download.as.file', $req.contextPath, $action.externalSystem)
+    #end
+</p>
+
+<input type="hidden" name="externalSystem" value="$!action.externalSystem"/>
+
+<script language="JavaScript">
+	(function() {
+		var showState = function() {
+			AJS.${esc.dollar}.ajax({
+				url: contextPath + "/rest/jira-importers-plugin/1.0/importer/$action.externalSystem/status",
+				cache: false,
+				data: { "atl_token": "$esc.javascript($atl_token)"},
+				success: function(data, textStatus, jqXHR) {
+					if (data.running) {
+						AJS.$("#importSteps li").removeClass("RUNNING SUCCESS ERROR");
+						for(var step in data.stages) {
+							var stage = data.stages[step];
+							var state = stage.state;
+
+							var stepRow = AJS.$("#importSteps #importStep-" + step);
+							stepRow.addClass(state);
+							var title = stepRow.find("div.title");
+							var error = stepRow.find("span.ERROR");
+
+							if (stage.warnings > 0 || stage.failures > 0) {
+								if (error.size() == 0) {
+									error = AJS.$("<span class='ERROR'></span>").appendTo(title);
+								}
+								error.html((stage["warnings"] + stage["failures"]) + ' errors or warnings');
+							} else {
+								error.remove();
+							}
+
+							if (state == "RUNNING") {
+								if (AJS.$("#progress" + step).size() == 0) {
+									stepRow.append('<div class="progress-bar" id="progress' + step + '"></div>');
+								}
+
+								var progress = Math.round((stage.itemsImported * 100) / stage.itemsToBeImported);
+								AJS.$("#progress" + step).progressBar(isNaN(progress) ? 0 : progress);
+							} else {
+								AJS.$("#progress" + step).remove();
+							}
+						}
+					} else {
+						AJS.$("form[name=jiraform]").submit();
+					}
+
+                    if (data.aborted) {
+						AJS.$("#submitButton").attr("disabled", true);
+					}
+				}
+			});
+		};
+
+		setInterval(showState, 1000);
+
+		AJS.$(document).ready(function() {
+			AJS.$("#submitButton").click(function(event) {
+				event.preventDefault();
+				AJS.${esc.dollar}.post(
+					contextPath + "/rest/jira-importers-plugin/1.0/importer/$action.externalSystem/abort",
+					{ "atl_token": "$esc.javascript($atl_token)"});
+			});
+		});
+	}());
+</script>
+
+#set ($auiparams.submitName = 'jira-importer-plugin.csv.stop.import')
+#parse("/templates/admin/views/common/import-footer.vm")

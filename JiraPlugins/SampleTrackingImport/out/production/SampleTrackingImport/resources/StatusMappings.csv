@@ -1,0 +1,61 @@
+#Very basic CSV format, tabs are used as separator to allow copy and pasting in and out of a spreadsheet
+#Lines beginning with a # or with a blank first value are ignored by the importer
+#The first 'real' line is treated as a header
+PATTERN	STATUS	RESOLUTION	SUBTASK	INCLUDES_USER	FIELD_VALUES	NOTES
+Annotation	Annotate
+Assembled	Review Assembly
+Assembly	Assemble
+Reassembly	Assemble
+Coinfection/Mixed	On-Hold
+Collaborators	Collaborator Review
+Custom Primer Design	Close Sample		Custom Closure Task			Primer Design, JS- Primer Design (!Custom Primer Design)
+Deprecated	Deprecated	Not A Bug
+Depreciated	Deprecated	Not A Bug
+Draft Published	Validate				draft=true
+Full Plate Redo	Close Sample		In House Closure Task
+Problem	Unresolved	Won't Fix
+Published	Sample Published	Work Complete
+RT-PCR	Lab Processing		RT-PCR Task
+#Reassembly	Assemble
+Received	Received Sample
+Rejected	Unresolved	 Won't Fix
+Unresolved Problem	Unresolved	 Won't Fix
+
+#Note, patterns are only tried if there is no exact match
+.*Edit.*	Close Sample		Closure Editing Task	TRUE
+.*Closure.*	Close Sample			TRUE		*
+.*Hold.*	On-Hold
+.*Pending.*	Validate					Pending,DW09 Pending,Pending-Extra Contigs
+.*Primer Design	Close Sample		Custom Closure Task	TRUE		Primer Design, JS- Primer Design (!Custom Primer Design)
+R&D.*	Assemble		Custom Closure Task	TRUE		R&D, R&D-Bridget, R&D-Katie
+Reassembly.*	Assemble					Reassembly\n
+.*Sequencing.*	Lab Processing
+SISPA.*	Lab Processing		SISPA Task			SISPA, SISPA Redo
+.*Submi.*	Submitted to GenBank					Submission; Submitted to Genbank; Submitted To Genbank
+.*Unresolved	Unresolved	Won't Fix				Unresolved, Avian- Unresolved,Human-Unresolved, Unresolved Problem
+.*Validat.*	Validate
+
+#I don't know what these should be. Mapped to Move to make it clear they are wrong
+Final Check	Move
+Next Gen Complete	Move
+Recalled	Move
+.*Avian.*	Move					Avian Varied Subtype,JS-Avian,JZ-Avian,LO-Avian,RA-Avian,TG-Avian
+
+#hrv2 sillyness
+Missing.*	Close Sample		Closure Editing Task			"Missing 3' end","Expected Samples", "Missing UTR"
+Published by DeRisi	Sample Published	Work Complete
+Lab Processing	Lab Processing
+Closed	Move					This may be validate
+Redo Library	Move
+Expected Samples	Move
+
+#I would have liked to move this to lab processing and create a sub-task but
+#it's really overkill for something that is probably never going to be looked at
+Resequencing	Move
+
+#SubTasks
+Assigned	Open
+Complete	Complete	Work Complete
+In Progress	Open
+Removed	Failed	Won't Fix
+Unassigned	Open

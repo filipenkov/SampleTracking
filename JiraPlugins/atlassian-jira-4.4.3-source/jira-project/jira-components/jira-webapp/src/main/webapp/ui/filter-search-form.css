@@ -1,0 +1,8 @@
+/* May be able to remove this once updating this form to use AUI Forms */
+#filterSearchForm { margin-bottom: 0; }
+.filterSearchInput { border-collapse: collapse; border-spacing: 0; width: 100%; }
+.filterSearchInput .fieldLabelArea { width: 150px; }
+/*.filterSearchInput .buttons input { margin-left: 157px; }*/
+.filterSearchInput font { font-size: 0.9em !important; }
+.filterSearchInput .fieldDescription { font-size: 0.9em; }
+#filter_search_results .pagination { clear: both; margin: 0 0 0.714em 0; }

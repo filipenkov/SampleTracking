@@ -1,0 +1,6 @@
+.msie-7 #project-tab,
+.msie-8 #project-tab {zoom:1;}
+.projectPanel { border: none !important; border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; vertical-align: top; width: 100%; }
+.projectPanel .header { background-color: #f0f0f0; padding: 4px; }
+
+#noprojects {clear:both; margin-top:2em;}

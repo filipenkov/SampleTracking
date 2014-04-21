@@ -1,0 +1,194 @@
+#!/bin/bash
+
+#
+# How Do I build JIRA ?!?!
+#
+# If you are internal to Atlassian, more information can be found at:
+# https://extranet.atlassian.com/display/JIRADEV/How+do+I...
+#
+# Invoke from the top of the JIRA source tree ./bin/go
+#
+# This is not to be used via Bamboo.  Please insert the proper maven command in the builder.
+# However, they should be mimic'ing those plans
+#
+# Created in case your are a build engineer who wants to build it like bamboo and not via Idea.
+# Why? To build it like bamboo!  I like to build the source of truth.
+
+# mvn testing flags
+SKIPALL=-DskipTests=true
+SKIPUNIT=-Dmaven.test.unit.skip=true
+SKIPFUNC=-Dmaven.test.func.skip=true
+SKIPSELENIUM=-Dmaven.test.selenium.skip=true
+SKIPMINI=-Djira.minify.skip=true
+
+
+
+if [ -f "${M2_HOME}/bin/mvn" ]; then
+  MVN=${M2_HOME}/bin/mvn
+else
+  MVN=mvn
+fi
+
+
+MAVEN_OPTS="-Xmx1024m -Xms256m -XX:MaxPermSize=256m"
+export $MAVEN_OPTS
+MVNCMD="${MVN} clean install"
+
+echo $MVNCMD
+
+
+function goFunc () {
+
+	echo "${MVNCMD} -pl jira-distribution/jira-func-tests-runner -am -Pdistribution ${SKIPSELENIUM} ${SKIPUNIT}"
+	${MVNCMD} -pl jira-distribution/jira-func-tests-runner -am -Pdistribution ${SKIPSELENIUM} ${SKIPUNIT}
+
+
+}
+
+function goUnit () {
+
+	${MVNCMD} -Dmaven.test.func.skip=true ${SKIPSELENIUM} ${SKIPFUNC}
+
+}
+
+function goSelenium () {
+
+	echo "Are you running this on a bamboo remote agent? (y/n)"
+	read AGENT
+
+	if [ $AGENT == "y" ] || [ $AGENT == "Y" ] || [ $AGENT == "yes" ]; then
+		TEST=0
+		while [ $TEST == 0 ]; do
+			echo "Enter in your path to your browser...."
+			read BROWSER
+			echo $BROWSER
+			echo "How many batches?"
+			read MAXBATCH
+			echo "And which batch would you like on that?"
+			read BATCHNUM
+
+			if [ ! -d $BROWSER ]; then
+
+				"The browser path ${BROWSER} is not valid... try again mate..."
+
+			else
+
+				${MVNCMD} -pl jira-distribution/jira-selenium-tests-runner -am -Pdistribution ${SKIPUNIT} ${SKIPFUNC} -Djira.security.disabled=true -Dselenium.browser=firefox -Dselenium.browser.path=${BROWSER} -Datlassian.test.suite.numbatches=${MAXBATCH} -Datlassian.test.suite.batch=${BATCHNUM}
+				TEST=1	
+			
+			fi
+		
+		done
+	else
+		echo "Local Selenium build..."
+		${MVNCMD} -pl jira-distribution/jira-selenium-tests-runner -am -Pdistribution ${SKIPUNIT} ${SKIPFUNC} -Dselenium.browser.path=''
+	fi
+}
+
+function goStandalone () {
+
+	${MVNCMD} -pl jira-distribution/jira-standalone-distribution -am -Pdistribution ${SKIPSELENIUM} ${SKIPUNIT} ${SKIPFUNC} ${SKIPMINI}
+
+}
+
+function goWar () {
+
+	${MVNCMD} -pl jira-distribution/jira-war-distribution -am -Pdistribution ${SKIPSELENIUM} ${SKIPUNIT} ${SKIPFUNC} ${SKIPMINI}
+
+}
+
+function goSource () {
+	
+	${MVNCMD} -pl jira-distribution/jira-source-distribution -am -Pdistribution ${SKIPSELENIUM} ${SKIPUNIT} ${SKIPFUNC} ${SKIPMINI}
+
+}
+
+function goWinInstaller () {
+
+	#while to take install4j path
+	TEST=0
+	while [ $TEST == 0 ]; do
+		echo "Enter in your path to install4j...."
+		read ANS
+		if [ -d $ANS ]; then
+
+			"The $PATH path is not valid... try again master..."
+
+		else
+
+			${MVNCMD} -pl jira-distribution/jira-installer-distribution -am -Pdistribution -Dinstall4j.home=$ANS
+			TEST=1
+		fi
+		
+	done
+
+	
+}
+
+function goNightly () {
+
+	${MVNCMD} -Pdistribution -Drelease-func-tests ${SKIPFUNC} ${SKIPSELENIUM}
+
+}
+
+function goBundled () {
+
+	${MVNCMD} -pl jira-components/jira-webapp -am ${SKIPSELENIUM} ${SKIPUNIT} ${SKIPFUNC}
+
+}
+
+
+function goMenu () {
+
+	echo "You wanted to build like bamboo, so here ya go..."
+	echo " ------------------------------------------------"
+	echo " selection	|	build	 "
+	echo " ------------------------------------------------"
+	echo " bundled		|	bundled plugins"
+	echo " func		|	run the func tests"
+	echo " nightly		|	run the nightly tests"
+	echo " selenium		|	run the selenium tests"
+	echo " source		|	source distribution"
+	echo " standalone	|	standalone distribution"
+	echo " unit		|	run the unit tests"
+	echo " war		|	war distribution"
+	echo " win 		| 	windows installer distribution"
+	echo " ------------------------------------------------"
+	read CHOICE
+	case $CHOICE in
+		bundled)
+			goBundled
+		;;
+		func)
+			goFunc
+		;;
+		nightly)
+			goNightly
+		;;
+		selenium)
+			goSelenium
+		;;
+		source)
+			goSource
+		;;
+		standalone)
+			goStandalone
+		;;
+		unit)
+			goUnit
+		;;
+		war)
+			goWar
+		;;
+		win)
+			goWinInstaller
+		;;
+		*)
+			echo "Invalid Selection, please 'go' again"
+		;;
+	esac
+}
+
+
+goMenu
+

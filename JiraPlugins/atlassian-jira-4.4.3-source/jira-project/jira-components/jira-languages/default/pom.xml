@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.atlassian.jira</groupId>
+    <artifactId>jira-languages</artifactId>
+    <version>4.4.3</version>
+  </parent>
+  <artifactId>jira-lang-default</artifactId>
+  <name>Atlassian JIRA - Language Packs - default</name>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>move-to-default-languages</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <copy file="${project.basedir}/../../jira-core/src/main/resources/com/atlassian/jira/web/action/JiraWebActionSupport.properties" overwrite="true" tofile="${project.build.outputDirectory}/com/atlassian/jira/web/action/JiraWebActionSupport.properties"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,7 @@
+#parse("/templates/standard/aui.vm")
+#parse("/templates/standard/normalHeader.vm")
+#if (!$auiparams.containsKey('class'))
+	#set ($auiparams.class = "text")
+#end
+#parse("/templates/common/textfield.vm")
+#parse("/templates/standard/normalFooter.vm")

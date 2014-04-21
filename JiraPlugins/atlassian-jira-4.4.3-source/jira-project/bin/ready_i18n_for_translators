@@ -1,0 +1,79 @@
+#!/bin/bash
+
+#
+# This script is here to help get all the JIRA files to the translators
+#
+#
+
+# by default bash takes the error status of the last item in a pipeline, which may not be what you want. For example, false | true will be considered to have succeeded.
+# but we can change this behaviour via this set option
+set -o pipefail
+
+
+# make sure we are in the JIRA top level directory
+if ! grep "<artifactId>atlassian-jira</artifactId>" pom.xml > /dev/null ; then echo "	You must be in the JIRA top level directory to run this script"; exit 1; fi
+
+
+jira_dir=$PWD
+bundled_zip=${jira_dir}/src/webapp/WEB-INF/classes/atlassian-bundled-plugins.zip
+svn_revision=`svn info | grep "Last Changed Rev:" | awk '{print $4}'`
+
+now=`date '+%d-%m-%Y_%H-%M'`
+target_bundled_zip=${jira_dir}/i18n-bundled-plugins.r${svn_revision}.${now}.zip
+target_jira_zip=${jira_dir}/i18n-jira.r${svn_revision}.${now}.zip
+
+
+echo ""
+echo "Getting the I18N files ready for translation"
+echo "____________________________________________"
+echo ""
+
+
+# make the bundled plugins zip 
+echo "	Running maven jira:bundled-plugins...as mvn is involved, this may take some time :)..."
+maven jira:bundled-plugins > /dev/null
+if [ "$?" -ne 0 ]; then echo "	maven jira:bundled-plugins failed. Run it by hand to work out why"; exit 1; fi 
+
+if [ ! -f ${bundled_zip} ] ; then echo "the ${bundled_zip} file cannot be found"; exit 1; fi
+
+rm -rf ready_for_translation  > /dev/null
+mkdir ready_for_translation  > /dev/null
+pushd ready_for_translation  > /dev/null
+if [ "$?" -ne 0 ]; then echo "	Could change into ready_for_translation directory"; exit 1; fi 
+
+
+
+echo "	Unzipping ${bundled_zip}  ..."
+unzip ${bundled_zip} > /dev/null
+if [ "$?" -ne 0 ]; then echo "	Could not unzip ${bundled_zip}"; exit 1; fi 
+
+echo "	Finding jars"
+for f in $(ls 2>/dev/null); 
+do 
+   	unzip -x $f -d $f'.translate' > /dev/null; 
+	if [ "$?" -ne 0 ]; then echo "	Could not unzip ${f}"; exit 1; fi 
+done ; 
+
+
+echo "	Finding I18N .properties files and zipping them into ${target_bundled_zip}"
+
+find *.jar.translate -name '*.properties' | grep -v pom.properties | grep -v rome.properties | grep -v nekohtml | grep -v help-links.properties | grep -v perforce-jira-plugin.properties  | grep -v help-paths.properties | grep -v atlassian-gadgets.properties | xargs zip ${target_bundled_zip} > /dev/null
+if [ "$?" -ne 0 ]; then echo "	Could not zip up .property files into ${target_bundled_zip}"; exit 1; fi 
+
+popd > /dev/null
+
+
+echo "	Finding JIRA I18N .properties file and zipping them into ${target_jira_zip}"
+find . -name 'JiraWebActionSupport*.properties' | xargs zip ${target_jira_zip} > /dev/null
+if [ "$?" -ne 0 ]; then echo "	Could not zip up JIRA .property files into ${target_jira_zip}"; exit 1; fi 
+
+
+echo ""
+echo "____________________________________________"
+echo ""
+echo "The following files can be sent to the translators"
+echo ""
+echo "	${target_jira_zip}"
+echo "	${target_bundled_zip}"
+
+

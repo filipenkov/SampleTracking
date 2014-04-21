@@ -1,0 +1,34 @@
+{
+    "projects": [
+        {
+            "name": "Sample data",
+            "versions": [
+                {
+                    "name": "1.0",
+                    "description": "Version 1.0",
+                    "archived": true,
+                    "released": true,
+                    "releaseDate": "P3W"
+                },
+                {
+                    "name": "1.1",
+                    "description": "Version 1.1",
+                    "archived": false,
+                    "released": false
+                },
+                {
+                    "name": "1.9",
+                    "description": "Version 1.9"
+                },
+                "2.3"
+
+            ],
+            "components": [
+                "Raw Name",
+                { "name": "Just Name"},
+                { "name": "With Desc", "description": "The description"},
+                { "name": "Sophisticated", "lead": "admin", "description": "This is a component with provided description." }
+            ]
+        }
+    ]
+}

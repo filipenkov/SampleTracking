@@ -1,0 +1,13 @@
+#if($withSummary && $remoteIssueLink.getSummary())
+    #if($remoteIssueLink.isResolved())
+      <a href="$remoteIssueLink.getUrl()" class="issue-link"><span class="resolved-link">$remoteIssueLink.getTitle()</span> - $remoteIssueLink.getSummary()</a>
+    #else
+      <a href="$remoteIssueLink.getUrl()" class="issue-link">$remoteIssueLink.getTitle() - $remoteIssueLink.getSummary()</a>
+    #end
+#else
+    #if($remoteIssueLink.isResolved())
+      <a href="$remoteIssueLink.getUrl()" class="issue-link"><span class="resolved-link">$remoteIssueLink.getTitle()</span></a>
+    #else
+      <a href="$remoteIssueLink.getUrl()" class="issue-link">$remoteIssueLink.getTitle()</a>
+    #end
+#end

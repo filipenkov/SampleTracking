@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+    <ModulePrefs title="${portletTitle}" directory_title="${portletTitle} ($i18n.getText('common.concepts.legacy'))" description="${portletDescription}"
+                 author="Atlassian" author_affiliation="Atlassian"
+                 author_location="Sydney, Australia" height="100">
+        <Require feature="dynamic-height"/>
+        <Require feature="views" />
+        <Require feature="atlassian.util" />
+        <Optional feature="gadget-directory">
+            <Param name="categories">JIRA</Param>
+        </Optional>
+        <Require feature="oauthpopup" />
+        #oauth
+    </ModulePrefs>
+    <Content type="html">
+        <![CDATA[
+        ${requiredResourceHtml}
+        <script type="text/javascript">
+            //this is really only defined on a global level here to make sure that plugins javascript that depends on
+            //the presence of this global var still work. (JRA-17415)
+            var contextPath = '${baseurlHtml}';
+
+            jQuery.namespace("jira.app.gadgetbridge");
+
+            jira.app.gadgetbridge = function () {
+                var contentDiv = jQuery("#portlet-content"),
+                //dodgy hack to make adding menuitems easy.
+                gadget = AJS.Gadget({baseUrl: '${baseurlHtml}', view:{template:function() {}}}),
+
+                getContents = function() {
+                    var portletId = new gadgets.Prefs().getModuleId();
+                   jQuery.getJSON("${baseurlHtml}/rest/gadget/1.0/legacy/" + portletId + ".json", renderPortlet);
+                },
+
+                setConfigureContent = function(data) {
+                    contentDiv.html(data).show();
+
+                    jQuery("#cancelButton").removeAttr("onclick").click(function(e) {
+                        e.preventDefault();
+                        contentDiv.hide();
+                        getContents();
+                    });
+
+                    jQuery("form[name=jiraform]").submit(function(e) {
+                        e.preventDefault();
+                        contentDiv.hide();
+                        var postdata = jQuery("form[name=jiraform]").serializeArray();
+                        
+                        jQuery.post("${baseurlHtml}/secure/SavePortlet.jspa?decorator=none&displayUserSummary=false", postdata, function(data) {
+                            if (data.indexOf("errMsg") != -1) {
+                                setConfigureContent(data);
+                            }
+                            else {
+                                getContents();
+                            }
+                        }, "html")
+                    });
+
+                    setTimeout("gadgets.window.adjustHeight()", 300);
+                },
+
+                loadConfigurationScreen = function(editUrl) {
+                    if(isWriteable()) {
+                        gadget.removeMenuItem("configure");
+                        jQuery.get("${baseurlHtml}/" + editUrl, setConfigureContent, "html");
+                    }
+                },
+
+                renderPortlet = function(data) {
+                    var configData = data;
+                    if(configData.isConfigurable && isWriteable()) {
+                        jQuery("body").addClass("content-padding");
+                    }
+
+                    if(configData.requiresInitialConfiguration && isWriteable()) {
+                        loadConfigurationScreen(configData.editUrl);
+                    }
+                    else {
+                        jQuery.get("${baseurlHtml}/" + data.url, function(data) {
+                            contentDiv.html(data).show();
+
+                            //remap all the links to _blank so they won't open in the iFrame.
+                            jQuery("#portlet-content a").each(function(i) {
+                                if (jQuery(this).attr("href") !== "#") {
+                                    jQuery(this).attr("target", "_parent");
+                                }
+                            });
+
+                            if(configData.isConfigurable && isWriteable()) {
+                                gadget.addMenuItem("configure", configData.editName, function (e) {
+                                    loadConfigurationScreen(configData.editUrl);
+                                    contentDiv.hide();
+                                    e.preventDefault();
+                                });
+                            }
+
+                            setTimeout("gadgets.window.adjustHeight()", 300);
+                        }, "html");
+                    }
+                },
+
+                isWriteable = function () {
+                    if (gadgets.views) {
+                        return gadgets.views.getParams().writable === undefined || gadgets.views.getParams().writable === "true";
+                    }
+                };
+
+                return {
+                    getPortletContents : function() {
+                        getContents();
+                    }
+                };
+
+            };
+
+            gadgets.util.registerOnLoadHandler(function() {
+                var bridge = jira.app.gadgetbridge();
+                bridge.getPortletContents();
+            });
+        </script>
+
+        <style type="text/css">
+            .fieldLabelArea, .fieldLabelAreaTop { background-color: #FFFFF0; text-align: right; vertical-align: top; }
+            .jiraform { border: 1px solid #BBBBBB; border-collapse: collapse; border-spacing: 0; margin: 0 auto; width: 100%; }
+            .jiraform .jiraformfooter { text-align: center; }
+            .formtitle { color: #003366; font-family: Arial, sans-serif; font-size: 17px; font-weight: bold; margin: 0 0 2px; }
+            .jiraformheader, .jiraformSectionBreak { background-color: #F0F0F0; }
+
+            body{background-color:white !important;}            
+            body, p, ul, ol, dl, li, td, textarea, input, select, button, option, optgroup {color: black; font-family: Arial, Sans-Serif; font-size: 12px; }
+            h3 { font-size: 16px; margin-top: 10px; }
+            h1, h2, h3, h4, h5, h6 { font-family: Arial, Sans-Serif; font-weight: bold; margin-bottom: 0; }
+
+            #portlet-content {padding: 5px !important;background-color: #FFFFFF;display:none;overflow-x:auto;}
+            .errMsg { color: #CC0000; font-weight: bold; text-align: center; }
+            .formErrors { background-color:#ffe7e7 !important; }
+            .configure {display:none};
+
+            .loading * {display:none;}
+            .loading {background:url("${baseurlHtml}/images/gadgets/loading.gif") center no-repeat; height:100%;}
+            button::-moz-focus-inner {border: 0;}
+        </style>
+
+        <div class="gadget default">
+            <div class="view">
+                <div id="portlet-content"/>
+            </div>
+            <div class="footer">
+                <button class="configure"/>
+            </div>
+        </div>
+        ]]>
+    </Content>
+</Module>

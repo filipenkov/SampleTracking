@@ -1,0 +1,8 @@
+<mail-config>
+	<manager class="com.atlassian.mail.server.managers.XMLMailServerManager">
+        <property>
+            <name>config-file</name>
+            <value>test-mail-servers.xml</value>
+        </property>
+	</manager>
+</mail-config>

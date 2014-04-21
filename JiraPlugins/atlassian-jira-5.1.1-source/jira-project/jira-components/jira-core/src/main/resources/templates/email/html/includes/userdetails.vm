@@ -1,0 +1,29 @@
+#disable_html_escaping()
+<table cellpadding="3" cellspacing="0" style="background:${commentBackground};border:1px solid ${borderColour};margin:0;padding:0.5em;width:100%;">
+    <tbody>
+    <tr>
+        <th style='color:${textSubtleColour};font-family:${textFontFamily};font-size:${textSize};font-weight:normal;padding-right:1em;text-align:right;width:7em;' scope="row">
+            $i18n.getText('template.user.details.username')
+        </th>
+        <td style='color:${textColour};font-family:${textFontFamily};font-size:${textSize};'>
+            $user.name
+        </td>
+    </tr>
+    <tr>
+        <th style='color:${textSubtleColour};font-family:${textFontFamily};font-size:${textSize};font-weight:normal;padding-right:1em;text-align:right;' scope="row">
+            $i18n.getText('template.user.details.email')
+        </th>
+        <td style='color:${textColour};font-family:${textFontFamily};font-size:${textSize};'>
+            $user.emailAddress
+        </td>
+    </tr>
+    <tr>
+        <th style='color:${textSubtleColour};font-family:${textFontFamily};font-size:${textSize};font-weight:normal;padding-right:1em;text-align:right;' scope="row">
+            $i18n.getText('template.user.details.fullname')
+        </th>
+        <td style='color:${textColour};font-family:${textFontFamily};font-size:${textSize};'>
+            $user.displayName
+        </td>
+    </tr>
+    </tbody>
+</table>

@@ -1,0 +1,315 @@
+@import "dynamic:lookandfeel.less";
+@import "variables.less";
+
+/* modules styles - could do with a cleanup */
+.module {
+    .border-box;
+    margin: @gutter 0 0 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    .clearfix;
+    &:first-child {
+        margin-top: 0;
+    }
+    &.toggle-wrap {
+        > .mod-header h3.toggle-title {
+            background: #fff url(../../../images/icons/icon_blockexpanded.png) no-repeat 0 8px;
+            cursor:pointer;
+            padding-left: @gutter;
+        }
+    }
+    &.toggle-wrap.collapsed {
+        > .mod-header h3.toggle-title {
+            background: #fff url(../../../images/icons/icon_blockcollapsed.png) no-repeat 3px 5px;
+        }
+        > .mod-content {
+            display: none;
+        }
+    }
+    iframe {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+    > .mod-header,
+    > .mod-content,
+    > .mod-footer {
+        display: block;
+        position: relative;
+    }
+    > .mod-header + .mod-content {
+        padding: @grid @grid @grid @gutter;
+    }
+    > .mod-content {
+        .clearfix;
+    }
+    > .mod-header {
+        background: transparent url(../../../images/mod_header_bg.png) repeat-x left center;
+        margin: 0;
+        padding: 0;
+        > h3 {
+            background-color: #fff;
+            display: inline;
+            font-weight: normal;
+            margin: 0;
+            padding: 0 @grid 0 0;
+        }
+        .mod-header-panel {
+            float: left;
+        }
+        .mod-header-panels {
+            background-color: #fff;
+            float: right;
+        }
+        .ops {
+            background-color: #fff;
+            float: right;
+            margin: 3px 0 0 0;
+            padding: 0;
+            > li {
+                margin: 0 0 0 4px;
+                > .icon {
+                    display: block;
+                    margin: 0;
+                }
+            }
+        }
+        &.plain {
+            background-image: none;
+        }
+    }
+    img {max-width:100%;}
+}
+
+.toggle-wrap {
+    .toggle-title {
+        background: #fff url(../../../images/icons/icon_blockexpanded.png) no-repeat 0 8px;
+        color: @textLinkColour;
+        cursor: pointer;
+        padding-left: @gutter;
+        &:hover {
+            color: @textActiveLinkColour;
+        }
+    }
+    .toggle-target {
+        display: block;
+    }
+}
+.toggle-wrap.collapsed {
+    .toggle-title {
+        background: #fff url(../../../images/icons/icon_blockcollapsed.png) no-repeat 3px 5px;
+    }
+    .toggle-target {
+        display: none;
+    }
+}
+
+/* try to refactor out the below */
+.module table tr td.icon,
+table.aui tr td.icon { background-image: none; display: table-cell; height: auto; width: 16px; }  Override because it is inheriting our generic .icon styles
+.module table tr td.count { text-align: right; }
+.module table tr td.graph { width: 60%; }
+
+.module .component,
+.module .version { vertical-align: middle; padding: 5px 0; }
+.module .component .stat,
+.module .version .stat { float: right; padding: 0 @grid; }
+.module .component a { background: transparent url( ../../../images/icons/component.gif ) no-repeat 3px 0; padding-left: 27px; }
+.module .component a.none { background-image: none; }
+.module .version a.none { padding-left: 27px; }
+.module .version img { margin-right: @grid; padding: 0; }
+.module .toggle { color: #666; padding: 3px 6px; }
+.module .toggle:hover { cursor: pointer; }
+.reduced { margin-bottom: 0; }/* for modules with no margin or padding on the bottom */
+.reduced .mod-content {padding-bottom:0;}
+.isolated {margin:1em;} /* Only used in roadmap-panel.vm */
+.module.message {padding:10px;margin:10px 5px; display:block;}
+.module.message div {margin:0 10px 0 0!important;}
+.module.message.error.contactadmin button.tryagain {display:none;}
+.module.message.error.contactadmin p.retrycomplete {display:block;}
+.module.message.error.contactadmin p.retryprogress {display:none!important;}
+.module.message.error.retry p.retryprogress {display:block;}
+.module.message:after { content: ".";display: block; height: 0; clear: both; visibility: hidden;}
+.module.message p {margin-bottom:1em;}
+.module.message img {float:left; margin-right:10px; border:1px solid #000;}
+.module.message .retrycomplete {display:none;}
+.module.message .retry {display:none;}
+
+.item-header { min-height: 48px; position: relative; }
+.item-header .item-summary { margin: 0; }
+.item-header .item-summary a:hover { text-decoration: none; }
+.item-header .avatar + .item-summary { padding-top: 10px; }
+.item-header .avatar { height: 48px; float: left; margin: 0; overflow: hidden; padding: 0; width: 48px; }
+.item-header .avatar span { display: none; }
+.item-header .avatar + ul.breadcrumbs,
+.item-header .avatar + ul.breadcrumbs + .item-summary,
+.item-header .avatar + .item-summary { margin-left: 64px; }
+.item-header .avatar + ul.breadcrumbs + .item-summary { margin-top: 2px; }
+.item-header .item-summary .icon,
+.item-header .item-summary .status-lozenge,
+.item-header .item-summary .shared-by { margin-bottom: 5px; vertical-align: bottom; } // This is tied to the font-size of the heading - bumps them all up 5px from the bottom which aligns nicely with 23px font/27px line-height
+.item-header .item-description { margin-top: 0; }
+.item-header .avatar ~ .item-description { margin-left: 64px; }
+.item-header .aui-message { margin: @gutter 0 0 0; }
+
+/* TODO: SEAN clean this up for new browsers */
+ul.item-details {display:inline-block;vertical-align:top;width:100%;list-style-type:none;margin:0;padding:0;}
+ul.item-details.section,
+ul.item-details li.section {border-top:1px solid #ddd;margin-top:0.75em;padding-top:1.25em;}
+ul.item-details dl {display: table; width:100%;margin: 0 0 2px 0;}
+ul.item-details dl dt {display: table-cell; vertical-align: top; color:#666; width: 32%}
+ul.item-details dl dd {display: table-cell; vertical-align: top; }
+ul.item-details dl dd img {margin-right:0.25em;vertical-align:top;}
+ul.item-details dl .extra-details {width:55%;}
+/* generic spacing for item lists within tables (like on viewschemes.jsp */
+table.aui ul.item-details li {margin-top:3px;}
+table.aui ul.item-details li:first-child {margin-top:0;}
+
+#full_profile_details ul.item-details li { margin: @grid 0 0 0; }
+#full_profile_details ul.item-details li:first-child { margin-top: 0; }
+#full_profile_details ul.item-details dl { display: block; margin: 0; padding: 0; }
+#full_profile_details ul.item-details dl dt,
+#full_profile_details ul.item-details dl dd { display: block; float: none; margin: 0; padding: 0; width: auto; }
+#full_profile_details ul.item-details dl dd { padding-left: @gutter; }
+
+// TODO: SEAN refactor the property-list stuff to consolidate styles
+/* used by view_customfields.jsp and detailsblock.vm */
+.property-list { list-style:none; margin: 0; overflow: hidden; padding: 0; width: 100%; }
+.property-list .item, .property-list .item-right { clear: left; float: left; margin: 0; padding: 0; width: 100%; }
+.property-list .wrap { overflow: hidden; padding: 0 1em 2px 12em; }
+.property-list .name { background: transparent; color: #666; float: left; font-weight: normal; margin: 0 0 0 -12em; width: 11em; }
+.property-list .value img {vertical-align:text-top;}
+.two-cols .item { width: 50%; } /* mutator for .property-list */
+.two-cols .item-right { clear: right; float: right; }
+.two-cols .item-right .wrap { border-left: 1px solid #ddd; padding: 0 0 2px 13em; }
+.two-cols .item.full-width{ clear:both; float:none; width:100%; }
+    /* Below values pulled from the Application Property value
+       - should try and refactor how we do this so we can remove these styles
+       NB: These values will always be in em */
+    .property-list .name {margin-left:0em - (@fieldLabelWidth + 1.0em);width:@fieldLabelWidth + 0.5em;}
+    .property-list .item-right .name {margin-left:0em - (@fieldLabelWidth + 1.5em);}
+    .property-list .wrap {padding-left:@fieldLabelWidth + 1.0em;}
+    .two-cols .item-right .wrap {padding-left:@fieldLabelWidth + 2.0em;}
+
+/* used only by detailsblock.vm */
+#customfieldmodule {clear:both;padding-top:3px;}
+#customfieldmodule .tabwrap {margin-bottom:6px;padding-top:3px;}
+#customfieldmodule .property-list .item {border-top:1px solid #ddd;}
+#customfieldmodule .pl-tab .item:first-child {border-top:none;}
+#customfieldmodule .property-list .wrap {padding-top:5px;padding-bottom:5px;}
+
+/* used only by detailsblock.vm */
+#environment-val.mod-content {padding-bottom:0;}
+#environment-val ul.item-details dl dd {clear:both;float:none;margin-left:1.25em;width:auto;}
+#environment-val ul.item-details dl dd.twixified {margin-left:0;width:100%;}
+
+/* used only by peopleblock.vm */
+#peoplemodule:after { content: ".";display: block; height: 0; clear: both; visibility: hidden;}
+
+
+/* Don't show tab for Dark Features - it's kind of the point. */
+#up_up-darkfeatures-panel_li {display:none;}
+
+/* used only by viewschemes.jsp */
+#workflow_schemes_table ul.item-details dl dt,
+#workflow_schemes_table ul.item-details dl dd {width:39%}
+#workflow_schemes_table ul.item-details dl dd.rarr {text-align:center;width:10%}
+
+/* used on edituserprojectroles.jsp */
+#projectselect {padding:6px;} // Phase this out using .module
+
+/* used on admin viewuser.jsp */
+#viewUserDetails .item-details li dl {margin-bottom:7px;}
+
+/* Activity Stream */
+#activitymodule .activitystream-container iframe {border-bottom:1px solid #eee;}
+#activitymodule .tabs2 {padding-right:2em;}
+#activitymodule .tabs2 .sortwrap {bottom:0;left:auto;position:absolute;right:0;width:1.5em;}
+#fragactivitystream .mod-content {padding:0 0 0 0.4em;}
+.message-container {border-bottom:1px solid #eee;padding-bottom:1.5em;} /* used for generic messages in the activity stream */
+.activitystream-container iframe {width:100%}
+
+
+.user-group-info {margin-bottom:14px;}
+.user-details {margin-bottom:14px;overflow:hidden;}
+.user-details dt,
+.user-details dd {float:left;}
+.user-details dt {clear:left;font-weight:700;margin-right:14px;}
+
+.admin-list { margin: 0; padding: 0; list-style: none; overflow: visible;}
+.admin-list li {background: url( ../../../images/icons/bullet_blue.gif ) no-repeat 0 4px;padding-left:14px;}
+
+#admin-headers .ops-cont {
+    float: right;
+    padding: 0;
+    margin-top: -3px;
+}
+
+/* twixi */
+.twixi-wrap { padding-left: (3*@grid); position: relative; }
+.twixi-wrap .twixi, .twixi-wrap .inverted-twixi  { display: block; position: absolute; left: 0; top: 0; width: 16px; height: 16px; }
+.twixi-wrap .twixi .icon { margin: 0; vertical-align: top; }
+
+/* Generic Twixi */
+.twixi-trigger { cursor: pointer; }
+.twixi-block.collapsed .icon-twixi { background-position: 0 -849px; }
+.twixi-block.expanded .icon-twixi { background-position: 0 -799px; }
+.twixi-block.expanded .twixi-content { display: block; }
+.twixi-block.collapsed .twixi-content { display: none; }
+
+/* Contextual overrides */
+#issue-filter .toggle-wrap {background:#fff url(../../../images/mod_header_bg.png) repeat-x 0 -1px;}
+#issue-filter .toggle-trigger {margin-bottom:0;}
+#issue-filter .toggle-title {padding:3px 4px 4px 14px;font-size: 15px; line-height: 1.2667;width:auto;}
+
+.msie-8 #issue-filter .toggle-wrap { background-position:0 14px; }
+.msie-gt-7 form#issue-filter legend { width:100%; }
+
+.shorten { display: block; overflow: hidden; padding: 0; position: static; width: auto; }
+.shorten .ellipsis {color:#444; padding-left:17px; padding-right:1px; margin-left:1px; background:url(../../../images/icons/ico_ellipses.png) no-repeat 0 0;}
+.shorten .ellipsis:hover, .icon-hide:hover {background-color:#eee; text-decoration:none;}
+.icon-hide {color:#444; padding-right:1px; margin:0 1px; background:url(../../../images/icons/ico_ellipses_back.png) no-repeat 0 0;}
+.concise .flooded {xheight: 1.429em;overflow: hidden;white-space:nowrap;text-overflow:ellipsis;-ms-text-overflow:ellipsis;width:100%;}
+.verbose .flooded {
+    overflow:auto;
+    overflow-y:hidden;
+}
+.inverted-twixi-block.expanded .concise,
+.inverted-twixi-block.collapsed .verbose,
+.twixi-block.expanded .concise,
+.twixi-block.collapsed .verbose {display: none;}
+.overflow-ellipsis {white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+
+/* Aim to remove - List styles for dueissues.vm, dueversions.vm and recentissues.vm */
+ul.issues {display:inline-block;list-style-type:none;margin:0 0 0.25em;padding:0;vertical-align:top;width:100%;}
+ul.issues li {clear:both;display:block;margin: 0 0 0.25em;position:relative;padding:0.3em 0 0.3em 18px;}
+ul.issues li:after { content: ".";display: block; height: 0; clear: both; visibility: hidden;}
+ul.issues li .label {color:#666;}
+ul.issues li .date {color:#333;float:right;padding:0 0.5em;}
+ul.issues li .issue,
+ul.issues li .version {display:block;float:left;padding:0 0.5em;position:relative;}
+ul.issues li .description {color:#333;clear:both;display:block;padding:0 0.5em;}
+ul.issues li img,
+ul#stream img {margin:0;position:absolute;left:0;top:0.4em;}
+ul.issues li abbr {border:none;}
+.msie-8 .module ul.issues li,
+.msie-8 #primary ul.issues li {zoom:1;}
+
+#oauth-user-profile { padding: 0; }
+
+/* Context lists - used for Custom Fields */
+.context-list {
+    display: block;
+    > dt {
+        display: block;
+        margin: 8px 4px 0 0;
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+    > dd {
+        display: inline-block;
+        margin: 0 4px 0 0;
+    }
+}

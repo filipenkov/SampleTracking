@@ -1,0 +1,26 @@
+## Rendered by the Authentication Provider configuration servlets when a
+## RequestException is thrown.
+
+#* @vtlvariable name="message" type="java.lang.String" *#
+#* @vtlvariable name="status" type="int" *#
+#* @vtlvariable name="i18n" type="com.atlassian.sal.api.message.I18nResolver" *#
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$status: $!message</title>
+    ${webResources.get()}
+</head>
+<body>
+<div class="standalone-message">
+    <div class="aui-message error">
+        <span class="aui-icon icon-error"></span>
+        #if ($message)
+            $message
+        #else
+            $i18n.getText("auth.config.unknown.error")
+        #end
+    </div>
+    <p>Status code: ${status}</p>
+</div>
+</body>
+</html>

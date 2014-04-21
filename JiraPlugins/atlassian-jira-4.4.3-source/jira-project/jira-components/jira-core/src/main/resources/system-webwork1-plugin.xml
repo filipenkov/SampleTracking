@@ -1,0 +1,18 @@
+<atlassian-plugin key="com.atlassian.jira.plugin.system.webwork1" i18n-name-key="admin.webwork.plugin.name" name="Webwork Plugin">
+    <plugin-info>
+        <description key="admin.webwork.plugin.desc">JIRA's system webwork plugin.</description>
+        <version>1.0</version>
+        <application-version min="3.1" max="3.1"/>
+        <vendor name="Atlassian" url="http://www.atlassian.com"/>
+    </plugin-info>
+
+    <!-- This is just an example plugin, and can be removed as soon as other examples are created -->
+    <webwork1 key="webwork-test" i18n-name-key="admin.webwork.plugin.test.name" name="Test webwork plugin" class="java.lang.Object">
+        <actions>
+            <action name="JiraWebActionSupport" alias="PluginAdministrators">
+                <view name="success">/templates/plugins/jira/webwork1/administrators.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+
+</atlassian-plugin>

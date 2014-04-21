@@ -1,0 +1,10 @@
+Project,Summary,Issue Type,Issue id,Parent id,Description,Date Created,Reporter
+CSVTEST,Parent Issue,Story,TEST - CSV01,,This is a Parent Issue,20111213143305,jalex
+CSVTEST,Sub-task 01,Technical task,,TEST - CSV01,This is Sub-task 01,20111213143306,jalex
+CSVTEST,Sub-task 02,Technical task,,TEST - CSV01,This is Sub-task 02,20111213143307,jalex
+CSVTEST,Sub-task 03,Technical task,,TEST - CSV01,This is Sub-task 03,20111213143308,jalex
+CSVTEST,Sub-task 04,Technical task,,TEST - CSV01,This is Sub-task 04,20111213143309,jalex
+CSVTEST,Sub-task 05,Technical task,,TEST - CSV01,This is Sub-task 05,20111213143310,jalex
+CSVTEST,Sub-task 06,Technical task,,TEST - CSV01,This is Sub-task 06,20111213143311,jalex
+CSVTEST,Sub-task 07,Technical task,,TEST - CSV01,This is Sub-task 07,20111213143312,jalex
+CSVTEST,Sub-task 08,Technical task,,TEST - CSV01,This is Sub-task 08,20111213143313,jalex

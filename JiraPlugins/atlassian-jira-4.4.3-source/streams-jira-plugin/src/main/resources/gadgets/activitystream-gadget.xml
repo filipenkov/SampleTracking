@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+    <ModulePrefs title="__MSG_gadget.activity.stream.title__" directory_title="__MSG_gadget.activity.stream.title__" description="__MSG_gadget.activity.stream.description__"
+                 author="Atlassian" author_affiliation="Atlassian"
+                 author_location="Sydney, Australia" height="100"
+                 screenshot='#staticResourceUrl("com.atlassian.streams.streams-jira-plugin:activitystream-gadget", "images/activity-streams-screenshot.png")'
+                 thumbnail='#staticResourceUrl("com.atlassian.streams.streams-jira-plugin:activitystream-gadget", "images/activity-streams-thumb.png")'>
+        <Optional feature="gadget-directory">
+            <Param name="categories">
+                JIRA
+            </Param>
+        </Optional>
+        <Optional feature="atlassian.util" />
+        <Optional feature="auth-refresh" />
+        <Require feature="views" />
+        <Require feature="setprefs" />
+        <Require feature="settitle"/>
+        <Require feature="dynamic-height"/>
+        <Require feature="oauthpopup" />
+        #oauth
+        #supportedLocales("gadget.common,gadget.activity.stream")
+    </ModulePrefs>
+    <!-- isConfigured is used by gadget to determine if standard config screen should be shown, which we don't want to happen -->
+    <UserPref name="isConfigured" datatype="hidden" default_value="true" />
+    <!-- isReallyConfigured is used by streams js to determine if gadget has actually been configured or not -->
+    <UserPref name="isReallyConfigured" datatype="hidden" default_value="false" />
+    <UserPref name="title" datatype="hidden" default_value="__MSG_gadget.activity.stream.title__" />
+    <UserPref name="titleRequired" datatype="hidden" default_value="true" />
+    <UserPref name="numofentries" datatype="hidden" default_value="10" />
+    <UserPref name="refresh" datatype="hidden" default_value="false" />
+    <UserPref name="rules" datatype="hidden" />
+    <!-- Used to denote that the stream is being rendered in a specific context, like the JIRA view issue screen -->
+    <UserPref name="renderingContext" datatype="hidden" />
+    <!-- legacy prefs, only for backwards compatibility -->
+    <UserPref name="keys" datatype="hidden" />
+    <UserPref name="itemKeys" datatype="hidden" />
+    <UserPref name="username" datatype="hidden" />
+    <Content type="html" view="canvas,default,projectTab,profileTab,issueTab">
+        <![CDATA[
+
+        <script type="text/javascript">
+            var ActivityStreamsGadgetBaseUrl = "__ATLASSIAN_BASE_URL__";
+        </script>
+
+        #requireResource("com.atlassian.jira.gadgets:common")
+        #requireResource("com.atlassian.gadgets.publisher:ajs-gadgets")
+        #requireResource("com.atlassian.streams:streamsWebResources")
+        #includeResources()
+
+        <script type="text/javascript">
+            var prefs = new gadgets.Prefs(),
+                loadedDateLibrary = false,
+                titleRequired = prefs.getBool("titleRequired"),
+                stream;
+            if(titleRequired) {
+                gadgets.window.setTitle("__MSG_gadget.activity.stream.title__");
+            }
+            AJS.Gadget({
+                baseUrl: "__ATLASSIAN_BASE_URL__",
+                useOauth: "/rest/gadget/1.0/currentUser",
+                // if this config property isn't present, the "Edit" option won't be available in the tools dropdown, but
+                // we want it there because we're overriding it
+                config: {
+                    descriptor: function () {
+                        return  {
+                            action: "/rest/activity-stream/1.0/validate",
+                            theme : "gdt",
+                            fields: []
+                        };
+                    }
+                },
+                view: {
+                    enableReload: true,
+                    template: function () {
+                        if (stream && stream.update) {
+                            // if stream object already exists, the gadget was probably refreshed so just tell the stream to update itself
+                            stream.update();
+                        } else {
+                            var gadget = this,
+                                container = gadget.getView(),
+                                defaultJsUrl = '#staticResourceUrl("com.atlassian.streams.streams-jira-plugin:date-default", "date.js")',
+                                localeJsUrl = defaultJsUrl.replace('date-default', 'date-' + prefs.getLang() + '-' + prefs.getCountry()),
+                                load = function(data) {
+                                    loadedDateLibrary = true;
+                                    // trigger this function so that stuff that depends on this localized content knows it can be safely loaded
+                                    AJS.$(document).trigger('dateLocalizationLoaded.streams');
+                                };
+
+                            if (!loadedDateLibrary) {
+                                // load the necessary date.js localized file. the default should already be loaded, so if this fails it will fall back to that
+                                AJS.$.ajax({
+                                    type: 'get',
+                                    url: localeJsUrl,
+                                    dataType: 'jsonp',
+                                    jsonp: 'callback',
+                                    jsonpCallback: 'ActivityStreams.loadDateJs',
+                                    global: false,
+                                    success: load
+                                });
+                            }
+
+                            // reset view
+                            gadget.getView().empty();
+
+                            //only show the footer if the gadget is configurable.
+                            if (this.getPrefs().getString("isConfigurable") === "false") {
+                                gadget.getFooter().hide();
+                            }
+
+                            gadget.showLoading();
+                            ActivityStreams.hijackGadgetConfig(gadget);
+                            stream = ActivityStreams.stream({
+                                id: this.getPrefs().getModuleId(),
+                                baseUrl: '__ATLASSIAN_BASE_URL__',
+                                maxResults: this.getPref("numofentries"),
+                                // if gadget prefs can be updated by current user, gadget will have getConfig() fn
+                                isConfigurable: !!gadget.getConfig,
+                                container: container,
+                                title: gadgets.util.unescapeString(this.getPref("title")),
+                                // Hide the header when on "View Issue" screen, or whenever titleRequired is false
+                                // (eg project page or user profile page)
+                                hideHeader: gadget.getViewMode() === 'issueTab' || !titleRequired,
+                                loaded: function() {
+                                    gadget.hideLoading();
+                                },
+                                resized: function() {
+                                    gadget.resize();
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        </script>
+        ]]>
+    </Content>
+    <Content type="html" view="wallboard">
+        <![CDATA[
+
+        <script type="text/javascript">
+            var ActivityStreamsGadgetBaseUrl = "__ATLASSIAN_BASE_URL__";
+        </script>
+
+        #requireResource("com.atlassian.jira.gadgets:common")
+        #requireResource("com.atlassian.gadgets.publisher:ajs-gadgets")
+        #requireResource("com.atlassian.streams:streamsWallboardWebResources")
+        #includeResources()
+
+        <script type="text/javascript">
+            var prefs = new gadgets.Prefs(),
+                loadedDateLibrary = false,
+                titleRequired = prefs.getBool("titleRequired"),
+                stream;
+
+            AJS.$('body').addClass('wallboard');
+
+            if(titleRequired) {
+                gadgets.window.setTitle("__MSG_gadget.activity.stream.title__");
+            }
+            AJS.Gadget({
+                baseUrl: "__ATLASSIAN_BASE_URL__",
+                useOauth: "/rest/gadget/1.0/currentUser",
+                // if this config property isn't present, the "Edit" option won't be available in the tools dropdown, but
+                // we want it there because we're overriding it
+                config: {
+                    descriptor: function () {
+                        return  {
+                            action: "/rest/activity-stream/1.0/validate",
+                            theme : "gdt",
+                            fields: []
+                        };
+                    }
+                },
+                view: {
+                    enableReload: true,
+                    template: function () {
+                        if (stream && stream.update) {
+                            // if stream object already exists, the gadget was probably refreshed so just tell the stream to update itself
+                            stream.update();
+                        } else {
+                            var gadget = this,
+                                container = gadget.getView(),
+                                defaultJsUrl = '#staticResourceUrl("com.atlassian.streams.streams-jira-plugin:date-default", "date.js")',
+                                localeJsUrl = defaultJsUrl.replace('date-default', 'date-' + prefs.getLang() + '-' + prefs.getCountry()),
+                                load = function(data) {
+                                    eval(data);
+                                    loadedDateLibrary = true;
+                                    // trigger this function so that stuff that depends on this localized content knowns it can be safely loaded
+                                    AJS.$(document).trigger('dateLocalizationLoaded.streams');
+                                };
+
+                            if (!loadedDateLibrary) {
+                                // load the necessary date.js localized file
+                                AJS.$.ajax({
+                                    type: 'get',
+                                    url: localeJsUrl,
+                                    dataType: 'text',
+                                    global: false,
+                                    success: load,
+                                    error: function() {
+                                        // if there's an error loading the locale specific file, try the default!
+                                        AJS.$.ajax({
+                                            type: 'get',
+                                            global: false,
+                                            url: defaultJsUrl,
+                                            dataType: 'text',
+                                            success: load
+                                        });
+                                    }
+                                });
+                            }
+
+                            // reset view
+                            gadget.getView().empty();
+
+                            //only show the footer if the gadget is configurable.
+                            if (this.getPrefs().getString("isConfigurable") === "false") {
+                                gadget.getFooter().hide();
+                            }
+
+                            gadget.showLoading();
+                            ActivityStreams.hijackGadgetConfig(gadget);
+                            stream = ActivityStreams.stream({
+                                id: this.getPrefs().getModuleId(),
+                                baseUrl: '__ATLASSIAN_BASE_URL__',
+                                maxResults: this.getPref("numofentries"),
+                                // if gadget prefs can be updated by current user, gadget will have getConfig() fn
+                                isConfigurable: !!gadget.getConfig,
+                                container: container,
+                                title: gadgets.util.unescapeString(this.getPref("title")),
+                                // Hide the header when on "View Issue" screen, or whenever titleRequired is false
+                                // (eg project page or user profile page)
+                                hideHeader: gadget.getViewMode() === 'issueTab' || !titleRequired,
+                                loaded: function() {
+                                    gadget.hideLoading();
+                                },
+                                resized: function() {
+                                    gadget.resize();
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        </script>
+        ]]>
+    </Content>
+</Module>

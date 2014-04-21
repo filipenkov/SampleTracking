@@ -1,0 +1,210 @@
+
+#macro (alternateRowCssClass $issueCount)
+    #if ($issueCount % 2 == 0)
+        rowAlternate
+    #else
+        rowNormal
+    #end
+#end
+
+
+#macro (header $columns $sortingenabled $firstsort $showheaderdesc $showControlRow $actionColumn)
+<thead>
+    <tr class="rowHeader">
+
+    #foreach ($column in $columns)
+        #set ($field = $column.navigableField)
+        #set ($heading = $textutils.htmlEncode($i18n.getText($column.columnHeadingKey)))
+        #set ($sortbytext = "${i18n.getText('navigator.sort.by')} $textutils.htmlEncode(${field.name})")
+
+        #if ($column.headerHtml)
+            <th id="col-header-" class="colHeaderLink"
+                #if ($layout.cellDisplayParams && $layout.cellDisplayParams.get('email_view'))
+                    style="border-bottom:1px solid #bbb;color:#999;font-weight:normal;padding:2px;text-align:left;"
+                #end
+                    >
+                $column.headerHtml
+            </th>
+        #else
+            #if ($sortingenabled == true && $field.sortComparatorSource)
+                #if ($firstsort && $column.isAliasForField($authcontext.user, $firstsort.field))
+                    #set ($sortorder = $column.getSafeSortOrder($firstsort.order))
+
+                    #if ($sortorder == 'ASC')
+                        <th class="active sortable ascending headerrow-${field.id}" rel="${field.id}:DESC" onClick="window.document.location='${requestContext.baseUrl}/secure/IssueNavigator.jspa?sorter/field=${field.id}&sorter/order=DESC'" title="$i18n.getText('navigator.ascending.order')"
+
+                            #if ($layout.cellDisplayParams && $layout.cellDisplayParams.get('email_view'))
+                                style="border-bottom:1px solid #bbb;color:#999;font-weight:normal;padding:2px;text-align:left;"
+                            #end
+
+                                >
+                            <span title="$sortbytext">$heading</span>
+                        </th>
+                    #else
+                        <th class="active sortable descending headerrow-${field.id}" rel="${field.id}:ASC" onClick="window.document.location='${requestContext.baseUrl}/secure/IssueNavigator.jspa?sorter/field=${field.id}&sorter/order=ASC'" title="$i18n.getText('navigator.descending.order')"
+
+                            #if ($layout.cellDisplayParams && $layout.cellDisplayParams.get('email_view'))
+                                style="border-bottom:1px solid #bbb;color:#999;font-weight:normal;padding:2px;text-align:left;"
+                            #end
+
+                                >
+                            <span title="$sortbytext">$heading</span>
+                        </th>
+                    #end
+                #else
+                    <th class="colHeaderLink sortable headerrow-${field.id}" rel="${field.id}:$field.defaultSortOrder" onClick="window.document.location='${requestContext.baseUrl}/secure/IssueNavigator.jspa?sorter/field=${field.id}&sorter/order=$field.defaultSortOrder'"
+
+                            #if ($layout.cellDisplayParams && $layout.cellDisplayParams.get('email_view'))
+                                style="border-bottom:1px solid #bbb;color:#999;font-weight:normal;padding:2px;text-align:left;"
+                            #end
+
+                            >
+                        <span title="$sortbytext">$heading</span>
+                    </th>
+                #end
+            #else
+                <th class="colHeaderLink headerrow-${field.id}"
+
+                    #if ($layout.cellDisplayParams && $layout.cellDisplayParams.get('email_view'))
+                        style="border-bottom:1px solid #bbb;color:#999;font-weight:normal;padding:2px;text-align:left;"
+                    #end
+
+                        >
+                    $heading
+                    #if ($showheaderdesc && $field.description && $field.description.length() > 0)
+                        <br/><small>($field.description)</small>
+                    #end
+                </th>
+            #end
+        #end
+    #end
+    #if ($actionColumn)
+        <th class="colHeaderLink headerrow-actions"
+
+                #if ($layout.cellDisplayParams && $layout.cellDisplayParams.get('email_view'))
+                    style="border-bottom:1px solid #bbb;color:#999;font-weight:normal;padding:2px;text-align:left;"
+                #end
+
+                >$i18n.getText($actionColumn.columnHeadingKey)</th>
+    #end
+    </tr>
+</thead>
+<tbody>
+
+
+##  todo - this could be refactored out into a 'header provider'
+    #if ($showControlRow)
+        <tr class="column-order">
+        #foreach ($column in $columns)
+            #set ($field = $column.navigableField)
+            #set ($normalisedCount = $velocityCount - 1)
+            <td>
+                #if ($velocityCount != 1)
+                    #if ($layout.filterId)
+                        <a href="${requestContext.baseUrl}/secure/${layout.actionUrl}?filterId=${layout.filterId}&operation=3&fieldPosition=${normalisedCount}">
+                    #else
+                        <a href="${requestContext.baseUrl}/secure/${layout.actionUrl}?operation=3&fieldPosition=${normalisedCount}">
+                    #end
+                        <img border="0" src="${requestContext.baseUrl}/images/icons/prev.gif" width="16" height="16" alt="moveleft"
+                        title="$i18n.getText('issue.columns.reorder.moveleft', $textutils.htmlEncode($i18n.getText($field.nameKey)))"></a>
+                #end
+
+                #if ($layout.filterId)
+                    <a href="${requestContext.baseUrl}/secure/${layout.actionUrl}?filterId=${layout.filterId}&operation=2&fieldPosition=${normalisedCount}">
+                #else
+                    <a href="${requestContext.baseUrl}/secure/${layout.actionUrl}?operation=2&fieldPosition=${normalisedCount}">
+                #end
+                    <img border="0" src="${requestContext.baseUrl}/images/icons/trash_16.gif" width="16" height="16" alt="remove"
+                        title="$i18n.getText('issue.columns.reorder.hidecolumn', $textutils.htmlEncode($i18n.getText($field.nameKey)))"></a>
+
+                #if ($velocityCount != $columns.size())
+                    #if ($layout.filterId)
+                        <a href="${requestContext.baseUrl}/secure/${layout.actionUrl}?filterId=${layout.filterId}&operation=4&fieldPosition=${normalisedCount}">
+                    #else
+                        <a href="${requestContext.baseUrl}/secure/${layout.actionUrl}?operation=4&fieldPosition=${normalisedCount}">
+                    #end
+                        <img border="0" src="${requestContext.baseUrl}/images/icons/next.gif" width="16" height="16" alt="moveright"
+                        title="$i18n.getText('issue.columns.reorder.moveright', $textutils.htmlEncode($i18n.getText($field.nameKey)))"></a>
+                #end
+            </td>
+        #end
+        #if ($actionColumn)
+            <td>
+                <a href="${requestContext.baseUrl}/secure/${layout.actionUrl}?operation=9">
+                <img border="0" src="${requestContext.baseUrl}/images/icons/trash_16.gif" width="16" height="16" alt="remove"
+                        title="$i18n.getText('issue.actions.and.operations.hide')"></a>
+            </td>
+        #end
+        </tr>
+    #end
+#end
+
+## JRA-14581 The td thats flush to the left after the foreach is intentional. We dont want whitespace which is why all statements are bunched up
+#macro (issues $issue $issueCount $columns $alternateRowColors $celldisplayparams $actionColumn $selectedIssueId)
+    #set ($quote = '"')
+    #set ($tooltip = $i18n.getText('navigator.carrot.helptext'))
+    #set($carrotHelpTextDisplayed = false)
+    <tr id="issuerow${issue.getId()}" rel="${issue.getId()}" data-issuekey="${issue.key}" class="issuerow #if ($alternateRowColors) #alternateRowCssClass($issueCount) #end
+        #if ($selectedIssueId && $selectedIssueId == $issue.id) #set($carrotHelpTextDisplayed = true) focused #end">
+    #foreach ($column in $columns)
+        #set($cell = $column.getHtml($celldisplayparams, $issue))
+        #set ($style = '')
+        #set ($title1 = '')
+        #set ($hiddenLink = '')
+        #if ($layout.cellDisplayParams && $layout.cellDisplayParams.get('email_view'))
+            #set ($style = 'style="border-bottom:1px solid #eeeeee;font-family: Arial, sans-serif;font-size: 14px;padding:2px;text-align:left;vertical-align:top;"')
+        #end
+        #if ($carrotHelpTextDisplayed == true && $keyboardShortcutManager.isKeyboardShortcutsEnabled())
+            #set($carrotHelpTextDisplayed = false)
+            #set ($title1 = "title=$quote$tooltip$quote")
+        #end
+        #if ($velocityCount <= 1 && $layout.cellDisplayParams && $layout.cellDisplayParams.get('navigator_view'))
+            #set ($hiddenLink = "<a class='hidden-link' href='$requestContext.baseUrl/browse/$issue.key' tabindex='-1' title='$issue.key'></a> ")
+        #end
+        <td class="nav $column.navigableField.columnCssClass" $!{style} $!{title1}>$!{hiddenLink}${cell}</td>
+    #end
+    #if ($actionColumn)
+        <td class="nav $actionColumn.navigableField.columnCssClass">$actionColumn.getHtml($celldisplayparams, $issue)</td>
+    #end
+    </tr>
+#end
+
+#macro (totals $columnTotals $columns)
+    <tr class="totals">
+    #foreach ($column in $columns)
+        #if ($columnTotals.containsKey($column.navigableField.id))
+            <td class="nav $column.navigableField.columnCssClass">$columnTotals.get($column.navigableField.id)</td>
+        #else
+            <td></td>
+        #end
+    #end
+    </tr>
+#end
+</tbody>
+#macro (pages $pager)
+    #if ($pager)
+        <p class="pagination">
+        #if ($pager.start > 0)
+            <a href="${requestContext.baseUrl}/secure/IssueNavigator.jspa?pager/start=${pager.previousStart}" rel="${pager.previousStart}" class="icon icon-previous"><span>&lt;&lt; $i18n.getText('common.forms.previous')</span></a>
+        #end
+
+        #set ($pages = $pager.getPages())
+        #if ($pages.size() > 1)
+            #foreach ($page in $pages)
+                #if ($page.currentPage == true)
+                    <strong>$page.pageNumber</strong>
+                #else
+                    <a href="${requestContext.baseUrl}/secure/IssueNavigator.jspa?pager/start=${page.start}" id="page_${velocityCount}" rel="${page.start}">$page.pageNumber</a>
+                #end
+
+                #if ($velocityCount != $pages.size())  #end
+            #end
+        #end
+
+        #if ($pager.end < $pager.total)
+             <a href="${requestContext.baseUrl}/secure/IssueNavigator.jspa?pager/start=${pager.nextStart}" rel="${pager.nextStart}" class="icon icon-next"><span>$i18n.getText('common.forms.next') &gt;&gt;</span></a>
+        #end
+        </p>
+     #end
+
+#end

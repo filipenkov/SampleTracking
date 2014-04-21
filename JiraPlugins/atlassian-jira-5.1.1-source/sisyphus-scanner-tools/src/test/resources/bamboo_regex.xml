@@ -1,0 +1,677 @@
+<object-stream>
+  <RegexEntry>
+    <pageName>Why does my build run from the command line but not in bamboo?</pageName>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=207487045</URL>
+    <Id>BAMKB207487045</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bamboo 2.6 Known Issues</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Bamboo+2.6+Known+Issues</URL>
+    <Id>BAMKB218275195</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot initialize context because there is already a root application context present</pageName>
+    <regex>java\.lang\.IllegalStateException: Cannot initialize context because there is already a root application context present</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Cannot+initialize+context+because+there+is+already+a+root+application+context+present</URL>
+    <Id>BAMKB180292325</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Upgrade to Bamboo 2.6 Fails on PostgreSQL Server due to Error &apos;Zero bytes may not occur in string parameters&apos;</pageName>
+    <regex>org\.postgresql\.util\.PSQLException:\sERROR:\scurrent\stransaction\sis\saborted,\scommands\signored\suntil\send\sof\stransaction\sblock</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Upgrade+to+Bamboo+2.6+Fails+on+PostgreSQL+Server+due+to+Error+%27Zero+bytes+may+not+occur+in+string+parameters%27</URL>
+    <Id>BAMKB218277686</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Remote Agents</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+Remote+Agents</URL>
+    <Id>BAMKB216957427</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Remote Agents (EC2)</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+Remote+Agents+%28EC2%29</URL>
+    <Id>BAMKB216957429</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Script Builder Doesn&apos;t Kill Child Processes</pageName>
+    <regex>.*cancel.*\sbuild\|.*stop\sbuild.*</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Script+Builder+Doesn%27t+Kill+Child+Processes</URL>
+    <Id>BAMKB189891893</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Remote Agent Can&apos;t Connect to Bamboo Server On Startup</pageName>
+    <regex>java\.io\.IOException: HTTP status code 404 received in response to fingerprint request</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Remote+Agent+Can%27t+Connect+to+Bamboo+Server+On+Startup</URL>
+    <Id>BAMKB183074865</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Bamboo Gadgets</pageName>
+    <regex>oauth_problem=timestamp_refused\|Remote API not activated for this JIRA installation\|signature_invalid</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+Bamboo+Gadgets</URL>
+    <Id>BAMKB213518212</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Viewing editUsers page under Administration throws Freemarker exception</pageName>
+    <regex>\{userInfo\.name\} \[on line 38\, column 13 in admin\/user\/viewPaginatedUsers\.ftl\]</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Viewing+editUsers+page+under+Administration+throws+Freemarker+exception</URL>
+    <Id>BAMKB104300745</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bamboo failing to display JUnit tests correctly</pageName>
+    <regex>java\.io\.IOException: Lock obtain timed out</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Bamboo+failing+to+display+JUnit+tests+correctly</URL>
+    <Id>BAMKB104300747</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Build execution fails due to java.lang.StackOverflowError</pageName>
+    <regex>java\.lang\.StackOverflowError</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Build+execution+fails+due+to+java.lang.StackOverflowError</URL>
+    <Id>BAMKB104300741</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot execute ant builds - Ant does not launch</pageName>
+    <regex>NoClassDefFoundError: org\/apache\/tools\/ant\/launch\/Launcher</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Cannot+execute+ant+builds+-+Ant+does+not+launch</URL>
+    <Id>BAMKB213524968</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to view authors due to java.lang.NumberFormatException</pageName>
+    <regex>com\.atlassian\.bamboo\.index\.BuildResultsSummaryDocumentFactory\.getBuildResultsSummary\(BuildResultsSummaryDocumentFactory\.java:149</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Unable+to+view+authors+due+to+java.lang.NumberFormatException</URL>
+    <Id>BAMKB104300743</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bamboo throws freemarker exception when viewing buildresultsummary page.</pageName>
+    <regex>failingSinceBuild=action\.getFailingSinceForTest\(buildResult\, testResult\) \[on line 263\, column 21 in</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Bamboo+throws+freemarker+exception+when+viewing+buildresultsummary+page.</URL>
+    <Id>BAMKB104300742</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Elastic Agent Cannot Checkout UTF-8 Filenames From Subversion</pageName>
+    <regex>svn.*convert.*to native encoding</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Elastic+Agent+Cannot+Checkout+UTF-8+Filenames+From+Subversion</URL>
+    <Id>BAMKB214862812</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Error when running agent java.net.SocketException Address already in use</pageName>
+    <regex>java\.net\.SocketException: Address already in use</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Error+when+running+agent+java.net.SocketException+Address+already+in+use</URL>
+    <Id>BAMKB192872687</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>IndexOutOfBound Exception With Subversion Configuration</pageName>
+    <regex>at org\.tmatesoft\.svn\.core\.internal\.wc\.SVNWCProperties\.readProperty</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/IndexOutOfBound+Exception+With+Subversion+Configuration</URL>
+    <Id>BAMKB181535183</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Remote agent does not restart after server outage</pageName>
+    <regex>There were 5 failed launches in a row</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Remote+agent+does+not+restart+after+server+outage</URL>
+    <Id>BAMKB213059795</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Out of Memory Error on Export Due to Coverage Plugin</pageName>
+    <regex>coverage plugin\\</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Out+of+Memory+Error+on+Export+Due+to+Coverage+Plugin</URL>
+    <Id>BAMKB178259216</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Analyse File System Problems on Windows - MS Process Monitor</pageName>
+    <regex>ENTER A VALID REGEX OR DELETE THIS LINE</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Analyse+File+System+Problems+on+Windows+-+MS+Process+Monitor</URL>
+    <Id>BAMKB218268958</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bamboo Fails to Display Pages When Using Turkish Locale</pageName>
+    <regex>Incorrect query syntax</regex>
+    <URL>http://jira.atlassian.com/browse/BAM-5838</URL>
+    <Id>BAM-5838</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SSH-based Repository Authentication Fails due to MOTD (Message of the Day)</pageName>
+    <regex>\[ExtConnection\] Message from ssh</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/SSH-based+Repository+Authentication+Fails+due+to+MOTD+%28Message+of+the+Day%29</URL>
+    <Id>BAMKB218277896</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Running Bamboo under GNU gcj.</pageName>
+    <regex>Caused by: java\.lang\.ClassCastException: gnu\.xml\.transform\.TransformerFactoryImpl cannot be cast to javax\.xml\.transform\.sax\.SAXTransformerFactory</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Running+Bamboo+under+GNU+gcj.</URL>
+    <Id>BAMKB104300737</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting SCM Integration</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+SCM+Integration</URL>
+    <Id>BAMKB218270951</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bamboo, JIRA and Confluence On a Single Application Server</pageName>
+    <regex>No framework context found</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Bamboo%2C+JIRA+and+Confluence+On+a+Single+Application+Server</URL>
+    <Id>BAMKB213522600</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Possible for user to execute the same setup step twice with the back button</pageName>
+    <regex>ava.lang.IllegalStateException: Cannot initialize context because there is already a root application context present - check whether you have multiple ContextLoader* definitions in your web.xml</regex>
+    <URL>http://jira.atlassian.com/browse/BAM-2211</URL>
+    <Id>BAM-2211</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bamboo versions 1.2.1 and above, will not export  - when using JDK 1.4</pageName>
+    <regex>Caused by: java\.lang\.NoSuchMethodError: java\.lang\.Boolean\.parseBoolean\(Ljava\/lang\/String</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Bamboo+versions+1.2.1+and+above%2C+will+not+export++-+when+using+JDK+1.4</URL>
+    <Id>BAMKB104300733</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Builds fail due to insufficient memore allocation</pageName>
+    <regex>java\.io\.IOException: java\.io.IOException: error=12</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Builds+fail+due+to+insufficient+memore+allocation</URL>
+    <Id>BAMKB130089180</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bamboo Performance</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Bamboo+Performance</URL>
+    <Id>BAMKB216957579</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot start Bamboo due to invalid web.xml file</pageName>
+    <regex>org\.springframework\.beans\.factory\.NoSuchBeanDefinitionException: No bean named \&apos;textProvider\&apos; is defined</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Cannot+start+Bamboo+due+to+invalid+web.xml+file</URL>
+    <Id>BAMKB171540511</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bamboo 2.5 Known Issues</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Bamboo+2.5+Known+Issues</URL>
+    <Id>BAMKB216957574</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bamboo 2.2 Known Issues</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Bamboo+2.2+Known+Issues</URL>
+    <Id>BAMKB216957572</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bamboo 2.3 Known Issues</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Bamboo+2.3+Known+Issues</URL>
+    <Id>BAMKB216957571</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bamboo 2.4 Known Issues</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Bamboo+2.4+Known+Issues</URL>
+    <Id>BAMKB216957570</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>java.beans.IntrospectionException occurring in some logs</pageName>
+    <regex>java\.beans\.IntrospectionException: type mismatch between read and write methods</regex>
+    <URL>http://jira.atlassian.com/browse/BAM-5398</URL>
+    <Id>BAM-5398</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Setting up Maven for Multiple Groups</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Setting+up+Maven+for+Multiple+Groups</URL>
+    <Id>BAMKB193301102</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Builds</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+Builds</URL>
+    <Id>BAMKB216957965</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Expire builds throws SQLIntegrityConstraintViolationException</pageName>
+    <regex>Cannot delete or update a parent row: a foreign key constraint fails</regex>
+    <URL>http://jira.atlassian.com/browse/BAM-3673</URL>
+    <Id>BAM-3673</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Debug the Build Process in Bamboo</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Debug+the+Build+Process+in+Bamboo</URL>
+    <Id>BAMKB195428590</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bamboo backups fail due to corrupted Kaha DB index</pageName>
+    <regex>jms-store\\kaha\.db\\index-kaha&quot; is a corrupt file</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Bamboo+backups+fail+due+to+corrupted+Kaha+DB+index</URL>
+    <Id>BAMKB171966909</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Can&apos;t Trigger Bamboo Builds Remotely</pageName>
+    <regex>Build request did not originate from the server</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Can%27t+Trigger+Bamboo+Builds+Remotely</URL>
+    <Id>BAMKB216958735</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Multiple Repository Sync in Perforce</pageName>
+    <regex>multiple repositories</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Multiple+Repository+Sync+in+Perforce</URL>
+    <Id>BAMKB176882578</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>The Builds Tab in JIRA Shows &apos;No associated builds found&apos;</pageName>
+    <regex>No associated builds found</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/The+Builds+Tab+in+JIRA+Shows+%27No+associated+builds+found%27</URL>
+    <Id>BAMKB200705493</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to extract client root from Perforce</pageName>
+    <regex>Unable to extract client root from Perforce</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Unable+to+extract+client+root+from+Perforce</URL>
+    <Id>BAMKB198246624</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot Import due to DuplicateEntityException</pageName>
+    <regex>DuplicateEntityException</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Cannot+Import+due+to+DuplicateEntityException</URL>
+    <Id>BAMKB211651375</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Subversion problems with Solaris patch level less than 137138-09</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Subversion+problems+with+Solaris+patch+level+less+than+137138-09</URL>
+    <Id>BAMKB201293894</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>PlanCreationException When Creating Plan From Maven POM</pageName>
+    <regex>PlanCreationException: No Maven 2 builder found</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/PlanCreationException+When+Creating+Plan+From+Maven+POM</URL>
+    <Id>BAMKB213057713</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to perform a fresh checkout of source code</pageName>
+    <regex>com\.atlassian\.bamboo\.repository\.RepositoryException : Unable to clean source directory</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Unable+to+perform+a+fresh+checkout+of+source+code</URL>
+    <Id>BAMKB170492359</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SVN update fails with NullpointerException</pageName>
+    <regex>Caused by: org\.tmatesoft\.svn\.core\.SVNException: svn: Error while dispatching event: null</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/SVN+update+fails+with+NullpointerException</URL>
+    <Id>BAMKB179442614</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting LDAP Integration</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+LDAP+Integration</URL>
+    <Id>BAMKB216957460</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Upgrades</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+Upgrades</URL>
+    <Id>BAMKB216957462</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Authentication Failure With NTLM Subversion Authentication</pageName>
+    <regex>SVNAuthenticationException.*Authentication required</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Authentication+Failure+With+NTLM+Subversion+Authentication</URL>
+    <Id>BAMKB194805987</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Getting Bamboo Standalone to listen to AJP 1.3 requests</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Getting+Bamboo+Standalone+to+listen+to+AJP+1.3+requests</URL>
+    <Id>BAMKB136184023</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Maven builds fail due to missing dependencies</pageName>
+    <regex>Try downloading the file manually from:</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Maven+builds+fail+due+to+missing+dependencies</URL>
+    <Id>BAMKB136184021</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Which JVM is Bamboo really using?</pageName>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=208962852</URL>
+    <Id>BAMKB208962852</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bamboo fails to connect to JIRA server</pageName>
+    <regex>Remote API not activated for this JIRA installation</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Bamboo+fails+to+connect+to+JIRA+server</URL>
+    <Id>BAMKB218267845</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Databases</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+Databases</URL>
+    <Id>BAMKB216957489</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Bamboo Plan Configuration</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+Bamboo+Plan+Configuration</URL>
+    <Id>BAMKB216957487</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Telemetry &amp; Reporting</pageName>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=216957463</URL>
+    <Id>BAMKB216957463</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Restoring a Bamboo Instance after a crash</pageName>
+    <regex>getAdministrationConfiguration .* input contained no data</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Restoring+a+Bamboo+Instance+after+a+crash</URL>
+    <Id>BAMKB207491207</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Permissions</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+Permissions</URL>
+    <Id>BAMKB216957465</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>CAPABILITY and NOTIFICATIONS table access with Empty values causes (Oracle) Deadlock</pageName>
+    <regex>ORA-00060: deadlock detected while waiting for resource</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/CAPABILITY+and+NOTIFICATIONS+table+access+with+Empty+values+causes+%28Oracle%29+Deadlock</URL>
+    <Id>BAMKB218267721</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>APPARENT DEADLOCK!!! Creating emergency threads for unassigned pending tasks!</pageName>
+    <regex>APPARENT DEADLOCK!!! Creating emergency threads for unassigned pending tasks</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/APPARENT+DEADLOCK%21%21%21+Creating+emergency+threads+for+unassigned+pending+tasks%21</URL>
+    <Id>BAMKB177799485</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bamboo Knowledge Base Home</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Bamboo+Knowledge+Base+Home</URL>
+    <Id>BAMKB179443464</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Notifications (Email &amp; IM)</pageName>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=216957451</URL>
+    <Id>BAMKB216957451</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Third Party Plugins</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+Third+Party+Plugins</URL>
+    <Id>BAMKB216957472</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bamboo cannot find build script on Windows boxes</pageName>
+    <regex>Buildfile: build.xml does not exist</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Bamboo+cannot+find+build+script+on+Windows+boxes</URL>
+    <Id>BAMKB187859244</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Crowd Integration</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+Crowd+Integration</URL>
+    <Id>BAMKB216957459</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Apache and SSL Services</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+Apache+and+SSL+Services</URL>
+    <Id>BAMKB216957457</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to view the Build Result Summary page</pageName>
+    <regex>com\.atlassian\.bamboo\.persister\.file\.XStreamBuildPersister\.loadBuildResults\(XStreamBuildPersister\.java</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Unable+to+view+the+Build+Result+Summary+page</URL>
+    <Id>BAMKB136184039</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>OutOfMemory Errors in Bamboo</pageName>
+    <regex>java\.lang\.OutOfMemoryError</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/OutOfMemory+Errors+in+Bamboo</URL>
+    <Id>BAMKB82870484</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting CVS</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+CVS</URL>
+    <Id>BAMKB216957454</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Perforce</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+Perforce</URL>
+    <Id>BAMKB216957455</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Subversion</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+Subversion</URL>
+    <Id>BAMKB216957452</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bamboo fails to index</pageName>
+    <regex>index\\write\.lock</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Bamboo+fails+to+index</URL>
+    <Id>BAMKB204047507</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>AJP Support for Bamboo</pageName>
+    <regex>java.lang.ClassNotFoundException: org.mortbay.http.ajp.AJP13Listener</regex>
+    <URL>http://jira.atlassian.com/browse/BAM-2043</URL>
+    <Id>BAM-2043</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Local Agents</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+Local+Agents</URL>
+    <Id>BAMKB216957449</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Connect to SSL Services due to PKIX Path Building Failed sun.security.provider.certpath.SunCertPathBuilderException</pageName>
+    <regex>sun\.security\.provider\.certpath\.SunCertPathBuilderException:\sunable\sto\sfind\svalid\scertification\spath\sto\srequested\starget</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Unable+to+Connect+to+SSL+Services+due+to+PKIX+Path+Building+Failed+sun.security.provider.certpath.SunCertPathBuilderException</URL>
+    <Id>BAMKB218272870</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot install Bamboo due to wrong JDK</pageName>
+    <regex>libgcj\.so</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Cannot+install+Bamboo+due+to+wrong+JDK</URL>
+    <Id>BAMKB207489370</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>ArrayIndexOutOfBoundsException when building with msbuilder</pageName>
+    <regex>AbstractDotNetBuilder\.getEnvironmentSetting</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/ArrayIndexOutOfBoundsException+when+building+with+msbuilder</URL>
+    <Id>BAMKB198803939</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Integration With Atlassian Applications</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+Integration+With+Atlassian+Applications</URL>
+    <Id>BAMKB216957441</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Exporting from Bamboo 1.1.1 produces corrupted zip archive.</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Exporting+from+Bamboo+1.1.1+produces+corrupted+zip+archive.</URL>
+    <Id>BAMKB119799836</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Connection from remote agent fails if the agent time is in the past</pageName>
+    <regex>BambooLicenseException; target is null</regex>
+    <URL>http://jira.atlassian.com/browse/BAM-4542</URL>
+    <Id>BAM-4542</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Indexing</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+Indexing</URL>
+    <Id>BAMKB216957439</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Running bamboo behind apache httpd proxy</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Running+bamboo+behind+apache+httpd+proxy</URL>
+    <Id>BAMKB171967281</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Exceptions thrown during application startup.</pageName>
+    <regex>java\.lang\.RuntimeException:\sEncryption\salgorithm\snot\sfound </regex>
+    <URL>http://jira.atlassian.com/browse/BAM-4429</URL>
+    <Id>BAM-4429</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>LDAP Users Can&apos;t Log into Bamboo Due to PartialResultException</pageName>
+    <regex>javax\.naming\.PartialResultException: Unprocessed Continuation Reference</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/LDAP+Users+Can%27t+Log+into+Bamboo+Due+to+PartialResultException</URL>
+    <Id>BAMKB217744453</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot Create Plan Using Maven POM</pageName>
+    <regex>When not aligning with a user install you must specify a local repository location using the setLocalRepositoryDirectory</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Cannot+Create+Plan+Using+Maven+POM</URL>
+    <Id>BAMKB213518439</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to edit Build Plan or View Mail Server due to Corrupt Bamboo Mail Configuration</pageName>
+    <regex>java\.lang\.RuntimeException: Error in mail config: Error in mail config: Premature end of file.</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Unable+to+edit+Build+Plan+or+View+Mail+Server+due+to+Corrupt+Bamboo+Mail+Configuration</URL>
+    <Id>BAMKB218276507</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SVN authentication fails on Windows</pageName>
+    <regex>RepositoryException.+The system cannot find the file specified</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/SVN+authentication+fails+on+Windows</URL>
+    <Id>BAMKB201294343</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>The start-bamboo wrapper does not work on Solaris SunOS</pageName>
+    <regex>\./start-bamboo: /db_01/Bamboo/wrapper/wrapper: cannot execute</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/The+start-bamboo+wrapper+does+not+work+on+Solaris+SunOS</URL>
+    <Id>BAMKB126517419</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to edit plans after upgrading to Bamboo 2.4.x</pageName>
+    <regex>config\.ConfigureBuildBuilder\.validate\(ConfigureBuildBuilder\.java:119\)</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Unable+to+edit+plans+after+upgrading+to+Bamboo+2.4.x</URL>
+    <Id>BAMKB210240498</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Setting Private Key Path For Distributed Subversion Builds Using SSH Protocol</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Setting+Private+Key+Path+For+Distributed+Subversion+Builds+Using+SSH+Protocol</URL>
+    <Id>BAMKB213058496</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Could not save the build results. Data too long for column</pageName>
+    <regex>uncategorized SQLException for SQL \[\]; SQL state \[01004\]; error code \[0\]</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Could+not+save+the+build+results.+Data+too+long+for+column</URL>
+    <Id>BAMKB181538194</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Remote Agent cannot connect via SSL to server with self signed certificate</pageName>
+    <regex>javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Remote+Agent+cannot+connect+via+SSL+to+server+with+self+signed+certificate</URL>
+    <Id>BAMKB167183849</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bamboo Export Fails due to Missing Build Trigger Reason</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Bamboo+Export+Fails+due+to+Missing+Build+Trigger+Reason</URL>
+    <Id>BAMKB218276704</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bamboo fails to startup, due to multiple deployments</pageName>
+    <regex>org\.apache\.activemq\.kaha\.impl\.StoreLockedExcpetion</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Bamboo+fails+to+startup%2C+due+to+multiple+deployments</URL>
+    <Id>BAMKB180290744</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Enable AJP Support in Bamboo Standalone</pageName>
+    <regex>java\.lang\.ClassNotFoundException org\.mortbay\.http\.ajp\.AJP13Listener</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Enable+AJP+Support+in+Bamboo+Standalone</URL>
+    <Id>BAMKB179447039</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Backup &amp; Restore</pageName>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=216957431</URL>
+    <Id>BAMKB216957431</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Installation</pageName>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Troubleshooting+Installation</URL>
+    <Id>BAMKB216957437</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Build expiry fails when excluding builds with labels</pageName>
+    <regex>com\.atlassian\.bamboo\.resultsummary\.BuildResultsSummaryImpl\.getLabelNames\(BuildResultsSummaryImpl\.java:213\)</regex>
+    <URL>http://confluence.atlassian.com/display/BAMKB/Build+expiry+fails+when+excluding+builds+with+labels</URL>
+    <Id>BAMKB144212161</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+</object-stream>

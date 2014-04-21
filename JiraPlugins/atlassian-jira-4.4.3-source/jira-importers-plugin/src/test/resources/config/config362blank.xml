@@ -1,0 +1,12 @@
+# written by PropertiesConfiguration
+# Thu Dec 16 11:14:03 CET 2010
+projectselection.TestProduct = true
+projectselection.Invalid component id = true
+project.TestProduct = TES
+project.Invalid component id = INV
+value.bug_status.NEW = 1
+value.bug_status.TESTING = 4
+value.bug_status.RESOLVED = 5
+value.bug_status.ASSIGNED = 1
+value.bug_status.QA = 4
+value.workflowScheme = 

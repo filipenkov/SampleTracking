@@ -1,0 +1,228 @@
+{namespace JIRA.Templates.ViewIssue.Header}
+
+
+/**
+* @param issue
+*/
+{template .issueHeader}
+    <div class="issue-header-content">
+        <div id="heading-avatar">
+            <img id="project-avatar" alt="" class="project-avatar-48" height="48" src="{$issue.project.avatarUrls['48x48']}" width="48">
+        </div>
+        <ul class="breadcrumbs">
+            <li><a id="project-name-val" href="{contextPath()}/browse/{$issue.project.key}">{$issue.project.name}</a> </li>
+            {if ($issue.parent and $issue.parent.id)}
+                <li><a title="{$issue.parent.summary}" id="parent_issue_summary" href="{contextPath()}/browse/{$issue.parent.key}">{$issue.parent.key} {$issue.parent.summary}</a> </li>
+            {/if}
+            <li><a id="key-val" rel="{$issue.id}" href="{contextPath()}/browse/{$issue.key}">{$issue.key}</a></li>
+        </ul>
+        <h1 id="summary-val">{$issue.summary}</h1>
+        <div class="command-bar">
+        </div>
+    </div>
+{/template}
+
+/**
+This is how the issue tools should render - See also opsbar template below - it needs to replace the "Return to Search" link in the issue-header-content above.
+{template .issueTools}
+    <div class="ops-general">
+        <ul class="ops pluggable-ops">
+            <li>
+                <a href="#" rel="nofollow" title="Share this issue by emailing other users ( Type 's' )" id="jira-share-trigger"><span class="icon icon-share"></span>Share</a>
+            </li>
+        </ul>
+        <ul id="view-drop" class="ops">
+            <li>
+                <div class="aui-dd-parent">
+                    <a class="drop lnk aui-dd-link standard icon-views" title="View this issue in another format" href="#"><span>Views</span></a>
+                        <div class="aui-list hidden">
+                        <ul class="aui-first aui-last aui-list-section">
+                            <li class="aui-list-item">
+                                <a href="" rel="nofollow" class="aui-list-item-link">XML</a>
+                            </li>
+                            <li class="aui-list-item">
+                                <a href="" rel="nofollow" class="aui-list-item-link">Word</a>
+                            </li>
+                            <li class="aui-list-item">
+                                <a href="" rel="nofollow" class="aui-list-item-link">Printable</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+{/template}
+*/
+
+
+/**
+* @param group
+* @param parentGroup
+*/
+{template .linkGroup}
+    /*
+     * Show the header if the link group contains some links or groups. If the group contains no links or groups, but
+     * the parent group has some links, show the header (and it will be rendered disabled).
+     */
+    {if $group.header and $group.header.label and (($group.links.length > 0 or $group.groups.length > 0) or ($parentGroup and $parentGroup.links.length > 0))}
+        {call .dropdownLink data="$group"/}
+    {else}
+        <ul {if $group.id}id="opsbar-{$group.id}" {/if}class="toolbar-group">
+            {foreach $link in $group.links}
+                {call .toolbarItem}
+                    {param link: $link /}
+                {/call}
+            {/foreach}
+            {foreach $subGroup in $group.groups}
+                {call .linkGroup}
+                    {param group: $subGroup /}
+                    {param parentGroup: $group /}
+                {/call}
+            {/foreach}
+        </ul>
+    {/if}
+{/template}
+
+/**
+* @param header
+* @param groups
+* @param links
+*/
+{template .dropdownLink}
+    <li class="toolbar-item toolbar-dropdown{if $links.length == 0 and $groups.length == 0} disabled{/if}">
+        <div>
+            {if $links.length == 0 and $groups.length == 0}
+                <span
+            {else}
+                <a href="#"
+            {/if}
+                {if $header.id} id="{$header.id}"{/if}
+                {call .titleAttr}
+                    {param title:$header.title/}
+                    {param label:$header.label/}
+                {/call}
+                class="toolbar-trigger {if $links.length > 0 or $groups.length > 0} js-default-dropdown{/if}{if $header.styleClass} {$header.styleClass}{/if}"
+                >
+                    {if $header.iconClass}
+                        <span class="icon {$header.iconClass}"></span>
+                    {/if}
+                    <span class="dropdown-text">{print $header.label |truncate:25}</span>
+                    <span class="icon drop-menu"></span>
+            {if $links.length == 0 and $groups.length == 0}
+                </span>
+            {else}
+                </a>
+            {/if}
+
+            <div class="aui-list hidden">
+                {if $links.length > 0}
+                    <ul class="aui-list-section aui-first{if $groups.length == 0} aui-last{/if}">
+                        {foreach $link in $links}
+                            {call .dropdownItem data="$link" /}
+                        {/foreach}
+                    </ul>
+                {/if}
+                {foreach $group in $groups}
+                    <ul class="aui-list-section{if $links.length == 0 and isFirst($group)} aui-first{/if}{if isLast($group)} aui-last{/if}">
+                        {foreach $link in $group.links}
+                            {call .dropdownItem data="$link" /}
+                        {/foreach}
+                    </ul>
+                {/foreach}
+            </div>
+        </div>
+    </li>
+{/template}
+
+/**
+* @param id
+* @param title
+* @param styleClass
+* @param href
+* @param label
+*/
+{template .dropdownItem}
+    <li class="aui-list-item">
+        <a  href="{if $href}{$href}{else}#{/if}"
+            class="aui-list-item-link{if $styleClass} {$styleClass}{/if}"
+            {call .titleAttr}
+                {param title:$title/}
+                {param label:$label/}
+            {/call}
+            {if $id}id="{$id}"{/if}>
+            {print $label |truncate:25}
+        </a>
+    </li>
+{/template}
+
+/**
+* @param link
+*/
+{template .toolbarItem}
+    <li class="toolbar-item">
+        <a id="{$link.id}"
+            {call .titleAttr}
+                {param title:$link.title/}
+                {param label:$link.label/}
+            {/call}
+            class="toolbar-trigger{if $link.styleClass} {$link.styleClass}{/if}"
+            href="{if $link.href}{$link.href}{else}#{/if}">
+            {if $link.iconClass}
+                <span class="icon {$link.iconClass}"></span>
+                <span class="trigger-text">{print $link.label |truncate:25}</span>
+            {else}
+                {print $link.label |truncate:25}
+            {/if}
+        </a>
+    </li>
+{/template}
+
+/**
+* @param title
+* @param label
+*/
+{template .titleAttr}
+    {if $title}
+        title="{$title}"
+    {elseif $label and $label.length > 25}
+        title="{$label}"
+    {/if}
+{/template}
+
+/**
+* @param issue
+*/
+{template .opsbar}
+    <div class="ops-cont">
+        <div class="ops-menus aui-toolbar">
+            {foreach $linkGroup in $issue.operations.linkGroups}
+                {if $linkGroup.id and $linkGroup.id == 'view.issue.opsbar'}
+                    <div class="toolbar-split toolbar-split-left">
+                {elseif $linkGroup.id and $linkGroup.id == 'jira.issue.tools'}
+                    <div class="toolbar-split toolbar-split-right">
+                {/if}
+                {call .linkGroup}
+                    {param group: $linkGroup /}
+                {/call}
+                </div>
+            {/foreach}
+        </div>
+    </div>
+{/template}
+/**
+the opsbar above can get stripped back to just
+<div class="ops-cont">
+    <div class="ops-menus aui-toolbar">
+        <ul class="toolbar-group">
+            <li class="toolbar-item">...</li>
+        </ul>
+        <ul class="toolbar-group">
+            <li class="toolbar-item">...</li>
+        </ul>
+        etc.
+    </div>
+</div>
+We don't need the split code any more.
+Also, check that the group classes are working correctly, we currently have <ul class="toolbar-group"><ul class="toolbar-group"> Which is not good.
+*/

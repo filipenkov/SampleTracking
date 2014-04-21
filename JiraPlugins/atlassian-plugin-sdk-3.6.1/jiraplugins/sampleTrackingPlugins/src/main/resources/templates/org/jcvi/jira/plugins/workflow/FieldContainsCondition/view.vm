@@ -1,0 +1,29 @@
+##find the user-friendly name for the field
+
+#foreach( $currentField in $allFields)
+    #if ($field && $currentField.id == $field)
+        #set ($fieldName = $currentField.name)
+    #end
+#end
+
+##alter the text based on if the condition is inverted
+#if ($invert && $invert == "TRUE")
+    #set ($condition = "does not match any of")
+#else
+    #set ($condition = "matches one of")
+#end
+
+##add a defaults
+#if (!$values)
+  #set ($values = "unspecified")
+#end
+#if (!$fieldName)
+    #if ($field)
+        #set ($fieldName = $field)
+    #else
+        #set ($fieldName = "unspecified")
+    #end
+#end
+
+##todo: get the actual field and use its name
+Test if '${fieldName}' ${condition} '${values}'

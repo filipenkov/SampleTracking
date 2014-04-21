@@ -1,0 +1,141 @@
+.multi-select {position:relative;width:508px;}
+form.aui .multi-select {padding-left:0; margin-bottom:2px;}
+.multi-select ul {list-style:none;margin:0;padding:0; }
+form.aui .multi-select textarea,
+.multi-select textarea {border:1px solid #999;display:block;float:left;height:15px;line-height:15px;margin:0;overflow:hidden;padding:4px 19px 4px 4px;resize:none;}
+.multi-select .aui-shadow {left:-7px;}
+.multi-select .representation {left:0;margin:1px 20px 0 1px;overflow:hidden;padding:1px 0 0 0;position:absolute;top:0;}
+.multi-select .representation ul.items {cursor:text;overflow:hidden; position:relative; font-size:11px;}
+.multi-select .representation ul.items li {background:#fff;cursor:default;float:left;padding:2px 1px 1px 3px;position:relative;}
+.multi-select .icon {cursor:pointer;position:absolute;right:4px;top:4px;}
+.multi-select .representation .value-item {background:none;border:none;display:block;float:left;font-family:Arial,FreeSans,Helvetica,sans-serif;height:16px;margin:0;padding:0;overflow:visible;width:auto;}
+.multi-select .representation .value-item span {background:url("../../../images/frother_bg_sml_edit.png") no-repeat scroll transparent 100% 0;color:#036;display:block;font-size:14px;padding:0;position:relative;}
+.multi-select .representation .value-item span.value-text {background-position:0 -16px;display:block;font-size:11px;height:13px;margin:0 15px 0 0;padding:1px 0 2px 6px;white-space:nowrap;}
+.multi-select .representation ul.items em {cursor:pointer;height:16px;overflow:hidden;position:absolute;right:0;text-indent:-9999px;top:2px;width:16px;}
+.multi-select .representation ul.items .overlabel {color:#999;padding-top:0.3em;padding-left:0.3em;}
+.multi-select .representation .focused .value-item,
+.multi-select .representation .focused span {background-position:100% -32px;}
+.multi-select .representation .focused span.value-text {background-position:0 -48px;}
+.multi-select .representation button::-moz-focus-inner {border:0;padding:0;}
+#user-inputted-option a {font-weight:bold;}
+#user-inputted-option .aui-item-suffix {font-weight:normal;}
+
+.ajs-multi-select-placeholder {padding:0 3px; height:23px; margin-bottom:2px; border:1px solid #999;}
+
+.aui-inline-dialog .contents {-moz-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);-webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);}
+.aui-shadow {display:none;}
+.msie .aui-shadow {display:block;}
+
+.ajs-layer {background:#fff;padding-top:4px;padding-bottom:4px;}
+.ajs-layer.box-shadow {-moz-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);-webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);}
+.ajs-layer-placeholder {position:relative;display:none;}
+.ajs-layer.box-shadow.overlabel,
+.ajs-layer.box-shadow.overlabel .aui-list{font-size:0.95em;}
+.ajs-layer.limited {max-height: 450px;overflow-y: auto; overflow-x: hidden}
+
+
+.ajs-layer {border:1px solid #bbb; position:absolute; left:0; z-index:5000; display:none; overflow-x:hidden; overflow-y: auto; }
+.msie-7 .ajs-layer,
+.msie-8 .ajs-layer {border:1px solid #bbb;}
+
+.aui-dropdown-content {display:none;}
+.aui-dropdown-trigger.active {position:relative;z-index:9999;outline:none;}
+.ajs-layer.focus-selected .aui-list {background:none;}
+.ajs-layer.focus-selected .aui-list .active {visibility:visible;}
+.ajs-layer.focus-selected .aui-list .active a.icn {background-image:url(../../../images/icons/icn-tick.gif);}
+.ajs-layer.focus-selected h5, .ajs-layer.focus-selected li {visibility:hidden;}
+
+#fancybox-inner .content {width:600px;}
+
+.aui-popup { position: fixed; top: 50%; left: 50%; z-index: 3000;}
+.aui-popup-content { padding: 10px; background: #fff; }
+.aui-popup-content form.aui { margin: 0; }
+.aui-popup-content .buttons-container,
+.aui-popup-content form.aui .buttons-container { margin-bottom: 0; min-height: 0; overflow: hidden; }
+.aui-popup-content .buttons,
+.aui-popup-content form.aui .buttons { padding: 0; text-align: right; }
+.aui-popup-content .buttons input.button,
+.aui-popup-content form.aui .buttons input.button { margin: 0 10px 0 0; }
+.aui-popup-content .buttons a.cancel,
+.aui-popup-content form.aui .buttons a.cancel { margin: 0; }
+.popup-width-medium input.upfile,
+.popup-width-medium input.long-field,
+.popup-width-medium textarea.long-field,
+.popup-width-medium .wiki-edit-content.previewClass { width: 360px; margin-right: 0; }
+.popup-width-large .wiki-edit-content.previewClass { width: 506px; }
+
+.aui-popup .aui-popup-content { padding: 0; }
+.aui-popup .aui-popup-content .content-body { position: relative; overflow: auto; padding: 10px; }
+.aui-popup .aui-popup-content .content-footer { padding: 10px; margin: 0; border-top: 1px solid #ddd; }
+
+.aui-popup.box-shadow {box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);-moz-box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);-webkit-box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);background-color:#fff;}
+.aui-popup.box-shadow .aui-popup-content {background-color:transparent;}
+.aui-popup h2.aui-popup-heading {background: #f0f0f0; color: #666; font-size: 1.3em; height: 43px; line-height: 43px; margin: 0; overflow: hidden; padding: 0 1em;}
+
+.aui-loading {display:none; background-image: url("../../../includes/jquery/plugins/fancybox/fancybox.png"); background-repeat:no-repeat; background-position:0 0; height:40px; width:40px; position:fixed; top:50%; left:50%; margin-top:-25px; margin-left:-25px;}
+.aui-item-suffix {font-size:11px;}
+
+
+
+.aui-list .aui-section-description {font-size:11px; font-weight:normal;}
+
+.aui-list .aui-list-section {border-bottom:1px solid #bbb; margin-bottom:4px; padding-bottom:4px;}
+.aui-list .aui-list-section.aui-last {border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.aui-list .aui-list-section.aui-first {border-top:none;} 
+.aui-list .aui-list-item-link,
+.aui-list .no-suggestions {text-decoration:none; background-position:5px 3px; background-repeat:no-repeat; padding:0.3em 0.5em; display:block; color:#333333;}
+.aui-list .no-suggestions {font-style: italic;}
+.aui-list .aui-iconised-link {padding-left:25px;}
+
+.msie .aui-list .aui-list-item.active .aui-list-item-link {text-decoration:none;}
+
+.aui-list a em {font-weight: bold; font-style:normal;}
+.aui-list ul  {margin:0; list-style:none; padding:0;}
+.aui-list li.active a {background-color:#3C78B5;color:#fff;}
+.aui-list h5 {padding:0.3em 0.5em;}
+.aui-list li.aui-checked a, .aui-list li a.aui-checked{background-image:url(../../../images/icons/ico_option.gif); background-repeat:no-repeat; background-position: 6px 5px;background-attachment:scroll;}
+.aui-list li.aui-checked.aui-checking a {background-color:#3C78B5; color:#fff;}
+
+.aui-list-checked {overflow:hidden;}
+.aui-list-checked .aui-list-item-link, .aui-list-checked.aui-list-item-link {padding-left:20px;}
+
+.aui-inline-dialog {z-index:500;}
+
+.queryable-select {position:relative;}
+form.aui .queryable-select {padding-bottom:2px;}
+.queryable-select .drop-menu {position:absolute; top:4px; right:5px; cursor:pointer;}
+form.aui .queryable-select input.text {margin:0;width:312px;padding-right:20px;}
+.queryable-select span.icon.drop-menu.noloading {background-image:url("../../../images/icons/sprites/icons_module.png");background-position:0 -199px;}
+.queryable-select span.icon.drop-menu.noloading:hover {background-position:-25px -199px;margin:0;}
+
+/* overrides for dialog bridge */
+.aui-popup {background:#fff;}
+
+/* overrides for aui-dropdowns on dashboard */
+#jira .aui-dropdown {min-width:150px;-moz-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);-webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);}
+#jira .aui-dropdown li a.item-link {color:#333333;min-width:150px;}
+#jira .aui-dropdown li.active a.item-link {background-color:#3C78B5;color:#fff;}
+
+
+/* Multiselect width overrides */
+.multi-select.hasIcon {width:486px; padding-right:24px;}
+.multi-select.hasIcon .drop-menu {right:28px;}
+.multi-select.hasIcon .issue-picker-popup {width:12px;height:12px;background:transparent url("../../../images/icons/create_12.png") no-repeat scroll 6px 6px; text-indent:-9999px;display:block;padding:6px;position:absolute;right:0;top:0;overflow:hidden;}
+
+.popup-width-medium .multi-select {width:376px;}
+.popup-width-medium .multi-select.hasIcon {width:350px;}
+.chrome .popup-width-medium .comment-input {overflow:hidden;} /* JRADEV-5389 */
+
+/* Labels is the full width of dialog because it doesn't have a form label */
+.popup-width-medium #edit-labels-form .ajs-multi-select-placeholder {width:500px;}
+.popup-width-medium #edit-labels-form .multi-select {width:508px;} /* 520px is the "snug" fit but it then causes horiz scrolling when the window is small */
+
+/* fancybox overrides */
+#fancybox-title { white-space: nowrap; }
+
+#jira .main-nav-dropdown {border-top:none;}
+
+#lead-suggestions {
+    min-width:300px;
+    display:none;
+}

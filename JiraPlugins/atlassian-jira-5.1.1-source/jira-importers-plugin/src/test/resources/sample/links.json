@@ -1,0 +1,48 @@
+{
+    "links": [
+        {
+            "name": "sub-task-link",
+            "sourceId": "2",
+            "destinationId": "1"
+        },
+        {
+            "name": "Duplicate",
+            "sourceId": "3",
+            "destinationId": "2"
+        }
+    ],
+    "projects": [
+        {
+            "name": "Sample data",
+            "key": "SAM",
+            "issues": [
+                {
+                    "status" : "Open",
+                    "reporter" : "admin",
+                    "created" : "P3D",
+                    "updated" : "P1D",
+                    "summary" : "Parent case",
+                    "externalId": "1"
+                },
+                {
+                    "status" : "Open",
+                    "reporter" : "admin",
+                    "issueType": "Subtask",
+                    "created" : "P3D",
+                    "updated" : "P1D",
+                    "summary" : "Sub-task",
+                    "externalId": "2"
+                },
+                {
+                    "status" : "Open",
+                    "reporter" : "admin",
+                    "issueType": "Subtask",
+                    "created" : "P3D",
+                    "updated" : "P1D",
+                    "summary" : "Duplicate Sub-task",
+                    "externalId": "3"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,42 @@
+#enable_html_escaping()
+<div class="project-config-webpanel-content project-config-icon48-issuetypes">
+    <div class="project-config-webpanel-help">
+        <p>${i18n.getText("admin.project.config.summary.issuetypes.desc")}</p>
+    </div>
+    #if(!$errors.empty)
+        <div class="aui-message error">
+            <p>$i18n.getText("admin.project.config.summary.issuetypes.error"):</p>
+            <ul>
+                #foreach ($error in $errors)
+                    <li>$error</li>
+                #end
+            </ul>
+        </div>
+    #else
+        <p class="project-config-summary-scheme">
+            <strong>${i18n.getText("common.concepts.scheme")}:</strong>
+            <a href="$manageUrl" title="$!{issueTypeScheme.description}">${issueTypeScheme.name}</a>
+        </p>
+        #if($issueTypes.size() > 0)
+            <ul class="project-config-list project-config-itemlist">
+                #foreach ($issueType in $issueTypes)
+                    <li>
+                        <span class="project-config-list-label">
+                            ${issueConstantWebComponent.getHtml(${issueType.constant}, 'project-config-icon-issuetype')}<span class="project-config-issuetype-name" title="$!{issueType.description}">${issueType.name}</span>
+                            #if(${issueType.subTask})
+                                <span class="project-config-issuetype-subtask">(${i18n.getText("admin.issue.constant.subtask")})</span>
+                            #end
+                            #if(${issueType.defaultIssueType})
+                                <span class="project-config-list-default">(${i18n.getText("common.words.default")})</span>
+                            #end
+                        </span>
+                    </li>
+                #end
+            </ul>
+        #else
+            <p class="project-config-list-empty"><span>${i18n.getText("admin.issuesettings.no.issue.types.associated")}</span></p>
+        #end
+    #end
+    <a class="project-config-more-link" href="${manageUrl}" title="${i18n.getText("admin.project.config.summary.issuetypes.manage")}">${i18n.getText("common.concepts.more")}</a>
+
+</div>

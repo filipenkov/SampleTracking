@@ -1,0 +1,8 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.imports.pivotal.web.PivotalUserMappingsPage" *#
+#* @vtlvariable name="esc" type="org.apache.velocity.tools.generic.EscapeTool" *#
+<html>
+	<head>
+		<title>$i18n.getText('jira-importer-plugin.config.title', $action.title)</title>
+		#parse("/templates/admin/views/common/html-header.vm")
+	</head>
+<body>

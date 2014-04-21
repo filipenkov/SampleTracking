@@ -1,0 +1,11 @@
+<html>
+<head>
+    <title>$i18n.getText('jira-importer-plugin.external.restart.title')</title>
+	#parse("/templates/admin/views/common/html-head-content.vm")
+</head>
+<body>
+	#AUImessage("warning" $i18n.getText('jira-importer-plugin.config.restartrequired', "ExternalImport1.jspa") "" "" "" "" "false")
+</body>
+</html>
+
+

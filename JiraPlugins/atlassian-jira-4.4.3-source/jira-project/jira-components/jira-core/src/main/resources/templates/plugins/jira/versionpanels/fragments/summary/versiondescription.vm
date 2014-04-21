@@ -1,0 +1,13 @@
+<div class="mod-header">
+    <h3>$i18n.getText('common.concepts.description')</h3>
+</div>
+<div class="mod-content">
+    #if ($version.description && $version.description != "")
+    <p>$textutils.htmlEncode($version.description)</p>
+    #end
+    #if ($version.releaseDate)
+    <ul class="details">
+        <li><span class="label">$i18n.getText('issue.field.due'):</span><span class="description">$outlookdate.formatSmart($version.releaseDate, $SFM_HIDE)</span></li>
+    </ul>
+    #end
+</div>

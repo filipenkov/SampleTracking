@@ -1,0 +1,9 @@
+#disable_html_escaping()
+--
+$i18n.getText("template.jira.footer.generated.by")
+#if($applicationProperties.getOption("jira.show.contact.administrators.form"))
+$i18n.getText("template.jira.footer.contact.info", "", ": ${baseurl}/secure/ContactAdministrators!default.jspa")
+#else
+$i18n.getText("template.jira.footer.contact.info", "", "")
+#end
+$i18n.getText("template.jira.footer.product.info", "http://www.atlassian.com/software/jira")

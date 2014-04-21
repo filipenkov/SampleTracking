@@ -1,0 +1,367 @@
+/* AUI Dropdowns */
+.aui-dropdown ul { margin: 0; }
+
+/* AUI Forms */
+form.aui .form-message.error { background: #ffe7e7 url("../../../images/icons/icon-error.png") no-repeat 0.75em 0.75em; border: 1px solid #df9898; color: #c00; font-weight: bold; margin: 10px 0; padding: .75em .75em .75em 2.5em;  }
+form.aui .form-message.warning { background: #ffd url("../../../images/icons/icon-warning.png") no-repeat 0.75em 0.75em; border: 1px solid #f7df92; color: #000; font-weight: normal; margin: 10px 0; padding: .75em .75em .75em 2.5em;  }
+.msie-7 #login-form .form-message.error {height:1%;}
+form.aui .form-message.error p, form.aui .form-message.warning p { margin: 1em 0 0 0; padding: 0; }
+form.aui .form-message.error p:first-child, form.aui .form-message.warning p:first-child { margin: 0; }
+form.aui .content { margin: 0; }
+form.aui .atlassian-autocomplete { font-size: 13px; }
+
+/* AUI Messages
+- sometimes the top border of the aui-messages goes walkabout in IE7 zoom:1 on the parent 'seems' to fix this */
+
+/* @aui-override for JRADEV-4770 */
+form.aui .aui-message p {margin:1em 0 0 0;padding:0;}
+form.aui .aui-message p:first-child {margin:0;}
+.aui-message, .aui-message.warning, .aui-message.error, .aui-message.info, .aui-message.success, .aui-message.hint {font-weight:normal;color:#333;}
+.aui-message span.aui-icon + p,
+.aui-message span.aui-icon + ul { margin-top: 0;}
+/* @end */
+
+/* for back 'link' type msg */
+.aui-message.link {padding:3px}
+
+
+.aui-message .icon-help + p,
+.aui-message .icon-help + ul
+form.aui .aui-message .icon-help + p,
+form.aui .aui-message .icon-help + ul { margin-top: 0; }
+.aui-message.closeable .icon-close:hover { background-position: 0 0; }
+.aui-message {min-height:auto;}
+form.aui div.aui-message.error { color: #000; font-weight: normal; }
+
+form.aui .content-body > .aui-message:first-child { margin-top: 10px; }
+form.aui .content-body .aui-message .aui-icon { left: 8px; top: 1em; }
+form.aui .aui-tabs { margin: 0 0 10px 0; }
+form.aui .aui-tabs .tabs-pane { padding-bottom: 0; padding-left: 0; padding-right: 0; }
+.msie-7 .tabs-pane {zoom:1;}
+#main-content form.aui .aui-tabs .tabs { font-size: inherit; }
+form.aui textarea.textarea {line-height:15px;}
+#main-content form.aui textarea.long-field {min-width:500px;width:90%;}
+#main-content form.aui input#summary {width:90%;}
+form.aui .aui-tabs .pane { border-bottom: 0; border-left: 0; border-right: 0; }
+form.aui .hidden,
+form.aui .field-group.hidden,
+form.aui fieldset.hidden { display: none; }
+form.aui .field-group:last-child,
+form.aui fieldset:last-child,
+form.aui fieldset fieldset:last-child {margin-bottom: 0;padding-bottom: 0;}
+form.aui .file-input-list .field-group {margin:5px 0 0 0;padding: 5px 0 0 0;}
+form.aui .file-input-list .field-group:first-child {margin-top: 0;padding-top: 0;}
+form.aui .group .file-input-list .error,
+form.aui .group .radio + .error,
+form.aui .group div.radio > .error {margin-left:0;}
+form.aui .icon-security {background-image:url('../../../images/icons/icn-lock.png');}
+form.aui .drop:hover .icon-security {background-position:0 100%;}
+form.aui label.commentLevel {visibility:hidden;}
+form.aui #commentLevel {display:none;}
+form.aui .drop-menu {background-position:-25px -199px;margin:0;}
+form.aui .drop:hover .drop-menu {background-position:0 -199px;margin:0;}
+form.aui .grouped-fields-top { border-top: 1px solid #ddd; clear: both; padding-top: 1.25em; }
+form.aui .grouped-fields-bottom { border-bottom: 1px solid #ddd; clear: both; margin-bottom: 1.25em; }
+form.aui span.aui-form.example {color: #666;}
+form.aui .group .description { padding: 0 0 5px 140px; }
+form.aui.top-label .group .description { padding: 0 0 5px 0; }
+form.aui .group .field-group .description,
+form.aui .group .checkbox .description,
+form.aui .group .radio .description { padding: 0; }
+form.aui .field-group label {word-wrap:break-word;}
+form.aui label .icon-required,
+form.aui .group legend .icon-required {position: absolute; top:0; right: -10px; }
+form.aui.top-label label .icon-required,
+form.aui.top-label .group legend .icon-required {position:relative;right:auto;}
+form.aui .content-body + .buttons-container { margin-top: 10px; }
+form.aui .hint-container {color:#666;float:left;font-size:12px;margin-bottom:0;padding: 1px 10px 0 5px;white-space:nowrap;width:60%;}
+.msie-7 form.aui .hint-container,
+.msie-8 form.aui .hint-container {padding-top: 3px;}
+form.aui:last-child { margin-bottom: 0; }
+form.aui #description,
+form.aui #comment {height:120px;}
+form.aui #environment {height:45px;}
+.aui-description {font-size:11px;} /* for aui fields outside of aui forms */
+form.aui .aui-icon {margin:0;}
+form.aui .security-level a {float:left;}
+form.aui .security-level .drop .drop-menu {background-position:-29px -199px;}
+form.aui .security-level .drop:hover .drop-menu {background-position:-4px -199px;}
+form.aui div.error {clear:left;}
+form.aui .group div.error { clear: left; margin-left: 140px; }
+#jira form.aui .buttons-container { min-height: 0; overflow: visible; }
+.msie-7 #jira form.aui .buttons-container {overflow:hidden;}
+form.aui .buttons-container .buttons { padding:0 0 0 140px; }
+form.aui.long-label .buttons-container .buttons {padding-left: 250px;}
+form.aui.top-label .buttons-container .buttons {padding-left: 0;}
+#jira form.aui .matrix { padding-left: 140px; }
+#jira form.aui .matrix div.checkbox,
+#jira form.aui .matrix div.radio { padding-left: 0; }
+form.aui div.radio input.radio,
+form.aui div.checkbox input.checkbox { float: none; height: auto; margin: 0 2px 0 0; padding: 0; vertical-align: middle; width: 15px; }
+form.aui .group div.radio div.description,
+form.aui .group div.checkbox div.description { margin-left: 21px; }
+form.aui div.description {clear:left;}
+form.aui .aui-field-cascadingselect .field-group:last-child { margin-bottom: 5px; padding-bottom: 5px; }
+.msie-7 #jira form.aui .field-group > label {padding-bottom:4px;}
+.msie-7 #jira form.aui .field-group > label .aui-icon {vertical-align:baseline;}
+.msie-7 #jira form.aui .radio .text {vertical-align:middle;}
+.msie-7 #jira form.aui .button {overflow:visible;width:auto;}/* Fixes expanding double padding bug in IE7 */
+
+/* AUI Popups */
+
+.aui-popup .aui-popup-content .ajaxerror { max-height: 500px; overflow: auto; margin:2px; }
+.aui-popup .aui-popup-content form.aui .ajaxerror {margin-left:0;margin-right:0;}
+
+
+/* Styles for AUI field components inside the old JIRAFORM decorator  - widths should match those in aui forms */
+.short-field {width:75px;}
+.medium-field {width:165px;}
+.long-field {width:500px;}
+
+/* nasty, quick and dirty to add aui class to forms surrounding old tables
+these need to be converted to proper aui forms
+- managefilters-content.jsp
+- filterpicker.jsp
+- configureportalpages-content.jsp
+
+*/
+form.aui td {padding:4px;vertical-align:top;}
+form.aui td.fieldLabelArea {background-color:#fff;}
+form.aui tr.buttons td {border-top:1px solid #ddd;padding:1em 4px;}
+
+/* Issue navigator overrides */
+form#issue-filter,
+form#issue-filter textarea,
+form#issue-filter select,
+form#issue-filter optgroup,
+form#issue-filter option,
+form#issue-filter input,
+form#issue-filter input.text,
+form#issue-filter .atlassian-autocomplete {font-family:inherit;font-size:1em;margin-right:0;}
+form#issue-filter .buttons {margin-bottom:0.5em;padding-left:0;}
+form#issue-filter fieldset {margin-bottom:0.5em;}
+form#issue-filter legend {color:#808080;display:block;margin-bottom:0.5em;padding-left:0;}
+form#issue-filter legend span {left:0;position:relative;text-align:left;top:0;}
+form#issue-filter option {padding:0.142em 10px 0.142em 18px;}
+form#issue-filter .notify {background-position:0.5em 0.5em;padding-left:2em;}
+form#issue-filter .hidden {margin:0;padding:0;}
+form#issue-filter .localHelp img {vertical-align:top;}
+form#issue-filter .select {margin-right:4px;width:210px;}
+form#issue-filter .text,
+form#issue-filter .textarea {width:200px;}
+form#issue-filter label {clear:both;color:#666;display:block;width:235px;}
+form#issue-filter .aui-field-cascadingselect .cascadingselect-parent { margin-bottom: 0.25em; }
+form#issue-filter #navigator-filter-subheading-datesandtimes .aui-field-daterange + .aui-field-datepicker { border-top: 1px solid #ddd; margin-top: 0.5em; padding-top: 0.5em; }
+form#issue-filter .aui-field-datepicker,
+form#issue-filter .aui-field-daterange {margin-bottom:0;float:left;width:100%;}
+form#issue-filter .aui-field-workratio .helpLink,
+form#issue-filter .aui-field-datepicker .datepicker-icon,
+form#issue-filter .aui-field-daterange .daterange-icon { float: right; margin-top: 5px; }
+form#issue-filter .aui-field-datepicker .datepicker-icon a,
+form#issue-filter .aui-field-daterange .daterange-icon a {display:block;}
+form#issue-filter .aui-field-datepicker .aui-icon,
+form#issue-filter .aui-field-daterange .aui-icon {display:block;}
+form#issue-filter .aui-field-datepicker .text {float:left;}
+form#issue-filter .workratio-min,
+form#issue-filter .workratio-max,
+form#issue-filter .numberrange-from,
+form#issue-filter .numberrange-to,
+form#issue-filter .daterange-from,
+form#issue-filter .daterange-to { float: left; margin-top: 5px; }
+form#issue-filter .workratio-min label,
+form#issue-filter .workratio-max label,
+form#issue-filter .numberrange-from label,
+form#issue-filter .numberrange-to label,
+form#issue-filter .daterange-from label,
+form#issue-filter .daterange-to label { clear: none; display: inline; width: auto; }
+form#issue-filter .workratio-min input.text,
+form#issue-filter .workratio-max input.text,
+form#issue-filter .numberrange-from input.text,
+form#issue-filter .numberrange-to input.text,
+form#issue-filter .daterange-from input.text,
+form#issue-filter .daterange-to input.text { float: none; margin: 0 5px 2px 0; width: 50px; }
+form#issue-filter .description {clear:both;width:235px;word-wrap:break-word;}
+form#issue-filter label.assignee,
+form#issue-filter label.reporter,
+form#issue-filter .group legend { display: none; }
+form#issue-filter .aui-field-multicheckbox legend,
+form#issue-filter .aui-field-multiradio legend { display: block; margin: 0; }
+form#issue-filter .group div.checkbox {float:left;margin-bottom:0.25em;min-width:49%;}
+form#issue-filter .group div.checkbox label,
+form#issue-filter .group div.radio label {clear:none;display:inline;margin-top:0;}
+form#issue-filter .infoBox {padding:0.5em 0 0.5em 2em;}
+form#issue-filter .buttons-container {padding:0;}
+form#issue-filter .buttons-bottom {margin-top:1em;}
+form#issue-filter .multi-select { width: 207px; min-width: 207px; }
+
+/* Forgot login overrides */
+#forgot-login div.matrix { width: auto; }
+#forgot-login .matrix div.radio { margin-right: 1em; width: auto; }
+#forgot-login .field-group:last-child, #forgot-login fieldset fieldset:last-child{ margin-bottom: 5px; padding-bottom: 5px; }
+
+/**
+AUI toolbar / form button stuff
+We're using the aui toolbar as a buttons container in JIRA form (and a few other places)
+This is/should only be a stop-gap as the forms should eventually be upgraded to aui-forms where they will take on the aui-form button styling
+**/
+/* toolbar */
+.aui-toolbar {background-color:#fff;border-top:none;}
+.aui-toolbar .toolbar-group {margin-bottom:0;}
+.aui-toolbar .toolbar-split-right .toolbar-group {margin-right:0;margin-left:10px;}
+.aui-toolbar .toolbar-split {margin:0;}
+header > .aui-toolbar {padding-top:0;float:right;width:auto;}
+header > .aui-toolbar .toolbar-group {float:right;}
+header > h2 {margin-bottom:1em;}
+.toolbar-item-link input {cursor:pointer;}
+/* buttons */
+/*.form-buttons .toolbar-group .toolbar-trigger,*/
+/*.form-buttons .aui-dd-parent a.aui-dd-trigger {background-image:url('../../../images/aui-formbar-button-inactive-bg.png');border-color:#aaa}*/
+/*.form-buttons .toolbar-group .aui-dropdown {border: 1px solid #aaa;}*/
+/*.form-buttons .toolbar-group .toolbar-item:first-of-type .toolbar-trigger,*/
+/*.form-buttons .toolbar-group .toolbar-item:first-of-type button {border-left-color:#aaa;}*/
+/*.form-buttons .toolbar-group .toolbar-item.toolbar-item-link .toolbar-trigger {border: 0;}*/
+/* hover/focus controls */
+/*.form-buttons .toolbar-group .toolbar-item:first-of-type .toolbar-trigger:hover,*/
+/*.form-buttons .toolbar-group .active:first-of-type .toolbar-trigger:hover,*/
+/*.form-buttons .toolbar-group .toolbar-item:first-of-type button:hover,*/
+/*.form-buttons .toolbar-group .active:first-of-type button:hover,*/
+/*.form-buttons .toolbar-group .active .toolbar-trigger,*/
+/*.form-buttons .toolbar-splitbutton:hover .toolbar-trigger,*/
+/*.form-buttons .toolbar-group .toolbar-trigger:hover,*/
+/*.form-buttons .toolbar-group button:hover,*/
+/*.form-buttons .aui-dd-parent .aui-dd-trigger:hover,*/
+/*.form-buttons .toolbar-group .active .toolbar-trigger:hover {border-color: #666;}*/
+
+/*.form-buttons .toolbar-group .toolbar-item:first-of-type .toolbar-trigger:focus,*/
+/*.form-buttons .toolbar-group .active:first-of-type .toolbar-trigger:focus,*/
+/*.form-buttons .toolbar-group .toolbar-item:first-of-type button:focus,*/
+/*.form-buttons .toolbar-group .active:first-of-type button:focus,*/
+/*.form-buttons .toolbar-group button:focus,*/
+/*.form-buttons .aui-dd-parent .aui-dd-trigger:focus {border-color: #666;outline:1px dotted #000;}*/
+/*.form-buttons .toolbar-group .active .toolbar-trigger,*/
+/*.form-buttons .toolbar-group .active:first-of-type .toolbar-trigger,*/
+/*.form-buttons .toolbar-group .toolbar-trigger:active {border: 1px solid #666;}*/
+
+/*.form-buttons .toolbar-group .toolbar-trigger:focus {outline:1px dotted #000;}*/
+
+/* disabled button */
+/*.form-buttons .toolbar-group .toolbar-item:first-of-type .toolbar-trigger.disabled,*/
+/*.form-buttons .toolbar-group .toolbar-item:first-of-type .toolbar-trigger.disabled:focus,*/
+/*.form-buttons .toolbar-group .toolbar-item:first-of-type .toolbar-trigger.disabled:hover {border-color:#aaa;outline:none;}*/
+/*.form-buttons .toolbar-group .toolbar-item:first-of-type .toolbar-trigger.disabled:active {background:#fff url('../../../images/aui-formbar-button-inactive-bg.png')0 100%;border-color:#aaa;outline:none;}*/
+
+/* end toolbar overrides */
+
+
+
+/* new button styling for forms
+  - REMOVE when AUI has it
+*/
+/* reset for aui-buttons in aui forms */
+form.aui input.aui-button {margin-right:0;padding: 4px 8px;}
+
+/* Base styling
+**
+^ there are some additional styles to make existing aui-form .buttons look like the new shiny .aui-buttons
+**
+*/
+form.aui .buttons input.button,
+form.aui .buttons button.button,
+.aui-button {
+	background:#eee;
+	border:1px solid #aaa;
+	color: #000000;
+    display: inline-block;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    height: 25px;
+    line-height: 17px !important;
+    margin:0;
+    min-width: 14px;
+    padding: 4px 8px;
+    text-align: center;
+    text-decoration: none;
+    text-indent: 0;
+    width: auto;
+    cursor:default;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+	text-shadow: 0 1px 0 #ffffff;
+}
+a.aui-button:link,
+a.aui-button:visited,
+a.aui-button:hover,
+a.aui-button:active {color:#000;text-decoration:none;}
+/* gradient bg (same for disabled)^ */
+form.aui .buttons input.button,
+form.aui .buttons input.button[disabled]:active,
+form.aui .buttons button.button,
+form.aui .buttons button.button[disabled]:active,
+.aui-button,
+.aui-button[disabled],
+.aui-button[disabled]:active {
+ 	background-image: -moz-linear-gradient(100% 100% 90deg, #dfdfdf, #ffffff);
+ 	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#dfdfdf));
+ 	background-image: -webkit-linear-gradient(#ffffff, #dfdfdf);
+ 	background-image: -o-linear-gradient(#ffffff, #dfdfdf);
+ 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#dfdfdf',GradientType=0 );
+}
+/* active gradient bg^ */
+form.aui .buttons input.button:active,
+form.aui .buttons button.button:active,
+.aui-button:active {
+	background-image: -moz-linear-gradient(100% 100% 90deg, #d8e4f0, #cad5e0);
+ 	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#cad5e0), to(#d8e4f0));
+ 	background-image: -webkit-linear-gradient(#cad5e0, #d8e4f0);
+ 	background-image: -o-linear-gradient(#cad5e0, #d8e4f0);
+ 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#CAD5E0', endColorstr='#D8E4F0',GradientType=0 );
+}
+/* state changes */
+.aui-button:hover,
+.aui-button:focus,
+.aui-button:active {border-color:#666;}
+.aui-button[disabled] {opacity: 0.5;}
+.aui-button[disabled]:hover,
+.aui-button[disabled]:focus,
+.aui-button[disabled]:active {border-color:#aaa;}
+/* give them a little breathing space when positioned together */
+.aui-button + .aui-button,
+.aui-button + .aui-button-cancel,
+form.aui .buttons .aui-button + .aui-button-cancel {margin-left:8px;}
+
+/* required to make aui-form .buttons work like .aui-buttons */
+form.aui .buttons .button:hover,
+form.aui .buttons .button:focus,
+form.aui .buttons .button:active {border-color:#666;}
+form.aui .buttons .button[disabled] {opacity: 0.5;}
+form.aui .buttons .button[disabled]:hover,
+form.aui .buttons .button[disabled]:focus,
+form.aui .buttons .button[disabled]:active {border-color:#aaa;}
+
+/* so we don't break existing form button placement
+- be nice to remove this margining and replace with padding on buttons-container
+*/
+form.aui .buttons-container input.button,
+form.aui .buttons-container button.button {margin:10px 8px 0 0;}
+form.aui .buttons-container input.aui-button,
+form.aui .buttons-container button.aui-button {margin-top:10px;margin-right:0;}
+
+
+.aui-button-cancel {line-height:25px;}
+
+/* new form button stuff - REMOVE when AUI has it */
+
+/* the awesome popup strikes again */
+.aui-popup .aui-popup-content .content-body + .buttons-container { margin-top: 0; }
+.aui-popup-content form.aui .buttons-container input.aui-button,
+.aui-popup-content form.aui .buttons-container button.aui-button { margin-top: 0; }
+.aui-popup-content .buttons a.aui-button-cancel,
+.aui-popup-content form.aui .buttons a.aui-button-cancel {margin-left:8px;}
+
+

@@ -1,0 +1,20 @@
+<div class="checkbox">
+	#foreach($bundle in $info.getApplicationFileBundles())
+        <input type="checkbox" class="checkbox" value="true" name="$bundle.getKey()" id="$bundle.getKey()" #if ($bundle.isSelected()) checked="true"#end>
+		<label for="$bundle.key">$i18n.getText($bundle.title)</label>
+		<div class="description">
+			#if ($bundle.description) 
+				$i18n.getText($bundle.description)
+				<span class="priority">
+				#if ($bundle.bundlePriorityKey) $i18n.getText($bundle.bundlePriorityKey) #end
+				</span>
+			#end	
+		</div>
+	#end
+</div>
+<div class="checkbox">
+    <input type="checkbox" class="checkbox" value="true" name="limit-file-sizes" id="limit-file-sizes" checked="true">
+	<label for="limit-file-sizes">$i18n.getText("stp.zip.limit.file.sizes")</label>
+	<div class="description">$i18n.getText("stp.zip.limit.file.sizes.description", $maxBytesPerFile)</div>
+</div>
+

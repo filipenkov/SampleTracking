@@ -1,0 +1,34 @@
+{namespace JIRA.RestfulTable.Templates}
+
+/**
+* @param update
+*/
+{template .editOperations}
+<td class="jira-restfultable-operations">
+    <div class="aui-toolbar form-buttons noprint">
+        <div class="toolbar-group">
+            <span class="toolbar-item">
+                <input class="toolbar-trigger spaced" type="submit" accesskey="s" value="{if $update}{getText('common.forms.update')}{else}{getText('common.forms.add')}{/if}" />
+            </span>
+        </div>
+        {if $update}
+        <div class="toolbar-group">
+            <span class="toolbar-item toolbar-item-link">
+                <input class="toolbar-trigger cancel" type="button" accesskey="`" value="{getText('common.forms.cancel')}" />
+            </span>
+        </div>
+        {/if}
+    </div>
+</td>
+
+<td class="jira-restfultable-throbber"></td>
+{/template}
+
+/**
+ *
+ */
+{template .dragHandle}
+<td class="jira-restfultable-order">
+    <span class="jira-restfultable-draghandle"></span>
+</td>
+{/template}

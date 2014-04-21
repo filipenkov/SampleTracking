@@ -1,0 +1,3 @@
+#if ($duedate)
+  $textutils.plainTextToHtml($!duedate.toString())
+#end

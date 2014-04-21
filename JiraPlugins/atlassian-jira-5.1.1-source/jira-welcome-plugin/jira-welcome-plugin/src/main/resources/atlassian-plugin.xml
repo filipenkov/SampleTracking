@@ -1,0 +1,139 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+        <bundle-instructions>
+            <Export-Package>
+                com.atlassian.jira.whatsnew.access.*,
+                com.atlassian.jira.welcome.access.*
+            </Export-Package>
+            <Bundle-Description>Makes the SPI available for external plugins to affect the behaviour of the welcome plugin.</Bundle-Description>
+            <Spring-Context>*;timeout:=360</Spring-Context>
+        </bundle-instructions>
+    </plugin-info>
+
+    <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
+    <component-import key="permissionManager" interface="com.atlassian.jira.security.PermissionManager"/>
+    <resource type="i18n" name="i18n" location="com/atlassian/jira/plugins/whatsnew/i18n"/>
+
+<!-- What's new resources -->
+    <component key="whatsNewManager" name="What's New Manager" class="com.atlassian.jira.whatsnew.WhatsNewManager"/>
+
+    <component key="whatsNewUpgradeFinishedListener"
+               name="Upgrade Finished Listener"
+               class="com.atlassian.jira.whatsnew.listeners.WhatsNewUpgradeFinishedListenerImpl"
+               public="true">
+        <interface>com.atlassian.jira.whatsnew.listeners.WhatsNewUpgradeFinishedListener</interface>
+        <interface>org.springframework.beans.factory.DisposableBean</interface>
+    </component>
+
+    <web-panel key="show-whats-new-flag" name="Flag show what's new" location="atl.header" state="disabled">
+        <description>Determines if the What's New dialog will be shown automatically in new User sessions.</description>
+        <resource name="view" type="static">
+            <![CDATA[<meta name="ajs-show-whats-new" content="true">]]>
+        </resource>
+        <condition class="com.atlassian.jira.whatsnew.conditions.ShowWhatsNewCondition"/>
+    </web-panel>
+
+    <web-panel key="whats-new-iframe-src-override" name="Override for What's New iframe source" location="atl.header">
+        <description>Sets an override of where the What's New dialog will get its content from, if enabled.</description>
+        <resource name="view" type="velocity">
+            <![CDATA[
+            <meta name="ajs-whats-new-iframe-src-override" content="">
+            <meta name="ajs-whatsnew-full-link" content="$whatsnewFullLink">
+            ]]>
+        </resource>
+        <context-provider class="com.atlassian.jira.whatsnew.context.WhatsNewContextProvider" />
+    </web-panel>
+
+    <web-item key="whats-new-item" name="What's New Browse Menu Item" section="system.user.options/jira-help"
+              weight="110">
+        <label key="whats.new.menu.item.label"/>
+        <link linkId="whats-new-menu-link">$helpUtil.getHelpPath('whatsnew_iframe_link').url</link>
+        <condition class="com.atlassian.jira.whatsnew.conditions.ShouldShowWhatsNewUserProfileMenuItem"/>
+        <context-provider class="com.atlassian.jira.plugin.webfragment.contextproviders.HelpContextProvider"/>
+    </web-item>
+
+    <web-resource key="whats-new-resources" name="What's New Web Resources"
+                  i18n-name-key="confluence.whats.new.resources.name">
+        <description>Launches the What's New popup window and handles user preferences.</description>
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+        <transformation extension="soy">
+            <transformer key="jiraSoyTransformer"/>
+        </transformation>
+
+        <!-- The vm transformer i18izes the dialog templates for caching by the browser -->
+        <transformation extension="vm">
+            <transformer key="vmI18n"/>
+        </transformation>
+
+        <resource name="whats-new-template.js" type="download" location="templates/whats-new.soy"/>
+        <resource name="whats-new.js" type="download" location="js/whats-new.js"/>
+        <resource name="whats-new.css" type="download" location="css/whats-new.css"/>
+
+        <dependency>jira.webresources:jira-global</dependency>
+        <dependency>com.atlassian.jira.jira-soy-plugin:soy-deps</dependency>
+
+        <context>atl.general</context>
+        <context>atl.admin</context>
+    </web-resource>
+
+    <rest key="whatsnew" path="/whatsnew" version="1.0"
+          description="Resource to show if a user has seen the whats new dialog already">
+        <package>com.atlassian.jira.whatsnew.rest</package>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+    </rest>
+
+<!-- Welcome dialog resources -->
+    <component key="welcomeUserPreferenceManager"
+               name="Welcome Screen User Preference Manager"
+               class="com.atlassian.jira.welcome.WelcomeUserPreferenceManager"/>
+
+    <web-panel key="show-welcome-screen-flag" name="Flag for showing the welcome screen" location="atl.header">
+        <description>Determines if the welcome screen will be shown for a user.</description>
+        <resource name="view" type="static">
+            <![CDATA[<meta name="ajs-show-welcome-screen" content="true">]]>
+        </resource>
+        <condition class="com.atlassian.jira.welcome.conditions.ShowWelcomeCondition"/>
+    </web-panel>
+
+    <web-resource key="welcome-screen-resources" name="Welcome Screen Web Resources"
+                  i18n-name-key="confluence.welcome.screen.resources.name">
+        <description>Launches the welcome screen popup window and handles user preferences.</description>
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+        <transformation extension="soy">
+            <transformer key="jiraSoyTransformer"/>
+        </transformation>
+
+        <!-- The vm transformer i18izes the dialog templates for caching by the browser -->
+        <transformation extension="vm">
+            <transformer key="vmI18n"/>
+        </transformation>
+
+        <resource name="images/" type="download" location="images" />
+        <resource name="welcome-template.js" type="download" location="templates/welcome.soy"/>
+        <resource name="welcome.js" type="download" location="js/welcome.js"/>
+        <resource name="welcome.css" type="download" location="css/welcome.css"/>
+
+        <dependency>jira.webresources:jira-global</dependency>
+        <dependency>com.atlassian.jira.jira-soy-plugin:soy-deps</dependency>
+
+        <context>atl.general</context>
+    </web-resource>
+
+    <rest key="welcome" path="/welcome" version="1.0"
+          description="Resource to show if a user has seen the welcome dialog already">
+        <package>com.atlassian.jira.welcome.rest</package>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+    </rest>
+
+</atlassian-plugin>

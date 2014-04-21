@@ -1,0 +1,72 @@
+<ul class="item-details" id="peopledetails">
+    <li class="people-details">
+        #if ($assigneeVisible)
+        <dl>
+            <dt>$i18n.getText("issue.field.assignee"):</dt>
+            <dd id="assignee-val">
+                $peopleComponent.getAssigneeDisplayHtml($issue)
+            </dd>
+        </dl>
+        #end
+        #if ($reporterVisible)
+        <dl>
+            <dt>$i18n.getText("issue.field.reporter"):</dt>
+            <dd id="reporter-val">
+                $peopleComponent.getReporterDisplayHtml($issue)
+            </dd>
+        </dl>
+        #end
+        #foreach($field in $userCustomFields)
+        <dl>
+            <dt title="$field.name">$field.name:</dt>
+            <dd id="${field.id}-val">$field.html</dd>
+        </dl>
+        #end
+    </li>
+</ul>
+#if ($votingEnabled)
+<div id="votes-val">
+    ## Vote action and icon
+    #if($isResolved || $isCurrentUserReporter || !$isLoggedIn)
+        <span id="vote-label" title="#if($isCurrentUserReporter)$i18n.getText('issue.operations.novote')#elseif($isResolved)$i18n.getText('issue.operations.voting.resolved')#elseif(!$isLoggedIn)$i18n.getText('issue.operations.voting.not.loggedin')#end"><span class="icon icon-vote-disabled"></span><span class="action-text">$i18n.getText("common.concepts.vote")</span></span>
+    #else
+        #if($voting)
+            <a href="${requestContext.baseUrl}/secure/VoteOrWatchIssue.jspa?atl_token=${atl_token}&id=${issue.id}&vote=unvote" id="vote-toggle" rel="$issue.id" title="$i18n.getText('issue.operations.simple.voting.alreadyvoted')"><span class="icon icon-vote-on"></span><span class="action-text">$i18n.getText('common.concepts.voted')</span></a>
+        #else
+            <a href="${requestContext.baseUrl}/secure/VoteOrWatchIssue.jspa?atl_token=${atl_token}&id=${issue.id}&vote=vote" id="vote-toggle" rel="$issue.id" title="$i18n.getText('issue.operations.simple.voting.notvoted')"><span class="icon icon-vote-off"></span><span class="action-text">$i18n.getText('common.concepts.vote')</span></a>
+        #end
+    #end
+
+    ## Vote count that can link to the view/manage page
+    #if ($canViewVotersAndWatchers)
+        <a href="${requestContext.baseUrl}/secure/ViewVoters!default.jspa?id=${issue.id}" id="view-voter-list" title="$i18n.getText('voters.data.tooltip')">(<span id="vote-data">$issue.votes</span>)</a>
+    #else
+        (<span id="vote-data">$issue.votes</span>)
+    #end
+</div>
+#end
+#if ($watchingEnabled)
+<div id="watchers-val">
+    #if($isLoggedIn)
+        #if($watching)
+            <a href="$requestContext.baseUrl/secure/VoteOrWatchIssue.jspa?atl_token=${atl_token}&id=${issue.id}&watch=unwatch" id="watching-toggle" rel="$issue.id" title="$i18n.getText('issue.operations.simple.stopwatching')"><span class="icon icon-watch-on"></span><span class="action-text">$i18n.getText('common.concepts.watching')</span></a>
+        #else
+            <a href="$requestContext.baseUrl/secure/VoteOrWatchIssue.jspa?atl_token=${atl_token}&id=${issue.id}&watch=watch" id="watching-toggle" rel="$issue.id" title="$i18n.getText('issue.operations.simple.startwatching')"><span class="icon icon-watch-off"></span><span class="action-text">$i18n.getText('common.concepts.watch')</span></a>
+        #end
+    #else
+        <span id="watch-label" title="$i18n.getText('issue.operations.watching.not.loggedin')"><span class="icon icon-watch-disabled"></span>$i18n.getText("common.concepts.watch")</span>
+    #end
+
+    #if ($watchers)
+        #set ($watchersSize = $watchers.size())
+    #else
+        #set ($watchersSize = 0)
+    #end
+
+    #if ($canManageWatcherList || $canViewVotersAndWatchers)
+        <a href="$requestContext.baseUrl/secure/ManageWatchers!default.jspa?id=$issue.id" id="view-watcher-list" title="$i18n.getText('watcher.data.tooltip')">(<span id="watcher-data">$watchersSize</span>)</a>
+    #else
+        (<span id="watcher-data">$watchersSize</span>)
+    #end
+</div>
+#end

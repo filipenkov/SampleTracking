@@ -1,0 +1,98 @@
+########################################################################################################################
+## Macros used on this page
+########################################################################################################################
+
+##################################
+## Renders a single project box ##
+##################################
+###macro (project $project)
+##    #set ($showToggle = true)
+##    #set ($projectId = $project.getId())
+##    #set ($hasBrowsePermission = $portlet.hasBrowsePermission($project))
+##    #set ($tabPanels = $portlet.getProjectTabPanels($project))
+##    #set ($isPriorityVisible = $portlet.isPriorityFieldVisible($projectId))
+##    #set ($priorityStats = $portlet.getPriorityStats($projectId))
+##    #set ($hasDisplayableItems = $portlet.hasDisplayableItems($project))
+##    #set ($displayableItemsHtml = $portlet.displayableItemsHtml($project))
+##    #parse("templates/plugins/jira/portlets/includes/projectinfo.vm")
+###end
+
+##################################################
+## Renders all projects for a specified category ##
+##################################################
+###macro (categorisedprojects $projectCategory)
+##    #set ($ppcid = "projectCategory_${portletConfigurationId}_${projectCategory.getLong('id')}")
+##    #set ($projects = $portlet.getBrowseableProjectsInCategory($projectCategory))
+##    #if ($projects.isEmpty() == false)
+##        <table class="tableBorder maxWidth" border="0" cellpadding="0" cellspacing="0"><tr><td>
+##        <table border="0" cellpadding="3" cellspacing="1" width="100%">
+##        <tr class=rowHeader>
+##            <td class="colHeaderLink" colspan="1">
+##            #if ($isGoodBrowser && $portletConfig.isResourcesProvided())
+##                #set ($showText = $i18n.getText('displaypane.show'))
+##                #set ($hideText = $i18n.getText('displaypane.hide'))
+##                <span class="switch actionLinks subText" id="${ppcid}-switch" onclick="CookieUtil.toggleVisibility('${ppcid}', '$showText', '$hideText')">$hideText</span>
+##            #end
+##            $i18n.getText('common.concepts.category'): <strong>$projectCategory.getString('name')</strong>
+##            </td>
+##        </tr>
+##        </table>
+##        </td></tr></table>
+##
+##        ## only show the 'span' if it is a good browser
+##        #if ($isGoodBrowser)
+##            <table class="projectCategoryGroup maxWidth" id="${ppcid}" border="0" cellpadding="0" cellspacing="0">
+##            <tr><td>
+##            #foreach ($project in $projects)
+##                #project($project)
+##                #if ($velocityCount < $projects.size())
+##                <br/>
+##                #end
+##            #end
+##            </td></tr>
+##            </table>
+##        #else
+##            #foreach ($project in $projects)
+##                #project($project)
+##            #end
+##        #end
+##        #if ($portletConfig.isResourcesProvided())
+##            <script language="JavaScript" type="text/javascript">
+##            cookieHide("${ppcid}", "$i18n.getText('displaypane.show')");
+##            </script>
+##        #end
+##        <br/>
+##    #end
+###end
+
+########################################################################################################################
+## This is where the page starts
+########################################################################################################################
+
+## JRA-14036: Define styles used per-project outside the loop, otherwise Internet Explorer blows up!
+#parse("templates/plugins/jira/portlets/includes/projectstyle.vm")
+
+#if ($isCategorySet == true)
+    #categorisedprojects($projectCategory)
+#else
+    #if ($browseableProjects.isEmpty() == false)
+        ## show the projects that are in a specific category
+        #foreach ($pc in $projectCategories)
+            #categorisedprojects($pc)
+        #end
+        ## show the projects with no category
+        #foreach ($project in $browseableProjectsWithNoCategory)
+            #project($project)
+            &nbsp;<br/>
+        #end
+    #elseif ($!user)
+        ## if the user has no browseable projects, then tell them about it
+        <table bgcolor="#bbbbbb" border="0" cellpadding="0" cellspacing="0" class="maxWidth">
+        <tr><td>
+            <table border="0" cellpadding="3" cellspacing="1" width="100%">
+                #parse("templates/plugins/jira/portlets/includes/noprojects.vm")
+            </table>
+        </td></tr>
+        </table>
+    #end
+#end

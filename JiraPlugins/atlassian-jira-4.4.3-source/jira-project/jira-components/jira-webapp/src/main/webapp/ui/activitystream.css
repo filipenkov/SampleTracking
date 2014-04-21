@@ -1,0 +1,20 @@
+#activitymodule {margin-bottom:0;}
+.msie-7 #activitymodule {position:relative;}
+#activitymodule .activitystream-container iframe {border-bottom:1px solid #eee;}
+#activitymodule .tabs2 {padding-right:2em;}
+#activitymodule .tabs2 .sortwrap {bottom:0;left:auto;position:absolute;right:0;width:1.5em;}
+
+#fragactivitystream .mod-content {padding:0 0 0 0.4em;}
+.message-container {border-bottom:1px solid #eee;padding-bottom:1.5em;} /* used for generic messages in the activity stream */
+
+/* These should be in the FE/CR plugin, not JIRA.
+    - FE/CR fixes for activity stream */
+.msie-7 .activity-fisheye-source .commit-files {width:95%;}
+.msie-7 .activity-fisheye-source .commit-files li {width:95%;}
+.msie-7 .activity-fisheye-source .commit-files .path,
+.msie-7 .activity-fisheye-source .commit-files .loc,
+.msie-7 .activity-fisheye-source .commit-files .details-file {display:block;float:left;width:auto;}
+.msie-7 .activity-fisheye-source .commit-files .loc {width:10%;}
+.msie-7 .activity-fisheye-source .commit-files .details-file {width:15%;}
+
+.activitystream-container iframe {width:100%}

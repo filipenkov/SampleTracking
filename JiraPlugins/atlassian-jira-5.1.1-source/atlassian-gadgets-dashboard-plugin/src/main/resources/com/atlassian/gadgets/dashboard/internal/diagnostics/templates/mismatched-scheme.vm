@@ -1,0 +1,54 @@
+#if($isAdmin)
+We've detected a potential problem with JIRA's Dashboard configuration.
+#else
+We've detected a potential problem with JIRA's Dashboard configuration that your administrator can correct.
+#end
+<a id="learn-more-link">Click here to learn more</a>
+
+#if($isAdmin)
+<a class="close">Close</a>
+#end
+
+<div id="diagnostic-content" class="hidden">
+    <h4>Dashboard Diagnostics: Mismatched URL Scheme</h4>
+
+    <p>
+        JIRA is reporting that it is using the URL scheme '$error.detectedScheme', which does not match the scheme
+        used to run these diagnostics, '$error.expectedScheme'. This is known to cause JIRA to construct URLs using
+        an incorrect hostname, which will result in errors in the dashboard, among other issues.
+    </p>
+
+    <p>
+        The most common cause of this is the use of a reverse-proxy HTTP(S) server (often Apache or IIS) in front of the
+        application server running JIRA. While this configuration is supported, some additional setup might be necessary
+        in order to ensure that JIRA detects the correct scheme.
+    </p>
+
+    <p>
+        The following articles describe the issue and the steps you should take to ensure that your web server and app
+        server are configured correctly:
+    </p>
+    <ul>
+        <li><a
+            href="http://confluence.atlassian.com/display/JIRAKB/Gadgets+do+not+display+correctly+after+upgrade+to+JIRA+4.0">Gadgets
+            do not display correctly after upgrade to JIRA 4.0</a></li>
+        <li><a href="http://confluence.atlassian.com/display/JIRA/Integrating+JIRA+with+Apache">Integrating JIRA with
+            Apache</a></li>
+        <li><a href="http://confluence.atlassian.com/display/JIRA/Integrating+JIRA+with+Apache+using+SSL">Integrating JIRA
+            with Apache using SSL</a></li>
+    </ul>
+
+    <p>
+        If you believe this diagnosis is in error, or you have any other questions, please contact
+        <a href="http://support.atlassian.com">Atlassian Support</a>.
+    </p>
+
+    <h4>Detailed Error</h4>
+    <a id="display-error-link">Click here to learn more</a>
+    <div id="error-stack-trace" class="hidden">
+        <pre>
+        $error.stackTraceAsString
+        </pre>
+    </div>
+</div>
+

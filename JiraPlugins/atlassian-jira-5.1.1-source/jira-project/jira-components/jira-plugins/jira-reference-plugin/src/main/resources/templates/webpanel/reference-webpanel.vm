@@ -1,0 +1,5 @@
+##disable_html_escaping() TODO REENABLE
+This is a reference web panel.
+User: $!{user.name}
+Issue: $!{issue.key}
+Project: $!{project.key}

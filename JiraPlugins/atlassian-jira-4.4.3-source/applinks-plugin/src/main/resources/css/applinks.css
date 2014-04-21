@@ -1,0 +1,911 @@
+body.auth-login {
+    margin: 0;
+}
+
+
+/* AUI overrides */
+form.aui h3 {
+    border-bottom: 1px solid #DDD;
+}
+
+.ual-row:hover {
+    background-color:#f0f0f0;
+}
+
+table.aui > thead {
+    border-bottom: none;
+}
+
+.auth-login form.aui h3 {
+    margin-top: 0;
+}
+
+/**
+ * @aui-override APL-613 Misc UI Fixes
+ *
+ * @date 2011-02-24
+ * @author shaffenden
+ * @see
+ *
+ *
+ * @note Fixing up some alignment issues with the dialog and the positioning of buttons, labels and field values
+ */
+.auth-login form.aui .buttons {
+    padding-left: 150px;
+}
+
+form.aui .field-group label {
+    padding-right: 13px;
+    position: relative;
+    width: 117px;
+	left: -138px;
+}
+
+form.aui .field-group span.field-value {
+	font-weight: normal;
+}
+
+form.aui .field-group label span.aui-icon{
+    position: absolute;
+    right: 0;
+    top: 4px;
+}
+/* end */
+
+#select-entity-ual form.aui .field-group label {
+	width: 130px;
+	padding-right: 0;
+}
+
+#applink-credentials-form .trust-each-other {
+    padding-left: 0;
+}
+
+form.aui .hidden {
+    display: none;
+}
+
+table.aui {
+    clear: right;
+}
+
+.aui-message.closeable {
+    z-index: 1000;
+}
+
+/* AUI dropdown overrides */
+.aui-dd-parent a.aui-dd-trigger,
+.aui-dd-parent a.aui-dd-trigger.active,
+.aui-dd-parent a.aui-dd-trigger:hover,
+.aui-dd-parent a.aui-dd-trigger:active,
+.aui-dd-parent a.aui-dd-trigger:focus,
+.icon-add {
+    background: transparent url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/add_20.png) no-repeat 2px 2px;
+    border: none;
+    color: #333;
+    float: right;
+    font-size: 1.1em;
+    display: block;
+    height: 20px;
+    line-height: 20px;
+    padding: 3px 5px 4px 27px;
+    text-decoration: none;
+    text-indent: 0;
+    width: auto;
+}
+
+.aui-dd-parent.active a.aui-dd-trigger {
+    background-color: #3c78b5;
+    color: #fff;
+}
+
+.aui-dd-parent a.aui-dd-trigger span {
+    background: transparent url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/arrow_hide.png) no-repeat 100% 60%;
+    display: block;
+    padding-right: 16px;
+}
+
+.aui-dd-parent .aui-dropdown {
+    border: 1px solid #bbb;
+    list-style: none;
+}
+
+.aui-dd-parent .aui-dropdown a.item-link:link,
+.aui-dd-parent .aui-dropdown a.item-link:visited,
+.aui-dropdown a.item-link:link,
+.aui-dropdown a.item-link:visited {
+    background: #fff no-repeat 5px 1px;
+    color: #333;
+    padding-left: 25px;
+}
+
+#ual .aui-dd-parent .aui-dropdown a.item-link, .aui-dropdown a.item-link {
+    display: block;
+}
+
+.aui-dd-parent .aui-dropdown li.dropdown-item.active a.item-link,
+.aui-dd-parent .aui-dropdown a.item-link:hover,
+.aui-dd-parent .aui-dropdown a.item-link:active,
+.aui-dd-parent .aui-dropdown a.item-link:focus,
+.aui-dropdown a.item-link:hover,
+.aui-dropdown a.item-link:active,
+.aui-dropdown a.item-link:focus {
+    background: #f2f2f2 no-repeat 5px 1px;
+    color: #333;
+    padding-left: 25px;
+}
+
+
+.icon {
+    background:url("../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/icons_module.png") no-repeat scroll 0 0 transparent;
+    display:inline-block;
+    height:16px;
+    margin:0 0.166em;
+    overflow:hidden;
+    padding:0;
+    width:16px;
+}
+
+.exclamation-mark {
+    background: url("../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/warning.png") no-repeat scroll transparent;
+    padding: 3px 8px;
+    cursor: pointer;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#add-first-application-link {
+    cursor: pointer;
+    text-decoration: none;
+    display: inline;
+    color: #3C78B5;
+}
+
+#applink-create-details-page .rpc-url-description {
+    padding: 0 0 0 0;
+}
+
+h2 {
+    font-size: 14px;
+    margin: 0;
+    padding: 5px 0;
+}
+
+.applinks-description {
+    font-size: 11px;
+    color: #666;
+    padding: 5px 0;
+}
+
+.applinks-actions {
+    margin: 10px 0;
+    padding: 0;
+}
+
+.applinks-actions a, .applinks-list a {
+    color: #003366;
+}
+
+.applinks-actions li {
+    margin: 0 0 0 10px;
+    padding: 0;
+    list-style: none;
+}
+
+.applinks-list {
+}
+
+.applinks-list th {
+    border-bottom: 1px solid #CCC;
+    margin: 0;
+    padding-right: 0;
+    font-weight: normal;
+    color: #666;
+    text-align: left;
+}
+
+.ual-cell {
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.ual-row {
+    vertical-align: top;
+}
+
+.applinks-list td {
+    font-size: 11px;
+}
+
+
+.configured-auth-type {
+    padding-left:  18px;
+    padding-top:    7px;
+}
+
+.primary-auth-type {
+    background: url("../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/primary_auth.png") no-repeat scroll transparent;
+    cursor: pointer;
+    padding: 2px 7px 5px;
+}
+
+.primary-auth-type-wrapper {
+    padding-top: 2px;
+}
+
+
+.applinks-configure-link {
+    font-size: 10px;
+}
+
+.applinks-help-box {
+    border: 1px solid #CCC;
+    background-color: #F0F0F0;
+    float: right;
+    width: 300px;
+    padding: 2px 5px;
+    font-size: 10pt;
+}
+
+.applinks-warning-box {
+    border: 1px solid #C00;
+    background-color: #FDD;
+    padding: 2px 5px;
+    font-size: 10pt;
+}
+
+.applinks-form {
+    border: none;
+    font-size: 11px;
+    padding: 10px;
+}
+
+.applinks-field {
+    padding: 0;
+    margin: 0;
+    clear: both;
+}
+
+.applinks-field label {
+    width: 200px;
+    background-color: #F0F0F0;
+    padding: 3px;
+    display: block;
+    float: left;
+    margin: 0 5px;
+    text-align: right;
+}
+
+.applinks-field-desc {
+    font-size: 11px;
+    color: #666;
+}
+
+.applinks-buttons {
+    border: none;
+    padding: 10px;
+    margin: 0 0 0 200px;
+    clear: both;
+}
+
+.applinks-visibility-column {
+    float: left;
+    width: 60px;
+    text-align: center;
+    padding-top: 4px;
+}
+
+non-ual-application-url {
+    width: 330px;
+}
+
+.non-ual-form {
+    clear: both;
+    margin-left: -4;
+    padding-top: 0;
+}
+
+form.aui .upgrade-info {
+	padding-left: 5px;
+}
+
+.help-step {position:absolute;right:1em;top:1em;}
+
+/* progress bar - default is three step */
+.progress-bar {display:block;height:26px;margin:0 auto 12px;padding:0;list-style-type:none;width:480px;background:#fff url('../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/progress-bar.png') no-repeat 0 0;}
+.progress-bar li {color:#ccc;float:left;font-size:12px;line-height:26px;text-align:center;width:160px;}
+.progress-bar li.active {color:#fff;font-weight:700;}
+    .step-two {background-position:0 -26px;}
+    .step-three {background-position:0 -52px;}
+.two-step.step-one {background-position:0 -104px;}
+.two-step.step-two {background-position:0 -78px;}
+.two-step li {width:240px;}
+
+.step-title {font-size:24px;margin:0 0 12px 4px;width:450px;}
+
+.image-wrapper, .image-wrapper-solid {padding: 0; min-height:146px;margin:0 auto 18px;position:relative;width:480px;}
+.image-wrapper-solid {background-color: #E1F0F5;}
+
+.app-image {height:146px;position:absolute;width:180px;background:#e1f0f5 url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/100question_mark.png) no-repeat 0 0;}
+    .local-app-image {background-position:40px 32px; left:0; top:0;}
+    .remote-app-image { background-position: 40px 32px; right:0;top:0;}
+    .unknown-app-image { background-position: 46px 22px; right:0;top:0;}
+    .local-app-name,
+    .remote-app-name {color:#1E3851;text-align:center;margin-top:5px;}
+
+.arrows {margin:0 auto;padding-top:9px;width:110px;}
+    .left-to-right-arrow {height:64px;width:110px;background:transparent url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/arrow1.png) no-repeat 50% 0;}
+    .right-to-left-arrow {height:64px;width:110px;background:transparent url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/arrow2.png) no-repeat 50% 0;}
+    .no-background {background-image:none;}
+
+.applinks-cancel-link {
+    font-size: 0.8em;
+    margin-right: 1.65em;
+    margin-top: 2px;
+    text-align: right;
+    color: #3C78B5;
+}
+
+#add-application-link-dialog .dialog-panel-body,
+#upgrade-application-link-dialog .dialog-panel-body,
+#upgrade-orphaned-trust-dialog .dialog-panel-body  {
+    *position: relative;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.ual-upgrade-text {
+    padding: 35px 20px
+}
+
+/*
+ add new css styles using the format: application-type-{Application Type Id} to define images for other applications that support UAL.
+ */
+div .application-type-image-refapp {
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/logos/100atlassian.png);
+}
+
+div .application-type-image-jira {
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/logos/100jira.png);
+}
+
+div .application-type-image-fecru {
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/logos/100fisheye.png);
+}
+
+div .application-type-image-bamboo {
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/logos/100bamboo.png);
+}
+
+div .application-type-image-confluence {
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/logos/100confluence.png);
+}
+
+.non-ual-app-image {
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/100server.png);
+    right:0;top:0;
+	background-position:40px 13px;
+}
+
+.same-userbase-image {
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/100step3_image_lhs.png);
+    background-position: 38px 65px;
+    height: 166px;
+    left:0;top:0;
+}
+
+.same-userbase-image-grey {
+    background-color:#ececec;
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/100step3_image_lhs_gray.png);
+}
+
+.different-userbase-image {
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/100step3_image_rhs.png);
+    background-position: 38px 60px;
+    height: 166px;
+    right:0;top:0;
+}
+
+.different-userbase-image-grey {
+    background-color:#ececec;
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/100step3_image_rhs_gray.png);
+}
+
+/**
+ * @aui-override APL-613 Misc UI Fixes
+ *
+ * @date 2011-02-24
+ * @author shaffenden
+ * @see
+ *
+ *
+ * @note Straightening up some of the default padding to make things align correctly
+ */
+form.aui div.checkbox.reciprocal-link,
+form.aui div.reciprocate-entity-links-container {padding-left:5px;}
+
+form.aui div.checkbox.reciprocal-link input {
+	margin-left: 0;
+}
+
+form.aui div.trust-each-other-description input,
+form.aui div.dont-trust-each-other-description input {
+	margin-left: 2px;
+}
+/* end */
+
+#display-url {
+    width: 350px;
+}
+
+
+.trust-each-other-description {
+    clear: left;
+    position: relative;
+    padding: 45px 35px 0 10px;
+}
+
+.trust-each-other-description div {
+    padding-left: 5px;
+}
+
+.dont-trust-each-other-description {
+    clear: left;
+    position: relative;
+    padding-top:  10px;
+    padding-left: 10px
+}
+
+.expand-icon {
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/arrow_show.png);
+    width: 13px;
+    height: 14px;
+    cursor: pointer;
+    float: left;
+    margin-top: 3px;
+}
+
+.collapse-icon {
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/arrow_hide.png);
+    width: 13px;
+    height: 14px;
+    cursor: pointer;
+    float: left;
+    margin-top: 3px;
+}
+
+form.aui div.create-non-ual-description {
+    padding: 15px 0 5px 20px;
+}
+
+.create-non-ual-warning {
+    position: relative;
+    left: 15px;
+    width: 400px;
+}
+
+
+form.aui div.auth-config-message {
+    padding: 0.5em 0.5em 0.5em 1.7em;
+}
+
+.auth-panel {
+    height: 100%;
+}
+
+.dialog-panel-body.auth-panel {
+    padding-left: 0;
+}
+
+.auth-frame {
+    width: 100%;
+    height: 420px;
+    border: 0;
+    overflow:hidden;
+}
+/*.msie-7 .auth-frame {height:420px;}*/
+
+#link-container {
+    margin-top: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: 1px #ccc dashed;
+    width: 30%;
+}
+
+#linkList a {
+    color: gray;
+}
+
+#linkList .primary a {
+    color: red;
+}
+
+#linkList .primary .make-primary {
+    display: none;
+}
+
+#error-message {
+    color: red;
+    padding-top: 10px;
+}
+
+.entity-link .make-primary, .entity-link .delete-link {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.dropdown-item {
+    padding: 0.3em
+}
+
+.entity-autocomplete div.aui-dropdown {
+    margin: 0;
+}
+
+div .entity-loading {
+    float: left;
+    width: 200px;
+    padding: 0 25px;
+}
+
+form.aui div.ual-entity-msg {
+    padding: 0 50px 15px 55px;
+
+}
+
+form.aui div.radio {padding: 10px 4px 5px 0;}
+form.aui div.config-description {padding:5px;}
+
+.entity-autocomplete ol {
+    background: #fff;
+    font-size: 0.9em;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 15em;
+}
+
+.entity-autocomplete ol li {
+    margin: 0;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.entity-autocomplete ol li.active {
+    background-color: #3c78b5;
+    color: #fff;
+}
+
+.entity-autocomplete ol li img {
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.entity-autocomplete ol li a {
+    color: #333;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.entity-autocomplete ol li.active a {
+    color: #fff;
+}
+
+.entity-autocomplete ol q,
+.entity-autocomplete ol i {
+    display: none;
+}
+
+.entity-autocomplete ol em {
+    font-style: normal;
+}
+
+.ual-entity-radio-btn {
+    padding-top:    2px;
+    padding-bottom: 2px;
+}
+
+.max-entity-links {
+    font-size: 10px;
+}
+
+#max-entity-links.active, #max-entity-links.active a {
+    background-color: #fff;
+    color: #333;
+    cursor: default;
+}
+
+.non-ual-entity-msg {
+    padding: 0 50px 15px 70px;
+}
+
+.authorize-link {
+   padding: 10px;
+}
+
+.skip-link {
+   padding: 10px;
+}
+
+/*Header of the list application links screen*/
+.applinks-header {
+    position: relative;
+    margin-bottom:1em;
+}
+
+.applinks-header > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.applinks-header > ul > li {
+    display: block;
+}
+
+/*Header of the list entity links screen*/
+.applinks-entity-header {
+    position: relative;
+    z-index: 1; /*dropdowns inside the header are being overlapped by the aui-messages below.*/
+}
+
+.applinks-entity-header .dropdown-shim {
+    display: none !important;
+}
+
+.applinks-entity-header > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: -5px;
+}
+
+.applinks-entity-header > ul > li {
+    display: block;
+}
+
+.applinks-list-entity-desription {
+    padding-bottom: 15px;
+}
+
+#icon {
+    width: 21px;
+}
+
+#entity-link-list img.icon {
+    height: 16px;
+    width: 16px;
+}
+
+#entity-link-list > tr > td, #applicationsList > tr > td {
+    vertical-align: middle;
+}
+
+#applicationsList img.icon {
+    height: 16px;
+    width: 16px;
+}
+
+.applinks-primary-true {
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/primary_auth.png);
+    background-position: left;
+    background-repeat: no-repeat;
+    padding: 2px;
+}
+
+.dialog-error {
+    font-weight: bold;
+    color: red;
+    background-color: #ffcccc;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px solid #000;
+    border-color: red;
+    padding: 10px;
+}
+
+
+.dialog-error {
+    margin-top: 10px;
+}
+
+#add-entity-link .aui-dropdown {
+    width: 15em;
+}
+
+#add-entity-link .aui-dropdown li {
+    color: #535353;
+}
+
+#add-entity-link .aui-dropdown li.active a {
+    color: #fff;
+    background-color:#6699CC;
+}
+
+#add-entity-link .aui-dropdown li a {
+    text-decoration:none;
+}
+
+#add-entity-link .aui-dropdown li a span {
+    font-style: normal;
+}
+
+#add-entity-link .aui-dropdown li img {
+    float: left;
+}
+
+#add-entity-link .aui-dropdown li span.no-match {
+    color: red;
+    padding: 1em;
+}
+
+#select-entity-ual .ual-entity-links .add-entity-link-single-value {
+    *line-height: 1.2;
+}
+
+.validation-non-ual-error {
+    padding-left: 140px;
+}
+
+.loading {
+    width:  16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/wait.gif);
+    padding: 0 6px;
+}
+
+.links-loading-spinner {
+    width:  16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/wait.gif);
+    padding: 0 2px;
+    float: left;
+}
+
+.links-loading-message {
+    padding-top: 2px;
+}
+
+#app-select-spinner {
+    display: inline;
+    padding-left: 24px;
+    background-position: left;
+    background-repeat: no-repeat;
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/wait.gif);
+}
+
+#checkbox-reciprocal-link {
+    margin-top: 5px;
+}
+
+.reciprocate-entity-link {
+    padding: 0 0 5px 55px;
+}
+
+#reciprocate-warning-message {
+    font-style: italic;
+    color: black;
+    background-color: #ffffcc;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px solid #000;
+    border-color: #d3d3d3;
+    padding: 5px 5px 5px 24px;
+    margin-left: 10px;
+    background-position: left;
+    position: relative;
+    top: 5px;
+    left: -120px;
+    background-repeat: no-repeat;
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/warning.png);
+}
+
+#delete-applink,
+#delete-reciprocal-applink {
+	padding-left: 10px;
+}
+
+.delete-applink {
+    margin-top: 30px;
+    margin-left: 10px;
+    padding-left: 24px;
+    font-size: small;
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
+.authenticate-message {
+    padding-bottom: 20px;
+}
+
+.delete-applink-loading-message {
+    padding-left: 5px;
+}
+
+.delete-applink-loading {
+    padding-top: 15px;
+}
+
+.delete-applink-spinner {
+    float: left;
+}
+
+#authPanel {
+    height: 100%;
+}
+
+#authenticate-iframe {
+    width: 100%;
+    height: 95%;
+    border: 0;
+}
+
+.ual-help-link {
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/help.png);
+    display: inline-block;
+    height: 16px;
+    overflow: hidden;
+    text-indent: -9999px;
+    width: 16px;
+}
+
+.dialog-help-link {
+    position: relative;
+    left: 10px;
+    *top: -12px;
+}
+
+#trust-certificates th {
+    text-align: left;
+}
+
+#trust-certificates td {
+    padding-right: 10px;
+    padding-top: 5px;
+}
+
+#trust-certificates td a {
+    text-decoration: underline;
+}
+
+.no-admin-privileges {
+    font-family: sans-serif;
+    font-size: 10pt;
+    width: 500px;
+}
+
+.no-admin-login-link {
+    left:     350px;
+    position: absolute;
+}
+
+/**
+ * @aui-override APL-613 Misc UI Fixes
+ *
+ * @date 2011-02-24
+ * @author shaffenden
+ * @see
+ *
+ *
+ * @note The body needs to scroll when a dialog is bigger than the viewable screen. Therefore, overflow-y: auto. The aui-popup and shadow placed centrally using JS as
+ * the fixed positioning was problematic when trying to scroll.
+  */
+body, html {
+	overflow-y: auto !important;
+}
+
+form.aui fieldset.group {
+	padding-left: 4px;
+}
+/*end*/

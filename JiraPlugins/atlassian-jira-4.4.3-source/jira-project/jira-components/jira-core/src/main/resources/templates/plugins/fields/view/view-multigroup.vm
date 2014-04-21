@@ -1,0 +1,16 @@
+#if ($value)
+    <div class="shorten" id="${customField.id}-field">
+        #foreach ($singleValue in $value)
+            #if (${displayParameters.excel_view})
+                $textutils.htmlEncode($singleValue.name)#commaonly ($value)
+            #else
+                ## Test if admin user. If so, link to the group page.
+                #if ($hasAdminPermission)
+                    <a href="$requestContext.baseUrl/secure/admin/user/ViewGroup.jspa?name=$urlcodec.encode($singleValue.name)">$textutils.htmlEncode($singleValue.name)</a>#commaonly ($value)
+                #else
+                    $textutils.htmlEncode($singleValue.name)#commaonly ($value)
+                #end            
+            #end
+        #end
+    </div>
+#end

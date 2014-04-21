@@ -1,0 +1,6 @@
+##disable_html_escaping() TODO REENABLE
+<div id="header" style="text-align: center"> ## Inline CSS hack
+    <p>
+        <strong>Reference plugin does not delong here.</strong>
+    </p>
+</div>

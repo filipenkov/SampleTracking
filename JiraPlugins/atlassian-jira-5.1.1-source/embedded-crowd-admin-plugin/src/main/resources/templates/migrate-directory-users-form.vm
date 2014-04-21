@@ -1,0 +1,62 @@
+<html>
+<head>
+    <meta name="decorator" content="atl.admin">
+    <meta name="admin.active.section" content="admin_users_menu/users_groups_configuration/embedded_crowd_section"/>
+    <meta name="admin.active.tab" content="user_directories"/>
+    <title>$i18n.getText("embedded.crowd.directory.migrate.users.title")</title>
+    $webResourceManager.requireResource("com.atlassian.crowd.embedded.admin:web-resources")
+
+    <!-- selected item in Confluence admin menu -->
+    <content tag="selectedWebItem">confluence-user-directories-web-item</content>
+    <!-- Confluence breadcrumbs, TODO: invent a better way of doing this -->
+    <content tag="breadcrumbs">
+        <ol id="breadcrumbs">
+            <li class="first" ><span><a href="#springUrl("/dashboard.action")">$i18n.getText('dashboard.name')</a></span></li>
+            <li><span><a href="#springUrl("/admin/console.action")">$i18n.getText('administration.name')</a></span></li>
+            <li><span>$i18n.getText("embedded.crowd.directory.migrate.users.title")</span></li>
+        </ol>
+    </content>
+</head>
+<body>
+<div id="embcwd">
+    #springBindEscaped("migration" false)
+
+    #set($formPrefix = "migrate-internal-form")
+    <form id="$formPrefix" class="aui" action="#springUrl("/plugins/servlet/embedded-crowd/directories/migrate/")" method="POST">
+        <div class="page-header">
+            <h3>$i18n.getText("embedded.crowd.directory.migrate.users.title")#helpLink("embedded.crowd.directory.migrate.users")</h3>
+        </div>
+        #foreach($error in $status.errorMessages)<div class="aui-message error"><span class="error-icon"></span>$error</div>#end
+
+        <input type="hidden" name="$xsrfTokenName" value="$xsrfTokenValue"/>
+        #set($i18nPrefix = "embedded.crowd.directory.migrate.users.field")
+
+        #if ($migration.testSuccessful)
+            <div class="aui-message success"><span class="success-icon"></span> $i18n.getText("embedded.crowd.migration.successful", $migration.migratedCount, $migration.totalCount)</div>
+        #else
+            <div class="aui-message warning">$i18n.getText("embedded.crowd.directory.migrate.users.warning1")</div>
+            <div class="aui-message warning">$i18n.getText("embedded.crowd.directory.migrate.users.warning2")</div>
+        #end
+        <div class="field-group">
+            #auiFormSelectNumeric("migration.fromDirectoryId" $directories {"required": true, "showDescription": true, "disabled" : $migration.testSuccessful})
+        </div>
+
+        <div class="field-group">
+            #auiFormSelectNumeric("migration.toDirectoryId" $directories {"required": true, "showDescription": true , "disabled" : $migration.testSuccessful})
+        </div>
+
+        <div class="buttons">
+            #if ($migration.testSuccessful)
+                <a class="cancel" accesskey="`" href="#springUrl("/plugins/servlet/embedded-crowd/directories/list")"
+                   id="configure-internal-form-return">$i18n.getText("embedded.crowd.directory.migrate.users.return.label")</a>
+            #else
+            <input accesskey="s" class="button" id="${formPrefix}-migrate" name="migrate"
+                type="submit" value="$i18n.getText("embedded.crowd.directory.migrate.users.submit.label")">
+            <a class="cancel" accesskey="`" href="#springUrl("/plugins/servlet/embedded-crowd/directories/list")"
+               id="configure-internal-form-cancel">$i18n.getText("embedded.crowd.directory.edit.cancel.label")</a>
+            #end
+        </div>
+    </form>
+</div>
+</body>
+</html>

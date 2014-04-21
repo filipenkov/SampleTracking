@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<test-configuration>
+    <nest1>
+        <property1>Hello</property1>
+        <nest2>
+            <property2>Goodbye</property2>
+        </nest2>
+    </nest1>
+</test-configuration>

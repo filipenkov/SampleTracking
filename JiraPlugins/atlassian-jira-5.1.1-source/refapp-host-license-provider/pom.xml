@@ -1,0 +1,25 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>host-license-provider-parent</artifactId>
+    <groupId>com.atlassian.upm</groupId>
+    <version>2.1.5</version>
+  </parent>
+  <artifactId>refapp-host-license-provider</artifactId>
+  <name>Refapp Host License Provider</name>
+    
+   <dependencies>
+       <dependency>
+           <groupId>com.atlassian.upm</groupId>
+           <artifactId>licensing-lib</artifactId>
+       </dependency>
+        <dependency>
+            <groupId>com.atlassian.extras</groupId>
+            <artifactId>atlassian-extras-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.upm</groupId>
+            <artifactId>upm-api</artifactId>
+        </dependency>
+   </dependencies>
+</project>

@@ -1,0 +1,27 @@
+#* @vtlvariable name="searcher" type="com.atlassian.jira.issue.search.searchers.impl.GenericDateSearcher" *#
+#* @vtlvariable name="fieldValuesHolder" type="com.atlassian.jira.issue.transport.FieldValuesHolder" *#
+#if ($fieldValuesHolder.get($afterField))
+    #searcherHeaderNoField ($afterField $afterFieldLabel)
+        $!fieldValuesHolder.getEscaped($afterField)
+    #searcherFooter ('')
+#end
+
+#if ($fieldValuesHolder.get($beforeField))
+    #searcherHeaderNoField ($beforeField $beforeFieldLabel)
+        $!fieldValuesHolder.getEscaped($beforeField)
+    #searcherFooter ('')
+#end
+
+#if ($previousFieldView || $nextFieldView)
+    #searcherHeaderNoField ($previousField $periodLabel)
+    #if ($previousFieldView)
+        #if ($nextFieldView)
+            ${i18n.getText("navigator.filter.date.period.fromto", $textutils.htmlEncode($previousFieldView), $textutils.htmlEncode($nextFieldView))}
+        #else
+            ${i18n.getText("navigator.filter.date.period.toanytime", $textutils.htmlEncode($previousFieldView))}
+        #end
+    #else
+        ${i18n.getText("navigator.filter.date.period.fromanytime", $textutils.htmlEncode($nextFieldView))}
+    #end
+    #searcherFooter ('')
+#end

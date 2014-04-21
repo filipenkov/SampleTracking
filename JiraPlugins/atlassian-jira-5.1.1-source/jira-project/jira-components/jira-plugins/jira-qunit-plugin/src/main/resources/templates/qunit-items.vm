@@ -1,0 +1,12 @@
+#enable_html_escaping()
+<!-- QUNIT body resources -->
+<script type="text/javascript" src="$qunitResourceProvider.getScriptSrcIntegrationTest()"></script>
+
+<h1 id="qunit-header">QUnit Tests</h1>
+<div id="qunit-atlassian-toolbar"><!-- Use our own toolbar because theirs is generated at runtime which makes it too tricky to add listeners to -->
+    <input type="checkbox" id="qunit-filter-pass"><label for="qunit-filter-pass">Hide passed tests</label>
+</div>
+<h2 id="qunit-banner"></h2>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+<!-- QUNIT body resources -->

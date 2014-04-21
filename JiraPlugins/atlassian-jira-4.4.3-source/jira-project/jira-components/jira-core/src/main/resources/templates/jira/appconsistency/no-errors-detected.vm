@@ -1,0 +1,104 @@
+<html>
+<head>
+    <title>JIRA Startup Succeeded</title>
+    <style type="text/css">
+
+        .jiraform {
+            border: 1px solid #bbbbbb;
+            margin: 0 auto;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        /* Sub form titles are a little smaller */
+
+        .jiraform .jiraform {
+            margin: 10px auto;
+        }
+
+        .grid th, .grid td {
+            border: 1px solid #cccccc;
+            padding: 4px;
+            vertical-align: top;
+        }
+
+        .bordered th, .bordered td {
+            border: none;
+        }
+
+        .grid th {
+            background-color: #f0f0f0;
+        }
+
+        .colHeaderLink a {
+            text-decoration: none;
+        }
+
+        .colHeaderOver a {
+            text-decoration: none;
+        }
+
+        .colHeaderHighlight a {
+            text-decoration: none;
+        }
+
+        BODY, P, UL, OL, DL, LI, TD, TEXTAREA, INPUT, SELECT, BUTTON, option, optgroup {
+            font-family: Arial, Sans-Serif;
+            font-size: 12px;
+            color: black;
+        }
+
+        #noerrors {
+            color: green;
+        }
+
+    </style>
+    <meta http-equiv="refresh" content="30;url=$contextPath" />
+</head>
+
+<body link="#003366" vlink="#003366" alink="#660000">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td bgcolor="#003366">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td valign="top" width="5%" nowrap>
+                        <div style="font-weight: bold; font-size:18pt; color: white; margin-left: 15px;">
+                            JIRA
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td bgcolor="#3c78b5" align="left">&nbsp;</td>
+    </tr>
+</table>
+<table border="0" cellpadding="10" cellspacing="0" width="100%">
+    <tr>
+        <td height="10" align="center">
+            <table class="jiraform" width="80%">
+                <tr>
+                    <td class="jiraformheader">
+                        <h3 class="formtitle">JIRA Startup Succeeded</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="jiraformheader">
+                        <span id="noerrors">No startup errors detected at present.</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="jiraformbody">
+                    Click here to <a id="context-path" href="$contextPath">continue to the Dashboard.</a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,19 @@
+#foreach ($commentHtml in $comment.iterator())
+<blockquote>$commentHtml</blockquote>
+#end
+#if (!$thumbnails.isEmpty())
+<ul class="attachments thumbnails">
+  #foreach ($thumbnail in $thumbnails)
+    <li><a href="$thumbnail.attachmentUri.toASCIIString()"><img src="$thumbnail.uri.toASCIIString()" 
+      width="$thumbnail.width height="$thumbnail.height" alt=""></a></li>
+  #end
+</ul>
+<div class="clearer"></div>
+#end
+#if (!$attachments.isEmpty())
+<ul class="attachments activity-list">
+  #foreach ($attachment in $attachments)
+    <li><a href="$attachment.uri.toASCIIString()">$attachment.filename</a></li>
+  #end
+</ul>
+#end

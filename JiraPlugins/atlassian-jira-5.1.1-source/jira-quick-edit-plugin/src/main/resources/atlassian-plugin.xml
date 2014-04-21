@@ -1,0 +1,154 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+    </plugin-info>
+
+    
+    <resource name="jira-quick-edit-plugin" type="i18n" location="jira-quick-edit-plugin" />
+
+    <resource type="qunit" name="js/QuickForm/model-tests.js" location="global/js/model-tests.js" />
+    <resource type="qunit" name="js/Issue/create-tests.js" location="global/js/create-tests.js" />
+    <resource type="qunit" name="js/Issue/createhelper-tests.js" location="global/js/createhelper-tests.js" />
+    <resource type="qunit" name="js/QuickForm/util-tests.js" location="global/js/util-tests.js" />
+
+    <component key="userPreferencesStore" name="Quick Edit User Field Store"
+               class="com.atlassian.jira.quickedit.user.UserPreferencesStoreImpl"
+               interface="com.atlassian.jira.quickedit.user.UserPreferencesStore" public="true"/>
+
+    <webwork1 key="quickEditActions" name="Quick Edit Actions" class="java.lang.Object">
+        <actions>
+            <action name="com.atlassian.jira.quickedit.action.QuickEditIssue" alias="QuickEditIssue">
+                <view name="error">/templates/error-json.vm</view>
+                <view name="json">/templates/fields-json.vm</view>
+            </action>
+            <action name="com.atlassian.jira.quickedit.action.QuickCreateIssue" alias="QuickCreateIssue">
+                <view name="error">/templates/error-json.vm</view>
+                <view name="json">/templates/fields-json.vm</view>
+                <view name="issue">/templates/issue-json.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+
+    <keyboard-shortcut key="edit.issue" i18n-name-key="admin.keyboard.shortcut.edit.issue.name" name="Edit Issue" state='enabled'>
+        <order>11</order>
+        <description key="admin.keyboard.shortcut.edit.issue.desc">Edit Issue</description>
+        <shortcut>e</shortcut>
+        <operation type="evaluate">
+            <![CDATA[
+
+                if(!jira.app.issue.getIssueKey() && !jira.app.issuenavigator.isRowSelected()) {
+                    //we're not on view issue and no focused issue was found on the issue nav. Do nothing!
+                    return;
+                }
+
+                if (JIRA.Version.isGreaterThanOrEqualTo("5.0")) {
+                    this.click(".issueaction-edit-issue"); // go to quick edit in 5.0+ versions
+                } else {
+                    this.followLink(".issueaction-edit-issue"); // otherwise go to old edit page
+                }
+            ]]>
+        </operation>
+        <context>issueaction</context>
+    </keyboard-shortcut>
+
+    <rest key="quickEditREST" path="/quickedit" version="1.0"
+          description="Provides REST resources used for getting and updating the fields used for quick edit/create by a user"/>
+
+    <resource type="download" name="images/" location="images/" />
+
+    <web-resource key="analytics" state="disabled">
+        <context>jira.view.issue</context>
+        <context>jira.navigator.advanced</context>
+        <context>jira.navigator.simple</context>
+        
+        <resource type="download" name="Analytics.js" location="js/Analytics.js" />
+    </web-resource>
+
+    <web-resource key="quick-form">
+
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <transformation extension="soy">
+            <transformer key="jiraSoyTransformer"/>
+        </transformation>
+
+        <transformation extension="less">
+            <transformer key="lessTransformer"/>
+        </transformation>
+
+        <dependency>jira.webresources:jira-global</dependency>
+        <dependency>jira.webresources:calendar</dependency>
+        <dependency>jira.webresources:jira-fields</dependency>
+        <dependency>com.atlassian.jira.jira-soy-plugin:soy-deps</dependency>
+
+        <!-- Util -->
+        <resource type="download" name="quick-form-namespace.js" location="js/QuickForm/namespace.js" />
+        <resource type="download" name="quick-form-util.js" location="js/QuickForm/util.js" />
+
+        <!-- Model -->
+        <resource type="download" name="quick-form-model.js" location="js/QuickForm/model.js" />
+
+        <!-- Templates -->
+        <resource type="download" name="quick-form-templates.js" location="js/QuickForm/quickform.soy" />
+
+        <!-- Views -->
+        <resource type="download" name="quick-form-field.js" location="js/QuickForm/field.js" />
+        <resource type="download" name="quick-form-picker.js" location="js/QuickForm/picker.js" />
+        <resource type="download" name="quick-form-form.js" location="js/QuickForm/form.js" />
+        <resource type="download" name="quick-form-container.js" location="js/QuickForm/container.js" />
+
+        <!-- Style -->
+        <resource type="download" name="quickform.css" location="js/QuickForm/quickform.less" />
+
+    </web-resource>
+
+    <web-resource key="test-util">
+        <resource type="download" name="test-util.js" location="js/test-util.js" />
+    </web-resource>
+
+    <web-resource key="quick-create-issue">
+
+         <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <transformation extension="soy">
+            <transformer key="jiraSoyTransformer"/>
+        </transformation>
+
+        <transformation extension="less">
+            <transformer key="lessTransformer"/>
+        </transformation>
+
+        <dependency>com.atlassian.jira.jira-quick-edit-plugin:quick-form</dependency>
+        <resource type="download" name="issue-create.js" location="js/Issue/create.js" />
+        <resource type="download" name="issue-edit-templates.js" location="js/Issue/issue.soy" />
+    </web-resource>
+
+    <web-resource key="quick-edit-issue">
+
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <transformation extension="soy">
+            <transformer key="jiraSoyTransformer"/>
+        </transformation>
+
+        <transformation extension="less">
+            <transformer key="lessTransformer"/>
+        </transformation>
+
+        <dependency>com.atlassian.jira.jira-quick-edit-plugin:quick-form</dependency>
+
+        <!-- Edit Issue Views -->
+        <resource type="download" name="issue-edit.js" location="js/Issue/edit.js" />
+        <resource type="download" name="issue-edit-templates.js" location="js/Issue/issue.soy" />
+
+    </web-resource>
+
+</atlassian-plugin>

@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.atlassian.bundles</groupId>
+        <artifactId>parent-pom</artifactId>
+        <version>1</version>
+    </parent>
+    <artifactId>json</artifactId>
+    <version>20070829-1</version>
+    <name>JSON Library</name>
+    <description>Library for manipulating JSON</description>
+    <packaging>bundle</packaging>
+    <properties>
+        <Export-Package>org.json.*;version="20070829"</Export-Package>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20070829</version>
+        </dependency>
+    </dependencies>
+
+  <scm>
+    <connection>scm:svn:https://studio.atlassian.com/svn/BUNDLES/tags/json-20070829-1</connection>
+    <developerConnection>scm:svn:https://studio.atlassian.com/svn/BUNDLES/tags/json-20070829-1</developerConnection>
+    <url>https://svn.atlassian.com/svn/public/atlassian/pom/atlassian-public-pom/tags/json-20070829-1</url>
+  </scm>
+</project>

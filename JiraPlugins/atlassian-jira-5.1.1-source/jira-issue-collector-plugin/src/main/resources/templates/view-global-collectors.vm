@@ -1,0 +1,56 @@
+<html>
+<head>
+    $webResourceManager.requireResource("com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:admin-resources")
+    <title>$action.getText('collector.plugin.title')</title>
+    <meta name="decorator" content="atl.admin" />
+    <meta name="admin.active.section" content="admin_plugins_menu/issue_collectors"/>
+	<meta name="admin.active.tab" content="collectors"/>
+</head>
+<body>
+
+#macro(renderColumn $entries)
+    #foreach($entry in $entries)
+        #set($project = $action.getProject($entry.getKey()))
+    <div class="module">
+        <div class="mod-header">
+            <div class="project-link-header"><a href="${baseurl}/secure/ViewCollectors!default.jspa?projectKey=$textutils.htmlEncode(${project.key})">$textutils.htmlEncode($project.name)</a></div>
+        </div>
+        <div class="mod-content">
+            <img width="48" height="48" class="collectors-project-avatar" src="${baseurl}/secure/projectavatar?pid=${project.id}&avatarId=$!{project.avatar.id}" alt="">
+            <ul>
+                #foreach($collector in $entry.getValue())
+                    <li><a class="collector-lnk" href="${baseurl}/secure/ViewCollector!default.jspa?projectKey=$textutils.htmlEncode(${project.key})&collectorId=${collector.id}">$textutils.htmlEncode(${collector.name})</a></li>
+                #end
+            </ul>
+        </div>
+    </div>
+    #end
+#end
+
+<div class="admin-wrap issue-collector-admin">
+	<div class="project-config-panel-header project-config-icon48-issue-collector">
+		<h2>$action.getText('collector.plugin.admin.global.title')</h2>
+		<p>$i18n.getText("collector.plugin.introduction")</p>
+	</div>
+
+	#if($action.getProjectCollectors().isEmpty())
+        <div class="aui-message info custom-msg"><span class="aui-icon icon-info"></span>
+            $action.getText("collector.plugin.admin.global.help", "<a href='${baseurl}/secure/project/ViewProjects.jspa'>", "</a>")
+        </div>
+    #else
+        <div class="aui-group">
+            <div class="aui-item">
+                #renderColumn($action.getLeftColumn().entrySet())
+            </div>
+            #if($action.getProjectCollectors().size() > 1)
+                <div class="aui-item">
+                    #renderColumn($action.getRightColumn().entrySet())
+                </div>
+            #end
+        </div>
+    #end
+</div>
+</body>
+</html>
+
+

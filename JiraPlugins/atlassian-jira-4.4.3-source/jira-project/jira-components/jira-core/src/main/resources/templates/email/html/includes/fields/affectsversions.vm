@@ -1,0 +1,12 @@
+#if ($issue.affectedVersions && $issue.affectedVersions.size() >0)
+<tr valign="top">
+    <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+        <strong style="font-weight:normal;color:${textSubtleColour};">#text("template.affects.versions"):</strong>
+    </td>
+    <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+        #foreach ($version in $issue.affectedVersions)
+            $version.getString("name")#if ($velocityCount != $issue.affectedVersions.size()), #end
+        #end
+    </td>
+</tr>
+#end

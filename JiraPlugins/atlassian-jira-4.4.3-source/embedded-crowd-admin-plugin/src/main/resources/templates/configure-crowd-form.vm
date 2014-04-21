@@ -1,0 +1,66 @@
+<html>
+<head>
+    <meta name="decorator" content="atl.admin">
+	<title>$i18n.getText("embedded.crowd.directory.edit.${serverType}.title")</title>
+    $webResourceManager.requireResource("com.atlassian.crowd.embedded.admin:web-resources")
+</head>
+<body>
+<div id="embcwd">
+    #springBindEscaped("configuration" false)
+    #set($formPrefix = "configure-crowd-form")
+    <form id="$formPrefix" class="aui" action="#springUrl("/plugins/servlet/embedded-crowd/configure/${serverType}/")" method="POST">
+        <div class="page-header">
+            <h3>$i18n.getText("embedded.crowd.directory.edit.${serverType}.title") #helpLink("embedded.crowd.directory.configure.${serverType}")</h3>
+            <p class="description">$i18n.getText("embedded.crowd.directory.edit.${serverType}.description", $applicationProperties.displayName)</p>
+        </div>
+        #foreach($error in $status.errorMessages)<div class="aui-message error"><span class="error-icon"></span>$error</div>#end
+        #if ($testSuccessful) <div class="aui-message success"><span class="success-icon"></span> $i18n.getText("embedded.crowd.connection.test.successful")</div> #end
+
+        <input type="hidden" name="$xsrfTokenName" value="$xsrfTokenValue"/>
+        #set($i18nPrefix = "embedded.crowd.directory.edit.${serverType}.field")
+        #auiFormHiddenInput("configuration.directoryId")
+
+        <h3>$i18n.getText("embedded.crowd.directory.edit.${serverType}.heading.server")</h3>
+        <div class="field-group">
+            #auiFormInput("configuration.name" { "required": true })
+        </div>
+        <div class="field-group">
+            #auiFormInput("configuration.crowdServerUrl" { "required": true, "showDescription": true })
+        </div>
+        <div class="field-group">
+            #auiFormInput("configuration.applicationName" { "required": true, "showDescription": true })
+        </div>
+        <div class="field-group">
+            #auiFormPassword("configuration.applicationPassword" { "required": true, "disableAutocomplete": true, "showDescription": true })
+        </div>
+
+        <h3>$i18n.getText("embedded.crowd.directory.edit.${serverType}.heading.permissions")</h3>
+        <fieldset class="group ">
+            #auiFormRadioButtons("configuration.crowdPermissionOption" $crowdPermissionOptions {
+                "showDescription": true,
+                "hideLabel": true,
+                "i18nValue": $applicationProperties.displayName
+            })
+        </fieldset>
+
+        <h3>$i18n.getText("embedded.crowd.directory.edit.${serverType}.heading.advanced")</h3>
+        <div class="field-group checkbox hideable">
+            #auiFormCheckBox("configuration.nestedGroupsEnabled" { "showDescription": true })
+        </div>
+        <div class="field-group">
+            #auiFormInput("configuration.crowdServerSynchroniseIntervalInMin" { "showDescription": true, "inputClass": "short-field"})
+        </div>
+
+        <div class="buttons">
+            <input accesskey="t" class="button" id="${formPrefix}-test" name="test"
+                   title="$i18n.getText("embedded.crowd.directory.edit.test.title")" type="submit" value="$i18n.getText("embedded.crowd.directory.edit.test.label")">
+             ## Only enable the Save button if the configuration was tested successfully
+            <input accesskey="s" class="button" id="${formPrefix}-submit" name="save" #if (!$testSuccessful) disabled #end
+                   title="$i18n.getText("embedded.crowd.directory.edit.submit.title")" type="submit" value="$i18n.getText("embedded.crowd.directory.edit.submit.label")">
+            <a class="cancel" accesskey="`" href="#springUrl("/plugins/servlet/embedded-crowd/directories/list")"
+               id="configure-crowd-form-cancel" title="$i18n.getText("embedded.crowd.directory.edit.cancel.title")">$i18n.getText("embedded.crowd.directory.edit.cancel.label")</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

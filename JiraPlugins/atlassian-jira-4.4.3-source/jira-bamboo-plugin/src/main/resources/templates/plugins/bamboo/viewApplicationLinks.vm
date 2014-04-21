@@ -1,0 +1,100 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugin.ext.bamboo.web.ViewBambooApplicationLinks" *#
+#set($i18n=$action)
+
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="admin.active.section" content="admin_plugins_menu/builds_section"/>
+    <meta name="admin.active.tab" content="bamboo_config"/>
+    <title>$i18n.getText("bamboo.config.title")</title>
+</head>
+<body>
+
+<table class="jiraform maxWidth">
+    <tbody>
+        <tr>
+            <td class="jiraformheader">
+                <h3 class="formtitle formtitle-bamboo">$i18n.getText("bamboo.config.title")</h3>
+                <p class="formmessage-bamboo">$i18n.getText("bamboo.downloadLink")</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="jiraformbody">
+                <p>$i18n.getText("bamboo.config.description")</p>
+                #set($descriptionHelperWithHtml = $i18n.getText("bamboo.config.description.helper", $baseurl))
+                <p>$descriptionHelperWithHtml</p>
+            </td>
+        </tr>
+    <tbody>
+</table>
+
+<p>
+    <table align="center" bgcolor="#bbbbbb" border="0" cellpadding="0" cellspacing="0" width="90%">
+        <tbody>
+            <tr>
+                <td>
+                    <table border="0" cellpadding="3" cellspacing="1" width="100%">
+                        <tbody>
+                            <tr bgcolor="#f0f0f0">
+                                <td class="colHeaderLink">
+                                    <b>$i18n.getText("common.words.name")</b>
+                                </td>
+                                <td class="colHeaderLink">
+                                    <b>$i18n.getText("bamboo.config.host")</b>
+                                </td>
+                                #if ( ${hasMultipleBambooApplinks} )
+                                    <td class="colHeaderLink">
+                                        <b>$i18n.getText("bamboo.config.associated-projects-keys.label")</b>
+                                    </td>
+                                #end
+                            </tr>
+                            #if( !${applinkManager.hasApplicationLinks()} )
+                                <tr bgcolor="#ffffff">
+                                    <td colspan="3">
+                                        $i18n.getText("bamboo.config.no-servers-configured", $baseurl)
+                                    </td>
+                                </tr>
+                            #else
+                                #foreach( $applink in $sorter.sort(${applinkManager.getApplicationLinks()}, "name") )
+                                    #set ($applinkId = "${applink.id.get()}")
+                                    #if ($velocityCount % 2 == 1)
+                                        #set ($rowbgcolor = "#ffffff")
+                                    #else
+                                        #set ($rowbgcolor = "#fffff0")
+                                    #end
+                                    <tr bgcolor="$rowbgcolor">
+                                        <td valign="top">
+                                            <b>$textutils.htmlEncode(${applink.name})</b>
+                                            #if (${applink.isPrimary()}) ($i18n.getText("bamboo.config.host.default")) #end
+                                        </td>
+                                        <td valign="top">
+                                            #set ($encodedApplinkUrl = $textutils.htmlEncode(${applink.displayUrl.toASCIIString()}))
+                                            <a href="$encodedApplinkUrl">$encodedApplinkUrl</a>
+                                        </td>
+                                        #if ( ${hasMultipleBambooApplinks} )
+                                            <td align="left" valign="top">
+                                                #if (${applinkManager.hasAssociatedProjects($applinkId)})
+                                                    #foreach ($projectKey in ${sorter.sort(${applinkManager.getProjects($applinkId)})})
+                                                        #set ($encodedProjectKey = $textutils.htmlEncode($projectKey))
+                                                        <a href="$baseurl/browse/$encodedProjectKey">$encodedProjectKey</a>
+                                                    #end
+                                                #else
+                                                    $i18n.getText("bamboo.config.associated-projects-keys.none")
+                                                #end
+
+                                                <b>(<a href="EditBambooApplicationLink!default.jspa?applicationId=$applinkId">$i18n.getText("common.forms.edit")</a>)</b>
+                                            </td>
+                                        #end
+                                    </tr>
+                                #end
+                            #end
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</p>
+
+</body>
+</html>

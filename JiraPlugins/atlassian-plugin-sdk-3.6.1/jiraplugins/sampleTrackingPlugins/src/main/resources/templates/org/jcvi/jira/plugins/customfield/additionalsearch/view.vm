@@ -1,0 +1,3 @@
+#controlHeader ($action $customField.id $customField.name $fieldLayoutItem.required $displayParameters.noHeader)
+$!copy_value
+#controlFooter ($action $fieldLayoutItem.fieldDescription $displayParameters.noHeader)

@@ -1,0 +1,41 @@
+#
+# what version pf IDEA are you using.  This is the config directory name in practice
+idea.version.string= IntelliJIdea10
+#
+# This controls where the tomcat binaries are
+tomcat.dir=${project.root.dir}/../idea-tomcat
+#
+# This is the auto generated Tomcat configuration directory
+tomcat.basedir=${project.root.dir}/tomcatBase
+#
+# The is the Tomcat work directory for compiled JSPs et al.
+tomcat.workdir = ${project.root.dir}/target/work
+
+tomcat.port = 8090
+tomcat.context = /jira
+
+# One of: oracle, hsql, postgres, mssql or mysql
+jira.db.type = hsql
+
+# If you use ampersands, DO NOT escape them using &amp;,
+# example connection strings:
+#
+# MySQL:    jira.db.url = jdbc:mysql://localhost/jiradb?useUnicode=true&characterEncoding=UTF8
+# Oracle:   jira.db.url = jdbc:oracle:thin:@localhost:1521:XE
+# HSQL:     jira.db.url = jdbc:hsqldb:${project.root.dir}/target/jirahome/database/jiradb
+# Postgres: jira.db.url = jdbc:postgresql://localhost:5432/jira
+#
+# By default, the following will create a hsql db in jira-ide-support/target/jirahome/database called jiradb
+jira.db.url = jdbc:hsqldb:${project.root.dir}/target/jirahome/database/jiradb
+
+jira.db.username = sa
+jira.db.password =
+
+# If you are on mssql, you will need to specify a schemaname as well. Uncomment and edit the following line appropriately:
+#jira.db.schemaname = jira_mssql
+
+# By default, this will create your jirahome in target/jirahome. Change this if you want to move it somewhere else
+jira.home = ${project.root.dir}/target/jirahome
+
+# Uncomment this to specify additional arguments when tomcat runs
+# tomcat.additional.jvmargs = -Dplugin.resource.directories=${project.root.dir}/jira-components/jira-plugins/jira-project-config-plugin/src/main/resources

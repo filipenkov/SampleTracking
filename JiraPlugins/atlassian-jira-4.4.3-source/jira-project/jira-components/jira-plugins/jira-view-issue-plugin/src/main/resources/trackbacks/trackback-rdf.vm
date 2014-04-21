@@ -1,0 +1,14 @@
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+#foreach (${trackback} in ${trackbacks})
+<rdf:Description rdf:about="${trackback.about}"
+    dc:title="[#${issue.key}] ${trackback.titleHtml}"
+    dc:subject="${trackback.subjectHtml}"
+    dc:description="${trackback.descriptionHtml}"
+    dc:date="${trackback.date}"
+    dc:identifier="${trackback.about}"
+    trackback:ping="${baseurl}/rpc/trackback/${issue.key}"/>
+#end
+</rdf:RDF>-->

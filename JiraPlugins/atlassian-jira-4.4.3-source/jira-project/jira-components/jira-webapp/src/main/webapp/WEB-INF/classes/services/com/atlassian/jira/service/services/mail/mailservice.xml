@@ -1,0 +1,5 @@
+<popservice id="mailservice">
+    <description>admin.service.mail</description>
+    <properties>
+    </properties>
+</popservice>

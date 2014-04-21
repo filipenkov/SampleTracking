@@ -1,0 +1,2 @@
+#if ($reverse) $reverse.insertTemplate("VIEW",$ctx) #else $!value #end
+

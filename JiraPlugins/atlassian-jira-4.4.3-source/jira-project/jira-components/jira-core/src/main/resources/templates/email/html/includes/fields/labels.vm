@@ -1,0 +1,12 @@
+#if ($issue.labels && $issue.labels.size() > 0)
+<tr valign="top">
+    <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+        <strong style="font-weight:normal;color:${textSubtleColour};">#text("issue.field.labels"):</strong>
+    </td>
+    <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+        #foreach($label in $issue.labels)
+            $textutils.htmlEncode($label.label)
+        #end
+    </td>
+</tr>
+#end

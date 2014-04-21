@@ -1,0 +1,2 @@
+http\://www.atlassian.com/schema/atlassian-spring=com.atlassian.spring.extension.AtlassianExtensionNamespaceHandler
+http\://atlassian.com/schema/spring/hosted=com.atlassian.spring.extension.HostedExtensionNamespaceHandler

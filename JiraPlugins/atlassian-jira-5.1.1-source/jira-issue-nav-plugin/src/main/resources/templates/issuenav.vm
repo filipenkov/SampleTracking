@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kick-Ass Issue Navigator</title>
+    <meta name="decorator" content="atl.general">
+</head>
+<body class="ka page-type-navigator">
+
+    <div class="content-container">
+
+        <div class="content-body">
+            <div id="exit-beta-navigator"><a href="$baseurl/secure/TryKickAssAction!default.jspa?enable=false">$action.getText('issue.nav.take.me.back')</a></div>
+            <header></header>
+
+
+            <div class="return-to-search">
+                <a id="return-to-search" href="#" title="Return to search">Return to Search</a>
+            </div>
+
+
+            <div class="navigator-group">
+                <div class="results-panel navigator-item">
+                    <form class="navigator-search"></form>
+                    <!-- page navigation here -->
+                    <div class="results-count"></div>
+                    <!-- //page navigation here -->
+
+                    <div class="navigator-content">
+##                        <div class="zero-results">
+##                            There are no results for <strong>your search</strong>
+##                        </div>
+                        <table class="navigator-results"></table>
+                    </div>
+
+                </div>
+
+                <div id="active-result-panel" class="navigator-item">
+                    <!-- issue header here -->
+                    <!-- // issue header here -->
+                    <div class="result-panel">
+                        <!-- issue details here -->
+                        <!-- //issue details here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <fieldset class="hidden parameters">
+        <input type="hidden" title="autocompleteEnabled" value="$action.isAutocompleteEnabledForThisRequest()"/>
+    </fieldset>
+    <div id="jqlFieldz" style="display:none;">$textutils.htmlEncode($action.visibleFieldNamesJson)</div>
+    <div id="jqlFunctionNamez" style="display:none;">$textutils.htmlEncode($action.visibleFunctionNamesJson)</div>
+    <div id="jqlReservedWordz" style="display:none;">$textutils.htmlEncode($action.jqlReservedWordsJson)</div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+repo: f97ed054bcf33bc9947d077bcc2a3f7eff032403
+node: 91d6690298fb085a3fb57c4caa8dc54ef2270d48
+branch: default
+tag: jira-quick-edit-plugin-1.0.0

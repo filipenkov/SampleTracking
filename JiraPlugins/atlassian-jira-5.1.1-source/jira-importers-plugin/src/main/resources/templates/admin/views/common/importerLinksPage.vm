@@ -1,0 +1,29 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ImporterLinksPage" *#
+#parse('/templates/admin/views/common/import-header.vm')
+
+<table class="aui">
+	<thead>
+		<tr>
+			<th>$i18n.getText('jira-importer-plugin.config.mappings.link.import.field')</th>
+			<th>$i18n.getText('jira-importer-plugin.config.mappings.link.jira.field')</th>
+		</tr>
+	</thead>
+	<tbody>
+		#foreach($entry in $action.sorter.sort($action.configBean.linkNamesFromDb))
+			#set ($auiparams = $map.build('label', $entry, 'name', $entry, 'map', $action.configBean.availableLinkMappings, 'value', $action.configBean.getLinkMapping($entry)))
+			#set ($auiparams.headerrow = $i18n.getText('common.words.none'))
+			#set ($auiparams.headervalue = '')
+
+			<tr class="fieldArea">
+				<td class="fieldLabelArea"">
+					<label for="$entry">$entry</label>
+				</td>
+				<td class="fieldValueArea">
+					#parse("/templates/common/select.vm")
+				</td>
+			</tr>
+		#end
+	</tbody>
+</table>
+
+#parse('/templates/admin/views/common/import-footer.vm')

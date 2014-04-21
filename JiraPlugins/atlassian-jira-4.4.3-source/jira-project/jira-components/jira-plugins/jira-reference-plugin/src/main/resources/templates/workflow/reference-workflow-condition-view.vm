@@ -1,0 +1,2 @@
+$i18n.getText('module.workflow.condition.reference.view', '<b>', ${reference-module-result}, '</b>')
+

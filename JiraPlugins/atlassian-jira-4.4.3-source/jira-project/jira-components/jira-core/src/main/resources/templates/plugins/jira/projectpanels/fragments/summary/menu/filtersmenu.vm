@@ -1,0 +1,20 @@
+#set ($displayableItems = $webInterfaceManager.getDisplayableItems($location, $user, $helper))
+#if (!$displayableItems.isEmpty())
+<a href="#" title="$i18n.getText('common.concepts.presetfilters.list')" class="lnk aui-dd-link standard icon-filters" id="filters"><span>$i18n.getText('common.concepts.presetfilters')</span></a>
+<div class="aui-list hidden">
+    <ul id="filters-dropdown" class="aui-list-section aui-last">
+        #foreach ($item in $displayableItems)
+            #if (($layout && !$layout.isDisplayableItemHidden($item)) || !$layout)
+            <li class="aui-list-item">
+                #set ($filterUrl = $item.link.getDisplayableUrl($user, $helper))
+                #if ($item.link.id)
+                 <a class="aui-list-item-link" id="$item.link.id" href="$filterUrl">$item.label.getDisplayableLabel($user, $helper)</a>
+                #else
+                 <a class="aui-list-item-link" href="$filterUrl">$item.label.getDisplayableLabel($user, $helper)</a>
+                #end
+            </li>
+            #end
+        #end
+    </ul>
+</div>
+#end

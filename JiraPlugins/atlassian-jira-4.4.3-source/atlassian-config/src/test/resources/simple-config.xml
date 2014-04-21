@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<test-configuration>
+    <property1>Hello</property1>
+    <property2>Goodbye</property2>
+</test-configuration>

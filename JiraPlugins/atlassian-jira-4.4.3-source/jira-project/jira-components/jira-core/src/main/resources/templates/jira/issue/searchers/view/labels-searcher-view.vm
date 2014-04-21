@@ -1,0 +1,3 @@
+#searcherHeaderNoField ($searcherId $i18n.getText($searcherNameKey))
+    $textutils.htmlEncode($!labelString)
+#searcherFooter ($searcherId)

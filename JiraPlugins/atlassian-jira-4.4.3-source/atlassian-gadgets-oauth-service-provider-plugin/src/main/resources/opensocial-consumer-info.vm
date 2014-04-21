@@ -1,0 +1,20 @@
+#* @vtlvariable name="consumer" type="com.atlassian.oauth.Consumer" *#
+#* @vtlvariable name="gadgetSpec" type="com.atlassian.gadgets.spec.GadgetSpec" *#
+#if($gadgetRetrievalError)
+    #set ($errorHtml = $i18n.getText("com.atlassian.gadgets.oauth.serviceprovider.authorize.error.gadget",  $stringEscapeUtil.escapeHtml($gadgetUri), $helpLinkResolver.getLink("whitelisting.external.gadgets")))
+    <p>$errorHtml</p>
+#else
+    #if ($gadgetSpec.directoryTitle)
+        #set ($gadgetName = $gadgetSpec.directoryTitle)
+    #else
+        #set ($gadgetName = $gadgetSpec.title)
+    #end
+    #set ($para1Html = $i18n.getText("com.atlassian.gadgets.oauth.serviceprovider.authorize.token.description.para1", $stringEscapeUtil.escapeHtml($gadgetName), $stringEscapeUtil.escapeHtml($consumer.name), $stringEscapeUtil.escapeHtml($applicationProperties.displayName)))
+    <p>$para1Html</p>
+#end
+#set ($para2Html = $i18n.getText("com.atlassian.gadgets.oauth.serviceprovider.authorize.token.description.para2"))
+<p>$para2Html</p>
+<p>
+$i18n.getText("com.atlassian.gadgets.oauth.serviceprovider.authorize.token.description.para3")
+    <a href="$helpLinkResolver.getLink("oauth.authorization")">$i18n.getText("com.atlassian.gadgets.oauth.serviceprovider.learn.more")</a>
+</p>

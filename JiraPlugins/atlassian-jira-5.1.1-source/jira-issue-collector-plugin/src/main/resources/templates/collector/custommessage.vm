@@ -1,0 +1,5 @@
+#if($showCustomMessage)
+<div class="aui-message info custom-msg"><span class="aui-icon icon-info"></span>
+    $customMessageHtml
+</div>
+#end

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+#* @vtlvariable name="i18n" type="com.atlassian.sal.api.message.I18nResolver" *#
+#parse("/common/_help_link.vm")
+#parse("/common/_configured_status.vm")
+#parse("/common/_xsrf_token_element.vm")
+<html>
+<head>
+    ${webResources.get()}
+</head>
+<body class="auth-config">
+    #if($errorMessages)
+        <div class="aui-message error shadowed auth-config-message">$errorMessages</div>
+    #end
+    <form id="add-serviceprovider" method="POST" class="aui">
+        #xsrfTokenElement()
+        #status($enabled)
+        #if($enabled)
+        <fieldset>
+            <div>
+                ${i18n.getText("auth.oauth.config.consumer.serviceprovider.registered", $remoteApplicationName, $remoteApplicationType, $localApplicationName, $localApplicationType)}
+            </div>
+        </fieldset>
+        #else
+        <fieldset>
+            <div>
+                ${i18n.getText("auth.oauth.config.consumer.serviceprovider.not.registered", $remoteApplicationName, $remoteApplicationType, $localApplicationName, $localApplicationType)}
+            </div>
+            <div class="oauth-config-description">
+                ${i18n.getText("auth.oauth.config.consumer.add.serviceprovider.info", $remoteApplicationName)}
+                #help('applinks.docs.configuring.auth.oauth')
+            </div>
+        </fieldset>
+        #end
+        <fieldset>
+            <input type="hidden" name="oauth-outgoing-enabled" id="oauth-outgoing-enabled" value="true" />
+            <div class="field-group">
+                <label for="name">$i18n.getText("auth.oauth.config.consumer.serviceprovider.name") #if (!$enabled)<span class="aui-icon icon-required"></span> #end</label>
+                #if ($enabled)
+                    <span class="field-value" id="name" name="name">$!name</span>
+                #else
+                    <input type="text" name="name" id="name" class="string text" value="$!name" />
+                #end
+                #if($fieldErrorMessages.name)<div class="error">$fieldErrorMessages.name</div>#end
+                <div class="description">$i18n.getText("auth.oauth.config.consumer.serviceprovider.name.description", $applicationProperties.displayName)</div>
+            </div>
+            <div class="field-group">
+                <label for="consumerKey">$i18n.getText("auth.oauth.config.consumer.serviceprovider.key") #if (!$enabled) <span class="aui-icon icon-required"></span> #end</label>
+                #if ($enabled)
+                    <span class="field-value" id="consumerKey" name="consumerKey">$!consumerKey</span>
+                #else
+                    <input type="text" name="consumerKey" id="consumerKey" class="string text" value="$!consumerKey" />
+                #end
+                #if($fieldErrorMessages.consumerKey)<div class="error">$fieldErrorMessages.consumerKey</div>#end
+                <div class="description">$i18n.getText("auth.oauth.config.consumer.serviceprovider.key.description", $applicationProperties.displayName)</div>
+            </div>
+            <div class="field-group">
+                <label for="sharedSecret">$i18n.getText("auth.oauth.config.consumer.serviceprovider.shared.secret") #if (!$enabled) <span class="aui-icon icon-required"></span> #end</label>
+                #if ($enabled)
+                    <span class="field-value" id="sharedSecret" name="sharedSecret">*******</span>
+                #else
+                    <input type="text" name="sharedSecret" id="sharedSecret" class="string text" value="$!sharedSecret" />
+                #end
+                #if($fieldErrorMessages.sharedSecret)<div class="error">$fieldErrorMessages.sharedSecret</div>#end
+                <div class="description">$i18n.getText("auth.oauth.config.consumer.serviceprovider.shared.secret.description", $applicationProperties.displayName)</div>
+            </div>
+            <div class="field-group">
+                <label for="description">$i18n.getText("auth.oauth.config.consumer.serviceprovider.description")</label>
+                #if ($enabled)
+                    <textarea id="description" name="description" class="textarea" cols="10" rows="6" disabled="true">$!description</textarea>
+                #else
+                    <textarea id="description" name="description" class="textarea" cols="10" rows="6">$!description</textarea>
+                #end
+                #if($fieldErrorMessages.description)<div class="error">$fieldErrorMessages.description</div>#end
+            </div>
+            <div class="field-group">
+                <label for="requestTokenUrl">$i18n.getText("auth.oauth.config.consumer.serviceprovider.token.url") #if (!$enabled)<span class="aui-icon icon-required"></span> #end</label>
+                #if ($enabled)
+                    <span class="field-value" id="requestTokenUrl" name="requestTokenUrl">$!requestTokenUrl</span>
+                #else
+                    <input type="text" name="requestTokenUrl" id="requestTokenUrl" class="string text" value="$!requestTokenUrl" />
+                #end
+                #if($fieldErrorMessages.requestTokenUrl)<div class="error">$fieldErrorMessages.requestTokenUrl</div>#end
+                <div class="description">$i18n.getText("auth.oauth.config.consumer.serviceprovider.token.url.description")</div>
+            </div>
+            <div class="field-group">
+                <label for="accessTokenUrl">$i18n.getText("auth.oauth.config.consumer.serviceprovider.access.token.url") #if (!$enabled)<span class="aui-icon icon-required"></span> #end</label>
+                #if ($enabled)
+                    <span class="field-value" id="accessTokenUrl" name="accessTokenUrl">$!accessTokenUrl</span>
+                #else
+                    <input type="text" name="accessTokenUrl" id="accessTokenUrl" class="string text" value="$!accessTokenUrl" />
+                #end
+                #if($fieldErrorMessages.accessTokenUrl)<div class="error">$fieldErrorMessages.accessTokenUrl</div>#end
+                <div class="description">$i18n.getText("auth.oauth.config.consumer.serviceprovider.access.token.url.description")</div>
+            </div>
+            <div class="field-group">
+                <label for="authorizeUrl">$i18n.getText("auth.oauth.config.consumer.serviceprovider.authorize.url") #if (!$enabled)<span class="aui-icon icon-required"></span> #end</label>
+                #if ($enabled)
+                    <span class="field-value" id="authorizeUrl" name="authorizeUrl">$!authorizeUrl</span>
+                #else
+                    <input type="text" name="authorizeUrl" id="authorizeUrl" class="string text" value="$!authorizeUrl" />
+                #end
+                #if($fieldErrorMessages.authorizeUrl)<div class="error">$fieldErrorMessages.authorizeUrl</div>#end
+                <div class="description">$i18n.getText("auth.oauth.config.consumer.serviceprovider.authorize.url.description")</div>
+            </div>
+        </fieldset>
+        <div class="buttons-container">
+            <div class="buttons">
+                #if ($enabled)
+                    <input class="button submit" type="button" value="${i18n.getText("auth.oauth.config.consumer.serviceprovider.delete")}" onclick="deleteServiceProviderInformation('${i18n.getText("auth.oauth.config.consumer.serviceprovider.delete")}',  '${i18n.getText("auth.oauth.config.consumer.serviceprovider.delete.message")}');" />
+                #else
+                    <input class="button submit" type="submit" value="${i18n.getText("auth.oauth.config.consumer.serviceprovider.save")}" />
+                #end
+            </div>
+        </div>
+    </form>
+</body>
+</html>

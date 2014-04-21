@@ -1,0 +1,11 @@
+##disable_html_escaping() TODO REENABLE
+<table border="1" >
+<tr>
+    <td bgcolor="#dddddd" colspan="$colCount"><font size="1">
+        $generatedInfo
+    </font></td>
+</tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "field.issue key" : "issuekey",
+  "field.votes" : "votes",
+  "field.labels" : "labels",
+  "project.lead" : "admin",
+  "user.email.suffix" : "@example.com",
+  "field.summary" : "summary",
+  "date.import.format" : "yyyyMMddHHmmss",
+  "project.name" : "Test Test",
+  "project.key" : "TT",
+  "mapfromcsv" : "false"
+}

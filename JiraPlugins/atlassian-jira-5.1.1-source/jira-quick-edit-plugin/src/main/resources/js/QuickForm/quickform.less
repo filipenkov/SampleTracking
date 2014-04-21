@@ -1,0 +1,244 @@
+/* ------ Form ------- */
+
+.qf-form .content {
+    position:relative;
+}
+
+/*  -------- header -------- */
+.qf-form-operations.aui-toolbar {
+    float:right;
+    background-color:transparent;
+    width:auto;
+    font-weight:normal;
+}
+
+.qf-form-operations.aui-toolbar .toolbar-split-right .toolbar-group {
+    margin-left:5px;
+    margin-right:0;
+}
+
+.qf-form-operations.aui-toolbar a {
+    cursor:pointer;
+}
+
+.qf-form-operations.toolbar-group .toolbar-trigger {
+    border:1px solid #555;
+    background:#fff;
+}
+
+.qf-form-operations .icon-tools {
+    background:url("images/icon-cog.png") 0 0 no-repeat;
+    height:18px;
+    width:18px;
+    margin:-2px 5px 0 0;
+    padding-left:0; // override for dashboards
+}
+
+.qf-form-operations .toolbar-group .toolbar-item .toolbar-trigger {
+    border: 1px solid #999;
+}
+
+
+
+/* --------  Field -------- */
+.qf-field {
+    padding: 5px 30px 5px 0;
+    margin-bottom:1px;
+    clear:left;
+}
+
+.qf-field.qf-field-has-retain-feature {
+    padding-right:50px;
+}
+
+/* Dragging states */
+.qf-field-dragging, .qf-field-dragging:hover  {
+    background: #ebf1fd;
+    -moz-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.qf-field.qf-field-transitioning {
+    background: #ebf1fd;
+}
+
+.qf-placeholder {
+    background: url("images/bg-mesh.png");
+}
+
+.qf-field #reporter_container input {
+    width: 480px;
+}
+
+/* AUI Overrides */
+.qf-field .field-group {
+    margin-bottom: 0!important;
+}
+
+
+/* ----- Picker ----- */
+
+/* Chrome */
+.qf-picker {
+    margin:0;
+}
+
+.qf-picker .qf-picker-header {
+    border-bottom:  1px solid #ddd;
+    padding: 10px;
+}
+
+.qf-picker .qf-picker-header dt {
+    display:inline-block;
+    font-weight:bold;
+}
+
+.qf-picker .qf-picker-header dd {
+    display: inline-block;
+    padding:0 5px;
+    border-left:1px solid #ddd;
+}
+
+.qf-picker .qf-picker-header dt+dd {
+    border-left: none;
+}
+
+.qf-picker .qf-picker-unconfigurable {
+    opacity: 0.5;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+}
+
+.qf-picker-content {
+    overflow:auto;
+    padding:10px 15px;
+}
+
+.qf-picker h4 {
+    margin:6px 0 3px 0;
+    font-size:13px;
+    font-weight:normal;
+    background: url("images/mod_header_bg.png") 0 8px repeat-x;
+    color:#666;
+ }
+
+ .qf-picker h4 span {
+    background:#fff;
+    display:inline-block;
+    padding-right:5px;
+ }
+
+.qf-picker-buttons {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0 0 5px;
+    overflow: hidden;
+    -moz-column-width: 150px;
+    -webkit-column-width: 150px;
+}
+
+.qf-picker-buttons.qf-no-fields {
+    -moz-column-width: auto;
+    -webkit-column-width: auto;
+    color:#888;
+}
+
+.qf-picker-buttons li {
+    margin-bottom: 10px;
+}
+
+.msie .qf-picker-buttons li {
+    float:left;
+}
+
+.qf-picker-button .icon {
+    margin-right:5px!important;
+}
+
+.qf-picker-button .icon-required {
+    display:inline-block;
+}
+
+/* Button */
+
+.qf-picker-button {
+    width:150px;
+    display:block;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    background:url("images/icon-checkbox.png") 0 2px no-repeat;
+    padding-left:20px;
+    color:#333!important;
+}
+
+.qf-picker-button:hover {
+    background-position: 0 -98px;
+}
+
+.qf-picker-button.qf-active {
+    background-position: 0 -48px;
+}
+
+.qf-has-scollbars .qf-picker-button {
+    width: 145px;
+}
+
+.msie .qf-has-scollbars .qf-picker-button {
+    width: 143px;
+}
+
+.qf-picker-button.qf-active span {
+    background:url("images/icon_tick_added.png") 0 0 no-repeat;
+}
+
+.qf-picker-button.qf-active:hover span {
+     background-image: url("images/icon_trash_active.png");
+}
+
+.qf-issue-created-link {
+    max-width: 480px;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display:inline-block;
+    vertical-align:top;
+}
+
+
+/* Quick Create */
+.qf-create-another {
+    margin-right:10px;
+}
+
+/* quick create - issue type selection */
+.issue-setup-fields {
+    border-bottom: 1px solid #ddd;
+    padding-bottom:10px;
+    margin-bottom: 10px;
+}
+
+#create-subtask-dialog .qf-field-project {
+    display:none;
+}
+
+/* Inline Dialog */
+#inline-dialog-field_picker_popup {
+    z-index: 9999;
+}
+
+/* Aui message overrides for JIRA overrides - oh god! */
+.aui-message.closeable .aui-icon.icon-close {
+    left: auto!important;
+    right: 6px!important;
+}
+
+.qf-form .form-footer .buttons {
+    padding-left: 0!important;
+}
+
+.issue-setup-fields .qf-field:hover {
+    background-color:transparent;
+}

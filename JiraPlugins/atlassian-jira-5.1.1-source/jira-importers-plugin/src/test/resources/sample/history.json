@@ -1,0 +1,52 @@
+{
+	"users": [
+		{
+			"name": "pniewiadomski",
+			"fullname": "Pawel Niewiadomski"
+		},
+		{
+			"name": "wseliga",
+			"fullname": "Wojtek Seliga"
+		}
+	],
+	"projects": [
+		{
+			"name": "Sample data",
+			"key": "SAM",
+			"description": "This is a sample data",
+			"versions": [ "1.0", "1.1"],
+			"components": [ "Core", "HTTP", "UI"],
+			"issues": [
+				{
+					"priority" : "Major",
+					"description" : "Some nice description here\nMaybe _italics_ or *bold*?",
+					"status" : "Closed",
+					"reporter" : "pniewiadomski",
+					"labels" : [ "impossible", "test" ],
+					"watchers" : [ "wseliga" ],
+					"issueType" : "Bug",
+					"resolution" : "Resolved",
+					"created" : "P3D",
+					"updated" : "P1D",
+					"affectedVersions" : [ "1.9" ],
+					"summary" : "My chore",
+					"assignee" : "wseliga",
+					"fixedVersions" : [ "1.0" ],
+
+					"history" : [
+						{ "author" : "wseliga", "created": "P1D", "items": [
+							{
+								"fieldType" : "jira",
+								"field" : "status",
+								"from" : "1",
+								"fromString" : "Open",
+								"to" : "5",
+								"toString" : "Resolved"
+							}
+						  ]}
+					]
+				}
+			]
+		}
+	]
+}

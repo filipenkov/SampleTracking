@@ -1,0 +1,141 @@
+#* @vtlvariable name="buildResultKey" type="java.lang.String" *#
+#* @vtlvariable name="completedState" type="com.atlassian.jira.plugin.ext.bamboo.model.BuildState" *#
+#* @vtlvariable name="versionContext" type="com.atlassian.jira.plugin.versionpanel.BrowseVersionContext" *#
+#* @vtlvariable name="i18n" type="com.atlassian.sal.api.message.I18nResolver" *#
+#macro(icon $type $text $showTitle)<span class="bamboo-icon bamboo-icon-${type}"#if ($text != "" && $showTitle) title="${text}"#end>#if ($text != "")<span>${text}</span>#end</span>#end
+
+#macro(time $datetime)
+<time datetime="$datetime.toString("yyyy-MM-dd'T'HH:mm:ss")">$!bodyContent</time>
+#end
+
+#macro(messageBox $type $title $content)
+<div class="aui-message $type">
+    #if ($title != "")
+    <p class="title">
+        <span class="aui-icon icon-$type"></span>
+        <strong>$title</strong>
+    </p>
+    #else
+        <span class="aui-icon icon-$type"></span>
+    #end
+    $!content
+</div>
+#end
+
+#if ($hasApplinks)
+    <script type="text/javascript">
+        if (typeof JBAM === "undefined") {
+            JBAM = {};
+        }
+        JBAM.jiraProjectKey = "$versionContext.project.key";
+        JBAM.jiraVersionId = "$versionContext.version.id";
+        JBAM.baseURL = "$req.contextPath$baseLinkUrl";
+        JBAM.restURL = "$req.contextPath$baseRestUrl";
+
+        JBAM.bambooBaseURL = "$baseBambooUrl";
+        JBAM.templates = {
+            icon: 'icon-snippet',
+            buildDetail: 'build-detail-snippet',
+            artifactItem: 'artifact-item-snippet',
+            labelItem: 'label-item-snippet'
+        };
+    </script>
+    <script type="text/x-template" title="icon-snippet">#icon("{type}" "" false)</script>
+    <script type="text/x-template" title="build-detail-snippet"><dl><dt class="{keyClass}">{key}</dt><dd>{value}</dd></dl></script>
+    <script type="text/x-template" title="artifact-item-snippet"><li>
+        #icon("artifact-shared" "" false)
+        <a id="artifact-{id}" href="{url}">{name}</a>
+        <span class="filesize">({size})</span>
+    </li></script>
+    <script type="text/x-template" title="label-item-snippet"><li>
+        <a class="lozenge" href="$baseBambooUrl/browse/label/{name}" title="{name}"><span>{name}</span></a>
+    </li></script>
+#end
+<div id="primary" class="column full">
+    <div class="content">
+        #if ($hasApplinks)
+            #set ($encodedVersionName = $textutils.htmlEncode($versionContext.version.name))
+            <div class="module">
+                <div class="mod-content">
+                    <div id="release-status"#if (!$versionContext.version.released && !$buildResultKey) class="version-unreleased"#end>
+                        #if ($versionContext.version.released)
+                            #icon("version-released" "" false)
+                            <h3>$versionContext.project.name $encodedVersionName has been released</h3>
+                            <p>See the <a href="$req.contextPath/secure/ReleaseNote.jspa?projectId=$versionContext.project.id&amp;version=$versionContext.version.id">release notes</a> for the list of issues that have been resolved in this version.</p>
+                        #elseif ($buildResultKey && !$completedState)
+                            #icon("version-unreleased" "" false)
+                            <h3>$versionContext.project.name $encodedVersionName is currently being released</h3>
+                            <p>Once the build completes successfully the version will automatically be released.</p>
+                        #elseif ($buildResultKey && $completedState)
+                            #icon("version-unreleased" "" false)
+                            #if ($completedState == "FAILED" || $completedState == "UNKNOWN")
+                                <h3>Release of $versionContext.project.name $encodedVersionName has failed</h3>
+                            #else
+                                <h3>$versionContext.project.name $encodedVersionName has not been released</h3>
+                                <p>The release build has been successful, however an error has occurred while performing the release. Please retry the release or release the Version manually.</p>
+                            #end
+
+                            #if ($isProjectAdmin)
+                                <ul class="ops">
+                                    <li>
+                                        <a id="runRelease" class="button edit first last" href="${req.contextPath}/secure/ConfigureBambooRelease!input.jspa?versionId=$versionContext.version.id">Retry Release</a>
+                                    </li>
+                                </ul>
+                            #else
+                                <p>You cannot release this version because you are not an Administrator of this project.</p>
+                            #end
+                        #else
+                            <h3>$versionContext.project.name $encodedVersionName has not been released</h3>
+                            #if ($isProjectAdmin)
+                                <ul class="ops">
+                                    <li>
+                                        <a id="runRelease" class="button edit first last" href="${req.contextPath}/secure/ConfigureBambooRelease!input.jspa?versionId=$versionContext.version.id">Release</a>
+                                    </li>
+                                </ul>
+                            #else
+                                <p>You cannot release this version because you are not an Administrator of this project.</p>
+                            #end
+                        #end
+                    </div>
+                </div>
+            </div>
+            #if ($buildResultKey)
+                <div class="module">
+                    <div class="mod-header">
+                        <h3>Details</h3>
+                    </div>
+                    #if ($releaseErrors && $isProjectAdmin)
+                        <div class="releaseErrors">
+                            <a class="clearErrorsLink" href="${req.contextPath}/secure/clearReleaseErrors.jspa?versionId=$versionContext.version.id">Clear Errors</a>
+                            #foreach ($error in $releaseErrors)
+                                #messageBox("error" $textutils.htmlEncode($error) "")
+                            #end
+                        </div>
+                    #end
+                    <div class="mod-content">
+                        <ul class="item-details">
+                            <li id="build-details"></li>
+                        </ul>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    JBAM.ShowBuildReleaseDetails("$buildResultKey");
+                </script>
+            #end
+        #else
+            <div class="module">
+                <div id="connect-message">
+                    <h3>Connect JIRA to Bamboo to use the release management features</h3>
+                    #if ($isSystemAdmin)
+                        <ul class="ops">
+                            <li><a class="button edit first last" href="$req.contextPath/plugins/servlet/applinks/listApplicationLinks">Connect</a></li>
+                        </ul>
+                    #else
+                        <p>Please contact your Administrator to connect JIRA to Bamboo.</p>
+                    #end
+                </div>
+            </div>
+        #end
+    </div>
+
+</div>

@@ -1,0 +1,52 @@
+<div id="project-config-panel-people" class="project-config-panel">
+    <div class="project-config-panel-header project-config-icon48-people">
+        <h2>$i18n.getText("admin.project.config.people")</h2>
+        <p>$i18n.getText("admin.project.config.summary.people.desc")</p>
+        <ul id="project-config-panel-people-list" class="project-config-panel-header-list">
+
+            <li>
+                <span class="project-config-panel-header-label project-config-lead-label">${i18n.getText("common.concepts.projectlead")}:</span>
+                <span class="project-config-panel-header-value" id="project-config-panel-people-project-lead">
+                    #if($userAvatarsEnabled)
+                        <img src="$userAvatarUrl" id="project-config-panel-people-project-lead-avatar" class="project-config-icon-avatar" height="16" width="16" alt="" />
+                    #end
+                    #if(!$projectLeadExists)
+                        <span class="errLabel">$projectLeadHtml</span>
+                    #else
+                        ${projectLeadHtml}
+                    #end
+                </span>
+                <a id="edit_project_lead" class="project-config-edit-icon" href="${baseurl}/secure/project/EditProjectLeadAndDefaultAssignee!default.jspa?pid=${project.id}"><span class="project-config-icon project-config-icon-edit"></span></a>
+            </li>
+            <li>
+                <span class="project-config-panel-header-label">${i18n.getText("admin.projects.default.assignee")}:</span>
+                #if($defaultAssigneeAssignable)
+                    <span class="project-config-panel-header-value" id="project-config-panel-people-default-assignee">${i18n.getText($defaultAssignee)}</span>
+                #else
+                    <span title="${i18n.getText("admin.projects.warning.user.not.assignable")}" class="project-config-panel-header-value project-config-invalid" id="project-config-panel-people-default-assignee">${i18n.getText($defaultAssignee)}</span>
+                #end
+                <a id="edit_default_assignee" data-field="assigneeType" class="project-config-edit-icon" href="${baseurl}/secure/project/EditProjectLeadAndDefaultAssignee!default.jspa?pid=${project.id}"><span class="project-config-icon project-config-icon-edit"></span></a>
+            </li>
+        </ul>
+    </div>
+    <form id="project-config-people" class="loading" action="#">
+        <table class="aui" id="project-config-people-table">
+            <thead>
+                <tr>
+                    <th>$i18n.getText("common.words.project.roles")</th>
+                    <th>$i18n.getText("admin.common.words.users")</th>
+                    <th>$i18n.getText("common.words.groups")</th>
+                    <th><!-- Operations --></th>
+                    <th><!-- throbber --></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div class="jira-restfultable-init">
+            <span class="jira-restfultable-throbber"></span>
+            <span class="jira-restfultable-loading">$i18n.getText('admin.project.people.loading')</span>
+        </div>
+    </form>
+
+</div>

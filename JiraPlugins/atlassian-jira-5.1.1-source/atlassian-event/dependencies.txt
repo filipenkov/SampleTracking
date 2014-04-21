@@ -1,0 +1,14 @@
+aopalliance:aopalliance:1.0:jar:-:compile|org.springframework:spring-context:jar:2.0.8|{sha1}0235ba8b489512805ac13a8f9ea77a1ca5ebe3e8
+com.atlassian.inject:atlassian-inject:1.0.0:jar:-:compile||{sha1}1cdcbe5f00d7dc638671a229c24f1e085dbe6858
+com.atlassian.util.concurrent:atlassian-util-concurrent:0.0.12:jar:-:compile||{sha1}d04c553c71fcd9a72439a085cb91207e52c2da05
+com.google.guava:guava:10.0.1:jar:-:compile||{sha1}292c96f9cb18231528cac4b0bf17d28149d14809
+com.google.code.findbugs:jsr305:1.3.9:jar:-:compile|com.google.guava:guava:jar:10.0.1|{sha1}40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf
+commons-lang:commons-lang:2.4:jar:-:compile||{sha1}16313e02a793435009f1e458fa4af5d879f6fb11
+junit:junit:4.7:jar:-:test||{sha1}d9444742a5b897c6280724a49f57a8155517d21f
+org.mockito:mockito-all:1.8.0:jar:-:test||{sha1}f2877727c0eaef7456e830feb51bb643be670547
+org.slf4j:jcl-over-slf4j:1.5.8:jar:-:runtime||{sha1}ab78d75b7ae41770779502cc81ee4bf9c8fac6aa
+org.slf4j:slf4j-api:1.5.8:jar:-:compile||{sha1}2aaf496dfd551adb9b079f58a7e2d55eb383fc82
+org.slf4j:slf4j-nop:1.5.8:jar:-:test||{sha1}2919ed254f2280716f8a5ef66b07f305b65bc3ad
+org.springframework:spring-beans:2.0.8:jar:-:compile|org.springframework:spring-context:jar:2.0.8|{sha1}bb8c708326c5e75ba8e1460dd578273670bdce1a
+org.springframework:spring-context:2.0.8:jar:-:compile||{sha1}2a970102ddebbd40b9dbc5e3abea3131110486d8
+org.springframework:spring-core:2.0.8:jar:-:compile|org.springframework:spring-context:jar:2.0.8|{sha1}c165bab1feab6feeb51ad38872338f72f9c069b8

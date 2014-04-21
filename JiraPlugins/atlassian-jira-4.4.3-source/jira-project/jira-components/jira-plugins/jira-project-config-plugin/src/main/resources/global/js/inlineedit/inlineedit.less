@@ -1,0 +1,78 @@
+div.aui-inline-edit, span.aui-inline-edit, a.aui-inline-edit{
+
+    padding: 2px 3px;
+
+    &:hover {
+        cursor: pointer;
+        background: #fdfcd1;
+         -moz-box-shadow:0 2px 10px #999;
+        -ms-box-shadow:0 2px 10px #999;
+        -o-box-shadow:0 2px 10px #999;
+        -webkit-box-shadow:0 2px 10px #999;
+        box-shadow:0 2px 10px #999;
+    }
+
+    &.aui-inline-edit-prevent-hover {
+        &:hover {
+            background: transparent;
+             -moz-box-shadow:none;
+            -ms-box-shadow:none;
+            -o-box-shadow:none;
+            -webkit-box-shadow:none;
+            box-shadow:none;
+        }
+    }
+}
+
+
+.aui-inline-edit-textarea {
+    width:100%;
+}
+
+
+.msie-7 .aui-inline-edit-textarea {width:92%;}
+
+.aui-inline-edit-text {
+    overflow:hidden;
+    width:0;
+    resize:none;
+}
+
+.aui-inline-edit-revert {
+    font-weight: normal;
+    margin-left: 5px;
+    color:#000;
+}
+
+.aui-inline-edit-empty {
+    font-style:italic;
+}
+
+.aui-inline-edit-throbber {
+    width:20px;
+    height:16px;
+    position: absolute;
+    top:50%;
+    margin-top:-8px;
+    background-image: url("../../../images/icons/wait.gif");
+    background-repeat:no-repeat;
+    background-position:2px center;
+}
+
+.aui-inline-edit-error {
+    color:#C00;
+    font-weight: bold;
+    font-size:13px;
+    padding: 5px 10px;
+}
+
+
+#project-config-category {
+    em {
+        float: left;
+        display: inline-block;
+    }
+    #project-category-select-single-select {
+        float:left;
+    }
+}

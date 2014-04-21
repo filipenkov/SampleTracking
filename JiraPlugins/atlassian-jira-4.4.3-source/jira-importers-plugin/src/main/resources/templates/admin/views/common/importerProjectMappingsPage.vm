@@ -1,0 +1,49 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ImporterProjectMappingsPage" *#
+#* @vtlvariable name="esc" type="org.apache.velocity.tools.generic.EscapeTool" *#
+<html>
+	<head>
+		<title>$i18n.getText('jira-importer-plugin.config.title', $action.title)</title>
+		#parse("/templates/admin/views/common/html-header.vm")
+	</head>
+<body>
+#set ($auiparams = $map.build())
+#set ($auiparams.title = "$i18n.getText('jira-importer-plugin.wizard.projectmappings.title')")
+#set ($cancelURI = "${action.controller.firstStep}!default.jspa?externalSystem=$action.externalSystem")
+
+#parse('/templates/standard/jiraformheader.vm')
+
+<table class="aui" style="width: auto !important;" id="projectMappings">
+	<thead>
+		<tr>
+			<th>$i18n.getText('jira-importer-plugin.wizard.projectmappings.header.import')</th>
+			<th>$i18n.getText('jira-importer-plugin.wizard.projectmappings.header.extproject', $action.title)</th>
+			<th></th>
+			<th>$i18n.getText('jira-importer-plugin.wizard.projectmappings.header.jiraproject')</th>
+		#*<th>$i18n.getText('jira-importer-plugin.csv.project.lead')</th>*#
+		</tr>
+	</thead>
+	<tbody>
+	#foreach($entry in $action.sorter.sort($action.projectNamesFromDb))
+		#set ($fieldId = ${action.getProjectFieldId($entry)})
+		<tr id="${fieldId}">
+			<td>
+				#set ($auiparams = $map.build('class', 'checkbox project_checkbox', 'name', "${fieldId}_project_check", 'value', $action.isProjectSelected($entry)))
+				#parse('/templates/common/checkbox.vm')
+			</td>
+			<td class="formLabel" id="${fieldId}_extName">
+				$textutils.htmlEncode($entry)
+			</td>
+			<td class="rightarrowcolumn">
+				&rarr;
+			</td>
+			<td class="fieldValueArea">
+				#parse("/templates/admin/views/common/projectMappingHtml.vm")
+			</td>
+		</tr>
+	#end
+	</tbody>
+</table>
+<input type="hidden" id="projectMapping" name="projectMapping">
+
+#parse("/templates/admin/views/common/projectMappingJavascript.vm")
+#parse("/templates/admin/views/common/import-footer.vm")

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:osgi="http://www.springframework.org/schema/osgi"
+       xmlns:beans="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+            http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.atlassian.jira.plugins.importer" />
+
+	<bean id="createUserHandlerProvider" class="com.atlassian.jira.plugins.importer.managers.CreateUserHandlerProviderImpl">
+		<constructor-arg>
+			<osgi:set interface="com.atlassian.jira.plugins.importer.managers.CreateUserHandler" cardinality="0..N"/>
+		</constructor-arg>
+	</bean>
+
+    <bean id="createProjectHandlerProvider" class="com.atlassian.jira.plugins.importer.managers.CreateProjectHandlerProviderImpl">
+		<constructor-arg>
+			<osgi:list interface="com.atlassian.jira.plugins.importer.managers.CreateProjectHandler" cardinality="0..N"/>
+		</constructor-arg>
+	</bean>
+    <osgi:service id="createProjectHandlerProvider_osgiService" ref="createProjectHandlerProvider">
+        <osgi:interfaces>
+            <beans:value>com.atlassian.jira.plugins.importer.managers.CreateProjectHandlerProvider</beans:value>
+        </osgi:interfaces>
+    </osgi:service>
+
+	<!--
+	   This dependency is optional as it will not be present when running without GreenHooper
+	-->
+	<!--<osgi:reference  id="rapidViewCreationService"-->
+					 <!--bean-name="rapidViewCreationService"-->
+					 <!--interface="com.atlassian.greenhopper.api.rapid.view.RapidViewCreationService"-->
+					 <!--cardinality="0..1"/>-->
+
+	<!--
+	   This dependency is optional as it will not be present when running without GreenHooper
+	-->
+	<!--<osgi:reference  id="labsConfigurationService"-->
+					 <!--bean-name="labelConfigurationService"-->
+					 <!--interface="com.atlassian.greenhopper.api.rapid.configuration.LabsConfigurationService"-->
+					 <!--cardinality="0..1"/>-->
+
+	<!--
+   This dependency is optional as it will not be present when running without GreenHooper
+	-->
+	<!--<osgi:reference  id="greenHopperLicenseManager"-->
+					 <!--bean-name="greenHopperLicenseManager"-->
+					 <!--interface="com.pyxis.greenhopper.jira.license.GreenHopperLicenseManager"-->
+					 <!--cardinality="0..1"/>-->
+
+	<bean id="jiraDataImporter" class="com.atlassian.jira.plugins.importer.imports.importer.JiraDataImporter"
+		  factory-bean="jiraDataImporterFactory" factory-method="create"/>
+
+    <bean id="usageTrackingService" class="com.atlassian.jira.plugins.importer.tracking.UsageTrackingServiceImpl"
+          factory-bean="usageTrackingServiceFactory" factory-method="create"/>
+
+</beans>

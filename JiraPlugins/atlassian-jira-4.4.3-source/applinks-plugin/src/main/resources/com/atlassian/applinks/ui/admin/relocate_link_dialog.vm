@@ -1,0 +1,20 @@
+<div id="relocate-link-dialog" style="display: none;">
+    <div class="relocate-link-dialog-input">
+        <form action="#" class="aui" onSubmit="return false;">
+            <div id="relocate-text"></div>
+            <fieldset>
+                <div class="field-group">
+                    <label for="relocate-url">${i18n.getText("applinks.create.server.url")}</label>
+                    <input id="relocate-url" class="application-url" type="text" />
+                </div>
+            </fieldset>
+            <div id="relocate-error" class="error applinks-error"></div>
+        </form>
+    </div>
+    <div class="relocate-link-dialog-confirm" submit="true">
+        <form action="#" class="aui" onSubmit="return false;">
+            <div id="confirm-relocate-text"></div>
+            <div id="confirm-relocate-error" class="error applinks-error"></div>
+        </form>
+    </div>
+</div>

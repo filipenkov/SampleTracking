@@ -1,0 +1,10 @@
+#if ($selectedIssueTypes || $allStandardIssueTypes || $allSubTaskIssueTypes)
+    #searcherHeaderNoField ("type" ${i18n.getText('navigator.filter.issuetype')})
+
+    #foreach ($type in $selectedIssueTypes)
+        $textutils.htmlEncode($type, false)#commaonly($selectedIssueTypes)
+    #end
+
+    #searcherFooter ($searcher)
+#end
+

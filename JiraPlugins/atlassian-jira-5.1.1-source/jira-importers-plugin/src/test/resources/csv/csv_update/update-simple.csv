@@ -1,0 +1,6 @@
+issue key,summary,votes,labels,labels
+TT-1,Original summary,1,label1,label2
+TT-1,,7,label-1,label-2
+TT-1,Changed summary,,,
+TT-2,Original summary 2,1,label-1,label-2
+TT-2,,<<!clear!>>,<<!clear!>>,

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projects type="array">
+  <project>
+    <id>232465</id>
+    <name>My Sample Project</name>
+    <iteration_length type="integer">1</iteration_length>
+    <week_start_day>Monday</week_start_day>
+    <point_scale>0,1,2,3</point_scale>
+    <account>wseliga</account>
+    <velocity_scheme>Average of 3 iterations</velocity_scheme>
+    <current_velocity>8</current_velocity>
+    <initial_velocity>10</initial_velocity>
+    <number_of_done_iterations_to_show>12</number_of_done_iterations_to_show>
+    <labels>admin,blog,cart,checkout,deployment,design,epic,featured products,ie6,needs discussion,orders,reporting,search,shopper accounts,shopping,signup / signin,usability,user generated content</labels>
+    <allow_attachments>true</allow_attachments>
+    <public>false</public>
+    <use_https>false</use_https>
+    <bugs_and_chores_are_estimatable>false</bugs_and_chores_are_estimatable>
+    <commit_mode>false</commit_mode>
+    <memberships>
+      <membership>
+        <id>697209</id>
+        <person>
+          <name>wseliga</name>
+          <initials>WS</initials>
+        </person>
+        <role>Owner</role>
+      </membership>
+      <membership>
+        <id>697259</id>
+        <person>
+          <name>Test Member</name>
+          <initials>TM</initials>
+        </person>
+        <role>Viewer</role>
+      </membership>
+    </memberships>
+    <integrations>
+    </integrations>
+  </project>
+  <project>
+    <id>232313</id>
+    <name>My Test Project</name>
+    <iteration_length type="integer">1</iteration_length>
+    <week_start_day>Monday</week_start_day>
+    <point_scale>0,1,2,3,5,8</point_scale>
+    <account>wseliga</account>
+    <velocity_scheme>Average of 3 iterations</velocity_scheme>
+    <current_velocity>10</current_velocity>
+    <initial_velocity>10</initial_velocity>
+    <number_of_done_iterations_to_show>12</number_of_done_iterations_to_show>
+    <labels>impossible</labels>
+    <last_activity_at type="datetime">2011/02/14 15:52:39 UTC</last_activity_at>
+    <allow_attachments>true</allow_attachments>
+    <public>false</public>
+    <use_https>false</use_https>
+    <bugs_and_chores_are_estimatable>false</bugs_and_chores_are_estimatable>
+    <commit_mode>false</commit_mode>
+    <memberships>
+      <membership>
+        <id>696559</id>
+        <person>
+          <email>elmadir@gmail.com</email>
+          <name>wseliga</name>
+          <initials>WS</initials>
+        </person>
+        <role>Owner</role>
+      </membership>
+      <membership>
+        <id>696633</id>
+        <person>
+          <email>wojciech.seliga@vp.pl</email>
+          <name>Wojciech Seliga</name>
+          <initials>WS</initials>
+        </person>
+        <role>Member</role>
+      </membership>
+      <membership>
+        <id>696637</id>
+        <person>
+          <email>pniewiadomski@atlassian.com</email>
+          <name>Pawel Niewiadomski</name>
+          <initials>PN</initials>
+        </person>
+        <role>Member</role>
+      </membership>
+      <membership>
+        <id>696929</id>
+        <person>
+          <email>elmadir+pivotal@gmail.com</email>
+          <name>Test Member</name>
+          <initials>TM</initials>
+        </person>
+        <role>Member</role>
+      </membership>
+    </memberships>
+    <integrations>
+    </integrations>
+  </project>
+</projects>

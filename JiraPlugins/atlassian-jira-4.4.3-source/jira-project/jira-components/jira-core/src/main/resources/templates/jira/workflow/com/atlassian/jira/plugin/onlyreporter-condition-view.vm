@@ -1,0 +1,1 @@
+$i18n.getText("admin.workflow.condition.onlyreporter.view", "<b>", "</b>")

@@ -1,0 +1,10 @@
+#* @vtlvariable name="noThanksTimeZoneId" type="java.lang.String" *#
+#* @vtlvariable name="timeZoneInfo" type="com.atlassian.jira.timezone.TimeZoneInfo" *#
+#* @vtlvariable name="timeZoneData" type="java.util.TimeZone" *#
+<fieldset class="parameters hidden dont-default-focus">
+    <input type="hidden" title="tzdetect.pref.tzid" value="${timeZoneInfo.timeZoneId}" />
+    <input type="hidden" title="tzdetect.pref.tzname" value="${timeZoneInfo.GMTOffset} ${timeZoneInfo.city}" />
+    <input type="hidden" title="tzdetect.pref.tzoffset" value="${timeZoneInfo.GMTOffset}" />
+    <input type="hidden" title="tzdetect.pref.tzdst" value="${timeZoneData.useDaylightTime()}" />
+    <input type="hidden" title="tzdetect.pref.nothanks" value="$!{noThanksTimeZoneId}" />
+</fieldset>

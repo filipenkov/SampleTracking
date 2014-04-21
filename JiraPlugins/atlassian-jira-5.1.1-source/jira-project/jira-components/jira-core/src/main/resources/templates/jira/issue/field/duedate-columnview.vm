@@ -1,0 +1,6 @@
+##disable_html_escaping() TODO REENABLE
+#if ($duedate)
+    $dueDateFormatter.format($duedate)
+#else
+    &nbsp;
+#end

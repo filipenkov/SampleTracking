@@ -1,0 +1,107 @@
+<html>
+<head>
+    $webResourceManager.requireResource("com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:admin-resources")
+    <title>$action.getText('collector.plugin.title')</title>
+    <meta name="decorator" content="atl.admin" />
+    <meta name="admin.active.section" content="atl.jira.proj.config"/>
+    <meta name="admin.active.tab" content="view_issue_collectors"/>
+    <meta name="projectKey" content="$textutils.htmlEncode($action.projectKey)"/>
+</head>
+<body>
+<div id="project-config-panel-issue-collector" class="project-config-panel">
+	<div class="operations-panel">
+		<ul class="operations">
+			<li>
+				<a id="add_collector" class="operations-item" href="$baseurl/secure/AddCollector!default.jspa?projectKey=$textutils.htmlEncode($action.projectKey)">
+					<span class="icon icon-add16"></span>
+					$action.getText('collector.plugin.admin.add.collector')
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="project-config-panel-header project-config-icon48-issue-collector">
+		<h2>$action.getText('collector.plugin.title')</h2>
+		<p>$i18n.getText("collector.plugin.introduction")</p>
+	</div>
+
+	#if (! $action.collectorsWithMissingFields.empty)
+	<div class="aui-message warning">
+		<span class="aui-icon icon-warning"></span>
+		<p>$i18n.getText("collector.plugin.view.fields.missing")</p>
+		<ul>
+			#foreach($collector in $action.collectorsWithMissingFields)
+				<li><a href="$baseurl/secure/ViewCollector!default.jspa?projectKey=$textutils.htmlEncode($action.projectKey)&collectorId=$!collector.id" class="scriptlet-lnk">$textutils.htmlEncode($collector.name)</a></li>
+			#end
+		</ul>
+		<p>$action.getText("collector.plugin.adding.fields.configuration") <a href="$baseurl/plugins/servlet/project-config/$textutils.htmlEncode($action.projectKey)/fields">$action.getText("common.words.fields")</a> $action.getText("collector.plugin.adding.fields.configuration.page")</p>
+	</div>
+	#end
+
+    <table id="collector-list" class="aui">
+        <thead>
+        <tr>
+            <th scope="col">$action.getText('collector.plugin.admin.collector.name')</th>
+            <th scope="col">$action.getText('collector.plugin.admin.collector.creator')</th>
+            <th scope="col">$action.getText('collector.plugin.admin.collector.issue.type')</th>
+            <th scope="col">$action.getText('collector.plugin.admin.collector.description')</th>
+            <th scope="col">$action.getText('collector.plugin.admin.collector.activity')</th>
+            <th scope="col">$action.getText('collector.plugin.admin.collector.operations')</th>
+        </tr>
+        </thead>
+        <tbody>
+            #if($action.collectors.empty)
+            <tr>
+                <td colspan="6">$action.getText('collector.plugin.admin.no.collectors')</td>
+            </tr>
+            #else
+                #foreach($collector in $action.collectors)
+                <tr data-collector-id="$collector.id" class="#if($velocityCount % 2 == 0)zebra#end #if($collector.enabled)enabled#else disabled#end">
+                    <td class="collector-name">
+                        <a href="$baseurl/secure/ViewCollector!default.jspa?projectKey=$textutils.htmlEncode($action.projectKey)&collectorId=$!collector.id" class="scriptlet-lnk">$textutils.htmlEncode($collector.name)</a>
+                    </td>
+                    <td class="collector-creator">
+                        $action.getFormattedUser($collector.creator, "collector-creator")
+                    </td>
+                    <td class="collector-issue-type">
+                        #set($issueType = $action.getIssueType($collector.issueTypeId))
+                        <span class="nowrap"><img style="margin-right:4px" alt="" width="16" height="16" src="${baseurl}${issueType.iconUrl}">$textutils.htmlEncode(${issueType.name})</span>
+                    </td>
+                    <td class="collector-desc">
+                        $textutils.htmlEncode($!collector.description)
+                    </td>
+                    <td>
+                        #set($activity = $action.getActivityForCollector($!collector))
+                        <a href="$baseurl/secure/ViewCollector!default.jspa?projectKey=$textutils.htmlEncode($action.projectKey)&collectorId=$!collector.id" class="activitysparkline" title="$action.getText('collector.plugin.view.issues.created', $action.getTotalNumberOfIssuesForCollector($!collector))">#foreach($created in $activity)$created#if($velocityCount != $activity.size()),#end#end</a>
+                    </td>
+                    <td class="operations">
+                        <span class="nowrap">
+                            #if($collector.enabled)
+                                <a href="$baseurl/rest/collectors/1.0/collector/$textutils.htmlEncode($action.projectKey)/$collector.id/status" class="disable-collector-lnk">$action.getText('collector.plugin.admin.collector.disable')</a>
+                            #else
+                                <a href="$baseurl/rest/collectors/1.0/collector/$textutils.htmlEncode($action.projectKey)/$collector.id/status" class="enable-collector-lnk">$action.getText('collector.plugin.admin.collector.enable')</a>
+                            #end | <a href="$baseurl/rest/collectors/1.0/collector/$textutils.htmlEncode($action.projectKey)/$collector.id" class="delete-collector-lnk">$action.getText('admin.common.words.delete')</a>
+                        </span>
+                    </td>
+                </tr>
+                #end
+            #end
+        </tbody>
+    </table>
+    <div class="ajax-msg-container"></div>
+    #if($action.collectorErrors.size() > 0)
+    <div class="aui-message error">
+        <p class="title"><span class="aui-icon icon-error"></span>Issue Collector Errors</p>
+        <p>
+            <ul class="error-list">
+                #foreach($error in $action.collectorErrors)
+                    <li>$textutils.htmlEncode($error)</li>
+                #end
+            </ul>
+        </p>
+        <p><a class="clear-errors-lnk" href="$baseurl/rest/collectors/1.0/collector/$textutils.htmlEncode($action.projectKey)/errors">$action.getText("collector.plugin.error.clear.errors")</a></p>
+    </div>
+    #end
+
+</div>
+</body>
+</html>

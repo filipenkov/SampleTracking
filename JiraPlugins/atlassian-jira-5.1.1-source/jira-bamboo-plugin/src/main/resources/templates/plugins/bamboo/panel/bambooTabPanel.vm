@@ -1,0 +1,53 @@
+#macro(showLink $selectedSubTab $thisSubTab)
+    #set ($i18nTitle = "bamboo.panel.${thisSubTab}.${moduleKey}.title")
+    #if ($selectedSubTab == $thisSubTab)
+        ${i18n.getText($i18nTitle)}
+    #else
+        <a id="bamboo_tab_panel_tab_link" href="${req.contextPath}${baseLinkUrl}&selectedSubTab=${thisSubTab}">${i18n.getText($i18nTitle)}</a>
+    #end
+#end
+
+<div id="bambooTabPanel">
+    <h2>
+        <a id="bamboo_tab_panel_server_link" href="$textutils.htmlEncode(${baseBambooUrl})" title="${i18n.getText('bamboo.panel.title.link.description')}">$textutils.htmlEncode(${bambooServerName})</a>
+        #if ($showRss)
+            <a href="${req.contextPath}/secure/ViewBambooPanelContent.jspa?$textutils.htmlEncode($querySection)&baseLinkUrl=$textutils.htmlEncode($baseLinkUrl)&selectedSubTab=$textutils.htmlEncode(${selectedSubTab})&showRss=true&os_authType=basic" title="${i18n.getText('bamboo.panel.rss.description')}" class="rss">${i18n.getText('bamboo.panel.rss.description')}</a>
+        #end
+    </h2>
+    #if ($availableTabs && !$availableTabs.isEmpty())
+    <p class="view_switcher">${i18n.getText("common.concepts.view")}:
+        #foreach ($subTab in $availableTabs)
+            #showLink(${selectedSubTab} ${subTab}) #if($velocityCount < $availableTabs.size()) | #end
+        #end
+    </p>
+    #end
+    <div id="bambooTabPanelHtml">
+        <img src="${req.ContextPath}/images/icons/wait-large.gif" class="waitingImage" />
+    </div>
+
+    <script type="text/javascript" >
+        ##dataType = 'html' will evaluate the included JS tags - http://docs.jquery.com/Ajax/jQuery.ajax#options
+
+        jQuery.ajax({
+            type : "GET",
+            dataType: "html",
+            url : "${req.contextPath}/secure/ViewBambooPanelContent.jspa?$textutils.htmlEncode(${querySection})&selectedSubTab=${selectedSubTab}&baseLinkUrl=$textutils.htmlEncode($baseLinkUrl)",
+            success : function(html) {
+                var redirect = 'redirect=';
+                if (html.indexOf(redirect) == 0) {
+                    var redirectUrl = html.substring(redirect.length),
+                        htmlContents = AJS.$('<div class="credentials-required-message" style="padding:0px 10px 0px 10px;">' +
+                                        '<div class="aui-message closeable warning shadowed" style="z-index:0;">' +
+                                            '<p class="title" style="margin-top:0">' +
+                                                '<span class="aui-icon icon-warning"></span>' +
+                                                '<span style="font-weight:normal;">$i18n.getText("bamboo.panel.credentialsrequired.message")</span>' +
+                                            '</p></div></div>');
+                    jQuery("a#credentials-required-message-url", htmlContents).attr('href', redirectUrl);
+                    jQuery('#bambooTabPanel').html(htmlContents);
+                } else {
+                    jQuery('#bambooTabPanelHtml').html(html);
+                }
+            }
+        });
+    </script>
+</div>

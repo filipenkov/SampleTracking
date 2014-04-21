@@ -1,0 +1,45 @@
+## This wizard page is used in:
+## * create-applink wizard
+## * upgrade non-ual to ual wizard
+<div class="step-3" title="${i18n.getText('applinks.list.add')}" submit="true">
+    #help('applinks.docs.adding.application.link', '', 'help-step')
+    <ol class="progress-bar step-three">
+        <li>${i18n.getText('applinks.create.step1')}</li>
+        <li>${i18n.getText('applinks.create.step2')}</li>
+        <li class="active">${i18n.getText('applinks.create.step3')}</li>
+    </ol>
+    <h1 class="step-title">${i18n.getText('applinks.create.title.set.users')}</h1>
+    <form action="#" method="post" class="aui" onSubmit="return false;">
+        <div class="image-wrapper">
+            <div class="app-image same-userbase-image" title="${context.i18nNoEscape.getText("applinks.create.same.userbase")}">
+                <div class="radio config-description same-user-description">
+                    <input class="radio same-user-radio-btn" type="radio" name="authentication" id="sameUser" value="true"/>
+                    <label for="sameUser">${context.i18nNoEscape.getText("applinks.create.same.userbase")}</label>
+                </div>
+            </div>
+            <div class="app-image different-userbase-image" title="${i18n.getText("applinks.create.different.users")}">
+                <div class="radio config-description different-user-description">
+                    <input class="radio different-user-radio-btn" type="radio" name="authentication" id="differentUser" value="false"/>
+                    <label for="differentUser">${i18n.getText("applinks.create.different.users")}</label>
+                </div>
+            </div>
+        </div>
+        <fieldset class="group">
+            <div class="radio trust-each-other-description">
+                <input class="radio trust-radio-btn" type="radio" name="trust" id="trusted" value="true"/>
+                <label for="trusted">${i18n.getText('applinks.create.fully.trust')}</label>
+                <div class="description" id="warning-without-public-signup">
+                    ${context.i18nNoEscape.getText("applinks.create.trust","<a target='_blank' href='${context.docLinker.getLink('applinks.docs.configuring.application.link.auth')}'>", "</a>")}
+                </div>
+                <div class="description" id="warning-with-public-signup">
+                    ${context.i18nNoEscape.getText("applinks.create.trust.with.public.signup","<a target='_blank' href='${context.docLinker.getLink('applinks.docs.configuring.application.link.auth')}'>", "</a>")}
+                </div>
+            </div>
+            <div class="radio dont-trust-each-other-description">
+                <input class="radio no-trust-radio-btn" type="radio" name="trust" id="notTrusted" value="false"/>
+                <label for="notTrusted">${context.i18nNoEscape.getText('applinks.create.no.trust')}</label>
+            </div>
+        </fieldset>
+        <div class="create-validation-errors"></div>
+    </form>
+</div>

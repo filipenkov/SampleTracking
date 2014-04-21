@@ -1,0 +1,240 @@
+#* @vtlvariable name="configuration" type="com.atlassian.crowd.embedded.admin.ldap.LdapDirectoryConfiguration" *#
+#* @vtlmacrolibrary path="aui-form-macros.vm" *#
+<html>
+<head>
+    <meta name="decorator" content="atl.admin">
+    <meta name="admin.active.section" content="admin_users_menu/users_groups_configuration/embedded_crowd_section"/>
+    <meta name="admin.active.tab" content="user_directories"/>
+	<title>$i18n.getText("embedded.crowd.directory.edit.ldap.title")</title>
+    $webResourceManager.requireResource("com.atlassian.crowd.embedded.admin:web-resources")
+
+    <!-- selected item in Confluence admin menu -->
+    <content tag="selectedWebItem">confluence-user-directories-web-item</content>
+    <!-- Confluence breadcrumbs, TODO: invent a better way of doing this -->
+    <content tag="breadcrumbs">
+        <ol id="breadcrumbs">
+            <li class="first" ><span><a href="#springUrl("/dashboard.action")">$i18n.getText('dashboard.name')</a></span></li>
+            <li><span><a href="#springUrl("/admin/console.action")">$i18n.getText('administration.name')</a></span></li>
+            <li><span><a href="#springUrl("/plugins/servlet/embedded-crowd/directories/list")">$i18n.getText("embedded.crowd.directory.list.title")</a></span></li>
+            <li><span>$i18n.getText("embedded.crowd.directory.edit.ldap.title")</span></li>
+        </ol>
+    </content>
+</head>
+<body>
+
+<script type="text/javascript">
+    // LDAP configuration defaults from Crowd. TODO: Replace this inline script with something better.
+    var ldapTypes = [];
+    #foreach ($config in $ldapTypeConfigurations)
+        ldapTypes["$config.key"] = $config.ldapTypeAsJson;
+    #end
+</script>
+
+<div id="embcwd">
+    #springBindEscaped("configuration" false)
+    #set($formPrefix = "configure-ldap-form")
+    <form id="${formPrefix}" class="aui" action="#springUrl("/plugins/servlet/embedded-crowd/configure/ldap/")" method="POST">
+
+        <div class="page-header">
+            <h3>$i18n.getText("embedded.crowd.directory.edit.ldap.title") #helpLink("embedded.crowd.directory.configure.ldap")</h3>
+            <p class="description">$i18n.getText("embedded.crowd.directory.edit.ldap.description", $applicationProperties.displayName)</p>
+        </div>
+        #foreach($error in $status.errorMessages)<div class="aui-message error"><span class="error-icon"></span>$error
+            #if ($addErrorCodeLink)
+                #set ($errorCodeHelpPath = $helpPathResolver.getHelpPath("embedded.crowd.support.troubleshoot"))
+                <br /> $i18n.getText("embedded.crowd.connection.error.code.help", $errorCodeHelpPath.url)
+            #end
+        </div>#end
+        #if ($testSuccessful)
+            <div class="aui-message success"><span class="success-icon"></span> $i18n.getText("embedded.crowd.connection.test.successful")
+            <br /> $i18n.getText("embedded.crowd.connection.test.successful.caution")</div>
+        #end
+
+        <input type="hidden" name="$xsrfTokenName" value="$xsrfTokenValue"/>
+        #set($i18nPrefix = "embedded.crowd.directory.edit.ldap.field")
+        #auiFormHiddenInput("configuration.newForm" {})
+        #auiFormHiddenInput("configuration.directoryId" {})
+
+        <h3>$i18n.getText("embedded.crowd.directory.edit.ldap.heading.server")</h3>
+        <div class="field-group">
+            #auiFormInput("configuration.name" { "required": true })
+        </div>
+        <div class="field-group">
+            #auiFormSelect("configuration.type" $ldapDirectoryTypes { "showDescription": $configuration.newConfiguration })
+        </div>
+        <div class="field-group">
+            #auiFormInput("configuration.hostname" { "required": true, "showDescription": true })
+        </div>
+        <div class="field-group">
+            #auiFormInput("configuration.port" { "inputClass": "short-field", "required": true })
+            <span class="group">
+                #auiFormCheckBox("configuration.useSSL" "")
+            </span>
+        </div>
+        <div class="field-group">
+            #auiFormInput("configuration.ldapUserdn" { "showDescription": true, "disableAutocomplete": true })
+        </div>
+        <div class="field-group">
+            #auiFormPassword("configuration.ldapPassword" { "disableAutocomplete": true })
+        </div>
+
+        <h3>$i18n.getText("embedded.crowd.directory.edit.ldap.heading.schema")</h3>
+        <div class="field-group">
+            #auiFormInput("configuration.ldapBasedn" { "required": true, "showDescription": true })
+        </div>
+        <div class="field-group">
+            #auiFormInput("configuration.ldapUserDn" { "showDescription": true })
+        </div>
+        <div class="field-group">
+            #auiFormInput("configuration.ldapGroupDn" { "showDescription": true })
+        </div>
+
+        <h3>$i18n.getText("embedded.crowd.directory.edit.ldap.heading.permissions")</h3>
+        <fieldset class="group ">
+            #auiFormRadioButtons("configuration.ldapPermissionOption" $ldapPermissionOptions {
+                "showDescription": true,
+                "hideLabel": true,
+                "i18nValue": $applicationProperties.displayName
+            })
+        </fieldset>
+
+        <div id="ldap-auto-add-groups-field-group" class="field-group">
+            #auiFormInput("configuration.ldapAutoAddGroups" { "showDescription": true })
+        </div>
+
+        <div id="toggle-advanced-settings" class="toggle-section collapsed">
+            <div class="toggle-head">
+                <h3>$i18n.getText("embedded.crowd.directory.edit.ldap.heading.advanced")</h3>
+            </div>
+            <div class="toggle-body">
+                <fieldset class="group">
+                    <div class="field-group checkbox hideable">
+                        #auiFormCheckBox("configuration.nestedGroupsEnabled" { "showDescription": true })
+                    </div>
+                    <div class="field-group checkbox results-per-page">
+                        #auiFormCheckBox("configuration.ldapPagedresults" {})
+                        #auiFormInput("configuration.ldapPagedresultsSize" { "showLabelAfter": true, "inputClass": "short-field" })
+                    </div>
+                    <div class="field-group checkbox">
+                        #auiFormCheckBox("configuration.ldapReferral" { "showDescription": true })
+                    </div>
+                    <div class="field-group checkbox">
+                        #auiFormCheckBox("configuration.ldapRelaxedDnStandardisation" { "showDescription": true })
+                    </div>
+                </fieldset>
+                <div class="field-group checkbox hideable">
+                    #auiFormCheckBox("configuration.crowdSyncIncrementalEnabled" { "showDescription": true })
+                </div>
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapCacheSynchroniseIntervalInMin" {"required": true, "showDescription": true, "inputClass": "short-field"})
+                </div>
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapReadTimeoutInSec" {"required": false, "showDescription": true, "inputClass": "short-field"})
+                </div>
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapSearchTimelimitInSec" {"required": false, "showDescription": true, "inputClass": "short-field"})
+                </div>
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapConnectionTimeoutInSec" {"required": false, "showDescription": true, "inputClass": "short-field"})
+                </div>
+            </div>
+        </div>
+        <!-- // .toggle-section -->
+
+        <div id="toggle-user-scheme-settings" class="toggle-section collapsed">
+            <div class="toggle-head">
+                <h3>$i18n.getText("embedded.crowd.directory.edit.ldap.heading.user.schema")</h3>
+            </div>
+            <div class="toggle-body">
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapUserObjectclass" { "required": true, "showDescription": true })
+                </div>
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapUserFilter" { "required": true, "showDescription": true })
+                </div>
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapUserUsername" { "required": true, "showDescription": true })
+                </div>
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapUserUsernameRdn" { "required": true, "showDescription": true })
+                </div>
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapUserFirstname" { "required": true, "showDescription": true })
+                </div>
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapUserLastname" { "required": true, "showDescription": true })
+                </div>
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapUserDisplayname" { "required": true, "showDescription": true })
+                </div>
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapUserEmail" { "required": true, "showDescription": true })
+                </div>
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapUserPassword" { "required": true, "showDescription": true })
+                </div>
+                <div class="field-group hideable">
+                    #auiFormSelect("configuration.ldapUserEncryption" $ldapPasswordEncryptionTypes { "showDescription": true })
+                </div>
+            </div>
+        </div>
+        <!-- // .toggle-section -->
+
+        <div id="toggle-group-schema-settings" class="toggle-section collapsed">
+            <div class="toggle-head">
+                <h3>$i18n.getText("embedded.crowd.directory.edit.ldap.heading.group.schema")</h3>
+            </div>
+            <div class="toggle-body">
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapGroupObjectclass" { "required": true, "showDescription": true })
+                </div>
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapGroupFilter" { "required": true, "showDescription": true })
+                </div>
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapGroupName" { "required": true, "showDescription": true })
+                </div>
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapGroupDescription" { "required": true, "showDescription": true })
+                </div>
+            </div>
+        </div>
+        <!-- // .toggle-section -->
+
+        <div id="toggle-membership-schema-settings" class="toggle-section collapsed">
+            <div class="toggle-head">
+                <h3>$i18n.getText("embedded.crowd.directory.edit.ldap.heading.membership.schema")</h3>
+            </div>
+            <div class="toggle-body">
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapGroupUsernames" { "required": true, "showDescription": true })
+                </div>
+                <div class="field-group">
+                    #auiFormInput("configuration.ldapUserGroup" { "required": true, "showDescription": true })
+                </div>
+                <fieldset class="group ">
+                    <legend><span>$i18n.getText("embedded.crowd.directory.edit.ldap.field.ldapUsermembership")</span></legend>
+                    <div class="field-group checkbox">
+                        #auiFormCheckBox("configuration.ldapUsermembershipUse" {})
+                    </div>
+                    <div class="field-group checkbox hideable">
+                        #auiFormCheckBox("configuration.ldapUsermembershipUseForGroups" {})
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <!-- // .toggle-section -->
+
+        <div class="buttons">
+            <input accesskey="t" class="button" id="${formPrefix}-test" name="test"
+                   title="$i18n.getText("embedded.crowd.directory.edit.test.title")" type="submit" value="$i18n.getText("embedded.crowd.directory.edit.test.label")">
+             ## Only enable the Save button if the configuration was tested successfully
+            <input accesskey="s" class="button" id="${formPrefix}-submit" name="save" #if (!$testSuccessful) disabled #end
+                   title="$i18n.getText("embedded.crowd.directory.edit.submit.title")" type="submit" value="$i18n.getText("embedded.crowd.directory.edit.submit.label")">
+            <a class="cancel" accesskey="`" href="#springUrl("/plugins/servlet/embedded-crowd/directories/list")"
+               id="configure-ldap-form-cancel" title="$i18n.getText("embedded.crowd.directory.edit.cancel.title")">$i18n.getText("embedded.crowd.directory.edit.cancel.label")</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

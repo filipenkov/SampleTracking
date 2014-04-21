@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--suppress SpringBeanConstructorArgInspection, AutowiredDependenciesInspection -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+    <bean id="graphRegistry" class="com.atlassian.jira.plugins.monitor.rrd4j.GraphRegistry">
+        <constructor-arg>
+            <!-- all supported graphs -->
+            <util:list>
+                <ref bean="connectionPoolGraph"/>
+                <ref bean="readWritesGraph"/>
+            </util:list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="rrdBackendFactory" class="org.rrd4j.core.BackendFactory" autowire="constructor"/>
+
+    <bean id="feature" class="com.atlassian.jira.plugins.monitor.MonitoringFeature" autowire="constructor"/>
+    <bean id="launcher" class="com.atlassian.jira.plugins.monitor.MonitorLauncher" autowire="constructor"/>
+    <bean id="metricsCollectorScheduler" class="com.atlassian.jira.plugins.monitor.MonitoringScheduler" autowire="constructor"/>
+    <bean id="dbcpRrd" class="com.atlassian.jira.plugins.monitor.rrd4j.RrdUpdater" autowire="constructor"/>
+    <bean id="task" class="com.atlassian.jira.plugins.monitor.MetricsCollectorTask" autowire="constructor"/>
+
+    <!-- concrete graphs -->
+    <bean id="connectionPoolGraph" class="com.atlassian.jira.plugins.monitor.database.ConnectionPoolGraph" autowire="constructor"/>
+    <bean id="readWritesGraph" class="com.atlassian.jira.plugins.monitor.database.DatabaseReadWritesGraph" autowire="constructor"/>
+</beans>

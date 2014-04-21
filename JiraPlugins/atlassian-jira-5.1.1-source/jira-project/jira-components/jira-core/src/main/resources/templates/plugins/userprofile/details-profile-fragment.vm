@@ -1,0 +1,125 @@
+#disable_html_escaping()
+#* @vtlvariable name="context" type="com.atlassian.jira.user.profile.DetailsUserProfileFragment.Context" *#
+<div class="mod-header">
+    <ul class="ops">
+##        #if($isAdmin && $isAdmin == true)
+##            <li><a id="admin_user" class="icon icon-add16" href="$baseurl/secure/admin/user/ViewUser.jspa?name=${urlcodec.encode($user.name)}" title=""><span>$i18n.getText('common.concepts.administer.user')</span></a></li>
+##        #end
+        #if($displayEdit && $displayEdit == true)
+            <li><a id="edit_profile_lnk" class="icon icon-edit-sml" href="$baseurl/secure/EditProfile!default.jspa?username=${urlcodec.encode($user.name)}" title=""><span>$i18n.getText('common.words.edit')</span></a></li>
+        #end
+    </ul>
+    <h3>$i18n.getText('admin.common.words.details')</h3>
+</div>
+<div class="mod-content">
+    #AUImessage("info" "" "$i18n.getText('editprofile.details.updated')" "userdetails-notify" "hidden" "" "false")
+    <ul class="item-details">
+        <li>
+            <dl>
+                <dt>$i18n.getText('common.words.avatar'):</dt>
+                <dd id="up-d-avatar">
+                    <div>
+                        #if (!$context.gravatarEnabled && $context.canEditAvatar)
+                            #avatarPicker($defaultAvatarId $user.name false $i18n.getText("admin.user.edit.avatar.click.to.edit") "user_avatar_image" $avatarSrc 48 48)
+                        #else
+                            <img class="avatar-image" src="$avatarSrc" width="48" height="48" border="0">
+                        #end
+                    </div>
+                </dd>
+            </dl>
+    #if ($context.displayGravatarHelpText)
+            <dl class="gravatar-help gravatar-signup-text">
+                <dt></dt>
+                <dd id="up-d-gravatar-signup-help">
+                    #set ($signup_link_open = "<a href='http://www.gravatar.com/site/signup/$context.userEmailAsURL' target='_blank'>")
+                    #set ($email_link = "<a href='mailto:$context.userEmailHtml'>$context.userEmailHtml</a>")
+
+                    #AUImessage("info" "" "$i18n.getText('useravatar.gravatar.signup.text', $signup_link_open, '</a>', $email_link)" "" "" "" "false")
+                </dd>
+            </dl>
+            <dl class="gravatar-help gravatar-login-text hidden">
+                <dt></dt>
+                <dd id="up-d-gravatar-login-help">
+                    #set ($login_link_open = "<a href='http://www.gravatar.com/site/login/%2F' target='_blank'>")
+                    #set ($email_link = "<a href='mailto:$context.userEmailHtml'>$context.userEmailHtml</a>")
+
+                    #AUImessage("info" "" "$i18n.getText('useravatar.gravatar.login.text', $login_link_open, '</a>', $email_link)" "" "" "" "false")
+                </dd>
+            </dl>
+    #end
+            <dl>
+                <dt>$i18n.getText('common.words.username'):</dt>
+                <dd id="up-d-username">$textutils.htmlEncode($user.name)
+                </dd>
+            </dl>
+            #if($isAdmin && $isAdmin == true)
+            <dl>
+                <dt>$i18n.getText('alt.text.admin'):</dt>
+                <dd id="up-d-admin">                    
+                    <a id="admin_user" href="$baseurl/secure/admin/user/ViewUser.jspa?name=${urlcodec.encode($user.name)}" title="">$i18n.getText('common.concepts.administer.user')</a>
+                </dd>
+            </dl>
+            #end
+            <dl>
+                <dt>$i18n.getText('common.words.fullname'):</dt>
+                <dd id="up-d-fullname" class="description">$textutils.htmlEncode($user.displayName)</dd>
+            </dl>
+            #if ($email)
+            <dl>
+                <dt>$i18n.getText('common.words.email'):</dt>
+                <dd id="up-d-email" class="description">$email</dd>
+            </dl>
+            #end
+            #if ($displayChangePassword)
+            <dl>
+                <dt>$i18n.getText('common.words.password'):</dt>
+                <dd id="up-d-change-password" class="description"><a id="view_change_password" class="trigger_lnk" href="$baseurl/secure/ChangePassword!default.jspa?username=${urlcodec.encode($user.name)}">$i18n.getText('common.concepts.changepassword')</a></dd>
+            </dl>
+            #end
+            #if ($displayRememberMe)
+            <dl>
+                <dt>$i18n.getText('common.words.rememberme'):</dt>
+                <dd id="up-d-clear-rememberme" class="description"><a id="view_clear_rememberme" class="trigger_lnk" href="$baseurl/secure/ClearRememberMeCookies!default.jspa">$i18n.getText('rememberme.clear.cookies')</a></dd>
+            </dl>
+            #end
+            #if(!$userProperties.isEmpty())
+            <dl>
+                <dt>$i18n.getText('user.properties'):</dt>
+                <dd class="description">
+                #foreach($userProperty in $userProperties.keySet())
+                    $userProperty: $textutils.plainTextToHtml($userProperties.get($userProperty))<br/>
+                #end
+                </dd>
+            </dl>
+            #end
+            #if($groups)
+            <dl>
+                <dt>$i18n.getText('common.words.groups'):</dt>
+                <dd class="description">
+                #foreach($group in $groups)
+                    $textutils.htmlEncode($group)<br/>
+                #end
+                </dd>
+            </dl>
+            #end
+            #if ($isAdmin)
+            <dl>
+                <dt>$i18n.getText('common.words.project.roles'):</dt>
+                <dd id="up-d-roles" class="description"><a id="view_project_roles" href="$baseurl/secure/admin/ViewUserProjectRoles!default.jspa?name=${urlcodec.encode($user.name)}">$i18n.getText('admin.projects.view.project.roles')</a></dd>
+            </dl>
+            #end            
+        </li>
+    </ul>
+</div>
+#if ($context.gravatarEnabled)
+<fieldset id="gravatar_params" class="hidden">
+    <div>
+    ## prevent mixed-content warnings on the profile page
+    #if ($context.useSSL)
+        <input type="hidden" id="gravatar_json_url" value="https://secure.gravatar.com/${context.userEmailMD5}.json">
+    #else
+        <input type="hidden" id="gravatar_json_url" value="http://www.gravatar.com/${context.userEmailMD5}.json">
+    #end
+    </div>
+</fieldset>
+#end

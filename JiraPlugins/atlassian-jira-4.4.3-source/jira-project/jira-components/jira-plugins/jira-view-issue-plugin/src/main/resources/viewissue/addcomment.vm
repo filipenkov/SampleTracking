@@ -1,0 +1,26 @@
+<div id="addcomment" class="module">
+    <div class="mod-content">
+        <form action="${baseurl}/secure/AddComment.jspa?atl_token=${atl_token_escaped}" class="aui" id="issue-comment-add" method="post">
+            <div class="content-body">
+                <div class="hidden">
+                    <input name="atl_token" type="hidden" value="${atl_token}">
+                </div>
+                <div class="hidden">
+                    <input name="id" type="hidden" value="${issue.id}">
+                </div>
+            </div>
+            ${commentHtml}
+            <div class="buttons-container content-footer">
+                <div class="buttons">
+                    <input accesskey="${submitAccessKey}" class="button" id="issue-comment-add-submit" name="Add" title="${submitTitle}" type="submit" value="${i18n.getText('common.forms.add')}">
+                    <a accesskey="${cancelAccessKey}" class="cancel" href="#" id="issue-comment-add-cancel" title="${cancelTitle}">${i18n.getText('common.forms.cancel')}</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="mod-footer">
+        <ul class="ops">
+            <li><a href="#" id="footer-comment-button" class="first last button">${i18n.getText('comment.update.title')}</a></li>
+        </ul>
+    </div>
+</div>

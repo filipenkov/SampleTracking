@@ -1,0 +1,107 @@
+tr.project-config-no-entires {
+    font-style: italic;
+}
+
+
+#project-config-versions-table {
+    thead th {
+        white-space: nowrap;
+    }
+    tbody td {
+        /*cursor: move;*/
+        &.project-config-version-description input,
+        &.project-config-version-name input {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -ms-box-sizing: border-box;
+            -o-box-sizing: border-box;
+            box-sizing: border-box;
+            margin: 0;
+            width: 100%;
+        }
+
+        &.project-config-version-name {
+            width: 130px;
+            input {
+                width: 130px;
+             }
+        }
+        &.project-config-version-release-date {
+
+            width: 150px;
+
+            .project-config-date-field {
+                white-space:nowrap;
+            }
+
+            input {
+                width: 130px;
+                margin-right:5px;
+            }
+        }
+
+        &.project-config-release-status {width:16px; padding-right:0;}
+
+        &.project-config-release-status .project-config-icon {margin-top:2px;}
+
+    }
+}
+
+
+/* Entry */
+.project-config-version {
+    &.project-config-version-archived .aui-restfultable-editable {
+        opacity: 0.5;
+    }
+    &.project-config-version-overdue .project-config-version-release-date {
+        color: #CC0000;
+    }
+    .project-config-version-name {
+        .project-config-icon {
+            float: left;
+            margin: 0 8px 0 -24px;
+        }
+    }
+    td:hover .aui-restfultable-editable {
+        opacity: 1;
+    }
+
+    /* Operations */
+    .aui-restfultable-operations {
+        .project-config-operations-list { display: none; }
+        .project-config-operations-trigger {
+            display: none;
+            float: right;
+            padding: 2px;
+        }
+        .project-config-operations-trigger:hover,
+        .project-config-operations-trigger:active,
+        .project-config-operations-trigger:focus {
+            background-color: #3c78b5;
+            color: #fff;
+            display: block;
+        }
+    }
+}
+
+.aui-restfultable-allowhover tr:hover, .project-config-version.aui-restfultable-active {
+    .aui-restfultable-operations {
+        .project-config-operations-trigger {
+            display: block;
+            .icon-drop {
+                background-image: url(../../../images/menu_indicator_for_dark_backgrounds.gif);
+            }
+        }
+    }
+}
+
+
+.msie-7 #project-config-versions-table .project-config-release-status {width:25px;}
+.msie-7 #project-config-versions-table .project-config-version-description input,
+.msie-7 #project-config-versions-table .project-config-version-name input { width: 92%; }
+.msie-7 #project-config-versions-table .aui-restfultable-operations {width:140px;}
+
+.msie .project-config-version.project-config-version-archived .aui-restfultable-editable {
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+}

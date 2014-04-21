@@ -1,0 +1,35 @@
+<div class="borderedHeader">
+    <h3 class="formtitle"><a href="$link">$textutils.htmlEncode($title)</a></h3>
+<br>
+#if ($isSearchRequestFitsNavigator)
+    #foreach ($description in $searcherDescriptions)
+        $description
+    #end
+#else
+    <div class="searcherValue">
+        <label class="fieldLabel" for="fieldJqlQuery">$i18n.getText('jira.jql.query'):</label>
+        <span id="fieldJqlQuery" class="fieldValue">$searchRequestJqlString</span>
+    </div>
+#end
+
+#if ($searchSortDescriptions && !$searchSortDescriptions.isEmpty())
+    <div class="searcherValue">
+        <b>$i18n.getText('navigator.hidden.sortedby'):</b>
+        #foreach ($sortDescription in $searchSortDescriptions)
+            $sortDescription
+        #end
+    </div>
+<br>
+#end
+#if ($searchRequest.getLuceneParameters().isEmpty())
+    <div class="searcherValue">
+        $i18n.getText('navigator.hidden.allissues')
+    </div>
+#end
+
+#if ($searchResultsTotalCount != 0)
+    <br>
+    $i18n.getText('navigator.results.displayissues', "<b>$searchResultsStart</b>", "<b>$searchResultsEnd</b>", "<b>$searchResultsTotalCount</b>")
+    $i18n.getText('navigator.results.asat', "<b>$now</b>") &nbsp;
+#end
+</div>  

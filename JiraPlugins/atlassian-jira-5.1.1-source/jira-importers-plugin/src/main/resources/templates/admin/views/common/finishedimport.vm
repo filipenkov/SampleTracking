@@ -1,0 +1,67 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ImporterFinishedPage" *#
+#* @vtlvariable name="importer" type="com.atlassian.jira.plugins.importer.imports.importer.JiraDataImporter" *#
+
+#parse("/templates/admin/views/common/html-header.vm")
+
+#set ($auiparams = $map.build())
+
+#parse('/templates/standard/jiraformheader.vm')
+
+<input type="hidden" name="externalSystem" value="$!action.externalSystem"/>
+
+#if ($action.importer.stats.projectsStage.itemsCreated != 0 || $action.importer.stats.issuesStage.itemsCreated != 0)
+	#AUImessage("success" "" $i18n.getText('jira-importer-plugin.ImporterLogsPage.projectsAndIssues', [$action.importer.stats.projectsStage.itemsCreated, $action.importer.stats.issuesStage.itemsCreated]) "projectsImported" "" "" "false")
+#end
+
+#if ($importer.aborted == true)
+	#AUImessage("info" $i18n.getText('jira-importer-plugin.ImporterLogsPage.stopped', $action.importer.abortedBy) "" "" "" "" "false")
+#end
+
+#if ($importer.stats.failures.size() > 0)
+	#if ($importer.stats.failures.size() == 1)
+		#AUImessage("error" "" $jimTextUtils.convertToNiceHtmlString($importer.stats.failures.iterator().next()) "failures" "" "" "false")
+	#else
+		#AUImessage("error" $i18n.getText('jira-importer-plugin.ImporterLogsPage.errors', $importer.stats.failures.size()) "<ul class='failures'><li>$textutils.join('</li><li>', $sorter.sort($importer.stats.failures))</li></ul>" "failures" "" "" "false")
+	#end
+#end
+
+#if ($importer.stats.warnings.size() > 0)
+	#if ($importer.stats.warnings.size() == 1)
+		#AUImessage("warning" "" $importer.stats.warnings.iterator().next() "warnings" "" "" "false")
+	#else
+		#AUImessage("warning" $i18n.getText('jira-importer-plugin.ImporterLogsPage.warnings', $importer.stats.warnings.size()) "<ul class='warnings'><li>$textutils.join('</li><li>', $sorter.sort($importer.stats.warnings))</li></ul>" "warnings" "" "" "false")
+	#end
+#end
+
+<div id="whatNow">
+	<h3>What now?</h3>
+	<p>
+		$i18n.getText('jira-importer-plugin.importlogs.download', [$req.contextPath, $action.externalSystem])
+
+        #if ($action.controller.usingConfiguration)
+		    $i18n.getText('jira-importer-plugin.config.download.as.file', $req.contextPath, $action.externalSystem)
+        #end
+	</p>
+</div>
+
+#if ($action.importer.dataBean.returnLinks)
+<div id="returnLinks">
+	$action.importer.dataBean.returnLinks
+</div>
+#end
+
+<script type="text/javascript">
+	AJS.$(["ul.warnings", "ul.failures"]).each(function(idx, ctx) {
+		if (AJS.$("li", ctx).size() > 5) {
+			AJS.$("li:gt(4)", ctx).hide();
+			AJS.$("li:eq(4)", ctx).after("<li class='show-more'><a href='#'>Show more</a></li>");
+		}
+	});
+
+	AJS.$('li.show-more a').click(function(event) {
+		AJS.$("li:gt(4)", AJS.$(this).parent().parent()).toggle();
+		event.preventDefault();
+	});
+</script>
+#set ($auiparams.hideButtons = true)
+#parse("/templates/admin/views/common/import-footer.vm")

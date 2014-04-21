@@ -1,0 +1,48 @@
+#parse("templates/email/html/includes/emailconstants.vm")
+#parse("templates/email/html/includes/header.vm")
+<tr valign="top">
+    <td id="email-banner" style="padding:32px 32px 0 32px;">
+        
+        #if ($issue.reporterUser)
+            #set ($reporter = "#authorlink2($issue.reporterUser.name $linkstyle)")
+        #else
+            #set ($reporter = "#text('common.concepts.no.reporter')")
+        #end
+
+        #set ($issueType = $issue.getIssueTypeObject())
+
+        #set ($issueLink = "#renderIcon(${issueType.iconUrlHtml} ${issueType.getNameTranslation($i18n)}) <a style='color:${textLinkColour};text-decoration:none;' href='${baseurl}/browse/${issue.getKey()}'>$issue.getKey()</a>")
+
+        #emailbanner($issue.reporterUser "email.event.activity.created" $reporter $issueLink "")
+    </td>
+</tr>
+<tr valign="top">
+    <td id="email-fields" style="padding:0 32px 32px 32px;">
+        <table border="0" cellpadding="0" cellspacing="0" style="padding:0;text-align:left;width:100%;" width="100%">
+            <tr valign="top">
+                <td id="email-gutter" style="width:64px;white-space:nowrap;"></td>
+                <td>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        #parse("templates/email/html/includes/fields/issuetype.vm")
+                        #parse("templates/email/html/includes/fields/affectsversions.vm")
+                        #parse("templates/email/html/includes/fields/assignee.vm")
+                        #parse("templates/email/html/includes/fields/attachments.vm")
+                        #parse("templates/email/html/includes/fields/components.vm")
+                        #parse("templates/email/html/includes/fields/createddate.vm")
+                        #parse("templates/email/html/includes/fields/description.vm")
+                        #parse("templates/email/html/includes/fields/duedate.vm")
+                        #parse("templates/email/html/includes/fields/environment.vm")
+                        #parse("templates/email/html/includes/fields/fixversions.vm")
+                        #parse("templates/email/html/includes/fields/project.vm")
+                        #parse("templates/email/html/includes/fields/labels.vm")
+                        #parse("templates/email/html/includes/fields/priority.vm")
+                        #parse("templates/email/html/includes/fields/reporter.vm")
+                        #parse("templates/email/html/includes/fields/securitylevel.vm")
+                        #parse("templates/email/html/includes/fields/timetracking.vm")
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+#parse("templates/email/html/includes/footer.vm")

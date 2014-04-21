@@ -1,0 +1,52 @@
+#enable_html_escaping()
+#* @vtlvariable name="components" type="java.util.List<com.atlassian.jira.admin.contextproviders.ProjectPanelContextProvider.SimpleProject>" *#
+## This section is pretty much hard coded
+#macro (drawadminsummarysection $section $sectionKey) ##LOCAL_MACRO_EXCEPTION
+    #set ($dropdownLinks = $linkManager.getLinksForSection($sectionKey, $user, $helper))
+    #set ($innerDropdownSections = $linkManager.getNotEmptySectionsForLocation($section.id, $user, $helper))
+
+    #if (! $dropdownLinks.empty || !$innerDropdownSections.isEmpty())
+        #if (!$dropdownLinks.empty)
+            #if ($section.label)
+                <h5 class="as-label">$section.label</h5>
+            #end
+            <ul id="$section.id" class="as-list">
+                #foreach ($dropdownLink in $dropdownLinks)
+                    <li><a href="$dropdownLink.url">$textutils.htmlEncode($dropdownLink.label)</a></li>
+                #end
+            </ul>
+        #end
+        #foreach ($innerSection in $innerDropdownSections)
+            #set ($sectionKey = "$section.id/$innerSection.id")
+            #drawadminsummarysection($innerSection $sectionKey)
+        #end
+    #end
+#end
+
+#if ($childSections.size() > 0 || $isAdmin)
+    <div class="mod-header">
+        <h3 class="toggle-title">$panelName</h3>
+    </div>
+    <div id="admin-summary-section-$outerSectionId" class="mod-content">
+        #if ($isAdmin)
+            <ul class="as-list">
+                <li>
+                    <span class="icon icon-users"></span>
+                    <a id="as-count-users" href="${baseUrl}/secure/admin/user/UserBrowser.jspa">$i18n.getText('admin.menu.usersandgroups.users.with.count', $userCount)</a>
+                </li>
+                <li>
+                    <span class="icon icon-groups"></span>
+                    <a id="as-count-groups" href="${baseUrl}/secure/admin/user/GroupBrowser.jspa">$i18n.getText('admin.menu.usersandgroups.groups.with.count', $groupCount)</a>
+                </li>
+                <li>
+                    <span class="icon icon-roles"></span>
+                    <a id="as-count-roles" href="${baseUrl}/secure/project/ViewProjectRoles.jspa">$i18n.getText('admin.menu.usersandgroups.roles.with.count', $roleCount)</a>
+                </li>
+            </ul>
+        #end
+        #foreach ($section in $childSections)
+            #set ($sectionKey = "$outerSectionId/$section.id")
+            #drawadminsummarysection($section $sectionKey)
+        #end
+    </div>
+#end

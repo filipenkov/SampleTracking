@@ -1,0 +1,1541 @@
+/*******************************************************************/
+/*           GENERAL STYLES                                        */
+/*******************************************************************/
+
+#upm-container {
+    min-width: 715px;
+}
+
+#upm-container h2 {
+    color: #036;
+    font-size: 1.8em;
+    line-height: 1.8em;
+}
+
+#upm-container.upm-confluence h2, #upm-container.upm-jira h2 {
+    margin-top: 0;
+}
+
+#upm-container .upm-plugin-description {
+    clear: both;
+    font-size: 1em;
+    margin: 0.5em 0 1em 0.6em;
+}
+
+.upm-plugin-description ul, .upm-plugin-description ol {
+    list-style-position: inside;
+}
+
+#upm-container a {
+    color: #326ca6;
+    text-decoration: underline;
+}
+
+#upm-container a.toolbar-trigger {
+    color: #000;
+    text-decoration: none;
+}
+
+#upm-container a:hover {
+    text-decoration: none;
+}
+
+#upm-container .clearer {
+    clear: both;
+    display: block;
+    font-size: 1px;
+    height: 1px;
+    line-height: 1px;
+    margin-bottom: -1px;
+}
+
+#upm-container .hidden {
+    display: none;
+}
+
+#upm-container .loading {
+    background-image: url(images/throbber.gif);
+    background-position: center center;
+    background-repeat: no-repeat;
+    min-height: 25px;
+}
+
+#upm-container div.filter-box-wrap {
+    height: 2em;
+}
+
+#upm-container .filter-box.loading {
+    background-position: center right;
+    float: left;
+    height: 25px;
+    width: 25px;
+}
+
+#upm-container .upm-filterbox {
+    float: left;
+}
+
+#upm-panel-compatibility.loading {
+    background-position: bottom center;
+}
+
+#upm-container .error {
+    color: #ef1d1d;
+}
+
+#upm-container .upm-info-box {
+    background-color: #eff5ff;
+    border: 1px solid #bfd8ff;
+    margin: 0 0 1em;
+    padding: 0.7em;
+}
+
+#upm-container .upm-warning-box {
+    background-color: #fff3f3;
+    border: 1px solid #ffcfcf;
+    margin: 0 0 3em;
+    padding: 0.7em;
+}
+
+#upm-container .upm-warning-box p {
+    margin: 16px 0 0;
+}
+
+#upm-container .upm-warning-box p:first-child {
+    margin-top: 0;
+}
+
+#upm-container .hidden {
+    display: none;
+}
+
+#upm-container a img {
+    border: none;
+}
+
+#upm-container p.upm-info {
+    color: #666;
+}
+
+p.upm-description {
+    margin-bottom: 1em;
+}
+
+#upm-container button {
+	height: 1.95em;
+    padding: 0.25em 0.5em 0.2em 0.5em;
+}
+
+#upm-container a.upm-plugin-system-version-help {
+    color: #555;
+    text-decoration:none;
+}
+
+#upm-container a.upm-plugin-system-version-help:hover {
+    color: #326ca6;
+    text-decoration:underline;
+}
+
+#upm-container span.highlight {
+    color: #fff;
+    background: #8C98A5;
+}
+
+.dialog button, .aui-dialog button {
+    padding: 0.1em 0.5em 0.2em 0.5em;
+}
+
+/* I wish I didn't have to do this, but fecru admin doesn't set any default font size */
+#upm-upload-dialog, #upm-info-dialog, #upm-confirm-dialog {
+    font-size: 1em;
+}
+
+/* FeCru-specific styles */
+
+#upm-container.upm-fisheye, #upm-container.upm-crucible {
+    padding: 0 1.5em 0 1.5em;
+}
+
+.upm-fisheye p {
+    margin-bottom: 1em;
+}
+
+.aui-message .svg-icon.close {
+    left: auto!important;
+}
+
+/* JIRA messes this up */
+.aui-message .icon-close:hover {
+    background-position: 0 0;
+}
+
+/* Bamboo specific styles */
+
+#upm-container.upm-bamboo h2 {
+    margin-top: 0;
+}
+
+/*******************************************************************/
+/*           TABS                                                  */
+/*******************************************************************/
+
+#upm-tab-container {
+    border-bottom: 1px solid #bbb;
+    position: relative;
+}
+
+#upm-tabs {
+    font-size: 105%;
+    margin: 0;
+    padding: 0 0.7em;
+}
+
+#upm-tabs li {
+    border: 1px solid transparent;
+    border-bottom-color: #bbb;
+    color: #666;
+    display: inline;
+    float: left;
+    margin: 0 0 -1px 0;
+}
+
+#upm-tabs li a {
+    display: block;
+    padding: 0.2em 0.6em;
+    text-decoration: none;
+}
+
+#upm-tabs li:hover {
+    border-color: #ddd;
+    border-bottom-color: #bbb;
+}
+
+#upm-tabs li.upm-selected {
+    border-color: #bbb;
+    border-bottom-color: #fff;
+}
+
+#upm-tabs li.upm-selected a {
+    color: #333;
+}
+
+a#upm-safe-mode-enable, a#upm-upload {
+    position: absolute;
+    right: 1em;
+    top: -1.8em;
+}
+
+.upm-safe-mode #upm-safe-mode-enable {
+    display: none;
+}
+
+a#upm-upload {
+    background: url(images/icon-upload.png) no-repeat 0 0;
+    padding-left: 20px;
+}
+
+.upm-safe-mode #upm-upload {
+    display: none;
+}
+
+/*******************************************************************/
+/*           PANELS                                                */
+/*******************************************************************/
+
+#upm-content .upm-panel {
+    display: none;
+    padding: 1em 0.7em;
+    position: relative;
+}
+
+#upm-content .upm-selected {
+    display: block;
+}
+
+#upm-content .upm-panel h3 {
+    border: none;
+    color: #3c78b5;
+    font-size: 1.6em;
+    font-weight: normal;
+    margin: 1em 0 .3em 0;
+    padding-left: 0;
+}
+
+/* UPM-1804 jira 50 has different colored h3s */
+.jira5 #upm-content .upm-panel h3,
+.jira5 #upm-content .upm-details h3 a,
+.jira5 .upm-congrats-message h4 {
+    color: #326ca6;
+}
+
+/*******************************************************************/
+/*           PLUGIN LISTS                                          */
+/*******************************************************************/
+
+.upm-plugin-list {
+    margin-bottom: 3em;
+}
+
+.upm-plugin-list-container {
+    position: relative;
+}
+
+.upm-plugin-list .upm-plugin {
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    color: #222;
+    font-size: 1em;
+    font-weight: normal;
+    margin: -1px 0 0 0;
+}
+
+.upm-plugin-list .upm-plugin-row {
+    overflow: hidden;
+    padding: 0.5em 1.7em 0.5em 0.5em;
+    position: relative;
+}
+
+.upm-plugin-list .upm-plugin-row .upm-plugin-icon-container {
+    display: inline-block;
+    float: left;
+    height: 16px;
+    margin: 0 5px -2px 3px;
+    width: 16px;
+}
+
+.upm-plugin-list .upm-plugin-row .twixie {
+    background: url(images/twixie.png) 0 0 no-repeat;
+    display: block;
+    float: left;
+    height: 10px;
+    left: auto;
+    margin: 4px 6px 0 3px;
+    position: relative; /* Overrides fecru's twixie class */
+    top: auto;
+    width: 5px;
+}
+
+#upm-container .upm-plugin-list .upm-plugin.loading {
+    background: none;
+}
+
+.upm-plugin-list .upm-plugin.loading .twixie {
+    background: url(images/throbber.gif) 0 0 no-repeat;
+    height: 16px;
+    margin: 1px 1px 0 -3px;
+    width: 16px;
+}
+
+.upm-plugin-list .expanded .upm-plugin-row .twixie  {
+    background-position: top right;
+    margin: 5px 4px 0 0;
+    width: 10px;
+}
+
+.upm-plugin-list .upm-plugin-row .upm-plugin-icon {
+    display: block;
+    margin: auto;
+}
+
+.upm-plugin-list .disabled .upm-plugin-row .upm-plugin-icon{
+    opacity: 0.5;
+}
+
+.upm-plugin-row:hover {
+    background: #eee;
+    cursor: pointer;
+}
+
+.upm-plugin-list .expanded .upm-plugin-row {
+    background: #eaf1fd;
+}
+
+.upm-plugin-list .disabled .upm-plugin-row {
+    color: #999;
+}
+
+.upm-plugin-list .expanded.disabled .upm-plugin-row {
+    color: #666;
+}
+
+h4.upm-plugin-name {
+    color: #222;
+    display: inline;
+    float: left;
+    font-size: 1em;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    width: 30%;
+}
+
+.upm-plugin-row p.upm-plugin-summary {
+    color: #666;
+    display: inline;
+    float: right;
+    font-size: 0.95em;
+    margin: 0;
+    padding: 0;
+    width: 65%;
+}
+
+.upm-plugin-list .disabled .upm-plugin-row .upm-plugin-name  {
+    color: #666;
+}
+
+.upm-plugin-list .disabled .upm-plugin-row .upm-plugin-summary {
+    color: #aaa;
+}
+
+.upm-plugin-list .expanded .upm-plugin-row .upm-plugin-summary {
+    font-weight: normal;
+}
+
+#upm-osgi-bundles .upm-plugin-list .upm-plugin-row .upm-plugin-icon-container {
+    display: none;
+}
+
+#upm-osgi-bundles .upm-plugin-list .upm-plugin-row {
+    background-image: url(images/gear-blue.gif);
+    background-position: 19px 50%;
+    background-repeat: no-repeat;
+}
+
+#upm-osgi-bundles .upm-plugin-list .expanded .upm-plugin-row {
+    background-image: url(images/gear-blue.gif);
+}
+
+#upm-osgi-bundles .upm-plugin-list .disabled .upm-plugin-row {
+    background-image: url(images/gear-disabled.gif);
+}
+
+#upm-osgi-bundles .upm-plugin-list .expanded.disabled .upm-plugin-row {
+    background-image: url(images/gear-disabled.gif);
+}
+
+#upm-osgi-bundles .upm-plugin-name {
+    width: 90%;
+    margin: 0 0 0 15px;
+}
+
+p.upm-section-description {
+    margin: 0 4em 1em 0;
+}
+
+/* Plugin Details */
+
+.upm-plugin-list .upm-plugin .upm-details {
+    display: none;
+    font-size: 1em;
+    padding: 0.8em 1em 0.8em 1.7em;
+    position: relative;
+}
+
+.upm-plugin-list .expanded .upm-details {
+    display: block;
+}
+
+.upm-plugin .upm-details .upm-rating {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.upm-plugin .upm-details h5 {
+    color: #222;
+    font-size: 1.05em;
+    font-weight: bold;
+    margin: 0.5em 0 0.3em 0;
+}
+
+.upm-plugin .upm-details p {
+    color: #222;
+}
+
+.upm-details .upm-plugin-details-header {
+    margin-bottom: 2em;
+    padding-left: 50px;
+}
+
+.upm-details .upm-plugin-logo-container {
+    display: inline-block;
+    float: left;
+    height: 48px;
+    margin-left: -50px;
+    margin-right: 10px;
+    text-align: center;
+    width: 48px;
+}
+
+#upm-content .upm-details h3 {
+    font-size: 1.3em;
+    margin: 0;
+}
+
+#upm-content .upm-details h3 a {
+    color: #3C78B5;
+    text-decoration: none;
+}
+
+#upm-content .upm-details h3 a:hover {
+    text-decoration: underline;
+}
+
+#upm-content .upm-details .upm-plugin-version a {
+    color: #888;
+}
+
+.upm-details h3 .upm-plugin-version, .upm-details h3 .upm-plugin-installed-version {
+    color: #888;
+    font-size: 0.85em;
+}
+
+.upm-details h4 {
+    color: #888;
+    font-weight: normal;
+    font-size: 1em;
+    margin: 0;
+}
+
+#upm-container .upm-details h4 a {
+    color: #888;
+    text-decoration: none;
+}
+
+#upm-container .upm-details h4 a:hover {
+    text-decoration: underline;
+}
+
+.upm-plugin .upm-details dl {
+    margin: 0;
+    padding-left: 150px;
+}
+
+.upm-plugin .upm-details dt {
+    clear: left;
+    color: #555;
+    display: inline;
+    float: left;
+    margin-bottom: 0.4em;
+    margin-left: -150px;
+}
+
+.upm-plugin .upm-details dd {
+    display: block;
+    margin: 0 0 0.4em 0;
+}
+
+.upm-plugin span.upm-details-link {
+    color: #888;
+}
+
+.dropdown-item span.upm-details-link {
+    min-width: 150px;
+    padding: 0.3em 0.5em;
+}
+
+#upm-container .upm-plugin-actions {
+    background: none;
+    border: none;
+    float: right;
+    padding: 0;
+    width: auto;
+}
+
+.upm-plugin-actions .toolbar-group {
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+.upm-static .upm-uninstall {
+    display: none;
+}
+
+/* Requires restart */
+
+.upm-plugin-requires-restart button, .upm-plugin-requires-restart .aui-toolbar {
+    display: none;
+}
+
+.upm-requires-restart-message {
+    display: none;
+}
+
+.upm-plugin-requires-restart .upm-requires-restart-message {
+    display: block;
+}
+
+.upm-requires-restart-icon {
+    background: url(images/warning.png) no-repeat 0 0;
+    display: none;
+    height: 16px;
+    position: absolute;
+    right: 5px;
+    width: 16px;
+}
+
+.upm-plugin-requires-restart .upm-requires-restart-icon {
+    display: inline;
+}
+
+/* Pending tasks */
+
+#upm-pending-tasks {
+    display: none;
+}
+
+.upm-pending-tasks #upm-pending-tasks {
+    display: block;
+}
+
+#upm-container.upm-pending-tasks button, #upm-container.upm-pending-tasks .aui-toolbar {
+    display: none;
+}
+
+#upm-container.upm-pending-tasks button.upm-pager-button {
+    display: inline;
+}
+
+#upm-container.upm-pending-tasks #upm-install-search-form button {
+    display: inline;
+}
+
+#upm-container.upm-pending-tasks a.upm-requires-restart-cancel {
+    display: none;
+}
+
+#upm-container.upm-pending-tasks #upm-upload {
+    display: none;
+}
+
+#upm-container.upm-pending-tasks #upm-safe-mode-enable, #upm-container.upm-pending-tasks #upm-safe-mode-exit-links {
+    display: none;
+}
+
+#upm-container.upm-pending-tasks .upm-module-actions {
+    display: none;
+}
+
+/* Plugin Modules */
+
+.upm-plugin-modules {
+    font-size: 0.95em;
+    margin: 1em 0 1em 0;
+}
+
+.upm-module-container {
+    display: none;
+    margin-top: 0.5em;
+}
+
+.upm-plugin .expanded .upm-module-container {
+    display: block;
+}
+
+.upm-module-toggle {
+    /*font-size: 0.95em;*/
+}
+
+.upm-module {
+	min-height: 25px;
+	position: relative;
+    border: 1px solid #eaeaea;
+    clear: both;
+    font-size: 0.95em;
+    margin-top: -1px;
+    padding: 0.5em;
+}
+
+.upm-module:hover {
+    background: #fafafa;
+}
+
+.upm-plugin .upm-module h5 {
+    color: #222;
+    display: inline;
+    float: left;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 1.7em;
+    margin: 0 1em 0 0;
+    padding: 0;
+}
+
+.upm-plugin .upm-module p {
+    color: #777;
+    display: inline;
+    float: left;
+    font-size: 1em;
+    line-height: 1.7em;
+    margin: 0;
+}
+
+.upm-module-actions {
+    margin: -0.1em 0 -0.2em 0;
+    position: absolute;
+    right: 6px;
+}
+
+.upm-osgi-bundle-parsed-headers .upm-module-actions,
+.upm-osgi-services-registered .upm-module-actions,
+.upm-osgi-services-in-use .upm-module-actions {
+    display: none;
+}
+
+.upm-module.upm-osgi-header-clause-unresolved {
+    background-color: #fee
+}
+
+.upm-module.upm-osgi-header-clause-unresolved h5 {
+    color: #900
+}
+
+.upm-module.upm-osgi-header-clause-optional h5 {
+    color: #777;
+}
+
+.upm-module .aui-toolbar a.toolbar-trigger {
+    display: none;
+}
+
+.upm-plugin .upm-module .upm-module-actions p {
+    display: none;
+}
+
+.upm-plugin-modules .upm-module-disabled h5 {
+   color: #999;
+}
+
+.upm-plugin-modules .upm-module-disabled p {
+   color: #ccc;
+}
+
+.upm-module:hover a.upm-module-disable {
+    display: inline;
+}
+
+.upm-module-disabled:hover a.upm-module-enable {
+    display: inline;
+}
+
+.upm-module:hover .upm-module-actions.upm-module-cannot-disable .aui-toolbar {
+    display: none;
+}
+
+.upm-module:hover .upm-module-actions.upm-module-cannot-disable p {
+    display: inline;
+}
+
+.upm-plugin-modules .upm-module-disabled a.upm-module-disable {
+    display: none;
+}
+
+.disabled .upm-plugin-modules .upm-module-actions {
+    display: none;
+}
+
+.upm-module-state {
+    display: none;
+    float: right;
+    margin: -0.1em 0 -0.2em 0;
+}
+
+.upm-module-disabled .upm-module-state {
+    display: inline;
+}
+
+.upm-module-disabled .upm-module-state p {
+    color: red;
+}
+
+.upm-module:hover .upm-module-state {
+    display: none;
+}
+
+/* Toggle Icon */
+
+.upm-toggle-icon {
+    background: url(images/plus-minus.png) 0 0 no-repeat;
+    display: inline;
+    float: left;
+    height: 15px;
+    margin-right: 0.2em;
+    width: 15px;
+}
+
+.upm-plugin .expanded .upm-toggle-icon {
+    background-position: 0 -15px;
+}
+
+/* License Details/Management */
+
+#upm-container a.upm-license-enter.disabled {
+    color: gray;
+    cursor: default;
+    text-decoration: none;
+}
+
+.upm-license-details {
+    margin: 0.1em 0 1em 0;
+}
+
+.upm-license-details.error {
+    margin-bottom: 10px;
+}
+
+.upm-license-details.disabled textarea {
+    color: gray;
+    cursor: default;
+    text-decoration: none;
+}
+
+.upm-license-details label {
+    display: block;
+    margin: 0 0 3px 0;
+}
+
+.upm-license-form {
+    clear: both;
+    display: none;
+    padding-left: 150px;
+}
+
+.upm-license-form label {
+    color: #555;
+    float: left;
+    margin-left: -150px;
+}
+
+.upm-license-form textarea {
+    display: block;
+    font-family: monospace;
+    font-size: 0.95em;
+    height: 100px;
+    margin: 0 0 10px 0;
+    width: auto;
+}
+
+.upm-license-form input.submit, .upm-license-form a.upm-license-cancel {
+    float: left;
+    margin: 0 1em 0 0;
+}
+
+.upm-license-details .loading {
+    display: none;
+    float: left;
+    margin-top: -3px;
+    width: 16px;
+}
+
+.no-license .upm-license-form {
+    display: block;
+}
+
+.no-license .upm-plugin-license-info {
+    display: none;
+}
+
+.upm-plugin .no-license dl,
+.upm-plugin .no-license .upm-license-cancel {
+    display: none;
+}
+
+.upm-plugin .no-license dl.upm-plugin-license-readonly {
+    display: block;
+}
+
+#upm-container a.upm-plugin-license-truncated {
+    color: #222;
+    text-decoration: none;
+}
+
+#upm-container a.upm-plugin-license-truncated:hover {
+    color: #326ca6;
+    text-decoration: underline;
+}
+
+.edit-license .upm-license-form {
+    display: block
+}
+
+.upm-plugin .edit-license .upm-plugin-license-key,
+.upm-plugin .edit-license .upm-plugin-license-key-label {
+    display: none;
+}
+
+a.upm-plugin-license-edit {
+    background: transparent url(images/icons.png) no-repeat -5px -2px;
+    display: inline-block;
+    height: 12px;
+    margin: -2px 0 0 3px;
+    vertical-align: middle;
+    width: 16px;
+}
+
+a.upm-plugin-license-edit:hover {
+    background-position: -30px -2px;
+}
+
+a.upm-plugin-license-edit span {
+    display: none;
+}
+
+/*******************************************************************/
+/*           INSTALL TAB                                           */
+/*******************************************************************/
+
+#upm-panel-install label {
+    color: #000;
+    font-size: 115%;
+    margin-right: 0.5em;
+}
+
+#upm-install-type {
+    display: inline;
+    font-size: 100%;
+    width: 165px;
+}
+
+#upm-panel-install .upm-install-type {
+    display: none;
+}
+
+#upm-panel-install .upm-selected {
+    display: block;
+}
+
+#upm-install-filter-box {
+    float: left;
+    width: 48%;
+}
+
+#upm-install-search-form-container, #upm-osgi-search-form-container {
+    float: right;
+    width: 48%;
+}
+
+#upm-osgi-search-form-container {
+    margin-top: -2em;
+}
+
+/*******************************************************************/
+/*           MISC                                                  */
+/*******************************************************************/
+
+hr {
+  background: #eaeaea;
+  border:0;
+  border-top: 1px solid #eaeaea;
+  height: 0;
+}
+
+img.upm-logo {
+    margin-bottom: -8px;
+    vertical-align: baseline;
+}
+
+#upm-audit-log-feed img {
+    margin: 0 2px -2px 2px;
+    vertical-align: top;
+}
+
+/* Search box */
+
+.upm-textbox {
+    color: #888;
+    font-size: 1.1em;
+    width: 355px;
+}
+
+.upm-textbox-active {
+    color: #222;
+}
+
+#upm-install-search-box, #upm-osgi-search-box {
+    display: inline;
+    float: right;
+    width: 50%;
+}
+
+/* buttons and links */
+
+.upm-search-button {
+    display: inline;
+    float: right;
+    margin: 0 5px 0 5px;
+}
+
+#upm-update-all.upm-filtered, #upm-safe-mode-enable.upm-filtered {
+    display: none;
+}
+
+#upm-update-all-container {
+    display: inline;
+    float: right;
+    margin-right: 4em;
+}
+
+#upm-container #upm-update-all-container ul, #upm-container {
+    margin-bottom: 0;
+}
+
+button.upm-uninstall {
+    display: inline;
+    float: right;
+}
+
+.upm-safe-mode-actions {
+    display: inline;
+    float: right;
+    margin-right: 3.8em;
+}
+
+#upm-safe-mode-off {
+    display: none;
+}
+
+.upm-safe-mode #upm-safe-mode-off {
+    display: block;
+}
+
+/* Requires restart */
+
+#upm-requires-restart-message {
+    display: none;
+}
+
+.requires-restart #upm-requires-restart-message {
+    display: block;
+}
+
+#upm-requires-restart-show {
+    margin-left: 0.3em;
+}
+
+#upm-requires-restart-message.expanded #upm-requires-restart-list {
+    display: block;
+}
+
+/* compatibility check form */
+
+#upm-compatibility-form {
+    margin-top: 1em;
+}
+
+#upm-compatibility-form label {
+    color: #000;
+    font-size: 115%;
+    margin-right: 0.5em;
+}
+
+#upm-compatibility-form select {
+    font-size: 100%;
+    padding: 0.1em 0.2em 0.1em 0.2em;
+    width: 140px;
+}
+
+#upm-compatibility-form input.submit {
+    margin-left: 0.5em;
+}
+
+#upm-compatibility-content {
+    display: none;
+}
+
+#upm-compatibility-content button {
+    display: none;
+}
+
+#upm-need-update-plugins button.upm-update {
+    display: inline;
+}
+
+#upm-need-product-update-plugins button.upm-disable {
+    display: inline;
+}
+
+#upm-need-product-update-plugins .disabled button.upm-disable {
+    display: none;
+}
+
+/* Congratulations messages */
+
+.upm-congrats-message {
+    background: transparent url(images/all-up-to-date.png) 0 0 no-repeat;
+    padding-left: 20px;
+    padding-right: 168px;
+    text-align: center;
+    width: 280px;
+}
+
+.upm-congrats-message-plugin-updates {
+    height: 140px;
+    padding-top: 40px;
+}
+
+.upm-congrats-message-product-updates {
+    height: 180px;
+    padding-top: 25px;
+}
+
+.upm-congrats-message h4 {
+    color: #3c78b5;
+    font-size: 2.4em;
+    font-weight: bold;
+    margin: 0;
+}
+
+.upm-congrats-message p {
+    color: #444;
+    font-size: 1.6em;
+    margin: 0.8em auto 0 auto;
+    text-align: center;
+    width: 200px;
+}
+
+/* Upload Form */
+
+#upm-upload-form div {
+    margin: 0.5em 0 0.7em;
+}
+
+#upm-upload-form label {
+    color: #000;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.2em;
+}
+
+#upm-upload-form input.text {
+    width: 355px;
+}
+
+#upm-upload-form .instructions {
+    font-size: 90%;
+}
+
+#upm-upload-dialog .button-panel button {
+    font-size: 0.75em;
+}
+
+#upm-upload-file {
+    font-size: 0.85em;
+}
+
+/* Non-deployable download popup */
+
+span.upm-nondeployable-instruction {
+    font-weight: bold;
+}
+
+ul.upm-nondeployable-ul {
+    margin: 0 0 1em 2em;
+}
+
+ul.upm-nondeployable-ul li {
+    font-size: 0.9em;
+    margin: 0.6em 0 0.2em 0;
+}
+
+#upm-progress-popup {
+    font-size: 1.2em;
+}
+
+#upm-progress {
+    padding: 0.5em 1.2em;
+    text-align: center;
+}
+
+#upm-progress img {
+    margin: 1.5em 0 1.5em 0;
+}
+
+.upm-progress-text {
+    color: #777;
+    text-align: center;
+}
+
+.upm-no-description-text {
+    color: #777;
+}
+
+.upm-progress-bar-container {
+    margin-top: 1em;
+    text-align: center;
+    visibility: hidden;
+}
+
+.upm-progress-download .upm-progress-bar-container {
+    visibility: visible;
+}
+
+.upm-progress-bar {
+    background: #f6f6f6;
+    border: 1px solid #ccc;
+    height: 20px;
+    margin: 0 auto;
+    text-align: left;
+    width: 250px;
+}
+
+.upm-progress-amount {
+    background: #69c;
+    height: 20px;
+    width: 0;
+}
+
+#upm-content #upm-panel-log h3 {
+    margin-top: 0;
+}
+
+#upm-audit-log {
+    margin: 0 0 45px 0;
+}
+
+a#upm-audit-log-refresh {
+    background: transparent url(images/refresh.png) 0 -16px no-repeat;
+    display: inline;
+    float: right;
+    height: 16px;
+    margin: 0;
+    width: 16px;
+}
+
+a#upm-audit-log-refresh:hover {
+    background-position: 0 0;
+}
+
+a#upm-audit-log-refresh span {
+    display: none;
+}
+
+#upm-audit-log td.date {
+    white-space: nowrap;
+}
+
+/* audit log pagination */
+
+#upm-audit-log-pagination {
+    margin-bottom: 0.5em;
+}
+
+#upm-audit-log-pagination a {
+    background: transparent url(images/pagination.gif) 0 0 no-repeat;
+    display: inline;
+    float: left;
+    height: 14px;
+    margin: 0 0.3em 0 0.3em;
+    width: 14px;
+}
+
+#upm-audit-log-pagination a.disabled {
+    cursor: default;
+}
+
+#upm-audit-log-pagination a span {
+    display: none;
+}
+
+a#upm-audit-log-first {
+    background-position: 0 0;
+}
+
+a#upm-audit-log-first:hover {
+    background-position: 0 -14px;
+}
+
+a#upm-audit-log-first.disabled {
+    background-position: 0 -28px;
+}
+
+a#upm-audit-log-previous {
+    background-position: -20px 0;
+}
+
+a#upm-audit-log-previous:hover {
+    background-position: -20px -14px;
+}
+
+a#upm-audit-log-previous.disabled {
+    background-position: -20px -28px;
+}
+
+a#upm-audit-log-next {
+    background-position: -40px 0;
+}
+
+a#upm-audit-log-next:hover {
+    background-position: -40px -14px;
+}
+
+a#upm-audit-log-next.disabled {
+    background-position: -40px -28px;
+}
+
+a#upm-audit-log-last {
+    background-position: -60px 0;
+}
+
+a#upm-audit-log-last:hover {
+    background-position: -60px -14px;
+}
+
+a#upm-audit-log-last.disabled {
+    background-position: -60px -28px;
+}
+
+#upm-audit-log-count {
+    display: inline;
+    float: left;
+    font-size: 0.95em;
+}
+
+/* Audit Log configuration */
+
+#upm-log-configuration {
+    background: #f6f6f6;
+    border: 1px solid #e2e2e2;
+    display: block;
+    margin: 0 0 1em 0;
+    padding: 0.3em 0.6em;
+}
+
+#upm-log-configuration-days {
+    margin: 0 0.2em 0 0.2em;
+    width: 3em;
+}
+
+#upm-log-configuration-submit {
+    font-size: 0.95em;
+    margin-left: 1em;
+    margin-right: 0.25em;
+}
+
+#upm-log-configure {
+    font-size: 0.95em;
+}
+
+/* Messages */
+
+#upm-messages {
+    margin-bottom: 15px;
+}
+
+#upm-messages .aui-message.warning {
+    color: #333;            /* override red color in Bamboo */
+    cursor: pointer;
+}
+
+#upm-container .aui-message {
+    z-index: 0;   /* Stop info banner from showing over modal dark bg */
+}
+
+#upm-messages.overflowing .aui-message {
+    display: none;
+}
+
+#upm-messages.overflowing .visible, #upm-messages.expanded .aui-message {
+    display: block;
+}
+
+#upm-messages.overflowing #upm-messages-show-more {
+    display: inline;
+}
+
+#upm-messages #upm-messages-show-more, #upm-messages.expanded #upm-messages-show-more {
+    display: none;
+}
+
+#upm-bundled-summary p,
+.plugin-warning-development-version .upm-development-product-version p,
+.plugin-warning-unknown-version .upm-unknown-product-version p {
+    margin-top: 0;
+}
+
+.upm-message-container .aui-message {
+    margin-bottom: 1em;
+}
+
+/* Local upload iframe */
+
+#upm-upload-target {
+    display: none;
+}
+
+
+/* Updates tab */
+
+.upm-configure-link-off {
+    color: #999;
+    display: none;
+}
+
+.disabled .upm-configure-link {
+    display: none;
+}
+
+.disabled .upm-configure-link-off {
+    display: inline;
+}
+
+.upm-expand-collapse-all {
+    font-size: 0.95em;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: -2.2em;
+}
+
+.upm-expand-collapse-all a {
+    background: transparent url(images/expand-collapse.png) 0 -16px no-repeat;
+    display: block;
+    float: left;
+    height: 16px;
+    margin: 0 0.2em;
+    width: 16px;
+}
+
+.upm-expand-collapse-all a:hover {
+    background-position: 0 0;
+}
+
+.upm-expand-collapse-all a span {
+    display: none;
+}
+
+.upm-expand-collapse-all .upm-collapse-all {
+    margin-right: 0;
+}
+
+.upm-expand-collapse-all .upm-expand-all {
+    background-position: -16px -16px;
+}
+
+.upm-expand-collapse-all .upm-expand-all:hover {
+    background-position: -16px 0;
+}
+
+#upm-self-update-msg .upm-options {
+    float: right;
+}
+
+#upm-self-update-msg .upm-options a {
+    margin-left: 10px;
+}
+
+/* No available updates */
+.upm-development-product-version,
+.upm-unknown-product-version {
+    display: none;
+}
+
+.plugin-warning-development-version .upm-development-product-version,
+.plugin-warning-unknown-version .upm-unknown-product-version {
+    display: block;
+}
+
+.plugin-warning-development-version #upm-update-description,
+.plugin-warning-unknown-version #upm-update-description {
+	display: none;
+}
+
+.plugin-warning-unknown-version #upm-update-all-container,
+.no-updates #upm-update-all-container {
+    display: none;
+}
+
+.plugin-warning-unknown-version #upm-update-description,
+.no-updates #upm-update-description {
+    display: none;
+}
+
+
+.plugin-warning-unknown-version .upm-plugin-list-container {
+    display: none;
+}
+
+.no-updates #upm-available-updates {
+    display: none;
+}
+
+#upm-no-available-updates {
+    display: none;
+}
+
+.no-updates #upm-no-available-updates {
+    display: block;
+}
+
+/* plugin pagination */
+
+.upm-plugin-list-pager {
+    margin-top: -1.5em;
+    min-height: 4em;
+    padding-top: 0.5em;
+    text-align: center;
+}
+
+#upm-container .upm-plugin-list-pager {
+    background-position: top center;
+}
+
+.upm-plugin-list-pager .upm-pager-text {
+    display: none;
+    font-size: 1.1em;
+    line-height: 1em;
+    text-align: center;
+}
+
+.upm-plugin-list-pager .upm-pager-button {
+    font-size: 0.9em;
+}
+
+.upm-plugin-list-pager.loading {
+    padding-top: 2.5em;
+}
+
+#upm-container .upm-plugin-list-pager.loading {
+    min-height: 2em;
+}
+
+.upm-plugin-list-pager.loading .upm-pager-text {
+    display: block;
+}
+
+.upm-plugin-list-pager.loading .upm-pager-button {
+    display: none;
+}
+
+#upm-recent-product-release-container {
+    margin: 1em;
+}
+
+.upm-recent-product-release {
+    font-weight: bold;    
+}
+
+#upm-footer {
+    border-top: 1px solid #ddd;
+    margin: 0 10px 0 10px;
+    padding: 10px 0 0 0;
+}
+
+#upm-footer p {
+    color: #666;
+    font-size: 11px;
+}
+
+#upm-footer a {
+    color: #666;
+    text-decoration: none;
+}
+
+div.upm-plugin-pricing {
+    padding-top: 10px;
+    width: 60%;
+}
+
+tr.highlight-prices {
+    border: 5px solid #EAF1FD;
+    font-weight: bold;
+}

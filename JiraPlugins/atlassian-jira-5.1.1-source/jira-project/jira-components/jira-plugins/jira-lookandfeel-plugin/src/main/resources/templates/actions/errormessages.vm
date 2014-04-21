@@ -1,0 +1,9 @@
+#disable_html_escaping()
+<div id="error-container" class="aui-message error">
+
+    #foreach ($error in $action.getErrorMessages())
+        <p>$action.htmlEncode(${error})</p>
+    #end
+
+</div>
+

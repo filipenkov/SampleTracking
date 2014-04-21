@@ -1,0 +1,48 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ImporterCustomFieldsPage" *#
+#parse('/templates/admin/views/common/import-header.vm')
+
+#if ($action.customFields && !$action.customFields.empty)
+	<table class="aui" style="width: auto !important;" id="customFieldMappings">
+		<thead>
+			<tr>
+				<th>$i18n.getText('jira-importer-plugin.config.mappings.field.import.field')</th>
+				<th class="rightarrowcolumn"></th>
+				<th>$i18n.getText('jira-importer-plugin.csv.corresponding.jira.field')</th>
+			</tr>
+		</thead>
+		<tbody>
+			#foreach($entry in $action.sorter.sort($action.customFields, 'name'))
+				<tr class="nobottomborder">
+					<td>
+						$textutils.htmlEncode($entry.name)
+						#if ($textutils.stringSet($entry.id))
+							<div class="description">($entry.id)</div>
+						#end
+					</td>
+					<td class="rightarrowcolumn">&rarr;</td>
+					<td>
+						<span style="display: inline-block; position: relative; width: 250px;">
+							<span class="aui-icon icon-required field-mapping-warning" style="position: absolute; right: -8px;"></span>
+
+							#set ($auiparams = $map.build('name', $entry.id, 'optgroup', true, 'map', $action.getAvailableFieldMappings($entry), "class", "importField select"))
+							#if ($action.getFieldMapping($entry.id))
+								#set ($auiparams.value = $action.getFieldMapping($entry.id))
+							#else
+								#set ($auiparams.value = $entry.name)
+							#end
+							#parse("/templates/common/selectWithTextArea.vm")
+
+							#if ($action.getErrors().get($entry.id))
+								<div class="error">$textutils.htmlEncode($action.getErrors().get($entry.id))</div>
+							#end
+						</span>
+					</td>
+				</tr>
+			#end
+		</tbody>
+	</table>
+#else
+	$i18n.getText('jira-importer-plugin.external.no.custom.fields')
+#end
+
+#parse('/templates/admin/views/common/import-footer.vm')

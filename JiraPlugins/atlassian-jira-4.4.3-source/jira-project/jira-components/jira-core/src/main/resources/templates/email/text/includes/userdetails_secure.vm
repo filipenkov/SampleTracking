@@ -1,0 +1,10 @@
+$i18n.getText("template.user.details.accountdetails")
+---------------------------------------------------------------------
+$stringUtils.leftPad($i18n.getText("template.user.details.username"), $padSize): $user.name
+$stringUtils.leftPad($i18n.getText("template.user.details.email"), $padSize): $user.email
+$stringUtils.leftPad($i18n.getText("template.user.details.fullname"), $padSize): $user.fullName
+
+
+$i18n.getText("template.user.retrievepassword")
+
+   ${baseurl}/secure/ForgotLoginDetails.jspa?username=$velocityhelper.urlencode($user.name)

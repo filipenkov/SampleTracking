@@ -1,0 +1,30 @@
+.as-label {color:#666;font-size:11px;font-weight:400;margin-bottom:3px}
+/*.as-list-wrap {}*/
+.as-list {list-style:none;margin:0 0 14px;padding:0}
+.as-list li {background:url('images/ico_as_option.png') no-repeat 0 3px;display:inline;padding-left:14px;}
+.as-list li:first-child {background:none;padding-left:0;}
+.as-list li a {white-space:nowrap;}
+.as-list .icon {margin:0;}
+
+.as-recent-projects-list {list-style:none;margin:4px 0 0;padding:0;overflow:hidden;}
+.as-recent-projects-list li {display:block;float:left;margin:0 35px 14px 0;min-height:50px;padding-left:56px;position:relative;}
+.as-recent-project-icon {position:absolute;top:0;left:0;}
+.as-recent-project-name {display:block;font-size:16px;font-weight:700;margin-bottom:7px;}
+.as-recent-key {margin-right:14px;}
+.as-recent-key,
+.as-recent-count {color:#666;}
+
+.as-welcome {overflow:hidden;margin-bottom:1em;padding-top:1em;}
+.as-welcome .asw-message {background-color:#E0EFFF;float:left;width:32%;margin-left:1%;padding:0;height:8em;border:1px solid #3C78B5;-moz-border-radius:0.4em;-webkit-border-radius:0.4em;border-radius:0.4em;}
+.as-welcome .asw-message:first-child {margin-left:0;}
+.as-welcome .asw {padding:1em;position:relative;}
+.as-welcome .asw h4 {margin-bottom:6px;}
+.as-welcome .asw-type-small {padding-left:73px;}
+.as-welcome .asw-type-medium {padding-left:101px;}
+.as-welcome .asw-type-large {padding-left:176px;}
+.asw-image {position:absolute;top:1em;left:1em;}
+
+.admin-project-intro-frame {border: none;width:830px;height:420px;}
+
+
+

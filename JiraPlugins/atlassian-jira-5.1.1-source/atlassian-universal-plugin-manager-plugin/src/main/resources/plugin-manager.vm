@@ -1,0 +1,359 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>$i18n.getText("upm.title")</title>
+    <meta name="decorator" content="atl.admin">
+    <meta name="admin.active.section" content="admin_plugins_menu/upm_section"/>
+    <meta name="admin.active.tab" content="upm-admin-link"/>
+    $webResourceManager.requireResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:upm-web-resources")
+    $webResourceManager.requireResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:upm-plugin-resources")
+    #if($applicationProperties.getDisplayName().toLowerCase() == "refimpl")
+    $webResourceManager.requireResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:refapp")
+    #end
+    $webResourceManager.requireResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:fakedata")
+</head>
+<body>
+    #parse("upm-resources.vm")
+    <div id="upm-container" class="upm-$applicationProperties.getDisplayName().toLowerCase()">
+
+        <input type="hidden" id="upm-product-build-number" value="$applicationProperties.getBuildNumber()">
+
+        <h2>
+            <img src="$webResourceManager.getStaticPluginResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:upm-web-resources", "images/upm-logo.png")" class="upm-logo" height="31" width="31" alt=""> 
+            <span id="upm-title">$i18n.getText("upm.tabs.manage")</span>
+        </h2>
+        <p class="upm-description">
+            $descriptionWithHtml
+        </p>
+
+        <div id="upm-pending-tasks" class="upm-info-box info">
+            <p>
+                <strong>$i18n.getText("upm.pendingTasks.message")</strong>
+            </p>
+            <ul id="upm-pending-tasks-details"></ul>
+        </div>
+
+        <div id="upm-safe-mode-off" class="upm-info-box">
+            <p>
+                <strong>$i18n.getText("upm.manage.safeMode", "$applicationProperties.getDisplayName()")</strong>
+            </p>
+            <p id="upm-safe-mode-exit-links" class="hidden">
+                <a href="#" id="upm-safe-mode-restore">$i18n.getText("upm.manage.safeMode.restore")</a>
+                <span class="pipe">|</span>
+                <a href="#" id="upm-safe-mode-keep-state">$i18n.getText("upm.manage.safeMode.keepState")</a>
+            </p>
+        </div>
+
+        <div id="upm-pac-checking-availability" class="upm-info-box hidden closeable">
+            <p>
+                $upmPacAvailabilityCheckingHtml
+            </p>
+        </div>
+
+        <div id="upm-pac-unavailable" class="upm-info-box hidden closeable">
+            <p>
+                $upmPacAvailabilityErrorHtml
+            </p>
+        </div>
+
+        <div id="upm-pac-disabled" class="upm-info-box hidden closeable">
+            <p>
+                $upmPacAvailabilityDisabledHtml
+            </p>
+        </div>
+
+        <div id="upm-messages"></div>
+
+        <div id="upm-tab-container">
+            <ul id="upm-tabs">
+                #if($tabVisibility.manageExistingVisible)
+                    <li class="upm-selected">
+                        <a href="#manage" id="upm-tab-manage">$i18n.getText("upm.tabs.manage")</a>
+                    </li>
+                #end
+                #if($tabVisibility.installVisible)
+                    <li><a href="#install" id="upm-tab-install">$i18n.getText("upm.tabs.install")</a></li>
+                #end
+                #if($tabVisibility.osgiVisible)
+                    <li #if(!$tabVisibility.devModeEnabled) class="hidden" #end><a href="#osgi" id="upm-tab-osgi">$i18n.getText("upm.tabs.osgi")</a></li>
+                #end
+            </ul>
+            <div class="clearer"></div>
+        </div>
+        <div id="upm-content">
+
+            <!-- MANAGE TAB -->
+            #if($tabVisibility.manageExistingVisible)
+            <div id="upm-panel-manage" class="upm-panel">
+                <div><a href="#" id="upm-safe-mode-enable" title="$i18n.getText("upm.manage.safeMode.enable")">$i18n.getText("upm.manage.safeMode.enable")</a></div>
+                <div class="filter-box-wrap">
+                    <input id="upm-manage-filter-box" class="upm-textbox upm-filterbox" value="$i18n.getText("upm.filter.filterPlugins")">
+                    <div class="loading filter-box hidden"></div>
+                </div>
+
+                #if($tabVisibility.updateVisible)
+                <div id="upm-available-updates" class="hidden">
+                    <h3>$i18n.getText("upm.update.available")</h3>
+                    <div id="upm-update-plugins">
+                        <div class="aui-toolbar upm-plugin-actions" id="upm-update-all-container">
+                            <ul class="toolbar-group">
+                                <li class="toolbar-item upm-update-all-item">
+                                    <a class="toolbar-trigger" id="upm-update-all" href="#">$i18n.getText("upm.update.update.all")</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <p id="upm-update-description" class="upm-section-description">
+                            $i18n.getText("upm.update.available.description", "$applicationProperties.getDisplayName()")
+                        </p>
+                        <div id="upm-update-plugin-list"></div>
+                    </div>
+                </div>
+                #end
+
+                <h3>$i18n.getText("upm.manage.userInstalled")</h3>
+                <div id="upm-current-plugins">
+                    <p class="upm-section-description">
+                        $i18n.getText("upm.manage.userInstalled.description")
+                    </p>
+                    <div id="upm-user-plugins"></div>
+                </div>
+                <h3>$i18n.getText("upm.manage.bundled")</h3>
+                <div class="upm-warning-box" id="upm-bundled-summary">
+                    <p>
+                        $i18n.getText("upm.manage.bundled.summary", "$applicationProperties.getDisplayName()")
+                    </p>
+                    <p>
+                        <a href="#" class="upm-manage-toggle-system" id="upm-manage-show-system">$i18n.getText("upm.manage.show.system")</a>
+                        <a href="#" class="upm-manage-toggle-system" id="upm-manage-hide-system" style="display:none;">$i18n.getText("upm.manage.hide.system")</a>
+                    </p>
+                </div>
+                <div id="upm-system-plugins"  style="display:none;"></div>
+            </div>
+            #end
+
+            <!-- INSTALL TAB -->
+            #if($tabVisibility.installVisible)
+            <div id="upm-panel-install" class="upm-panel">
+                <div id="carousel"></div>
+
+                ## UPM-913: Wrapping anchor in a div fixes a position: absolute bug in IE7                
+                <div><a href="#" id="upm-upload" class="hidden" title="$i18n.getText("upm.install.upload")">$i18n.getText("upm.install.upload")</a></div>
+
+                <div id="upm-install-filter-box">
+                <label for="upm-install-type">$i18n.getText("upm.install.dropdown.label")</label>
+                <select id="upm-install-type">
+                    <option value="featured" selected="selected">$i18n.getText("upm.install.featured.dropdown")</option>
+                    <option value="popular">$i18n.getText("upm.install.popular.dropdown")</option>
+                    <option value="supported">$i18n.getText("upm.install.supported.dropdown")</option>
+                    <option value="available">$i18n.getText("upm.install.available.dropdown")</option>
+                </select>
+                </div>
+
+                <div id="upm-install-search-form-container">
+                <form id="upm-install-search-form" class="skip-dirty-check" action="">
+                    <button class="upm-search-button" id="upm-install-search-clear-button" type="reset">$i18n.getText("upm.search.button.clear")</button>
+                    <button class="upm-search-button" id="upm-install-search-submit-button">$i18n.getText("upm.search.button.submit")</button>
+                    <input id="upm-install-search-box" class="upm-textbox" name="q" value="$i18n.getText("upm.install.search")">
+                </form>
+                </div>
+                <div class="clearer"></div>
+
+                <div id="upm-install-container-featured" class="upm-install-type">
+                    <h3>$i18n.getText("upm.install.featured")</h3>
+                    <p class="upm-section-description">
+                        $featuredDescriptionWithHtml
+                    </p>
+                    <div id="upm-install-featured" class="upm-install-plugin-list"></div>
+                </div>
+
+                <div id="upm-install-container-popular" class="upm-install-type">
+                    <h3>$i18n.getText("upm.install.popular")</h3>
+                    <p class="upm-section-description">
+                        $popularDescriptionWithHtml
+                    </p>
+                    <div id="upm-install-popular" class="upm-install-plugin-list"></div>
+                </div>
+
+                <div id="upm-install-container-supported" class="upm-install-type">
+                    <h3>$i18n.getText("upm.install.supported")</h3>
+                    <p class="upm-section-description">
+                        $supportedDescriptionWithHtml
+                    </p>
+                    <div id="upm-install-supported" class="upm-install-plugin-list"></div>
+                </div>
+
+                <div id="upm-install-container-available" class="upm-install-type">
+                    <h3>$i18n.getText("upm.install.available")</h3>
+                    <p class="upm-section-description">
+                        $availableDescriptionWithHtml
+                    </p>
+                    <div id="upm-install-available" class="upm-install-plugin-list"></div>
+                </div>
+
+                <div id="upm-install-container-search" class="upm-install-type">
+                    <div id="upm-install-search" class="upm-install-plugin-list"></div>
+                </div>
+
+                <input type="hidden" id="upm-install-token" value="">
+                <input type="hidden" id="upm-update-count" value="">
+            </div>
+            #end
+
+            <!-- OSGI TAB -->
+            #if($tabVisibility.osgiVisible)
+            <div id="upm-panel-osgi" class="upm-panel">
+                <div class="filter-box-wrap">
+                    <input id="upm-osgi-filter-box" class="upm-textbox upm-filterbox" value="$i18n.getText('upm.filter.filterOsgiBundles')">
+                    <span class="loading filter-box hidden"></span>
+                </div>
+
+                <div id="upm-osgi-search-form-container">
+                <form id="upm-osgi-search-form" class="skip-dirty-check" action="">
+                    <button class="upm-search-button" id="upm-osgi-search-clear-button" type="reset">$i18n.getText("upm.search.button.clear")</button>
+                    <button class="upm-search-button" id="upm-osgi-search-submit-button">$i18n.getText("upm.search.button.submit")</button>
+                    <input id="upm-osgi-search-box" class="upm-textbox" name="q" value="$i18n.getText("upm.osgi.search")">
+                </form>
+                </div>
+
+                <h3>$i18n.getText("upm.osgi.title")</h3>
+                <p id="upm-osgi-description">
+                    $i18n.getText("upm.osgi.description", "$applicationProperties.getDisplayName()")
+                </p>
+                <div id="upm-osgi-bundles"></div>
+            </div>
+            #end
+
+        </div>
+
+        <div id="upm-footer">
+            <p>$upmVersionTextWithHtml</p>
+        </div>
+
+        <script type="text/x-template" id="upm-upload-form-template">
+            <form id="upm-upload-form" class="skip-dirty-check" target="upm-upload-target" action="" method="post" enctype="multipart/form-data">
+                <span>
+                    $i18n.getText("upm.upload.instructions")
+                </span>
+                <div>
+                    <label for="upm-upload-file">$i18n.getText("upm.upload.fromMyComputer")</label>
+                    <input type="file" id="upm-upload-file" name="plugin" size="38">
+                </div>
+                <span class="instructions">$i18n.getText("upm.upload.or")</span>
+                <div>
+                    <label for="upm-upload-url">$i18n.getText("upm.upload.fromThisLocation")</label>
+                    <input type="text" class="text" value="" id="upm-upload-url" name="url">
+                </div>
+            </form>
+        </script>
+
+        <script type="text/x-template" id="upm-osgi-bundle-details">
+            <div>
+                <div class="upm-message-container"></div>
+
+                <dl class="upm-osgi-bundle-metadata"></dl>
+                <div class="clearer"></div>
+                <dl class="upm-osgi-bundle-unparsed-headers"></dl>
+                <div class="clearer"></div>
+                <div class="upm-osgi-bundle-parsed-headers"></div>
+                <div class="upm-plugin-modules upm-osgi-services-registered">
+                    <span><a class="upm-module-toggle" href="#"><span class="upm-toggle-icon"></span>$i18n.getText("upm.osgi.services.registered")</a> - <span class="upm-count-osgi-services"></span></span>
+                    <div class="upm-module-container"></div>
+                </div>
+                <div class="upm-plugin-modules upm-osgi-services-in-use">
+                    <span><a class="upm-module-toggle" href="#"><span class="upm-toggle-icon"></span>$i18n.getText("upm.osgi.services.inUse")</a> - <span class="upm-count-osgi-services"></span></span>
+                    <div class="upm-module-container"></div>
+                </div>
+                <div class="clearer"></div>
+            </div>
+        </script>
+
+        <script type="text/x-template" id="upm-osgi-parsed-header">
+            <div class="upm-plugin-modules">
+                <span><a class="upm-module-toggle" href="#"><span class="upm-toggle-icon"></span><span class="upm-osgi-parsed-header-name"></span></a> - <span class="upm-count-osgi-parsed-header-entries"></span></span>
+                <div class="upm-module-container"></div>
+            </div>
+        </script>
+
+        <script type="text/x-template" id="upm-osgi-bundle-xref-template">
+            <div>
+                <a class="upm-osgi-bundle-xref" href="#osgi"></a>
+                <input type="hidden">
+            </div>
+        </script>
+
+        <script type="text/x-template" id="upm-plugin-license-details">
+            <div class="upm-license-details">
+                <dl>
+                    <dt class="upm-plugin-license-info-label">$i18n.getText("upm.plugin.license.info"):</dt>
+                    <dd class="upm-plugin-license-info"></dd>
+
+                    <dt class="upm-plugin-license-status-label">$i18n.getText("upm.plugin.license.status"):</dt>
+                    <dd class="upm-plugin-license-status"></dd>
+
+                    <dt class="upm-plugin-license-key-label upm-plugin-license-editable">$i18n.getText("upm.plugin.license.raw"):</dt>
+                    <dd class="upm-plugin-license-key upm-plugin-license-editable">
+                        <a href="#" class="upm-plugin-license-truncated"></a>
+                        <span class="upm-plugin-license-raw hidden"></span>
+                        <a href="#" class="upm-plugin-license-edit" title="$i18n.getText("upm.plugin.license.edit")"><span>$i18n.getText("upm.plugin.license.edit")</span></a>
+                    </dd>
+                </dl>
+                <dl class="upm-plugin-license-readonly">                    
+                    <dt>$i18n.getText("upm.plugin.license.raw"):</dt>
+                    <dd></dd>
+                </dl>
+                <form action="" class="upm-license-form upm-plugin-license-editable">
+                    <label>$i18n.getText("upm.plugin.license.raw"):</label>
+                    <textarea cols="77"></textarea>
+
+                    <input name="submit" class="submit" type="submit" value="$i18n.getText("upm.plugin.license.save")" disabled="disabled">
+                    <a href="#" class="upm-license-cancel">$i18n.getText("upm.plugin.license.cancel")</a>
+                    <span class="loading"></span>
+                </form>
+                <div class="clearer"></div>
+            </div>
+        </script>
+
+        <script type="text/x-template" id="upm-plugin-button-form">
+            <li class="toolbar-item">
+                <form action="" class="upm-plugin-button-form" method="post">
+                    <input class="toolbar-trigger" type="submit">
+                    <input name="callback" type="hidden" value="">
+                    <input name="licensefieldname" type="hidden" value="">
+                    <input name="users" type="hidden" value="">
+                    <input name="addon_sen" type="hidden" value="">
+                    <input name="parent_sen" type="hidden" value="">
+                    <input name="organisation_name" type="hidden" value="">
+                    <input name="owner" type="hidden" value="">
+                    <input name="referrer" type="hidden" value="upm">
+                </form>
+            </li>
+        </script>
+
+        <script type="text/x-template" id="upm-updateall-updating-progress-template">
+            <div>
+                <div class="upm-update-text" id="upm-updateall-description">$updateAllUpdatingDescriptionWithHtml</div>
+                <br>
+                <div class="upm-update-progress-text" id="upm-updateall-progress-description">$updateAllUpdatingProgressWithHtml</div>
+            </div>
+        </script>
+        
+        <script type="text/x-template" id="upm-updateall-downloading-progress-template">
+            <div>
+                <div class="upm-update-text" id="upm-updateall-description">$updateAllDownloadingDescriptionWithHtml</div>
+                <br>
+                <div class="upm-update-progress-text" id="upm-updateall-progress-description">$updateAllDownloadingProgressWithHtml</div>
+            </div>
+        </script>
+
+        <script type="text/x-template" id="upm-update-available-template">
+            <div id="upm-self-update-msg" class="upm-update-msg">
+                <p>$selfUpdateWithHtml</p>
+            </div>
+        </script>
+        
+        <iframe id="upm-upload-target" name="upm-upload-target" src=""></iframe>
+    </div>
+</body>
+</html>

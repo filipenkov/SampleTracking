@@ -1,0 +1,17 @@
+<html>
+<head>
+	$webResourceManager.requireResource("com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:admin-resources")
+	<title>$action.getText('collector.plugin.title')</title>
+	<meta name="decorator" content="atl.admin" />
+	<meta name="admin.active.section" content="atl.jira.proj.config"/>
+	<meta name="admin.active.tab" content="view_issue_collectors"/>
+	<meta name="projectKey" content="$textutils.htmlEncode($action.projectKey)"/>
+</head>
+<body>
+<div class="aui-message info">
+	<span class="aui-icon icon-info"></span>
+	<p class="title">$action.getText('collector.plugin.admin.error.add.no.permission')</p>
+	<p>$action.getText('collector.plugin.admin.error.add.no.permission.message')</p>
+</div>
+</body>
+</html>

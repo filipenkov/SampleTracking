@@ -1,0 +1,6 @@
+#if($authorStyle)
+  #set ( $styleClass = "activity-item-user activity-item-author" )
+#else
+  #set ( $styleClass = "activity-item-user" )
+#end
+#if ($userProfile.profilePageUri.isDefined())<a href="$userProfile.profilePageUri.get().toASCIIString()" class="$styleClass">$userProfile.fullName</a>#else<span class="$styleClass">$userProfile.fullName</span>#end

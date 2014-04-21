@@ -1,0 +1,19 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+    </plugin-info>
+
+
+    <servlet-filter name="Atlassian Bot Killer Filter" key="BotKillerFilter" class="com.atlassian.labs.botkiller.BotKillerFilter" location="before-dispatch" weight="200">
+        <description>This is the servlet filter that kills session for bots.</description>
+        <url-pattern>/*</url-pattern>
+        <location>before-dispatch</location>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </servlet-filter>
+
+
+    <component-import key="userManager" interface="com.atlassian.sal.api.user.UserManager" />
+</atlassian-plugin>

@@ -1,0 +1,8 @@
+<div class="checkbox">
+	#foreach($applicationFileBundle in $info.getApplicationFileBundles())
+        <input type="checkbox" class="checkbox" value="true" name="$applicationFileBundle.getKey()" id="$applicationFileBundle.getKey()" #if ($applicationFileBundle.isSelected()) checked="true"#end>
+		<label for="$applicationFileBundle.getKey()">$i18n.getText($applicationFileBundle.getTitle())</label>
+		<div class="description">$i18n.getText($applicationFileBundle.getDescription())</div>
+	#end
+</div>
+

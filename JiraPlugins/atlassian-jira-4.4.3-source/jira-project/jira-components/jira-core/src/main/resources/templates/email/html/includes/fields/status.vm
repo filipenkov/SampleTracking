@@ -1,0 +1,10 @@
+<tr valign="top">
+    <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+        <strong style="font-weight:normal;color:${textSubtleColour};">#text("issue.field.status"):</strong>
+    </td>
+    <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+        #set ($status = ${issue.getStatusObject()})
+        #renderIcon(${status.iconUrlHtml} ${status.getNameTranslation($i18n)})
+        $textutils.htmlEncode(${status.getNameTranslation($i18n)}, false)
+    </td>
+</tr>

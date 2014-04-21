@@ -1,0 +1,279 @@
+<atlassian-plugin key="org.jcvi.jira.plugins.SampleTrackingPlugins2" name="sampleTrackingPlugins" plugins-version="2">
+    <plugin-info>
+        <description>These are the plugins for Atlassian JIRA used by the sample 
+		 tracking system.</description>
+        <version>1.1-SNAPSHOT</version>
+        <vendor name="JCVI"
+                url ="http://jcvi.org/" />
+    </plugin-info>
+
+<!--========================================================================
+    Custom Fields
+    ========================================================================-->
+
+    <!--_______________________________________________________________________
+        Add Search Custom Field (text) (used)
+        _______________________________________________________________________
+      -->
+    <customfield-type
+            key  ="additionalSearchField-text"
+            name ="Attach an Extra Text Searcher to a Field"
+            class="org.jcvi.jira.plugins.customfield.additionalsearch.TextAdditionalSearchFieldType">
+        <description>
+            Creates a text copy of a field that can be used to avoid the
+            single searcher per field limit.
+            The field can be added to both an Issue and its Sub-types to allow
+            searching for a Sub-type using a field from the Issue.
+        </description>
+        <type>text</type>
+        <resource
+        location="templates/org/jcvi/jira/plugins/customfield/copy/view.vm"
+            type="velocity"
+            name="view"/>
+        <!-- <resource
+        location="templates/org/jcvi/jira/plugins/customfield/shared/edit.vm"
+            type="velocity"
+            name="edit"/> -->
+        <!--No view resource, we don't want it rendered-->
+        <!--No edit resource, we don't want it rendered-->
+        <!--No xml  resource, we don't want it rendered-->
+        <!--No column-view resource, we don't want it rendered-->
+        <resource type="velocity"
+                  name="view-config"
+              location="templates/org/jcvi/jira/plugins/customfield/shared/config/view-config.vm"/>
+        <!-- todo: for Jira 5.2+ suitable indexers can be defined here directly
+             instead of having to add wrapper versions of each -->
+    </customfield-type>
+
+    <!--_______________________________________________________________________
+        Add Search Custom Field (number) (used)
+        _______________________________________________________________________
+      -->
+    <customfield-type
+            key  ="additionalSearchField-number"
+            name ="Attach an Extra Number Searcher to a Field"
+            class="org.jcvi.jira.plugins.customfield.additionalsearch.NumberAdditionalSearchFieldType">
+        <description>
+            Creates a copy of a field that can be used to avoid the
+            single searcher per field limit.
+            The field can be added to both an Issue and its Sub-types to allow
+            searching for a Sub-type using a field from the Issue.
+            If the field being copied is not a Number field then an attempt will
+            be made to parse the value as a number. If it can't be parsed then
+            no value will be stored.
+        </description>
+        <type>number</type>
+        <resource
+        location="templates/org/jcvi/jira/plugins/customfield/copy/view.vm"
+            type="velocity"
+            name="view"/>
+        <!--No view resource, we don't want it rendered-->
+        <!--No edit resource, we don't want it rendered-->
+        <!--No xml  resource, we don't want it rendered-->
+        <!--No column-view resource, we don't want it rendered-->
+        <resource type="velocity"
+                  name="view-config"
+                  location="templates/org/jcvi/jira/plugins/customfield/shared/config/view-config.vm"/>
+    </customfield-type>
+
+    <webwork1 key="AdditionalSearchAction"
+             name="Additional Search configuration action"
+            class="java.lang.Object">
+        <!--class="webwork.action.Action">-->
+        <description>
+            The action for editing configuration of the additional search field
+        </description>
+        <actions>
+            <!-- todo: remove the requirement to have a separate action for each custom-field-->
+            <action
+                  name="org.jcvi.jira.plugins.customfield.additionalsearch.config.AdditionalSearchAction"
+                 alias="AdditionalSearchConfig">
+                <!-- Uses the standard templates -->
+                <view name="input">/templates/org/jcvi/jira/plugins/customfield/shared/config/edit-config.vm</view>
+                <view name="securitybreach">/secure/views/securitybreach.jsp</view>
+            </action>
+        </actions>
+    </webwork1>
+
+
+<!--===========================================================================
+    Custom Searchers
+    ===========================================================================-->
+    <!--_______________________________________________________________________
+        LocalTextSearcher (Used)
+        _______________________________________________________________________
+        Wraps TextSearcher, copied from system-customfieldtypes-plugin.xml
+        The key and class in the header have been changed and the
+        valid-customfield-type has been replaced with additionalSearchField-text
+      -->
+    <customfield-searcher key="localTextsearcher" name="Free Text Searcher"
+        i18n-name-key="admin.customfield.searcher.textsearcher.name"
+        class="org.jcvi.jira.plugins.searcher.localTextSearcher">
+        <description key="admin.customfield.searcher.textsearcher.desc">Search for values using a free text search.</description>
+
+        <resource type="velocity" name="search" location="templates/plugins/fields/edit-searcher/search-basictext.vm"/>
+        <resource type="velocity" name="view" location="templates/plugins/fields/view-searcher/view-searcher-basictext.vm"/>
+        <valid-customfield-type package="org.jcvi.jira.plugins.SampleTrackingPlugins2"
+                                key="additionalSearchField-text"/>
+    </customfield-searcher>
+
+
+    <!--_______________________________________________________________________
+        LocalExacttextsearcher (Used)
+        _______________________________________________________________________
+        Wraps ExactTextSearcher (The atlassian one), copied from
+        system-customfieldtypes-plugin.xml
+        The key and class in the header have been changed and the
+        valid-customfield-type has been replaced with additionalSearchField-text
+      -->
+    <customfield-searcher key="localExacttextsearcher" name="Exact Text Searcher"
+        i18n-name-key="admin.customfield.searcher.exacttextsearcher.name"
+        class="org.jcvi.jira.plugins.searcher.localExactTextSearcher">
+        <description key="admin.customfield.searcher.exacttextsearcher.desc">Search for values exactly matching the input</description>
+        <resource type="velocity" name="search" location="templates/plugins/fields/edit-searcher/search-basictext.vm"/>
+        <resource type="velocity" name="view" location="templates/plugins/fields/view-searcher/view-searcher-basictext.vm"/>
+
+        <valid-customfield-type package="org.jcvi.jira.plugins.SampleTrackingPlugins2"
+                                key="additionalSearchField-text"/>
+    </customfield-searcher>
+
+
+    <!--_______________________________________________________________________
+        LocalNumberRangeSearcher (Used)
+        _______________________________________________________________________
+        Wraps NumberRangeSearcher, copied from system-customfieldtypes-plugin.xml
+        The key and class in the header have been changed and the
+        valid-customfield-type has been replaced with additionalSearchField-number
+      -->
+    <customfield-searcher key="localNumberRangeSearcher" name="Number range searcher"
+        i18n-name-key="admin.customfield.searcher.numberrange.name"
+        class="org.jcvi.jira.plugins.searcher.LocalNumberRangeSearcher">
+        <description key="admin.customfield.searcher.numberrange.desc">Allow searching for a number that is in a given range</description>
+
+        <resource type="velocity" name="search" location="templates/plugins/fields/edit-searcher/search-number-range.vm"/>
+        <resource type="velocity" name="view" location="templates/plugins/fields/view-searcher/view-searcher-number-range.vm"/>
+
+        <valid-customfield-type package="org.jcvi.jira.plugins.SampleTrackingPlugins2"
+                                key="additionalSearchField-number"/>
+    </customfield-searcher>
+
+
+    <!--_______________________________________________________________________
+        MultiValueSearcher (Used)
+        _______________________________________________________________________
+        MultiValueSearcher doesn't have any particular custom field paired with it
+      -->
+    <customfield-searcher key="MultiValueSearcher" name="Multi-value Searcher"
+        class="org.jcvi.jira.plugins.searcher.multivalue.MultiValueSearcher">
+        <!-- description for use in the GUI -->
+        <description key="admin.customfield.searcher.textsearcher.desc">
+            Multi-value Searcher provides a method to enter more than one
+            value to test against. The Issue is included if it exactly
+            matches one of the search values.
+        </description>
+        <resource
+        location="templates/org/jcvi/jira/plugins/customfield/multivalue/search.vm"
+            type="velocity"
+            name="search"/>
+        <resource
+        location="templates/org/jcvi/jira/plugins/customfield/multivalue/search-summary.vm"
+            type="velocity"
+            name="view"/>
+        <!--
+          Added for MultiValueSearcher, this contains name value pairs that set
+          the initial values of some variables.
+        -->
+        <resource
+        location="/config/org/jcvi/jira/plugins/customfield/multivalue/default.properties"
+            type="properties"
+            name="configuration"/>
+        <valid-customfield-type package="org.jcvi.jira.plugins.SampleTrackingPlugins2"
+                                key="additionalSearchField-text"/>
+        <valid-customfield-type package="com.atlassian.jira.plugin.system.customfieldtypes" key="textfield"/>
+        <valid-customfield-type package="com.atlassian.jira.plugin.system.customfieldtypes" key="textarea"/>
+        <valid-customfield-type package="com.atlassian.jira.plugin.system.customfieldtypes" key="readonlyfield"/>
+    </customfield-searcher>
+
+
+<!--===========================================================================
+    Workflow
+    ========================================================================-->
+    <!--_______________________________________________________________________
+        SQLPostFunction
+        _______________________________________________________________________
+      -->
+    <workflow-function key="SQLPostFunction"
+                       name="Execute an SQL Statement on transition"
+                       class="org.jcvi.jira.plugins.workflow.AddArgsWorkflowPluginFactory">
+        <description>
+            This uses information from an Issue's fields to populate an SQL
+            preparedStatement. The statement may be defined inline, as a
+            resource within the plug-in or in the plug-in's definition.
+            The database connection can be created using
+            a driver, url, user, password or from a JNDI resource.
+        </description>
+        <!-- This is where the actual workflow function plugin is configured -->
+        <function-class>
+            org.jcvi.jira.plugins.workflow.SQLPostFunction
+        </function-class>
+
+        <orderable>true</orderable> <!-- true to allow moving it in the list -->
+        <unique>false</unique>      <!-- false to allow more than one per transition -->
+        <deletable>true</deletable> <!-- only really for built-in functions -->
+
+        <!-- This appears to be used to render the description on the Transition setup screen-->
+        <resource type="velocity"
+                  name="view"
+                  location="templates/org/jcvi/jira/plugins/workflow/SQLPostFunction/view.vm"/>
+        <!-- This is used to render inside the form on the create screen-->
+        <resource type="velocity"
+                  name="input-parameters"
+                  location="templates/org/jcvi/jira/plugins/workflow/SQLPostFunction/edit.vm"/>
+        <resource type="velocity"
+                  name="edit-parameters"
+                  location="templates/org/jcvi/jira/plugins/workflow/SQLPostFunction/edit.vm"/>
+
+        <resource type="SQL"
+                  name="test"
+                  location="sql/org/jcvi/jira/plugins/workflow/test.sql"/>
+        <resource type="SQL"
+                  name="Synchronize status in GLK"
+                  location="sql/org/jcvi/jira/plugins/workflow/sync.sql"/>
+        <debug>false</debug>
+    </workflow-function>
+
+    <!--_______________________________________________________________________
+        FieldContainsCondition
+        _______________________________________________________________________
+      -->
+    <workflow-condition key="FieldContainsCondition"
+                        name="Test the value of a field"
+                        class="org.jcvi.jira.plugins.workflow.AddArgsWorkflowPluginFactory">
+        <description>Test the value of a field against a fixed list of values</description>
+
+        <condition-class>
+            org.jcvi.jira.plugins.workflow.FieldContainsCondition
+        </condition-class>
+
+        <!-- This appears to be used to render the description on the Transition setup screen-->
+        <resource type="velocity"
+                  name="view"
+                  location="templates/org/jcvi/jira/plugins/workflow/FieldContainsCondition/view.vm"/>
+        <!-- This is used to render inside the form on the create screen-->
+        <resource type="velocity"
+                  name="input-parameters"
+                  location="templates/org/jcvi/jira/plugins/workflow/FieldContainsCondition/edit.vm"/>
+        <resource type="velocity"
+                  name="edit-parameters"
+                  location="templates/org/jcvi/jira/plugins/workflow/FieldContainsCondition/edit.vm"/>
+
+    </workflow-condition>
+
+
+<!--===========================================================================
+    Other
+    ===========================================================================-->
+    <resource type="download" name="images/"  location="images"/>
+    <resource type="download" name="scripts/" location="scripts"/>
+
+</atlassian-plugin>

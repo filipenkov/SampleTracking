@@ -1,0 +1,100 @@
+#!/bin/sh
+
+
+
+
+# Check for Help command #
+
+if [ $# -ge 1 ]; then
+    case "$1" in
+        "-?" | "-h" | "--help" | "-help" | "help" )
+            echo
+            echo "Usage: atlas-create-crowd-plugin [options]"
+            echo
+            echo "Creates a Crowd plugin."
+            echo
+                            echo "The following options are available:"
+                                                                                        echo "-a [value], --artifact-id [value]"
+                                                                echo "    Name of the project (corresponds to the Maven artifactId)."
+                    echo
+                                                                                        echo "-g [value], --group-id [value]"
+                                                                echo "    Identifier for the logical group of artifacts associated with the project (corresponds to the Maven groupId)."
+                    echo
+                                                                                        echo "-v [value], --version [value]"
+                                                                echo "    Version of the project (default is 1.0-SNAPSHOT)."
+                    echo
+                                                                                        echo "-p [value], --package [value]"
+                                                                echo "    Java package that will contain the plugin source code (default is group-id value)."
+                    echo
+                                                                                        echo "--non-interactive"
+                                                                echo "    Does not prompt the user for input. Turns off interactive mode."
+                    echo
+                                        exit;;
+    esac
+fi
+
+# Determine the location of the script #
+
+# resolve symbolic links
+PRG="${0}"
+
+while [ -h "${PRG}" ] ; do
+  ls=`ls -ld "${PRG}"`
+  link=`expr "${ls}" : '.*-> \(.*\)$'`
+  if expr "${link}" : '/.*' > /dev/null; then
+    PRG="${link}"
+  else
+    PRG=`dirname "${PRG}"`/"${link}"
+  fi
+done
+
+PRGDIR=`dirname "${PRG}"`
+
+# Identify Maven location relative to script #
+
+ATLAS_HOME=`cd "${PRGDIR}" && pwd -P`
+ATLAS_HOME=`dirname "${ATLAS_HOME}"`
+export ATLAS_HOME
+M2_HOME="${ATLAS_HOME}"/apache-maven
+MAVEN_EXECUTABLE="${M2_HOME}"/bin/mvn
+
+
+# Check that target executable exists
+if [ ! -x "${MAVEN_EXECUTABLE}" ]; then
+  echo "Cannot find ${MAVEN_EXECUTABLE}"
+  echo "This file is needed to run this program"
+  exit 1
+fi
+
+# Transform Parameters into Maven Parameters #
+
+MAVEN_OPTS="-Xmx768M -XX:MaxPermSize=256M $ATLAS_OPTS"
+MVN_PARAMS=""
+
+while [ $# -gt 0 ]
+do
+    case "$1" in
+                     "-a" |  "--artifact-id")
+                                                    MVN_PARAMS="${MVN_PARAMS} -DartifactId='${2}'"
+                    shift 2;;
+                                     "-g" |  "--group-id")
+                                                    MVN_PARAMS="${MVN_PARAMS} -DgroupId='${2}'"
+                    shift 2;;
+                                     "-v" |  "--version")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dversion='${2}'"
+                    shift 2;;
+                                     "-p" |  "--package")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dpackage='${2}'"
+                    shift 2;;
+                                     "--non-interactive")
+                                                    MVN_PARAMS="${MVN_PARAMS} -DinteractiveMode=false"
+                    shift 1;;
+                                *)
+                        MVN_PARAMS="${MVN_PARAMS} ${1}"
+            shift 1;;     esac
+done
+
+# Execute Maven #
+
+echo "Executing: ${MAVEN_EXECUTABLE} com.atlassian.maven.plugins:maven-crowd-plugin:3.6.1:create ${MVN_PARAMS}"
+sh -c "${MAVEN_EXECUTABLE} com.atlassian.maven.plugins:maven-crowd-plugin:3.6.1:create ${MVN_PARAMS}"

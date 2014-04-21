@@ -1,0 +1,43 @@
+#* @vtlvariable name="repos" type="java.util.List<com.atlassian.jira.vcs.Repository>" *#
+#* @vtlvariable name="pluginsHtml" type="java.util.List<java.lang.String>" *#
+#* @vtlvariable name="i18n" type="com.atlassian.jira.util.I18nHelper" *#
+
+<div class="project-config-webpanel-content project-config-icon48-settings">
+    <div class="project-config-webpanel-help">
+        <p>$i18n.getText("admin.project.config.summary.settings.desc")</p>
+    </div>
+    #if($error)
+        <div class="aui-message error">
+            <p>$i18n.getText("admin.project.config.summary.settings.error")</p>
+        </div>
+    #else
+        <ul class="project-config-list project-config-datalist">
+            <li>
+                <span class="project-config-list-label">${i18n.getText("admin.projects.cvs.modules")}:</span>
+                #if (${repos.empty})
+                    <span class="project-config-list-value">${i18n.getText('common.words.none')}
+                #else
+                    <span id="project-config-cvs-value" class="project-config-list-value">
+                    #foreach($repo in $repos)
+                        #if ($isAdmin)<a class="project-config-cvs-repo" href="$baseurl/secure/admin/ViewRepositories.jspa">#else<span class="project-config-cvs-repo">#end$repo.name#if($isAdmin)</a>#else</span>#end#if ($velocityHasNext), #end
+                    #end
+                #end
+                #if ($isAdmin)
+                    (<a id="project-config-cvs-change" href="$baseurl/secure/project/EnterpriseSelectProjectRepository!default.jspa?projectId=${project.id}">$i18n.getText('common.words.change')</a>)
+                #end
+                    </span>
+            </li>
+            #if ($isAdmin && $showAppLinks)
+            <li>
+                <span class="project-config-list-label">${i18n.getText('admin.projects.application.links')}:</span>
+                <span class="project-config-list-value"><a id="configure_ual" href="$baseurl/plugins/servlet/applinks/listEntityLinks/com.atlassian.applinks.api.application.jira.JiraProjectEntityType/$projectKeyEncoded">${i18n.getText("admin.projects.configure.application.links")}</a></span>
+            </li>
+            #end
+            #foreach ($pluginHtml in $pluginsHtml)
+            <li class="project-config-operation-link">
+                $pluginHtml
+            </li>
+            #end
+        </ul>
+    #end
+</div>

@@ -1,0 +1,125 @@
+<atlassian-plugin key="com.atlassian.jira.plugin.system.project" i18n-name-key="admin.system.project.plugin.name" name="Project Panels Plugin">
+    <plugin-info>
+        <description key="admin.system.project.plugin.desc">JIRA's system project panels.</description>
+        <version>1.0</version>
+        <application-version min="3.0" max="3.0" />
+        <vendor name="Atlassian" url="http://www.atlassian.com" />
+    </plugin-info>
+
+    <project-tabpanel key="summary-panel" i18n-name-key="common.concepts.summary" name="Summary Panel" class="com.atlassian.jira.plugin.projectpanel.impl.SummaryProjectTabPanel">
+        <description key="projectpanels.summary.description">Gives an overview of the project.</description>
+        <label key="common.concepts.summary" />
+        <param name="noTitle">true</param>
+        <order>1</order>
+    </project-tabpanel>
+
+    <project-tabpanel key="issues-panel" i18n-name-key="common.concepts.issues" name="Issues Panel" class="com.atlassian.jira.plugin.projectpanel.impl.IssuesProjectTabPanel">
+        <description key="projectpanels.issues.description">Show a breakdown of the issues in this project.</description>
+        <label key="common.concepts.issues" />
+        <order>10</order>
+    </project-tabpanel>
+
+    <project-tabpanel key="roadmap-panel" i18n-name-key="projectpanels.roadmap.name" name="Road Map Panel" class="com.atlassian.jira.plugin.projectpanel.impl.RoadMapProjectTabPanel">
+        <description key="projectpanels.roadmap.description">A roadmap of the upcoming versions in this project.</description>
+        <label key="common.concepts.roadmap" />
+        <param name="noTitle">true</param>
+        <order>20</order>
+    </project-tabpanel>
+
+    <project-tabpanel key="changelog-panel" i18n-name-key="projectpanels.changelog.name" name="Change Log Panel" class="com.atlassian.jira.plugin.projectpanel.impl.ChangeLogProjectTabPanel">
+        <description key="projectpanels.changelog.description">A change log of the recent versions for this project.</description>
+        <label key="common.concepts.changelog" />
+        <order>30</order>
+    </project-tabpanel>
+
+    <project-tabpanel key="important-panel" i18n-name-key="projectpanels.important.name" name="Important Panel" class="com.atlassian.jira.plugin.projectpanel.impl.ImportantProjectTabPanel">
+        <description key="projectpanels.important.description">A very important project tab panel.</description>
+        <label key="projectpanels.important.name" />
+        <order>10</order>
+        <resource type="velocity" name="view" location="templates/plugins/jira/projectpanels/important-panel.vm" />
+    </project-tabpanel>
+
+    <project-tabpanel key="popularissues-panel" i18n-name-key="projectpanels.popularissues.name" name="Popular Issues Panel" class="com.atlassian.jira.plugin.projectpanel.impl.PopularIssuesProjectTabPanel">
+        <description key="projectpanels.popularissues.description">A view of the popular (most voted for) issues for this project.</description>
+        <label key="common.concepts.popularissues" />
+        <order>40</order>
+        <resource type="velocity" name="view" location="templates/plugins/jira/projectpanels/popularissues-panel.vm" />
+    </project-tabpanel>
+
+    <project-tabpanel key="versions-panel" i18n-name-key="projectpanels.versions.name" name="Versions Panel" class="com.atlassian.jira.plugin.projectpanel.impl.VersionsProjectTabPanel">
+        <description key="projectpanels.versions.description">A view of all versions for this project.</description>
+        <label key="common.concepts.versions" />
+        <param name="noTitle">true</param>
+        <order>50</order>
+        <resource type="velocity" name="view" location="templates/plugins/jira/projectpanels/versions-panel.vm" />
+    </project-tabpanel>
+
+    <project-tabpanel key="components-panel" i18n-name-key="projectpanels.components.name" name="Components Panel" class="com.atlassian.jira.plugin.projectpanel.impl.ComponentsProjectTabPanel">
+        <description key="projectpanels.components.description">A view of all components for this project.</description>
+        <label key="common.concepts.components" />
+        <param name="noTitle">true</param>
+        <order>60</order>
+        <resource type="velocity" name="view" location="templates/plugins/jira/projectpanels/components-panel.vm" />
+    </project-tabpanel>
+
+    <project-tabpanel key="labels-heatmap-panel" i18n-name-key="projectpanels.labels.name" name="Labels Heatmap Panel" class="com.atlassian.jira.plugin.projectpanel.impl.LabelsHeatmapProjectTabPanel">
+        <description key="projectpanels.labels.description">A view of all labels for this project.</description>
+        <label key="common.concepts.labels"/>
+        <order>70</order>
+        <resource type="velocity" name="view" location="templates/plugins/jira/projectpanels/labels-panel.vm"/>
+        <resource type="velocity" name="view-all" location="templates/plugins/jira/projectpanels/labels-all-panel.vm"/>
+    </project-tabpanel>
+
+    <version-tabpanel key="version-summary-panel" i18n-name-key="versionpanels.summary.name" name="Summary Panel" class="com.atlassian.jira.plugin.versionpanel.impl.SummaryVersionTabPanel">
+        <description key="versionpanels.summary.description">A summary of this version.</description>
+        <label key="common.concepts.summary" />
+        <param name="noTitle">true</param>
+        <order>10</order>
+    </version-tabpanel>
+
+    <version-tabpanel key="version-issues-panel" i18n-name-key="versionpanels.issues.name" name="Issues Panel" class="com.atlassian.jira.plugin.versionpanel.impl.IssuesVersionTabPanel">
+        <description key="versionpanels.issues.description">Show a breakdown of the issues for this version.</description>
+        <label key="common.concepts.issues" />
+        <order>20</order>
+    </version-tabpanel>
+
+    <version-tabpanel key="version-popularissues-panel" i18n-name-key="versionpanels.popularissues.name" name="Popular Issues Panel" class="com.atlassian.jira.plugin.versionpanel.impl.PopularIssuesTabPanel">
+        <description key="versionpanels.popularissues.description">A view of the popular (most voted for) issues for this version.</description>
+        <label key="common.concepts.popularissues" />
+        <order>30</order>
+        <resource type="velocity" name="view" location="templates/plugins/jira/projectentitypanels/popularissues-panel.vm" />
+    </version-tabpanel>
+
+    <component-tabpanel key="component-summary-panel" i18n-name-key="componentpanels.summary.name" name="Summary Panel" class="com.atlassian.jira.plugin.componentpanel.impl.SummaryComponentTabPanel">
+        <description key="componentpanels.summary.description">A summary for this component.</description>
+        <label key="common.concepts.summary" />
+        <param name="noTitle">true</param>
+        <order>1</order>
+    </component-tabpanel>
+
+    <component-tabpanel key="component-issues-panel" i18n-name-key="componentpanels.issues.name" name="Issues Panel" class="com.atlassian.jira.plugin.componentpanel.impl.IssuesComponentTabPanel">
+        <description key="componentpanels.issues.description">Show a breakdown of the issues for this component.</description>
+        <label key="common.concepts.issues" />
+        <order>10</order>
+    </component-tabpanel>
+
+    <component-tabpanel key="component-roadmap-panel" i18n-name-key="componentpanels.roadmap.name" name="Road Map Panel" class="com.atlassian.jira.plugin.componentpanel.impl.RoadMapTabPanel">
+        <description key="componentpanels.roadmap.description">A roadmap of the upcoming versions in this component.</description>
+        <label key="common.concepts.roadmap" />
+        <order>20</order>
+    </component-tabpanel>
+
+    <component-tabpanel key="component-changelog-panel" i18n-name-key="componentpanels.changelog.name" name="Change Log Panel" class="com.atlassian.jira.plugin.componentpanel.impl.ChangeLogTabPanel">
+        <description key="componentpanels.changelog.description">A change log of the recent versions for this component.</description>
+        <label key="common.concepts.changelog" />
+        <order>30</order>
+    </component-tabpanel>
+
+    <component-tabpanel key="component-popularissues-panel" i18n-name-key="componentpanels.popularissues.name" name="Popular Issues Panel" class="com.atlassian.jira.plugin.componentpanel.impl.PopularIssuesTabPanel">
+        <description key="componentpanels.popularissues.description">A view of the popular (most voted for) issues for this component.</description>
+        <label key="common.concepts.popularissues" />
+        <order>40</order>
+        <resource type="velocity" name="view" location="templates/plugins/jira/projectentitypanels/popularissues-panel.vm" />
+    </component-tabpanel>
+
+</atlassian-plugin>

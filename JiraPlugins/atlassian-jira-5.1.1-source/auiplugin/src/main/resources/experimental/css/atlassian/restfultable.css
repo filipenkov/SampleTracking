@@ -1,0 +1,162 @@
+/* ----- table loading styles ----- */
+.aui-restfultable-init {
+    text-align: center;
+    vertical-align: center;
+}
+
+.aui-restfultable-init .aui-restfultable-throbber {
+    background: url("images/wait.gif") center center no-repeat;
+    width: 20px;
+    height: 16px;
+    display: inline-block;
+}
+
+.aui-restfultable-init .aui-restfultable-loading {
+    top: -4px;
+    position: relative;
+}
+
+.aui-restfultable .aui-restfultable-row.loading .aui-restfultable-throbber {
+    background-image: url("images/wait.gif");
+    background-repeat: no-repeat;
+    background-position: 2px center;
+}
+
+/* ----- Generic row - All states ----- */
+.aui-restfultable-row td {
+    vertical-align: top;
+}
+
+.aui-restfultable-row .aui-restfultable-order {
+    width: 8px;
+}
+
+.aui-restfultable-row .aui-restfultable-operations {
+    width: 160px;
+    white-space: nowrap;
+}
+
+.aui-restfultable-row .aui-restfultable-throbber {
+    width: 20px;
+}
+
+.aui-restfultable-row .aui-restfultable-operations input.button,
+.aui-restfultable .aui-restfultable-row select {
+    margin-top: 2px;
+}
+
+.aui-restfultable .aui-restfultable-row input.text,
+.aui-restfultable .aui-restfultable-row select {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    min-width: 0;
+    width: 100%;
+}
+
+.aui-restfultable .aui-restfultable-order {
+    width: 8px;
+}
+
+.aui-restfultable .aui-restfultable-row .aui-restfultable-draghandle {
+    display: inline-block;
+    width: 8px;
+    height: 100%;
+    min-height: 24px;
+    margin-bottom: -6px;
+    background-image: url("experimentalimages/bg-grippy.png");
+    cursor: move;
+}
+
+/* ----- Create row ----- */
+.aui-restfultable-create td {
+    border: solid #bbb;
+    border-width: 1px 0;
+}
+
+.aui-restfultable .aui-restfultable-create .aui-restfultable-draghandle {
+    display: none;
+}
+
+/* ----- Focused row ----- */
+.aui-restfultable-row.aui-restfultable-focused td {
+    background-color: #ebf1fd;
+}
+
+/* ----- Disabled row ----- */
+.aui-restfultable-row.aui-resfultable-disabled td {
+    opacity: 0.5;
+}
+
+/* ----- Readonly row ----- */
+.aui-restfultable-readonly.aui-restfultable-movable td {
+    background-color: #f0f0f0 !important;
+}
+
+.aui-restfultable-readonly .aui-restfultable-editable-no-value .aui-restfultable-editable {
+    visibility: hidden;
+}
+
+.aui-restfultable-readonly .aui-restfultable-operations a {
+    visibility: hidden;
+}
+
+.aui-restfultable-readonly .aui-restfultable-operations a {
+    visibility: visible;
+}
+
+.aui-restfultable-readonly .aui-restfultable-editable {
+    display: block;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    height: 1%;
+    padding: 3px 24px 2px 4px;
+    position: relative;
+}
+
+.aui-restfultable-readonly .aui-restfultable-editable .icon-edit-sml {
+    margin: 0;
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    visibility: hidden;
+    background: url("experimentalimages/aui-icon-edit.png") 0 0 no-repeat;
+}
+
+.aui-restfultable-allowhover td .aui-restfultable-editable .icon-edit-sml {
+    visiblity: hidden;
+}
+
+.aui-restfultable-allowhover .aui-restfultable-readonly td:hover .aui-restfultable-editable .icon-edit-sml {
+    visibility: visible;
+}
+
+.aui-restfultable-readonly .aui-restfultable-editable em {
+    color: #979797;
+}
+
+/* ----- Hover row ----- */
+.aui-restfultable-row.aui-restfultable-active {
+    background-color: #f0f0f0;
+}
+
+.aui-restfultable-allowhover tr:hover td {
+    background-color: #f0f0f0;
+}
+
+.aui-restfultable-allowhover tr.aui-restfultable-focused td {
+    background-color: #ebf1fd;
+}
+
+.aui-restfultable-allowhover td:hover .aui-restfultable-editable {
+    visibility: visible;
+    background: #fdfcd1;
+    cursor: pointer;
+}

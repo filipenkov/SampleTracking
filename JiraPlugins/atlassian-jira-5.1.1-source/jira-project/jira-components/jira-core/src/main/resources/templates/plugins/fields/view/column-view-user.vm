@@ -1,0 +1,7 @@
+#if ($value)
+    #if ($displayParameters && $displayParameters.nolink)
+        $textutils.htmlEncode($value.displayName)
+    #else
+        <span class="tinylink">$userformat.formatUser($value.name, 'profileLink', "user_cf")</span>
+    #end
+#end

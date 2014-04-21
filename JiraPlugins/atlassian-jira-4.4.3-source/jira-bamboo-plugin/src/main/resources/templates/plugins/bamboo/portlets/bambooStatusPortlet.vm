@@ -1,0 +1,3 @@
+<div align="center">
+    <strong><em>${i18n.getText("bamboo.jiraportlet.error")}:</em></strong> $textutils.htmlEncode($responseHtml)
+</div>

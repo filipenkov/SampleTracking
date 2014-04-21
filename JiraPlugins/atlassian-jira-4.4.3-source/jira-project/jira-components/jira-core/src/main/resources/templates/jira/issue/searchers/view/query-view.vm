@@ -1,0 +1,8 @@
+#searcherHeaderNoField ($searcherId $i18n.getText($searcherNameKey))
+    "$!{fieldValuesHolder.getEscaped('query')}" $i18n.getText('common.words.in')
+    #set ($selectedObjects = $queryFieldNames)
+    #foreach ($field in $queryFieldNames)
+        $field#commaor($selectedObjects)
+    #end
+    #if ($selectedObjects.size() > 1) $i18n.getText('common.words.fields') #elseif ($selectedObjects.size() == 1) $i18n.getText('common.words.field')    #end
+#searcherFooter ($searcherId)

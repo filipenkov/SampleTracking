@@ -1,0 +1,8 @@
+##disable_html_escaping() TODO REENABLE
+#if ($value)
+    <div class="shorten" id="${customField.id}-field">
+        #foreach ($singleValue in $value)
+          <span>$cfValueEncoder.encodeForHtml($!singleValue.toString())</span>#if ($velocityCount != $value.size()),#end
+        #end
+    </div>
+#end

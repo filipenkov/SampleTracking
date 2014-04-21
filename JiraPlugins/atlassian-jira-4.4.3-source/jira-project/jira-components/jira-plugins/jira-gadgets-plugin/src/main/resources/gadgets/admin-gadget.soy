@@ -1,0 +1,135 @@
+{namespace JIRA.Templates.Gadgets}
+
+/**
+* @param admin
+* @param baseUrl
+*/
+{template .admin}
+
+{if not $admin.isAdmin}
+    <div class="isNotAdmin">
+        {getText('gadget.admin.must.be.admin.to.view.gadget')}
+    </div>
+{else}
+    <div class="isAdmin">
+        <dl>
+            <dt>{getText('gadget.admin.projects')}</dt>
+            <dd>
+                <a href="{$baseUrl}/secure/admin/">{getText('gadget.admin.projects.viewall')}</a> {getText('common.words.or')} <a href="{$baseUrl}/secure/admin/AddProject!default.jspa">{getText('gadget.admin.projects.createnew')}</a>
+            </dd>
+            <dt class="notExternalUserManagement">{getText('gadget.admin.users')}</dt>
+            <dd class="notExternalUserManagement">
+                <span id="userEditLinks">
+                    {getText('gadget.admin.users.groups.browse', '<a href="' + $baseUrl + '/secure/admin/user/UserBrowser.jspa">', '<a href="' + $baseUrl + '/secure/admin/user/GroupBrowser.jspa">', '<a href="' + $baseUrl + '/secure/admin/user/AddUser!default.jspa">', '</a>')|noAutoescape}
+                </span>
+            </dd>
+
+            {if $admin.isSystemAdministrator}
+            <dt class="isSystemAdministrator">{getText('gadget.admin.data')}</dt>
+            <dd class="isSystemAdministrator">
+                <span id="backupRestoreLinks">
+                    {getText('gadget.admin.restore.or.backup.data.as.xml', '<a href="' + $baseUrl + '/secure/admin/XmlRestore!default.jspa">', '</a>', '<a href="' + $baseUrl + '/secure/admin/XmlBackup!default.jspa">', '</a>')|noAutoescape}
+                </span>
+            </dd>
+            {/if}
+
+            <dt>{getText('gadget.admin.setup')}</dt>
+            <dd>
+                <a href="{$baseUrl}/secure/admin/jira/ViewApplicationProperties.jspa">{getText('gadget.admin.setup.configure')}</a> JIRA {getText('common.words.or')} <a href="{$baseUrl}/secure/admin/jira/GlobalPermissions!default.jspa">{getText('gadget.admin.setup.modify')}</a>
+            </dd>
+
+            <dt>
+                {getText('gadget.admin.license')}
+            </dt>
+            <dd>
+                <span id="niceName" class="expiryColor {if $admin.nearExpiry}nearExpiry{else}notNearExpiry{/if}">{$admin.licenseTypeNiceName}</span>
+                <div class="isSystemAdministrator">
+                    (<span id="licenseDetails">{getText('gadget.admin.license.details', '<a href="' + $baseUrl + '/secure/admin/ViewLicense!default.jspa">', '</a>')|noAutoescape}</span>)
+                </div>
+                {if $admin.partnerName}
+                <div class="hasPartnerName">
+                    <span id="partnerName">{getText('gadget.admin.license.partner', $admin.partnerName)}</span>
+                </div>
+                {/if}
+                <span id="licenseExpiryStatusMessage">{$admin.licenseExpiryStatusMessage|noAutoescape}</span>
+            </dd>
+
+            {if $admin.hasReachedUserLimit}
+            <dd class="hasReachedUserLimit">
+                <span class="message userLimitColor {if $admin.hasExceededUserLimit and not $admin.hasZeroUserLicense}userLimitExceeded{else}notuserLimitExceeded{/if}">
+                    <span id="userLimitMessage">
+                    {if $admin.hasZeroUserLicense}
+                        {getText('gadget.admin.license.zero.user.limit', '<a href="' + $admin.externalLinkMyAccount + '">','</a>')|noAutoescape}
+                    {else}
+                        {if $admin.hasExceededUserLimit}
+                             {getText('admin.globalpermissions.user.limit.warning', '<a href="' + $baseUrl + '/secure/admin/ViewLicense!default.jspa">', '</a>')|noAutoescape}
+                        {else}
+                             {getText('gadget.admin.reached.user.limit', '<a href="' + $baseUrl + '/secure/admin/ViewLicense!default.jspa">', '</a>')|noAutoescape}
+                        {/if}
+                        <br/>
+                        <span id="personalSiteLink">{getText('gadget.admin.purchase.full.license', '<a href="' + $admin.externalLinkPersonalSite + '">', '</a>')|noAutoescape}</span>
+                    {/if}
+                    </span>
+                </span>
+            </dd>
+            {/if}
+
+            {if $admin.isGreenHopperInstalled}
+                {if not $admin.isGreenHopperEnabled}
+                    <dt class="greenhopper">
+                        GreenHopper
+                    </dt>
+                    <dd class="greenhopper">
+                        {getText('gadget.admin.greenhopper.start.trial', '<a href="' + $baseUrl + '/secure/SetupGreenHopper!default.jspa">','</a>')|noAutoescape}
+                    </dd>
+                {/if}
+            {/if}
+
+            {if $admin.isJIMEnabled}
+                <dt class="greenhopper">
+                    {getText('setup.import.link.title')|noAutoescape}
+                </dt>
+                <dd class="jim">
+                    {getText('setup.import.link.description', '<a href="' + $baseUrl + '/secure/admin/views/ExternalImport1.jspa">','</a>')|noAutoescape}
+                </dd>
+            {/if}
+
+            {if not $admin.hasBackupService}
+            <dd class="hasBackupService">
+                <p id="backupMessage">
+                    {if $admin.isSystemAdministrator}
+                        {getText('gadget.admin.administration.backupwarning', '<span class="red-highlight">','</span>', '<a href="' + $baseUrl + '/secure/admin/jira/ViewServices!default.jspa?name=BackupService&clazz=com.atlassian.jira.service.services.export.ExportService&delay=720">','</a>')|noAutoescape}
+                    {else}
+                        {getText('gadget.admin.administration.backupwarning.not.sysadmin', '<span class="red-highlight">', '</span>', ' ', ' ')}
+                    {/if}
+                </p>
+            </dd>
+            {/if}
+
+            {if $admin.isUsingHsql}
+            <dt class="isUsingHsql">
+                {getText('gadget.admin.database')}
+            </dt>
+            <dd class="isUsingHsql">
+                <p id="hsqlWarning">{getText('gadget.admin.administration.hsqlwarning','<span class="red-highlight">', '</span>', '<a href="' + $admin.dbConfigDocsUrl + '">', '</a>')|noAutoescape}</p>
+            </dd>
+            {/if}
+
+            {if $admin.licenseStatusMessage}
+            <dd class="hasLicenseStatusMessage">
+                <p id="licenseStatusMessage">{$admin.licenseStatusMessage|noAutoescape}</p>
+            </dd>
+            {/if}
+
+            {if $admin.warningMessages.length > 0}
+            <dt class="hasWarningMessages">{getText('admin.systeminfo.environment.warnings')}</dt>
+            <dd id="warningMessages" class="hasWarningMessages">
+                {foreach $warning in $admin.warningMessages}
+                {$warning|noAutoescape}<br />
+                {/foreach}
+            </dd>
+            {/if}
+        </dl>
+    </div>
+{/if}
+{/template}

@@ -1,0 +1,5 @@
+#if ($value)
+    #foreach ($singleValue in $value)
+<customfieldvalue>$!singleValue.id</customfieldvalue>
+    #end
+#end

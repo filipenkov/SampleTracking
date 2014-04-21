@@ -1,0 +1,58 @@
+#* @vtlvariable name="error" type="java.lang.String" *#
+#* @vtlvariable name="webResources" type="com.atlassian.applinks.core.util.WebResources" *#
+#* @vtlvariable name="i18n" type="com.atlassian.sal.api.message.I18nResolver" *#
+<!DOCTYPE html>
+<html>
+<head>
+    $webResources.getIncludedResources()
+	<meta name="atlassian-applink-id" content="$applinkId"/>
+</head>
+<body class="auth-config">
+
+<input type="hidden" id="applink-id" value="$applinkId">
+<input type="hidden" id="applink-auth-admin-uri" value="$authAdminUri">
+
+#if ($error)
+    <input type="hidden" id="applink-authorized" value="false">
+    <div class="aui-message error">
+        <p class="title">
+            <span class="aui-icon icon-error"></span>
+            <strong>$i18n.getText("auth.oauth.config.dance.error")</strong>
+        </p>
+        $error
+    </div>
+#elseif ($warningTitle && $warningMessage)
+    <input type="hidden" id="applink-authorized" value="false">
+    <div class="aui-message warning">
+        <p class="title">
+            <span class="aui-icon icon-warning"></span>
+            <strong>$warningTitle</strong>
+        </p>
+        $warningMessage
+    </div>
+    <p>
+        $i18n.getText("auth.oauth.config.dance.click") <a href="$redirectUrl" id="continue-link">$i18n.getText("auth.oauth.config.dance.here")</a> $i18n.getText("auth.oauth.config.dance.to.continue")
+    </p>
+#else
+    <input type="hidden" id="applink-authorized" value="true">
+    <div class="aui-message success">
+        <span class="aui-icon icon-success"></span> $i18n.getText("auth.oauth.config.dance.success")
+    </div>
+#end
+
+<script type="text/javascript">
+
+var applinkId = AJS.$("#applink-id").val(),
+    authAdminUri = AJS.$("#applink-auth-admin-uri").val(),
+    success = AJS.$("#applink-authorized").val();
+
+if (window.opener && !window.opener.oauthCallback
+        && window.opener.AJS && window.opener.AJS.$) {
+    window.opener.AJS.$(window.opener.document).trigger('applinks.auth.completion',
+        [applinkId, (success == "true"), authAdminUri]);
+    window.close();
+}
+
+</script>
+</body>
+</html>

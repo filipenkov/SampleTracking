@@ -1,0 +1,14 @@
+.shareTrash { padding-left: 0.5em; vertical-align: text-bottom; }
+.shareIcon { padding-right: 0.5em; vertical-align: text-bottom; }
+.shareItem { padding-bottom: 5px; vertical-align: middle; }
+.shareItem div { display: inline; padding: 3px; }
+table.shareList { margin: 0; padding: 0; width: 100%; }
+table.shareList td { border: none!important; padding: 2px; }
+.shareLink { cursor: pointer; }
+.shareRight { padding: 2px 2px; text-align: right; }
+.addShare { cursor:pointer; padding: 0 0 0 6px; }
+.msie-7 .addShare { position: relative; top:-2px; }
+#share_type_description { padding-top:5px; }
+#share_display_component img { position:relative; top:1px; }
+.msie-7 #share_display_component img { top: -1px; }
+#share_display_component .addShare img { top:4px; }

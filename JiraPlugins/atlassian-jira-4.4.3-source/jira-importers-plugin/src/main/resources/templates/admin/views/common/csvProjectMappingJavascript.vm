@@ -1,0 +1,84 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.csv.CsvProjectMappingsPage" *#
+$webResourceManager.requireResource("com.atlassian.jira.plugins.jira-importers-plugin:importerProjectMappingResources")
+
+<script type="text/javascript">
+(function () {
+	var CSVMappingView = Backbone.View.extend({
+		events: {
+			"change   #CSV_project_check": "projectImportToggle"
+		},
+
+		initialize: function () {
+			_.bindAll(this, "render");
+
+			this.projectMappingView = new importer.ProjectMappingView(this.options).render();
+
+			this.projectRadio = this.$("#CSV_project_check");
+
+			this.model.bind("change", this.render);
+		},
+
+		projectImportToggle: function () {
+			this.model.set({selected: this.projectRadio.is(":checked")});
+		},
+
+		render: function () {
+			var selected = this.model.get("selected");
+			if (selected) {
+				this.projectRadio.attr("checked", "checked");
+			} else {
+				this.projectRadio.removeAttr("checked");
+			}
+			this.projectMappingView.render();
+			return this;
+		}
+	});
+
+	var projectsModel = new Backbone.Collection({
+		model: importer.ProjectModel
+	});
+	projectsModel.reset($action.projectSuggestionsModel);
+
+	var mappingModel = new importer.MappingModel;
+	mappingModel.set($action.projectMappingModel);
+
+	var key = mappingModel.get("key");
+	var projectModel = key && projectsModel.find(function(val) {
+		return val.get("key") == key;
+	});
+	if (projectModel) {
+		mappingModel.set({projectModel: projectModel});
+	}
+
+	new CSVMappingView({
+			model: mappingModel,
+			projectsModel: projectsModel,
+			el: "form[name=jiraform]"
+	}).render();
+
+	AJS.$("form[name=jiraform]").submit(function (event) {
+		var mapping = mappingModel.get("projectModel");
+		if (mapping) {
+			var container = AJS.$(this);
+			container.find("#CSV_project_key").val(mapping.get("key"));
+			container.find("#CSV_project_name").val(mapping.get("name"));
+			container.find("#CSV_project_lead").val(mapping.get("lead"));
+		}
+	});
+
+	var updateNextButton = function() {
+		var grayOut = mappingModel.get("selected") && ! mappingModel.get("projectModel");
+
+		if (grayOut) {
+			AJS.$("#nextButton").attr("disabled", "disabled");
+		} else {
+			AJS.$("#nextButton").removeAttr("disabled");
+		}
+	};
+
+	mappingModel.bind("change:selected", updateNextButton);
+	mappingModel.bind("change:projectModel", updateNextButton);
+	AJS.$(updateNextButton);
+
+})();
+</script>

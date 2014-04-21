@@ -1,0 +1,10 @@
+#try-beta-navigator {
+    margin-top: -24px;
+    text-align: center;
+    font-weight: normal;
+    font-size: 13px;
+}
+#try-beta-navigator a {
+    padding: 12px 42px 12px 0;
+    background: url("content/css/images/badge_web20.png") 100% 50% no-repeat;
+}

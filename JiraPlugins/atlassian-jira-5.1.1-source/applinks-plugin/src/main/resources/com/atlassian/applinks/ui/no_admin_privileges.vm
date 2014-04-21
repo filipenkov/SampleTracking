@@ -1,0 +1,25 @@
+## Rendered by the Authentication Provider configuration servlets when a
+## UnauthorizedException is thrown.
+## It contains a link to the product specific login page.
+
+#* @vtlvariable name="url" type="java.lang.String" *#
+#* @vtlvariable name="i18n" type="com.atlassian.sal.api.message.I18nResolver" *#
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$!message</title>
+    <meta name="decorator" content="atl.admin">
+</head>
+<body>
+    <div class="standalone-message">
+        <div class="aui-message warning shadowed">
+            <p class="title">
+                <span class="aui-icon icon-warning"></span>
+                <strong>$i18n.getText('auth.config.applink.no.admin.privileges')</strong>
+            </p>
+            <p><a href="$url">${i18n.getText('auth.config.applink.no.admin.privileges.link')}</a></p>
+        </div>
+    </div>
+</body>
+</html>
+

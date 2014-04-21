@@ -1,0 +1,160 @@
+#!/bin/sh
+
+
+
+
+# Check for Help command #
+
+if [ $# -ge 1 ]; then
+    case "$1" in
+        "-?" | "-h" | "--help" | "-help" | "help" )
+            echo
+            echo "Usage: atlas-run-standalone [options]"
+            echo
+            echo "Runs any product standalone, with no plugin project defined."
+            echo
+                            echo "The following options are available:"
+                                                                                        echo "-v [value], --version [value]"
+                                                                echo "    Version of the product to run (default is RELEASE)."
+                    echo
+                                                                                        echo "-c [value], --container [value]"
+                                                                echo "    Container to run in (default is tomcat6x)."
+                    echo
+                                                                                        echo "-p [value], --http-port [value]"
+                                                                echo "    HTTP port for the servlet container."
+                    echo
+                                                                                        echo "--context-path [value]"
+                                                                echo "    Application context path (include the leading forward slash)."
+                    echo
+                                                                                        echo "--server [value]"
+                                                                echo "    Host name of the application server (default is localhost)."
+                    echo
+                                                                                        echo "--jvmargs [value]"
+                                                                echo "    Additional JVM arguments if required."
+                    echo
+                                                                                        echo "--log4j [value]"
+                                                                echo "    Log4j properties file."
+                    echo
+                                                                                        echo "--test-version [value]"
+                                                                echo "    Version to use for test resources. DEPRECATED: use data-version instead."
+                    echo
+                                                                                        echo "--data-version [value]"
+                                                                echo "    Version to use for data resources (default is LATEST)"
+                    echo
+                                                                                        echo "--sal-version [value]"
+                                                                echo "    Version of SAL to use."
+                    echo
+                                                                                        echo "--rest-version [value]"
+                                                                echo "    Version of the Atlassian REST module to use."
+                    echo
+                                                                                        echo "--plugins [value]"
+                                                                echo "    Comma-delimited list of plugin artifacts in GROUP_ID:ARTIFACT_ID:VERSION form, where version can be ommitted, defaulting to LATEST."
+                    echo
+                                                                                        echo "--lib-plugins [value]"
+                                                                echo "    Comma-delimited list of lib artifacts in GROUP_ID:ARTIFACT_ID:VERSION form, where version can be ommitted, defaulting to LATEST."
+                    echo
+                                                                                        echo "--bundled-plugins [value]"
+                                                                echo "    Comma-delimited list of bundled plugin artifacts in GROUP_ID:ARTIFACT_ID:VERSION form, where version can be ommitted, defaulting to LATEST."
+                    echo
+                                                                                        echo "--product [value]"
+                                                                echo "    The product to launch with the plugin."
+                    echo
+                                        exit;;
+    esac
+fi
+
+# Determine the location of the script #
+
+# resolve symbolic links
+PRG="${0}"
+
+while [ -h "${PRG}" ] ; do
+  ls=`ls -ld "${PRG}"`
+  link=`expr "${ls}" : '.*-> \(.*\)$'`
+  if expr "${link}" : '/.*' > /dev/null; then
+    PRG="${link}"
+  else
+    PRG=`dirname "${PRG}"`/"${link}"
+  fi
+done
+
+PRGDIR=`dirname "${PRG}"`
+
+# Identify Maven location relative to script #
+
+ATLAS_HOME=`cd "${PRGDIR}" && pwd -P`
+ATLAS_HOME=`dirname "${ATLAS_HOME}"`
+export ATLAS_HOME
+M2_HOME="${ATLAS_HOME}"/apache-maven
+MAVEN_EXECUTABLE="${M2_HOME}"/bin/mvn
+
+
+# Check that target executable exists
+if [ ! -x "${MAVEN_EXECUTABLE}" ]; then
+  echo "Cannot find ${MAVEN_EXECUTABLE}"
+  echo "This file is needed to run this program"
+  exit 1
+fi
+
+# Transform Parameters into Maven Parameters #
+
+MAVEN_OPTS="-Xmx768M -XX:MaxPermSize=256M $ATLAS_OPTS"
+MVN_PARAMS=""
+
+while [ $# -gt 0 ]
+do
+    case "$1" in
+                     "-v" |  "--version")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dproduct.version='${2}'"
+                    shift 2;;
+                                     "-c" |  "--container")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dcontainer='${2}'"
+                    shift 2;;
+                                     "-p" |  "--http-port")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dhttp.port='${2}'"
+                    shift 2;;
+                                     "--context-path")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dcontext.path='${2}'"
+                    shift 2;;
+                                     "--server")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dserver='${2}'"
+                    shift 2;;
+                                     "--jvmargs")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Djvmargs='${2}'"
+                    shift 2;;
+                                     "--log4j")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dlog4jproperties='${2}'"
+                    shift 2;;
+                                     "--test-version")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dtest.resources.version='${2}'"
+                    shift 2;;
+                                     "--data-version")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dproduct.data.version='${2}'"
+                    shift 2;;
+                                     "--sal-version")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dsal.version='${2}'"
+                    shift 2;;
+                                     "--rest-version")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Drest.version='${2}'"
+                    shift 2;;
+                                     "--plugins")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dplugins='${2}'"
+                    shift 2;;
+                                     "--lib-plugins")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dlib.plugins='${2}'"
+                    shift 2;;
+                                     "--bundled-plugins")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dbundled.plugins='${2}'"
+                    shift 2;;
+                                     "--product")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dproduct='${2}'"
+                    shift 2;;
+                                *)
+                        MVN_PARAMS="${MVN_PARAMS} ${1}"
+            shift 1;;     esac
+done
+
+# Execute Maven #
+
+echo "Executing: ${MAVEN_EXECUTABLE} com.atlassian.maven.plugins:maven-amps-plugin:3.6.1:run-standalone ${MVN_PARAMS}"
+sh -c "${MAVEN_EXECUTABLE} com.atlassian.maven.plugins:maven-amps-plugin:3.6.1:run-standalone ${MVN_PARAMS}"

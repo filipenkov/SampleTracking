@@ -1,0 +1,37 @@
+@media print {
+    .operations, .ops, .workflowactions, #header, .footer,
+    .command-bar, .previous-view, #addcomment, .stalker-placeholder { display: none; }
+    a { text-decoration: none; }
+    body {font-size:11pt;background-color:#fff;}
+
+
+    #main-content .column {float:none;}
+    .type-aa #primary,
+    .type-aa #secondary {width:95%;}
+    .type-ab #primary {width:95%;}
+    .type-ab #secondary {width:60%;}
+    .type-ba #primary {width:60%;}
+    .type-ba #secondary {width:95%;}
+
+    #stalker .btm {border:none;}
+    .stalker .ops-cont {border:none;}
+    .nl .active-area {border:none;}
+    #stalker {position:relative!important;top:0!important;}
+    #stalker.detached {position:relative!important;top:0!important;}
+    #stalker.detached .item-header .avatar img {display:block;}
+    #stalker.detached .item-header {background-color:#fff;}
+
+    /* Hidden overflow messes things up in a number of browsers when printing */
+    .type-textfield, .flooded, .active-area, .action-body {overflow:visible;}
+
+    .mod-header {background-color:#fff;background-image:none;border-bottom:2px solid #000;}
+
+    .hideOnPrint { visibility: hidden; }
+
+    /* labels */
+    ul.labels {font-size:1em;}
+    ul.labels li .lozenge {border:1px solid #666;color:#000;}
+
+    .pl-tab.hidden {border-top:1px solid #ddd;display:block!important;}
+
+}

@@ -1,0 +1,33 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.artifactId}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="Atlassian" url="http://www.atlassian.com/"/>
+        <bundle-instructions>
+            <Export-Package>
+                com.atlassian.jira.extra.icalfeed.dateprovider,
+                com.atlassian.jira.extra.icalfeed.service
+            </Export-Package>
+        </bundle-instructions>
+    </plugin-info>
+
+    <module-type key="dateProvider" class="com.atlassian.jira.extra.icalfeed.dateprovider.DateProviderModuleDescriptor"/>
+    
+    <dateProvider key="createdDateProvider" class="com.atlassian.jira.extra.icalfeed.dateprovider.CreatedDateProvider" />
+    <dateProvider key="updatedDateProvider" class="com.atlassian.jira.extra.icalfeed.dateprovider.UpdatedDateProvider" />
+    <dateProvider key="dueDateProvider" class="com.atlassian.jira.extra.icalfeed.dateprovider.DueDateProvider" />
+    <dateProvider key="resolutionDateProvider" class="com.atlassian.jira.extra.icalfeed.dateprovider.ResolutionDateProvider" />
+
+    <component key="entityAsEventService" class="com.atlassian.jira.extra.icalfeed.service.DefaultEntityAsEventService" public="true">
+        <description>Service runs as search on JIRA and return entities as events.</description>
+        <interface>com.atlassian.jira.extra.icalfeed.service.EntityAsEventService</interface>
+    </component>
+
+    <component-import key="applicationProperties">
+        <interface>com.atlassian.sal.api.ApplicationProperties</interface>
+    </component-import>
+
+    <rest key="iCalendarResource" name="JIRA entities as iCalendar REST" path="/ical" version="1.0">
+        <description>RESTful service for exporting JIRA entitites such as issue and versions as iCalendar</description>
+    </rest>
+</atlassian-plugin>

@@ -1,0 +1,17 @@
+.jim-hints-section {
+	color: #999999;
+}
+
+.in-table-hint {
+	text-align: right;
+}
+
+#unmappedFields {
+	position: relative;
+	left: 10px;
+	top: 10px;
+}
+
+table#fieldMappings {
+	border-bottom: 1px solid #BBBBBB;
+}

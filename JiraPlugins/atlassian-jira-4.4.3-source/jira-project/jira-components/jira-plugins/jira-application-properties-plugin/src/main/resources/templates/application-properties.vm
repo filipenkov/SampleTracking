@@ -1,0 +1,38 @@
+<head>
+    <meta name="admin.active.section" content="admin_system_menu/top_system_section"/>
+    <meta name="admin.active.tab" content="general_configuration"/>
+
+    <title>${i18n.getText('admin.advancedproperties.settings.heading')}</title>
+    ${webResourceManager.requireResource("com.atlassian.jira.jira-application-properties-plugin:application-properties-global")}
+</head>
+
+<body>
+
+<h3 class="formtitle">
+    ${i18n.getText('admin.advancedproperties.settings.heading')}
+</h3>
+<div class="aui-message warning"><span class="aui-icon icon-warning"></span>
+    <p>${i18n.getText('admin.advancedproperties.settings.description')}</p>
+</div>
+<form id="application-properties-form" class="aui" action="#">
+    <table id="application-properties-table" class="aui">
+        <thead>
+            <tr>
+                <th width="50%">Key</th>
+                <th width="30%">Value</th>
+                <th width="10%">Operations</th>
+                <th><!-- throbber --></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div class="buttons-container aui-toolbar noprint">
+        <div class="toolbar-group">
+            <span class="toolbar-item">
+                <a class="toolbar-trigger" href="ViewApplicationProperties.jspa">${i18n.getText('admin.menu.general.settings')}</a>
+            </span>
+        </div>
+    </div>
+
+</form>
+</body>

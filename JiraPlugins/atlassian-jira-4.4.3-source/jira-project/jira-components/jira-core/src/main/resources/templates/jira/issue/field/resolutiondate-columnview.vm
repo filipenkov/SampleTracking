@@ -1,0 +1,5 @@
+#if ($resolutiondate)
+    $dateTimeFormatter.format($resolutiondate)
+#else
+    &nbsp;
+#end

@@ -1,0 +1,12 @@
+div .local-app-image {
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/logos/100jira.png);
+}
+
+.add-entity-link-single-value {
+    bottom: 40px;
+    position: absolute;
+}
+
+form.aui fieldset.group {
+	padding-left: 6px;
+}

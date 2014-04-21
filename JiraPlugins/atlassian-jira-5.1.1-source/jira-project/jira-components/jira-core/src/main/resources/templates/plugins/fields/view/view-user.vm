@@ -1,0 +1,8 @@
+##disable_html_escaping() TODO REENABLE
+#if ($value)
+    #if ($displayParameters && $displayParameters.nolink)
+        $textutils.htmlEncode($value.displayName)
+    #else
+    <span class="tinylink">$userformat.formatUser($value.name, 'fullNameHover', "user_cf")</span>
+    #end
+#end

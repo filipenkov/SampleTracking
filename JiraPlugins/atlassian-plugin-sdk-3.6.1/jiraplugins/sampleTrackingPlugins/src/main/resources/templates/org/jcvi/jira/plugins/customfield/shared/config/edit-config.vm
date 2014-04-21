@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <title>$i18n.getText('common.words.configure') $action.getCustomField().getName()</title>
+    <meta content="admin" name="decorator" />
+    <link rel="stylesheet" type="text/css" media="print"
+	  href="/styles/combined-printable.css">
+      <link type="text/css" rel="StyleSheet" media="all" href="/styles/combined.css"/>
+  </head>
+
+  <body>
+<h2 class="formtitle">
+  $i18n.getText('common.words.configure') $action.getCustomField().getName()
+</h2>
+<!-- empty action resubmits the form to the url it came from-->
+<form action="" method="post" name="jiraform">
+  <table class="jiraform">
+    <tr>
+        <td colspan="2" class="jiraformheader">
+            Set the configuration options for $action.getCustomField().getName()
+        </td>
+    </tr>
+      #foreach( $option in $action.getConfigurableParameters())
+      <tr class="fieldArea">
+      <td class="fieldLabelArea">
+        <label for="$option.getStorageKey()">$option.getDisplayName()</label>
+      </td>
+      <td class="fieldValueArea">
+        #if ($option.getInputType().getName().equals("textarea"))
+         <textarea
+               name="$option.getStorageKey()"
+               id="$option.getStorageKey()"
+               class="textfield"
+               cols="40"
+               rows="2"
+               #if ($configs.styles.style) style="$configs.styles.style" #end
+         >$textutils.htmlEncode($action.valuesForForm.get("$option.getStorageKey()"))</textarea>
+        #else
+          #if ($option.getInputType().getName().equals("select"))
+           <select name="$option.getStorageKey()"
+                  id="$option.getStorageKey()">
+            #set ($selected = $action.valuesForForm.get($option.getStorageKey()))
+            #foreach( $selectOption in $option.getPossibleValues())
+              <option value="$selectOption.getFormKey()"
+                      #if ($selected == $selectOption.getFormKey())
+                        selected="selected"
+                      #end
+                      >$selectOption.getDisplayName()</option>
+            #end
+           </select>
+          #end
+        #end
+      </td>
+    </tr>
+    #end
+    <tr>
+      <td colspan="2" class="fullyCentered jiraformfooter" >
+          <input type="submit"
+                     name="Save"
+                     id="Save"
+                     value="$i18n.getText('common.words.save')"
+                     accesskey="S"
+                     title="Press Ctrl+S to submit form"
+                     class="spaced"
+                     />
+          <input type="submit"
+                     name="Cancel"
+                     id="Cancel"
+                     value="$i18n.getText('common.words.cancel')"
+                     accesskey="S"
+                     class="spaced"
+                     />
+      </td>
+    </tr>
+  </table>
+
+  ## Used by the parent class AbstractEditConfigurationItemAction
+  <input type="hidden" name="fieldConfigId" value="$fieldConfigId">
+
+</form>
+  </body>
+</html>

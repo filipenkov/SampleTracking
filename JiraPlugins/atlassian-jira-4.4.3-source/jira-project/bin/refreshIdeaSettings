@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -u
+
+rm -Rf tomcatBase
+
+OLD=".idea/modules.xml.old"
+NEW=".idea/modules.xml"
+flag=0
+
+if [ -f "$NEW" ]; then
+    mv -f "$NEW" "$OLD"
+    flag=1
+fi
+
+mvn initialize -Pide-setup -pl jira-components/jira-webapp "$@"
+mvn clean install -Pide-setup -pl jira-ide-support -am "$@"
+
+if [ $flag -ne 0 ]; then
+    mv -f "$OLD" "$NEW"
+fi

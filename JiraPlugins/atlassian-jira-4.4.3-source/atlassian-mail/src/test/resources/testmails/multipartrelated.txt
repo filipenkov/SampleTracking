@@ -1,0 +1,54 @@
+Return-Path: noone@example.com
+Received: from mail.atlassian.com (LHLO mail.atlassian.com) (63.246.22.40)
+ by mail.atlassian.com with LMTP; Thu, 25 Sep 2008 11:24:59 -0500 (CDT)
+Received: from p02c11m015.mxlogic.net (mxl144v245.mxlogic.net [208.65.144.245])
+	by mail.atlassian.com (Postfix) with ESMTP id 2B1A31631E89
+	for <jira-test@atlassian.com>; Thu, 25 Sep 2008 11:24:59 -0500 (CDT)
+Received: from unknown [206.174.204.82] (EHLO silversurfer.medaccess.local)
+	by p02c11m015.mxlogic.net (mxl_mta-5.7.0-1)
+	with ESMTP id 95bbbd84.3140848560.67250.00-008.p02c11m015.mxlogic.net (envelope-from <chrisl@example.com>);
+	Thu, 25 Sep 2008 10:24:57 -0600 (MDT)
+X-MimeOLE: Produced By Microsoft Exchange V6.5
+Content-class: urn:content-classes:message
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="multipart/alternative";
+	boundary="=_reb-r12B47236-t48DBBB5A"
+Subject: STUFF
+Date: Thu, 25 Sep 2008 10:24:55 -0600
+Message-ID: <7A9D7AC168043445975387D51B7C17A1D512A5@silversurfer>
+From: "No one" noone@example.com
+To: <jira-test@atlassian.com>
+
+
+--=_reb-r12B47236-t48DBBB5A
+Content-Type: multipart/alternative;
+	boundary="=_reb-r78448001-t48DBBB5A"
+
+
+--=_reb-r78448001-t48DBBB5A
+Content-Type: text/plain;
+	charset=utf-8
+
+Test
+
+--=_reb-r78448001-t48DBBB5A
+Content-Type: text/html;
+	charset=utf-8
+
+<body>Test</body>
+
+--=_reb-r78448001-t48DBBB5A--
+
+--=_reb-r12B47236-t48DBBB5A
+Content-Transfer-Encoding: base64
+Content-Type: image/png;
+	name=image001.png
+Content-Location: image001.png
+Content-Id: <image001.png@01C91EF0.927D7690>
+
+iVBORw0KGgoAAAANSUhEUgAAA1UAAADFCAIAAAAzE09PAAAAAXNSR0IArs4c6QAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAOX9JREFUeF7tnV9oXMm950t53oe8ZK+EhbAm3RYIhZU9lg0t1qwV
+Q8QAAAAASUVORK5CYII=
+
+--=_reb-r12B47236-t48DBBB5A--

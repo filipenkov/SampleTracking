@@ -1,0 +1,80 @@
+@import "dynamic:lookandfeel.less";
+
+@jirabrandcolour: #326ca6;
+
+@grid: 8px;
+@gutter: 16px;
+
+@bodybgcolour: #f0f0f0;
+
+@basefontcolour: #000;
+@basefontsize: 13px;
+@baselineheight: 1.3077;
+
+@subtlefontcolour: #505050;
+@jirasubtlefontcolour: #999;
+
+@bordercolour: #bbb;
+@subtlebordercolour: #ddd;
+@hoverbackgroundcolour: #f0f0f0;
+
+.bordered (@width: 1px, @style: solid, @colour: @bordercolour) {
+    border: @width @style @colour;
+}
+.bordered (@colour) {
+    .bordered(1px, solid, @colour);
+}
+.bordered (@top, @right, @bottom, @left) {
+    .bordered;
+    border-width: @top @right @bottom @left;
+}
+.bordered (@top, @right, @bottom, @left, @style, @colour) {
+    .bordered(1px, @style, @colour);
+    border-width: @top @right @bottom @left;
+}
+.border-top (@colour: @bordercolour) {
+    border-top: 1px solid @colour;
+}
+.border-right (@colour: @bordercolour) {
+    border-right: 1px solid @colour;
+}
+.border-bottom (@colour: @bordercolour) {
+    border-bottom: 1px solid @colour;
+}
+.border-left (@colour: @bordercolour) {
+    border-left: 1px solid @colour;
+}
+
+.rounded (@radius-tl: 5px, @radius-tr: 5px, @radius-br: 5px, @radius-bl: 5px) {
+    -moz-border-radius: @radius-tl @radius-tr @radius-br @radius-bl;
+    -ms-border-radius: @radius-tl @radius-tr @radius-br @radius-bl;
+    -o-border-radius: @radius-tl @radius-tr @radius-br @radius-bl;
+    -webkit-border-radius: @radius-tl @radius-tr @radius-br @radius-bl;
+    border-radius: @radius-tl @radius-tr @radius-br @radius-bl;
+}
+.border-box () {
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.opacity (@opacity) {
+    -moz-opacity: @opacity;
+    -ms-opacity: @opacity;
+    -o-opacity: @opacity;
+    -webkit-opacity: @opacity;
+    opacity: @opacity;
+    filter: e(%("progid:DXImageTransform.Microsoft.Alpha(opacity=%s)", @opacity*100));
+    -ms-filter: e(%('"progid:DXImageTransform.Microsoft.Alpha(opacity=%s)"', @opacity*100));
+}
+
+.clearfix () {
+    &:after {
+        clear: both;
+        content: "";
+        display: block;
+        height: 0;
+        visibility: hidden;
+    }
+}

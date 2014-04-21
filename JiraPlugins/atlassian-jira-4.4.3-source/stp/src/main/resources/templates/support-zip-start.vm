@@ -1,0 +1,15 @@
+#parse ( "/templates/includes/xsrf.vm" )
+<div>
+	#parse ( "/templates/includes/errors.vm" )
+	<form method="POST" class="aui" name="support-zip" id="support-zip" action="$servletHomePath/support-zip/execute">
+		#form_xsrfToken()
+        <div class="toolInstructions">$i18n.getText('stp.create.support.zip.instructions')</div>
+
+        #parse("/templates/support-zip-fields.vm")
+
+		<div class="buttons">
+	        <input class="button submit" type="submit" value="$i18n.getText('stp.create')"/>
+		</div>							
+	</form>
+	<div class="clearer"></div>
+</div>

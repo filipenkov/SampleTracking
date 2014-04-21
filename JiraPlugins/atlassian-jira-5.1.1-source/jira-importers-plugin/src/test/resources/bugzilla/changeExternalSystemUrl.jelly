@@ -1,0 +1,74 @@
+<JiraJelly xmlns:jira="jelly:com.atlassian.jira.jelly.JiraTagLib" xmlns:core="jelly:core" xmlns:log="jelly:log">
+
+	<!-- Grab an instance of ComponentManager -->
+	<core:invokeStatic className="com.atlassian.jira.ComponentManager" method="getInstance" var="componentManager"/>
+	<core:invokeStatic className="com.atlassian.jira.web.bean.PagerFilter" method="getUnlimitedFilter" var="unlimited"/>
+	<core:invoke on="${componentManager}" method="getIssueManager" var="issueManager"/>
+	<core:invoke on="${componentManager}" method="getProjectManager" var="projectManager"/>
+	<core:invoke on="${componentManager}" method="getCustomFieldManager" var="customFieldManager"/>
+	<core:invoke on="${componentManager}" method="getSearchService" var="searchService"/>
+	<core:invoke on="${componentManager}" method="getFieldManager" var="fieldManager"/>
+	<core:invoke on="${componentManager}" method="getFieldLayoutManager" var="fieldLayoutManager"/>
+	<core:invoke var="authenticationContext" on="${componentManager}" method="getJiraAuthenticationContext"/>
+  	<core:invoke var="user" on="${authenticationContext}" method="getLoggedInUser"/>
+	<!-- Get Custom FieldObject: customFieldObj -->
+	<core:invoke on="${customFieldManager}" method="getCustomFieldObjectByName" var="customFieldObj">
+		<core:arg type="java.lang.String" value="External issue URL"/>
+	</core:invoke>
+	<core:invoke on="${searchService}" method="parseQuery" var="parse">
+		<core:arg type="com.atlassian.crowd.embedded.api.User" value="${user}"/>
+		<core:arg type="java.lang.String" value=""/>
+	</core:invoke>
+
+	<core:invoke on="${projectManager}" method="getProjectObjects" var="projects"/>
+
+	<core:forEach var="project" items="${projects}">
+
+		<core:invoke on="${searchService}" method="search" var="result">
+			<core:arg type="com.atlassian.crowd.embedded.api.User" value="${user}"/>
+			<core:arg type="com.atlassian.query.Query" value="${parse.query}"/>
+			<core:arg type="com.atlassian.jira.web.bean.PagerFilter" value="${unlimited}"/>
+		</core:invoke>
+
+		<core:forEach var="issue" items="${result.issues}">
+
+			<core:invoke on="${customFieldObj}" method="getValue" var="rating">
+				<core:arg type="com.atlassian.jira.issue.Issue" value="${issue}"/>
+			</core:invoke>
+
+			<core:new var="changeHolder" className="com.atlassian.jira.issue.util.DefaultIssueChangeHolder"/>
+
+			<core:invoke on="${fieldManager}" method="getOrderableField" var="orderableField">
+				<core:arg type="java.lang.String" value="${customFieldObj.id}"/>
+			</core:invoke>
+
+			<core:invoke on="${fieldLayoutManager}" method="getFieldLayout" var="fieldLayout">
+				<core:arg type="com.atlassian.jira.issue.Issue" value="${issue}"/>
+			</core:invoke>
+
+            <core:invoke on="${fieldLayout}" method="getFieldLayoutItem" var="fieldLayoutItem">
+				<core:arg type="com.atlassian.jira.issue.fields.CustomFieldImpl" value="${orderableField}"/>
+			</core:invoke>
+
+			<core:invoke on="${customFieldObj}" method="getValue" var="rating">
+				<core:arg type="com.atlassian.jira.issue.Issue" value="${issue}"/>
+			</core:invoke>
+
+			<core:new var="modifiedValue" className="com.atlassian.jira.issue.ModifiedValue">
+				<core:arg type="java.lang.String" value="${rating}"/>
+				<core:arg type="java.lang.String" value="http://localhost/blah/blah"/>
+			</core:new>
+
+			<!-- Updating Custom Field -->
+			<core:invoke on="${customFieldObj}" method="updateValue" var="rating">
+				<core:arg type="com.atlassian.jira.issue.fields.layout.field.FieldLayoutItem"
+						  value="${fieldLayoutItem}"/>
+				<core:arg type="com.atlassian.jira.issue.Issue" value="${issue}"/>
+				<core:arg type="com.atlassian.jira.issue.ModifiedValue" value="${modifiedValue}"/>
+				<core:arg type="com.atlassian.jira.issue.util.DefaultIssueChangeHolder" value="${changeHolder}"/>
+			</core:invoke>
+
+		</core:forEach>
+
+	</core:forEach>
+</JiraJelly>

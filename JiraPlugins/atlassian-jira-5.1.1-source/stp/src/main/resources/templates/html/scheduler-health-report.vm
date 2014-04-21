@@ -1,0 +1,58 @@
+#parse ( "/templates/includes/xsrf.vm" )
+<div class="stp-module-main-block">
+	<form class="aui unsectioned" method="POST" action="$servletHomePath/scheduled-health-report/execute">
+	    #form_xsrfToken()
+
+		#parse ( "/templates/includes/errors.vm" )
+		#if ($validationLog.hasFeedback())
+			#foreach ($message in $validationLog.feedback)
+				<div class="aui-message success shadowed">
+					$message.body
+				</div>	
+			#end
+		#end
+		
+		<p>$i18n.getText("stp.scheduler.health.description")</p>
+
+		#parse ( "/templates/includes/scheduler-common-params.vm" )	
+			
+		<div class="field-group">
+			<label for="h-recipients">$i18n.getText("stp.scheduler.health.recipients")</label>
+			<input class="text" type="text" name="ccRecipients" id="ccRecipients" value="#if ($settings.ccRecipients)$settings.ccRecipients#else$info.userEmail#end"/>
+			
+			<div class="description">$i18n.getText("stp.scheduler.health.recipients.description")</div>
+		</div>
+		
+		<div class="field-group">
+			<label for="h-data">$i18n.getText("stp.scheduler.health.data.label")</label>
+			
+			<table class="aui">
+				<thead><tr><th>Bundle</th><th>Description</th></tr></thead>
+				<tbody>
+					#foreach($bundle in $bundles)
+						<tr>
+							<td>$i18n.getText($bundle.getTitle())</td>
+							<td>$i18n.getText($bundle.getDescription())</td>
+						</tr>
+					#end
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="field-group">
+			<label for="enabled">$i18n.getText("stp.scheduler.enabled")</label>
+			<input type="checkbox" name="enabled" #if ($settings.enabled) checked="true" #end/>
+			
+			<div class="description">
+			$i18n.getText("stp.scheduler.health.privacy.text") 
+			<a href="http://confluence.atlassian.com/x/m48JEQ" target="_BLANK">$i18n.getText("stp.scheduler.health.privacy.data.link.text")</a>
+			<a href="https://www.atlassian.com/company/privacy" target="_BLANK">$i18n.getText("stp.scheduler.health.privacy.privacy.link.text")</a>
+			<a href="http://www.atlassian.com/licensing/license" target="_BLANK">$i18n.getText("stp.scheduler.health.privacy.eula.link.text")</a>
+			</div>
+		</div>
+		
+		<div class="buttons">
+			<input type="submit" value="$i18n.getText('stp.scheduler.update.button')"/>
+		</div>
+	</form>
+</div>

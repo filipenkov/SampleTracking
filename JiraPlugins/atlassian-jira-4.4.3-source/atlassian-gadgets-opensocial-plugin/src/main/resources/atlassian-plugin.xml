@@ -1,0 +1,131 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${pom.name}" pluginsVersion="2">
+    <plugin-info>
+        <description>${pom.description}</description>
+        <version>${pom.version}</version>
+        <vendor name="${pom.organization.name}" url="${pom.organization.url}"/>
+    </plugin-info>
+
+    <!-- SAL imports -->
+    <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties" />
+    <component-import key="salUserManager" interface="com.atlassian.sal.api.user.UserManager" />
+    <component-import key="pluginSettingsFactory" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory" />
+    <component-import key="localeResolver" interface="com.atlassian.sal.api.message.LocaleResolver" />
+    <component-import key="txTemplate" interface="com.atlassian.sal.api.transaction.TransactionTemplate" />
+    <component-import key="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver" />
+
+    <component-import key="eventPublisher" interface="com.atlassian.event.api.EventPublisher" />
+
+    <!-- Trusted apps -->
+    <component-import key="trustedApplicationsManager" interface="com.atlassian.security.auth.trustedapps.TrustedApplicationsManager" />
+
+    <!-- OAuth Consumer imports -->
+    <component-import key="consumerService" interface="com.atlassian.oauth.consumer.ConsumerService" />
+    <component-import key="consumerTokenStore" interface="com.atlassian.oauth.consumer.ConsumerTokenStore" />
+
+    <component key="authModule" class="com.atlassian.gadgets.renderer.internal.guice.AuthModule" />
+    <component key="salModule" class="com.atlassian.gadgets.renderer.internal.guice.SalModule" />
+    <component key="openSocialModule" class="com.atlassian.gadgets.opensocial.internal.guice.OpenSocialModule" />
+    <!-- ShindigModule is defined in renderer-context.xml -->
+
+    <component key="injectorProvider" class="com.atlassian.gadgets.renderer.internal.guice.InjectorProvider" />
+    <servlet-context-listener name="Guice Context Listener" key="guice-context-listener" class="com.atlassian.gadgets.renderer.internal.servlet.AtlassianGadgetsGuiceServletContextListener" />
+
+    <!-- Velocity template renderer -->
+    <component-import key="velocity-renderer" interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRenderer" />
+
+    <!-- GadgetSpecUrlChecker is defined and exported in renderer-context.osgi.xml -->
+    <component key="securityTokenFactory" class="com.atlassian.gadgets.renderer.internal.SecurityTokenFactoryImpl" public="true">
+        <interface>com.atlassian.gadgets.view.SecurityTokenFactory</interface>
+    </component>
+    <component key="gadgetSpecFactory" class="com.atlassian.gadgets.renderer.internal.GadgetSpecFactoryImpl" public="true">
+        <interface>com.atlassian.gadgets.spec.GadgetSpecFactory</interface>
+
+    </component>
+    <component key="securityTokenDecoder" class="com.atlassian.gadgets.renderer.internal.CustomBlobCrypterSecurityTokenDecoder">
+        <interface>org.apache.shindig.auth.SecurityTokenDecoder</interface>
+    </component>
+    <component key="blobCrypter" class="com.atlassian.gadgets.renderer.internal.BlobCrypterImpl" stateful="true">
+        <interface>org.apache.shindig.common.crypto.BlobCrypter</interface>
+    </component>
+    <component key="nonExpirableBlobCrypter" class="com.atlassian.gadgets.renderer.internal.NonExpirableBlobCrypterImpl" stateful="true">
+        <interface>org.apache.shindig.common.crypto.BlobCrypter</interface>
+    </component>
+    <component key="domainProvider" class="com.atlassian.gadgets.renderer.internal.ContainerDomainProvider" />
+
+    <component key="gadgetRequestContextFactory" class="com.atlassian.gadgets.renderer.internal.GadgetRequestContextFactoryImpl"
+            public="true">
+        <interface>com.atlassian.gadgets.GadgetRequestContextFactory</interface>
+    </component>
+
+    <!-- Implementation of the Shindig interfaces -->
+    <component key="shindigPersonService" class="com.atlassian.gadgets.opensocial.internal.ShindigPersonServiceImpl">
+        <interface>org.apache.shindig.social.opensocial.spi.PersonService</interface>
+    </component>
+    <component key="shindigActivityService" class="com.atlassian.gadgets.opensocial.internal.ShindigActivityServiceImpl">
+        <interface>org.apache.shindig.social.opensocial.spi.ActivityService</interface>
+    </component>
+    <component key="shindigAppDataService" class="com.atlassian.gadgets.opensocial.internal.ShindigAppDataServiceImpl">
+        <interface>org.apache.shindig.social.opensocial.spi.AppDataService</interface>
+    </component>
+    
+    <!-- Filter to make sure a gadget is still in the directory before allowing it to render. -->
+    <servlet-filter key="directory-checking-servlet-filter" weight="90"
+                    class="com.atlassian.gadgets.renderer.internal.servlet.GadgetSpecUrlRenderPermissionServletFilter">
+        <url-pattern>/plugins/servlet/gadgets/ifr</url-pattern>
+    </servlet-filter>
+
+    <servlet-filter key="authentication-servlet-filter" class="org.apache.shindig.auth.AuthenticationServletFilter">
+        <url-pattern>/plugins/servlet/gadgets/ifr</url-pattern>
+        <url-pattern>/plugins/servlet/gadgets/makeRequest</url-pattern>
+        <url-pattern>/plugins/servlet/social/*</url-pattern>
+    </servlet-filter>
+
+    <servlet name="Gadget Rendering Servlet" key="gadget-rendering-servlet" class="org.apache.shindig.gadgets.servlet.GadgetRenderingServlet">
+        <url-pattern>/gadgets/ifr</url-pattern>
+
+    </servlet>
+    <servlet name="Make Request Servlet" key="make-request-servlet" class="org.apache.shindig.gadgets.servlet.MakeRequestServlet">
+        <url-pattern>/gadgets/makeRequest</url-pattern>
+    </servlet>
+    <servlet name="Metadata RPC Servlet" key="metadata-rpc-servlet" class="org.apache.shindig.gadgets.servlet.RpcServlet">
+        <url-pattern>/gadgets/metadata</url-pattern>
+    </servlet>
+    <servlet name="JS Servlet" key="js-servlet" class="org.apache.shindig.gadgets.servlet.JsServlet">
+
+        <url-pattern>/gadgets/js/*</url-pattern>
+    </servlet>
+    <servlet name="OAuth Callback" key="oauth-callback-servlet" class="com.atlassian.gadgets.renderer.internal.servlet.AtlassianOAuthCallbackServlet">
+        <url-pattern>/gadgets/oauth-callback</url-pattern>
+    </servlet>
+
+    <servlet name="Rpc Relay Servlet" key="rpc-relay-servlet" class="com.atlassian.gadgets.renderer.internal.servlet.RpcRelay">
+        <url-pattern>/gadgets/rpc-relay</url-pattern>
+
+    </servlet>
+    
+    <servlet name="Security Token Servlet" key="security-token-servlet" class="com.atlassian.gadgets.renderer.internal.servlet.SecurityTokenServlet">
+        <url-pattern>/gadgets/security-tokens</url-pattern>
+    </servlet>
+
+    <web-resource name="Gadget Removed Error Page Resources" key="gadget-removed-error-page-resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <resource type="download" name="css/error-page.css" location="css/error-page.css"/>
+        <resource type="download" name="js/error-page.js" location="js/error-page.js"/>
+    </web-resource>
+    <!-- Note : The Shindig REST api is broken; use RPC instead
+    <servlet name="Social REST Servlet" key="opensocial-rest-servlet" class="org.apache.shindig.social.opensocial.service.DataServiceServlet">
+        <url-pattern>/social/rest/*</url-pattern>
+    </servlet>
+    -->
+
+    <servlet name="Social RPC Servlet" key="opensocial-rpc-servlet" class="org.apache.shindig.social.opensocial.service.JsonRpcServlet">
+        <url-pattern>/social/rpc</url-pattern>
+    </servlet>
+
+    <!-- Shared resources -->
+
+    <resource type="i18n" name="i18n" location="com.atlassian.gadgets.renderer.internal.servlet.i18n" />
+    <resource type="download" name="js/" location="js/"/>
+    <resource type="download" name="css/" location="css/"/>
+    <resource type="download" name="css/images/" location="css/images/"/>
+</atlassian-plugin>

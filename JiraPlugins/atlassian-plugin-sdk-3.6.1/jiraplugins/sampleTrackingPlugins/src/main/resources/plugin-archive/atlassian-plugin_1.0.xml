@@ -1,0 +1,435 @@
+<atlassian-plugin key="org.jcvi.jira.plugins.SampleTrackingPlugins" name="sampleTrackingPlugins" plugins-version="2">
+    <plugin-info>
+        <description>These are the plugins for Atlassian JIRA used by the sample 
+		 tracking system.</description>
+        <version>1.0-SNAPSHOT</version>
+        <vendor name="JCVI"
+                url ="http://jcvi.org/" />
+    </plugin-info>
+
+    <!--=======================================================================
+    NOP CustomField
+    ========================================================================-->
+    <!--
+        key   - Internal for referencing this from other module's descriptors
+        name  - Appears on the Create Custom Field screen as the name of this
+                CustomField type
+        class - Implements CustomFieldType
+    -->
+    <customfield-type
+            key  ="nopCustomField"
+            name ="No Operation Custom Field"
+            class="org.jcvi.jira.plugins.customfield.nop.NopCustomField">
+        <!--
+            description - Appears on the Create Custom Field screen just
+            below the 'name'
+        -->
+        <description>
+            Template CustomField, to demonstrate the CustomField Classes
+        </description>
+        <!--
+         Used in:
+            Issue view
+            Issue Navigator[results table] if there is no Column-View
+            CustomField-Configure Custom Field[Default]
+        -->
+        <resource
+        location="templates/org/jcvi/jira/plugins/customfield/shared/view.vm"
+            type="velocity"
+            name="view"/>
+        <!--
+         Used in:
+            Issue creation
+            Issue editing
+            Issue Navigator[Search bar]
+            CustomField-Configure Custom Field[Set Default]
+        -->
+        <resource
+        location="templates/org/jcvi/jira/plugins/customfield/shared/edit.vm"
+            type="velocity"
+            name="edit"/>
+
+        <!--
+         Used in:
+           ConfigureCustomField
+        -->
+        <resource type="velocity"
+                  name="view-config"
+              location="templates/org/jcvi/jira/plugins/customfield/shared/view-config.vm"/>
+
+
+        <resource
+        location="templates/org/jcvi/jira/plugins/customfield/shared/xml.vm"
+            type="velocity"
+            name="xml"/>
+
+        <resource
+        location="templates/org/jcvi/jira/plugins/customfield/shared/column-view.vm"
+            type="velocity"
+            name="column-view"/>
+    </customfield-type>
+
+    <!--customfield-searcher
+      Definition of first search that can be used with the custom field. The
+      search itself doesn't need to be custom.
+      key           - uid Needs to be unique, but never referenced in the
+                      XML.
+      name          - The string that will be used in the Search Template
+                      drop-down when creating or editing first custom field.
+                      NOTE: This is only used if the i18n-name-key doesn't
+                      match.
+      i18n-name-key - (opt) The lookup key for using first value from first language
+                      bundle. If found, this overrides the name attribute
+      class         - The implementation of
+                      com.atlassian.jira.issue.customfields.CustomFieldSearcher
+                      to use
+    -->
+
+    <!-- Provides a searcher that can match multiple values. The searcher
+     matches if any one of the values associated with it match -->
+    <customfield-searcher key="InSearch" name="In Searcher"
+        class="org.jcvi.jira.plugins.searcher.insearch.InSearcher">
+        <!-- description for use in the GUI -->
+        <description key="admin.customfield.searcher.textsearcher.desc">
+            In Searcher can have multiple search values associated with it and
+            will match if any of the associated values match. </description>
+        <!--
+         Used in:
+            Issue Navigator
+        -->
+        <resource
+        location="templates/org/jcvi/jira/plugins/customfield/multivalue/search.vm"
+            type="velocity"
+            name="search"/>
+        <!--
+         Used in:?
+         todo: possibly summary of saved filter
+        -->
+        <resource
+        location="templates/org/jcvi/jira/plugins/customfield/multivalue/search-summary.vm"
+            type="velocity"
+            name="view"/>
+        <resource
+        location="/config/org/jcvi/jira/plugins/customfield/multivalue/default.properties"
+            type="properties"
+            name="configuration"/>
+        <valid-customfield-type package="org.jcvi.jira.plugins.SampleTrackingPlugins"
+                                key="nopCustomField"/>
+        <valid-customfield-type package="org.jcvi.jira.plugins.SampleTrackingPlugins"
+                                key="additionalSearchField"/>
+        <valid-customfield-type package="com.atlassian.jira.plugin.system.customfieldtypes" key="textfield"/>
+        <valid-customfield-type package="com.atlassian.jira.plugin.system.customfieldtypes" key="textarea"/>
+        <valid-customfield-type package="com.atlassian.jira.plugin.system.customfieldtypes" key="readonlyfield"/>
+    </customfield-searcher>
+
+    <!-- A wrapped copy of TextSearcher for use with our custom fields -->
+    <customfield-searcher key="NopSearcher" name="Text Searcher"
+        class="org.jcvi.jira.plugins.searcher.nop.NopSearcher">
+        <description key="admin.customfield.searcher.textsearcher.desc">Search for values using a free text search.</description>
+
+        <resource
+        location="templates/org/jcvi/jira/plugins/customfield/nop/search.vm"
+            type="velocity"
+            name="search"/>
+        <resource
+        location="templates/org/jcvi/jira/plugins/customfield/nop/search-summary.vm"
+            type="velocity"
+            name="view"/>
+
+        <valid-customfield-type package="org.jcvi.jira.plugins.SampleTrackingPlugins"
+                                key="nopCustomField"/>
+        <valid-customfield-type package="org.jcvi.jira.plugins.SampleTrackingPlugins"
+                                key="additionalSearchField"/>
+    </customfield-searcher>
+
+    <!--
+        wrapper to allow a numberRangeSearch on a StringField
+        Most of the information is copied from
+        jira-src/jira-project/jira-components/jira-core/src/main/resources/system-customfieldtypes-plugin.xml
+    -->
+    <customfield-searcher key="stringNumberRangeSearcher" name="Number Range Searcher"
+        i18n-name-key="admin.customfield.searcher.numberrange.name"
+        class        ="org.jcvi.jira.plugins.searcher.additionalsearch.NumericInStringRangeSearcher">
+        <description key="admin.customfield.searcher.numberrange.desc">Allow searching for a number that is in a given range</description>
+
+        <resource type="velocity" name="search" location="templates/plugins/fields/edit-searcher/search-number-range.vm"/>
+        <resource type="velocity" name="view" location="templates/plugins/fields/view-searcher/view-searcher-number-range.vm"/>
+
+        <valid-customfield-type package="org.jcvi.jira.plugins.SampleTrackingPlugins"
+                                key="nopCustomField"/>
+        <valid-customfield-type package="org.jcvi.jira.plugins.SampleTrackingPlugins"
+                                key="additionalSearchField"/>
+        <valid-customfield-type package="com.atlassian.jira.plugin.system.customfieldtypes" key="textfield"/>
+        <valid-customfield-type package="com.atlassian.jira.plugin.system.customfieldtypes" key="textarea"/>
+        <valid-customfield-type package="com.atlassian.jira.plugin.system.customfieldtypes" key="readonlyfield"/>
+    </customfield-searcher>
+
+    <!--
+        key
+    -->
+    <webwork1 key="nopcfconfigaction"
+             name="Nop Custom Field configuration action"
+            class="java.lang.Object">
+        <!--class="webwork.action.Action">-->
+        <description>
+            The action for editing configuration
+        </description>
+        <actions>
+            <!-- config 'page'
+                name  -
+                alias - This is the name used for the URL to the action
+                        e.g. jira/secure/admin/<alias>.jspa-->
+            <action
+                  name="org.jcvi.jira.plugins.customfield.nop.NopConfigAction"
+                 alias="EditNopConfig">
+                <!--
+                views are used to render the result.
+                name     -  The action selects first view by returning first string
+                            that matches this value in the definition of the
+                            view to be used.
+                contents -  The path to the velocity template.
+                            If the template was included in the plug-in then
+                            the path is '/<path in the resources directory>'.
+                            The leading '/' is important. Normally templates
+                            are placed below first sub-dir called templates, with
+                            the rest of the path coming from the package name
+                            of the plug-in. e.g.
+                /templates/com/company/jira/plugins/customfield/template.vm
+                            Note: There is no whitespace around the path.
+                -->
+                <view name="input"
+>/templates/org/jcvi/jira/plugins/customfield/shared/edit-config.vm</view>
+                <!-- This is first jira page that is used if there isn't first user object -->
+                <view name="securitybreach"
+>/secure/views/securitybreach.jsp</view>
+            </action>
+        </actions>
+    </webwork1>
+
+    <!--=======================================================================
+    Velocity CustomField
+    ========================================================================-->
+    <customfield-type key="VelocityField"
+                     name="Velocity Custom Field"
+                    class="org.jcvi.jira.plugins.customfield.velocity.VelocityFieldType">
+        <description>
+            Allows Velocity templates to be used to generate the values of a field.
+            It also allows the templates to be modified through the JIRA Admin GUI.
+        </description>
+        <resource type="velocity"
+                  name="view"
+              location="templates/org/jcvi/jira/plugins/customfield/velocity/view.vm"/>
+        <resource type="velocity"
+                  name="edit"
+              location="templates/org/jcvi/jira/plugins/customfield/velocity/edit.vm"/>
+        <resource type="velocity"
+                  name="xml"
+              location="templates/org/jcvi/jira/plugins/customfield/velocity/xml.vm"/>
+        <resource type="velocity"
+                  name="column-view"
+              location="templates/org/jcvi/jira/plugins/customfield/velocity/column-view.vm"/>
+        <!-- Just use the 'standard' JCVI config page -->
+        <resource type="velocity"
+                  name="view-config"
+              location="templates/org/jcvi/jira/plugins/customfield/shared/view-config.vm"/>
+    </customfield-type>
+
+    <webwork1 key="velocityConfigAction"
+             name="Velocity Custom Field configuration action"
+            class="java.lang.Object">
+        <description>
+            The action for editing configuration
+        </description>
+
+        <actions>
+            <action name="org.jcvi.jira.plugins.customfield.velocity.VelocityConfigAction"
+                   alias="EditVelocityConfig">
+                <view name="input">/templates/org/jcvi/jira/plugins/customfield/velocity/edit-config.vm</view>
+                <view name="securitybreach">/secure/views/securitybreach.jsp</view>
+            </action>
+        </actions>
+    </webwork1>
+
+    <!--<workflow-function key  ="VelocityPostFunction"
+                       name ="Velocity field setter Workflow Post Function"
+                       class="org.jcvi.jira.plugins.workflow.velocitycf.VelocityPostFunctionFactory">
+        <description>Set first field on transition based on first Velocity template</description>
+        <function-class>org.jcvi.jira.plugins.workflow.velocitycf.VelocityPostFunction</function-class>
+        <orderable>true</orderable>
+        <unique>false</unique>
+        <deletable>true</deletable>
+        <resource type="velocity"
+                  name="view"
+              location="templates/org/jcvi/jira/plugins/workflow/velocitycf/view.vm"/>
+        <resource type="velocity"
+                  name="input-parameters"
+              location="templates/org/jcvi/jira/plugins/workflow/velocitycf/edit.vm"/>
+        <resource type="velocity"
+                  name="edit-parameters"
+              location="templates/org/jcvi/jira/plugins/workflow/velocitycf/edit.vm"/>
+
+    </workflow-function>-->
+
+    <!--<jira-footer key="SearchSupportJS"
+                 name="Javascript to support redirecting Quick Search to our own Action"
+                class="com.atlassian.jira.plugin.navigation.DefaultPluggableFooter">
+        <resource type="velocity" name="view" location="templates/org/jcvi/jira/plugins/footer/search/footer.vm"/>
+        <order>20</order>
+    </jira-footer>-->
+
+    <!-- include the whole of the images directory
+         (name="xxx/" indicates mapping a directory)
+         This is uploaded to ${req.contextPath}/download/resources/${project.groupid}.SampleTrackingPlugins/images/xxx.png
+         For this project:
+         /download/resources/org.jcvi.jira.plugins.SampleTrackingPlugins/images
+         -->
+    <resource type="download" name="images/"  location="images"/>
+    <resource type="download" name="scripts/" location="scripts"/>
+    <resource type="download" name="css/"     location="css"/>
+
+    <!--=======================================================================
+    Add Search Custom Field
+    ========================================================================-->
+    <!--
+        key   - Internal for referencing this from other module's descriptors
+        name  - Appears on the Create Custom Field screen as the name of this
+                CustomField type
+        class - Implements CustomFieldType
+    -->
+    <customfield-type
+            key  ="additionalSearchField"
+            name ="Attach an Extra Searcher to a Field"
+            class="org.jcvi.jira.plugins.customfield.additionalsearch.AdditionalSearchFieldType">
+        <!--
+            description - Appears on the Create Custom Field screen just
+            below the 'name'
+        -->
+        <description>
+            Creates an extra searcher for a Text Custom Field
+        </description>
+
+        <!--No edit resource, we don't want to allow editing-->
+        <resource type="velocity"
+                  name="view"
+              location="templates/org/jcvi/jira/plugins/customfield/copy/view.vm"/>
+        <resource type="velocity"
+                  name="xml"
+              location="templates/org/jcvi/jira/plugins/customfield/copy/xml.vm"/>
+        <!--
+         Used in:
+           ConfigureCustomField
+        -->
+        <!-- Use the standard config page -->
+        <resource type="velocity"
+                  name="view-config"
+              location="templates/org/jcvi/jira/plugins/customfield/shared/view-config.vm"/>
+    </customfield-type>
+
+    <!--
+        Configuration page
+    -->
+    <webwork1 key="AdditionalSearchAction"
+             name="Additional Search configuration action"
+            class="java.lang.Object">
+        <!--class="webwork.action.Action">-->
+        <description>
+            The action for editing configuration of the additional search field
+        </description>
+        <actions>
+            <!-- config 'page'
+                name  -
+                alias - This is the name used for the URL to the action
+                        e.g. jira/secure/admin/<alias>.jspa-->
+            <action
+                  name="org.jcvi.jira.plugins.customfield.additionalsearch.AdditionalSearchConfigAction"
+                 alias="AdditionalSearchConfig">
+                <!--
+                views are used to render the result.
+                name     -  The action selects first view by returning first string
+                            that matches this value in the definition of the
+                            view to be used.
+                contents -  The path to the velocity template.
+                            If the template was included in the plug-in then
+                            the path is '/<path in the resources directory>'.
+                            The leading '/' is important. Normally templates
+                            are placed below first sub-dir called templates, with
+                            the rest of the path coming from the package name
+                            of the plug-in. e.g.
+                /templates/com/company/jira/plugins/customfield/template.vm
+                            Note: There is no whitespace around the path.
+                -->
+                <view name="input"
+>/templates/org/jcvi/jira/plugins/customfield/shared/edit-config.vm</view>
+                <!-- This is first jira page that is used if there isn't first user object -->
+                <view name="securitybreach"
+>/secure/views/securitybreach.jsp</view>
+            </action>
+        </actions>
+    </webwork1>
+
+    <!--
+        Configuration page
+    -->
+    <webwork1 key="ConfigParameterGroupEdit"
+             name="Edit ConfigParameterGroup values"
+            class="java.lang.Object">
+        <!--class="webwork.action.Action">-->
+        <description>
+            The action for editing org.jcvi.jira.plugins.customfield.shared.ConfigParameterGroup
+            settings.
+        </description>
+        <actions>
+            <!-- config 'page'
+                name  - The class to use for the action
+                alias - This is the name used for the URL to the action
+                        e.g. jira/secure/admin/<alias>.jspa-->
+            <action
+                  name="org.jcvi.jira.plugins.customfield.shared.ConfigParameterGroupAction"
+                 alias="JCVICustomFieldConfig">
+                <!--
+                views are used to render the result.
+                name     -  The action selects first view by returning first string
+                            that matches this value in the definition of the
+                            view to be used.
+                contents -  The path to the velocity template.
+                            If the template was included in the plug-in then
+                            the path is '/<path in the resources directory>'.
+                            The leading '/' is important. Normally templates
+                            are placed below first sub-dir called templates, with
+                            the rest of the path coming from the package name
+                            of the plug-in. e.g.
+                /templates/com/company/jira/plugins/customfield/template.vm
+                            Note: There is no whitespace around the path.
+                -->
+                <view name="input"
+>/templates/org/jcvi/jira/plugins/customfield/shared/edit-config.vm</view>
+                <!-- This is first jira page that is used if there isn't first user object -->
+                <view name="securitybreach"
+>/secure/views/securitybreach.jsp</view>
+            </action>
+        </actions>
+    </webwork1>
+<!--=======================================================================
+    Event Listener
+    ========================================================================-->
+    <!--<component-import key="commentSynchronizer" interface="com.atlassian.event.api.EventPublisher"/>-->
+        <!--<component key="eventListener"-->
+                   <!--class="org.jcvi.jira.plugins.listeners.CommentSynchronizer">-->
+        <!--<description>Class that copies comments from sub-tasks to their parent issue.</description>-->
+    <!--</component>-->
+
+<!--=======================================================================
+    Workflow Condition
+    ========================================================================-->
+    <workflow-condition key ="annotation-condition"
+                        name="Provide separate paths for samples that need Annotation"
+               i18n-name-key="admin.workflow.condition.annotation.display.name"
+        class="org.jcvi.jira.plugins.workflow.AnnotateConditionFactory">
+
+        <description key="admin.workflow.condition.annotation">Condition to control the flow depending on if the sample requires annotation</description>
+
+        <condition-class>org.jcvi.jira.plugins.workflow.AnnotateCondition</condition-class>
+        <!--<resource type="velocity" name="view"-->
+            <!--location="templates/jira/workflow/com/atlassian/jira/plugin/onlyassignee-condition-view.vm"/>-->
+    </workflow-condition>
+</atlassian-plugin>

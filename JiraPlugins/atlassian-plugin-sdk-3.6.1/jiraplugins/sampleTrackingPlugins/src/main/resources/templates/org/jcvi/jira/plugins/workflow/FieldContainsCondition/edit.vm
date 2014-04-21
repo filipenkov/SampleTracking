@@ -1,0 +1,95 @@
+## todo: add $i18n.getText(key)?
+
+## #############################################################################
+## Variables
+## #############################################################################
+## allFields - All of the Issue field, custom and standard
+## fieldValue - the currently selected field
+
+## #############################################################################
+## Macros
+## #############################################################################
+## Unfortunatly because of the way Velocity works these must be defined first
+## in the file and can't be moved into a seperate file.
+## http://wiki.apache.org/velocity/MacroIssues
+## #############################################################################
+
+## -----------------------------------------------------------------------------
+## Name:      checkbox
+## $field:    The name of the form element
+## $state:    The initial state for the checkbox, "TRUE"=checked
+## Notes:
+## The hidden field is required as otherwise no value is returned for the checkbox
+## and then the old value is used. This results in it being impossible to unset
+## the field once it has been set.
+## -----------------------------------------------------------------------------
+#macro (checkbox $field $state)
+
+<div id="${field}-hidden-div" style="display: none;">
+    #if ($state && $state == "TRUE")
+        #set ($mark-checked = "checked")
+    #else
+        #set ($mark-checked = "")
+        <input id="${field}-hidden-input" type="hidden" name="invert" value="FALSE"/>
+    #end
+</div>
+<input id="${field}" name="${field}" type="checkbox" value="TRUE"
+       onclick="updateHiddenField('${field}')" $!{mark-checked} />
+#end
+
+##Javascript for the checkbox
+<script language="JavaScript">
+    function updateHiddenField(name) {
+        var checkbox = document.getElementById(name);
+        if (!checkbox.checked) {
+            var input = document.createElement("input");
+            input.type = "hidden";
+            input.id = name+"-hidden-input";
+            input.name = "invert";
+            input.value = "FALSE";
+            document.getElementById(name+"-hidden-div").appendChild(input);
+        } else {
+            var input = document.getElementById(name+"-hidden-input");
+            if (input != null) {
+                document.getElementById(name+"-hidden-div").removeChild(input);
+            }
+        }
+    }
+</script>
+
+## #############################################################################
+## HTML
+## #############################################################################
+
+## does this need to be html encoded? textutils.htmlEncode()
+## This is how the jira-plugin's resourceDescriptor is passed to the
+## OSWorkflow plugin's parameters
+<input type="hidden" name="plugin-resource-key" value="${descriptor.completeKey}"/>
+
+## we are already in a table, but not in a row.
+<tr><td><label for="field">Field</label></td>
+    <td>
+        <select id="field"
+          name="field" >
+            #foreach( $currentField in $allFields)
+                #if ($field && $currentField.id == $field)
+                    #set ($selected = "SELECTED")
+                #else
+                    #set ($selected = "")
+                #end
+                <option value="${currentField.id}"
+                                ${selected}>${currentField.name}</option>
+            #end
+        </select>
+    </td>
+</tr><tr>
+    <td><label for="values">Values</label></td>
+    <td>
+        <input id="values" name="values" type="text" value="$!{values}"/>
+    </td>
+</tr><tr>
+    <td><label for="invert">Invert</label></td>
+    <td>
+        #checkbox("invert" $invert)
+    </td>
+</tr>

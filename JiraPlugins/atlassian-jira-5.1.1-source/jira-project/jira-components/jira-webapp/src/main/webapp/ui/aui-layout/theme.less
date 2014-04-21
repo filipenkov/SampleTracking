@@ -1,0 +1,43 @@
+@import "variables.less";
+
+.aui-theme-default {
+    #header {
+        a {
+            color: @textLinkColour;
+        }
+        #create_link {
+            color: @menuTxtColour;
+        }
+    }
+    ul.tabs li a {
+        color: #535353;
+        &:focus,
+        &:hover {
+            text-decoration: none;
+        }
+    }
+    .aui-list .aui-list-item-link,
+    .aui-list .no-suggestions {
+        color: #333;
+        text-decoration: none;
+    }
+    .aui-list li.active a {
+        color: #fff;
+    }
+    .pluggable-ops li a {
+        color: #111;
+    }
+    .operation-menu li a {
+        color: #333;
+        text-decoration: none;
+    }
+    header + .aui-message,
+    h1 + .aui-message,
+    h2 + .aui-message {
+        margin-top: @gutter;
+    }
+    .aui-toolbar + h2,
+    #quicklinks + h2 {
+        margin-top: 0;
+    }
+}

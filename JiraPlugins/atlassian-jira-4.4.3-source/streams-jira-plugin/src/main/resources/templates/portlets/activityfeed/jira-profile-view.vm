@@ -1,0 +1,5 @@
+#if($!gadgetHtml)
+    <div class="activitystream-container">
+        $gadgetHtml
+    </div>
+#end

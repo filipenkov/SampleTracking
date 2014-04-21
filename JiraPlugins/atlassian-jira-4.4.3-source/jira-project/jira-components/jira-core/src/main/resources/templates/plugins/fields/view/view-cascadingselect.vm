@@ -1,0 +1,16 @@
+#if ($value.getValuesForKey(null) && $value.getValuesForKey(null).isEmpty() == false)
+    #set ($parentValue = $value.getValuesForKey(null).iterator().next())
+#end
+#if ($value.getValuesForKey('1') && $value.getValuesForKey('1').isEmpty() == false)
+    #set ($childValue = $value.getValuesForKey('1').iterator().next())
+#end
+##value: $value <br />
+##value.cl: $value.class <br />
+##selpar: : $parentValue.class : <br/>
+##selchild: : $childValue.class : <br/>
+#if ($parentValue)
+    $!parentValue.value
+    #if ($childValue)
+         - $!childValue.value
+    #end
+#end

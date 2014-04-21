@@ -1,0 +1,34 @@
+#disable_html_escaping()
+#if ($changelog)
+    <tr valign="top">
+        <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+            <strong style="font-weight:normal;color:${textSubtleColour};">#text("template.change.by"):</strong>
+        </td>
+        <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+            #if ($changelog.getString("author"))
+                #authorlink2($changelog.getString("author") $linkstyle)
+            #else
+                #text("common.words.anonymous")
+            #end
+            ($dateformatter.formatDMYHMS($changelog.getTimestamp("created")))
+        </td>
+    </tr>
+    #foreach ($changeitem in $changelog.getRelated("ChildChangeItem"))
+    #if(!$changeitem.getString("field").equals("WorklogTimeSpent") && !$changeitem.getString("field").equals("WorklogId"))
+    <tr valign="top">
+        <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+            <strong style="font-weight:normal;color:${textSubtleColour};">$velocityhelper.getFieldName($changeitem, $i18n):</strong>
+        </td>
+        <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+            #if ($changeitem.getString("field") == "Comment") #set ($oldstringKey = "oldvalue") #set ($newstringKey = "newvalue")
+            #else #set ($oldstringKey = "oldstring") #set ($newstringKey = "newstring")
+            #end
+            #set ($oldText = "") #set ($newText = "")
+            #set ($oldText = $velocityhelper.getPrettyFieldString($changeitem.getString("field"), $changeitem.getString($oldstringKey), $i18n, ""))
+            #set ($newText = $velocityhelper.getPrettyFieldString($changeitem.getString("field"), $changeitem.getString($newstringKey), $i18n, ""))
+            $!diffutils.diff($oldText, "background-color:${auiErrorBackgroundColour};text-decoration:line-through;", $newText, "background-color:${auiSuccessBackgroundColour};")
+        </td>
+    </tr>
+    #end
+    #end
+#end

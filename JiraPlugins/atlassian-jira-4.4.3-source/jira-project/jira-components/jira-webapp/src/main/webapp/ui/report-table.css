@@ -1,0 +1,6 @@
+table.report { border: none; border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; vertical-align: top; }
+table.report td, table.report th { font-weight:normal; margin: 0; padding: 3px; vertical-align: top; }
+table.report th.reportHeading { background-color: #f0f0f0; }
+table.report th.subHeading { background-color: #fffff0; }
+table.report th.subHeading h3 { float: left; margin-bottom: 5px; margin-top: 5px; }
+table.report .graphLabel, table.report .graphDescription, table.report .percentageGraph { float: right; }

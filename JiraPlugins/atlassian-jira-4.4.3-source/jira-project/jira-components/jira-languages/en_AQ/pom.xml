@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.atlassian.jira</groupId>
+        <artifactId>jira-languages</artifactId>
+        <version>4.4.3</version>
+    </parent>
+    <artifactId>jira-lang-en_AQ</artifactId>
+    <name>Atlassian JIRA - Language Packs - en_AQ</name>
+    <description>Auto-generated language pack for testing purposes. Not to be bundled with a release.</description>
+    <properties>
+        <generated.locale.dir>${project.build.directory}/generated-sources/pseudo-loc</generated.locale.dir>
+    </properties>
+    <build>
+        <resources>
+            <resource>
+                <directory>${generated.locale.dir}</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>pseudo-loc-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>pseudo-loc</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>pseudo-loc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sourceLocale>en_UK</sourceLocale>
+                    <targetLocale>en_AQ</targetLocale>
+                    <replaceLocaleActions>
+                        <replaceLocaleAction>
+                            <source>../{loc}/src/main/resources/language-descriptor.xml</source>
+                            <target>${generated.locale.dir}/language-descriptor.xml</target>
+                        </replaceLocaleAction>
+                    </replaceLocaleActions>
+                    <pseudoLocaliseActions>
+                        <pseudoLocaliseAction>
+                            <source>../../jira-core/src/main/resources/com/atlassian/jira/web/action/JiraWebActionSupport.properties</source>
+                            <target>${generated.locale.dir}/com/atlassian/jira/web/action/JiraWebActionSupport_{loc}.properties</target>
+                        </pseudoLocaliseAction>
+                    </pseudoLocaliseActions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

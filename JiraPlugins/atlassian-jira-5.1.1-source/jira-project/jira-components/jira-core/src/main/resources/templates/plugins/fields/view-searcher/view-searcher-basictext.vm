@@ -1,0 +1,6 @@
+##disable_html_escaping() TODO REENABLE
+#searcherHeader ($customField)
+#if ($value)
+$textutils.htmlEncode($value)
+#end
+#searcherFooter ($customField)

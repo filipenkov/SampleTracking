@@ -1,0 +1,28 @@
+##disable_html_escaping() TODO REENABLE
+<div class="mod-header">
+    <ul class="ops">
+        <li><a id="frag${fragid}_more" class="icon icon-view" href="$baseurl/browse/${project.key}?selectedTab=com.atlassian.jira.plugin.system.project:versions-panel&subset=-1" title=""><span>$i18n.getText('common.concepts.more')</span></a></li>
+    </ul>
+    <h3>$i18n.getText('browseproject.summary.unreleased.versions')</h3>
+</div>
+<div class="mod-content">
+    <ul class="issues">
+    #foreach ($version in $versions)
+        #if ($version.releaseDate)
+        <li class="vevent">
+            #versionStatus($version 16)
+            <a class="url version summary" href="${baseurl}/browse/${project.key}/fixforversion/${version.id}">$textutils.htmlEncode($version.name)</a>
+            <span class="date">
+                <span class="label">$i18n.getText('version.releasedate'): </span><abbr class="dtstart" title="$outlookdate.formatIso8601Date($version.releaseDate)">$outlookdate.formatSmart($version.releaseDate, $SFM_HIDE)</abbr>
+            </span>
+        </li>
+        #else
+        <li>
+            #versionStatus($version 16)
+            <a href="${baseurl}/browse/${project.key}/fixforversion/${version.id}" class="version">$textutils.htmlEncode($version.name)</a>
+            <span class="date">&nbsp;</span>
+        </li>
+        #end
+    #end
+    </ul>
+</div>

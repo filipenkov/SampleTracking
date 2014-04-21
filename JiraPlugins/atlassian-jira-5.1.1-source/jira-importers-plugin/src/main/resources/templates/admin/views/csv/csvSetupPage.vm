@@ -1,0 +1,32 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.imports.csv.web.CsvSetupPage" *#
+#parse('/templates/admin/views/common/import-header.vm')
+
+#set ($auiparams = $map.build('name', 'csvFile', 'label', 'jira-importer-plugin.external.csv.import.file.location', 'required', true))
+#set ($auiparams.description = $i18n.getText('jira-importer-plugin.csv.file.size.limit', [$action.fileSize.format($action.attachmentSize), $req.contextPath]))
+#parse("/templates/standard/aui.vm")
+#parse("/templates/standard/normalHeader.vm")
+<input type="file" name="csvFile">
+#parse("/templates/standard/normalFooter.vm")
+
+#parse('/templates/admin/views/common/configFile.vm')
+
+<div class="module toggle-wrap collapsed" id="advanced">
+	<div id="advanced_heading" class="mod-header"><h3 class="toggle-title" style="border: none;">Advanced</h3></div>
+	<div class="mod-content">
+		#set ($auiparams = $map.build('name', 'encoding', 'label', 'jira-importer-plugin.csv.file.encoding', 'value', $action.encoding, 'size', 10, 'required', true))
+		#parse("/templates/standard/textfield.vm")
+
+		#set ($auiparams = $map.build('name', 'delimiter', 'label', 'jira-importer-plugin.external.csv.delimiter', 'required', false, 'value', $action.delimiter, 'size', 10))
+		#set ($auiparams.description = 'jira-importer-plugin.external.csv.delimiter.description')
+		#parse("/templates/standard/textfield.vm")
+	</div>
+</div>
+
+<script type="text/javascript">
+	AJS.${esc.dollar}(function() {
+		if (AJS.$("#advanced .error").length > 0) {
+			importer.toggle.expand("#advanced");
+		}
+	});
+</script>
+#parse("/templates/admin/views/common/standardSetupFooter.vm")

@@ -1,0 +1,7 @@
+#viewLinks {margin:0 0 1em;}
+#viewLinks .linkDetailTable {width:49%;}
+#viewLinks .linkDetailTable table {border:0;background-color:transparent;}
+#viewLinks .summary {font-size:1em;width:80%}
+#viewLinks thead th {border:none;font-weight:400;}
+.manage-links-title {margin-left:0.166em;}
+.attribute-wrap {float:right;width:40px;}

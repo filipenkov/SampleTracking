@@ -1,0 +1,67 @@
+@import "dynamic:lookandfeel.less";
+@import "variables.less";
+
+#stalker, .issue-header {
+
+    clear: both;
+    left: 0;
+    margin: 0;
+    min-width: 958px;
+    position:relative;
+    padding:0 @gutter;
+    right: 0;
+    width: auto;
+    z-index: 100;
+    + .content-container {
+        margin-top: 0;
+        padding-top: 0;
+        > .content-body {
+            .bordered (0, 1px, 1px, 1px);
+            .rounded (0, 0, 5px, 5px);
+            padding-top: 0;
+            margin-top: 0;
+        }
+    }
+
+    .stalker-content, .issue-header-content {
+        padding: @gutter 0 0;
+        background-color: @bodybgcolour;
+        > h1 > a { text-decoration: none; }
+        .ops-cont {
+            background-color: #fff;
+            .bordered (1px, 1px, 0, 1px);
+            .rounded (5px, 5px, 0, 0);
+            margin: 0;
+            padding: @gutter;
+        }
+        .command-bar {
+            margin: @gutter 0 0 0;
+        }
+        #issue-comment-add {
+            clear: both;
+            textarea#comment {
+                .border-box;
+                height: 45px;
+                max-height: 90px;
+                width: 100%;
+            }
+        }
+    }
+    &.detached:after,
+    &.action:after  {
+        content: '';
+        display: block;
+        .bordered (0, 1px, 0, 1px);
+        .border-box;
+        height: 9px;
+        margin: 0 0 -9px 0;
+        min-width: 956px;
+        visibility: visible;
+    }
+    &.detached:after {
+        background: url(../../../images/stalker-std-grad.png) repeat-x scroll 0 0;
+    }
+    &.action:after  {
+        background: url(../../../images/stalker-ext-grad.png) repeat-x scroll 0 0;
+    }
+}

@@ -1,0 +1,19 @@
+#if(!$showContactForm)
+<div class="aui-message info login-msg"><span class="aui-icon icon-info"></span>
+    #set($i18nHtml = $i18n.getText("collector.plugin.template.logged.in", "<a
+            href='$canocialBaseurl/secure/ViewProfile.jspa?name=$!{user.name}'
+            target='_blank'>", $!user.displayName, "</a>", "<a href='#' id='not-you-lnk'>"))
+    $i18nHtml
+</div>
+#end
+
+<div id="name-group" class="contact-form-fields field-group #if(!$showContactForm)hidden#end">
+    <label for="fullname">$i18n.getText('collector.plugin.template.bug.name')</label>
+    <input type="text" name="fullname" class="text" id="fullname">
+</div>
+
+<div id="email-group" class="contact-form-fields field-group #if(!$showContactForm)hidden#end">
+    <label for="email">$i18n.getText('collector.plugin.template.bug.email')</label>
+    <input type="text" name="email" class="text" id="email">
+</div>
+#parse('templates/form-fields-blur.vm')

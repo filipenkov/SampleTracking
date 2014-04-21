@@ -1,0 +1,61 @@
+{namespace JIRA.Legacy.Templates}
+
+/**
+* Renders mentions suggestions
+* @param suggestions
+* @param hasSuggestions
+*/
+{template .mentionsSuggestions}
+<div class="aui-list">
+    {if $hasSuggestions}
+        <ul>
+            {foreach $suggestion in $suggestions}
+            <li class="aui-list-item">
+                <a class="aui-list-item-link aui-iconised-link"
+                   style="background-image: url({$suggestion.avatarUrls['16x16']}); overflow:hidden; text-overflow: ellipsis"
+                   rel="{$suggestion.username}"
+                   href="#">
+                   {call .highlitEntry}
+                       {param displayName: $suggestion.displayName /}
+                       {param emailAddress: $suggestion.emailAddress /}
+                       {param name: $suggestion.name /}
+                   {/call}
+                   </a>
+            </li>
+            {/foreach}
+        <ul>
+    {else}
+        <div class="no-suggestions">Found no matching users</div>
+    {/if}
+</div>
+{/template}
+
+/**
+ * Prints the display name, email address and name of a user (and hightlights if neccessary
+ *
+ * @param displayName
+ * @param emailAddress
+ * @param name
+ */
+{template .highlitEntry}
+    {call .highlightMention}
+        {param match: $displayName /}
+    {/call} - {call .highlightMention}
+        {param match: $emailAddress /}
+    {/call} ({call .highlightMention}
+        {param match: $name /}
+    {/call})
+{/template}
+
+/**
+ * Prints highlit text (if any).
+ *
+ * @param match
+ */
+{template .highlightMention}
+    {if not $match.text}
+        {$match.prefix}<em>{$match.match}</em>{$match.suffix}
+    {else}
+        {$match.text}
+    {/if}
+{/template}

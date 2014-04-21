@@ -1,0 +1,48 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.atlassian.gadgets</groupId>
+        <artifactId>atlassian-gadgets</artifactId>
+        <version>3.2.0-m2</version>
+    </parent>
+    <artifactId>atlassian-gadgets-shared</artifactId>
+    <name>Atlassian Gadgets Shared Libraries</name>
+    <description>A library used internally by the dashboard and directory plugins</description>
+    <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.sal</groupId>
+            <artifactId>sal-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-plugins-webresource</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-plugins-webfragment</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.bundles</groupId>
+            <artifactId>google-collections</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>atlassian-gadgets-api</artifactId>
+        </dependency>
+    </dependencies>
+
+    <!-- Gadgets does not nest its artifacts the way the maven-scm-plugin assumes, so we need to override that here -->
+    <scm>
+        <connection>scm:svn:https://studio.atlassian.com/svn/AG/tags/atlassian-gadgets-3.2.0-m2/shared</connection>
+        <developerConnection>scm:svn:https://studio.atlassian.com/svn/AG/tags/atlassian-gadgets-3.2.0-m2/shared</developerConnection>
+        <url>https://studio.atlassian.com/source/browse/AG/tags/atlassian-gadgets-3.2.0-m2/shared</url>
+    </scm>
+</project>

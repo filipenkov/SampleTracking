@@ -1,0 +1,333 @@
+#disable_html_escaping()
+#* @vtlvariable name="action" type="com.atlassian.jira.lookandfeel.EditLookAndFeel" *#
+
+#set ($SQ = "'")
+#set ($spacer_gif = "${action.contextPath}/images/border/spacer.gif")
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="${webResourceManager.getStaticPluginResource('com.atlassian.jira.lookandfeel:edit-look-and-feel', 'css/edit-look-and-feel.css')}">
+    <link rel="stylesheet" type="text/css" href="${webResourceManager.getStaticPluginResource('com.atlassian.jira.lookandfeel:edit-look-and-feel', 'css/default-logo.css')}">
+    <meta name="admin.active.section" content="admin_system_menu/top_system_section/user_interface"/>
+    <meta name="admin.active.tab" content="lookandfeel"/>
+	<title>$action.htmlEncode($action.getText('admin.globalsettings.lookandfeel.edit.look.and.feel.configuration'))</title>
+</head>
+
+<body>
+<script type="text/javascript" charset="utf-8" src="${webResourceManager.getStaticPluginResource('com.atlassian.jira.lookandfeel:edit-look-and-feel', 'js/edit-look-and-feel.js')}"></script>
+
+
+<dl style="display:none;" id="jira.webresource.flushcounter">$action.lookAndFeelVersionNumber</dl>
+<form onsubmit="if (this.submitted) return false; this.submitted = true; return true" enctype="multipart/form-data" name="jiraform" method="post" action="EditLookAndFeel.jspa">
+<input type="hidden" name="atl_token" value="$atl_token" />
+<input type="hidden" name="logoWidth" value="$action.logoWidth" />
+<input type="hidden" name="logoHeight" value="$action.logoHeight" />
+
+<div class="options-container">
+     #if ($action.hasAnyErrors())
+        #parse("templates/actions/errormessages.vm")
+     #end
+    <div class="logo-options-container">
+        <h3 class="formtitle">$action.htmlEncode($action.getText("admin.globalsettings.lookandfeel.logo"))</h3>
+        <div class="options" id="logo-options">
+            <ul>
+                <li>
+                    <div class="option option-jira #if($action.defaultLogoOption) selected #end" id="logo-option-jira"></div>
+                    <span>Default</span>
+                    <input id="logo-option-jira-input" type="radio" value="jira" name="logoOption" #if($action.defaultLogoOption) checked="true" #end />
+                </li>
+                <li>
+                    <div class="option option-upload #if($action.uploadLogoOption) selected #end" id="logo-option-upload"></div>
+                    <span>Upload</span>
+                    <input id="logo-option-upload-input" type="radio" value="upload" name="logoOption" #if($action.uploadLogoOption) checked="true" #end />
+                </li>
+                <li>
+                    <div class="option option-url #if($action.urlLogoOption) selected #end" id="logo-option-url"></div>
+                    <span>URL</span>
+                    <input id="logo-option-url-input" type="radio" value="url" name="logoOption" #if($action.urlLogoOption) checked="true" #end />
+                </li>
+            </ul>
+
+            <div class="option-actions">
+                <div class="option-action" id="logo-option-upload-fields">
+                    <input id="logo_file" type="file" name="logoFile" value="" size="20"/>
+                    <br/>
+                    <span class="description">
+                    $action.htmlEncode($action.getText("jira.lookandfeel.logo.file.desc"))
+                    </span>
+                </div>
+                <div class="option-action" id="logo-option-url-fields">
+                    <input id="logo_url" type="text" value="${action.logoUrl}" name="logoUrl" size="30" />
+                    <br>
+                    <span class="description">$action.htmlEncode($action.getText('jira.lookandfeel.logo.url.desc'))</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="favicon-options-container">
+        <h3 class="formtitle">Favicon</h3>
+        <div class="options" id="favicon-options">
+            <ul>
+                <li>
+                    <div class="option option-jira #if($action.defaultFaviconOption) selected #end" id="favicon-option-jira"></div>
+                    <span>Default</span>
+                    <input id="favicon-option-jira-input" type="radio" value="jira" name="faviconOption" #if($action.defaultFaviconOption) checked="true" #end />
+                </li>
+                <li>
+                    <div class="option option-upload #if($action.uploadFaviconOption) selected #end" id="favicon-option-upload"></div>
+                    <span>Upload</span>
+                    <input id="favicon-option-upload-input" type="radio" value="upload" name="faviconOption" #if($action.uploadFaviconOption) checked="true" #end />
+                </li>
+                <li>
+                    <div class="option option-url #if($action.urlFaviconOption) selected #end" id="favicon-option-url"></div>
+                    <span>URL</span>
+                    <input id="favicon-option-url-input" type="radio" value="url" name="faviconOption" #if($action.urlFaviconOption) checked="true" #end />
+                </li>
+            </ul>
+
+            <div class="option-actions">
+                <div class="option-action" id="favicon-option-upload-fields">
+                    <input id="favicon_file" type="file" name="faviconFile" value="" size="20"/>
+                    <br/>
+                    <span class="description">
+                    $action.htmlEncode($action.getText("jira.lookandfeel.favicon.file.desc"))
+                    </span>
+                </div>
+                <div class="option-action" id="favicon-option-url-fields">
+                    <input id="favicon_url" type="text" value="${action.faviconUrl}" name="faviconUrl" size="30" />
+                    <br>
+                    <span class="description">$action.htmlEncode($action.getText('jira.lookandfeel.favicon.url.desc'))</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+## Used below for colour inputs
+#macro( colourInput $name $label $colour )
+<tr>
+    <td class="fieldLabelArea">$action.htmlEncode($action.getText($label))</td>
+    <td class="fieldValueArea">
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tbody>
+            <tr>
+                <td style="padding:0px;">
+                    <input name="$name" size="40" value="$action.htmlEncode($colour)" type="text" >
+                </td>
+                <td style="padding:0px;">&nbsp;</td>
+                <td style="padding:0px;">
+                    <table border="1" cellpadding="0" cellspacing="1">
+                        <tbody>
+                        <tr>
+                            <td id="${name}-rep" style="padding: 0px; height: 18px; width: 18px; background-color: $action.htmlEncode($colour)">
+                                <a id="colorpicker-$name" href="#" onclick="window.open(${SQ}${action.contextPath}/secure/popups/colorpicker.jsp?element=$name&amp;defaultColor=${urlcodec.encode($colour)}${SQ}, 'colorpicker', 'menubar=yes,location=no,personalbar=no,scrollbar=yes,width=580,height=300,resizable');">
+                                    <img src="$spacer_gif" width="15" border="0" height="15">
+                                </a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </td>
+</tr>
+#end
+
+<div class="customize-landf">
+
+    <div class="twixi-block collapsed">
+        <div class="twixi-trigger">
+            <h5><span class="icon icon-twixi"></span>$action.htmlEncode($action.getText('jira.lookanfeel.customize.header'))</h5>
+        </div>
+    <div class="twixi-content">
+        <table class="jiraform maxWidth">
+            <tbody>
+
+            <tr>
+                <td colspan=2><h3 class="formtitle">$action.htmlEncode($action.getText('admin.globalsettings.lookandfeel.colours'))</h3></td>
+            </tr>
+
+            <!-- Header colours -->
+            #colourInput("topBgColour" "admin.globalsettings.lookandfeel.top.bar.colour" $action.topBgColour)
+            #colourInput("topHighlightBgColour" "admin.globalsettings.lookandfeel.top.bar.hilightcolour" $action.topHighlightBgColour)
+            #colourInput("topTextColour" "admin.globalsettings.lookandfeel.top.text.colour" $action.topTextColour)
+            #colourInput("topTextHighlightColour" "admin.globalsettings.lookandfeel.top.text.hilightcolour" $action.topTextHighlightColour)
+            #colourInput("topSeparatorColor" "admin.globalsettings.lookandfeel.top.separatorcolor" $action.topSeparatorColor)
+            
+            #if($action.isStudioEnabled())
+            <tr>
+                <td class="fieldLabelArea">$action.htmlEncode($action.getText("studio.lookandfeel.dropdown.arrow"))</td>
+                <td>
+                    <input type="radio" #if($action.isWhiteArrow())checked="checked"#end name="blackArrow" value="false" id="dropdown-arrow-white">
+                    <label for="dropdown-arrow-white">$action.htmlEncode($action.getText("studio.lookandfeel.dropdown.arrow.white"))</label>
+                    &nbsp;
+                    <input type="radio" #if($action.isBlackArrow())checked="checked" #end name="blackArrow" value="true" id="dropdown-arrow-black">
+                    <label for="dropdown-arrow-black">$action.htmlEncode($action.getText("studio.lookandfeel.dropdown.arrow.black"))</label>
+                    <br>
+                </td>
+            </tr>
+            #end
+
+            #colourInput("menuBgColour" "admin.globalsettings.lookandfeel.menu.bar.colour" $action.menuBgColour)
+            #colourInput("menuTextColour" "admin.globalsettings.lookandfeel.menu.bar.text.colour" $action.menuTextColour)
+            #colourInput("menuSeparatorColour" "admin.globalsettings.lookandfeel.menu.bar.separator.colour" $action.menuSeparatorColour)
+            #colourInput("linkColour" "admin.globalsettings.lookandfeel.link.colour" $action.linkColour)
+            #colourInput("linkAColour" "admin.globalsettings.lookandfeel.link.active.colour" $action.linkAColour)
+            #colourInput("headingColour" "admin.globalsettings.lookandfeel.heading.colour" $action.headingColour)
+
+            <tr>
+                <td align="right">&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+
+
+            <tr>
+                <td colspan="2"><h3 class="formtitle">$action.htmlEncode($action.getText('admin.globalsettings.lookandfeel.gadget.chrome.colors'))</h3></td>
+            </tr>
+
+            <!-- Gadget colours -->
+            #foreach($gadgetColour in $action.gadgetColors)
+            #set ($gadgetColourString = $gadgetColour.toString())
+                #colourInput("gadgetChromeColor$gadgetColourString" "admin.globalsettings.lookandfeel.gadget.colour.$gadgetColourString" $action.getGadgetColor($gadgetColour))
+            #end
+
+            <tr>
+                <td align="right">&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><h3 class="formtitle">$action.htmlEncode($action.getText('admin.globalsettings.lookandfeel.date.time.formats'))</h3>
+                $action.getText('admin.globalsettings.lookandfeel.documentation.for.date.time', '<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/text/SimpleDateFormat.html">', '</a>').
+                </td>
+            </tr>
+
+        #set ($exampleDate = $action.exampleDate)
+
+        <tr>
+            <td class="fieldLabelArea">$action.htmlEncode($action.getText('admin.globalsettings.lookandfeel.time.format'))</td>
+            <td class="fieldValueArea">
+                <input type="text" size="40" name="formatTime" value="$action.htmlEncode($action.formatTime)">
+                <div class="fieldDescription">$action.htmlEncode($action.getText('admin.globalsettings.lookandfeel.eg', "hh:mm a (${action.outlookDate.formatTime($exampleDate)})"))</div>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="fieldLabelArea">$action.htmlEncode($action.getText('admin.globalsettings.lookandfeel.day.format'))</td>
+            <td class="fieldValueArea">
+                <input type="text" size="40" name="formatDay" value="$action.htmlEncode($action.formatDay)">
+                <div class="fieldDescription">$action.htmlEncode($action.getText('admin.globalsettings.lookandfeel.eg', "EEEE hh:mm a (${action.outlookDate.formatDay($exampleDate)})"))</div>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="fieldLabelArea">$action.htmlEncode($action.getText('admin.globalsettings.lookandfeel.complete.date.time.format'))</td>
+            <td class="fieldValueArea">
+                <input type="text" size="40" name="formatComplete" value="$action.htmlEncode($action.formatComplete)">
+                <div class="fieldDescription">$action.htmlEncode($action.getText('admin.globalsettings.lookandfeel.eg', "dd/MMM/yy hh:mm a (${action.outlookDate.formatDMYHMS($exampleDate)})"))</div>
+            </td>
+        </tr>
+
+
+        <tr>
+            <td class="fieldLabelArea">$action.htmlEncode($action.getText('admin.globalsettings.lookandfeel.day.month.year.format'))</td>
+            <td class="fieldValueArea">
+                <input type="text" size="40" name="formatDMY" value="$action.htmlEncode($action.formatDMY)">
+                <div class="fieldDescription">$action.htmlEncode($action.getText('admin.globalsettings.lookandfeel.eg', "dd/MMM/yy (${action.outlookDate.formatDMY($exampleDate)})"))</div>
+            </td>
+        </tr>
+
+
+
+        #*
+        None of this is editable so I didn't bother converting it.
+            <component label="$action.getText('admin.globalsettings.lookandfeel.date.picker.format')" template="label.jsp">
+                <param name="'description'">
+                    $action.getText('admin.globalsettings.lookandfeel.please.edit.file')
+                </param>
+                <param name="'value'">
+                    $action.getText('admin.globalsettings.lookandfeel.not.currently.editable')
+                </param>
+            </component>
+
+            <component label="$action.getText('admin.globalsettings.lookandfeel.date.time.picker.format')" template="label.jsp">
+                <param name="'description'">
+                    $action.getText('admin.globalsettings.lookandfeel.please.edit.file')
+                </param>
+                <param name="'value'">
+                    $action.getText('admin.globalsettings.lookandfeel.not.currently.editable')
+                </param>
+            </component>
+        *#
+
+        <tr class="hidden">
+            <td>
+                <input type="hidden" value="false" name="preview" id="preview">
+            </td>
+        </tr>
+
+
+        <tr>
+            <td class="fieldLabelArea">$action.htmlEncode($action.getText('admin.globalsettings.lookandfeel.date.time.picker.useISO8601'))</td>
+            <td class="fieldValueArea">
+               <input type="checkbox"   value="true" name="useISO8601"   #if($action.useISO8601) checked="checked" #end >
+               <div class="fieldDescription">$action.htmlEncode($action.getText('admin.globalsettings.lookandfeel.date.time.picker.useISO8601.description'))</div>
+            </td>
+        </tr>
+
+
+        #if($action.hasUserFormatsToEdit())
+        <tr>
+           <td colspan="2"><h3 class="formtitle">$action.htmlEncode($action.getText('admin.globalsettings.lookandfeel.user.formats'))</h3></td>
+        </tr>
+
+            #foreach($type in $action.userFormatTypes)
+                #if($action.getUserFormatModuleDescriptorsForType($type.toString()).size() > 1)
+                    <tr>
+                        <td class="fieldLabelArea">$action.htmlEncode($action.getUserFormatTypeName($type))</td>
+                        <td class abbr="fieldValueArea">
+
+                    <select name="user_format_for_${type.toString()}">
+                        #foreach ($descriptor in $action.getUserFormatModuleDescriptorsForType($type))
+                            <p>$descriptor</p>
+                            <option value="$descriptor.getCompleteKey()"
+                            #if ($action.getUserFormatKey($type).equals($descriptor.getCompleteKey()))
+                               selected
+                            #end
+                            >$action.htmlEncode($descriptor.getName())</option>
+                        #end
+                    </select>
+                    </td></tr>
+                #end
+            #end
+            <tr>
+                <td align="right">&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        #end
+            </tbody>
+        </table>
+        <div class="landf-restore">
+           $action.htmlEncode($action.getText('admin.globalsettings.lookandfeel.set.selection.defaults'))
+       </div>
+       </div>
+
+    </div>
+ </div>
+<div class="buttons-container">
+    <input class="aui-button" type="submit" name="$action.htmlEncode($action.getText('common.forms.update'))" value="$action.htmlEncode($action.getText('common.forms.update'))">
+    <a class="aui-button-cancel" href="ViewLookAndFeel.jspa" title="Cancel (Ctrl + `)" accesskey="`" id="cancelButton">$action.htmlEncode($action.getText('common.forms.cancel'))</a>
+</div>
+<div class="reset-defaults">
+    $action.htmlEncode($action.getText('admin.globalsettings.lookandfeel.set.all.defaults'))
+</div>
+<div class="buttons-container">
+    <input class="aui-button" type="button" value="$action.htmlEncode($action.getText('admin.common.words.reset.defaults'))" onclick="location.href='EditLookAndFeel!reset.jspa?atl_token=' + window.atl_token()">&nbsp;
+</div>
+</form>
+
+</body>
+</html>

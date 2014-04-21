@@ -1,0 +1,32 @@
+#enable_html_escaping()
+#* @vtlvariable name="issueLinkContext" type="com.atlassian.jira.plugin.viewissue.issuelink.IssueLinkContext" *#
+
+#*Only render the icon if the $url is not null*#
+#macro (renderIcon $url $title $alt)
+    #if ($url)
+    <img src="$url" width="16" height="16" title="$!{title}" alt="$!{alt}" />
+    #end
+#end
+
+#set($contextMap = ${issueLinkContext.map})
+<p>
+    #renderIcon(${contextMap.iconUrl} ${contextMap.iconTooltip} ${contextMap.iconTooltip})
+    <span title="${contextMap.tooltip}">
+        <a href="${contextMap.url}" class="link-title#if (${contextMap.resolved}) resolution#end">${contextMap.title}</a>
+        <span class="link-summary">$!{contextMap.summary}</span>
+    </span>
+</p>
+#if (${contextMap.priorityIconUrl} || ${contextMap.statusIconUrl})
+<ul class="link-snapshot">
+    #if (${contextMap.priorityIconUrl})
+    <li class="priority">#renderIcon(${contextMap.priorityIconUrl} ${contextMap.priorityIconTooltip} ${contextMap.priorityIconTooltip})</li>
+    #end
+    #if (${contextMap.statusIconUrl})
+        #if (${contextMap.statusIconLink})
+        <li class="status"><a href="${contextMap.statusIconLink}">#renderIcon(${contextMap.statusIconUrl} ${contextMap.statusIconTooltip} ${contextMap.statusIconTooltip})</a></li>
+        #else
+        <li class="status">#renderIcon(${contextMap.statusIconUrl} ${contextMap.statusIconTooltip} ${contextMap.statusIconTooltip})</li>
+        #end
+    #end
+</ul>
+#end

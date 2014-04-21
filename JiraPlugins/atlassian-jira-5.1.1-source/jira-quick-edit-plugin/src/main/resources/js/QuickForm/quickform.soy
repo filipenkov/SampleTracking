@@ -1,0 +1,68 @@
+{namespace JIRA.Templates.QuickForm}
+
+/**
+* Renders field
+*
+* @param editHtml - HTML for field
+*/
+{template .field}
+    {$editHtml|noAutoescape}
+{/template}
+
+/**
+*
+* Quick Form field picker
+* @param isConfigurable
+*/
+{template .fieldPicker}
+<div class="qf-picker">
+    <div class="qf-picker-header">
+        <dl>
+            <dt>{getText('quickform.configure.show.fields')}</dt>
+            {if $isConfigurable}
+                <dd><a class="qf-unconfigurable" href="#">{getText('common.words.all')}</a></dd>
+                <dd>{getText('quickform.configure.custom')}</dd>
+            {else}
+                <dd>{getText('common.words.all')}</dd>
+                <dd><a class="qf-configurable" href="#">{getText('quickform.configure.custom')}</a></dd>
+            {/if}
+        </dl>
+    </div>
+    <div class="qf-picker-content {if not $isConfigurable}qf-picker-unconfigurable{/if}"></div>
+    <div class="qf-picker-footer"></div>
+</div>
+{/template}
+
+/**
+* Renders Field Picker Button
+*
+* @param isActive
+* @param fieldId
+* @param label
+* @param required
+*/
+{template .configurablePickerButton}
+<a title="{$label}" data-field-id="{$fieldId}" class="qf-picker-button{if $isActive} qf-active{/if}" href="#">{$label}{if $required}<span class="aui-icon icon-required"></span>{/if}</a>
+{/template}
+
+/**
+* Renders Field Picker Button
+*
+* @param isActive
+* @param fieldId
+* @param label
+* @param required
+*/
+{template .unconfigurablePickerButton}
+<span title="{$label}" data-field-id="{$fieldId}" class="qf-picker-button{if $isActive} qf-active{/if}" href="#">{$label}{if $required}<span class="aui-icon icon-required"></span>{/if}</span>
+{/template}
+
+/**
+* @param message
+*/
+{template .errorMessage}
+<div class="aui-message error">
+    <span class="aui-icon icon-error"></span>
+    {$message}
+</div>
+{/template}

@@ -1,0 +1,143 @@
+@import "dynamic:lookandfeel.less";
+
+// urls to dynamic images
+@uniquehash: %("%s-%s", @systemBuildNumber, @systemCounter);
+@dropdowns-topTxt-topBackground: %("%s/rest/api/1.0/dropdowns/%s/%s/%s/img.png", @contextPath, @uniquehash, encodeURIComponent(@topTxtColour), encodeURIComponent(@topBackgroundColour));
+@dropdowns-topTextHighlight-topHighlight: %("%s/rest/api/1.0/dropdowns/%s/%s/%s/img.png", @contextPath, @uniquehash, encodeURIComponent(@topTextHighlightColor), encodeURIComponent(@topHighlightColor));
+@header-separator-topTxtColour-topBackground: %("%s/rest/api/1.0/header-separator/%s/%s/%s/img.png", @contextPath, @uniquehash, encodeURIComponent(@topTxtColour), encodeURIComponent(@topBackgroundColour));
+@header-separator-topTextHighlight-topHighlight: %("%s/rest/api/1.0/header-separator/%s/%s/%s/img.png", @contextPath, @uniquehash, encodeURIComponent(@topTextHighlightColor), encodeURIComponent(@topHighlightColor));
+@header-separator-menuSeparator-menuBackground: %("%s/rest/api/1.0/header-separator/%s/%s/%s/img.png", @contextPath, @uniquehash, encodeURIComponent(@menuSeparatorColour), encodeURIComponent(@menuBackgroundColour));
+@dropdowns-menuTxt-menuBackground: %("%s/rest/api/1.0/dropdowns/%s/%s/%s/img.png", @contextPath, @uniquehash, encodeURIComponent(@menuTxtColour), encodeURIComponent(@menuBackgroundColour));
+
+#header {background-color:@topBackgroundColour;color:@topTxtColour;position:relative;z-index:1999;}
+#header ul {list-style-type:none;margin-left:0;margin-bottom:0;}
+#header a.lnk {font-size:1.08333em;text-decoration:none;line-height:1.8;}
+#header a.lnk:hover {text-decoration:none;}
+#header .aui-dropdown {min-width:180px;} /* AUI override */
+
+.msie-7 #header-top a.lnk,
+.msie-7 #header-bottom #main-nav a.lnk {position:relative;top:-2px;}
+.msie-7 #header-top .drop-wrap,
+.msie-7 #header-bottom #main-nav li .drop-wrap {top:0;}
+.msie-7 div.aui-list ul li ul {height:1%;}
+.msie-7 #header .aui-dropdown {min-width:0;width:200px;}
+.msie-7 #header .aui-dropdown a {overflow:hidden;text-overflow:ellipsis;}
+
+/* Header Top */
+#header-top {background:transparent none no-repeat 0 0 scroll;border-bottom:none;height:auto;min-height:2.6em;}
+    /* Logo */
+    #logo {display:block;float:left;width:auto;}
+
+    /* Quick search */
+    #quicksearch {background-color:#fff;border:1px solid #ddd;float:right;margin:5px 7px 0 0;position:relative;top:3px;}
+    .msie #quicksearch {margin-top:3px;}
+    #quicksearch input {border:0 solid #fff;border-left:none;color:#333;font-size:1em;height:1.3em;padding-left:0.3em;width:15em;}
+    #quicksearch label {width:100%;}
+    #quicksearch .key-shortcut {display:block;font-size:0.9em; margin-top:5px;}
+    .multi-select .overlabel-apply {top:5px;}
+
+    /* header links */
+    .header-link-container {float:right;margin:5px 9px 0 0;padding:0;width:auto;}
+    .msie-9 .header-link-container {margin-top:3px;}
+    #header-top a.lnk {color:@topTxtColour;}
+    #header-top a.lnk:hover {text-decoration:underline;}
+    #header-top .drop-wrap {background-position:0 2px;background-repeat:no-repeat;display:inline-block;height:15px;left:0;padding:1px 0 2px 3px;position:relative;top:3px;width:15px;}
+    #header-top a.drop {display:inline-block;background-position:50% 50%;background-repeat:no-repeat;height:15px;width:15px;}
+    #header-top a.drop span {position:absolute;left:-9000em;top:-9000em;}
+    #header-top div.aui-dd-parent {display:block;height:24px;line-height:1.5;margin-left:0.4em;padding:0 0.31667em 0 0.4em;width:auto;}
+    #header-top div.aui-dd-parent a.lnk {color:@topTxtColour;}
+    #header-top div.aui-dd-parent a.drop {background-image:url(@dropdowns-topTxt-topBackground);}
+    #header-top div.aui-dd-parent.active,
+    #header-top div.aui-dd-parent:hover {background-color:@topHighlightColor;}
+    #header-top div.aui-dd-parent.active a.lnk,
+    #header-top div.aui-dd-parent:hover a.lnk {color:@topTextHighlightColor;}
+    #header-top #popup-profile-user {color:@topTxtColour;}
+    #jira #header-top a.aui-dd-link span {padding-right:14px;} /* AUI override */
+    #jira #header-top a.aui-dd-link {display:inline-block} /* AUI override */
+    #header-top div:hover a.drop {
+        background-image: url(@dropdowns-topTextHighlight-topHighlight);
+    }
+    #header-top div.active a.drop,
+    #header-top div a.drop:hover,
+    #header-top div a.drop:active,
+    #header-top div a.drop:focus {background-color:@topBackgroundColour;background-image: url(@dropdowns-topTxt-topBackground);}
+    #header-top div .drop-wrap {background-image: url(@header-separator-topTxtColour-topBackground);}
+    #header-top div:hover .drop-wrap,
+    #header-top div.active .drop-wrap {background-image: url(@header-separator-topTextHighlight-topHighlight);}
+    #header-top a.lnk.admin-mode-lnk {text-decoration: underline;}
+    #header-top a.lnk.admin-mode-lnk:hover {text-decoration: none;}
+
+/* Header Bottom */
+#header-bottom {background-color:@menuBackgroundColour;border-top:1px solid @topSeparatorBackgroundColor;clear:both;height:auto;min-height:24px; overflow: hidden;}
+    #header-bottom li.aui-dd-parent {display:block;float:left;height:24px;line-height:1.5;margin-left:0.4em;padding:0 0.31667em 0 0.4em;width:auto;}
+    #header-bottom #main-nav .aui-dropdown {border-top:none;}
+    #header-bottom #main-nav a.lnk {color:@menuTxtColour;}
+    #header-bottom #main-nav li.aui-dd-parent {background-color:@menuBackgroundColour;}
+    #header-bottom #main-nav li.aui-dd-parent.selected {background-color:#f7f7f7;}
+    #header-bottom #main-nav li.aui-dd-parent.active,
+    #header-bottom #main-nav li.aui-dd-parent:hover {background-color:#fff;}
+    #header-bottom #main-nav li.aui-dd-parent a.lnk:hover,
+    #header-bottom #main-nav li.aui-dd-parent a.lnk:active,
+    #header-bottom #main-nav li.aui-dd-parent a.lnk:focus,
+    #header-bottom #main-nav li.aui-dd-parent.active a.lnk:hover {text-decoration:underline;}
+    #header-bottom #main-nav li.aui-dd-parent:hover a.lnk,
+    #header-bottom #main-nav li.aui-dd-parent.active a.lnk,
+    #header-bottom #main-nav li.aui-dd-parent.selected a.lnk {color:#333;}
+
+    #header-bottom #main-nav li .drop-wrap {background-image: url(@header-separator-menuSeparator-menuBackground);background-position:0 2px;background-repeat:no-repeat;display:inline-block;height:16px;left:0;padding:1px 0 2px 0px;position:relative;top:3px;width:16px;}
+    #header-bottom #main-nav li a.drop {background-image:url(@dropdowns-menuTxt-menuBackground);background-position:50% 50%;background-repeat:no-repeat;display:inline-block;height:15px;width:15px;}
+    #header-bottom #main-nav li a.drop span {position:absolute;left:-9000em;top:-9000em;}
+
+    #header-bottom #main-nav li:hover a.drop,
+    #header-bottom #main-nav li.selected a.drop {background-image: url("../../../images/menu_indicator_for_light_backgrounds.gif")}
+    #header-bottom #main-nav li.active a.drop,
+    #header-bottom #main-nav li a.drop:hover,
+    #header-bottom #main-nav li a.drop:active,
+    #header-bottom #main-nav li a.drop:focus {
+        @url: %("%s/rest/api/1.0/dropdowns/%s/fff/ccc/img.png", @contextPath, @uniquehash);
+        background-color:#ccc;background-image: url(@url);
+    }
+    #header-bottom #main-nav li.selected .drop-wrap {
+        @url: %("%s/rest/api/1.0/header-separator/%s/ccc/f7f7f7/img.png", @contextPath, @uniquehash);
+        background-image: url(@url);
+    }
+    #header-bottom #main-nav li:hover .drop-wrap,
+    #header-bottom #main-nav li.active .drop-wrap {
+        @url: %("%s/rest/api/1.0/header-separator/%s/ccc/ffffff/img.png", @contextPath, @uniquehash);
+        background-image: url(@url);
+    }
+
+    #header-bottom #main-nav li:hover.loading a.drop {background:#fff url(../../../images/icons/wait.gif) 0 0 no-repeat; height:16px; width:16px; margin-left:-1px; margin-top:-1px;}
+
+    /* The admin menus are different to normal menus.  They are just dropdowns */
+    #header-bottom #main-nav.admin-menu-bar li span.drop-wrap {background-image: none;}
+    #header-bottom #main-nav.admin-menu-bar li.active a.drop,
+    #header-bottom #main-nav.admin-menu-bar li a.drop:hover,
+    #header-bottom #main-nav.admin-menu-bar li a.drop:active,
+    #header-bottom #main-nav.admin-menu-bar li a.drop:focus {
+        background-color:#fff;background-image: url("../../../images/menu_indicator_for_light_backgrounds.gif")
+    }
+    #header-bottom #main-nav.admin-menu-bar li.aui-dd-parent a.lnk:hover,
+    #header-bottom #main-nav.admin-menu-bar li.aui-dd-parent a.lnk:active,
+    #header-bottom #main-nav.admin-menu-bar li.aui-dd-parent a.lnk:focus,
+    #header-bottom #main-nav.admin-menu-bar li.aui-dd-parent.active a.lnk:hover {text-decoration:none;}
+    #header-bottom #main-nav.admin-menu-bar li.aui-dd-parent {cursor: pointer;}
+    
+    /* menu */
+    .menu-bar {display:block;overflow:visible;width:auto;}
+
+    /* create item */
+#create_link {}
+    #create_link {background:transparent url('../../../images/icons/create_12.png') no-repeat 0.4999em 0.4166em;color:@menuTxtColour;display:block;float:right;height:24px;outline:0;padding:0 7px 0 21px;}
+    #createItem #create_link:hover,
+    #createItem #create_link:active,
+    #createItem #create_link:focus,
+    #createItem.active #create_link {color:#333;background-color:#fff;}
+    #invalid-type {padding-left:1em} /* should be refactored to a class - guessing tests need updating*/
+
+.perf-monitor {cursor:pointer;width:10px;height:10px;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;background-color:#008000;border:1px solid #000;display:inline-block;margin:10px 7px 0 7px;float:right;}
+.perf-monitor.toomanysql,
+.perf-monitor.tooslow {background-color:#ffA500;}
+.perf-monitor.tooslow.toomanysql {background-color:#f00;}
+#inline-dialog-perf-monitor-dialog {z-index:10000;}
+

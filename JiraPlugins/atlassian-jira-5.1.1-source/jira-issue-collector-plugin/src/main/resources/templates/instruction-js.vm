@@ -1,0 +1,11 @@
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;script src=<span class="snippet-string-text">"http://code.jquery.com/jquery-latest.js"</span>&gt;&lt;/script&gt;
+        &lt;script&gt;
+            <span class="snippet-insert-text">Insert collector source here</span>
+        &lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;<span class="snippet-standard-text">Hello World!</span>&lt;/h1&gt;
+    &lt;/body&gt;
+&lt;/html&gt;

@@ -1,0 +1,23 @@
+#parse ( "/templates/includes/xsrf.vm" )
+#parse ( "/templates/includes/errors.vm" )
+
+<div class="stp-module-main-block">
+	<p>$i18n.getText("stp.home.description")</p>
+	<div class="aui-message hint shadowed closeable">
+	    <p class="title">
+	        <span class="aui-icon icon-hint "></span>
+	        <strong>$i18n.getText("stp.hercules.pitch.title")</strong>
+	    </p>
+		<p>$i18n.getText("stp.hercules.tool.description")</p>
+		<p><a class="stp-module-link" href="#hercules">$i18n.getText("stp.hercules.pitch.link.text")</a></p>
+	</div>
+	<div class="aui-message hint shadowed closeable">
+	    <p class="title">
+	        <span class="aui-icon icon-hint "></span>
+	        <strong>$i18n.getText("stp.scheduler.health.pitch.title.text",$info.applicationName)</strong>
+	    </p>
+		<p>$i18n.getText("stp.scheduler.health.description")</p>
+		<p><a class="stp-module-link" href="#scheduled-health-report">$i18n.getText("stp.scheduler.health.pitch.link.text")</a></p>
+	</div>
+</div>
+

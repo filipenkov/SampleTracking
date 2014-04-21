@@ -1,0 +1,27 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ImporterSetupPage" *#
+
+#set ($auiparams = $map.build('name', 'siteUrl', 'label', $i18n.getText('jira-importer-plugin.external.site.url', $action.title), 'size', 60, 'value', $action.siteUrl))
+#parse("/templates/standard/textfield.vm")
+
+#set ($auiparams = $map.build('name', 'siteCredentials', 'label', 'jira-importer-plugin.importer.useCredentials', 'value', $action.siteCredentials))
+#if ($action.title == "Bugzilla")
+	#set ($auiparams.description = "<p/><div class='aui-message warning'><p class='title'><span class='aui-icon icon-warning'></span><strong></strong></p>$i18n.getText('jira-importer-plugin.importer.useCredentials.warning')</div>")
+#end
+#parse("/templates/standard/checkbox.vm")
+
+#set ($auiparams = $map.build('name', 'siteUsername', 'label', $i18n.getText('jira-importer-plugin.site.login.name', $action.title), 'size', 60, 'value', $action.siteUsername))
+#set ($auiparams.controlHeaderClass = "urlCredentials")
+#parse("/templates/standard/textfield.vm")
+
+#set ($auiparams = $map.build('name', 'sitePassword', 'password', true, 'label', $i18n.getText('jira-importer-plugin.site.login.password', $action.title), 'size', 60, 'value', $action.sitePassword, 'autocomplete', true))
+#set ($auiparams.controlHeaderClass = "urlCredentials")
+#parse("/templates/standard/textfield.vm")
+
+<script type="text/javascript">
+	AJS.$('#siteCredentials').change(function () {
+		AJS.$('.urlCredentials').toggle(AJS.$(this).is(':checked'));
+	});
+	AJS.$(document).ready(function() {
+		AJS.$('#siteCredentials').change();
+	});
+</script>

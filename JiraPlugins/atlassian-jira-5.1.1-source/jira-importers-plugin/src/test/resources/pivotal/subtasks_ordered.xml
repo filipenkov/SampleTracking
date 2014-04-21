@@ -1,0 +1,23 @@
+<tasks type="array">
+	<task>
+		<id type="integer">7777777</id>
+		<description>Third Task</description>
+		<position>3</position>
+		<complete>true</complete>
+		<created_at type="datetime">2011/02/14 15:06:50 UTC</created_at>
+	</task>
+	<task>
+		<id type="integer">1341325</id>
+		<description>Second Task</description>
+		<position>2</position>
+		<complete>true</complete>
+		<created_at type="datetime">2011/02/14 15:06:40 UTC</created_at>
+	</task>
+	<task>
+		<id type="integer">1341323</id>
+		<description>First Task</description>
+		<position>1</position>
+		<complete>false</complete>
+		<created_at type="datetime">2011/02/14 15:06:30 UTC</created_at>
+	</task>
+</tasks>

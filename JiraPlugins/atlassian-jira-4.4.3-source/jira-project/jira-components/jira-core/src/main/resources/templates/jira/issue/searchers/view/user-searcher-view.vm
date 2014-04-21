@@ -1,0 +1,3 @@
+#searcherHeaderNoField($searcherId $name)
+$userformat.formatUser(${linkedUser}, 'profileLinkSearcher', 'searcher-profile-link', $map.build('linkedUser', $linkedUser, 'linkedGroup', $linkedGroup, 'textForuser', $textForuser, 'fieldValuesHolder', $fieldValuesHolder))
+#searcherFooter($searcher)

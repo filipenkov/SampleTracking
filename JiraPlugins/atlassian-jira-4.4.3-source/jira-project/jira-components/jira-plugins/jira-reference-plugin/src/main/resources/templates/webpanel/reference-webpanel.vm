@@ -1,0 +1,4 @@
+This is a reference web panel.
+User: $!{user.name}
+Issue: $!{issue.key}
+Project: $!{project.key}

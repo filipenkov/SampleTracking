@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<title>$action.getText('administrators.title')</title>
+		<meta name="decorator" content="frontpage" />
+	</head>
+	<body>
+	<table cellpadding=6 cellspacing=0 border=0 width=400>
+	<tr><td bgcolor=#dddddd>
+		<font color="#000000" size=3><b>$action.getText('administrators.title')</b></font>
+	</td></tr>
+	<tr><td bgcolor=#ffffff>
+		<p>
+		$action.getText('administrators.line1')
+		</p>
+
+		<p>
+		$action.getText('administrators.line2')
+		</p>
+
+        <ul>
+        #foreach ($admin in $jiraUserUtils.administrators)
+			<li><a href="mailto:$admin.email">$textutils.htmlEncode($admin.fullName)</a></li>
+        #end
+		</ul>
+	</td></tr>
+	</table>
+
+	</body>
+</html>

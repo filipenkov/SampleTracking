@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<test-configuration>
+  <alist>
+    <item>Hello Updated</item>
+    <item>Goodbye Updated</item>
+  </alist>
+</test-configuration>

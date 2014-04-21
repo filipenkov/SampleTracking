@@ -1,0 +1,32 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ImporterProcessSupport" *#
+
+#set ($helpPath = $action.helpUtil.getHelpPath($auiparams.helpURL))
+
+#if ($helpPath)
+    <a class="help-lnk"
+        #if ($helpPath.local)
+            title="${i18n.getText('local.help')} ${i18n.getText($helpPath.title)}"
+            href="$helpPath.url"
+        #else
+            title="${i18n.getText('online.help')} ${i18n.getText($helpPath.title)}"
+            href="$helpPath.url$!auiparams.helpURLFragment"
+        #end
+
+        #if ($helpPath.local)
+            onclick="var child = window.open('$helpPath.url', 'jiraLocalHelp', 'width=600, height=500, resizable, scrollbars=yes'); child.focus(); return false;"
+        #else
+            target="_jirahelp"
+        #end
+        >
+
+        <img src="${baseurl}/images/icons/ico_help.png" width="16" height="16" align="right" border="0"
+            #if ($helpPath.local)
+                title="${i18n.getText('local.help')} ${i18n.getText($helpPath.title)}"
+            #else
+                title="${i18n.getText('online.help')} ${i18n.getText($helpPath.title)}"
+            #end
+        />
+
+    </a>
+#end
+

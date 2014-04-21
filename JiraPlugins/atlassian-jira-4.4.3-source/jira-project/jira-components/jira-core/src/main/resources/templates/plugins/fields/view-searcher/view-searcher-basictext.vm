@@ -1,0 +1,5 @@
+#searcherHeader ($customField)
+#if ($value)
+$textutils.htmlEncode($value)
+#end
+#searcherFooter ($customField)

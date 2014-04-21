@@ -1,0 +1,181 @@
+#disable_html_escaping()
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.mail.webwork.ViewMailServers" *#
+$webResourceManager.requireResource("com.atlassian.jira.jira-mail-plugin:global-resources")
+$webResourceManager.requireResource("com.atlassian.jira.jira-mail-plugin:mail-handlers-table")
+<header>
+    <nav class="aui-toolbar">
+        <div class="toolbar-split toolbar-split-right">
+            <ul class="toolbar-group">
+                <li class="toolbar-item">
+                    <a class="toolbar-trigger" title="$action.getHelpPath('jmp.message.incoming_mail.servers').title"
+                       href="$action.getHelpPath('jmp.message.incoming_mail.servers').url" target="_jirahelp">
+                        <span class="icon icon-help"> <span> Get help! </span> </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <h2>$action.getText('admin.loggingandprofiling.mail.incoming')</h2>
+</header>
+<div id="pop-mail-servers-panel" class="module">
+    <h3>$action.getText('admin.mailservers.pop.imap.servers')</h3>
+    #if (!$action.popMailServers.empty)
+    <p>$action.getText('admin.mailservers.the.table.below.pop')</p>
+    #end
+
+    #set ($noMailServers = $action.popMailServers.empty)
+    #if (!$action.validMailParameters && !$noMailServers)
+        #AUImessage("warning" "" $action.invalidPopSettingsMessage "" "" "" "")
+    #end
+
+    #if ($noMailServers)
+        #AUImessage("info" "" $action.getText('admin.mailservers.no.pop.imap.servers.configured') "" "" "" "")
+    #else
+        <table id="pop-mail-servers-table" class="aui aui-table-rowhover">
+            <thead>
+                <tr>
+                    <th width="30%">$action.getText('common.words.name')</th>
+                    <th>$action.getText('admin.common.words.details')</th>
+                    <th width="10%">$action.getText('common.words.operations')</th>
+                </tr>
+            </thead>
+            <tbody>
+                #foreach($server in $action.popMailServers)
+                    <tr>
+                        <td>
+                            <span class="mail-server-name">
+                                <strong>$esc.html($server.name)</strong>
+                            </span>
+                            #if ($server.description)
+                                <div class="description">$esc.html($server.description)</div>
+                            #end
+                        </td>
+                        <td>
+                            <ul class="item-details">
+                                <li>
+                                    <dl>
+                                        <dt>$action.getText('admin.mailservers.host'):</dt>
+                                        <dd><span class="mail-server-host">$esc.html($server.hostname)</span></dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>$action.getText('common.words.username'):</dt>
+                                        <dd><span class="mail-server-username">$!esc.html($server.username)</span></dd>
+                                    </dl>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="operations-list">
+                                <li><a id="edit-pop-$server.id" href="UpdatePopMailServer!default.jspa?id=$server.id">$action.getText('common.words.edit')</a></li>
+                                <li><a id="delete-pop-$server.id" href="DeleteMailServer!default.jspa?id=$server.id">$action.getText('common.words.delete')</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                #end
+            </tbody>
+        </table>
+    #end
+
+    <div class="buttons-container">
+                <a class="aui-button" id="add-pop-mail-server" href="AddPopMailServer!default.jspa">$action.getText('admin.mailservers.configure.new.pop.imap.mail.server')</a>
+    </div>
+</div>
+
+<div id="mail-handlers-panel" class="module">
+    <h3>$action.getText("jmp.mailservers.mailhandlers")</h3>
+
+    #if (!$action.mailHandlers.empty)
+        <p>$action.getText("jmp.mailservers.mailhandlers.description")</p>
+
+        <table id="mail-handlers-table" class="aui aui-table-rowhover">
+            <thead>
+                <tr>
+                    <th width="30%">$action.getText('jmp.mailservers.mailhandlers.header.name')</th>
+                    <th>$action.getText('admin.service.common.handler.popserver')</th>
+                    <th>$action.getText('common.concepts.project')</th>
+                    <th>$action.getText('issue.field.issuetype')</th>
+                    <th>$action.getText('common.words.properties')</th>
+                    <th width="10%">$action.getText('common.words.operations')</th>
+                </tr>
+            </thead>
+            <tbody>
+                #set ($handlersWithOldOptionsExist = false)
+                #set ($handlerUsesObsoleteSettings = false)
+                #foreach($handler in $action.mailHandlers)
+                    #if ($action.isHandlerUsingObsoleteSettings($handler))
+                        #set ($handlerUsesObsoleteSettings = true)
+                        #set ($handlersWithOldOptionsExist = true)
+                    #end
+                    <tr>
+                        <td class="handler-name" id="handler-name-$handler.id">
+                            <strong>$esc.html($handler.name)#if ($handlerUsesObsoleteSettings) <span class="svg-icon warning size-14 obsolete-settings-hover"></span> #end</strong>
+                            <div class="description">$esc.html($action.getHandlerType($handler))</div>
+                        </td>
+                        <td id="handler-server-$handler.id">
+                            #if ($action.getServerName($handler))
+                                $esc.html($action.getServerName($handler))
+                                <div class="description">$esc.html($action.getServerDescription($handler))</div>
+                            #else
+                                $action.getText('jmp.editServerDetails.local.files')
+                                <div class="description">$esc.html($action.getFileServiceDirectory($handler))</div>
+                            #end
+                        </td>
+                        <td>
+                            #if ($action.getRelatedProjectKey($handler))
+                                #if ($action.getRelatedProject($handler))
+                                    #set ($project = $action.getRelatedProject($handler))
+                                    #if ($project.avatar.id)
+                                        <img alt="" class="project-avatar-16" height="16" src="${req.contextPath}/secure/projectavatar?size=small&pid=$project.id&avatarId=$project.avatar.id" width="16" />
+                                    #end
+                                    <a id="view-project-$project.id" href="${req.contextPath}/plugins/servlet/project-config/$project.key/summary">$esc.html($project.name)</a>
+                                #else
+                                    $esc.html($action.getRelatedProjectKey($handler)) - <span class="invalid">$action.getText('jmp.mailservers.mailhandlers.invalid')</span>
+                                #end
+                            #end
+                        </td>
+                        <td>#if ($action.getRelatedIssueType($handler))
+                                $issueConstantWebComponent.getHtml($action.getRelatedIssueType($handler))
+                                $esc.html($action.getRelatedIssueType($handler).getNameTranslation())
+                            #end
+                        </td>
+                        <td id="handler-params-$handler.id">
+                            <ul class="handler-params">#foreach($param in $action.getServiceParams($handler))
+                                <li><span class="handler-param-name">$esc.html($param.first()):</span> $esc.html($param.second())</li>
+                                #end
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="operations-list">
+                                #if ($handler.usable)
+                                <li><a id="edit-handler-$handler.id" class="edit" href="EditServerDetails!default.jspa?serviceId=$handler.id&atl_token=$atl_token">$action.getText('common.words.edit')</a></li>
+                                #end
+                                <li><a id="delete-handler-$handler.id" href="DeleteMailHandler.jspa?id=$handler.id&atl_token=$atl_token">$action.getText('common.words.delete')</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                #end
+           </tbody>
+        </table>
+
+        #if ($handlersWithOldOptionsExist == true)
+            #AUImessage("warning" "" $action.getText('jmp.mailservers.obsolete.options') "" "obsolete-settings-warning" "" "")
+        #end
+    #else
+        #AUImessage("info" "" $action.getText('jmp.mailservers.no.handlers.configured') "" "" "" "")
+    #end
+
+    <div class="buttons-container">
+                    #if ($noMailServers && !$action.systemAdministrator)
+                        <span class="aui-button disabled" id="add-incoming-mail-handler">$action.getText('jmp.mailservers.mailhandlers.new')</span>
+                    #else
+                        <a class="aui-button" id="add-incoming-mail-handler" href="EditServerDetails!default.jspa">$action.getText('jmp.mailservers.mailhandlers.new')</a>
+                    #end
+    </div>
+</div>
+#if ($noMailServers && !$action.systemAdministrator)
+    <div class="hints-section">$action.getText('jmp.selectEmailHandler.no.servers')</div>
+#end
+
+<div id="obsolete-settings-message" style="display:none;">
+	<div class="notify warn" style="border: none">$action.getText('jmp.mailservers.obsolete.options.handler')</div>
+</div>

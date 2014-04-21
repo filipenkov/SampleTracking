@@ -1,0 +1,10 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ImporterSetupPage" *#
+#parse('/templates/admin/views/common/import-header.vm')
+
+#if ($action.title != 'FogBugz')
+	#parse('/templates/admin/views/common/import-site.vm')
+#end
+
+#parse('/templates/admin/views/common/import-body.vm')
+
+#parse('/templates/admin/views/common/standardSetupFooter.vm')

@@ -1,0 +1,7 @@
+<mail-servers>
+
+    <smtp-server name="smtptwo">
+        <jndi-location>java:comp/env/Mail</jndi-location>
+    </smtp-server>
+
+</mail-servers>

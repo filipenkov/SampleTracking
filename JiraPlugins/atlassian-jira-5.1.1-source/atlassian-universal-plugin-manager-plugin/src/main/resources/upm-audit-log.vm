@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>$i18n.getText("upm.log.title")</title>
+    <meta name="decorator" content="atl.admin">
+    <meta name="admin.active.section" content="admin_plugins_menu/upm_section"/>
+    <meta name="admin.active.tab" content="upm-audit-link"/>
+    $webResourceManager.requireResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:upm-web-resources")
+    $webResourceManager.requireResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:audit-log-resources")
+    #if($applicationProperties.getDisplayName().toLowerCase() == "refimpl")
+    $webResourceManager.requireResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:refapp")
+    #end
+    $webResourceManager.requireResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:fakedata")
+</head>
+<body>
+    #parse("upm-resources.vm")
+    <div id="upm-container">
+        <div id="upm-panel-log" class="upm-panel">
+            <h2>
+                <img src="$webResourceManager.getStaticPluginResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:upm-web-resources", "images/upm-logo.png")" class="upm-logo" height="31" width="31" alt=""> 
+                <span id="upm-title">$i18n.getText("upm.log.title")</span>
+            </h2>
+            <p id="upm-log-description" class="hidden">
+                <a href="" title="$i18n.getText("upm.log.feed")" id="upm-audit-log-feed" target="_blank"><img src="$webResourceManager.getStaticPluginResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:upm-web-resources", "images/feedicon.png")" alt="$i18n.getText("upm.log.feed")" height="16" width="16"></a>
+                <span id="upm-log-policy"></span>
+                <span id="upm-log-configure" class="hidden">(<a href="#" id="upm-log-configure-link">$i18n.getText("upm.log.configure")</a>)</span>
+            </p>
+
+            <div id="upm-messages"></div>
+
+            <form action="" id="upm-log-configuration" class="hidden skip-dirty-check">
+                $purgePolicyInputWithHtml
+                <input type="submit" value="$i18n.getText("upm.log.confirm")" id="upm-log-configuration-submit">
+                <a href="#" id="upm-log-configuration-cancel">$i18n.getText("upm.log.cancel")</a>
+            </form>
+        </div>
+    </div>
+
+    <div id="upm-footer">
+        <p>$upmVersionTextWithHtml</p>
+    </div>
+
+    <script type="text/x-template" id="upm-log-template">
+        <div id="upm-audit-log">
+            <div id="upm-audit-log-pagination">
+                <a href="#" id="upm-audit-log-first" title="$i18n.getText("upm.log.first")"><span>$i18n.getText("upm.log.first")</span></a>
+                <a href="#" id="upm-audit-log-previous" title="$i18n.getText("upm.log.previous")"><span>$i18n.getText("upm.log.previous")</span></a>
+                <span id="upm-audit-log-count"></span>
+                <a href="#" id="upm-audit-log-next" title="$i18n.getText("upm.log.next")"><span>$i18n.getText("upm.log.next")</span></a>
+                <a href="#" id="upm-audit-log-last" title="$i18n.getText("upm.log.last")"><span>$i18n.getText("upm.log.last")</span></a>
+                <div class="clearer"></div>
+                <input id="upm-audit-log-first-url" type="hidden" value="">
+                <input id="upm-audit-log-previous-url" type="hidden" value="">
+                <input id="upm-audit-log-next-url" type="hidden" value="">
+                <input id="upm-audit-log-last-url" type="hidden" value="">
+            </div>
+            <table class="aui">
+                <thead>
+                <tr>
+                    <th id="auditLogMessage">$i18n.getText("upm.log.table.logMessage")</th>
+                    <th id="auditLogUsername">$i18n.getText("upm.log.table.by")</th>
+                    <th id="auditLogDate">$i18n.getText("upm.log.table.date") <a href="#" id="upm-audit-log-refresh" title="$i18n.getText("upm.log.refresh")"><span>$i18n.getText("upm.log.refresh")</span></a></th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="upm-log-row-template">
+        <tr>
+            <td headers="auditLogMessage" class="message"></td>
+            <td headers="auditLogUsername" class="username"></td>
+            <td headers="auditLogDate" class="date"></td>
+        </tr>
+    </script>
+</body>
+</html>

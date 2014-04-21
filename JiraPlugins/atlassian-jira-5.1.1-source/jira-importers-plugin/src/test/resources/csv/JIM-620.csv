@@ -1,0 +1,4 @@
+Summary,User,User,User,Group,Group,Single Group,Single User
+Test,admin,luser,luser1,Group 1,Group 2,,luser2
+Test 2,admin,,,,,Group 3,
+Test,admin,luser,luser1,Group 1,Group 3,Group 1,luser2

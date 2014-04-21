@@ -1,0 +1,42 @@
+#macro (printRow $name $value)
+        #set ($rowLength = $value.length()/57+1)
+        #if ($rowLength > 15)
+                #set ($rowLength = 15)
+        #end
+        #if (($velocityCount % 2) == 0)
+                _velocity_console.document.write("<tr bgcolor=#fafafa>");
+        #else
+                _velocity_console.document.write("<tr bgcolor=#eeeeee>");
+        #end
+        _velocity_console.document.write("<td valign=top><tt><font color=maroon>$" + "$name" + "</font></tt></td>");
+        #if ($rowLength == 1)
+                _velocity_console.document.write("<td><tt><font color=green>$value</font></tt></td></tr>");
+        #else
+                _velocity_console.document.write("<td><tt><font color=green><textarea rows=$rowLength cols=57>");
+                _velocity_console.document.write("$value");
+                _velocity_console.document.write("</textarea></font></tt></td></tr>");
+        #end
+#end
+
+<script language=javascript>
+        _velocity_console = window.open("",true,"width=680,height=600,resizable,scrollbars=yes");
+        _velocity_console.document.write("<html><head><title>Velocity Debug Console</title></head><body bgcolor=#ffffff>");
+        _velocity_console.document.write("<table border=0 width=100%>");
+        _velocity_console.document.write("<tr bgcolor=#000000><th colspan='2'><b><font color=#FFFFFF>Velocity Debug Console</font></b></td></tr>");
+        _velocity_console.document.write("<tr bgcolor=#cccccc><td colspan='2'><b>Request Attributes:</b></td></tr>");
+        #foreach ($name in $request.getAttributeNames())
+                #printRow($name $request.getAttribute($name).toString().replaceAll("\n", "\\n").replaceAll("\r", ""))
+        #end
+        _velocity_console.document.write("<tr bgcolor=#cccccc><td colspan='2'><b>Request Parameters:</b></td></tr>");
+        #foreach ($name in ${request.getParameterNames()})
+                #printRow($name $request.getParameter($name).toString().replaceAll("\n", "\\n").replaceAll("\r", ""))
+        #end
+        _velocity_console.document.write("<tr bgcolor=#cccccc><td colspan='2'><b>Session Attributes:</b></td></tr>");
+        #foreach ($name in ${session.getAttributeNames()})
+                #printRow($name $session.getAttribute($name).toString().replaceAll("\n", "\\n").replaceAll("\r", ""))
+        #end
+        _velocity_console.document.write("</table>");
+        _velocity_console.document.write("</body></html>");
+        _velocity_console.document.close();
+</script>
+descriptor=${descriptor.completeKey}

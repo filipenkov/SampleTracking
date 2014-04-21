@@ -1,0 +1,9 @@
+<span style="display: inline-block; position: relative; width: 250px;">
+	<span class="aui-icon icon-required" style="position: absolute; right: -8px;"></span>
+	<select name="${fieldId}_project" id="${fieldId}-select" class="select project_select" />
+	<input type="hidden" name="layout-fix-following-a-disappears-otherwise">
+#if ($action.errors.get($entry))
+	<div id="${fieldId}_project_errorMsg" class="error">$textutils.htmlEncode($action.errors.get($entry))</div>
+#end
+</span>
+<a href="#" id="${fieldId}_edit" class="project_edit" style="position: relative;">Edit</a>

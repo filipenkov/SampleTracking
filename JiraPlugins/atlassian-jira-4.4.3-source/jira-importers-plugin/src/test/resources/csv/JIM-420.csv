@@ -1,0 +1,14 @@
+﻿"dbid","id","State","Headline","Description","Severity","Submitter","Submit_Date","FoundInBuild","ProductVersion","Owner","Component","Phase","Priority","Keywords","Notes_Log","OS","FixedInBuild","Resolution","VerifiedinBuild","Reopen_in_build","td_TryDefectCount","td_TrySuccessCount","Cc_1","Cc_2","Attachments","record_type"
+"33554489","TM00000057","Closed","Launcher падает, построение модели для Общего решения","Если в xml для построения моделей приходит Devision, Launcher падает. 
+
+А должен - отрабатывать все остальные и не падать","2-Critical","user1","2009-04-10 00:00:00","0","","user2","","","2-High","","","","1","Fixed","65","","10","10","","","","Defect"
+"33554491","TM00000059","Closed","Не создается карточка","При создании карточки не появляется запись в БД.
+XML формируется правильный","3-Major","andrey","2009-04-11 00:00:00","1","","user4","Proggram","","2-High","","
+==== State: Resolved by: on 11 April 2009 20:32:00 ====
+
+Это глюк просто не пролистали базу
+","","1","Fixed","53","","1","0","","","","Defect"
+"33554492","TM00000060","Closed","Неверные параметры хранимки ""Labels"".""SetColor""","Договаривались что цвет это строка.
+В таблице корректно в хранимке нет.
+> --select * from ""Labels"".""SetColor""(1::bigint, 5, 10);
+","4-Normal","user3","2009-04-11 00:00:00","1","","user4","","","2-High","","","","2","Fixed","53","","1","0","","","","Defect"

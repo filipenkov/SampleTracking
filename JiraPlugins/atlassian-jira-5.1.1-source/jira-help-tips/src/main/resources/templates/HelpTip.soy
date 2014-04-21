@@ -1,0 +1,27 @@
+{namespace AJS.Templates.HelpTip}
+
+/**
+ * Renders the contents of a help tip.
+ *
+ * @param body (String) the html contents of the tip.
+ * @param? title (String) a short name for the tip.
+ * @param? url (String) a hyperlink to documentation for further info.
+ */
+{template .tipContent}
+    {if $title}
+    <h4 class="helptip-title">{$title}</h4>
+    {/if}
+    <div class="helptip-body">
+    {$body}
+    </div>
+    {if $url}
+    <a class="helptip-link" href="{$url}" target="_blank">{getText('helptip.learn.more')}</a>
+    {/if}
+{/template}
+
+/**
+ * Renders a close button for use in a help tip.
+ */
+{template .tipClose}
+<button class="helptip-close"><span class="assistive">{getText('helptip.close')}</span></button>
+{/template}

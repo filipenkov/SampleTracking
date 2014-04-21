@@ -1,0 +1,8 @@
+	<div class="aui-message hint">
+	    <p class="title">
+	        <span class="aui-icon icon-hint "></span>
+	
+	        <strong>$i18n.getText("stp.hercules.scheduler.message")</strong>
+	    </p>
+	    <p><a class="stp-module-link" href="#scheduled-hercules">$i18n.getText("stp.hercules.scheduler.link.text")</a></p>
+	</div>

@@ -1,0 +1,153 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${pom.name}" pluginsVersion="2">
+    <plugin-info>
+        <description>${pom.description}</description>
+        <version>${pom.version}</version>
+        <vendor name="${pom.organization.name}" url="${pom.organization.url}"/>
+    </plugin-info>
+
+    <component-import key="renderedGadgetUriBuilder" interface="com.atlassian.gadgets.view.RenderedGadgetUriBuilder" />
+    <component-import key="gadgetViewFactory" interface="com.atlassian.gadgets.view.GadgetViewFactory" />
+    <component-import key="gadgetSpecUrlChecker" interface="com.atlassian.gadgets.GadgetSpecUrlChecker" />
+    <component-import key="gadgetRequestContextFactory" interface="com.atlassian.gadgets.GadgetRequestContextFactory" />
+    <component-import key="eventPublisher" interface="com.atlassian.event.api.EventPublisher" />
+
+    <!-- SPI component implementations -->
+    <component-import key="dashboard-state-store" interface="com.atlassian.gadgets.dashboard.spi.DashboardStateStore" />
+    <component-import key="dashboard-permission-service" interface="com.atlassian.gadgets.dashboard.spi.DashboardPermissionService" />
+    <component-import key="directory-permission-service" interface="com.atlassian.gadgets.directory.spi.DirectoryPermissionService" />
+    <component-import key="gadget-state-factory" interface="com.atlassian.gadgets.dashboard.spi.GadgetStateFactory" />
+    
+    <!-- SAL components -->
+    <component-import key="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver"/>
+    <component-import key="pluginSettings" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory"/>
+    <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties" />
+    <component-import key="salUserManager" interface="com.atlassian.sal.api.user.UserManager" />
+    <component-import key="txTemplate" interface="com.atlassian.sal.api.transaction.TransactionTemplate" />
+    <component-import key="helpPathResolver" interface="com.atlassian.sal.api.message.HelpPathResolver" />
+
+    <!-- Cross-product components -->
+    <component-import key="web-interface-manager" interface="com.atlassian.plugin.web.WebInterfaceManager" />
+
+    <!-- Shindig components -->
+    <component-import key="gadgetSpecFactory" interface="com.atlassian.gadgets.spec.GadgetSpecFactory" />
+
+    <!-- Velocity template renderer -->
+    <component-import key="velocity-renderer-factory" interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRendererFactory" />
+
+    <!-- Internal components, servlets and resources -->
+    <component key="gadgetFactory" class="com.atlassian.gadgets.dashboard.internal.impl.GadgetFactoryImpl"/>
+    <component key="stateConverter" class="com.atlassian.gadgets.dashboard.internal.impl.StateConverterImpl" />
+    <component key="transactionalStateStore" class="com.atlassian.gadgets.dashboard.internal.impl.TransactionalDashboardStateStoreImpl" />
+    <component key="dashboardRepository" class="com.atlassian.gadgets.dashboard.internal.impl.DashboardRepositoryImpl" />
+    
+    <component key="webItemFinder" class="com.atlassian.gadgets.dashboard.internal.DashboardWebItemFinder" />
+
+    <component key="velocity-renderer" class="com.atlassian.gadgets.dashboard.internal.DashboardTemplateRenderer"/>
+    <component key="url-builder" class="com.atlassian.gadgets.dashboard.internal.impl.DashboardUrlBuilderImpl" />
+
+    <component key="addGadgetHandlerRest" class="com.atlassian.gadgets.dashboard.internal.rest.AddGadgetHandlerImpl" />
+    <component key="deleteGadgetHandlerRest" class="com.atlassian.gadgets.dashboard.internal.rest.DeleteGadgetHandlerImpl" />
+    <component key="rearrangeGadgetsHandlerRest" class="com.atlassian.gadgets.dashboard.internal.rest.ChangeLayoutHandlerImpl" />
+    <component key="changeGadgetColorHandlerRest" class="com.atlassian.gadgets.dashboard.internal.rest.ChangeGadgetColorHandlerImpl" />
+    <component key="updateGadgetUserPrefsHandlerRest" class="com.atlassian.gadgets.dashboard.internal.rest.UpdateGadgetUserPrefsHandlerImpl" />
+
+    <component key="representationFactory" class="com.atlassian.gadgets.dashboard.internal.rest.representations.RepresentationFactoryImpl"/>
+    <component key="dashboardEmbedder" class="com.atlassian.gadgets.dashboard.internal.velocity.DashboardEmbedder" />
+
+    <!-- Diagnostics -->
+    <component key="diagnostics" class="com.atlassian.gadgets.dashboard.internal.diagnostics.Diagnostics"/>
+    
+    <web-item key="gadgets.dashboard.menu.add.gadget" section="gadgets.dashboard.menu" weight="1">
+        <styleClass>lnk icon-add add-gadget-link</styleClass>
+        <label key="add.gadget" />
+        <link linkId="add-gadget"/>
+        <condition class="com.atlassian.gadgets.dashboard.spi.util.UserHasWritePermissionToDashboard" />
+    </web-item>
+
+    <web-item key="gadgets.dashboard.menu.change.layout" section="gadgets.dashboard.menu" weight="10">
+        <styleClass>lnk icon-edit</styleClass>
+        <label key="change.columns" />
+        <link linkId="layout-changer">/$hash</link>
+        <condition class="com.atlassian.gadgets.dashboard.spi.util.UserHasWritePermissionToDashboard" />
+    </web-item>
+
+    <web-resource name="Dashboard Templates" key="templates">
+        <resource type="download" name="templates.html" location="templates.html"/>
+    </web-resource>
+
+
+    <web-resource name="Error Gadget" key="error-gadget">
+        <resource type="download" name="errorGadget.html" location="files/errorGadget.html"/>
+    </web-resource>
+
+    <web-resource-transformer key="gadget-debug" class="com.atlassian.gadgets.util.DebugTransformer" />
+
+    <web-resource name="Dashboard Web Resources" key="dashboard">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <transformation extension="js">
+            <transformer key="gadget-debug" />
+        </transformation>
+
+        <resource type="download" name="dashboard.css" location="css/dashboard.css"/>
+        <resource type="download" name="dashboard-ie.css" location="css/ie/dashboard-ie.css">
+            <param name="ieonly" value="true"/>
+        </resource>
+
+        <!-- shared resources -->
+        <resource type="download" name="js/json.js" location="js/json.js"/>
+        <resource type="download" name="js/lib/effects.js" location="js/lib/effects.js"/>
+        <resource type="download" name="js/lib/ajs.clone.js" location="js/lib/ajs.clone.js"/>
+        <resource type="download" name="js/lib/ajs.parseUri.js" location="js/lib/ajs.parseUri.js"/>
+        <resource type="download" name="js/lib/zparse.js" location="js/lib/zparse.js"/>
+
+        <!-- core -->
+        <resource type="download" name="js/AG.DashboardManager.js" location="js/AG.DashboardManager.js"/>
+        <resource type="download" name="js/AG.LayoutManager.js" location="js/AG.LayoutManager.js"/>
+        <resource type="download" name="js/AG.Gadget.js" location="js/AG.Gadget.js"/>
+        <resource type="download" name="js/AG.Render.js" location="js/AG.Render.js"/>
+
+        <resource type="download" name="js/AG.Param.js" location="js/AG.Param.js"/>
+        <resource type="download" name="js/AG.Cookie.js" location="js/AG.Cookie.js" />
+        <resource type="download" name="js/AG.Sortable.js" location="js/AG.Sortable.js" />
+
+        <resource type="download" name="js/atl-browser.js" location="js/atl-browser.js"/>
+        <resource type="download" name="js/jquery.cookie.js" location="js/jquery.cookie.js" />
+    </web-resource>
+    <web-resource name="Gadget Web Resources for Dashboards" key="gadget-dashboard-resources">
+        <resource type="download" name="js/cookies.js" location="js/cookies.js"/>
+        <dependency>com.atlassian.gadgets.embedded:gadget-core-resources</dependency>
+        <resource type="download" name="js/gadgets-dashboard.js" location="js/gadgets-dashboard.js"/>
+        <dependency>com.atlassian.gadgets.embedded:gadget-container-resources</dependency>
+        <resource type="download" name="js/cookiebaseduserprefstore.js" location="js/cookiebaseduserprefstore.js"/>
+        <resource type="download" name="gadgets.css" location="css/gadgets.css"/>
+    </web-resource>
+
+    <!-- REST endpoints -->
+    <rest key="dashboard-rest-endpoints" path="/dashboards" version="1.0">
+        <description>Provides REST endpoints for manipulating dashboards.</description>
+    </rest>
+
+    <!-- Servlets -->
+    <servlet name="Dashboard Diagnostics Servlet" key="dashboard-diagnostics-servlet"
+            class="com.atlassian.gadgets.dashboard.internal.diagnostics.DiagnosticsServlet">
+        <url-pattern>/gadgets/dashboard-diagnostics</url-pattern>
+    </servlet>
+
+    <!-- Public components -->
+    <component name="Dashboard Tab View Factory" key="dashboardTabViewFactory"
+               class="com.atlassian.gadgets.dashboard.internal.velocity.VelocityViewFactory" public="true">
+        <interface>com.atlassian.gadgets.dashboard.view.DashboardTabViewFactory</interface>
+    </component>
+    <component key="dashboardService" class="com.atlassian.gadgets.dashboard.internal.impl.DashboardServiceImpl" public="true">
+        <interface>com.atlassian.gadgets.dashboard.DashboardService</interface>
+    </component>
+
+    <!-- Shared resources -->
+    <resource type="i18n" name="i18n" location="com.atlassian.gadgets.dashboard.internal.i18n" />
+    
+    <resource type="download" name="js/" location="js/"/>
+    <resource type="download" name="css/" location="css/"/>
+    <resource type="download" name="css/images/" location="css/images/"/>
+    <resource type="download" name="images/" location="images/"/>
+    <resource type="download" name="files/" location="files/"/>
+</atlassian-plugin>

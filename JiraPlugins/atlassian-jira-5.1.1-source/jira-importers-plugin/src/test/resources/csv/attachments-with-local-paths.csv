@@ -1,0 +1,2 @@
+MyReporter,summary,attachment,attachment,attachment,attachment,attachment,priority
+user,Local attachments,20101108121314;user;explicit-name.txt;file:default-file.txt,file://subdir/subdir-file.txt,explicit-subdir.txt;file:subdir/subdir-file.txt,invalid.txt;file:subdir/../../../dbconfig.xml,file:///default-file.txt,Trivial

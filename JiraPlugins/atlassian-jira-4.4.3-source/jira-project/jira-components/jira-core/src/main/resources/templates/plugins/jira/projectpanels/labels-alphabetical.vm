@@ -1,0 +1,34 @@
+#if($alphaSupport.keys.size() > 0)
+<fieldset class="hidden">
+    <input type="hidden" name="projectName" value="$project.name">
+    <input type="hidden" name="fieldName" value="$field.name">
+</fieldset>
+    
+<p>$i18n.getText("labels.project-tab.all-labels.description", [ $labelCount ])</p>
+
+    #foreach ($key in $alphaSupport.keys)
+
+    <div class="labels-subset">
+        <h5>$key</h5>
+        #set($labels = $alphaSupport.getContents($key))
+        #if ($labels.size() > 0)
+            <ul class="labels">
+                #foreach($label in $labels)
+                    #if($isCustomField)
+                        #set($labelJql = $labelUtils.getLabelJqlForProject($remoteUser, $project.id, $field.idAsLong, $label ))
+                    #else
+                        #set($labelJql = $labelUtils.getLabelJqlForProject($remoteUser, $project.id, $label ))
+                    #end
+                    <li>
+                        <a class="lozenge" href="$requestContext.baseUrl/secure/IssueNavigator.jspa?reset=true$labelJql"><span>$textutils.htmlEncode( $label )</span></a>
+                    </li>
+                #end
+            </ul>
+        #end
+    </div>
+
+    #end
+
+#else
+    #AUImessage("info" "" "$i18n.getText('labels.project-tab.nolabels')" "" "" "" "false")
+#end

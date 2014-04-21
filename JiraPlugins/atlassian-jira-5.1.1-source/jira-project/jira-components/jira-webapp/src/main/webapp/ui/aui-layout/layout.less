@@ -1,0 +1,290 @@
+@import "dynamic:lookandfeel.less";
+@import "variables.less";
+
+body { min-width: 990px; }
+
+// JIRA-specific extensions to the AUI page layout pattern.
+.aui-layout {
+    #header {
+        .global {
+            .secondary {
+                > ul {
+                    padding-top: 3px;
+                }
+            }
+        }
+        .global .primary > ul > li > a,
+        .global .secondary > ul > li > a,
+        .local .primary > ul > li > a,
+        .local .secondary > ul > li > a {
+            padding: 4px;
+        }
+    }
+    #footer {
+        padding-bottom: 120px;
+    }
+}
+
+#content {
+    > header {
+        .clearfix;
+        h1, h2 {
+            margin: 0;
+        }
+        > h1 > a {
+            text-decoration: none;
+        }
+        #heading-avatar {
+            float: left;
+            height: 48px;
+            margin: 0;
+            overflow: hidden;
+            width: 48px;
+            > img {
+                display: block;
+            }
+             + h1 {
+                padding-top: 9px;
+            }
+            + ul.breadcrumbs,
+            + ul.breadcrumbs + h1,
+            + h1 {
+                margin-left: 64px;
+            }
+        }
+    }
+}
+
+header + .content-container {
+    margin-top: @gutter;
+}
+
+.content-container {
+    .border-box;
+    display: table;
+    padding: 0;
+    table-layout: fixed;
+    margin: 0;
+    width: 100%;
+    > .content-related {
+        .border-box;
+        display: table-cell;
+        margin: 0;
+        padding: 0;
+        vertical-align: top;
+        width: (@gutter*10);
+        .tabs.vertical {
+            .border-box;
+            margin: 0;
+            padding: @gutter 0 @gutter @grid;
+            li {
+                border-right: none;
+            }
+            li.active {
+                margin-left: -8px;
+                margin-right: -1px;
+            }
+            li.first {
+                margin-top: 0;
+            }
+        }
+    }
+    > .content-body {
+        .border-box;
+        display: table-cell;
+        margin: 0;
+        vertical-align: top;
+        > header {
+            .clearfix;
+        }
+    }
+}
+
+.page-type-inlinedialog {
+    min-width: 0;
+    background: #fff;
+    padding: @grid;
+}
+
+.page-type-popup {
+    min-width: 0;
+    .content-container {
+        > .content-body {
+            margin: 0;
+            min-height: 0;
+        }
+    }
+}
+
+.page-type-login,
+.page-type-message {
+    #content > header,
+    .content-container {
+        margin-left: auto;
+        margin-right: auto;
+        width: 572px;
+    }
+}
+
+.page-type-admin {
+    .content-container {
+        table-layout: auto;
+        > .content-related {
+            min-width: 160px;
+            max-width: 160px;
+            .tabs-menu {
+                float: none;
+                .border-box;
+                list-style: none;
+                margin: 0;
+                padding: @gutter 0 @gutter @grid;
+                width: 100%;
+
+               li.menu-item strong {
+                   padding: 6px @grid;
+                   text-overflow: ellipsis;
+               }
+               .aui-tabs-group {
+                   margin: @gutter 0 0 0;
+                   padding: 0;
+               }
+               .aui-tabs-group:first-child {
+                   margin-top: 0;
+               }
+               .active-tab {
+                   margin-left: -8px;
+               }
+               .aui-tabs-group-menu {
+                   list-style: none;
+                   margin: 0;
+                   padding: 0;
+               }
+               .aui-tabs-group-menu > .menu-item:first-child {
+                   margin-top: 0;
+               }
+               .menu-item.active-tab a {
+                   margin-right: -1px;
+               }
+            }
+        }
+        > .content-body {
+            width: 100%;
+        }
+    }
+}
+
+.page-type-workflow-view {
+    .content-container {
+        table-layout: fixed;
+    }
+}
+
+.page-type-issuenav {
+    #content {
+        padding: 0;
+        > header {
+            padding: @gutter @gutter 0 @gutter;
+        }
+    }
+    .content-container {
+        padding: 0 @gutter @gutter 302px;
+        table-layout: auto;
+        width: 100%;
+        > .content-related {
+            .bordered (1px, 1px, 1px, 0);
+            .rounded (0, 5px, 5px, 0);
+            background-color: #fff;
+            .border-box;
+            display: block;
+            float: left;
+            margin: 0 0 0 -302px;
+            padding: @gutter @gutter @gutter (2*@gutter);
+            position: relative;
+            width: 286px;
+            + .content-body {
+                float: left;
+            }
+        }
+        > .content-body {
+            display: block;
+            width: 100%;
+        }
+        &.lhc-collapsed {
+            padding-left: 32px;
+            .content-related {
+                margin-left: -302px;
+                .toggle-lhc {
+                    left: auto;
+                    right: 0;
+                }
+            }
+        }
+    }
+}
+
+.page-type-viewissue {
+    #content {
+        padding: 0;
+    }
+    .content-container {
+        padding: @gutter;
+    }
+}
+
+.page-type-userprofile {
+    #content {
+        padding: @gutter 0;
+    }
+    .content-container {
+        border-spacing: @gutter 0;
+        padding: 0;
+        > .content-related {
+            .bordered;
+            .rounded;
+            background-color: #fff;
+            padding: @gutter;
+            width: 270px;
+        }
+    }
+}
+
+.page-type-dashboard {
+    #dashboard {
+        font-size: inherit;
+        line-height: inherit;
+        padding: 0;
+        &.v-tabs {
+            padding-left: 160px;
+            ul.vertical {
+                .border-box;
+                width: 160px;
+                left: 0;
+                top: 0;
+                padding: @gutter 0 @gutter @grid;
+                li {
+                    border-right: none;
+                }
+                li.first {
+                    margin-top: 0;
+                }
+                li.active {
+                    margin-left: -8px;
+                    margin-right: -1px;
+                }
+            }
+        }
+    }
+    #dashboard-content {
+        .rounded;
+    }
+}
+
+.page-type-report {
+    .content-container {
+        table-layout: auto;
+    }
+}
+
+.module + .aui-group {
+    margin-top: @gutter;
+}

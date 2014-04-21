@@ -1,0 +1,5 @@
+"Type","Summary","Version","Status","Component","More  Version","My Issue Id","Parent Issue Id"
+"A","Parent specified for non-subtask","Wersja A","OpenLike","C1","Version X",1,2
+"B","A subtask of unknown issue","Some Version A","OpenLike","C2","Version Z",,999
+"A","Proper Parent","Some Version A","OpenLike","C3","Version Z",2,
+"B","Proper Subtask","Some Version A","OpenLike","C4","Version Z",,2

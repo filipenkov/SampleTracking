@@ -1,0 +1,7 @@
+.footer { background-color: #f7f7f7; border-top: 1px solid #bbb; clear: both; color: #666; font-size: 11px; padding: 0.5em 1em 120px 1em; text-align: center; }
+.licensemessage, .licensemessagered { margin: 0.5em 0; padding: 0.5em; text-align: center; text-transform: uppercase; } /* This should be a notification? */
+.poweredbymessage a.seo-link { cursor: auto; outline: none; text-decoration: none;} /* hiding the fact that these are links - they have tabindex="-1" so you can't tab to them either */
+.footer a { color: #666; }
+
+/* Contextual overrides */
+.nl .footer { border-top: none; }

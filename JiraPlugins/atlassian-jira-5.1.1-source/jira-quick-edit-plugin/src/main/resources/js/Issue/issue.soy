@@ -1,0 +1,190 @@
+{namespace JIRA.Templates.Issue}
+
+/**
+* @param errorHtml
+* @param useLegacyDecorator
+*/
+{template .editIssueError}
+<h2>{getText('admin.issue.operations.edit')}</h2>
+<div class="{if $useLegacyDecorator}content-body{else}form-body{/if}">
+    {$errorHtml|noAutoescape}
+</div>
+{/template}
+
+
+/**
+* Edit issue form. Can be used to render just the edit issue chrome or the complete form. In the case of quick edit issue
+* we just render the chrome as we use JavaScript to append using 'special' field renderers.
+*
+* @param issueId
+* @param atlToken
+* @param useLegacyDecorator
+* @param title
+* @param modifierKey
+* @param? fieldsHtml
+* @param? commentField
+* @param? showFieldConfigurationToolBar
+*/
+{template .editIssueForm}
+<form action="#" name="jiraform" class="aui">
+
+    <h2>
+        {if $showFieldConfigurationToolBar}
+            <div class="qf-form-operations aui-toolbar">
+                <div class="toolbar-split toolbar-split-right">
+                    <div class="toolbar-group">
+                        <span class="toolbar-item">
+                            <a href="#" class="toolbar-trigger" id="qf-field-picker-trigger"><span class="icon icon-tools"></span>{getText('quickform.configure.fields')}<span class="icon drop-menu"></span></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        {/if}
+        {$title|noAutoescape}
+    </h2>
+    
+    <div class="{if $useLegacyDecorator}content-body{else}form-body{/if}">
+
+        <input type="hidden" name="id" value="{$issueId}" />
+        <input type="hidden" name="atl_token" value="{$atlToken}" />
+
+        <div class="content">
+            {if $fieldsHtml}
+                {$fieldsHtml|noAutoescape}
+            {/if}
+             {if $commentField}
+                {$commentField.editHtml|noAutoescape}
+            {/if}
+            <!-- fields inserted here via javascript -->
+        </div>
+    </div>
+
+    <div class="buttons-container {if $useLegacyDecorator}content-footer{else}form-footer{/if}">
+        <div class="buttons">
+            <input accesskey="{getText('AUI.form.submit.button.accesskey')}" title="{getText('AUI.form.submit.button.tooltip', getText('AUI.form.submit.button.accesskey'), $modifierKey)}" class="button" id="edit-issue-submit" name="Edit" type="submit" value="{getText('common.forms.update')}" />
+            <a href="#" accesskey="{getText('AUI.form.cancel.link.accesskey')}" title="{getText('AUI.form.cancel.link.tooltip', getText('AUI.form.cancel.link.accesskey'), $modifierKey)}" class="cancel">{getText('common.words.cancel')}</a>
+        </div>
+    </div>
+</form>
+{/template}
+
+
+
+
+/**
+* Renders form contents. This includes fields, tabs and tab panes.param
+* @param tabs
+* @param hasTabs
+* @param fields
+*/
+{template .issueFields}
+{if $hasTabs}
+    <div class="aui-tabs horizontal-tabs" id="horizontal">
+        <ul class="tabs-menu">
+        {foreach $tab in $tabs}
+            {if $tab}
+            <li class="menu-item {if $tab.isFirst}first active-tab{/if} ">
+                <a href="#tab-{$tab.position}" ><strong>{$tab.label}</strong></a>
+            </li>
+            {/if}
+        {/foreach}
+        </ul>
+
+        {foreach $tab in $tabs}
+            {if $tab}
+            <div class="tabs-pane {if $tab.isFirst}active-pane{/if}" id="tab-{$tab.position}">
+                {foreach $field in $tab.fields}
+                    {if $field.editHtml}
+                        {$field.editHtml|noAutoescape}
+                    {/if}
+                {/foreach}
+            </div>
+            {/if}
+        {/foreach}
+    </div>
+{else}
+    {foreach $field in $fields}
+        {if $field.editHtml}
+            {$field.editHtml|noAutoescape}
+        {/if}
+    {/foreach}
+{/if}
+{/template}
+
+
+/**
+* @param atlToken
+* @param issueSetupFields
+* @param useLegacyDecorator
+* @param title
+* @param multipleMode
+* @param modifierKey
+* @param? parentIssueId
+* @param? fieldsHtml
+* @param? showFieldConfigurationToolBar
+*/
+{template .createIssueForm}
+<form name="jiraform" action="#" class="aui">
+
+    <h2>
+        {if $showFieldConfigurationToolBar}
+            <div class="qf-form-operations aui-toolbar">
+                <div class="toolbar-split toolbar-split-right">
+                    <div class="toolbar-group">
+                        <span class="toolbar-item">
+                            <a href="#" class="toolbar-trigger" id="qf-field-picker-trigger"><span class="icon icon-tools"></span>{getText('quickform.configure.fields')}<span class="icon drop-menu"></span></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        {/if}
+        {$title}
+    </h2>
+
+        <div class="{if $useLegacyDecorator}content-body{else}form-body{/if}">
+
+            {if $issueSetupFields}
+                <div class="issue-setup-fields">
+                    {foreach $field in $issueSetupFields}
+                        <div class="qf-field qf-field-{$field.id} qf-required">{$field.editHtml|noAutoescape}</div>
+                    {/foreach}
+                </div>
+            {/if}
+
+
+            {if $parentIssueId}
+                <input type="hidden" name="parentIssueId" value="{$parentIssueId}" />
+            {/if}
+
+            <input type="hidden" name="atl_token" value="{$atlToken}" />
+
+            <div class="content">
+
+                {if $fieldsHtml}
+                    {$fieldsHtml|noAutoescape}
+                {/if}
+                <!-- fields inserted here via javascript -->
+            </div>
+        </div>
+
+    <div class="buttons-container {if $useLegacyDecorator}content-footer{else}form-footer{/if}">
+        <div class="buttons">
+            <label for="qf-create-another" class="qf-create-another"><input id="qf-create-another" type="checkbox" {if $multipleMode}checked="checked"{/if} />{getText('issue.create.auto.create')}</label>
+            <input accesskey="{getText('AUI.form.submit.button.accesskey')}" title="{getText('AUI.form.submit.button.tooltip', getText('AUI.form.submit.button.accesskey'), $modifierKey)}" class="button" id="create-issue-submit" name="Edit" type="submit" value="{getText('common.forms.create')}" />
+            <a href="#" accesskey="{getText('AUI.form.cancel.link.accesskey')}" title="{getText('AUI.form.cancel.link.tooltip', getText('AUI.form.cancel.link.accesskey'), $modifierKey)}" class="cancel">{getText('common.words.cancel')}</a>
+        </div>
+    </div>
+</form>
+{/template}
+
+
+/**
+* @param errorHtml
+* @param useLegacyDecorator
+*/
+{template .createIssueError}
+<h2>{getText('admin.issue.operations.create')}</h2>
+<div class="{if $useLegacyDecorator}content-body{else}form-footer{/if}">
+    {$errorHtml|noAutoescape}
+</div>
+{/template}

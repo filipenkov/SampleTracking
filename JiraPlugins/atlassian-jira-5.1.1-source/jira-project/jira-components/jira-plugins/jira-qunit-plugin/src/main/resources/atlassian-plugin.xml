@@ -1,0 +1,48 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+    </plugin-info>
+
+    <web-panel key="qunit-items" location="atl.header.after.scripts">
+        <description>Includes qunit/test javascript and css if a testing parameter is passed to the page.</description>
+        <resource name="view" type="velocity" location="templates/qunit-items.vm"/>
+        <condition class="com.atlassian.jira.test.qunit.QUnitTestResourceCondition"/>
+        <dependency>com.atlassian.jira.jira-qunit-plugin:qunit</dependency>
+        <dependency>com.atlassian.jira.jira-qunit-plugin:event-dispatcher</dependency>
+        <dependency>com.atlassian.jira.jira-qunit-plugin:qunit-test-utils</dependency>
+        <context-provider class="com.atlassian.jira.test.qunit.QUnitTestResourceContextProvider"/>
+    </web-panel>
+
+    <web-resource key="qunit" name="QUnit Resources">
+        <description>QUnit Resources</description>
+        <resource type="download" name="qunit.js" location="js/qunit/qunit.js"/>
+        <resource type="download" name="qunit-atlassian.js" location="js/qunit/qunit-atlassian.js"/>
+        <resource type="download" name="qunit-results-collector.js" location="js/qunit/qunit-results-collector.js"/>
+        <resource type="download" name="qunit.css" location="css/qunit.css"/>
+        <resource type="download" name="qunit-atlassian.css" location="css/qunit-atlassian.css"/>
+        <resource type="download" name="qunit-util.js" location="js/qunit/qunit-util.js"/>
+        <resource type="download" name="jira-qunit-utils.js" location="js/utils/jira-qunit-utils.js"/>
+        <context>atl.general</context>
+        <context>atl.admin</context>
+        <condition class="com.atlassian.jira.test.qunit.QUnitTestResourceCondition"/>
+    </web-resource>
+
+    <!-- Utilities and abstractions used in tests -->
+    <web-resource key="sinon" name="Sinon mocking framework">
+        <description>Sinon support for qunit tests</description>
+        <resource type="download" name="sinon.js" location="js/sinon/sinon-1.1.1.js"/>
+        <resource type="download" name="sinon-qunit.js" location="js/sinon/sinon-qunit-1.0.0.js"/>
+        <context>atl.general</context>
+        <context>atl.admin</context>
+        <condition class="com.atlassian.jira.test.qunit.QUnitTestResourceCondition"/>
+        <dependency>com.atlassian.jira.jira-qunit-plugin:qunit</dependency>
+    </web-resource>
+
+    <servlet name="QUnit Test Loader" key="qunit-test-loader" class="com.atlassian.jira.test.qunit.QUnitTestResourceServlet">
+        <description>An uncached access point for qunit test script downloads</description>
+        <url-pattern>/qunit-test-loader/*</url-pattern>
+    </servlet>
+
+</atlassian-plugin>

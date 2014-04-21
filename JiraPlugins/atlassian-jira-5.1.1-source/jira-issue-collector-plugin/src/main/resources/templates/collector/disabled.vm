@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    $webResourcesHtml
+</head>
+<body id="atlScriptlet">
+<div class="aui-dialog">
+    <h2 class="dialog-title">$i18n.getText('collector.plugin.collector.disabled.title')</h2>
+    <div class="content-body">
+        <img id="sorry-mate" class="center" src="$webResourceManager.getStaticPluginResource('com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:form-collector', 'images/charlie-down.gif')" alt="$i18n.getText('collector.plugin.collector.disabled.title')" />
+        <p class="center error-msg">$message</p>
+    </div>
+    <div class="dialog-button-panel">
+        <a href="#" class="cancel">$i18n.getText('admin.common.words.close')</a>
+    </div>
+</div>
+</body>
+</html>

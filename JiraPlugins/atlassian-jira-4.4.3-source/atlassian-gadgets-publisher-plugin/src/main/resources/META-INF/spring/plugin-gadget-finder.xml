@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:osgi="http://www.springframework.org/schema/osgi"
+             xsi:schemaLocation="http://www.springframework.org/schema/osgi
+                                 http://www.springframework.org/schema/osgi/spring-osgi.xsd
+                                 http://www.springframework.org/schema/beans
+                                 http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="pluginGadgetFinder" class="com.atlassian.gadgets.publisher.internal.PluginGadgetFinder">
+        <constructor-arg type="com.atlassian.plugin.PluginAccessor" ref="pluginAccessor"/>
+        <constructor-arg type="com.atlassian.plugin.event.PluginEventManager" ref="pluginEventManager"/>
+        <constructor-arg type="com.atlassian.sal.api.executor.ThreadLocalDelegateExecutorFactory" ref="threadLocalDelegateExecutorFactory"/>
+        <constructor-arg>
+            <osgi:set id="pluginGadgetSpecEventListeners"
+                 interface="com.atlassian.gadgets.plugins.PluginGadgetSpecEventListener"
+                 cardinality="0..N"/>
+        </constructor-arg>
+    </bean>
+</beans>

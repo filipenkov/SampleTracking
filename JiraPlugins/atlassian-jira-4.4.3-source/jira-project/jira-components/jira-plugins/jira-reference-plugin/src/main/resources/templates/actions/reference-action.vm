@@ -1,0 +1,3 @@
+<div>
+    <h3 id="reference-action-message">Welcome to $action.productName</h3>
+</div>

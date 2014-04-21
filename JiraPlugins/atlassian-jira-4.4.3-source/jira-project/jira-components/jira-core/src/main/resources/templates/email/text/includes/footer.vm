@@ -1,0 +1,6 @@
+--
+$i18n.getText("template.footer.text")
+$i18n.getText("template.footer.text.incorrect", "${baseurl}/secure/ContactAdministrators!default.jspa")
+$i18n.getText("template.footer.text.info", "http://www.atlassian.com/software/jira")
+
+        

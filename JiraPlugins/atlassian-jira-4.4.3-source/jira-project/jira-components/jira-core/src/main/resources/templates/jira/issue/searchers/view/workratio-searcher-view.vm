@@ -1,0 +1,11 @@
+#if ($fieldValuesHolder.get($minField))
+    #searcherHeaderNoField ($minField ${i18n.getText("issue.field.workratiomin")})
+        ${fieldValuesHolder.getEscaped($minField)}%
+    #searcherFooter ($minField)
+#end
+
+#if ($fieldValuesHolder.get($maxField))
+    #searcherHeaderNoField ($maxField ${i18n.getText("issue.field.workratiomax")})
+        ${fieldValuesHolder.getEscaped($maxField)}%
+    #searcherFooter ($maxField)
+#end

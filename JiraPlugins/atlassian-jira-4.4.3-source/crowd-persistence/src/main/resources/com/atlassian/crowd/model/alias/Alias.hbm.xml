@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.atlassian.crowd.model.alias.Alias" table="cwd_application_alias">
+
+        <id name="id" column="id" type="long" unsaved-value="null">
+            <generator class="com.atlassian.crowd.util.persistence.hibernate.ResettableTableHiLoGenerator"/>
+        </id>
+
+        <many-to-one name="application" column="application_id" not-null="true"
+                     foreign-key="fk_alias_app_id"
+                     unique-key="uk_alias_app_l_username,uk_alias_app_l_alias" class="com.atlassian.crowd.model.application.ApplicationImpl"/>
+
+        <property name="name" column="user_name" type="string" length="255" not-null="true"/>
+
+        <property name="lowerName" column="lower_user_name" type="string" length="255" not-null="true"
+                  unique-key="uk_alias_app_l_username"/>
+
+        <property name="alias" column="alias_name" type="string" length="255" not-null="true"/>
+
+        <property name="lowerAlias" column="lower_alias_name" type="string" length="255" not-null="true"
+                  unique-key="uk_alias_app_l_alias"/>
+
+    </class>
+
+    <!-- hql queries -->
+
+    <query name="removeAllAliasesForApplication">
+        delete from Alias a where a.application = :application
+    </query>
+
+</hibernate-mapping>

@@ -1,0 +1,37 @@
+<div id="orphaned-trust-certificates" style="display: none;">
+    <div id="trust-certificates" title="${i18n.getText('applinks.orphaned.trust.title')}">
+        <form class="aui">
+            <div>${i18n.getText('applinks.orphaned.trust.description')}</div>
+            <table class="aui">
+                <thead>
+                    <tr>
+                        <th>${i18n.getText('applinks.orphaned.trust.type')}</th>
+                        <th>${i18n.getText('applinks.orphaned.trust.remote.application')}</th>
+                        <th>${i18n.getText('applinks.orphaned.trust.action')}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    #foreach ($cert in $context.orphanedTrustCertificates)
+                    <tr class="orphaned-trust-row" data-id='$cert.id' data-type='$cert.type.name()'>
+                        <td>
+                            $context.i18nNoEscape.getText($cert.type.getI18nKey())
+                        </td>
+                        <td class="description">
+                            #if($cert.description && $cert.description!="")$cert.description#else$cert.id#end
+                        </td>
+                        <td>
+                            <a class="orphaned-trust-create-link" title="${i18n.getText('applinks.orphaned.trust.upgrade.link.desc')}">${i18n.getText('applinks.orphaned.trust.upgrade.link')}</a> |
+                            <a class="orphaned-trust-delete"      title="${i18n.getText('applinks.orphaned.trust.delete.desc')}">${i18n.getText('applinks.orphaned.trust.delete')}</a>
+                        </td>
+                    </tr>
+                    #end
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+<div id="orphaned-trust-certificates-delete" style="display: none;">
+    <div id="trust-certificates-delete" title="${i18n.getText('applinks.orphaned.trust.delete.confirm.title')}" submit="true">
+        <div class="confirm-delete-text"></div>
+    </div>
+</div>

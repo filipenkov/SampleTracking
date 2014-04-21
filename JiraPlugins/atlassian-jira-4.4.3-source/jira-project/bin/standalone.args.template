@@ -1,0 +1,7 @@
+#
+# This file can be used to feed arguments into build_standalone script
+#
+TOMCAT_VERSION=6.0.20
+TOMCAT_LOCATION=${HOME}/apache-tomcat/apache-tomcat-pristine/
+JIRAHOME=${HOME}/jirahome${TOMCAT_VERSION}
+JVM_ARGS="-verbose:gc -XX:+PrintGCTimeStamps -XX:+PrintGCDetails"

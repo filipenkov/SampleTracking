@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.atlassian.jira</groupId>
+        <artifactId>jira-project</artifactId>
+        <version>5.1.1</version>
+    </parent>
+
+    <name>Atlassian JIRA - Plugin Integration Tests</name>
+    <artifactId>plugin-integration-tests</artifactId>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- AMPS settings -->
+        <amps.plugin>maven-amps-plugin</amps.plugin>
+        <amps.version>3.10.5-m1</amps.version>
+
+        <!-- configure test ports, locations, etc -->
+        <jira.host>localhost</jira.host>
+        <jira.http.port>2990</jira.http.port>
+        <jira.context.path>/jira</jira.context.path>
+
+        <xvfb.enable>true</xvfb.enable>
+
+        <!-- plugin test specific properties -->
+        <remoteapps.adminUsername>admin</remoteapps.adminUsername>
+        <remoteapps.adminPassword>admin</remoteapps.adminPassword>
+        <remoteapps.targetBaseUrl>http://${jira.host}:${jira.http.port}${jira.context.path}</remoteapps.targetBaseUrl>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+               <artifactId>maven-enforcer-plugin</artifactId>
+               <executions>
+                  <execution>
+                     <id>enforce-build-environment</id>
+                     <phase>none</phase>
+                  </execution>
+                  <execution>
+                     <id>enforce-versions</id>
+                     <phase>none</phase>
+                  </execution>
+               </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- surefire cannot directly execute tests from archives, so we unpack them -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-tests</id>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <phase>process-test-classes</phase>
+                        <configuration>
+                            <includeArtifactIds>remoteapps-smoke-tests</includeArtifactIds>
+                            <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.12</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includes>
+                        <include>**/Test*.java</include>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <systemPropertyVariables>
+                        <remoteapps.adminUsername>${remoteapps.adminUsername}</remoteapps.adminUsername>
+                        <remoteapps.adminPassword>${remoteapps.adminPassword}</remoteapps.adminPassword>
+                        <remoteapps.targetBaseUrl>${remoteapps.targetBaseUrl}</remoteapps.targetBaseUrl>
+                        <testedProductClass>com.atlassian.jira.pageobjects.JiraTestedProduct</testedProductClass>
+                        <xvfb.enable>${xvfb.enable}</xvfb.enable>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>${amps.plugin}</artifactId>
+                <version>${amps.version}</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>run-container</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <wait>false</wait>
+                            <instanceId>jira</instanceId>
+                            <allowGoogleTracking>false</allowGoogleTracking>
+                            <products>
+                                <product>
+                                    <id>jira</id>
+                                    <instanceId>jira</instanceId>
+                                    <version>${project.version}</version>
+                                    <dataVersion>${project.version}</dataVersion>
+                                    <httpPort>${jira.http.port}</httpPort>
+                                    <contextPath>${jira.context.path}</contextPath>
+                                </product>
+                            </products>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>stop-container</id>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                        <phase>post-integration-test</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.atlassian.labs</groupId>
+            <artifactId>remoteapps-smoke-tests</artifactId>
+            <version>${remoteapps.version}</version>
+            <type>test-jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.1.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

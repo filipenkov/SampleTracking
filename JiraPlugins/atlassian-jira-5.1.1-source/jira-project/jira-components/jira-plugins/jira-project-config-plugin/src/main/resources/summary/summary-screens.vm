@@ -1,0 +1,28 @@
+#enable_html_escaping()
+<div class="project-config-webpanel-content project-config-icon48-screens">
+    <div class="project-config-webpanel-help">
+        <p>${i18n.getText("admin.project.config.summary.screens.desc")}</p>
+    </div>
+    <p class="project-config-summary-scheme">
+        <strong>${i18n.getText("common.concepts.scheme")}:</strong>
+        <a id="project-config-issuetype-screen-scheme-edit" href="${issueTypeScreenScheme.editUrl}" title="$!{issueTypeScreenScheme.description}">${issueTypeScreenScheme.name}</a>
+    </p>
+    <ul class="project-config-list project-config-itemlist">
+        #foreach ($screenScheme in $screenSchemes)
+            <li>
+                <span class="project-config-list-label">
+                    <span class="project-config-icon project-config-icon-screen"></span>
+                    #if(${isAdmin})
+                        <a class="project-config-screenscheme-name" href="${screenScheme.url}" title="$!{screenScheme.description}">${screenScheme.name}</a>
+                    #else
+                        <span class="project-config-screenscheme-name" title="$!{screenScheme.description}">${screenScheme.name}</span>
+                    #end
+                    #if($screenScheme.defaultScreenScheme)
+                        <span class="project-config-list-default">(${i18n.getText("common.words.default")})</span>
+                    #end
+                </span>
+            </li>
+        #end
+    </ul>
+    <a class="project-config-more-link" href="${issueTypeScreenScheme.editUrl}" title="${i18n.getText("admin.project.config.summary.screens.manage")}">${i18n.getText("common.concepts.more")}</a>
+</div>

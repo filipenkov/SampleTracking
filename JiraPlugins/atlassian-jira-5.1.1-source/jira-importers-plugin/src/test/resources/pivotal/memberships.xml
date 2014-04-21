@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<memberships type="array">
+  <membership>
+    <id>696559</id>
+    <person>
+      <email>elmadir@gmail.com</email>
+      <name>wseliga</name>
+      <initials>WS</initials>
+    </person>
+    <role>Owner</role>
+    <project>
+      <id>232313</id>
+      <name>My Test Project</name>
+    </project>
+  </membership>
+  <membership>
+    <id>696633</id>
+    <person>
+      <email>wojciech.seliga@vp.pl</email>
+      <name>Wojciech Seliga</name>
+      <initials>WS</initials>
+    </person>
+    <role>Member</role>
+    <project>
+      <id>232313</id>
+      <name>My Test Project</name>
+    </project>
+  </membership>
+  <membership>
+    <id>696637</id>
+    <person>
+      <email>pniewiadomski@atlassian.com</email>
+      <name>Pawel Niewiadomski</name>
+      <initials>PN</initials>
+    </person>
+    <role>Member</role>
+    <project>
+      <id>232313</id>
+      <name>My Test Project</name>
+    </project>
+  </membership>
+  <membership>
+    <id>696929</id>
+    <person>
+      <email>elmadir+pivotal@gmail.com</email>
+      <name>Test Member</name>
+      <initials>TM</initials>
+    </person>
+    <role>Viewer</role>
+    <project>
+      <id>232313</id>
+      <name>My Test Project</name>
+    </project>
+  </membership>
+</memberships>

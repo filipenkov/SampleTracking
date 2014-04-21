@@ -1,0 +1,560 @@
+17a18,47
+>     <!-- User implementation -->
+>     <entity entity-name="User" table-name="cwd_user" package-name="">
+>         <field name="id" type="numeric"/>
+> 
+>         <field name="directoryId" col-name="directory_id" type="numeric"/>
+>         <field name="userName" col-name="user_name" type="long-varchar"/>
+>         <field name="lowerUserName" col-name="lower_user_name" type="long-varchar"/>
+>         <field name="active" col-name="active" type="integer"/>
+>         <field name="createdDate" col-name="created_date" type="date-time"/>
+>         <field name="updatedDate" col-name="updated_date" type="date-time"/>
+>         <field name="firstName" col-name="first_name" type="long-varchar"/>
+>         <field name="lowerFirstName" col-name="lower_first_name" type="long-varchar"/>
+>         <field name="lastName" col-name="last_name" type="long-varchar"/>
+>         <field name="lowerLastName" col-name="lower_last_name" type="long-varchar"/>
+>         <field name="displayName" col-name="display_name" type="long-varchar"/>
+>         <field name="lowerDisplayName" col-name="lower_display_name" type="long-varchar"/>
+>         <field name="emailAddress" col-name="email_address" type="long-varchar"/>
+>         <field name="lowerEmailAddress" col-name="lower_email_address" type="long-varchar"/>
+>         <field name="credential" type="long-varchar"/>
+> 
+>         <prim-key field="id"/>
+> 
+>         <index unique="true" name="uk_user_name_dir_id">
+>             <index-field name="lowerUserName"/>
+>             <index-field name="directoryId"/>
+>         </index>
+> 
+>         <index name="idx_first_name">
+>             <index-field name="lowerFirstName"/>
+>         </index>
+19c49,153
+<     <!-- OSUser implementation -->
+---
+>         <index name="idx_last_name">
+>             <index-field name="lowerLastName"/>
+>         </index>
+> 
+>         <index name="idx_display_name">
+>             <index-field name="lowerDisplayName"/>
+>         </index>
+> 
+>         <index name="idx_email_address">
+>             <index-field name="lowerEmailAddress"/>
+>         </index>
+>     </entity>
+> 
+>     <entity entity-name="UserAttribute" table-name="cwd_user_attributes" package-name="">
+>         <field name="id" type="numeric"/>
+> 
+>         <field name="userId" col-name="user_id" type="numeric"/>
+> 
+>         <field name="directoryId" col-name="directory_id" type="numeric"/>
+> 
+>         <field name="name" col-name="attribute_name" type="long-varchar"/>
+>         <field name="value" col-name="attribute_value" type="long-varchar"/>
+>         <field name="lowerValue" col-name="lower_attribute_value" type="long-varchar"/>
+> 
+>         <prim-key field="id"/>
+> 
+>         <index name="idx_user_attr_dir_name_lval">
+>             <index-field name="directoryId"/>
+>             <index-field name="name"/>
+>             <index-field name="lowerValue"/>
+>         </index>
+> 
+>         <index name="uk_user_attr_name_lval">
+>             <index-field name="userId"/>
+>             <index-field name="name"/>
+>         </index>
+> 
+>         <!-- MySQL does not allow to index more than 500 characters.
+>         <index unique="true" name="uk_user_attr_name_lval">
+>             <index-field name="userId"/>
+>             <index-field name="name"/>
+>             <index-field name="lowerValue"/>
+>         </index>
+>         -->
+>     </entity>
+> 
+>     <entity entity-name="Group" table-name="cwd_group" package-name="">
+> 
+>         <field name="id" type="numeric"/>
+>         <field name="groupName" col-name="group_name" type="long-varchar"/>
+>         <field name="lowerGroupName" col-name="lower_group_name" type="long-varchar"/>
+>         <field name="active" col-name="active" type="integer"/>
+>         <field name="local" col-name="local" type="integer"/>
+>         <field name="createdDate" col-name="created_date" type="date-time"/>
+>         <field name="updatedDate" col-name="updated_date" type="date-time"/>
+>         <field name="description" col-name="description" type="long-varchar"/>
+>         <field name="lowerDescription" col-name="lower_description" type="long-varchar"/>
+>         <field name="type" col-name="group_type" type="short-varchar"/>
+>         <field name="directoryId" col-name="directory_id" type="numeric"/>
+> 
+>         <prim-key field="id"/>
+> 
+>         <index unique="true" name="uk_group_name_dir_id">
+>             <index-field name="lowerGroupName"/>
+>             <index-field name="directoryId"/>
+>         </index>
+> 
+>         <index name="idx_group_active">
+>             <index-field name="lowerGroupName"/>
+>             <index-field name="active"/>
+>         </index>
+> 
+>         <index name="idx_group_dir_id">
+>             <index-field name="directoryId"/>
+>         </index>
+> 
+>     </entity>
+> 
+>     <entity entity-name="GroupAttribute" table-name="cwd_group_attributes" package-name="">
+>         <field name="id" type="numeric"/>
+> 
+>         <field name="groupId" col-name="group_id" type="numeric"/>
+> 
+>         <field name="directoryId" col-name="directory_id" type="numeric"/>
+> 
+>         <field name="name" col-name="attribute_name" type="long-varchar"/>
+>         <field name="value" col-name="attribute_value" type="long-varchar"/>
+>         <field name="lowerValue" col-name="lower_attribute_value" type="long-varchar"/>
+> 
+>         <prim-key field="id"/>
+> 
+>         <index name="idx_group_attr_dir_name_lval">
+>             <index-field name="directoryId"/>
+>             <index-field name="name"/>
+>             <index-field name="lowerValue"/>
+>         </index>
+> 
+>         <index unique="true" name="uk_group_attr_name_lval">
+>             <index-field name="groupId"/>
+>             <index-field name="name"/>
+>             <index-field name="lowerValue"/>
+>         </index>
+>     </entity>
+> 
+>     <!-- OSUser implementation. Deprecated - used for importing previous version data-->
+56a191,350
+>     <entity entity-name="Membership" table-name="cwd_membership" package-name="">
+> 
+>         <field name="id" type="numeric"/>
+> 
+>         <field name="parentId" col-name="parent_id" type="numeric"/>
+>         <field name="childId" col-name="child_id" type="numeric"/>
+>         <field name="membershipType" col-name="membership_type" type="short-varchar"/>
+>         <field name="groupType" col-name="group_type" type="short-varchar"/>
+> 
+>         <field name="parentName" col-name="parent_name" type="long-varchar"/>
+>         <field name="lowerParentName" col-name="lower_parent_name" type="long-varchar"/>
+>         <field name="childName" col-name="child_name" type="long-varchar"/>
+>         <field name="lowerChildName" col-name="lower_child_name" type="long-varchar"/>
+> 
+>         <field name="directoryId" col-name="directory_id" type="numeric"/>
+> 
+>         <prim-key field="id"/>
+> 
+>         <index unique="true" name="uk_mem_parent_child_type">
+>             <index-field name="parentId"/>
+>             <index-field name="childId"/>
+>             <index-field name="membershipType"/>
+>         </index>
+> 
+>         <index name="idx_mem_dir_parent_child">
+>             <index-field name="lowerParentName"/>
+>             <index-field name="lowerChildName"/>
+>             <index-field name="membershipType"/>
+>             <index-field name="directoryId"/>
+>         </index>
+> 
+>         <index name="idx_mem_dir_parent">
+>             <index-field name="lowerParentName"/>
+>             <index-field name="membershipType"/>
+>             <index-field name="directoryId"/>
+>         </index>
+> 
+>         <index name="idx_mem_dir_child">
+>             <index-field name="lowerChildName"/>
+>             <index-field name="membershipType"/>
+>             <index-field name="directoryId"/>
+>         </index>
+>     </entity>
+> 
+>     <!-- Directory implementation -->
+>     <entity entity-name="Directory" table-name="cwd_directory" package-name="">
+> 
+>         <field name="id" type="numeric"/>
+> 
+>         <field name="directoryName" col-name="directory_name" type="long-varchar"/>
+>         <field name="lowerDirectoryName" col-name="lower_directory_name" type="long-varchar"/>
+> 
+>         <field name="createdDate" col-name="created_date" type="date-time"/>
+>         <field name="updatedDate" col-name="updated_date" type="date-time"/>
+>         <field name="active" col-name="active" type="integer"/>
+> 
+>         <field name="description" col-name="description" type="long-varchar"/>
+> 
+>         <field name="implementationClass" col-name="impl_class" type="long-varchar"/>
+>         <field name="lowerImplementationClass" col-name="lower_impl_class" type="long-varchar"/>
+> 
+>         <field name="type" col-name="directory_type" type="short-varchar"/>
+>         <field name="position" col-name="directory_position" type="numeric"/>
+> 
+>         <prim-key field="id"/>
+> 
+>         <index name="uk_directory_name">
+>             <index-field name="lowerDirectoryName"/>
+>         </index>
+> 
+>         <index name="idx_directory_active">
+>             <index-field name="active"/>
+>         </index>
+> 
+>         <index name="idx_directory_impl">
+>             <index-field name="lowerImplementationClass"/>
+>         </index>
+> 
+>         <index name="idx_directory_type">
+>             <index-field name="type"/>
+>         </index>
+> 
+>     </entity>
+> 
+>     <entity entity-name="DirectoryAttribute" table-name="cwd_directory_attribute" package-name="">
+> 
+>         <field name="directoryId" col-name="directory_id" type="numeric"/>
+> 
+>         <field name="name" col-name="attribute_name" type="long-varchar"/>
+> 
+>         <field name="value" col-name="attribute_value" type="long-varchar"/>
+> 
+>         <prim-key field="directoryId"/>
+>         <prim-key field="name"/>
+> 
+>         <relation type="one" rel-entity-name="Directory" fk-name="fk_directory_attribute">
+>             <key-map field-name="directoryId" rel-field-name="id"/>
+>         </relation>
+> 
+>     </entity>
+> 
+>     <entity entity-name="DirectoryOperation" table-name="cwd_directory_operation" package-name="">
+> 
+>         <field name="directoryId" col-name="directory_id" type="numeric"/>
+> 
+>         <field name="operationType" col-name="operation_type" type="short-varchar"/>
+> 
+>         <prim-key field="directoryId"/>
+>         <prim-key field="operationType"/>
+> 
+>         <relation type="one" rel-entity-name="Directory" fk-name="fk_directory_operation">
+>             <key-map field-name="directoryId" rel-field-name="id"/>
+>         </relation>
+> 
+>     </entity>
+> 
+>     <!-- Application implementation -->
+>     <entity entity-name="Application" table-name="cwd_application" package-name="">
+> 
+>         <field name="id" type="numeric"/>
+> 
+>         <field name="name" col-name="application_name" type="long-varchar"/>
+>         <field name="lowerName" col-name="lower_application_name" type="long-varchar"/>
+> 
+>         <field name="createdDate" col-name="created_date" type="date-time"/>
+>         <field name="updatedDate" col-name="updated_date" type="date-time"/>
+>         <field name="active" col-name="active" type="integer"/>
+> 
+>         <field name="description" col-name="description" type="long-varchar"/>
+>         <field name="applicationType" col-name="application_type" type="long-varchar"/>
+> 
+>         <field name="credential" col-name="credential" type="long-varchar"/>
+> 
+>         <prim-key field="id"/>
+> 
+>         <index unique="true" name="uk_application_name">
+>             <index-field name="lowerName"/>
+>         </index>
+> 
+>     </entity>
+> 
+>     <!-- Crowd Application implementation -->
+>     <entity entity-name="RemoteAddress" table-name="cwd_application_address" package-name="">
+> 
+>         <field name="applicationId" col-name="application_id" type="numeric"/>
+> 
+>         <field name="address" col-name="remote_address" type="long-varchar"/>
+>         <field name="encodedAddressBytes" col-name="encoded_address_binary" type="long-varchar"/>
+>         <field name="mask" col-name="remote_address_mask" type="integer"/>
+> 
+>         <prim-key field="applicationId"/>
+>         <prim-key field="address"/>
+> 
+>         <relation type="one" rel-entity-name="Application" fk-name="fk_application_remote_address">
+>             <key-map field-name="applicationId" rel-field-name="id"/>
+>         </relation>
+> 
+>     </entity>
+> 
+> 
+78d371
+<         <!-- entityName and propertyKey have very few unique values - there is no value in including them-->
+81a375,380
+>         <index name="osproperty_entityName">
+>             <index-field name="entityName"/>
+>         </index>
+>         <index name="osproperty_propertyKey">
+>             <index-field name="propertyKey"/>
+>         </index>
+171a471,473
+>         <index name="historystep_entryid">
+>             <index-field name="entryId"/>
+>         </index>
+291a594
+>         <field name="watches" type="numeric"/>
+323a627,629
+>         <relation type="many" title="Child" rel-entity-name="RemoteIssueLink">
+>             <key-map field-name="id" rel-field-name="issueid"/>
+>         </relation>
+329a636,638
+>         <relation type="many" title="Child" rel-entity-name="Label">
+>             <key-map field-name="id" rel-field-name="issue"/>
+>         </relation>
+344c653
+<         <index name="issue_key">
+---
+>         <index name="issue_key" unique="true">
+350a660,662
+>         <index name="issue_updated">
+>             <index-field name="updated"/>
+>         </index>
+358a671,697
+>     <entity entity-name="Label" table-name="label" package-name="">
+>         <field name="id" type="numeric"/>
+>         <field name="fieldid" type="numeric"/>
+>         <field name="issue" type="numeric"/>
+>         <field name="label" type="long-varchar"/>
+>         <prim-key field="id"/>
+>         
+>         <relation type="one" title="Parent" rel-entity-name="Issue">
+>             <key-map field-name="issue" rel-field-name="id"/>
+>         </relation>
+>         <index name="label_fieldissue">
+>             <index-field name="issue"/>
+>             <index-field name="fieldid"/>
+>         </index>
+>         <index name="label_fieldissuelabel">
+>             <index-field name="issue"/>
+>             <index-field name="fieldid"/>
+>             <index-field name="label"/>
+>         </index>
+>         <index name="label_label">
+>             <index-field name="label"/>
+>         </index>
+>         <index name="label_issue">
+>             <index-field name="issue"/>
+>         </index>
+>     </entity>
+> 
+386a726,735
+>         <index name="action_authorcreated">
+>             <index-field name="issue"/>
+>             <index-field name="author"/>
+>             <index-field name="created"/>
+>         </index>
+>         <index name="action_authorupdated">
+>             <index-field name="issue"/>
+>             <index-field name="author"/>
+>             <index-field name="updated"/>
+>         </index>
+532a882,906
+>     <entity entity-name="RemoteIssueLink" table-name="remotelink" package-name="">
+>         <field name="id" type="numeric"/>
+>         <field name="issueid" type="numeric"/>
+>         <field name="globalid" type="long-varchar"/>
+>         <field name="title" type="long-varchar"/>
+>         <field name="summary" type="very-long"/>
+>         <field name="url" type="very-long"/>
+>         <field name="iconurl" type="very-long"/>
+>         <field name="icontitle" type="very-long"/>
+>         <field name="relationship" type="long-varchar"/>
+>         <field name="resolved" type="indicator"/>
+>         <field name="statusiconurl" type="very-long"/>
+>         <field name="statusicontitle" type="very-long"/>
+>         <field name="statusiconlink" type="very-long"/>
+>         <field name="applicationtype" type="long-varchar"/>
+>         <field name="applicationname" type="long-varchar"/>
+> 
+>         <prim-key field="id"/>
+> 
+>         <index name="remotelink_issueid">
+>             <index-field name="issueid"/>
+>             <index-field name="globalid"/>
+>         </index>
+>     </entity>
+> 
+753a1127,1128
+>         <!-- since 4.4 -->
+>         <field name="disabled" col-name="disabled" type="short-varchar"/>
+789a1165,1171
+>         <index name="confcontextprojectkey">
+>             <index-field name="project"/>
+>             <index-field name="key"/>
+>         </index>
+>         <index name="confcontextfieldconfigscheme">
+>             <index-field name="fieldconfigscheme"/>
+>         </index>
+961a1344
+>         <!-- Note: the username column actually stores the user key -->
+1006a1390
+>         <field name="created" type="date-time"/>
+1028a1413
+>         <field name="protocol" col-name="protocol" type="short-varchar"/>
+1033a1419,1423
+>         <field name="istlsrequired" type="short-varchar"/>
+>         <field name="timeout" type="numeric"/>
+> 
+>         <field name="socksPort" col-name="socks_port" type="short-varchar"/>
+>         <field name="socksHost" col-name="socks_host" type="short-varchar"/>
+1218,1219c1608,1609
+<         <relation type="one" title="Parent" rel-entity-name="OSUser">
+<             <key-map field-name="username" rel-field-name="name"/>
+---
+>         <relation type="one" title="Parent" rel-entity-name="User">
+>             <key-map field-name="username" rel-field-name="userName"/>
+1361a1752,1756
+> 
+>         <index name="ppage_username">
+>             <index-field name="username"/>
+>         </index>
+> 
+1409a1805
+>         <field name="targetbuild" type="long-varchar"/>
+1413a1810,1818
+>     <entity entity-name="UpgradeVersionHistory" table-name="upgradeversionhistory" package-name="">
+>         <field name="id" type="numeric"/>
+>         <field name="timeperformed" type="date-time"/>
+>         <field name="targetbuild" type="long-varchar"/>
+>         <field name="targetversion" type="long-varchar"/>
+> 
+>         <prim-key field="targetbuild"/>
+>     </entity>
+> 
+1523,1524c1928,1929
+<         <relation type="one" title="Parent" rel-entity-name="OSUser">
+<             <key-map field-name="username" rel-field-name="name"/>
+---
+>         <relation type="one" title="Parent" rel-entity-name="User">
+>             <key-map field-name="username" rel-field-name="userName"/>
+1531a1937,1944
+> 
+>         <index name="cl_searchrequest">
+>             <index-field name="searchrequest"/>
+>         </index>
+>         <index name="cl_username">
+>             <index-field name="username"/>
+>         </index>
+> 
+1929a2343,2350
+>         <!-- OAuth sessions introduced in JIRA 5.1 (atlassian-oauth-1.4.x) -->
+>         <field name="sessionHandle" type="long-varchar"/>
+>         <field name="sessionCreationTime" type="date-time"/>
+>         <field name="sessionLastRenewalTime" type="date-time"/>
+>         <!-- should be a numeric, but already shipped to customers as a date-time so we just pull the millis since
+>              the epoch out of the Timestamp and treat that as the session TTL -->
+>         <field name="sessionTimeToLive" type="date-time"/>
+> 
+1939a2361,2386
+>     <entity entity-name="RememberMeToken" table-name="remembermetoken" package-name="">
+>         <field name="id" type="numeric"/>
+>         <field name="created" type="date-time"/>
+>         <field name="token" type="long-varchar"/>
+>         <field name="username" type="long-varchar"/>
+> 
+>         <prim-key field="id"/>
+> 
+>         <index name="remembermetoken_username_index">
+>             <index-field name="username"/>
+>         </index>
+>     </entity>
+> 
+>     <entity entity-name="VoteHistory" table-name="votehistory" package-name="">
+>         <field name="id" type="numeric"/>
+>         <field name="issue"  col-name="issueid" type="numeric"/>
+>         <field name="votes" type="numeric"/>
+>         <field name="timestamp" type="date-time"/>
+> 
+>         <prim-key field="id"/>
+> 
+>         <index name="votehistory_issue_index">
+>             <index-field name="issue"/>
+>         </index>
+>     </entity>
+> 
+1946a2394,2399
+>     <view-entity entity-name="IssueCountByAssignee" package-name="">
+>         <member-entity entity-alias="I" entity-name="Issue"/>
+>         <alias entity-alias="I" field="id" function="count" name="count"/>
+>         <alias entity-alias="I" field="assignee" name="assignee"/>
+>     </view-entity>
+> 
+1951a2405,2409
+>     <view-entity entity-name="RememberMeTokenCount" package-name="">
+>       <member-entity entity-alias="R" entity-name="RememberMeToken"/>
+>       <alias entity-alias="R" field="id" function="count" name="count"/>
+>     </view-entity>
+> 
+1962,1963c2420,2421
+<     <view-entity entity-name="OSUserCount" package-name="">
+<       <member-entity entity-alias="U" entity-name="OSUser"/>
+---
+>     <view-entity entity-name="UserCount" package-name="">
+>         <member-entity entity-alias="U" entity-name="User"/>
+1967,1968c2425,2426
+<     <view-entity entity-name="OSGroupCount" package-name="">
+<       <member-entity entity-alias="G" entity-name="OSGroup"/>
+---
+>     <view-entity entity-name="GroupCount" package-name="">
+>         <member-entity entity-alias="G" entity-name="Group"/>
+1976a2435,2439
+>     <view-entity entity-name="FileAttachmentCount" package-name="">
+>         <member-entity entity-alias="FA" entity-name="FileAttachment"/>
+>         <alias entity-alias="FA" field="id" function="count" name="count"/>
+>     </view-entity>
+> 
+2027a2491,2503
+>      <view-entity entity-name="OSUserPropertySetNumberView" package-name="">
+>         <member-entity entity-alias="PE" entity-name="OSPropertyEntry"/>
+>         <member-entity entity-alias="PN" entity-name="OSPropertyNumber"/>
+>         <alias entity-alias="PE" field="propertyKey" name="propertyKey"/>
+>         <alias entity-alias="PE" field="entityName" name="entityName"/>
+>         <alias entity-alias="PE" field="id" name="id"/>
+>         <alias entity-alias="PE" field="entityId" name="entityId"/>
+>         <alias entity-alias="PN" field="value" name="propertyValue"/>
+>         <view-link entity-alias="PE" rel-entity-alias="PN" rel-optional="false">
+>             <key-map field-name="id" rel-field-name="id"/>
+>         </view-link>
+>     </view-entity>
+> 
+2089a2566,2585
+>     <!-- Views for grouping the upgrade history into distinct versions in time -->
+>     <view-entity entity-name="UpgradeHistoryMaxIdForTargetBuild" package-name="">
+>         <member-entity entity-alias="UH" entity-name="UpgradeHistory"/>
+> 
+>         <alias entity-alias="UH" field="id" function="max" name="id"/>
+>         <alias entity-alias="UH" field="targetbuild" name="targetbuild" group-by="true"/>
+>     </view-entity>
+> 
+>     <view-entity entity-name="UpgradeHistoryLastClassForTargetBuild" package-name="">
+>         <member-entity entity-alias="UH1" entity-name="UpgradeHistoryMaxIdForTargetBuild"/>
+>         <member-entity entity-alias="UH2" entity-name="UpgradeHistory"/>
+>         <alias entity-alias="UH1" field="id" name="id"/>
+>         <alias entity-alias="UH1" field="targetbuild" name="targetbuild"/>
+>         <alias entity-alias="UH2" field="upgradeclass" name="upgradeclass"/>
+> 
+>         <view-link entity-alias="UH1" rel-entity-alias="UH2" rel-optional="false">
+>             <key-map field-name="id" rel-field-name="id"/>
+>         </view-link>
+>     </view-entity>
+> 

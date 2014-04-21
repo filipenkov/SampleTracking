@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>$title</title>
+        <meta name="decorator" content="admin"/>
+        <meta name="projectKey" content="$project.key"/>
+        <meta name="projectId" content="$project.id"/>
+        <meta name="admin.active.tab" content="$linkId"/>
+        <meta name="admin.active.section" content="atl.jira.proj.config"/>
+    </head>
+    <body>
+        #set ($firstDay = $currentCalendar.firstDayOfWeek - 1)
+        <fieldset class="hidden parameters">
+            <input type="hidden" title="dateFormat" value="$dateFormat" />
+            <input type="hidden" title="timeFormat" value="$timeFormat" />
+            <input type="hidden" title="currentMillis" value="$currentMillis" />
+            <input type="hidden" title="firstDay" value="$firstDay" />
+        </fieldset>
+        $tabHtml
+    </body>
+</html>

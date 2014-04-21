@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.atlassian.crowd.model.user.InternalUser" table="cwd_user" lazy="true">
+
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="com.atlassian.crowd.util.persistence.hibernate.ResettableTableHiLoGenerator"/>
+        </id>
+
+        <property name="name" column="user_name" type="string" not-null="true" length="255"/>
+
+        <property name="lowerName" column="lower_user_name" type="string" not-null="true" length="255"
+                  unique-key="uk_user_name_dir_id" />
+
+        <property name="active" column="active" type="true_false" not-null="true" index="idx_user_active"/>
+
+        <property name="createdDate" column="created_date" type="timestamp" not-null="true"/>
+
+        <property name="updatedDate" column="updated_date" type="timestamp" not-null="true"/>
+
+        <property name="firstName" column="first_name" type="string" not-null="false" length="255"/>
+
+        <property name="lowerFirstName" column="lower_first_name" type="string" not-null="false" length="255"
+                  index="idx_user_lower_first_name"/>
+
+        <property name="lastName" column="last_name" type="string" not-null="false" length="255"/>
+
+        <property name="lowerLastName" column="lower_last_name" type="string" not-null="false" length="255"
+                  index="idx_user_lower_last_name"/>
+
+        <property name="displayName" column="display_name" type="string" not-null="false" length="255"/>
+
+        <property name="lowerDisplayName" column="lower_display_name" type="string" not-null="false" length="255"
+                  index="idx_user_lower_display_name"/>
+
+        <property name="emailAddress" column="email_address" type="string" not-null="false" length="255"/>
+
+        <property name="lowerEmailAddress" column="lower_email_address" type="string" not-null="false" length="255"
+                  index="idx_user_lower_email_address"/>
+
+        <many-to-one name="directory" column="directory_id" not-null="true"
+                     foreign-key="fk_user_dir_id"
+                     unique-key="uk_user_name_dir_id"
+                     index="idx_user_name_dir_id,idx_user_active,idx_user_lower_first_name,idx_user_lower_last_name,idx_user_lower_display_name,idx_user_lower_email_address"
+                     class="com.atlassian.crowd.model.directory.DirectoryImpl"
+                />
+
+        <component name="credential" class="com.atlassian.crowd.embedded.api.PasswordCredential">
+            <property name="credential" column="credential" length="255" not-null="false"/>
+        </component>
+
+        <!-- need to map this with inverse=false because of http://www.hibernate.org/193.html -->
+        <list name="credentialRecords" cascade="all" lazy="true" inverse="false">
+            <key column="user_id" not-null="true"/>
+
+            <list-index column="list_index"/>
+
+            <one-to-many class="com.atlassian.crowd.model.user.InternalUserCredentialRecord"/>
+        </list>
+
+    </class>
+
+    <class name="com.atlassian.crowd.model.user.InternalUserAttribute" table="cwd_user_attribute">
+
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="com.atlassian.crowd.util.persistence.hibernate.ResettableTableHiLoGenerator"/>
+        </id>
+
+        <many-to-one name="user" column="user_id" not-null="true" foreign-key="fk_user_attribute_id_user_id"
+                     unique-key="uk_user_attr_name_lval" index="idx_user_attr_user_id"/>
+
+        <!-- this only exists so that we can do fast queries on the index for (directory_id, attribute_name, attribute_lower_value) -> user_id -->
+        <many-to-one name="directory" column="directory_id" not-null="true"
+                     foreign-key="fk_user_attr_dir_id" index="idx_user_attr_dir_name_lval"
+                     class="com.atlassian.crowd.model.directory.DirectoryImpl" />
+
+        <property name="name" column="attribute_name" not-null="true" length="255"
+                  index="idx_user_attr_dir_name_lval" unique-key="uk_user_attr_name_lval"/>
+
+        <property name="value" column="attribute_value" length="255"/>
+
+        <property name="lowerValue" column="attribute_lower_value" length="255"
+                  index="idx_user_attr_dir_name_lval" unique-key="uk_user_attr_name_lval"/>
+
+    </class>
+
+    <!-- we need to extract the enitity out in order to support bulk user deletes (eg. when a directory is deleted) -->
+    <class name="com.atlassian.crowd.model.user.InternalUserCredentialRecord" table="cwd_user_credential_record">
+
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="com.atlassian.crowd.util.persistence.hibernate.ResettableTableHiLoGenerator"/>
+        </id>
+
+        <many-to-one name="user" column="user_id" insert="false" update="false" foreign-key="fk_user_cred_user" not-null="true"/>
+
+        <property name="passwordHash" column="password_hash" type="string" length="255" not-null="true"/>
+
+    </class>
+
+    <!-- hql queries -->
+
+    <query name="removeInternalUserAttributes">
+        delete from InternalUserAttribute a where a.user = :user and a.name = :attributeName
+    </query>
+
+    <query name="removeAllInternalUserAttributes">
+        delete from InternalUserAttribute a where a.user = :user
+    </query>
+
+    <query name="removeInternalUsersInDirectory">
+        delete from InternalUser u where u.directory.id = :directoryId
+    </query>
+
+    <query name="removeCredentialRecordsInDirectory">
+        delete from InternalUserCredentialRecord r where r.user.id in (select u.id from InternalUser u where u.directory.id = :directoryId)
+    </query>
+
+    <query name="removeInternalUserAttributesInDirectory">
+        delete from InternalUserAttribute a where a.directory.id = :directoryId
+    </query>
+
+</hibernate-mapping>

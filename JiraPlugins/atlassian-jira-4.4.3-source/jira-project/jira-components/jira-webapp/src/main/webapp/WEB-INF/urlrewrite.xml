@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 2.3//EN" "http://tuckey.org/res/dtds/urlrewrite2.3.dtd">
+
+<!--
+    URL Rewrite files to make issue navigator URL backwards compatible
+    @since JIRA 3.3
+-->
+<urlrewrite>
+
+    <!-- Issue constant renames -->
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)resolutionIds=([^&amp;|$]*)(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1resolution=$2$3</to>
+    </rule>
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)statusIds=([^&amp;|$]*)(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1status=$2$3</to>
+    </rule>
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)priorityIds=([^&amp;|$]*)(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1priority=$2$3</to>
+    </rule>
+
+    <!-- Created date -->
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)createdBefore=([^&amp;|$]*)(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1created%3Abefore=$2$3</to>
+    </rule>
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)createdAfter=([^&amp;|$]*)(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1created%3Aafter=$2$3</to>
+    </rule>
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)createdPrevious=3600000(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1created%3Aprevious=-1h$2</to>
+    </rule>
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)createdPrevious=86400000(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1created%3Aprevious=-1d$2</to>
+    </rule>
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)createdPrevious=604800000(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1created%3Aprevious=-1w$2</to>
+    </rule>
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)createdPrevious=2592000000(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1created%3Aprevious=-30d$2</to>
+    </rule>
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)sorter/field=datecreated(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1sorter/field=created$2</to>
+    </rule>
+    <rule>
+        <from>^.*sr/jira.issueviews:(.*)sorter/field=datecreated(.*)$</from>
+        <to type="permanent-redirect">sr/jira.issueviews:$1sorter/field=created$2</to>
+    </rule>
+
+    <!-- Updated date -->
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)updatedBefore=([^&amp;|$]*)(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1updated%3Abefore=$2$3</to>
+    </rule>
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)updatedAfter=([^&amp;|$]*)(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1updated%3Aafter=$2$3</to>
+    </rule>
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)updatedPrevious=3600000(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1updated%3Aprevious=-1h$2</to>
+    </rule>
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)updatedPrevious=86400000(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1updated%3Aprevious=-1d$2</to>
+    </rule>
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)updatedPrevious=604800000(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1updated%3Aprevious=-1w$2</to>
+    </rule>
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)updatedPrevious=2592000000(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1updated%3Aprevious=-30d$2</to>
+    </rule>
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)sorter/field=lastupdated(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1sorter/field=updated$2</to>
+    </rule>
+    <rule>
+        <from>^.*sr/jira.issueviews:(.*)sorter/field=lastupdated(.*)$</from>
+        <to type="permanent-redirect">sr/jira.issueviews:$1sorter/field=updated$2</to>
+    </rule>
+
+    <!-- Duedate date -->
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)duedateBefore=([^&amp;|$]*)(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1duedate%3Abefore=$2$3</to>
+    </rule>
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)duedateAfter=([^&amp;|$]*)(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1duedate%3Aafter=$2$3</to>
+    </rule>
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)duedatePrevious=([^&amp;|$]*)(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1duedate%3Aprevious=$2$3</to>
+    </rule>
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)duedateNext=([^&amp;|$]*)(.*)$</from>
+        <to type="permanent-redirect">IssueNavigator.jspa$1duedate%3Anext=$2$3</to>
+    </rule>
+
+    <!-- RSS XML for Issue Navigator changed in JIRA 3.7 -->
+    <!-- When we upgrade to urlrewrite filter 2.6 please replace '../' with %{context-path} -->
+    <rule>
+        <from>^.*IssueNavigator.jspa(.*)view=rss&amp;?(.*)$</from>
+        <to type="permanent-redirect">../sr/jira.issueviews:searchrequest-xml/temp/SearchRequest.xml$1$2</to>
+    </rule>
+     <!--RSS XML for Single Issue-->
+    <rule>
+        <from>^.*browse/(.*)\?(.*)view=rss(.*)$</from>
+        <to type="permanent-redirect">../si/jira.issueviews:issue-xml/$1/$1.xml</to>
+    </rule>
+    <!-- Printable for a single issue -->
+    <!-- slightly hacky way of doing this - project keys don't have a '-' in them, only issue keys -->
+    <rule>
+        <from>^.*browse/(.*)-(\d*)\?(.*)decorator=printable(.*)$</from>
+        <to type="permanent-redirect">../si/jira.issueviews:issue-html/$1-$2/$1-$2.html</to>
+    </rule>
+
+    <!-- Issue Tab panels -->
+    <!-- All -->
+    <rule>
+        <from>^.*browse/(.*)page=all(.*)$</from>
+        <to type="permanent-redirect">$1page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel$2</to>
+    </rule>
+    <!-- Comments -->
+    <rule>
+        <from>^.*browse/(.*)page=comments(.*)$</from>
+        <to type="permanent-redirect">$1page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel$2</to>
+    </rule>
+    <!-- Change History -->
+    <rule>
+        <from>^.*browse/(.*)page=history(.*)$</from>
+        <to type="permanent-redirect">$1page=com.atlassian.jira.plugin.system.issuetabpanels:changehistory-tabpanel$2</to>
+    </rule>
+    <!-- CVS -->
+    <rule>
+        <from>^.*browse/(.*)page=vcs(.*)$</from>
+        <to type="permanent-redirect">$1page=com.atlassian.jira.plugin.system.issuetabpanels:cvs-tabpanel$2</to>
+    </rule>
+    <!-- Worklog -->
+    <rule>
+        <from>^.*browse/(.*)page=worklog(.*)$</from>
+        <to type="permanent-redirect">$1page=com.atlassian.jira.plugin.system.issuetabpanels:worklog-tabpanel$2</to>
+    </rule>
+
+
+    <!-- Caching of static resources -->
+    <rule>
+        <!-- because Orion and other application server apply filters to requests, you end in an infinite loop here
+             unless you only apply the filter once per request.  That is what the 'condition' and 'set' params are for
+              -->
+        <condition name="cachingHeadersApplied" type="attribute" operator="notequal">true</condition>
+        <from>^/s/(.*)/_/(.*)</from>
+        <run class="com.atlassian.plugin.servlet.ResourceDownloadUtils" method="addCachingHeaders" />
+        <to type="forward">/$2</to>
+        <set name="cachingHeadersApplied">true</set>
+    </rule>
+
+    <!-- Charting plugin -->
+    <!-- Created vs resolved chart -->
+    <rule>                                               
+        <from>^.*RunPortlet.jspa(.*)portletKey=com.atlassian.jira.ext.charting:createdvsresolved(.*)$</from>
+        <to type="permanent-redirect">$1portletKey=com.atlassian.jira.plugin.system.portlets:createdvsresolved$2</to>
+    </rule>
+
+    <!-- Resolution time chart -->
+    <rule>
+        <from>^.*RunPortlet.jspa(.*)portletKey=com.atlassian.jira.ext.charting:resolutiontime(.*)$</from>
+        <to type="permanent-redirect">$1portletKey=com.atlassian.jira.plugin.system.portlets:resolutiontime$2</to>
+    </rule>
+
+    <!-- Pie chart -->
+    <rule>
+        <from>^.*RunPortlet.jspa(.*)portletKey=com.atlassian.jira.ext.charting:singlefieldpie(.*)$</from>
+        <to type="permanent-redirect">$1portletKey=com.atlassian.jira.plugin.system.portlets:pie$2</to>
+    </rule>
+
+    <!-- Average Age chart -->
+    <rule>
+        <from>^.*RunPortlet.jspa(.*)portletKey=com.atlassian.jira.ext.charting:averageage(.*)$</from>
+        <to type="permanent-redirect">$1portletKey=com.atlassian.jira.plugin.system.portlets:averageage$2</to>
+    </rule>
+
+    <!-- Recently Created chart -->
+    <rule>
+        <from>^.*RunPortlet.jspa(.*)portletKey=com.atlassian.jira.ext.charting:recentlycreated(.*)$</from>
+        <to type="permanent-redirect">$1portletKey=com.atlassian.jira.plugin.system.portlets:recentlycreated$2</to>
+    </rule>
+
+    <!-- Time Since chart -->
+    <rule>
+        <from>^.*RunPortlet.jspa(.*)portletKey=com.atlassian.jira.ext.charting:timesince(.*)$</from>
+        <to type="permanent-redirect">$1portletKey=com.atlassian.jira.plugin.system.portlets:timesince$2</to>
+    </rule>
+
+</urlrewrite>

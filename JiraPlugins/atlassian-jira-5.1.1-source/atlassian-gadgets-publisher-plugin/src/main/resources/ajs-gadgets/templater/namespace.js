@@ -1,0 +1,1 @@
+AJS.$.namespace("AJS.gadgets.templater");

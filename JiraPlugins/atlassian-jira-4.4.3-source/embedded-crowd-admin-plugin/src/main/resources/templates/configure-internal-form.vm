@@ -1,0 +1,38 @@
+<html>
+<head>
+    <meta name="decorator" content="atl.admin">
+    <meta name="admin.active.section" content="admin_users_menu/users_groups_configuration/embedded_crowd_section"/>
+    <meta name="admin.active.tab" content="user_directories"/>
+	<title>$i18n.getText("embedded.crowd.directory.edit.internal.title")</title>
+    $webResourceManager.requireResource("com.atlassian.crowd.embedded.admin:web-resources")
+</head>
+<body>
+<div id="embcwd">
+    #springBindEscaped("configuration" false)
+    #set($formPrefix = "configure-internal-form")
+    <form id="$formPrefix" class="aui" action="#springUrl("/plugins/servlet/embedded-crowd/configure/internal/")" method="POST">
+        <div class="page-header">
+            <h3>$i18n.getText("embedded.crowd.directory.edit.internal.title")#helpLink("embedded.crowd.directory.configure.internal")</h3>
+        </div>
+        #foreach($error in $status.errorMessages)<div class="aui-message error"><span class="error-icon"></span>$error</div>#end
+
+        <input type="hidden" name="$xsrfTokenName" value="$xsrfTokenValue"/>
+        #set($i18nPrefix = "embedded.crowd.directory.edit.internal.field")
+        #auiFormHiddenInput("configuration.directoryId")
+        #auiFormHiddenInput("configuration.name")
+
+        <h3>$i18n.getText("embedded.crowd.directory.edit.internal.heading.server")</h3>
+        <div class="field-group checkbox hideable">
+            #auiFormCheckBox("configuration.nestedGroupsEnabled" { "showDescription": true })
+        </div>
+
+        <div class="buttons">
+            <input accesskey="s" class="button" id="${formPrefix}-submit" name="save"
+                   title="$i18n.getText("embedded.crowd.directory.edit.submit.title")" type="submit" value="$i18n.getText("embedded.crowd.directory.edit.submit.label")">
+            <a class="cancel" accesskey="`" href="#springUrl("/plugins/servlet/embedded-crowd/directories/list")"
+               id="configure-internal-form-cancel" title="$i18n.getText("embedded.crowd.directory.edit.cancel.title")">$i18n.getText("embedded.crowd.directory.edit.cancel.label")</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,135 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.imports.csv.web.CsvValueMappingsPage" *#
+
+#set ($addConstantURL = "$action.actionName!addConstant.jspa?externalSystem=$action.externalSystem&atl_token=$atl_token")
+
+#macro(addConstantHtml $name $currentValue $constantType $constantAddAlt $constantAddTitle)
+	<select name="$!textutils.htmlEncode($name)" class="medium-field select">
+		#if ($constantType != "Status")
+			<option value="">$i18n.getText('jira-importer-plugin.external.values.nomapping')</option>
+			<option value="<<blank>>" #if ($action.configBean.isMappedAsBlank($entry, $currentValue) == true) selected="true" #end>$i18n.getText('jira-importer-plugin.csv.option.blank')</option>
+		#end
+        #foreach($existing in $sorter.sort($available, "nameTranslation"))
+			#set ($selected = $action.configBean.isIssueConstantMappingSelected($existing, $entry, $currentValue))
+            <option value="$!textutils.htmlEncode($existing.id)" #if ($selected == true) selected="true" #end>$!textutils.htmlEncode($existing.nameTranslation)</option>
+        #end
+    </select>
+
+    #if ($constantType && $constantAddAlt && $constantAddTitle && $constantType != "Status")
+        #if ($action.issueConstantsIncludeName($available, $currentValue) == false)
+            <a class="addConstantLink" onclick="addJiraConstant('$constantType', '$!textutils.htmlEncode($currentValue)', '$!textutils.htmlEncode($entry)'); return false;" href="#">
+				$!textutils.htmlEncode($constantAddTitle)
+            </a>
+        #end
+    #end
+#end
+
+#parse('/templates/admin/views/common/import-header.vm')
+
+<script language="JavaScript" type="text/javascript">
+<!--
+    function addJiraConstant(constantType, constantValue, constantField)
+    {
+		var form = AJS.$("form[name=jiraform]");
+
+		form.find('input[name=constantType]').val(constantType);
+		form.find('input[name=constantValue]').val(constantValue);
+		form.find('input[name=constantField]').val(constantField);
+		form.find('input[name=addConstant]').val('true');
+
+		form.submit();
+    }
+//-->
+</script>
+
+<input type="hidden" name="constantType" value="" />
+<input type="hidden" name="constantValue" value="" />
+<input type="hidden" name="constantField" value="" />
+<input type="hidden" name="addConstant" value="false" />
+
+#if ($action.configBean.mapValues.size() != 0)
+    <table class="aui jim-table">
+		<thead>
+			<tr>
+				<th>$i18n.getText('jira-importer-plugin.csv.csv.header.row')</th>
+##				<th>$i18n.getText('jira-importer-plugin.external.map.field.value')</th>
+				<th class="padded-column">$i18n.getText('jira-importer-plugin.external.value.in.importer')</th>
+				<th class="rightarrowcolumn"></th>
+				<th>$i18n.getText('jira-importer-plugin.external.target.value')</th>
+			</tr>
+		</thead>
+		<tbody>
+
+    #foreach ($entry in $sorter.sort($action.configBean.mapValues))
+        #set ($fieldName = $action.configBean.getValue($action.configBean.getFieldName($entry)))
+    <tr>
+        <td rowspan="$action.configBean.getCurrentValues($entry).size()">
+            $!textutils.htmlEncode($entry)
+            <br />
+            <span class="subText">($i18n.getText('jira-importer-plugin.csv.imported.as', "<strong>$fieldName</strong>"))</span>
+        </td>
+
+		#set ($currentValues = $action.configBean.getCurrentValues($entry))
+                #foreach ($currentValue in $currentValues)
+					#set ($name = $action.configBean.getConvertedValueMappingName($entry, $currentValue))
+					#if ($velocityCount != 1)
+						<tr>
+					#end
+				<td class="padded-column#if ($velocityCount != $currentValues.size()) nobottomborder#end">
+					$textutils.html($currentValue)
+				</td>
+				<td class="rightarrowcolumn#if ($velocityCount != $currentValues.size()) nobottomborder#end">&rarr;</td>
+				<td class="#if ($velocityCount != $currentValues.size()) nobottomborder#end">
+                    #if ($fieldName == 'priority')
+                        #set ($constantType = 'Priority')
+                        #set ($available = $action.priorities)
+                        #set ($name = $action.configBean.getConvertedValueMappingName($entry, $currentValue))
+                        #set ($constantAddAlt = $i18n.getText('jira-importer-plugin.csv.add.new.priority', ["'$currentValue'"]))
+                        #set ($constantAddTitle = $i18n.getText('jira-importer-plugin.csv.add.new.priority', ["'$currentValue'"]))
+
+                        #addConstantHtml($name $currentValue $constantType $constantAddAlt $constantAddTitle)
+                    #elseif ($fieldName == 'resolution')
+                        #set ($constantType = 'Resolution')
+                        #set ($available = $action.resolutions)
+                        #set ($name = $action.configBean.getConvertedValueMappingName($entry, $currentValue))
+                        #set ($constantAddAlt = $i18n.getText('jira-importer-plugin.csv.add.new.resolution', ["'$currentValue'"]))
+                        #set ($constantAddTitle = $i18n.getText('jira-importer-plugin.csv.add.new.resolution', ["'$currentValue'"]))
+
+                        #addConstantHtml($name $currentValue $constantType $constantAddAlt $constantAddTitle)
+                    #elseif ($fieldName == 'issuetype')
+                        #set ($constantType = 'IssueType')
+                        #set ($available = $action.issueTypes)
+                        #set ($name = $action.configBean.getConvertedValueMappingName($entry, $currentValue))
+                        #set ($constantAddAlt = $i18n.getText('jira-importer-plugin.csv.add.new.issue.type', ["'$currentValue'"]))
+                        #set ($constantAddTitle = $i18n.getText('jira-importer-plugin.csv.add.new.issue.type', ["'$currentValue'"]))
+
+                        #addConstantHtml($name $currentValue $constantType $constantAddAlt $constantAddTitle)
+                    #elseif ($fieldName == 'status')
+						#set ($constantType = 'Status')
+                        #set ($available = $action.statuses)
+                        #set ($name = $action.configBean.getConvertedValueMappingName($entry, $currentValue))
+						#set ($constantAddAlt = $i18n.getText('jira-importer-plugin.csv.add.new.status', ["'$currentValue'"]))
+                        #set ($constantAddTitle = $i18n.getText('jira-importer-plugin.csv.add.new.status', ["'$currentValue'"]))
+
+                        #addConstantHtml($name $currentValue $constantType $constantAddAlt $constantAddTitle)
+                    #else
+                        #set ($name = $action.configBean.getConvertedValueMappingName($entry, $currentValue))
+                        #set ($auiparams = $map.build('name', $name, 'label', $currentValue, 'value', $action.configBean.getValue($action.configBean.getValueMappingName($entry, $currentValue))))
+							<input class="text" type="text" id="$!textutils.htmlEncode($name)"
+								   name="$!textutils.htmlEncode($name)"
+								   value="$!textutils.htmlEncode($action.configBean.getValue($action.configBean.getValueMappingName($entry, $currentValue)))">
+                    #end
+				</td>
+				#if ($velocityCount != 1)
+					</tr>
+				#end
+                #end
+
+    </tr>
+    #end
+		</tbody>
+    </table>
+#else
+    $i18n.getText('jira-importer-plugin.csv.no.fields.selected')
+#end
+
+#parse('/templates/admin/views/common/import-footer.vm')

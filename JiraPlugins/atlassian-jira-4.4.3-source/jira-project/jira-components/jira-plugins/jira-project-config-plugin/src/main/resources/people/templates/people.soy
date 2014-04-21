@@ -1,0 +1,73 @@
+{namespace JIRA.Templates.People}
+
+/**
+* @param role
+*/
+{template .peopleRow}
+<td class="project-config-role-name">
+{$role.name}
+</td>
+<td class="project-config-role-users{if not $role.users} jira-restfultable-editable-no-value{/if}">
+    <div class="jira-restfultable-editable" data-field-name="project-config-people-users-select-textarea">
+    <span class="icon icon-edit-sml"></span>
+    {if $role.users}
+        <ul class="project-config-list">
+            {foreach $user in $role.users}
+                <li><span class="project-config-list-label" style="background-image:url('{$user.avatarUrl}')">{$user.displayName}</span></li>
+            {/foreach}
+        </ul>
+    {else}
+        <em>{getText('user.picker.add.users')}</em>
+    {/if}
+    </div>
+</td>
+<td class="project-config-role-groups{if not $role.groups} jira-restfultable-editable-no-value{/if}">
+    <div class="jira-restfultable-editable" data-field-name="project-config-people-groups-select-textarea">
+    <span class="icon icon-edit-sml"></span>
+    {if $role.groups}
+        <ul class="project-config-list">
+            {foreach $group in $role.groups}
+                <li><span class="project-config-list-label"><span class="project-config-icon project-config-icon-projectlead"></span>{$group.displayName}</span></li>
+            {/foreach}
+        </ul>
+    {else}
+        <em>{getText('admin.usersandgroups.add.group')}</em>
+    {/if}
+    </div>
+</td>
+<td class="jira-restfultable-operations"></td>
+<td class="project-config-throbber"></td>
+{/template}
+
+/**
+* @param role
+*/
+{template .editPeopleRow}
+<td class="project-config-role-name">
+    {$role.name}
+</td>
+<td class="project-config-role-users">
+    <select id="project-config-people-users-select" class="hidden" name="users" multiple="multiple">
+    {if $role.actors}
+        {foreach $actor in $role.actors}
+            {if $actor.type == 'atlassian-user-role-actor'}
+                <option value="{$actor.name}" selected>{$actor.displayName}</option>
+            {/if}
+        {/foreach}
+    {/if}
+    </select>
+    <div class="description">{getText('admin.project.people.find.users')}</div>
+</td>
+<td class="project-config-role-groups">
+    <select id="project-config-people-groups-select" class="hidden" name="groups" multiple="multiple">
+    {if $role.actors}
+        {foreach $actor in $role.actors}
+            {if $actor.type == 'atlassian-group-role-actor'}
+                <option value="{$actor.name}" selected>{$actor.displayName}</option>
+            {/if}
+        {/foreach}
+    {/if}
+    </select>
+    <div class="description">{getText('admin.project.people.find.groups')}</div>
+</td>
+{/template}

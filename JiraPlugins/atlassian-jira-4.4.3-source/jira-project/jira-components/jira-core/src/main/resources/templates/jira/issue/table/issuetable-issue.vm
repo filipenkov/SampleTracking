@@ -1,0 +1,2 @@
+## display a single issue
+    #issues ($issue $issueCount $layout.columns $layout.alternateRowColors $layout.cellDisplayParams $actionColumn $selectedIssueId)

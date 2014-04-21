@@ -1,0 +1,56 @@
+{namespace JIRA.Templates.WelcomeScreen}
+
+/**
+* Renders the welcome screen dialog panel
+*
+* @param theirName The currently logged-in user's name.
+* @param cancelLinkHtml the html for the opening tag of the cancel link for the welcome screen dialog.
+* This link is the only way to dismiss the dialog, so be sure to provide something that's (literally) bound to close it.
+*/
+{template .welcomeScreenPanel}
+<div class="aui-group">
+    <div class="welcome-screen-splash aui-item">
+        <h1><span class="assistive">JIRA</span></h1>
+    </div>
+    <div class="welcome-screen-content-container aui-item">
+        <div class="welcome-screen-content">
+            {if $theirName}
+                <h1>{getText('welcome.screen.dialog.heading.withname', $theirName)}</h1>
+            {else}
+                <h1>{getText('welcome.screen.dialog.heading')}</h1>
+            {/if}
+            <p>{getText('welcome.screen.dialog.introduction')}</p>
+            <ul class="welcome-screen-options">
+                <li>{call .welcomeScreenAction}
+                    {param type: 'blankproject' /}
+                    {param href: '/secure/admin/AddProject!default.jspa?nextAction=browseproject' /}
+                    {param title: getText('welcome.screen.actions.blankproject.title') /}
+                    {param description: getText('welcome.screen.actions.blankproject.description') /}
+                    {param cssClass: 'add-project-trigger' /}
+                {/call}</li>
+            </ul>
+        </div>
+        <div class="welcome-screen-alternate-options">
+            <p>{getText('welcome.screen.dialog.cancel', $cancelLinkHtml, '</a>')|noAutoescape}</p>
+        </div>
+    </div>
+</div>
+{/template}
+
+/**
+* Renders an action for the welcome screen
+*
+* @param type a unique identifier for this particular action.
+* @param href the url this action should navigate to, excluding the context path.
+* @param title the name of this action.
+* @param? description an optional description for the action.
+* @param? cssClass an additional, custom class for the action's hyperlink
+*/
+{template .welcomeScreenAction}
+<a class="welcome-screen-action {$cssClass}" data-type="{$type}" href="{contextPath()}{$href}">
+    <h3>{$title}</h3>
+    {if $description}
+    <p>{$description}</p>
+    {/if}
+</a>
+{/template}

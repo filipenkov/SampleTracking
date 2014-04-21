@@ -1,0 +1,13 @@
+#if ($value)
+    #set ($selectedValues = $value)
+#end
+$!{auiparams.put("controlHeaderClass", "aui-field-multiselect")}
+#searcherEditHeader (${customField.id} ${customField.name})
+    <select class="select" id="searcher-$customField.id" multiple="multiple" name="$customField.id" size="#minSelectSize ($configs.options 1 5)">
+        <option#if (!$selectedValues || $selectedValues.empty || $selectedValues.contains("-1")) selected="selected"#end value="-1">$i18n.getText("common.filters.any")</option>
+        #foreach ($option in $configs.options)
+            <option #if ($selectedValues && $selectedValues.contains($option.optionId.toString())) selected="selected"#end value="$option.optionId">$option.value</option>
+        #end
+    </select>
+#searcherEditFooter (${customField.id} ${customField.description})
+$!{auiparams.clear()}

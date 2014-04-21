@@ -1,0 +1,3381 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="entity-engine-xml" type="entity-engine-xmlType">
+    <xs:annotation>
+      <xs:documentation>JIRA's export format</xs:documentation>
+    </xs:annotation>
+    
+    <!-- Avatar references -->
+    <xs:key name="avatar_id_key">
+      <xs:selector xpath="Avatar"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="Project_avatar_keyref" refer="avatar_id_key">
+      <xs:selector xpath="Project"/>
+      <xs:field xpath="@avatar"/>
+    </xs:keyref>
+    
+    <!-- ChangeGroup references -->
+    <xs:key name="changegroup_id_key">
+      <xs:selector xpath="ChangeGroup"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="ChangeItem_group_keyref" refer="changegroup_id_key">
+      <xs:selector xpath="ChangeItem"/>
+      <xs:field xpath="@group"/>
+    </xs:keyref>
+    
+    <!-- ColumnLayout References -->
+    <xs:key name="columnlayout_id_key">
+      <xs:selector xpath="ColumnLayout"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="ColumnLayoutItem_columnlayout_keyref" refer="columnlayout_id_key">
+      <xs:selector xpath="ColumnLayoutItem"/>
+      <xs:field xpath="@columnlayout"/>
+    </xs:keyref>
+    
+    <!-- CustomField References -->
+    <xs:key name="customfield_id_key">
+      <xs:selector xpath="CustomField"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="CustomFieldValue_customfield_keyref" refer="customfield_id_key">
+      <xs:selector xpath="CustomFieldValue"/>
+      <xs:field xpath="@customfield"/>
+    </xs:keyref>
+    <xs:keyref name="CustomFieldOption_customfield_keyref" refer="customfield_id_key">
+      <xs:selector xpath="CustomFieldOption"/>
+      <xs:field xpath="@customfield"/>
+    </xs:keyref>
+    
+    <!-- Directory References -->
+    <xs:key name="directory_id_key">
+      <xs:selector xpath="Directory"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="DirectoryAttribute_directoryid_keyref" refer="directory_id_key">
+      <xs:selector xpath="DirectoryAttribute"/>
+      <xs:field xpath="@directoryid"/>
+    </xs:keyref>
+    <xs:keyref name="DirectoryOperation_directoryid_keyref" refer="directory_id_key">
+      <xs:selector xpath="DirectoryOperation"/>
+      <xs:field xpath="@directoryid"/>
+    </xs:keyref>
+    <xs:keyref name="Group_directoryid_keyref" refer="directory_id_key">
+      <xs:selector xpath="Group"/>
+      <xs:field xpath="@directoryid"/>
+    </xs:keyref>
+    <xs:keyref name="Membership_directoryid_keyref" refer="directory_id_key">
+      <xs:selector xpath="Membership"/>
+      <xs:field xpath="@directoryid"/>
+    </xs:keyref>
+    <xs:keyref name="User_directoryid_keyref" refer="directory_id_key">
+      <xs:selector xpath="User"/>
+      <xs:field xpath="@directoryid"/>
+    </xs:keyref>
+    <xs:keyref name="UserAttribute_directoryid_keyref" refer="directory_id_key">
+      <xs:selector xpath="UserAttribute"/>
+      <xs:field xpath="@directoryid"/>
+    </xs:keyref>
+    
+    <!-- EventType References -->
+    <xs:key name="eventtype_id_key">
+      <xs:selector xpath="EventType"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="Notification_eventTypeId_keyref" refer="eventtype_id_key">
+      <xs:selector xpath="Notification"/>
+      <xs:field xpath="@eventTypeId"/>
+    </xs:keyref>
+    
+    <!-- FieldConfigScheme References -->
+    <xs:key name="fieldconfigscheme_id_key">
+      <xs:selector xpath="FieldConfigScheme"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="FieldConfigSchemeIssueType_fieldconfigscheme_keyref" refer="fieldconfigscheme_id_key">
+      <xs:selector xpath="FieldConfigSchemeIssueType"/>
+      <xs:field xpath="@fieldconfigscheme"/>
+    </xs:keyref>
+    
+    <!-- FieldConfiguration References -->
+    <xs:key name="fieldconfiguration_id_key">
+      <xs:selector xpath="FieldConfiguration"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="FieldConfigSchemeIssueType_fieldconfiguration_keyref" refer="fieldconfiguration_id_key">
+      <xs:selector xpath="FieldConfigSchemeIssueType"/>
+      <xs:field xpath="@fieldconfiguration"/>
+    </xs:keyref>
+    <xs:keyref name="OptionConfiguration_fieldconfig_keyref" refer="fieldconfiguration_id_key">
+      <xs:selector xpath="OptionConfiguration"/>
+      <xs:field xpath="@fieldconfig"/>
+    </xs:keyref>
+    
+    
+    <!-- FieldLayout References -->
+    <xs:key name="fieldlayout_id_key">
+      <xs:selector xpath="FieldLayout"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="FieldLayoutItem_fieldlayout_keyref" refer="fieldlayout_id_key">
+      <xs:selector xpath="FieldLayoutItem"/>
+      <xs:field xpath="@fieldlayout"/>
+    </xs:keyref>
+    <xs:keyref name="FieldLayoutSchemeEntity_fieldlayout_keyref" refer="fieldlayout_id_key">
+      <xs:selector xpath="FieldLayoutSchemeEntity"/>
+      <xs:field xpath="@fieldlayout"/>
+    </xs:keyref>
+    
+    
+    <!-- FieldLayoutScheme References -->
+    <xs:key name="fieldlayoutscheme_id_key">
+      <xs:selector xpath="FieldLayoutScheme"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="FieldLayout_layoutscheme_keyref" refer="fieldlayoutscheme_id_key"><!-- deprecated field -->
+      <xs:selector xpath="FieldLayout"/>
+      <xs:field xpath="@layoutscheme"/>
+    </xs:keyref>
+    <xs:keyref name="FieldLayoutSchemeEntity_scheme_keyref" refer="fieldlayoutscheme_id_key">
+      <xs:selector xpath="FieldLayoutSchemeEntity"/>
+      <xs:field xpath="@scheme"/>
+    </xs:keyref>
+    <xs:keyref name="FieldLayoutSchemeAssociation_fieldlayoutscheme_keyref" refer="fieldlayoutscheme_id_key">
+      <xs:selector xpath="FieldLayoutSchemeAssociation"/>
+      <xs:field xpath="@fieldlayoutscheme"/>
+    </xs:keyref>
+    
+    
+    <!-- FieldScreen References -->
+    <xs:key name="fieldscreen_id_key">
+      <xs:selector xpath="FieldScreen"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="FieldScreenSchemeItem_fieldscreen_keyref" refer="fieldscreen_id_key">
+      <xs:selector xpath="FieldScreenSchemeItem"/>
+      <xs:field xpath="@fieldscreen"/>
+    </xs:keyref>
+    <xs:keyref name="FieldScreenTab_fieldscreen_keyref" refer="fieldscreen_id_key">
+      <xs:selector xpath="FieldScreenTab"/>
+      <xs:field xpath="@fieldscreen"/>
+    </xs:keyref>
+    
+
+    <!-- FieldScreenScheme References -->
+    <xs:key name="fieldscreenscheme_id_key">
+      <xs:selector xpath="FieldScreenScheme"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="FieldScreenSchemeItem_fieldscreenscheme_keyref" refer="fieldscreenscheme_id_key">
+      <xs:selector xpath="FieldScreenSchemeItem"/>
+      <xs:field xpath="@fieldscreenscheme"/>
+    </xs:keyref>
+    <xs:keyref name="IssueTypeScreenSchemeEntity_fieldscreenscheme_keyref" refer="fieldscreenscheme_id_key">
+      <xs:selector xpath="IssueTypeScreenSchemeEntity"/>
+      <xs:field xpath="@fieldscreenscheme"/>
+    </xs:keyref>
+    
+
+    <!-- FieldScreenTab References -->
+    <xs:key name="fieldscreentab_id_key">
+      <xs:selector xpath="FieldScreenTab"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="FieldScreenLayoutItem_fieldscreentab_keyref" refer="fieldscreentab_id_key">
+      <xs:selector xpath="FieldScreenLayoutItem"/>
+      <xs:field xpath="@fieldscreentab"/>
+    </xs:keyref>
+    
+    <!-- Group References -->
+    <xs:key name="group_groupName_key">
+      <xs:selector xpath="Group"/>
+      <xs:field xpath="@groupName"/>
+    </xs:key>
+    
+    <!-- Issue Key references -->
+    <xs:key name="issue_id_key">
+      <xs:selector xpath="Issue"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="Action_issue_keyref" refer="issue_id_key">
+      <xs:selector xpath="Action"/>
+      <xs:field xpath="@issue"/>
+    </xs:keyref>
+    <xs:keyref name="ChangeGroup_issue_keyref" refer="issue_id_key">
+      <xs:selector xpath="ChangeGroup"/>
+      <xs:field xpath="@issue"/>
+    </xs:keyref>
+    <xs:keyref name="CustomFieldValue_issue_keyref" refer="issue_id_key">
+      <xs:selector xpath="CustomFieldValue"/>
+      <xs:field xpath="@issue"/>
+    </xs:keyref>
+    <xs:keyref name="FileAttachment_issue_keyref" refer="issue_id_key">
+      <xs:selector xpath="FileAttachement"/>
+      <xs:field xpath="@issue"/>
+    </xs:keyref>
+    <xs:keyref name="IssueLink_source_keyref" refer="issue_id_key">
+      <xs:selector xpath="IssueLink"/>
+      <xs:field xpath="@source"/>
+    </xs:keyref>
+    <xs:keyref name="IssueLink_destination_keyref" refer="issue_id_key">
+      <xs:selector xpath="IssueLink"/>
+      <xs:field xpath="@destination"/>
+    </xs:keyref>   
+    <xs:keyref name="Label_issue_keyref" refer="issue_id_key">
+      <xs:selector xpath="Label"/>
+      <xs:field xpath="@issue"/>
+    </xs:keyref>
+    <xs:keyref name="UserAssociation_sinkNodeId_keyref" refer="issue_id_key">
+      <xs:selector xpath="UserAssociation"/>
+      <xs:field xpath="@sinkNodeId"/>
+    </xs:keyref>
+    <xs:keyref name="UserHistoryItem_entityid_keyref" refer="issue_id_key">
+      <xs:selector xpath="UserHistoryItem"/>
+      <xs:field xpath="@entityid"/>
+    </xs:keyref>
+    <xs:keyref name="VoteHistory_issue_keyref" refer="issue_id_key">
+      <xs:selector xpath="VoteHistory"/>
+      <xs:field xpath="@issue"/>
+    </xs:keyref>
+    <xs:keyref name="Worklog_issue_keyref" refer="issue_id_key">
+      <xs:selector xpath="Worklog"/>
+      <xs:field xpath="@issue"/>
+    </xs:keyref>
+    
+    <!-- IssueLinkType -->
+    <xs:key name="issuelinktype_id_key">
+      <xs:selector xpath="IssueLinkType"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="IssueLink_linktype_keyref" refer="issuelinktype_id_key">
+      <xs:selector xpath="IssueLink"/>
+      <xs:field xpath="@linktype"/>
+    </xs:keyref>
+    
+    <!-- IssueSecurityScheme References -->
+    <xs:key name="issuesecurityscheme_id_key">
+      <xs:selector xpath="IssueSecurityScheme"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="SchemeIssueSecurities_scheme_keyref" refer="issuesecurityscheme_id_key">
+      <xs:selector xpath="SchemeIssueSecurities"/>
+      <xs:field xpath="@scheme"/>
+    </xs:keyref>
+    <xs:keyref name="SchemeIssueSecurityLevels_scheme_keyref" refer="issuesecurityscheme_id_key">
+      <xs:selector xpath="SchemeIssueSecurityLevels"/>
+      <xs:field xpath="@scheme"/>
+    </xs:keyref>
+    
+    
+    <!-- IssueType -->
+    <xs:key name="issuetype_id_key">
+      <xs:selector xpath="IssueType"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="FieldConfigSchemeIssueType_issuetype_keyref" refer="issuetype_id_key">
+      <xs:selector xpath="FieldConfigSchemeIssueType"/>
+      <xs:field xpath="@issuetype"/>
+    </xs:keyref>
+    <xs:keyref name="FieldLayoutSchemeEntity_issuetype_keyref" refer="issuetype_id_key">
+      <xs:selector xpath="FieldLayoutSchemeEntity"/>
+      <xs:field xpath="@issuetype"/>
+    </xs:keyref>
+    <xs:keyref name="Issue_type_keyref" refer="issuetype_id_key">
+      <xs:selector xpath="Issue"/>
+      <xs:field xpath="@type"/>
+    </xs:keyref>
+    <xs:keyref name="IssueTypeScreenSchemeEntity_issuetype_keyref" refer="issuetype_id_key">
+      <xs:selector xpath="IssueTypeScreenSchemeEntity"/>
+      <xs:field xpath="@issuetype"/>
+    </xs:keyref>    
+    <xs:keyref name="WorkflowSchemeEntity_issuetype_keyref" refer="issuetype_id_key">
+      <xs:selector xpath="WorkflowSchemeEntity"/>
+      <xs:field xpath="@issuetype"/>
+    </xs:keyref>
+    <!-- references to removed issues remain and so this is commented out xs:keyref name="NotificationInstance_source_keyref" refer="issuetype_id_key" xs:selector xpath="NotificationInstance" xs:field xpath="@source" -->
+    
+    
+    <!-- IssueTypeScreenScheme References -->
+    <xs:key name="issuetypescreenscheme_id_key">
+      <xs:selector xpath="IssueTypeScreenScheme"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="IssueTypeScreenSchemeEntity_scheme_keyref" refer="issuetypescreenscheme_id_key">
+      <xs:selector xpath="IssueTypeScreenSchemeEntity"/>
+      <xs:field xpath="@scheme"/>
+    </xs:keyref>
+   
+    <!-- NotificationScheme References -->
+    <xs:key name="notificationscheme_id_key">
+      <xs:selector xpath="NotificationScheme"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="Notification_scheme_keyref" refer="notificationscheme_id_key">
+      <xs:selector xpath="Notification"/>
+      <xs:field xpath="@scheme"/>
+    </xs:keyref>    
+    
+    <!-- OSHistoryStep References -->
+    <xs:key name="oshistorystep_id_key">
+      <xs:selector xpath="OSHistoryStep"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="OSCurrentStepPrevious_previousId_keyref" refer="oshistorystep_id_key">
+      <xs:selector xpath="OSCurrentStepPrevious"/>
+      <xs:field xpath="@previousId"/>
+    </xs:keyref>
+    <xs:keyref name="OSHistoryStepPrevious_previousId_keyref" refer="oshistorystep_id_key">
+      <xs:selector xpath="OSHistoryStepPrevious"/>
+      <xs:field xpath="@previousId"/>
+    </xs:keyref>
+    
+
+    <!-- OSPropertyEntity References -->
+    <xs:key name="ospropertyentry_id_key">
+      <xs:selector xpath="OSPropertyEntry"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="OSPropertyNumber_id_keyref" refer="ospropertyentry_id_key">
+      <xs:selector xpath="OSPropertyNumber"/>
+      <xs:field xpath="@id"/>
+    </xs:keyref>
+    <xs:keyref name="OSPropertyString_id_keyref" refer="ospropertyentry_id_key">
+      <xs:selector xpath="OSPropertyString"/>
+      <xs:field xpath="@id"/>
+    </xs:keyref>
+    <xs:keyref name="OSPropertyText_id_keyref" refer="ospropertyentry_id_key">
+      <xs:selector xpath="OSPropertText"/>
+      <xs:field xpath="@id"/>
+    </xs:keyref>
+    
+    <!-- OSWorkflowEntry References -->
+    <xs:key name="osworkflowentry_id_key">
+      <xs:selector xpath="OSWorkflowEntry"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="OSCurrentStep_entry_keyref" refer="osworkflowentry_id_key">
+      <xs:selector xpath="OSCurrentStep"/>
+      <xs:field xpath="@entry"/>
+    </xs:keyref>
+    <xs:keyref name="OSHistoryStep_entry_keyref" refer="osworkflowentry_id_key">
+      <xs:selector xpath="OSHistoryStep"/>
+      <xs:field xpath="@entry"/>
+    </xs:keyref>
+    <xs:keyref name="Issue_workflowId_keyref" refer="osworkflowentry_id_key">
+      <xs:selector xpath="Issue"/>
+      <xs:field xpath="@workflowId"/>
+    </xs:keyref>
+    
+    <!-- PermissionScheme References -->
+    <xs:key name="permissionscheme_id_key">
+      <xs:selector xpath="PermissionScheme"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="SchemePermissions_scheme_keyref" refer="permissionscheme_id_key">
+      <xs:selector xpath="SchemePermissions"/>
+      <xs:field xpath="@scheme"/>
+    </xs:keyref>
+    
+    <!-- PortalPage References -->
+    <xs:key name="portalpage_id_key">
+      <xs:selector xpath="PortalPage"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="PortletConfiguration_portalpage_keyref" refer="portalpage_id_key">
+      <xs:selector xpath="PortletConfiguration"/>
+      <xs:field xpath="@portalpage"/>
+    </xs:keyref>
+
+    <!-- PortletConfiguration References -->
+    <xs:key name="portletconfiguration_id_key">
+      <xs:selector xpath="PortletConfiguration"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="GadgetUserPreference_portletconfiguration_keyref" refer="portletconfiguration_id_key">
+      <xs:selector xpath="GadgetUserPreference"/>
+      <xs:field xpath="@portletconfiguration"/>
+    </xs:keyref>
+    
+    <!-- Project references -->
+    <xs:key name="project_id_key">
+      <xs:selector xpath="Project"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="Component_project_keyref" refer="project_id_key">
+      <xs:selector xpath="Component"/>
+      <xs:field xpath="@project"/>
+    </xs:keyref>
+    <xs:keyref name="ConfigurationContext_project_keyref" refer="project_id_key">
+      <xs:selector xpath="ConfigurationContext"/>
+      <xs:field xpath="@project"/>
+    </xs:keyref>
+    <xs:keyref name="Issue_project_keyref" refer="project_id_key">
+      <xs:selector xpath="Issue"/>
+      <xs:field xpath="@project"/>
+    </xs:keyref>
+    <xs:keyref name="ProjectRoleActor_pid_keyref" refer="project_id_key">
+      <xs:selector xpath="ProjectRoleActor"/>
+      <xs:field xpath="@pid"/>
+    </xs:keyref>
+    <xs:keyref name="SearchRequest_project_keyref" refer="project_id_key">
+      <xs:selector xpath="SearchRequest"/>
+      <xs:field xpath="@project"/>
+    </xs:keyref>
+    <xs:keyref name="Version_project_keyref" refer="project_id_key">
+      <xs:selector xpath="Version"/>
+      <xs:field xpath="@project"/>
+    </xs:keyref>    
+       
+    <!-- ProjectRole References -->
+    <xs:key name="projectrole_id_key">
+      <xs:selector xpath="ProjectRole"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="ProjectRoleActor_projectroleid_keyref" refer="projectrole_id_key">
+      <xs:selector xpath="ProjectRoleActor"/>
+      <xs:field xpath="@projectroleid"/>
+    </xs:keyref>
+    <xs:keyref name="Action_rolelevel_keyref" refer="projectrole_id_key">
+      <xs:annotation>
+        <xs:appinfo>addition</xs:appinfo>
+      </xs:annotation>
+      <xs:selector xpath="Action"/>
+      <xs:field xpath="@rolelevel"/>
+    </xs:keyref>
+    
+    
+    <!-- Priority References -->
+    <xs:key name="priority_id_key">
+      <xs:selector xpath="Priority"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="Issue_priority_keyref" refer="priority_id_key">
+      <xs:selector xpath="Issue"/>
+      <xs:field xpath="@priority"/>
+    </xs:keyref>
+    
+    <!-- QRTZJobDetails References -->
+    <xs:key name="qrtzjobdetails_id_key">
+      <xs:selector xpath="QRTZJobDetails"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="qrtzjoblisteners_job_keyref" refer="qrtzjobdetails_id_key">
+      <xs:selector xpath="QRTZJobListeners"/>
+      <xs:field xpath="@job"/>
+    </xs:keyref>
+    <xs:keyref name="qrtztriggers_job_keyref" refer="qrtzjobdetails_id_key">
+      <xs:selector xpath="QRTZTriggers"/>
+      <xs:field xpath="@job"/>
+    </xs:keyref>
+    
+    <!-- QRTZTriggers References -->
+    <xs:key name="qrtztriggers_id_key">
+      <xs:selector xpath="QRTZTriggers"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="qrtzcrontriggers_trigger_keyref" refer="qrtztriggers_id_key">
+      <xs:selector xpath="QRTZCronTriggers"/>
+      <xs:field xpath="@trigger"/>
+    </xs:keyref>
+    <xs:keyref name="qrtzfiredtriggers_trigger_keyref" refer="qrtztriggers_id_key">
+      <xs:selector xpath="QRTZFiredTriggers"/>
+      <xs:field xpath="@trigger"/>
+    </xs:keyref>
+    <xs:keyref name="qrtzsimpletriggers_trigger_keyref" refer="qrtztriggers_id_key">
+      <xs:selector xpath="QRTZSimpleTriggers"/>
+      <xs:field xpath="@trigger"/>
+    </xs:keyref>
+    <xs:keyref name="qrtztriggerlisteners_trigger_keyref" refer="qrtztriggers_id_key">
+      <xs:selector xpath="QRTZTriggerListeners"/>
+      <xs:field xpath="@trigger"/>
+    </xs:keyref>
+    
+    <!-- Resolution References -->
+    <xs:key name="resolution_id_key">
+      <xs:selector xpath="Resolution"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="Issue_resolution_keyref" refer="resolution_id_key">
+      <xs:selector xpath="Issue"/>
+      <xs:field xpath="@resolution"/>
+    </xs:keyref>
+
+    <!-- SchemeIssueSecurityLevels References -->
+    <xs:key name="schemeissuesecuritylevels_id_key">
+      <xs:selector xpath="SchemeIssueSecurityLevels"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="Issue_security_keyref" refer="schemeissuesecuritylevels_id_key">
+      <xs:selector xpath="Issue"/>
+      <xs:field xpath="@security"/>
+    </xs:keyref>
+    <xs:keyref name="IssueSecurityScheme_defaultlevel_keyref" refer="schemeissuesecuritylevels_id_key">
+      <xs:selector xpath="IssueSecurityScheme"/>
+      <xs:field xpath="@defaultlevel"/>
+    </xs:keyref>
+    <xs:keyref name="SchemeIssueSecurities_security_keyref" refer="schemeissuesecuritylevels_id_key">
+      <xs:selector xpath="SchemeIssueSecurities"/>
+      <xs:field xpath="@security"/>
+    </xs:keyref>
+    
+    <!-- SearchRequest / Filter References -->
+    <xs:key name="searchrequest_id_key">
+      <xs:selector xpath="SearchRequest"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="ColumnLayout_searchrequest_keyref" refer="searchrequest_id_key">
+      <xs:selector xpath="ColumnLayout"/>
+      <xs:field xpath="@searchrequest"/>
+    </xs:keyref>
+    <xs:keyref name="FilterSubscription_filterID_keyref" refer="searchrequest_id_key">
+      <xs:selector xpath="FilterSubscription"/>
+      <xs:field xpath="@filterID"/>
+    </xs:keyref>    
+    
+    <!-- Status References -->
+    <xs:key name="status_id_key">
+      <xs:selector xpath="Status"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="Issue_status_keyref" refer="status_id_key">
+      <xs:selector xpath="Issue"/>
+      <xs:field xpath="@status"/>
+    </xs:keyref>
+
+    <!-- User Key references -->
+    <xs:key name="user_key">
+      <xs:selector xpath="User"/>
+      <xs:field xpath="@userName"/>
+    </xs:key>
+    <!-- NOT enforced
+    <xs:keyref name="Action_author_keyref" refer="user_key">
+      <xs:selector xpath="Action"/>
+      <xs:field xpath="@author"/>
+    </xs:keyref>    
+    <xs:keyref name="Action_updateauthor_keyref" refer="user_key">
+      <xs:selector xpath="Action"/>
+      <xs:field xpath="@updateauthor"/>
+    </xs:keyref>
+    -->
+    <xs:keyref name="ChangeGroup_author_keyref" refer="user_key">
+      <xs:selector xpath="ChangeGroup"/>
+      <xs:field xpath="@author"/>
+    </xs:keyref>
+    <xs:keyref name="ColumnLayout_username_keyref" refer="user_key">
+      <xs:selector xpath="ColumnLayout"/>
+      <xs:field xpath="@username"/>
+    </xs:keyref>
+    <xs:keyref name="Component_lead_keyref" refer="user_key">
+      <xs:selector xpath="Component"/>
+      <xs:field xpath="@lead"/>
+    </xs:keyref>
+    <xs:keyref name="FavouriteAssociations_username_keyref" refer="user_key">
+      <xs:selector xpath="FavouriteAssociations"/>
+      <xs:field xpath="@username"/>
+    </xs:keyref>      
+    <xs:keyref name="FileAttachment_author_keyref" refer="user_key">
+      <xs:selector xpath="FileAttachment"/>
+      <xs:field xpath="@author"/>
+    </xs:keyref>
+    <xs:keyref name="FilterSubscription_keyref" refer="user_key">
+      <xs:selector xpath="FilterSubscription"/>
+      <xs:field xpath="@username"/>
+    </xs:keyref>
+    <xs:keyref name="Issue_reporter_keyref" refer="user_key">
+      <xs:selector xpath="Issue"/>
+      <xs:field xpath="@reporter"/>
+    </xs:keyref>
+    <xs:keyref name="Issue_assignee_keyref" refer="user_key">
+      <xs:selector xpath="Issue"/>
+      <xs:field xpath="@assignee"/>
+    </xs:keyref>
+    <xs:keyref name="PortalPage_username_keyref" refer="user_key">
+      <xs:selector xpath="PortalPage"/>
+      <xs:field xpath="@username"/>
+    </xs:keyref>
+    <xs:keyref name="OSHistoryStep_caller_keyref" refer="user_key">
+      <xs:selector xpath="OSHistoryStep"/>
+      <xs:field xpath="@caller"/>
+    </xs:keyref>
+    <xs:keyref name="OSHistoryStep_owner_keyref" refer="user_key">
+      <xs:selector xpath="OSHistoryStep"/>
+      <xs:field xpath="@owner"/>
+    </xs:keyref>
+    <xs:keyref name="Project_lead_keyref" refer="user_key">
+      <xs:selector xpath="Project"/>
+      <xs:field xpath="@lead"/>
+    </xs:keyref> 
+    <xs:keyref name="SearchRequest_author_keyref" refer="user_key">
+      <xs:selector xpath="SearchRequest"/>
+      <xs:field xpath="@author"/>
+    </xs:keyref>
+    <xs:keyref name="SearchRequest_user_keyref" refer="user_key">
+      <xs:selector xpath="SearchRequest"/>
+      <xs:field xpath="@user"/>
+    </xs:keyref>
+    <xs:keyref name="TrustedApplication_createdBy_keyref" refer="user_key">
+      <xs:selector xpath="TrustedApplication"/>
+      <xs:field xpath="@createdBy"/>
+    </xs:keyref>
+    <xs:keyref name="TrustedApplication_updatedBy_keyref" refer="user_key">
+      <xs:selector xpath="TrustedApplication"/>
+      <xs:field xpath="@updatedBy"/>
+    </xs:keyref>
+    <xs:keyref name="UserHistoryItem_username_keyref" refer="user_key">
+      <xs:selector xpath="UserHistoryItem"/>
+      <xs:field xpath="@username"/>
+    </xs:keyref>
+    <xs:keyref name="Worklog_author_keyref" refer="user_key">
+      <xs:selector xpath="Worklog"/>
+      <xs:field xpath="@author"/>
+    </xs:keyref>
+    <xs:keyref name="Worklog_updateauthor_keyref" refer="user_key">
+      <xs:selector xpath="Worklog"/>
+      <xs:field xpath="@updateauthor"/>
+    </xs:keyref>
+    <xs:keyref name="UserAssociation_sourceName_keyref" refer="user_key">
+      <xs:selector xpath="UserAssociation"/>
+      <xs:field xpath="@sourceName"/>
+    </xs:keyref>
+    
+    
+    <!-- User.id Key references -->
+    <xs:key name="user_id_key">
+      <xs:selector xpath="User"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="UserAttribute_userId_keyref" refer="user_id_key">
+      <xs:selector xpath="UserAttribute"/>
+      <xs:field xpath="@userId"/>
+    </xs:keyref>
+
+    <!-- Workflow name References -->
+    <xs:key name="workflow_name_key">
+      <xs:selector xpath="Workflow"/>
+      <xs:field xpath="@name"/>
+    </xs:key>
+    <xs:keyref name="DraftWorkflow_parentname_keyref" refer="workflow_name_key">
+      <xs:selector xpath="DraftWorkflow"/>
+      <xs:field xpath="@parentname"/>
+    </xs:keyref>
+    <xs:keyref name="WorkflowSchemeEntity_workflow_keyref" refer="workflow_name_key">
+      <xs:selector xpath="WorkflowSchemeEntity"/>
+      <xs:field xpath="@workflow"/>
+    </xs:keyref>
+    
+    
+    <!-- WorkflowScheme References -->
+    <xs:key name="workflowscheme_id_key">
+      <xs:selector xpath="WorkflowScheme"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="WorkflowSchemeEntity_scheme_keyref" refer="workflowscheme_id_key">
+      <xs:selector xpath="WorkflowSchemeEntity"/>
+      <xs:field xpath="@scheme"/>
+    </xs:keyref>
+  </xs:element>
+  
+  <!-- 
+    elements 
+  -->
+  <xs:complexType name="ActionType"> <!-- mixed="true" -->
+    <xs:annotation>
+      <xs:documentation>Used to store 'Comment' objects.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element type="xs:string" name="body" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:int" name="id" use="required"/>
+    <xs:attribute type="xs:int" name="issue" use="required"/>
+    <xs:attribute type="xs:string" name="author" use="required">
+      <xs:annotation><xs:appinfo>always</xs:appinfo></xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" name="type" use="required" fixed="comment">
+      <xs:annotation>
+        <xs:documentation>
+          Other values are not necessarily errors but the contents of any Actions without this attribute or
+          with it set to anything but 'comment' are ignored.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" name="created" use="optional">
+      <xs:annotation><xs:appinfo>always</xs:appinfo></xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" name="updateauthor" use="optional">
+      <xs:annotation><xs:appinfo>always</xs:appinfo></xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" name="updated" use="optional">
+      <xs:annotation><xs:appinfo>always</xs:appinfo></xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" name="body"/>
+    <xs:attribute type="xs:string" name="level">
+      <xs:annotation>
+        <xs:documentation>
+          If set this is used to limit visibility of the comment to the named usergroup 
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:short" name="rolelevel" use="optional">
+      <xs:annotation>
+        <xs:documentation>
+          If set this is used to limit visibility of the comment to users with the referenced ProjectRole.id  
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:int" name="numvalue" use="optional"><xs:annotation>
+      <xs:documentation>
+        Only in entitymodel.xml, not seen in the backup.
+        an arbitrary number that can be attached to actions used for time log
+      </xs:documentation>
+    </xs:annotation></xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="ApplicationType" >
+    <xs:annotation>
+      <xs:documentation>Introduced in 5.x</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="lowerName"/>
+        <xs:attribute type="date_pattern" name="createdDate"/>
+        <xs:attribute type="date_pattern" name="updatedDate"/>
+        <xs:attribute type="boolean_10_enum" name="active"/>
+        <xs:attribute type="xs:string" name="applicationType"/>
+        <xs:attribute type="xs:string" name="credential"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:complexType name="AvatarType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="fileName" use="required"/>
+        <xs:attribute type="xs:string" name="contentType" use="required"/>
+        <xs:attribute type="xs:string" name="avatarType" use="required"/>
+        <xs:attribute type="boolean_10_enum" name="systemAvatar" use="required"/>
+        <xs:attribute type="xs:string" name="owner"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  
+  <xs:complexType name="ChangeGroupType">
+    <xs:annotation>
+      <xs:documentation>entity to represent a 'batch' of changes to an issue</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:int" name="id" use="required"/>
+        <xs:attribute type="xs:int" name="issue" use="required">
+          <xs:annotation>
+            <xs:documentation>
+              This doesn't have to rOeference a valid Issue id, if the referenced issue is not found
+              then the Change Group and its Change Items are ignored.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="date_pattern" name="created" use="optional">
+          <xs:annotation><xs:appinfo>always</xs:appinfo></xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="author" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  
+  <xs:complexType name="ChangeItemType"> <!-- mixed="true" -->
+    <xs:annotation>
+      <xs:documentation>entity to represent a single change to an issue. Always part of a change group</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element type="xs:string" name="oldstring" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            a string representation of the new value (i.e. "Documentation" instead of "4" for a component which might be deleted)
+          </xs:documentation>
+        </xs:annotation>        
+      </xs:element>
+      <xs:element type="xs:string" name="newstring" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            a string representation of the new value (i.e. "Documentation" instead of "4" for a component which might be deleted)
+          </xs:documentation>
+        </xs:annotation>        
+      </xs:element>
+      <xs:element type="xs:string" name="oldvalue" minOccurs="0"/>      
+      <xs:element type="xs:string" name="newvalue" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:int" name="id" use="required"/>
+    <xs:attribute type="xs:int" name="group" use="required"/>
+    <xs:attribute type="ChangeItem_field_enum" name="field" use="required"/>
+    
+    <xs:attribute type="ChangeItem_fieldtype_enum" name="fieldtype" use="optional">
+      <xs:annotation>
+        <xs:documentation>
+          whether this is a built in field ('jira') or a custom field ('custom') - 
+          basically used to avoid naming scope problems also used for keeping record 
+          of the bug_id of a bug from Bugzilla Import and for keeping record of ids 
+          in issue move
+        </xs:documentation>
+        <xs:appinfo>always</xs:appinfo>
+      </xs:annotation>
+    </xs:attribute>
+    
+    <xs:attribute type="xs:string" name="oldvalue" use="optional"/>
+    <xs:attribute type="xs:string" name="oldstring" use="optional"/>
+    <xs:attribute type="xs:string" name="newvalue" use="optional"/>
+    <xs:attribute type="xs:string" name="newstring" use="optional"/>
+  </xs:complexType>
+
+  <xs:simpleType name="ChangeItem_fieldtype_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="jira"/>
+      <xs:enumeration value="custom"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ChangeItem_field_enum">
+    <xs:union memberTypes="ChangeItem_field_jira_enum ChangeItem_field_custom_type"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="ChangeItem_field_jira_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="assignee"/>
+      <xs:enumeration value="Attachment"/>
+      <xs:enumeration value="CC Users"/>
+      <xs:enumeration value="Comment"/>
+      <xs:enumeration value="Component"/>
+      <xs:enumeration value="description"/>
+      <xs:enumeration value="duedate"/>
+      <xs:enumeration value="environment"/>
+      <xs:enumeration value="Fix Version"/>
+      <xs:enumeration value="issuetype"/>
+      <xs:enumeration value="Issue Type"/>
+      <xs:enumeration value="Key"/>
+      <xs:enumeration value="Link"/>
+      <xs:enumeration value="Notes"/>
+      <xs:enumeration value="Parent"/>
+      <xs:enumeration value="Parent Issue"/>
+      <xs:enumeration value="priority"/>
+      <xs:enumeration value="Project"/>
+      <xs:enumeration value="Project ID"/>
+      <xs:enumeration value="Project Name"/>
+      <xs:enumeration value="Project State"/>
+      <xs:enumeration value="reporter"/>
+      <xs:enumeration value="resolution"/>
+      <xs:enumeration value="status"/>
+      <xs:enumeration value="summary"/>
+      <xs:enumeration value="timeestimate"/>
+      <xs:enumeration value="timespent"/>
+      <xs:enumeration value="Version"/>
+      <xs:enumeration value="Workflow"/>
+      <xs:enumeration value="WorklogId"/>
+      <xs:enumeration value="WorklogTimeSpent"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="ChangeItem_field_custom_type">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType name="ColumnLayoutType">
+    <xs:annotation>
+      <xs:documentation>User field configuration for the columns they want to show on the Issue Navigator</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <!-- either username or searchrequest, not both-->
+          <xs:attribute type="xs:string" name="username" use="optional"/>        
+          <xs:attribute type="xs:short" name="searchrequest" use="optional"/>        
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="ColumnLayoutItemType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="columnlayout" use="required"/>
+        <xs:attribute type="fieldidentifier_union" name="fieldidentifier" use="required"/>
+        <xs:attribute type="ordinal_marker" name="horizontalposition" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="ComponentType"> <!-- mixed="true" -->
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="project" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="lead" use="optional"/>
+        <xs:attribute type="assignee_marker" name="assigneetype" use="optional"/>
+        <xs:attribute type="xs:string" name="url" use="optional"><!--type: url -->
+          <xs:annotation>
+            <xs:documentation>Only in entitymodel.xml, not seen in the backup</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>    
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ConfigurationContextType">
+    <xs:annotation>
+      <xs:documentation>
+        Context that stores custom field schemes per context. Note the key is in format customfield_XXXX for custom fields.
+        added JIRA 3.2
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="optional"/>
+        <xs:attribute type="xs:string" name="key" use="optional"/>
+        <xs:attribute type="xs:short" name="fieldconfigscheme" use="optional"/>
+        <xs:attribute type="xs:short" name="project" use="optional"/>
+        <xs:attribute type="xs:short" name="projectcategory" use="optional"><!--todo: ref -->
+          <xs:annotation>
+            <xs:documentation>Only in entitymodel.xml, not seen in the backup</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="CustomFieldType"> <!-- mixed="true" -->
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short"  name="id" use="required"/>
+        <xs:attribute type="customfieldkey_pattern" 
+                                       name="customfieldtypekey"
+          use="required"/>
+        <xs:attribute type="customfieldkey_pattern" 
+                                       name="customfieldsearcherkey"
+          use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="default" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              Deprecated since 3.0
+            </xs:documentation>
+            <xs:appinfo>deprecated</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="fieldtype" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              Deprecated since 3.0
+            </xs:documentation>
+            <xs:appinfo>deprecated</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:short" name="project" use="optional"><!--ref-->
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              Deprecated since 3.1
+            </xs:documentation>
+            <xs:appinfo>deprecated</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="issuetype" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              Deprecated since 3.1
+            </xs:documentation>
+            <xs:appinfo>deprecated</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="CustomFieldOptionType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short"  name="id" use="required"/>
+        <xs:attribute type="xs:short"  name="customfield" use="required"/>
+        <xs:attribute type="xs:short"  name="customfieldconfig" use="required"/>
+        <xs:attribute type="ordinal_marker"   name="sequence" use="required"/>
+        <xs:attribute type="xs:string" name="value" use="required"/>
+        <xs:attribute type="xs:short"  name="parentoptionid" use="optional"><!--ref-->
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              Deprecated since 3.1
+            </xs:documentation>
+            <xs:appinfo>deprecated</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>
+        
+        <xs:attribute type="xs:string" name="type" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              Deprecated since 3.1
+            </xs:documentation>
+            <xs:appinfo>deprecated</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="disabled" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              Introduced in 4.4
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  
+  <xs:complexType name="CustomFieldValueType"> <!-- mixed="true" -->
+    <xs:sequence>
+      <xs:element type="xs:string" name="textvalue" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:int" name="id" use="required"/>
+    <xs:attribute type="xs:int" name="issue" use="required"/><!-- ref -->
+    <xs:attribute type="xs:short" name="customfield" use="required"/><!-- ref -->
+    <xs:attribute type="xs:string" name="parentkey"><!--ref-->
+      <xs:annotation>
+        <xs:documentation>will store the "parentKey" of the value. Used for cascading drop-downs</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" name="stringvalue" use="optional"/>
+    <!-- attribute group, only one should be set -->
+      <xs:attribute type="xs:string" name="textvalue" use="optional"/>
+      <xs:attribute type="xs:float" name="numbervalue" use="optional"/>
+      <xs:attribute type="date_pattern" name="datevalue" use="optional"/>
+      <xs:attribute type="xs:string" name="valuetype">
+        <xs:annotation>
+          <xs:documentation>deprecated as of 3.0</xs:documentation>
+          <xs:appinfo>deprecated</xs:appinfo>
+        </xs:annotation>
+      </xs:attribute>
+  </xs:complexType>
+  
+  <xs:complexType name="DirectoryType">
+    <xs:annotation>
+      <xs:documentation>Introduced in 5.x</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="directoryName" use="required"/>
+        <xs:attribute type="xs:string" name="lowerDirectoryName" use="required"/>
+        <xs:attribute type="date_pattern" name="createdDate" use="required"/>
+        <xs:attribute type="date_pattern" name="updatedDate" use="required"/>
+        <xs:attribute type="boolean_10_enum" name="active" use="required" fixed="1"/>
+        <xs:attribute type="xs:string" name="implementationClass" use="required"/>
+        <xs:attribute type="xs:string" name="lowerImplementationClass" use="required"/>
+        <xs:attribute type="xs:string" name="type" use="required"/>
+        <!-- type: INTERNAL, DELEGATING, ? -->
+        <xs:attribute type="ordinal_marker" name="position" use="required"/>
+        <xs:attribute type="xs:string" name="parentkey" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="valuetype" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              Deprecated since 3.0
+            </xs:documentation>
+            <xs:appinfo>deprecated</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>        
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DirectoryAttributeType">
+    <xs:annotation>
+      <xs:documentation>Introduced in 5.x</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="directoryId" use="required"/><!-- ref -->
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="value" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DirectoryOperationType">
+    <xs:annotation>
+      <xs:documentation>Introduced in 5.x</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="directoryId" use="required"/><!-- ref -->
+        <xs:attribute type="DirectoryOperation_operationType_enum" name="operationType"
+          use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="DirectoryOperation_operationType_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CREATE_GROUP"/>
+      <xs:enumeration value="CREATE_ROLE"/>
+      <xs:enumeration value="CREATE_USER"/>
+      <xs:enumeration value="DELETE_GROUP"/>
+      <xs:enumeration value="DELETE_ROLE"/>
+      <xs:enumeration value="DELETE_USER"/>
+      <xs:enumeration value="UPDATE_GROUP"/>
+      <xs:enumeration value="UPDATE_GROUP_ATTRIBUTE"/>
+      <xs:enumeration value="UPDATE_ROLE"/>
+      <xs:enumeration value="UPDATE_ROLE_ATTRIBUTE"/>
+      <xs:enumeration value="UPDATE_USER"/>
+      <xs:enumeration value="UPDATE_USER_ATTRIBUTE"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:complexType name="DraftWorkflowType">
+    <xs:annotation>
+      <xs:documentation>Only 1 example</xs:documentation>
+      <xs:appinfo>single</xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element type="xs:string" name="descriptor"/>
+    </xs:sequence>
+    <xs:attribute type="xs:short" name="id"/>
+    <xs:attribute type="xs:string" name="parentname"/>
+    <xs:attribute type="xs:string" name="descriptor"/>
+  </xs:complexType>
+
+  <xs:complexType name="EventTypeType">
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <!-- "description" "required"? -->
+        <xs:attribute type="xs:string" name="type" use="optional" fixed="jira.system.event.type"/>
+        <xs:attribute type="xs:short" name="templateId" use="optional"/><!--? only on the manually created event, possibly references the workflow -->
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ExternalEntityType">
+    <xs:annotation><xs:documentation>
+      External User Management
+    </xs:documentation></xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+      <xs:attribute type="xs:short" name="id" use="required"/>
+      <xs:attribute type="xs:string" name="name" use="required"/>
+      <xs:attribute type="xs:string" name="type" use="required"
+          fixed="com.atlassian.jira.user.OfbizExternalEntityStore"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  
+  <xs:complexType name="ExternalGadget">
+    <xs:annotation>
+      <xs:documentation>
+        Only in entitymodel.xml, not seen in the backup. 
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element type="xs:string" name="gadgetXml"/>
+    </xs:sequence>
+    <xs:attribute type="xs:short" name="id"/>
+  </xs:complexType>
+  
+  <xs:complexType name="FavouriteAssociationsType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="username" use="required"/><!-- type: username -->
+        <xs:attribute type="FavouriteAssociationsType_entityType_enum" name="entityType"
+          use="required"/>
+        <xs:attribute type="xs:short" name="entityId" use="required"/>
+        <xs:attribute type="ordinal_marker" name="sequence" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="FavouriteAssociationsType_entityType_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PortalPage"/>
+      <xs:enumeration value="SearchRequest"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="FieldConfigSchemeType">
+    <xs:annotation>
+      <xs:documentation>
+        Configuration scheme for custom fields 
+        added JIRA 3.2
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="CustomFieldID_issuetype_union" name="fieldid" use="required"/>
+        <xs:attribute type="xs:short" name="customfield" use="optional"><!--ref-->
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              Deprecated since 3.4
+            </xs:documentation>
+            <xs:appinfo>deprecated</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>        
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FieldConfigSchemeIssueTypeType">
+    <xs:annotation>
+      <xs:documentation>
+        Many to many link entity with between schemes and config
+        added JIRA 3.2
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="fieldconfigscheme" use="required"/>
+        <!-- ref -->
+        <xs:attribute type="xs:short" name="fieldconfiguration" use="required"/>
+        <!-- ref -->
+        <xs:attribute type="xs:short" name="issuetype" use="optional"/>
+        <!-- ref -->
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="FieldConfigurationType">
+    <xs:annotation>
+      <xs:documentation>
+        Configuration for fields
+        added JIRA 3.2
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <!-- "description" required? -->
+        <xs:attribute type="CustomFieldID_issuetype_union" name="fieldid" use="required"/>
+        <xs:attribute type="xs:short" name="customfield" use="optional"><!--ref-->
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              deprecated since 3.4
+            </xs:documentation>
+            <xs:appinfo>deprecated</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>
+        
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FieldLayoutType">
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <!-- "description" required? -->
+        <xs:attribute type="xs:string" name="type" use="optional" fixed="default">
+          <xs:annotation>
+            <xs:documentation>
+              used to record whether the FieldLayout is e.g. system default              
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:short" name="layoutscheme" use="optional"><!--ref-->
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              Deprecated
+            </xs:documentation>
+            <xs:appinfo>deprecated</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>
+        
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FieldLayoutItemType"> <!-- mixed="true" -->
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="fieldlayout" use="required"/>
+        <!-- ref -->
+        <xs:attribute type="fieldidentifier_union" name="fieldidentifier" use="required"/>
+        <xs:attribute type="boolean_enum" name="ishidden" use="required"/>
+        <xs:attribute type="boolean_enum" name="isrequired" use="required"/>
+        <xs:attribute type="FieldLayoutItem_rederertype_enum" name="renderertype" use="required"/>
+        <xs:attribute type="ordinal_marker" name="verticalposition" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              Deprecated
+            </xs:documentation>
+            <xs:appinfo>deprecated</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType name="FieldLayoutItem_rederertype_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="atlassian-wiki-renderer"/>
+      <xs:enumeration value="frother-control-renderer"/>
+      <xs:enumeration value="jira-text-renderer"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="FieldLayoutSchemeType">
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <!-- "description" required? -->
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FieldLayoutSchemeEntityType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="scheme" use="required"/>
+        <!-- ref -->
+        <xs:attribute type="xs:short" name="issuetype" use="optional"/>
+        <!-- ref -->
+        <xs:attribute type="xs:short" name="fieldlayout" use="optional"/>
+        <!-- ref -->
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="FieldScreenType">
+    <xs:annotation>
+      <xs:documentation>Field Screen tables</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <!-- "description" required? -->
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FieldScreenLayoutItemType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="fieldidentifier" use="required"/>
+        <xs:attribute type="ordinal_marker" name="sequence" use="required"/>
+        <xs:attribute type="xs:short" name="fieldscreentab" use="required"/>
+        <!-- ref -->
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="FieldScreenSchemeType">
+    <xs:annotation>
+      <xs:documentation>Field Screen Scheme tables</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <!-- "description" required? -->
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FieldScreenSchemeItemType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="fieldscreen" use="required"/>
+        <xs:attribute type="xs:short" name="fieldscreenscheme" use="required"/>
+        <xs:attribute type="xs:byte" name="operation" use="optional"/><!-- todo: what is being referenced? -->
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="FieldScreenTabType">
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:annotation>
+          <xs:documentation>
+            The description field is only in entitymodel.xml, not seen in the backup.
+            Possibly description becomes the tags content?
+          </xs:documentation>
+        </xs:annotation>
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="ordinal_marker" name="sequence" use="required"/>
+        <xs:attribute type="xs:short" name="fieldscreen" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FileAttachmentType"> <!-- mixed="true" -->
+    <xs:sequence>
+      <xs:element name="mimetype" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Only one of the element or attribute should be used</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:short" name="id" use="required"/>
+    <xs:attribute type="xs:int" name="issue" use="required"/><!-- ref -->
+    <xs:attribute type="xs:string" name="mimetype" use="optional"/><!-- type: mime -->
+    <xs:attribute type="xs:string" name="filename" use="required"/>
+    <xs:attribute type="date_pattern" name="created" use="required"/>
+    <xs:attribute type="xs:int" name="filesize" use="required"/>
+    <xs:attribute type="xs:string" name="author" use="required"/>
+    <!-- user -->
+  </xs:complexType>
+  <xs:complexType name="FilterSubscriptionType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="filterID" use="required"/>
+        <!-- ref -->
+        <xs:attribute type="xs:string" name="username" use="required"/>
+        <!-- user -->
+        <xs:attribute type="date_pattern" name="lastRun" use="required"/>
+        <xs:attribute type="boolean_enum" name="emailOnEmpty" use="required"/>
+        <xs:attribute type="xs:string" name="group" use="optional"><!--ref-->
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>        
+      </xs:extension>     
+    </xs:simpleContent>
+  </xs:complexType>
+  
+  <xs:complexType name="GadgetUserPreferenceType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="portletconfiguration" use="required"/><!-- ref -->
+        <xs:attribute type="xs:string" name="userprefkey"
+          use="required"/>
+        <xs:attribute type="xs:string" name="userprefvalue" use="required"/><!-- boolean, number, string-->
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="GenericConfigurationType"> <!-- mixed="true" -->
+    <xs:annotation>
+      <xs:documentation>
+        Stores arbitrary objects as XML
+        added JIRA 3.2
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:annotation>
+        <xs:documentation>only one of the element or attribute should be used</xs:documentation>
+      </xs:annotation>
+      <xs:element name="xmlvalue" minOccurs="0" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute type="xs:short" name="id" use="required"/>
+    <xs:attribute type="xs:string" name="datatype" use="required" fixed="DefaultValue"/>
+    <xs:attribute type="xs:short" name="datakey" use="required"/><!-- ref? -->
+    <xs:attribute type="xs:string" name="xmlvalue" use="optional"/>
+  </xs:complexType>
+  
+  <xs:complexType name="GroupType">
+    <xs:annotation>
+      <xs:documentation>Introduced in 5.x</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="groupName" use="required"/>
+        <xs:attribute type="xs:string" name="lowerGroupName" use="required"/>
+        <xs:attribute type="boolean_10_enum" name="active" use="required"/>
+        <xs:attribute type="boolean_10_enum" name="local" use="required"/>
+        <xs:attribute type="date_pattern" name="createdDate" use="required"/>
+        <xs:attribute type="date_pattern" name="updatedDate" use="required"/>
+        <xs:attribute type="xs:string" name="type" use="required" fixed="GROUP"/>
+        <xs:attribute type="xs:short" name="directoryId" use="required"/><!-- ref -->
+        <xs:attribute type="xs:string" name="lowerDescription" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>                
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupAttributeType">
+    <xs:annotation>
+      <xs:documentation>Introduced in 5.x</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="groupId" use="required"/>
+        <xs:attribute type="xs:short" name="directoryId" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="value"/>
+        <xs:attribute type="xs:string" name="lowerValue"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="IssueType"> <!-- mixed="true" -->
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:sequence>
+          <xs:choice>
+            <xs:annotation>
+              <xs:documentation>only one of the element or attribute should be used</xs:documentation>
+            </xs:annotation>
+            <xs:element type="xs:string" name="environment" minOccurs="0"/>
+            <xs:element type="xs:string" name="summary" minOccurs="0"/>
+          </xs:choice>
+        </xs:sequence>
+        <xs:attribute type="xs:int" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="key" use="required"/>
+        <xs:attribute type="xs:short" name="project" use="required"/>
+        <xs:attribute type="xs:string" name="reporter" use="optional"/>
+        <xs:attribute type="xs:string" name="assignee" use="optional"/>
+        <xs:attribute type="xs:short" name="type" use="required"/>
+        <xs:attribute type="xs:string" name="summary" use="optional"/>
+        <xs:attribute type="xs:short" name="priority" use="required"/>
+        <xs:attribute type="xs:short" name="resolution" use="optional"/>
+        <xs:attribute type="xs:short" name="status" use="required"/>
+        <xs:attribute type="date_pattern" name="created" use="required"/>
+        <xs:attribute type="date_pattern" name="updated" use="optional"/>
+        <xs:attribute type="date_pattern" name="duedate" use="optional"/>
+        <xs:attribute type="date_pattern" name="resolutiondate" use="optional"/>
+        <xs:attribute type="xs:short" name="votes" use="required"/>
+        <xs:attribute type="xs:short" name="watches" use="required">
+          <xs:annotation>
+            <xs:documentation>Introduced in 5.x</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:int" name="workflowId" use="required"/>
+        <xs:attribute type="xs:string" name="environment" use="optional"/>
+        <xs:attribute type="xs:int" name="timeestimate" use="optional"/>
+        <xs:attribute type="xs:int" name="timespent" use="optional"/>
+        <xs:attribute type="xs:int" name="timeoriginalestimate" use="optional"/>
+        <xs:attribute type="xs:short" name="security" use="optional"/><!-- ref -->
+        <xs:attribute type="xs:short" name="fixfor" use="optional"><!--ref-->
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              Deprecated
+            </xs:documentation>
+            <xs:appinfo>deprecated</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>        
+        <xs:attribute type="xs:short" name="component" use="optional"><!--ref-->
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              Deprecated
+            </xs:documentation>
+            <xs:appinfo>deprecated</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>  
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+
+  <xs:complexType name="IssueLinkType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="linktype" use="required"/>
+        <xs:attribute type="xs:int"   name="source" use="required">
+          <xs:annotation>
+            <xs:documentation>the id of the source issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:int"   name="destination" use="required">
+          <xs:annotation>
+            <xs:documentation>the id of the destination issue</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:short" name="sequence" use="optional">
+          <xs:annotation>
+            <xs:documentation>Used to order links of the same 'style' e.g. sub-tasks</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="IssueLinkTypeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="linkname" use="required">
+          <xs:annotation><xs:documentation>
+            a description of the 'forward' link
+          </xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="inward" use="required">
+          <xs:annotation><xs:documentation>
+            a description of the 'bacward' link
+          </xs:documentation></xs:annotation>
+        </xs:attribute>        
+        <xs:attribute type="xs:string" name="outward" use="required"/>
+        <xs:attribute type="xs:string" name="style" use="optional" fixed="jira_subtask">
+          <xs:annotation>
+            <xs:documentation>              
+              The type of the link
+              Based on 1 use
+            </xs:documentation>
+            <xs:appinfo>oneinstance</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="IssueSecuritySchemeType">
+    <xs:annotation>
+      <xs:documentation>Based on 1 use</xs:documentation>
+      <xs:appinfo>oneinstance</xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required">
+          <xs:annotation>
+            <xs:documentation>Default Permission Scheme for this table will have an id of 0</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:short" name="defaultlevel" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="IssueTypeType">
+    <xs:annotation>
+      <xs:documentation>An entity to represent custom </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required">
+          <xs:annotation>
+            <xs:documentation>
+              The ID of this resolution, usually just an integer.
+              It is a varchar field for a) backwards compatibility and b) data import from other systems.
+              This means the PK must be created manually.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="ordinal_marker" name="sequence" use="optional">
+          <xs:annotation>
+            <xs:documentation>the sequence of this type. 1 is high, > 1 is low.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="iconurl" use="optional"><!-- /images/icons/....(gif/png) -->
+          <xs:annotation>
+            <xs:documentation>
+              relative URL of an icon for this issue type - must be 16x16
+              This is present for all of the entries in the backup but it is not tested for in the validation code.
+            </xs:documentation>
+            <xs:appinfo>always</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>        
+        <xs:attribute type="xs:string" name="style" use="optional" fixed="jira_subtask">
+          <xs:annotation>
+            <xs:documentation>
+              the 'type' of this issue type
+              currently the code only tests if this is equals to "jira_subtask" or not. (case sensitive)
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:simpleType name="IssueType_style_enum">
+    <xs:annotation>
+      <xs:documentation>
+        The only types at the moment are 'normal' and subtask. This field is only present for subtask
+        definitions and so only ever has one value, "jira_subtask".
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="jira_subtask"/>      
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:complexType name="IssueTypeScreenSchemeType">
+    <xs:annotation>
+      <xs:documentation>Issue Type Screen Scheme tables</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+          <xs:annotation>
+            <xs:documentation>
+              Description is present for all of the entries in the backup but it is not tested for in the validation code.
+            </xs:documentation>
+            <!-- xs:appinfo>always</xs:appinfo -->
+          </xs:annotation>
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="IssueTypeScreenSchemeEntityType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="scheme" use="required"/>
+        <!-- ref -->
+        <xs:attribute type="xs:short" name="fieldscreenscheme" use="required"/>
+        <!-- ref -->
+        <xs:attribute type="xs:short" name="issuetype" use="optional"/>
+        <!-- ref -->
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="LabelType">
+    <xs:annotation>
+      <xs:documentation>Introduced in 5.x</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:int" name="issue" use="required"/><!-- ref -->
+        <xs:attribute type="xs:string" name="label" use="required"/>
+        <xs:attribute type="xs:short" name="fieldid" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>        
+        
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ListenerConfigType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="clazz" use="required"/>
+        <!-- com.atlassian... -->
+        <xs:attribute type="xs:string" name="name" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="MailServerType">
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <!-- "description" required? -->
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+
+        <xs:attribute type="xs:string" name="from" use="optional"/>
+        <!-- email -->
+        <xs:attribute type="xs:string" name="prefix" use="optional"/>
+        <xs:attribute type="xs:short" name="smtpPort" use="optional"/>
+        <xs:attribute type="MailServer_protocol_enum" name="protocol" use="optional">
+          <xs:annotation>
+            <xs:documentation>Introduced in 5.x</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="MailServer_type_enum" name="type" use="optional"/>
+        <xs:attribute type="xs:string" name="servername" use="required"/>
+        <xs:attribute type="xs:string" name="istlsrequired" use="optional">
+          <xs:annotation>
+            <xs:documentation>Introduced in 5.x</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:int" name="timeout" use="optional">
+          <xs:annotation>
+            <xs:documentation>Introduced in 5.x</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="username" use="optional"/>
+        <xs:attribute type="xs:string" name="password" use="optional"/>
+        <xs:attribute type="xs:string" name="jndilocation" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>        
+        <xs:attribute type="xs:string" name="socksHost" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              Introduced in 5.x
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>        
+        <xs:attribute type="xs:string" name="socksPort" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              Introduced in 5.x
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>                
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType name="MailServer_protocol_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="imap"/>
+      <xs:enumeration value="smtp"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MailServer_type_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="pop"/>
+      <xs:enumeration value="smtp"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="MembershipType">
+    <xs:annotation>
+      <xs:documentation>Introduced in 5.x</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="parentId" use="required"/><!-- ref -->
+        <xs:attribute type="xs:short" name="childId" use="required"/><!-- ref -->
+        <xs:attribute type="xs:string" name="membershipType" use="required" fixed="GROUP_USER"/>
+        <xs:attribute type="xs:string" name="parentName" use="required"/><!-- type: group name -->
+        <xs:attribute type="xs:string" name="lowerParentName" use="required">
+          <xs:annotation>
+            <xs:documentation>lower(parentName)</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="childName" use="required"/><!-- type: group / user name-->
+        <xs:attribute type="xs:string" name="lowerChildName" use="required">
+          <xs:annotation>
+            <xs:documentation>lower(childName)</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:short" name="directoryId" use="required"/><!-- ref -->
+        <xs:attribute type="xs:short" name="groupType" use="optional"><!--ref-->
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>                
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="NodeAssociationType">
+    <xs:annotation>
+      <xs:documentation>Generic Associative Entity - awesome for M-M mappings between entities</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:int" name="sourceNodeId" use="required"/>
+        <!-- combi ref-->
+        <xs:attribute type="NodeAssociatation_sourceNodeEntity_enum" name="sourceNodeEntity"
+          use="required"/>
+        <xs:attribute type="xs:short" name="sinkNodeId" use="required"/>
+        <!-- combi ref-->
+        <xs:attribute type="NodeAssociatation_sinkNodeEntity_enum" name="sinkNodeEntity"
+          use="required"/>
+        <xs:attribute type="NodeAssociatation_associationType_enum" name="associationType"
+          use="required"/>
+        <xs:attribute type="ordinal_marker" name="sequence" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>        
+        
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="NodeAssociatation_sourceNodeEntity_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Issue"/>
+      <xs:enumeration value="Project"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="NodeAssociatation_sinkNodeEntity_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Component"/>
+      <xs:enumeration value="FieldLayoutScheme"/>
+      <xs:enumeration value="IssueSecurityScheme"/>
+      <xs:enumeration value="IssueTypeScreenScheme"/>
+      <xs:enumeration value="NotificationScheme"/>
+      <xs:enumeration value="PermissionScheme"/>
+      <xs:enumeration value="ProjectCategory"/>
+      <xs:enumeration value="Version"/>
+      <xs:enumeration value="WorkflowScheme"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="NodeAssociatation_associationType_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="IssueComponent"/>
+      <xs:enumeration value="IssueFixVersion"/>
+      <xs:enumeration value="IssueVersion"/>
+      <xs:enumeration value="ProjectCategory"/>
+      <xs:enumeration value="ProjectScheme"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <xs:complexType name="NotificationType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="scheme" use="required"/><!-- ref -->
+        <xs:attribute type="xs:short" name="eventTypeId" use="required"/><!-- ref -->
+        <xs:attribute type="NotificationType_type_enum" name="type" use="required"/>
+        <xs:attribute type="xs:string" name="parameter" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              The type of value stored in parameter is dependent on the value of type:
+              type attribute           parameter value's type
+              All_Watchers             No parameter
+              Current_Assignee         No parameter
+              Current_Reporter         No parameter
+              Group_Dropdown           user group
+              Project_Role             project number ([0-9]{5})
+              User_Custom_Field_Value  'customfield_'[0-9]{5}              
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="event" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              Deprecated eventTypeId is now used
+            </xs:documentation>
+            <xs:appinfo>deprecated</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>        
+        <xs:attribute type="xs:short" name="templateId" use="optional"><!--ref-->
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>                
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="NotificationType_type_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="All_Watchers"/>
+      <xs:enumeration value="Current_Assignee"/>
+      <xs:enumeration value="Current_Reporter"/>
+      <xs:enumeration value="Group_Dropdown"/>
+      <xs:enumeration value="Project_Role"/>
+      <xs:enumeration value="User_Custom_Field_Value"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <xs:complexType name="NotificationInstanceType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:int" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="type" use="required"><!-- format: NOTIFICATION_<1-9><0-9>* No reference to test against -->
+          <xs:annotation>
+            <xs:documentation>Notification type - see IssueEventType</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>        
+        <xs:attribute type="xs:int" name="source" use="required">
+          <xs:annotation>
+            <xs:documentation>Id of the entity which this mail is about.  Referred-to table deducible from 'type'</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="email" use="required"><!-- email -->
+          <xs:annotation>
+            <xs:documentation>Email address of sent emai</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="messageid" use="required"/><!-- some java mail format -->
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="NotificationSchemeType">
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="OAuthConsumerType">
+    <xs:annotation>
+      <xs:documentation>Only appears 1 time</xs:documentation>
+      <xs:appinfo>oneinstance</xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id"/>
+        <xs:attribute type="xs:string" name="created"/>
+        <xs:attribute type="xs:string" name="name"/>
+        <xs:attribute type="xs:string" name="consumerKey"/>
+        <xs:attribute type="xs:string" name="service"/>
+        <xs:attribute type="xs:string" name="publicKey"/>
+        <xs:attribute type="xs:string" name="privateKey"/>
+        <xs:attribute type="xs:string" name="signatureMethod"/>
+        <xs:attribute type="xs:string" name="callback" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>        
+        <xs:attribute type="xs:string" name="sharedSecret" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>               
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="OSCurrentStepType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:int" name="id" use="required"/>
+        <xs:attribute type="xs:int" name="entryId" use="required"/>
+        <xs:attribute type="xs:short" name="stepId" use="required">
+          <xs:annotation>
+            <xs:documentation>references the step IDs from the workflow's XML</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:long" name="actionId" use="required">
+          <xs:annotation>
+            <xs:documentation>references the action IDs from the workflow's XML</xs:documentation>
+          </xs:annotation>          
+        </xs:attribute>
+        <xs:attribute type="date_pattern" name="startDate" use="required"/>
+        <xs:attribute type="xs:string" name="status" use="required">
+          <xs:annotation>
+            <xs:documentation>References by name the status assigned in the workflow action</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="owner" use="optional"/><!-- ref -->
+        <xs:attribute type="user_marker" name="caller" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="date_pattern" name="finishDate" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>                
+        <xs:attribute type="date_pattern" name="dueDate" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>       
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="OSCurrentStepPrevType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:int" name="id" use="required"/><!-- ref -->
+        <xs:attribute type="xs:int" name="previousId" use="required"/><!-- ref -->
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="OSHistoryStepType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:int" name="id" use="required"/>
+        <xs:attribute type="xs:int" name="entryId" use="required"/><!-- ref ? -->
+        <xs:attribute type="xs:short" name="stepId" use="required">
+          <xs:annotation>
+            <xs:documentation>references the step IDs from the workflow's XML</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:int" name="actionId" use="required">
+          <xs:annotation>
+            <xs:documentation>references the action IDs from the workflow's XML</xs:documentation>
+          </xs:annotation>          
+        </xs:attribute>
+        <xs:attribute type="date_pattern" name="startDate" use="required"/>
+        <xs:attribute type="date_pattern" name="finishDate" use="optional"/>
+        <xs:attribute type="xs:string" name="status" use="required">
+          <xs:annotation>
+            <xs:documentation>References by name the status assigned in the workflow action</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="caller" use="optional"/>
+        <xs:attribute type="xs:string" name="owner" use="optional"/>
+        <xs:attribute type="date_pattern" name="dueDate" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="OSHistoryStepPrevType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:int" name="id" use="required"/><!-- ref -->
+        <xs:attribute type="xs:int" name="previousId" use="required"/><!-- ref -->
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="OSPropertyEntryType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="OSPropertyEntry_entityName_enum" name="entityName" use="required"/>
+        <xs:attribute type="xs:short" name="entityId" use="required"/>
+        <xs:attribute type="xs:string" name="propertyKey" use="required"/><!-- too many values to enum -->
+        <xs:attribute type="xs:byte" name="type" use="required"/><!-- todo: what does this reference? values are: "1" or "5" -->
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="OSPropertyEntry_entityName_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BambooServerProperties"/>
+      <xs:enumeration value="com.atlassian.jira.plugins.jira-workflow-designer"/>
+      <xs:enumeration value="ExternalEntity"/>
+      <xs:enumeration value="fisheye-jira-plugin.properties"/>
+      <xs:enumeration value="jira.properties"/>
+      <xs:enumeration value="OSUser"/>
+      <xs:enumeration value="PortletConfiguration"/>
+      <xs:enumeration value="Project"/>
+      <xs:enumeration value="ServiceConfig"/>
+      <xs:enumeration value="user.format.mapping"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="OSPropertyNumberType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="value" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="OSPropertyStringType"> <!-- mixed="true" -->
+    <xs:sequence>
+      <!-- occurs only if the attribute isn't used -->
+      <xs:element type="xs:string" name="value" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:short" name="id" use="required"/>
+    <xs:attribute type="xs:string" name="value" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="OSPropertyTextType"> <!-- mixed="true" -->
+    <xs:sequence>
+      <xs:element type="xs:anyURI" name="value" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:short" name="id" use="required"/>
+    <xs:attribute type="xs:string" name="value" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="OSWorkflowEntryType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:int" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required">
+          <xs:annotation>
+            <xs:documentation>ref to values in the workflow</xs:documentation>
+            <xs:appinfo>ExternalReference</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>        
+        <xs:attribute type="xs:int" name="initialized" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              Deprecated since 2.6
+            </xs:documentation>
+            <xs:appinfo>deprecated</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>        
+        <xs:attribute type="xs:short" name="state" use="required">
+          <xs:annotation>
+            <xs:documentation>ref to values in the workflow</xs:documentation>
+            <xs:appinfo>ExternalReference</xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="OptionConfigurationType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="fieldid" use="required" fixed="issuetype"/>
+        <xs:attribute type="xs:byte" name="optionid" use="required">
+          <xs:annotation>
+            <xs:documentation>Value for submission as part of the HTML form</xs:documentation>
+          </xs:annotation>          
+        </xs:attribute>
+        <xs:attribute type="xs:short" name="fieldconfig" use="required"/>
+        <xs:attribute type="ordinal_marker" name="sequence" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="PermissionSchemeType">
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <!-- "description" required? -->
+        <xs:attribute type="xs:short" name="id" use="required">
+          <xs:annotation>
+            <xs:documentation>Default Permission Scheme for this table will have an id of 0</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PluginVersionType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="key" use="required"/><!-- format com.atlassian.... -->
+        <xs:attribute type="xs:string" name="version" use="required">
+          <xs:annotation>
+            <xs:documentation>There is no fixed format for version numbers, they can even include letters</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="date_pattern" name="created" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="PortalPageType">
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="pagename" use="required">
+          <xs:annotation>
+            <xs:documentation>user selected name, normally 'Dashboard for '(full username)</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="ordinal_marker" name="sequence" use="optional"/>
+        <xs:attribute type="xs:byte" name="favCount" use="required"/>
+        <xs:attribute type="xs:byte" name="version" use="required"/>
+        <xs:attribute type="xs:string" name="username" use="optional"/>
+        <xs:attribute type="PortalPage_layout_enum" name="layout" use="optional"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType name="PortalPage_layout_enum">
+    <xs:restriction base="xs:string">
+      <!-- probably not all of the possible values -->
+      <xs:enumeration value="A"/>
+      <xs:enumeration value="AA"/>
+      <xs:enumeration value="AAA"/>
+      <xs:enumeration value="AB"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="PortletConfigurationType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="portalpage" use="required"/>
+        <!-- ref -->
+        <xs:attribute type="ordinal_marker" name="columnNumber" use="required"/>
+        <xs:attribute type="ordinal_marker" name="position" use="required"/>
+        <xs:attribute type="xs:string" name="gadgetXml" use="optional"/>
+        <!-- format rest/gadgets/1.0/g/com.atlassian.jira.gadgets:<path>/<xml file> -->
+        <xs:attribute type="xs:string" name="color" use="optional"/>
+        <!-- format color[0-9] -->
+        <xs:attribute type="xs:string" name="portletId" use="optional"/>
+        <!-- only one value found 'com.atlassian.jira.ext.calendar:issuesCalander' -->
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="PriorityType">
+    <xs:complexContent>
+      <xs:extension base="description_prototype">        <!-- "description" required? -->
+        <xs:attribute type="xs:short" name="id" use="required">
+          <xs:annotation>
+            <xs:documentation>
+              The ID of this priority, usually just an integer.
+              It is a varchar field for a) backwards compatibility and b) data import from other systems.
+              This means the PK must be created manually.
+          </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="ordinal_marker" name="sequence" use="required">
+          <xs:annotation>
+            <xs:documentation>the sequence of this priority. 1 is high, > 1 is low.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="iconurl" use="required"><!-- /<path>/<image file>.(gif/?) -->
+          <xs:annotation>
+            <xs:documentation>relative URL of an icon for this priority - must be 16x16</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="statusColor" use="required"><!-- type: #[0-9a-h]{6} -->
+          <xs:annotation>
+            <xs:documentation>hex string or the color for this priority</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ProjectType"> <!-- mixed="true" -->
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/><!-- User or Group or ?-->
+        <xs:attribute type="xs:string" name="url" use="optional"/>
+        <xs:attribute type="xs:string" name="lead" use="required"/><!-- User or Group or ?-->
+        <xs:attribute type="xs:string" name="key" use="required"/>
+        <xs:attribute type="xs:short" name="counter" use="required"/>
+        <xs:attribute type="assignee_marker" name="assigneetype" use="required">
+          <xs:annotation>
+            <xs:documentation>Always 2 in the text XML, PROJECT_LEAD</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:short" name="avatar" use="required"/><!-- ref [0-9]{5} -->
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ProjectCategoryType">
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <!-- "description" required? -->
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ProjectRoleType">
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <!-- "description" required? -->
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ProjectRoleActorType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="projectroleid" use="required"/>
+        <xs:attribute type="ProjectRoleActor_roletype_enum" name="roletype" use="required"/>
+        <xs:attribute type="xs:string" name="roletypeparameter" use="required"/><!-- ref to users & groups -->
+        <xs:attribute type="xs:short" name="pid" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="ProjectRoleActor_roletype_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="atlassian-group-role-actor"/>
+      <xs:enumeration value="atlassian-user-role-actor"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="QRTZCronTriggersType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="trigger" use="required"/><!-- ref [0-9]{5} -->
+        <xs:attribute type="xs:string" name="cronExpression" use="required">
+          <xs:annotation>
+            <xs:documentation>in cron format e.g. "0 0 1 ? * 2,3,4,5,6"</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="QRTZJobDetailsType">
+    <xs:annotation>
+      <xs:documentation>Based on 1 instance</xs:documentation>
+      <xs:appinfo>oneinstance</xs:appinfo>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="jobName"/>
+        <xs:attribute type="xs:string" name="jobGroup"/>
+        <xs:attribute type="xs:string" name="className"/>
+        <xs:attribute type="boolean_enum" name="isDurable"/>
+        <xs:attribute type="boolean_enum" name="isStateful"/>
+        <xs:attribute type="boolean_enum" name="requestsRecovery"/>
+        <xs:attribute type="xs:string" name="jobData">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="QRTZTriggersType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="triggerName" use="required"/><!-- type: SUBSCRIPTION_[0-9]{5} -->
+        <xs:attribute type="xs:string" name="triggerGroup" use="required" fixed="SEND_SUBSCRIPTION"/>
+        <xs:attribute type="xs:short" name="job" use="required" fixed="10000"/><!-- ref? -->
+        <xs:attribute type="date_pattern" name="nextFire" use="required"/>
+        <xs:attribute type="xs:string" name="triggerState" use="required" fixed="WAITING"/>
+        <xs:attribute type="xs:string" name="triggerType" use="required" fixed="CRON"/>
+        <xs:attribute type="date_pattern" name="startTime" use="required"/>
+        <xs:attribute type="boolean_10_enum" name="misfireInstr" use="required" fixed="0"/>
+        <xs:attribute type="xs:string" name="calendarName">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="date_pattern" name="endTime">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="RememberMeTokenType">
+    <xs:annotation>
+      <xs:documentation>Introduced in 5.x</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short"     name="id" use="required"/>
+        <xs:attribute type="date_pattern" name="created" use="required"/>
+        <xs:attribute type="xs:long"      name="token" use="required"/>
+        <xs:attribute type="xs:string"    name="username"/><!--type: ref?-->
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="RemoteIssueLinkType">
+    <xs:annotation>
+      <xs:documentation>Introduced in 5.x</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id"/>
+        <xs:attribute type="xs:short" name="issueid"/>
+        <xs:attribute type="xs:string" name="globalid"/>
+        <xs:attribute type="xs:string" name="title"/>
+        <xs:attribute type="xs:string" name="summary"/>
+        <xs:attribute type="xs:string" name="url"/>
+        <xs:attribute type="xs:string" name="iconurl"/>
+        <xs:attribute type="xs:string" name="icontitle"/>
+        <xs:attribute type="xs:string" name="relationship"/>
+        <xs:attribute type="xs:string" name="resolved"/> <!-- type: indicator -->
+        <xs:attribute type="xs:string" name="statusiconurl"/>
+        <xs:attribute type="xs:string" name="statusicontitle"/>
+        <xs:attribute type="xs:string" name="statusiconlink"/>
+        <xs:attribute type="xs:string" name="applicationtype"/>
+        <xs:attribute type="xs:string" name="applicationname"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="RemoteAddress">
+    <xs:annotation>
+      <xs:documentation>Crowd Application implementation
+                        Introduced in 5.x</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short"  name="applicationId" use="required"/><!-- type: ref? -->
+        <xs:attribute type="xs:string" name="address"/>
+        <xs:attribute type="xs:string" name="encodedAddressBytes" use="required"/><!-- type: pattern? -->
+        <xs:attribute type="xs:short"  name="mask"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="ResolutionType">
+    <xs:annotation><xs:documentation>
+      an entity to represent custom resolutions
+    </xs:documentation></xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <!-- "description" required? -->
+        <xs:attribute type="xs:short" name="id" use="required">
+          <xs:annotation><xs:documentation>
+            The ID of this resolution, usually just an integer.
+            It is a varchar field for a) backwards compatibility and b) data import from other systems.
+            This means the PK must be created manually.
+          </xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="ordinal_marker" name="sequence" use="required">
+          <xs:annotation><xs:documentation>
+            the sequence of this resolution. 1 is high, > 1 is low.
+          </xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="name" use="required">
+          <xs:annotation><xs:documentation>
+            the name of this resolution
+          </xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="iconurl"><!--type: url-->
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+              relative URL of an icon for this resolution - must be 16x16 - not used at the moment
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>        
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SchemeIssueSecuritiesType">
+    <xs:annotation>
+      <xs:documentation>Based on 1 instance</xs:documentation>
+      <xs:appinfo>oneinstance</xs:appinfo>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="scheme"/>
+        <xs:attribute type="xs:short" name="security"/>
+        <xs:attribute type="xs:string" name="type"/>
+        <xs:attribute type="xs:string" name="parameter"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="SchemeIssueSecurityLevelsType">
+    <!-- only 1 instance -->
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name"/>
+        <xs:attribute type="xs:short" name="scheme"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SchemePermissionsType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:byte" name="permission" use="required"/><!-- ref [0-9]{2} -->
+        <xs:attribute type="SchemePermissions_type_enum" name="type" use="required"/>
+        <xs:attribute type="xs:string" name="parameter" use="optional"/><!-- ref user,group,project role -->
+        <xs:attribute type="xs:short" name="scheme" use="optional"/><!-- 0 or ref [0-9]{5} -->
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="SchemePermissions_type_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="group"/>
+      <xs:enumeration value="lead"/>
+      <xs:enumeration value="projectrole"/>
+      <xs:enumeration value="user"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <xs:complexType name="SearchRequestType"> <!-- mixed="true" -->
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="author" use="required"/><!-- type: user -->
+        <xs:attribute type="xs:string" name="user" use="optional"/><!-- type: user --><!-- seems to always match author -->
+        <xs:attribute type="xs:string" name="request" use="required"/>
+        <xs:attribute type="xs:byte" name="favCount" use="required"/>
+        <xs:attribute type="xs:short" name="project" use="optional"/>
+        <xs:attribute type="xs:string" name="group"><!--ref-->
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>    
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SequenceValueItemType">
+    <xs:annotation><xs:documentation>
+      sequence generator table
+    </xs:documentation></xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="seqName" use="required"/>
+        <xs:attribute type="xs:int" name="seqId" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ServiceConfigType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:int" name="time" use="required"/><!-- type: milliseconds -->
+        <xs:attribute type="xs:string" name="clazz" use="required"/><!-- type: java class -->
+        <xs:attribute type="xs:string" name="name" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="SharePermissionsType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="entityId" use="required"/><!-- ref portal page/search request-->
+        <xs:attribute type="SharePermissions_entityType_enum" name="entityType" use="required"/>
+        <xs:attribute type="SharePermissions_type_enum" name="type" use="required"/>
+        <xs:attribute type="xs:string" name="param1" use="optional"/>
+        <xs:attribute type="xs:string" name="param2" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        
+        <xs:attribute type="xs:string" name="group"><!--ref-->
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="SharePermissions_entityType_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PortalPage"/>
+      <xs:enumeration value="SearchRequest"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="SharePermissions_type_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="global"/>
+      <xs:enumeration value="project"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="StatusType">
+    <xs:annotation>
+      <xs:documentation>An entity to represent issue status </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required">
+          <xs:annotation>
+            <xs:documentation>
+              The ID of this resolution, usually just an integer.
+              It is a varchar field for a) backwards compatibility and b) data import from other systems.
+              This means the PK must be created manually.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="ordinal_marker" name="sequence" use="optional">
+          <xs:annotation>
+            <xs:documentation>the sequence of this type. 1 is high, > 1 is low.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="description" use="optional"/>
+        <xs:attribute type="xs:string" name="iconurl" use="required"><!-- type: relative url -->
+          <xs:annotation>
+            <xs:documentation>relative URL of an icon for this issue type - must be 16x16</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>        
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="TrustedApplicationType">
+    <xs:annotation>
+      <xs:documentation>
+        Lists Applications we trust to pass credentials on behalf of their logged in users.
+        
+        Note that this is keyed by a String applicationId that is supplied by the requesting application
+        as opposed to a numeric sequence
+        
+        Based on 1 instance
+      </xs:documentation>
+      <xs:appinfo>oneinstance</xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element type="xs:string" name="urlMatch"/>
+      <xs:element type="xs:string" name="ipMatch"/>
+    </xs:sequence>
+    <xs:attribute type="xs:short" name="id" use="required"/>
+    <xs:attribute type="xs:string" name="applicationId"/>
+    <xs:attribute type="xs:anyURI" name="name"/>
+    <xs:attribute type="xs:string" name="publicKey"/>
+    <xs:attribute type="xs:short" name="timeout"/>
+    <xs:attribute type="date_pattern" name="created"/>
+    <xs:attribute type="xs:string" name="createdBy"/>
+    <!-- user -->
+    <xs:attribute type="date_pattern" name="updated"/>
+    <xs:attribute type="xs:string" name="updatedBy"/>
+    <!-- user -->
+    <xs:attribute type="xs:string" name="ipMatch" use="optional">
+      <xs:annotation>
+        <xs:documentation>
+          Only in entitymodel.xml, not seen in the backup.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" name="urlMatch" use="optional">
+      <xs:annotation>
+        <xs:documentation>
+          Only in entitymodel.xml, not seen in the backup.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    
+  </xs:complexType>
+  <xs:complexType name="UpgradeHistoryType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="upgradeclass" use="required"/><!-- type: com.atlassian.jira.upgrade.tasks.UpgradeTask_Build[0-9]{1,3} -->
+        <xs:attribute type="UpgradeHistory_targetbuild_enum" name="targetbuild" use="optional">
+          <xs:annotation>
+            <xs:documentation>Introduced in 5.x</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="UpgradeVersionHistoryType">
+    <xs:annotation>
+      <xs:documentation>Introduced in 5.x</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="date_pattern" name="timeperformed" use="required"/>
+        <xs:attribute type="UpgradeHistory_targetbuild_enum" name="targetbuild" use="required"/>
+        <xs:attribute type="xs:string" name="targetversion" use="optional"/>
+        <!-- 5.1.1/4.4.3 -->
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="UpgradeHistory_targetbuild_enum">
+    <!-- incomplete, but shows that UpgradeVersionHistory also uses the same list -->
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="663"/>
+      <xs:enumeration value="772"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="UserType">
+    <xs:annotation>
+      <xs:documentation>Introduced in 5.x replacing OSUser</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="directoryId" use="required"/>
+        <xs:attribute type="xs:string" name="userName" use="required"/>
+        <xs:attribute type="xs:string" name="lowerUserName" use="required"/>
+        <xs:attribute type="boolean_10_enum" name="active" use="required"/><!-- if a user is inactive is this attribute not present or set to 0? -->
+        <xs:attribute type="date_pattern" name="createdDate" use="required"/>
+        <xs:attribute type="date_pattern" name="updatedDate" use="optional"/>
+        <xs:attribute type="xs:string" name="firstName" use="required"/>
+        <xs:attribute type="xs:string" name="lowerFirstName" use="required"/>
+        <xs:attribute type="xs:string" name="lastName" use="required"/>
+        <xs:attribute type="xs:string" name="lowerLastName" use="required"/>
+        <xs:attribute type="xs:string" name="displayName" use="required"/>
+        <xs:attribute type="xs:string" name="lowerDisplayName" use="required"/>
+        <xs:attribute type="xs:string" name="emailAddress" use="required"/>
+        <xs:attribute type="xs:string" name="lowerEmailAddress" use="required"/>
+        <xs:attribute type="xs:string" name="credential" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+
+
+  <xs:complexType name="UserAssociationType">
+    <xs:annotation>
+      <xs:documentation>Associative Entity between users entities</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="sourceName" use="required"/>
+        <xs:attribute type="xs:int" name="sinkNodeId" use="required"/>
+        <xs:attribute type="xs:string" name="sinkNodeEntity" use="required" fixed="Issue"/>
+        <xs:attribute type="UserAssociation_associationType_enum" name="associationType"
+          use="required"/>
+        <xs:attribute type="date_pattern" name="created" use="optional"/>
+        <xs:attribute type="ordinal_marker" name="sequence" use="optional">
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="UserAssociation_associationType_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="VoteIssue"/>
+      <xs:enumeration value="WatchIssue"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="UserAttributeType">
+    <xs:annotation>
+      <xs:documentation>Introduced in 5.x</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:int" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="userId" use="required"/>
+        <xs:attribute type="xs:short" name="directoryId" use="required"/>
+        <xs:attribute type="UserAttribute_name_enum" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="value" use="required"/>
+        <xs:attribute type="xs:string" name="lowerValue" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="UserAttribute_name_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="invalidPasswordAttempts"/>
+      <xs:enumeration value="lastAuthenticated"/>
+      <xs:enumeration value="login.count"/>
+      <xs:enumeration value="login.currentFailedCount"/>
+      <xs:enumeration value="login.lastFailedLoginMillis"/>
+      <xs:enumeration value="login.lastLoginMillis"/>
+      <xs:enumeration value="login.previousLoginMillis"/>
+      <xs:enumeration value="login.totalFailedCount"/>
+      <xs:enumeration value="passwordLastChanged"/>
+      <xs:enumeration value="requiresPasswordChange"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="UserHistoryItemType">
+    <xs:annotation>
+      <xs:documentation>entity to represent a single user history item.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:int" name="id" use="required"/>
+        <xs:attribute type="UserHistoryItem_type_enum" name="type" use="required"/>
+        <xs:attribute type="xs:string" name="entityId" use="required"/><!-- ref project/issue [0-9]{5} -->
+        <xs:attribute type="xs:string" name="username" use="required"><!-- ref -->
+          <xs:annotation>
+            <xs:documentation>Note: the username column actually stores the user key</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>        
+        <xs:attribute type="xs:long" name="lastViewed" use="required"/><!-- type: millis from 1970 -->
+        <xs:attribute type="xs:string" name="data" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="UserHistoryItem_type_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Assignee"/>
+      <xs:enumeration value="Dashboard"/>
+      <xs:enumeration value="Issue"/>
+      <xs:enumeration value="IssueLink"/>
+      <xs:enumeration value="JQLQuery"/>
+      <xs:enumeration value="Project"/>
+      <xs:enumeration value="Resolution"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <xs:complexType name="VersionType">
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="project" use="required"/>
+        <!-- ref [0-9]{5} -->
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="ordinal_marker" name="sequence" use="required"/>
+        <xs:attribute type="boolean_enum" name="released" use="optional" fixed="true"/>
+        <xs:attribute type="boolean_enum" name="archived" use="optional" fixed="true"/>
+        <xs:attribute type="date_pattern" name="releasedate" use="optional"/>
+        <xs:attribute type="xs:string" name="url" use="optional"><!--url-->
+          <xs:annotation>
+            <xs:documentation>
+              Only in entitymodel.xml, not seen in the backup.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>        
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="VoteHistoryType">
+    <xs:annotation>
+      <xs:documentation>Introduced in 5.x</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:int" name="issue" use="required"/>
+        <!-- ref -->
+        <xs:attribute type="xs:byte" name="votes" use="required"/>
+        <xs:attribute type="date_pattern" name="timestamp" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="WorkflowType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="descriptor" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute type="xs:short" name="id" use="required"/>
+    <xs:attribute type="xs:string" name="name" use="required"/>
+    <xs:attribute type="xs:string" name="creator" use="optional"><!--ref?-->
+      <xs:annotation>
+        <xs:documentation>
+          Only in entitymodel.xml, not seen in the backup.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" name="descriptor" use="optional">
+      <xs:annotation>
+        <xs:documentation>          
+          Only in entitymodel.xml, not seen in the backup.
+          Always an element in the backup
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" name="islocked" use="optional"><!-- type:-boolean?-->
+      <xs:annotation>
+        <xs:documentation>
+          Only in entitymodel.xml, not seen in the backup.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>  
+  </xs:complexType>
+
+  <xs:complexType name="WorkflowSchemeType">
+    <xs:complexContent>
+      <xs:extension base="description_prototype">
+        <!-- "description" required? -->
+        <xs:attribute type="xs:short" name="id" use="required">
+          <xs:annotation>
+            <xs:documentation>Default Workflow Scheme for this table will have an id of 0</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="WorkflowSchemeEntityType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:short" name="id" use="required"/>
+        <xs:attribute type="xs:short" name="scheme" use="required"/>
+        <xs:attribute type="xs:string" name="workflow" use="required"/>
+        <xs:attribute type="xs:short" name="issuetype" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="WorklogType"> <!-- mixed="true" -->
+    <xs:sequence>
+      <xs:element type="xs:string" name="body" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:short" name="id" use="required"/>
+    <xs:attribute type="xs:int" name="issue" use="required"/>
+    <xs:attribute type="xs:string" name="author" use="required"/>
+    <xs:attribute type="xs:string" name="body" use="optional"/>
+    <xs:attribute type="date_pattern" name="created" use="required"/>
+    <xs:attribute type="xs:string" name="updateauthor" use="required"/>
+    <xs:attribute type="date_pattern" name="updated" use="required"/>
+    <xs:attribute type="date_pattern" name="startdate" use="required"/>
+    <xs:attribute type="xs:int" name="timeworked" use="required"/><!-- type: seconds? -->
+    <xs:attribute type="xs:string" name="grouplevel" use="optional"><!--ref?-->
+      <xs:annotation>
+        <xs:documentation>
+          Only in entitymodel.xml, not seen in the backup.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:short" name="rolelevel" use="optional"><!--ref?-->
+      <xs:annotation>
+        <xs:documentation>
+          Only in entitymodel.xml, not seen in the backup.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>  
+  </xs:complexType>
+  <xs:complexType name="entity-engine-xmlType">
+    <xs:choice maxOccurs="unbounded" minOccurs="0">
+      <xs:element type="ActionType" name="Action" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="ApplicationType" name="Application"/>
+      <xs:element type="AvatarType" name="Avatar"/>
+      <xs:element type="ChangeGroupType" name="ChangeGroup" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="ChangeItemType" name="ChangeItem" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="ColumnLayoutType" name="ColumnLayout" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="ColumnLayoutItemType" name="ColumnLayoutItem" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="ComponentType" name="Component" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="ConfigurationContextType" name="ConfigurationContext" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="CustomFieldType" name="CustomField" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="CustomFieldOptionType" name="CustomFieldOption" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="CustomFieldValueType" name="CustomFieldValue" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="DirectoryType" name="Directory" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="DirectoryAttributeType" name="DirectoryAttribute" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="DirectoryOperationType" name="DirectoryOperation" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="DraftWorkflowType" name="DraftWorkflow"/>
+      <xs:element type="EventTypeType" name="EventType" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="ExternalEntityType" name="ExternalEntity" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="FavouriteAssociationsType" name="FavouriteAssociations"
+        maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="FieldConfigSchemeType" name="FieldConfigScheme" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="FieldConfigSchemeIssueTypeType" name="FieldConfigSchemeIssueType"
+        maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="FieldConfigurationType" name="FieldConfiguration" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="FieldLayoutType" name="FieldLayout" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="FieldLayoutItemType" name="FieldLayoutItem" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="FieldLayoutSchemeType" name="FieldLayoutScheme" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="FieldLayoutSchemeEntityType" name="FieldLayoutSchemeEntity"
+        maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="FieldScreenType" name="FieldScreen" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="FieldScreenLayoutItemType" name="FieldScreenLayoutItem"
+        maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="FieldScreenSchemeType" name="FieldScreenScheme" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="FieldScreenSchemeItemType" name="FieldScreenSchemeItem"
+        maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="FieldScreenTabType" name="FieldScreenTab" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="FileAttachmentType" name="FileAttachment" maxOccurs="unbounded"
+        minOccurs="0">
+      </xs:element>
+      <xs:element type="FilterSubscriptionType" name="FilterSubscription" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="GadgetUserPreferenceType" name="GadgetUserPreference" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="GenericConfigurationType" name="GenericConfiguration" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="GroupType" name="Group" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="IssueType" name="Issue" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="IssueLinkType" name="IssueLink" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="IssueLinkTypeType" name="IssueLinkType" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="IssueSecuritySchemeType" name="IssueSecurityScheme"/>
+      <xs:element type="IssueTypeType" name="IssueType" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="IssueTypeScreenSchemeType" name="IssueTypeScreenScheme"
+        maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="IssueTypeScreenSchemeEntityType" name="IssueTypeScreenSchemeEntity"
+        maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="LabelType" name="Label" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="ListenerConfigType" name="ListenerConfig" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="MailServerType" name="MailServer" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="MembershipType" name="Membership" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="NodeAssociationType" name="NodeAssociation" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="NotificationType" name="Notification" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="NotificationInstanceType" name="NotificationInstance" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="NotificationSchemeType" name="NotificationScheme" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="OAuthConsumerType" name="OAuthConsumer"/>
+      <xs:element type="OSCurrentStepType" name="OSCurrentStep" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="OSCurrentStepPrevType" name="OSCurrentStepPrev" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="OSHistoryStepType" name="OSHistoryStep" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="OSHistoryStepPrevType" name="OSHistoryStepPrev" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="OSPropertyEntryType" name="OSPropertyEntry" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="OSPropertyNumberType" name="OSPropertyNumber" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="OSPropertyStringType" name="OSPropertyString" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="OSPropertyTextType" name="OSPropertyText" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="OSWorkflowEntryType" name="OSWorkflowEntry" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="OptionConfigurationType" name="OptionConfiguration" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="PermissionSchemeType" name="PermissionScheme" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="PluginVersionType" name="PluginVersion" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="PortalPageType" name="PortalPage" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="PortletConfigurationType" name="PortletConfiguration" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="PriorityType" name="Priority" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="ProjectType" name="Project" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="ProjectCategoryType" name="ProjectCategory" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="ProjectRoleType" name="ProjectRole" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="ProjectRoleActorType" name="ProjectRoleActor" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="QRTZCronTriggersType" name="QRTZCronTriggers" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="QRTZJobDetailsType" name="QRTZJobDetails"/>
+      <xs:element type="QRTZTriggersType" name="QRTZTriggers" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="ResolutionType" name="Resolution" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="SchemeIssueSecuritiesType" name="SchemeIssueSecurities"/>
+      <xs:element type="SchemeIssueSecurityLevelsType" name="SchemeIssueSecurityLevels"/>
+      <xs:element type="SchemePermissionsType" name="SchemePermissions" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="SearchRequestType" name="SearchRequest" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="SequenceValueItemType" name="SequenceValueItem" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="ServiceConfigType" name="ServiceConfig" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="SharePermissionsType" name="SharePermissions" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="StatusType" name="Status" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="TrustedApplicationType" name="TrustedApplication"/>
+      <xs:element type="UpgradeHistoryType" name="UpgradeHistory" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="UpgradeVersionHistoryType" name="UpgradeVersionHistory"
+        maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="UserType" name="User" maxOccurs="unbounded" minOccurs="0"> </xs:element>
+      <xs:element type="UserAssociationType" name="UserAssociation" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="UserAttributeType" name="UserAttribute" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="UserHistoryItemType" name="UserHistoryItem" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="VersionType" name="Version" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="VoteHistoryType" name="VoteHistory" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="WorkflowType" name="Workflow" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="WorkflowSchemeType" name="WorkflowScheme" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="WorkflowSchemeEntityType" name="WorkflowSchemeEntity" maxOccurs="unbounded"
+        minOccurs="0"/>
+      <xs:element type="WorklogType" name="Worklog" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:simpleType name="fieldidentifier_union">
+    <xs:union memberTypes="fieldidentifier_jira_enum CustomFieldID_pattern"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="fieldidentifier_jira_enum">
+    <xs:restriction base="xs:string">
+      <!-- Values from ColumnLayoutItemType -->
+      <xs:enumeration value="assignee"/>
+      <xs:enumeration value="components"/>
+      <xs:enumeration value="created"/>
+      <xs:enumeration value="duedate"/>
+      <xs:enumeration value="fixVersions"/>
+      <xs:enumeration value="issuekey"/>
+      <xs:enumeration value="issuelinks"/>
+      <xs:enumeration value="issuetype"/>
+      <xs:enumeration value="priority"/>
+      <xs:enumeration value="reporter"/>
+      <xs:enumeration value="resolution"/>
+      <xs:enumeration value="status"/>
+      <xs:enumeration value="subtasks"/>
+      <xs:enumeration value="summary"/>
+      <xs:enumeration value="timeestimate"/>
+      <xs:enumeration value="timeoriginalestimate"/>
+      <xs:enumeration value="updated"/>
+      <xs:enumeration value="versions"/>
+      <xs:enumeration value="watches"/>
+      <!-- Values from FieldLayoutItemType -->
+      <!--    <xs:enumeration value="assignee"/> -->
+      <xs:enumeration value="attachment"/>
+      <xs:enumeration value="comment"/>
+      <!--    <xs:enumeration value="components"/>-->
+      <xs:enumeration value="description"/>
+      <!--    <xs:enumeration value="duedate"/>-->
+      <xs:enumeration value="environment"/>
+      <!--    <xs:enumeration value="fixVersions"/>-->
+      <!--    <xs:enumeration value="issuetype"/>-->
+      <!--    <xs:enumeration value="priority"/>-->
+      <!--    <xs:enumeration value="reporter"/>-->
+      <!--    <xs:enumeration value="resolution"/>-->
+      <xs:enumeration value="security"/>
+      <!--    <xs:enumeration value="summary"/>-->
+      <xs:enumeration value="timetracking"/>
+      <!--    <xs:enumeration value="versions"/>-->
+      <!-- Values from FieldScreenLayoutItemType -->
+      <!--    <xs:enumeration value="assignee"/> -->
+      <!--    <xs:enumeration value="attachment"/> -->
+      <!--    <xs:enumeration value="components"/> -->
+      <!--    <xs:enumeration value="description"/> -->
+      <!--    <xs:enumeration value="duedate"/> -->
+      <!--    <xs:enumeration value="environment"/> -->
+      <!--    <xs:enumeration value="fixVersions"/> -->
+      <!--    <xs:enumeration value="issuelinks"/> -->
+      <!--    <xs:enumeration value="issuetype"/> -->
+      <xs:enumeration value="labels"/>
+      <!--    <xs:enumeration value="priority"/> -->
+      <!--    <xs:enumeration value="reporter"/> -->
+      <!--    <xs:enumeration value="resolution"/> -->
+      <!--    <xs:enumeration value="security"/> -->
+      <!--    <xs:enumeration value="summary"/> -->
+      <!--    <xs:enumeration value="timetracking"/> -->
+      <!--    <xs:enumeration value="versions"/> -->
+      <xs:enumeration value="worklog"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="boolean_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="true"/>
+      <xs:enumeration value="false"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="boolean_10_enum">
+    <xs:restriction base="xs:byte">
+      <xs:enumeration value="0"/>
+      <xs:enumeration value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="assignee_marker">
+    <xs:annotation>
+      <xs:documentation>
+        References com.atlassian.jira.project.AssigneeTypes.java
+        0 PROJECT_DEFAULT Assignee is set to the default for the project.
+        1 COMPONENT_LEAD  Assignee is set to the {@link com.atlassian.jira.bc.project.component.ProjectComponent} lead.
+        2 PROJECT_LEAD    Assignee is set to the {@link com.atlassian.jira.project.Project} lead.
+        3 UNASSIGNED      Issue is left with no assignee.        
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:byte"/>
+  </xs:simpleType>  
+  
+  <xs:simpleType name="customfieldkey_pattern">
+    <!-- e.g. com.atlassian.jira.plugin.system.customfieldtypes:datetime -->
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[\w.]*:[\w]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="CustomFieldID_issuetype_union">
+    <xs:union memberTypes="issuetype_enum CustomFieldID_pattern"/>
+  </xs:simpleType>
+  
+  <xs:simpleType name="CustomFieldID_pattern">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="customfield_[0-9]{5}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="date_pattern">
+    <xs:restriction base="xs:string">
+      <xs:pattern
+        value="20[0-9]{2}-[01][0-9]-[0-3][0-9] [0-2][0-9]:[0-5][0-9]:[0-5][0-9].[0-9]{1,3}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="issuetype_enum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="issuetype"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ordinal_marker">
+    <xs:annotation>
+      <xs:documentation>
+        used to indicate that a field is used to represent the order / relative position of an item 
+        in entitydefs.xml some of these are Integers and some are Numeric. The actual values seen
+        tend to be small positive integers.        
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:byte"/>
+  </xs:simpleType>
+  
+  <xs:simpleType name="user_marker">
+    <xs:annotation>
+      <xs:documentation>
+        used to indicate that the field holds a user's name. This is convenient as not all of the 
+        fields holding a username are listed in the keyref part.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  
+  <xs:complexType name="description_prototype" abstract="true"> <!-- mixed="true" -->
+    <xs:annotation>
+      <xs:documentation>
+        Extensions to this type contain a description.
+        The description can appear as an element or as an attribute, but not both.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence minOccurs="0" maxOccurs="1">
+      <xs:element name="description" minOccurs="0" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="description"/>
+  </xs:complexType>
+  
+  <xs:attributeGroup name="NameID"></xs:attributeGroup>
+</xs:schema>

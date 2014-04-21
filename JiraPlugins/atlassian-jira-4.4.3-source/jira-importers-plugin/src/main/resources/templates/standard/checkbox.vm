@@ -1,0 +1,17 @@
+#*
+# action
+# auiparams.name
+# auiparams.label2
+# auiparams.description
+# auiparams.value
+# auiparams.required
+*#
+#parse("/templates/standard/aui.vm")
+#if ($auiparams.label2)
+	#set ($lbl = $i18n.getText($auiparams.label2))
+#else
+	#set ($lbl = '')
+#end
+#parse("/templates/standard/normalHeader.vm")
+#parse("/templates/common/checkbox.vm")
+#parse("/templates/standard/normalFooter.vm")

@@ -1,0 +1,4 @@
+<div class="aui-message error">
+    <p class="title">$i18n.getText('stp.permission.title')</p>
+	<p>$i18n.getText("stp.permission.body")</p>
+</div>

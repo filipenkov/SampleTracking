@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+                                 http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="clearableCacheProvider" class="com.atlassian.gadgets.renderer.internal.cache.DefaultClearableCacheProvider" />
+
+    <bean id="shindigModule" class="com.atlassian.gadgets.renderer.internal.guice.ShindigModule">
+        <constructor-arg type="org.apache.shindig.auth.SecurityTokenDecoder" ref="securityTokenDecoder"/>
+        <constructor-arg type="java.lang.Iterable" ref="localGadgetSpecProviders"/>
+        <constructor-arg type="com.atlassian.gadgets.opensocial.spi.Whitelist" ref="delegatingWhitelist" />
+        <constructor-arg type="com.atlassian.gadgets.renderer.internal.cache.ClearableCacheProvider" ref="clearableCacheProvider"/>
+    </bean>
+
+    <bean id="nonExpirableBlobCrypterSecurityTokenDecoder" class="com.atlassian.gadgets.renderer.internal.CustomNonExpirableBlobCrypterSecurityTokenDecoder">
+        <constructor-arg type="org.apache.shindig.common.crypto.BlobCrypter" ref="nonExpirableBlobCrypter"/>
+        <constructor-arg type="com.atlassian.gadgets.renderer.internal.ContainerDomainProvider" ref="domainProvider"/>
+    </bean>
+
+    <bean id="gadgetSpecUrlCheckerImpl" class="com.atlassian.gadgets.renderer.internal.GadgetSpecUrlCheckerImpl">
+        <constructor-arg type="java.lang.Iterable" ref="gadgetSpecUrlRenderPermissions"/>
+    </bean>
+
+    <bean id="delegatingWhitelist" class="com.atlassian.gadgets.renderer.internal.http.DelegatingWhitelist">
+        <constructor-arg>
+            <bean class="com.atlassian.gadgets.renderer.internal.http.AppLinksWhitelist">
+                <constructor-arg ref="appLinksService" />
+            </bean>
+        </constructor-arg>
+        <constructor-arg type="java.lang.Iterable" ref="optionalWhitelists" />
+    </bean>
+
+    <bean id="applicationEventListener" class="com.atlassian.gadgets.renderer.internal.cache.ApplicationEventListener">
+        <constructor-arg type="com.atlassian.event.api.EventPublisher" ref="eventPublisher"/>
+        <constructor-arg type="com.atlassian.gadgets.renderer.internal.cache.ClearableCacheProvider" ref="clearableCacheProvider"/>
+    </bean>
+</beans>

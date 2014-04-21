@@ -1,0 +1,166 @@
+#enable_html_escaping()
+<header>
+    <nav class="aui-toolbar">
+        <div class="toolbar-split toolbar-split-right">
+            <ul class="toolbar-group">
+                <li class="toolbar-item">
+                    <a class="toolbar-trigger" href="$req.contextPath/secure/ConfigureReport!default.jspa?reportKey=$descriptor.completeKey">
+                        $descriptor.getText("report.edit.options")
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <h2>$textutils.htmlEncode($version.getProject().name) ($descriptor.getText('common.concepts.version'): $textutils.htmlEncode($version.name))</h2>
+</header>
+<div class="module toggle-wrap twixi-block" id="section-summary">
+    <div class="mod-header">
+        <h3 class="toggle-title twixi-trigger">$descriptor.getText("workload.version.report.summary.header")</h3>
+    </div>
+    <div class="mod-content twixi-content">
+        <table id="report-summary" class="aui">
+            <thead>
+                <tr>
+                    <th>$descriptor.getText("workload.version.report.user")</th>
+                    #foreach ($issueTypeObject in $issueTypes)
+                        <th class="nowrap">
+                            #if (${issueTypeObject.iconUrl.startsWith("http://")})
+                                <img src="${issueTypeObject.iconUrlHtml}" height="16" width="16" alt="$textutils.htmlEncode(${issueTypeObject.nameTranslation}, false)" />
+                            #else
+                                <img src="${baseurl}${issueTypeObject.iconUrlHtml}" height="16" width="16" alt="$textutils.htmlEncode(${issueTypeObject.nameTranslation}, false)" />
+                            #end
+                            $textUtils.htmlEncode($issueTypeObject.nameTranslation)
+                        </th>
+                    #end
+                    <th class="nowrap">$descriptor.getText("workload.version.report.totaltime.remaining")</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td>$descriptor.getText("report.versionworkload.totals")</td>
+                    #foreach ($issueTypeObject in $issueTypes)
+                        <td class="nowrap">
+                            #set ($timeEstimate = $report.getIssueTypeTotal($issueTypeObject.id))
+                            #if (${timeEstimate.equals($descriptor.getText("report.versionworkload.no.estimate"))})
+                                -
+                            #else
+                                $timeEstimate
+                            #end
+                        </td>
+                    #end
+                    <td>$report.getGrandTotal()</td>
+                </tr>
+            </tfoot>
+            <tbody>
+                #foreach ($assigneeName in $assigneeUserNames)
+                    #if ($report.getRemainingTime($assigneeName).equals($descriptor.getText("report.versionworkload.no.estimate")) && $displayUnknown.equals("no"))
+                    #else
+                        <tr>
+                            <td><a href="#report-section-$velocityCount">$textutils.htmlEncode($report.getAssigneeFullName($assigneeName))</a></td>
+                            #foreach ($issueTypeObject in $issueTypes)
+                                <td>
+                                    #set ($timeEstimate = $report.getTotalTimeForUserByIssueType($assigneeName, $issueTypeObject.id))
+                                    #if (${timeEstimate.equals($descriptor.getText("report.versionworkload.no.estimate"))})
+                                        -
+                                    #else
+                                        $timeEstimate
+                                    #end
+                                </td>
+                            #end
+                            <td>$report.getRemainingTime($assigneeName)</td>
+                        </tr>
+                    #end
+                #end
+            </tbody>
+        </table>
+    </div>
+</div>
+#if ($assigneeUserNames.size() > 0)
+    <div class="module toggle-wrap twixi-block" id="section-individuals">
+        <div class="mod-header">
+            <h3 class="toggle-title twixi-trigger">$descriptor.getText("workload.version.report.individual.estimates")</h3>
+        </div>
+        <div class="mod-content twixi-content">
+            #foreach ($assigneeName in $assigneeUserNames)
+                #if ($report.getRemainingTime($assigneeName).equals($descriptor.getText("report.versionworkload.no.estimate")) && $displayUnknown.equals("no"))
+                #else
+                    <div id="report-section-$velocityCount" class="report-section">
+                        <h4>$textutils.htmlEncode($report.getAssigneeFullName($assigneeName))</h4>
+                        <table id="report-individual-$velocityCount" class="aui report-individual">
+                            <thead>
+                                <tr>
+                                    <th class="nowrap">$descriptor.getText("workload.version.report.type")</th>
+                                    <th class="nowrap">$descriptor.getText("workload.version.report.key")</th>
+                                    <th title="$descriptor.getText("workload.version.report.priority")">$descriptor.getText("issue.column.heading.priority")</th>
+                                    <th class="cell-type-value">$descriptor.getText("workload.version.report.summary")</th>
+                                    <th class="cell-type-collapsed">$descriptor.getText("workload.version.report.estimatedtime.remaining")</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="4" style="text-align:right;">$descriptor.getText('common.words.grandtotal')</th>
+                                    <th class="cell-type-collapsed">$report.getRemainingTime($assigneeName)</th>
+                                </tr>
+                            </tfoot>
+                            #foreach ($issueTypeObject in $issueTypes)
+                                #set ($timeEstimate = $report.getTotalTimeForUserByIssueType($assigneeName, $issueTypeObject.id))
+                                #if ($report.getIssuesByType($assigneeName, $issueTypeObject.id).isEmpty())
+                                #else
+                                    #set ($rowspan = $report.getDisplayableIssues($assigneeName, $issueTypeObject.id).size() + 1)
+                                    <tr>
+                                        <th class="cell-type-collapsed" rowspan="$rowspan">
+                                            #if (${issueTypeObject.iconUrl.startsWith("http://")})
+                                                <img src="${issueTypeObject.iconUrlHtml}" height="16" width="16" alt="$textutils.htmlEncode(${issueTypeObject.nameTranslation}, false)" title="$textutils.htmlEncode(${issueTypeObject.nameTranslation}, false)" />
+                                            #else
+                                                <img src="${baseurl}${issueTypeObject.iconUrlHtml}" height="16" width="16" alt="$textutils.htmlEncode(${issueTypeObject.nameTranslation}, false)" title="$textutils.htmlEncode(${issueTypeObject.nameTranslation}, false)" />
+                                            #end
+                                            $textutils.htmlEncode($issueTypeObject.nameTranslation, false)
+                                        </th>
+                                    </tr>
+                                    #foreach ($issueObject in $report.getDisplayableIssues($assigneeName, $issueTypeObject.id))
+                                        <tr>
+                                            <td class="nowrap">
+                                                #if ($issueObject.isSubTask())
+                                                    #set ($parentIssue = $issueObject.getParentObject())
+                                                    #if ($permissionCheck && $permissionCheck.isIssueVisible($parentIssue) == true)
+                                                        <a href="$req.contextPath/browse/$parentIssue.key" style="text-decoration: none;" title="$parentIssue.summary">$parentIssue.key</a><br/>
+                                                    #else
+                                                        $parentIssue.key<br/>
+                                                    #end
+                                                    <img src="$req.contextPath/images/icons/link_out_bot.gif" width="16" height="16" />
+                                                #end
+                                                <a href="${baseurl}/browse/${issueObject.key}">$issueObject.key</a>
+                                            </td>
+                                            <td class="cell-type-icon">
+                                                #if ($issueObject.priorityObject)
+                                                    #set ($priorityObject = $issueObject.priorityObject)
+                                                    #if (${priorityObject.iconUrl.startsWith("http://")})
+                                                        <img src="${priorityObject.iconUrlHtml}" height="16" width="16" alt="$textutils.htmlEncode(${priorityObject.nameTranslation}, false)" title="$textutils.htmlEncode(${priorityObject.nameTranslation}, false)" />
+                                                    #else
+                                                        <img src="${baseurl}${priorityObject.iconUrlHtml}" height="16" width="16" alt="$textutils.htmlEncode(${priorityObject.nameTranslation}, false)" title="$textutils.htmlEncode(${priorityObject.nameTranslation}, false)" />
+                                                    #end
+                                                #end
+                                            </td>
+                                            <td><a href="${baseurl}/browse/${issueObject.key}">$textutils.htmlEncode($issueObject.summary)</a></td>
+                                            <td>$report.getNiceTimeEstimateDuration($issueObject)</td>
+                                        </tr>
+                                    #end
+                                    <tr>
+                                        <th colspan="4" style="text-align:right;">$descriptor.getText('report.table.row.total', $textutils.htmlEncode($issueTypeObject.nameTranslation, false))</th>
+                                        <th class="cell-type-collapsed">
+                                            #if (${timeEstimate.equals($descriptor.getText("report.versionworkload.no.estimate"))})
+                                                $descriptor.getText("report.versionworkload.no.estimate")
+                                            #else
+                                                $timeEstimate
+                                            #end
+                                        </th>
+                                    </tr>
+                                #end
+                            #end
+                        </table>
+                    </div>
+                #end
+            #end
+        </div>
+    </div>
+#end

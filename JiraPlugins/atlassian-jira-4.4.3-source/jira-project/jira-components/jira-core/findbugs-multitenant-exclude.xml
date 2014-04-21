@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FindBugsFilter>
+    <!-- Filter out everything but MULTITENANT -->
+    <Bug category="MT_CORRECTNESS"/>
+    <Bug category="SECURITY"/>
+    <Bug category="CORRECTNESS"/>
+    <Bug category="BAD_PRACTICE"/>
+    <Bug category="PERFORMANCE"/>
+    <Bug category="STYLE"/>
+    <Bug category="EXPERIMENTAL"/>
+    <Bug category="MALICIOUS_CODE"/>
+
+    <!-- Ignore antlr generated stuff -->
+    <Class name="~com.atlassian.jira.jql.parser.antlr\.[^.]+"/>
+
+    <!-- Ok static final fields -->
+    <Match>
+        <Bug pattern="ATL_MT_UNSAFE_STATIC"/>
+        <Field type="java.text.DecimalFormat"/>
+    </Match>
+    <Match>
+        <Bug pattern="ATL_MT_UNSAFE_STATIC"/>
+        <Field type="com.atlassian.jira.util.collect.MemoizingMap$Master"/>
+    </Match>
+    <Match>
+        <Bug pattern="ATL_MT_UNSAFE_STATIC"/>
+        <Field type="org.apache.lucene.analysis.Analyzer"/>
+    </Match>
+    <Match>
+        <Bug pattern="ATL_MT_UNSAFE_STATIC"/>
+        <Field type="org.apache.commons.collections.Predicate"/>
+    </Match>
+    <Match>
+        <Bug pattern="ATL_MT_UNSAFE_STATIC"/>
+        <Field type="com.atlassian.jira.util.Predicate"/>
+    </Match>
+    <Match>
+        <Bug pattern="ATL_MT_UNSAFE_STATIC"/>
+        <Field type="com.atlassian.jira.web.bean.PagerFilter"/>
+    </Match>
+
+    <!-- FALSE POSITIVES - These fields are ok -->
+    <!-- Non final static fields -->
+    <Match>
+        <Class name="com.atlassian.jira.configurator.Configurator"/>
+        <Or>
+            <Field name="consoleMode"/>
+            <Field name="settings"/>
+        </Or>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.web.util.HelpUtil"/>
+        <Or>
+            <Field name="defaultHelpPath"/>
+            <Field name="helpPaths"/>
+            <Field name="instance"/>
+        </Or>
+    </Match>
+    <!-- Static array leakage -->
+    <Match>
+        <Class name="com.atlassian.jira.imports.csv.CsvConfigBean"/>
+        <Field name="VALID_PREFIX"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.web.filters.JiraCachingFilter"/>
+        <Field name="strategies"/>
+    </Match>
+    <!-- Unsafe static final field -->
+    <Match>
+        <Class name="com.atlassian.jira.charts.jfreechart.util.ChartDefaults"/>
+        <Or>
+            <Field name="darkColorDrawingSupplier"/>
+            <Field name="darkColors"/>
+            <Field name="defaultStroke"/>
+        </Or>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.config.DefaultConstantsManager"/>
+        <Field name="REGULAR_ISSUE_TYPE_PREDICATE"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.issue.fields.config.manager.CachedFieldConfigSchemeManagerImpl"/>
+        <Field name="NULL"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.issue.pager.NextPreviousPager"/>
+        <Field name="FIELD_SELECTOR"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.issue.search.searchers.impl.ResolutionSearcher"/>
+        <Field name="UNRESOLVED_CLAUSE"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.issue.search.searchers.util.DefaultDateSearcherInputHelper"/>
+        <Field name="CONVERT_CLAUSE_BAD_RESULT"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.issue.util.transformers.JiraTransformers"/>
+        <Field name="NULL_SWAP_STRING"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.jelly.JellyHttpSession"/>
+        <Field name="SESSION_ID_COUNTER"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.jql.builder.JqlQueryBuilder"/>
+        <Field name="DATE_SUPPORT"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.jql.context.ClauseContextImpl"/>
+        <Field name="GLOBAL_CONTEXT"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.jql.context.ProjectIssueTypeContextImpl"/>
+        <Field name="INSTANCE"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.jql.query.ActualValueRelationalQueryFactory"/>
+        <Field name="RANGE_QUERY_FACTORY"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.jql.query.QueryFactoryResult"/>
+        <Field name="FALSE_RESULT"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.servlet.JiraCaptchaServiceImpl"/>
+        <Field name="instance"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.sharing.SharedEntity$TypeDescriptor$Factory"/>
+        <Field name="INSTANCE"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.sharing.index.DefaultSharedEntitySearcher$SharedEntitySortField"/>
+        <Or>
+            <Field name="ID"/>
+            <Field name="NAME"/>
+        </Or>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.task.context.Contexts"/>
+        <Field name="NULL"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.upgrade.ConnectionKeeper"/>
+        <Field name="threadId"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build401"/>
+        <Field name="RES_NOT_NULL_COND"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build92"/>
+        <Field name="conversions"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.util.ExceptionInterpreterUtil"/>
+        <Field name="interpreter"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.util.URLCodec"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.util.map.CacheObject"/>
+        <Field name="NULL_INSTANCE"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.util.xml.JiraFileInputStream"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.web.action.JiraWebActionSupport"/>
+        <Field name="EXTERNAL_LINK_UTILS"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.web.action.util.CalendarLanguageUtilImpl"/>
+        <Field name="instance"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.web.action.util.sharing.SharedEntitySearchViewHelper$SearchResult"/>
+        <Field name="EMPTY_RESULTS"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.web.bean.ConvertIssueBean"/>
+        <Field name="versionCounter"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.web.filters.accesslog.AccessLogRequestInfo"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.workflow.JiraWorkflow"/>
+        <Field name="JIRA_META_ATTRIBUTE_ALLOWED_LIST"/>
+    </Match>
+    <!-- Unsafe invocation on static collection -->
+    <Match>
+        <Class name="com.atlassian.jira.issue.attachment.Path"/>
+        <Field name="componentCache"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.util.LocaleParser"/>
+        <Field name="localeCache"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.util.resourcebundle.DefaultResourceBundle"/>
+        <Field name="resourceBundleMap"/>
+    </Match>
+    <!-- Unsafe static collection generic type -->
+    <Match>
+        <Class name="com.atlassian.jira.issue.fields.config.manager.FieldConfigSchemeManager"/>
+        <Field name="ALL_ISSUE_TYPES"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.issue.fields.renderer.DefaultHackyFieldRendererRegistry"/>
+        <Or>
+            <Field name="customFieldRenderers"/>
+            <Field name="systemFieldRenderers"/>
+        </Or>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.issue.search.searchers.transformer.DefaultFieldFlagOperandRegistry"/>
+        <Field name="REGISTRY"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.web.action.func.EventTypeManagerImpl"/>
+        <Field name="EVENTS"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.web.exception.WebExceptionChecker"/>
+        <Field name="IGNORED_EXCEPTIONS"/>
+    </Match>
+
+    <!-- MULTITENANT BUGS - These should be removed as we implement multitenancy -->
+    <Match>
+        <Class name="com.atlassian.core.ofbiz.CoreFactory"/>
+        <Or>
+            <Field name="actionDispatcher"/>
+            <Field name="associationManager"/>
+            <Field name="genericDelegator"/>
+        </Or>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.core.ofbiz.util.CoreTransactionUtil"/>
+        <Or>
+            <Field name="isolationLevel"/>
+            <Field name="useTransactions"/>
+        </Or>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.ManagerFactory"/>
+        <Field name="instance"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.config.properties.PropertiesManager"/>
+        <Field name="propertiesManager"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.util.JiraKeyUtils"/>
+        <Field name="keyMatcher"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.util.system.check.SystemEnvironmentChecklist"/>
+        <Field name="warnings"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.web.ServletContextProviderListener"/>
+        <Field name="context"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.web.servlet.rpc.LazyAxisDecoratorServlet"/>
+        <Field name="axisServlet"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.ComponentManager"/>
+        <Field name="COMPONENT_MANAGER"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.issue.cache.IssueCache$Holder"/>
+        <Field name="instance"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.security.login.JiraElevatedSecurityGuard"/>
+        <Field name="SECURITY_CONFIG"/>
+    </Match>
+    <Match>
+        <Class name="~com\.atlassian\.jira\.startup\..+"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.web.action.setup.SetupOldUserHelper"/>
+        <Field name="genericDelegator"/>
+    </Match>
+    <Match>
+        <Class name="com.atlassian.jira.ComponentManager"/>
+        <Field name="serviceTrackerCache"/>
+    </Match>
+
+</FindBugsFilter>

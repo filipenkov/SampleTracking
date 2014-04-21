@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans" xmlns:osgi="http://www.springframework.org/schema/osgi" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd" default-autowire="autodetect" osgi:default-timeout="30000">
+
+  <beans:bean id="workflowImageManager" autowire="default" class="com.sysbliss.jira.plugins.workflow.manager.CachingWorkflowImageManagerImpl">
+      <constructor-arg>
+          <bean class="com.sysbliss.jira.plugins.workflow.manager.WorkflowImageManagerImpl" autowire="default" />
+      </constructor-arg>
+  </beans:bean>
+
+  <osgi:service id="workflowImageManager_osgiService" ref="workflowImageManager">
+    <osgi:interfaces>
+      <beans:value>com.sysbliss.jira.plugins.workflow.manager.WorkflowImageManager</beans:value>
+    </osgi:interfaces>
+  </osgi:service>
+
+</beans:beans>

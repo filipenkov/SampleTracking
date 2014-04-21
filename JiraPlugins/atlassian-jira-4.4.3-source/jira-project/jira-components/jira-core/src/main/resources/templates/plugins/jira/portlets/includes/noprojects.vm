@@ -1,0 +1,60 @@
+<tr>
+#if ($applicationProperties.getString('jira.setup'))
+    #if ($loggedin == false && $projectsExist == true)
+        ## there are projects, but we need to be logged in
+        <td bgcolor="#ffffff" colspan="2">
+            <p>$i18n.getText('noprojects.notloggedin')</p>
+            <p>
+                #set ($loginLink = '<a rel="nofollow" href="$redirectUtils.getLinkLoginURL($req))">${i18n.getText("common.words.login")}</a>')
+                $i18n.getText('noprojects.mustfirstlogin', $loginLink)
+                #if ($portlet.showSignup())
+                    #set ($signup = '<a href="${baseurl}/secure/Signup!default.jspa">')
+                    $i18n.gettext('noprojects.signup', $signup, "</a>")
+                #end
+            </p>
+        </td>
+    #else
+        #if ($projectsExist == true) #set ($bgcolor = "#ffcccc") #else #set ($bgcolor = "#fffff0") #end
+    <td bgcolor="$bgcolor" colspan="2">
+##        #set ($admins = '<a href="${baseurl}/secure/Administrators.jspa">')
+        #if ($projectsExist == true)
+            <p>$i18n.getText('noprojects.nopermissions')</p>
+            <p>
+                #if ($permissionCheck.isAdmin())
+                    <a href="${baseurl}/secure/admin/default.jsp">$i18n.getText('noprojects.viewallprojects.link')</a> $i18n.getText('noprojects.viewallprojects.end').
+                #else
+##Disabled until http://jdog.atlassian.com/browse/JRADEV-1422 has been resolved
+##                    $i18n.getText('noprojects.contactadmin.permissions', $admins, '</a>')
+                    $i18n.getText('noprojects.contactadmin.permissions', ' ', ' ')
+                #end
+            </p>
+        #else
+            <p>$i18n.getText('welcome.to.jira', "JIRA")</p>
+            #if ($permissionCheck.isAdmin() == true)
+                #set ($helpPath = $helpUtil.getHelpPath('project_management'))
+                $i18n.getText('noprojects.createprojectnowdocs', "<a href='${baseurl}/secure/admin/AddProject!default.jspa'>", "</a>", "<a class='helpLink' href='${helpPath.url}' target='_jirahelp'>", "</a>")
+            #else
+##Disabled until http://jdog.atlassian.com/browse/JRADEV-1422 has been resolved
+##                $i18n.getText('noprojects.contactadmin.createproject', $admins, "</a>")
+                $i18n.getText('noprojects.contactadmin.createproject', ' ', " ")
+            #end
+        #end
+    </td>
+    #end
+#else
+    ##otherwise JIRA is not setup yet - show links
+<td class="formErrors">
+ <table cellpadding="4" cellspacing="0" border="0" width="100%">
+	<tr><td class="formErrors">
+		<font color="#cc0000" size="4"><b>SETUP JIRA</b></font>
+	</td></tr>
+	<tr><td class="formErrors">
+		<p>$i18n.getText('noprojects.mustsetupfirst')</p>
+		<p>$i18n.getText('noprojects.createadmintocreateotheradmins')</p>
+		<p align="center"><b><a href="${baseurl}/secure/Setup!default.jspa"><font size="3">$i18n.getText('noprojects.setupjira.link')</font></a></b></p>
+	</td></tr>
+	</table>
+</td>
+#end ## if
+</tr>
+

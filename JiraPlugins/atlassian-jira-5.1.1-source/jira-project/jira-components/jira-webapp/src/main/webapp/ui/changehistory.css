@@ -1,0 +1,5 @@
+.changehistory th,
+.changehistory td {vertical-align:top;padding:0.166em 0.5em 0.166em 0;}
+
+/* Conditional Overrides */
+.action-body.changehistory {margin:0;}/* Changehistory may have headers inside the actionbody, which require 0px margin. */

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BaseDialog xmlns="com.sysbliss.jira.workflow.ui.dialog.*" 
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	title="{niceResourceManager.getString('json','workflow.designer.publish.draft.workflow')}"
+	width="650" minWidth="650"
+	height="255" minHeight="255">
+	<mx:Script>
+		<![CDATA[
+        import com.sysbliss.jira.workflow.Il8n.INiceResourceManager;
+
+        import com.sysbliss.jira.workflow.Il8n.NiceResourceManager;
+
+        import mx.events.ItemClickEvent;
+			import com.sysbliss.jira.workflow.event.GenericDataEvent;
+			import org.swizframework.Swiz;
+			import com.sysbliss.jira.workflow.event.EventTypes;
+			import mx.controls.Button;
+			import mx.utils.StringUtil;
+			import com.sysbliss.jira.workflow.manager.WorkflowDiagramManager;
+			import mx.collections.ArrayCollection;
+			import com.sysbliss.jira.plugins.workflow.model.FlexJiraWorkflow;
+
+			
+			private var _workflow:FlexJiraWorkflow;
+			private var _names:Array;
+			
+			[Autowire]
+			public var workflowDiagramManager:WorkflowDiagramManager;
+
+            private const niceResourceManager:INiceResourceManager = NiceResourceManager.getInstance();
+
+			override protected function commitProperties():void {
+				super.commitProperties();
+				if(_workflow){
+					backupEnabledRadio.selected = false;
+					backupDisabledRadio.selected = true;
+	        		workflowName.text = niceResourceManager.getString('json','workflow.designer.copy.of', [_workflow.name]);
+	        		workflowName.enabled = false;
+		        	validateName();
+		  		}	
+			}
+			
+			override public function doOk(e:Event):void {
+				var data:Object = new Object();
+				data.doBackup = backupGroup.selectedValue;
+				data.newName = workflowName.text;
+				var event:GenericDataEvent = new GenericDataEvent(EventTypes.DO_PUBLISH_DRAFT_WORKFLOW,data);
+				Swiz.dispatchEvent(event);
+				clear();
+			}
+			
+			override public function clear():void {
+				if(_childrenReady){
+					backupDisabledRadio.selected = true;
+					workflowName.text = "";
+					validateName();
+					_names = null;
+				}
+			}
+			
+			public function setWorkflow(wf:FlexJiraWorkflow):void {
+	        	_workflow = wf;
+	        	invalidateProperties();
+	        }
+	        
+	        private function onTextChange(e:Event):void {
+				validateName();	
+			}
+			
+			private function onRadioChange(e:ItemClickEvent):void {
+				if(backupGroup.selectedValue){
+					workflowName.enabled = true;
+					validateName();
+				} else {
+					workflowName.enabled = false;
+					validateName();
+				}
+			}
+			
+			private function validateName():void {
+			if(!_names){
+				var wfNames:ArrayCollection = workflowDiagramManager.getAllWorkflowNames();
+				_names = new Array();
+				for each(var name:String in wfNames){
+					_names.push(name.toLowerCase());
+					//log.debug("adding name: " + name.toLowerCase());
+				}
+			}
+			var textToCheck:String = StringUtil.trim(workflowName.text.toLowerCase());
+			if(backupGroup.selectedValue){
+				if(workflowName.text == ""){
+					errorField.text = niceResourceManager.getString('json','workflow.designer.workflow.name.required');
+					buttons.okButton.enabled = false;
+				} else if(_names.indexOf(textToCheck) > -1){
+					errorField.text = niceResourceManager.getString('json','workflow.designer.workflow.name.exists');
+					buttons.okButton.enabled = false;
+				} else {
+					errorField.text = "";
+					buttons.okButton.enabled = true;
+				}
+			} else {
+				errorField.text = "";
+				buttons.okButton.enabled = true;
+			}
+		}
+		]]>
+	</mx:Script>
+	
+	<mx:Text width="100%" text="{niceResourceManager.getString('json','workflow.designer.publish.copy.warning')}"/>
+	<mx:Label id="errorField" styleName="errorField" text="{niceResourceManager.getString('json','workflow.designer.workflow.name.required')}"/>
+	<mx:RadioButtonGroup id="backupGroup" itemClick="onRadioChange(event);" enabled="true"/>
+	<mx:Form verticalGap="10" width="100%" paddingTop="5" paddingLeft="5" paddingRight="5">
+		<mx:FormItem width="100%" label="{niceResourceManager.getString('json','workflow.designer.save.workflow.copy')}" labelStyleName="fieldLabel" required="true">
+			
+			<mx:HBox>
+				<mx:RadioButton id="backupEnabledRadio" label="{niceResourceManager.getString('json','workflow.designer.no')}" groupName="backupGroup" labelPlacement="right" value="true"/>
+				<mx:RadioButton id="backupDisabledRadio" label="{niceResourceManager.getString('json','workflow.designer.no')}" groupName="backupGroup" labelPlacement="right" selected="true" value="false"/>
+			</mx:HBox>
+		</mx:FormItem>
+		<mx:FormItem width="100%" label="{niceResourceManager.getString('json','workflow.designer.workflow.name')}" labelStyleName="fieldLabel" required="true">
+			<mx:TextInput id="workflowName" width="100%" change="onTextChange(event);" enabled="false"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:StringValidator/>
+	<DialogButtonBar id="buttons" buttonFlags="{DialogButtonBar.OK|DialogButtonBar.CANCEL}"/>
+</BaseDialog>

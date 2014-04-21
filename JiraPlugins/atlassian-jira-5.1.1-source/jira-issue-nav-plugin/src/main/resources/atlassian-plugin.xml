@@ -1,0 +1,475 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${atlassian-plugin.description}</description>
+        <version>${atlassian-plugin.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+    </plugin-info>
+
+    <component-import key="pluginSettings" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory"/>
+
+    <webwork1 key="webPanelaction" name="View Issue Webpanel Action" class="java.lang.Object">
+        <actions>
+            <action name="com.atlassian.jira.plugin.issuenav.viewissue.webpanel.ViewIssueWebPanels" alias="ViewIssueWebPanels">
+                <view name="json">/templates/json.vm</view>
+            </action>
+            <action name="com.atlassian.jira.plugin.issuenav.IssueNavAction" alias="IssueNavAction">
+                <view name="success">/templates/issuenav.vm</view>
+            </action>
+            <action name="com.atlassian.jira.plugin.issuenav.IssueNavAction" alias="IssueNavAction">
+                <view name="issue">/templates/issue.vm</view>
+            </action>
+            <action name="com.atlassian.jira.plugin.issuenav.TryKickAssAction" alias="TryKickAssAction">
+            </action>
+        </actions>
+    </webwork1>
+
+    <webwork1 key="editAction" name="Edit Actions" class="java.lang.Object">
+        <actions>
+            <action name="com.atlassian.jira.plugin.issuenav.action.EditAction" alias="EditAction">
+                <view name="error">/templates/json.vm</view>
+                <view name="json">/templates/json.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+
+    <webwork1 key="issueAction" name="Issue Actions" class="java.lang.Object">
+        <actions>
+            <action name="com.atlassian.jira.plugin.issuenav.action.IssueAction" alias="IssueAction">
+                <view name="error">/templates/json.vm</view>
+                <view name="json">/templates/json.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+
+    <webwork1 key="searchRendererAction" name="Search Renderer Actions" class="java.lang.Object">
+        <actions>
+            <action name="com.atlassian.jira.plugin.issuenav.action.SearchRendererEditAction" alias="SearchRendererEdit">
+                <view name="error">/templates/error-json.vm</view>
+                <view name="json">/templates/json.vm</view>
+            </action>
+            <action name="com.atlassian.jira.plugin.issuenav.action.SearchRendererValueAction" alias="SearchRendererValue">
+                <view name="error">/templates/error-json.vm</view>
+                <view name="json">/templates/json.vm</view>
+            </action>
+            <action name="com.atlassian.jira.plugin.issuenav.action.SearchAction" alias="Search">
+                <view name="error">/templates/error-json.vm</view>
+                <view name="json">/templates/json.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+
+    <keyboard-shortcut key="navigator.view.issue" i18n-name-key="admin.keyboard.shortcut.navigator.view.issue.name" name="View Issue" state='enabled'>
+        <order>100</order>
+        <description key="admin.keyboard.shortcut.navigator.view.issue.desc">View the selected issue</description>
+        <shortcut>o</shortcut>
+        <operation type="execute">
+            <![CDATA[
+                if(JIRA.Issues && JIRA.Issues.Api.switchToDetailedView) {
+                    //we're in kickass
+                    JIRA.Issues.Api.switchToDetailedView();
+                } else {
+                    //we're on the old issue nav.
+                    jira.app.issuenavigator.shortcuts.viewSelectedIssue();
+                }
+            ]]>
+        </operation>
+        <context>issuenavigation</context>
+    </keyboard-shortcut>
+
+    <keyboard-shortcut key="navigate.up" i18n-name-key="admin.keyboard.shortcut.navigate.up.name" name="Back to the Navigator" state='enabled'>
+        <order>110</order>
+        <description key="admin.keyboard.shortcut.navigate.up.desc">Back to search</description>
+        <shortcut>u</shortcut>
+        <operation type="execute">
+            <![CDATA[
+                if(JIRA.Issues && JIRA.Issues.Api.switchToSearchView) {
+                    //we're in kickass
+                    JIRA.Issues.Api.switchToSearchView();
+                } else {
+                    //we're on the old issue nav.
+                    this.followLink("link[rel=index]:first");
+                    this._executer();
+                }
+            ]]>
+        </operation>
+        <context>issuenavigation</context>
+    </keyboard-shortcut>
+
+    <keyboard-shortcut key="next.issue" i18n-name-key="admin.keyboard.shortcut.next.issue.name" name="Next Issue" state='enabled'>
+        <order>120</order>
+        <description key="admin.keyboard.shortcut.next.issue.desc">Next Issue</description>
+        <shortcut>j</shortcut>
+        <operation type="execute">
+            <![CDATA[
+
+                if(JIRA.Issues && JIRA.Issues.Api.nextIssue) {
+                    //we're in kickass
+                    JIRA.Issues.Api.nextIssue();
+                } else {
+                    //we're on the old issue nav.
+
+                    if(AJS.$(".page-navigation #next-issue").length > 0) {
+                        this.followLink("#next-issue");
+                        this._executer();
+                    } else {
+                        jira.app.issuenavigator.shortcuts.selectNextIssue();
+                    }
+                }
+            ]]>
+        </operation>
+        <context>issuenavigation</context>
+    </keyboard-shortcut>
+
+    <keyboard-shortcut key="prev.issue" i18n-name-key="admin.keyboard.shortcut.prev.issue.name" name="Previous Issue" state='enabled'>
+        <order>130</order>
+        <description key="admin.keyboard.shortcut.prev.issue.desc">Previous Issue</description>
+        <shortcut>k</shortcut>
+        <operation type="execute">
+            <![CDATA[
+                if(JIRA.Issues && JIRA.Issues.Api.prevIssue) {
+                    //we're in kickass
+                    JIRA.Issues.Api.prevIssue();
+                } else {
+                    //we're on the old issue nav.
+
+                    if(AJS.$(".page-navigation #previous-issue").length > 0) {
+                        this.followLink("#previous-issue");
+                        this._executer();
+                    } else {
+                        jira.app.issuenavigator.shortcuts.selectPreviousIssue();
+                    }
+                }
+            ]]>
+        </operation>
+        <context>issuenavigation</context>
+    </keyboard-shortcut>
+
+    <keyboard-shortcut key="focus.shifter" i18n-name-key="admin.keyboard.shortcut.focus.shifter.name" name="Focus Shifter" state="enabled">
+        <order>61</order>
+        <description key="admin.keyboard.shortcut.focus.shifter.desc">Jump to fields for editing</description>
+        <shortcut>,</shortcut>
+        <operation type="execute">
+            <![CDATA[
+                if (JIRA.Issues && JIRA.Issues.Api.openFocusShifter) {
+                    JIRA.Issues.Api.openFocusShifter();
+                }
+            ]]>
+        </operation>
+        <context>issueaction</context>
+    </keyboard-shortcut>
+
+    <keyboard-shortcut key="assign.issue.self" i18n-name-key="admin.keyboard.shortcut.assign.issue.self.name" name="Assign To Me" state='enabled'>
+        <order>150</order>
+        <description key="admin.keyboard.shortcut.assign.issue.self.desc">Assign To Me</description>
+        <shortcut>i</shortcut>
+        <operation type="execute">
+            <![CDATA[
+                if (JIRA.Issues) {
+                    this.click("#assign-to-me");
+                    this._executer();
+                } else {
+                    this.followLink("#assign-to-me");
+                    this._executer();
+                }
+            ]]>
+        </operation>
+        <context>issuenavigation</context>
+    </keyboard-shortcut>
+
+    <web-resource key="backbone">
+        <resource type="download" name="underscore.js" location="lib/underscore/underscore-1.3.1.js"/>
+        <resource type="download" name="backbone.js" location="lib/backbone/backbone-0.9.1.js"/>
+    </web-resource>
+
+    <web-resource key="backbone-ext">
+        <dependency>com.atlassian.jira.jira-issue-nav-plugin:backbone</dependency>
+
+        <resource type="download" name="AttributesMixinCreator.js" location="content/js/base/AttributesMixinCreator.js"/>
+        <resource type="download" name="EventsMixinCreator.js" location="content/js/base/EventsMixinCreator.js"/>
+        <resource type="download" name="Extensions.js" location="content/js/base/Extensions.js"/>
+        <resource type="download" name="Mixins.js" location="content/js/base/Mixins.js"/>
+    </web-resource>
+
+    <web-resource key="common">
+        <dependency>jira.webresources:jira-global</dependency>
+        <dependency>jira.webresources:viewissue-components</dependency>
+        <dependency>jira.webresources:quick-edit-issue</dependency>
+        <dependency>jira.webresources:jqlautocomplete</dependency>
+        <dependency>com.atlassian.jira.jira-share-plugin:share-resources</dependency>
+
+        <dependency>com.atlassian.jira.jira-issue-nav-plugin:backbone-ext</dependency>
+
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <transformation extension="soy">
+            <transformer key="soyTransformer"/>
+        </transformation>
+
+        <resource type="download" name="issuenav.css" location="content/css/issuenav.css"/>
+        <resource type="download" name="analytics.js" location="content/js/util/analytics.js"/>
+        <resource type="download" name="Stalker.js" location="content/js/util/Stalker.js"/>
+        <resource type="download" name="LayerObserver.js" location="content/js/util/LayerObserver.js"/>
+        <resource type="download" name="ResultsScrollingHelper.js" location="content/js/util/ResultsScrollingHelper.js"/>
+        <resource type="download" name="initJQLAutocomplete.js" location="content/js/util/initJQLAutocomplete.js"/>
+        <resource type="download" name="HtmlCatchExceptions.js" location="content/js/util/HtmlCatchExceptions.js"/>
+        <resource type="download" name="Navigatable.js" location="content/js/search/issuetable/Navigatable.js"/>
+        <resource type="download" name="SingleSelect.js" location="content/js/mixin/SingleSelect.js"/>
+        <resource type="download" name="LoadingClass.js" location="content/js/mixin/LoadingClass.js"/>
+        <resource type="download" name="PageTitleView.js" location="content/js/search/PageTitleView.js"/>
+        <resource type="download" name="ViewInlineLayer.js" location="content/js/search/util/ViewInlineLayer.js"/>
+        <resource type="download" name="ViewContentRetriever.js" location="content/js/search/util/ViewContentRetriever.js"/>
+        <resource type="download" name="QueryStringParser.js" location="content/js/util/QueryStringParser.js"/>
+        <resource type="download" name="IssueEventBus.js" location="content/js/util/IssueEventBus.js"/>
+        <resource type="download" name="IssuePanelModel.js" location="content/js/viewissue/model/IssuePanelModel.js"/>
+        <resource type="download" name="IssuePanelsModel.js" location="content/js/viewissue/model/IssuePanelsModel.js"/>
+        <resource type="download" name="IssueViewModel.js" location="content/js/viewissue/model/IssueViewModel.js"/>
+        <resource type="download" name="IssueRowModel.js" location="content/js/search/issuetable/IssueRowModel.js"/>
+        <resource type="download" name="StatusUtilPiggy.js" location="content/js/pigsty/StatusUtilPiggy.js"/>
+
+    </web-resource>
+
+
+    <web-resource key="issuenav">
+        <dependency>com.atlassian.jira.jira-issue-nav-plugin:common</dependency>
+        <dependency>com.atlassian.jira.jira-issue-nav-plugin:viewissue</dependency>
+
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <transformation extension="soy">
+            <transformer key="soyTransformer"/>
+        </transformation>
+
+        <resource type="download" name="issuenav-soy.js" location="content/templates/issuenav.soy"/>
+        <resource type="download" name="OverrideIssueApi.js" location="content/js/viewissue/util/OverrideIssueApi.js"/>
+        <resource type="download" name="FilterModel.js" location="content/js/search/filters/FilterModel.js" />
+        <resource type="download" name="FilterCollection.js" location="content/js/search/filters/FilterCollection.js" />
+        <resource type="download" name="SwitcherModel.js" location="content/js/search/query/SwitcherModel.js" />
+        <resource type="download" name="SwitcherCollection.js" location="content/js/search/query/SwitcherCollection.js" />
+        <resource type="download" name="QuerySwitcherViewModel.js" location="content/js/search/query/QuerySwitcherViewModel.js" />
+        <resource type="download" name="IssueCollection.js" location="content/js/search/issuetable/IssueCollection.js" />
+        <resource type="download" name="SearchPageModel.js" location="content/js/search/SearchPageModel.js" />
+        <resource type="download" name="FilterListModel.js" location="content/js/search/filters/FilterListModel.js" />
+        <resource type="download" name="SearcherModel.js" location="content/js/search/query/SearcherModel.js" />
+        <resource type="download" name="SearcherCollection.js" location="content/js/search/query/SearcherCollection.js" />
+        <resource type="download" name="FixedLozengeModel.js" location="content/js/search/query/FixedLozengeModel.js" />
+        <resource type="download" name="FixedLozengeCollection.js" location="content/js/search/query/FixedLozengeCollection.js" />
+
+        <resource type="download" name="HeaderView.js" location="content/js/search/filters/HeaderView.js" />
+        <resource type="download" name="FilterListView.js" location="content/js/search/filters/FilterListView.js" />
+
+        <resource type="download" name="SearcherEditDialogManagerView.js" location="content/js/search/query/SearcherEditDialogManagerView.js" />
+
+        <resource type="download" name="CardView.js" location="content/js/search/query/CardView.js" />
+        <resource type="download" name="IssueTableRowView.js" location="content/js/search/issuetable/IssueTableRowView.js" />
+        <resource type="download" name="IssueTableView.js" location="content/js/search/issuetable/IssueTableView.js" />
+        <resource type="download" name="JqlQueryView.js" location="content/js/search/query/JqlQueryView.js" />
+        <resource type="download" name="BasicQueryView.js" location="content/js/search/query/BasicQueryView.js" />
+        <resource type="download" name="QueryView.js" location="content/js/search/query/QueryView.js" />
+        <resource type="download" name="IssueNavView.js" location="content/js/search/IssueNavView.js" />
+        <resource type="download" name="SwitcherView.js" location="content/js/search/query/SwitcherView.js" />
+        <resource type="download" name="FixedLozengeView.js" location="content/js/search/query/FixedLozengeView.js" />
+        <resource type="download" name="TextFieldView.js" location="content/js/search/query/TextFieldView.js" />
+        <resource type="download" name="FixedLozengeContainerView.js" location="content/js/search/query/FixedLozengeContainerView.js" />
+        <resource type="download" name="VariableClauseView.js" location="content/js/search/query/VariableClauseView.js" />
+        <resource type="download" name="SearcherGroupListDialogView.js" location="content/js/search/query/SearcherGroupListDialogView.js" />
+        <resource type="download" name="SearcherEditDialogView.js" location="content/js/search/query/SearcherEditDialogView.js" />
+
+        <resource type="download" name="ClauseListDialogView.js" location="content/js/search/query/ClauseListDialogView.js" />
+        <resource type="download" name="ClauseButtonView.js" location="content/js/search/query/ClauseButtonView.js" />
+        <resource type="download" name="IssueNavRouter.js" location="content/js/search/IssueNavRouter.js" />
+
+        <resource type="download" name="TextQueryBuilder.js" location="content/js/search/util/TextQueryBuilder.js" />
+        <resource type="download" name="scrollIntoView.js" location="content/js/util/scrollIntoView.js" />
+
+        <resource type="download" name="IssueNavCreator.js" location="content/js/search/IssueNavCreator.js" />
+
+        <resource type="download" name="IssueCollector.js" location="content/js/util/IssueCollector.js"/>
+    </web-resource>
+
+    <servlet-filter name="issue nav url rewriter" key="issuenav_rewrite" class="com.atlassian.jira.plugin.issuenav.IssueNavRewriteFilter" location="before-dispatch" weight="200">
+        <description>Redirects to search from /issues/</description>
+        <url-pattern>/issues/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </servlet-filter>
+
+    <servlet-filter name="Global kickass-rewrite" key="kickass-rewrite" class="com.atlassian.jira.plugin.issuenav.KickassRedirectFilter" location="before-decoration" weight="200">
+        <description>Redirects from issue navigator to /issues/ if the user has picked this preference</description>
+        <url-pattern>/secure/IssueNavigator.*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </servlet-filter>
+
+    <web-resource key="navigator-link">
+        <context>jira.navigator</context>
+
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <resource type="download" name="navigatorbetalink.css" location="content/css/navigatorbetalink.css"/>
+        <resource type="download" name="NavigatorBetaLink.js" location="content/js/util/NavigatorBetaLink.js"/>
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.IsFeatureEnabledCondition">
+            <param name="featureKey">jira.search.kickass</param>
+        </condition>
+    </web-resource>
+
+    <web-resource key="focus-shifter-tip">
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <resource type="download" name="FocusShifterTip.js" location="content/js/viewissue/util/FocusShifterTip.js"/>
+
+        <conditions type="AND">
+            <condition class="com.atlassian.jira.plugin.issuenav.TipSuppressedCondition" invert="true">
+                <param name="tipKey">focusShifter</param>
+            </condition>
+            <condition class="com.atlassian.jira.plugin.issuenav.KeyboardShortcutsEnabledCondition"/>
+        </conditions>
+    </web-resource>
+
+    <web-resource key="viewissue">
+
+        <dependency>com.atlassian.jira.jira-issue-nav-plugin:common</dependency>
+        <dependency>com.atlassian.jira.jira-issue-nav-plugin:focus-shifter-tip</dependency>
+
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <transformation extension="soy">
+            <transformer key="soyTransformer"/>
+        </transformation>
+
+        <transformation extension="less">
+            <transformer key="lessTransformer"/>
+        </transformation>
+
+        <resource type="download" name="Overrides.js" location="content/js/viewissue/util/Overrides.js"/>
+        <resource type="download" name="OverrideIssueDialogs.js" location="content/js/search/util/OverrideIssueDialogs.js" />
+        <resource type="download" name="viewissue-header-soy.js" location="content/templates/viewissue-header.soy"/>
+        <resource type="download" name="viewissue-body-soy.js" location="content/templates/viewissue-body.soy"/>
+        <resource type="download" name="viewissue-fields-soy.js" location="content/templates/viewissue-fields.soy"/>
+        <resource type="download" name="util-soy.js" location="content/templates/util.soy"/>
+
+        <resource type="download" name="viewissue.css" location="content/css/viewissue.less"/>
+
+        <resource type="download" name="SerializeToObject.js" location="content/js/pigsty/SerializeToObject.js"/>
+
+        <resource type="download" name="EditIssueController.js" location="content/js/editissue/model/EditIssueController.js"/>
+        <resource type="download" name="SaveInProgressManager.js" location="content/js/editissue/model/SaveInProgressManager.js"/>
+        <resource type="download" name="IssueFieldModel.js" location="content/js/editissue/model/IssueFieldModel.js"/>
+        <resource type="download" name="IssueFieldCollection.js" location="content/js/editissue/model/IssueFieldCollection.js"/>
+
+        <resource type="download" name="InlineEditUtils.js" location="content/js/editissue/util/InlineEditUtils.js"/>
+
+        <resource type="download" name="UnhandledSaveErrorView.js" location="content/js/viewissue/view/UnhandledSaveErrorView.js" />
+        <resource type="download" name="viewissue/util/ViewIssueController.js" location="content/js/viewissue/util/ViewIssueController.js"/>
+        <resource type="download" name="viewissue/util/FocusShifter.js" location="content/js/viewissue/util/FocusShifter.js"/>
+        <resource type="download" name="editissue/IssueFieldView.js" location="content/js/editissue/view/IssueFieldView.js"/>
+        <resource type="download" name="pigsty/IssueFieldUtil.js" location="content/js/pigsty/IssueFieldUtil.js"/>
+        <resource type="download" name="viewissue/IssuePanelView.js" location="content/js/viewissue/view/IssuePanelView.js"/>
+        <resource type="download" name="viewissue/IssueBodyView.js" location="content/js/viewissue/view/IssueBodyView.js"/>
+        <resource type="download" name="viewissue/IssueHeaderView.js" location="content/js/viewissue/view/IssueHeaderView.js"/>
+        <resource type="download" name="viewissue/IssueOpsbarView.js" location="content/js/viewissue/view/IssueOpsbarView.js"/>
+        <resource type="download" name="viewissue/IssueView.js" location="content/js/viewissue/view/IssueView.js"/>
+        <resource type="download" name="WatchersAndVoters.js" location="content/js/pigsty/WatchersAndVoters.js"/>
+    </web-resource>
+
+    <web-resource key="standalone-issue">
+        <dependency>com.atlassian.jira.jira-issue-nav-plugin:viewissue</dependency>
+        <resource type="download" name="viewissue/IssueInit.js" location="content/js/viewissue/IssueInit.js"/>
+    </web-resource>
+
+
+    <web-resource key="standalone-issue-nav">
+        <dependency>com.atlassian.jira.jira-issue-nav-plugin:issuenav</dependency>
+
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <resource type="download" name="UserPicker.js" location="content/js/pigsty/UserPicker.js"/>
+        <resource type="download" name="IssueNavInit.js" location="content/js/search/IssueNavInit.js"/>
+    </web-resource>
+
+    <!-- TODO: download only during test -->
+    <web-resource key="testdata">
+        <resource type="download" name="testdata/issue-model.js" location="testdata/issue-model.js"/>
+    </web-resource>
+
+    <!-- TODO: download only during test -->
+    <web-resource key="sinon">
+        <resource type="download" name="sinon.js" location="lib/sinon/sinon-1.3.1.js"/>
+    </web-resource>
+
+    <web-resource key="testutils">
+        <dependency>com.atlassian.jira.jira-issue-nav-plugin:sinon</dependency>
+
+        <resource type="download" name="TestUtils.js" location="content/js/test/TestUtils.js"/>
+    </web-resource>
+
+    <!-- qunit tests -->
+    <resource type="qunit" name="content/js/base/AttributesMixinCreator-test.js" location="content/js/base/AttributesMixinCreator-test.js" />
+    <resource type="qunit" name="content/js/base/EventsMixinCreator-test.js" location="content/js/base/EventsMixinCreator-test.js" />
+    <resource type="qunit" name="content/js/base/Extensions-test.js" location="content/js/base/Extensions-test.js" />
+    <resource type="qunit" name="content/js/base/Mixins-test.js" location="content/js/base/Mixins-test.js" />
+
+    <resource type="qunit" name="content/js/mixin/SingleSelect-test.js" location="content/js/mixin/SingleSelect-test.js" />
+
+    <resource type="qunit" name="content/js/viewissue/model/IssueViewModel-test.js" location="content/js/viewissue/model/IssueViewModel-test.js" />
+    <resource type="qunit" name="content/js/editissue/model/IssueFieldModel-test.js" location="content/js/editissue/model/IssueFieldModel-test.js" />
+    <resource type="qunit" name="content/js/editissue/model/EditIssueController-test.js" location="content/js/editissue/model/EditIssueController-test.js" />
+    <resource type="qunit" name="content/js/editissue/model/SaveInProgressManager-test.js" location="content/js/editissue/model/SaveInProgressManager-test.js" />
+    <resource type="qunit" name="content/js/editissue/util/InlineEditUtils-test.js" location="content/js/editissue/util/InlineEditUtils-test.js" />
+    <resource type="qunit" name="content/js/viewissue/util/ViewIssueController-test.js" location="content/js/viewissue/util/ViewIssueController-test.js" />
+    <resource type="qunit" name="content/js/viewissue/util/FocusShifter-test.js" location="content/js/viewissue/util/FocusShifter-test.js" />
+    <resource type="qunit" name="content/js/pigsty/IssueFieldUtil-test.js" location="content/js/pigsty/IssueFieldUtil-test.js" />
+
+    <resource type="qunit" name="content/js/editissue/view/IssueFieldView-test.js" location="content/js/editissue/view/IssueFieldView-test.js" />
+    <resource type="qunit" name="content/js/viewissue/view/IssueHeaderView-test.js" location="content/js/viewissue/view/IssueHeaderView-test.js" />
+    <resource type="qunit" name="content/js/viewissue/view/IssueOpsbarView-test.js" location="content/js/viewissue/view/IssueOpsbarView-test.js" />
+    <resource type="qunit" name="content/js/viewissue/view/IssueBodyView-test.js" location="content/js/viewissue/view/IssueBodyView-test.js" />
+    <resource type="qunit" name="content/js/viewissue/view/IssuePanelView-test.js" location="content/js/viewissue/view/IssuePanelView-test.js" />
+    <resource type="qunit" name="content/js/viewissue/view/IssueView-test.js" location="content/js/viewissue/view/IssueView-test.js" />
+    <resource type="qunit" name="content/js/viewissue/view/UnhandledSaveErrorView-test.js" location="content/js/viewissue/view/UnhandledSaveErrorView-test.js" />
+
+    <resource type="qunit" name="content/templates/viewissue-test.js" location="content/templates/viewissue-test.js" />
+    <resource type="qunit" name="content/js/search/issuetable/IssueTableView-test.js" location="content/js/search/issuetable/IssueTableView-test.js" />
+    <resource type="qunit" name="content/js/search/IssueNavView-test.js" location="content/js/search/IssueNavView-test.js" />
+    <resource type="qunit" name="content/js/search/query/JqlQueryView-test.js" location="content/js/search/query/JqlQueryView-test.js" />
+    <resource type="qunit" name="content/js/search/query/BasicQueryView-test.js" location="content/js/search/query/BasicQueryView-test.js" />
+    <resource type="qunit" name="content/js/search/query/FixedLozengeView-test.js" location="content/js/search/query/FixedLozengeView-test.js" />
+    <resource type="qunit" name="content/js/search/query/QueryView-test.js" location="content/js/search/query/QueryView-test.js" />
+    <resource type="qunit" name="content/js/search/filters/FilterListView-test.js" location="content/js/search/filters/FilterListView-test.js" />
+    <resource type="qunit" name="content/js/search/query/SwitcherView-test.js" location="content/js/search/query/SwitcherView-test.js" />
+    <resource type="qunit" name="content/js/search/query/CardView-test.js" location="content/js/search/query/CardView-test.js" />
+    <resource type="qunit" name="content/js/search/query/ClauseButtonView-test.js" location="content/js/search/query/ClauseButtonView-test.js" />
+    <resource type="qunit" name="content/js/search/query/VariableClauseView-test.js" location="content/js/search/query/VariableClauseView-test.js" />
+    <resource type="qunit" name="content/js/search/IssueNavRouter-test.js" location="content/js/search/IssueNavRouter-test.js" />
+    <resource type="qunit" name="content/js/search/SearchPageModel-test.js" location="content/js/search/SearchPageModel-test.js" />
+    <resource type="qunit" name="content/js/search/filters/FilterListModel-test.js" location="content/js/search/filters/FilterListModel-test.js" />
+    <resource type="qunit" name="content/js/search/query/SearcherCollection-test.js" location="content/js/search/query/SearcherCollection-test.js" />
+    <resource type="qunit" name="content/js/search/util/TextQueryBuilder-test.js" location="content/js/search/util/TextQueryBuilder-test.js" />
+    <resource type="qunit" name="content/js/util/initJQLAutocomplete-test.js" location="content/js/util/initJQLAutocomplete-test.js" />
+    <resource type="qunit" name="content/js/test/TestUtils-test.js" location="content/js/test/TestUtils-test.js" />
+    <resource type="qunit" name="content/js/search/PageTitleView-test.js" location="content/js/search/PageTitleView-test.js"/>
+    <resource type="qunit" name="content/js/util/QueryStringParser-test.js" location="content/js/util/QueryStringParser-test.js" />
+    <resource type="download" name="content/" location="content"/>
+    <resource type="i18n" name="i18n" location="i18n/i18n"/>
+
+    <rest key="issue-nav-rest-endpoint" path="/issueNav" version="1">
+        <package>com.atlassian.jira.plugin.issuenav.rest</package>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+    </rest>
+
+    <component key="searchContextHelper" class="com.atlassian.jira.plugin.issuenav.service.DefaultSearchContextHelper" interface="com.atlassian.jira.plugin.issuenav.service.SearchContextHelper"></component>
+    <component key="searcherService" class="com.atlassian.jira.plugin.issuenav.service.DefaultSearcherService" interface="com.atlassian.jira.plugin.issuenav.service.SearcherService"></component>
+    <component key="webPanelMapperUtil" class="com.atlassian.jira.plugin.issuenav.viewissue.webpanel.WebPanelMapperUtil"></component>
+</atlassian-plugin>

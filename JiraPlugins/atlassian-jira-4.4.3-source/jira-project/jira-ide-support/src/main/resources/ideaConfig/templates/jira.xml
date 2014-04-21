@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templateSet group="jira">
+  <template name="dep" value="deprecated Use {@link $S_CLASS$#$S_METHOD$} instead. Since v$VERSION$." description="@deprecated since" toReformat="false" toShortenFQNames="true">
+    <variable name="S_CLASS" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="S_METHOD" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="VERSION" expression="&quot;4.4&quot;" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="false" />
+      <option name="JAVA_COMMENT" value="true" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="false" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="false" />
+    </context>
+  </template>
+  <template name="gt" value="getText(&quot;$STRING$&quot;)$END$" description="getText(String)" toReformat="true" toShortenFQNames="true">
+    <variable name="STRING" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="false" />
+      <option name="JSP" value="true" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="true" />
+    </context>
+  </template>
+  <template name="jread" value="&lt;dl id=&quot;data_${$ID$}&quot;&gt;&#10;    &lt;dt&gt;$SAMPLE$&lt;/dt&gt;&lt;dd&gt;${unsafe.text.sample}&lt;/dd&gt;&#10;    &lt;dt&gt;$CASE$&lt;/dt&gt;&lt;dd&gt;$i18n.getText('common.case')&lt;/dd&gt;&#10;&lt;/dl&gt;&#10;&lt;script type=&quot;text/javascript&quot;&gt;&#10;jQuery(document).ready(function(){&#10;    var data=jQuery.readData(&quot;#data_${$ID$}&quot;);&#10;    alert(data.$SAMPLE$);&#10;    alert(data['$CASE$']);&#10;});&#10;&lt;/script&gt;&#10;" description="jQuery.readData(s)" toReformat="false" toShortenFQNames="true">
+    <variable name="ID" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="SAMPLE" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="CASE" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="false" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="XML" value="false" />
+      <option name="HTML" value="true" />
+      <option name="JSP" value="true" />
+      <option name="COMPLETION" value="false" />
+      <option name="OTHER" value="true" />
+    </context>
+  </template>
+</templateSet>
+

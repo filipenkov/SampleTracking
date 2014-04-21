@@ -1,0 +1,5 @@
+#########################################
+## Entry point for the Project Portlet ##
+#########################################
+#parse("templates/plugins/jira/portlets/includes/projectstyle.vm")
+#parse("templates/plugins/jira/portlets/includes/projectinfo.vm")

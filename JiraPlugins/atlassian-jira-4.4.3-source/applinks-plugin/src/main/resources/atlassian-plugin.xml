@@ -1,0 +1,713 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" pluginsVersion="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+        <param name="build">10</param>
+    </plugin-info>
+
+    <servlet-filter name="AppLinks Admin UI Authenticator Filter" key="uiAuthenticatorFilter"
+                    class="com.atlassian.applinks.ui.auth.AdminFilter" location="before-dispatch" weight="200">
+        <description>Servlet filter protecting the Admin UI.</description>
+        <url-pattern>/plugins/servlet/applinks/auth/conf/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </servlet-filter>
+
+    <servlet-filter name="HttpServletRequest Context Filter" key="contextFilter"
+                    class="com.atlassian.applinks.core.rest.context.ContextFilter" location="before-dispatch" weight="190">
+        <description>Servlet filter used to make the current request context available to services invoked outside of a
+            servlet context.</description>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </servlet-filter>
+
+    <servlet name="Admin Login" key="adminLogin"
+             class="com.atlassian.applinks.ui.auth.AdminLoginServlet">
+        <description>Applinks administrative login</description>
+        <url-pattern>/applinks/login</url-pattern>
+    </servlet>
+
+    <web-resource key="admin-login">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <dependency>${project.groupId}.${project.artifactId}:applinks-css</dependency>
+        <dependency>${project.groupId}.${project.artifactId}:applinks-util-js</dependency>
+    </web-resource>
+
+    <servlet name="Authenticator Configuration Container" key="authConfigContainer"
+             class="com.atlassian.applinks.ui.auth.AuthenticatorContainerServlet">
+        <description>Container servlet for displaying authenticator configuration</description>
+        <url-pattern>/applinks/auth/conf/config-tabs</url-pattern>
+    </servlet>
+
+    <web-resource key="auth-container">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <resource type="download" name="auth-container.js" location="js/auth-container.js"/>
+        <dependency>${project.groupId}.${project.artifactId}:auth-config-css</dependency>
+        <dependency>${project.groupId}.${project.artifactId}:compatibility-css</dependency>
+    </web-resource>
+
+    <servlet name="List Application Links" key="listApplicationLinks"
+             class="com.atlassian.applinks.ui.ListApplicationLinksServlet">
+        <description>List All configured application links</description>
+        <url-pattern>/applinks/listApplicationLinks</url-pattern>
+    </servlet>
+
+    <web-resource key="list-application-links">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <dependency>${project.groupId}.${project.artifactId}:applinks-css</dependency>
+        <dependency>${project.groupId}.${project.artifactId}:compatibility-css</dependency>
+        <dependency>${project.groupId}.${project.artifactId}:applinks-util-js</dependency>
+        <dependency>${project.groupId}.${project.artifactId}:applinks-ui</dependency>
+        <resource type="download" name="relocate-application-link.js" location="js/relocate-application-link.js"/>
+        <resource type="download" name="upgrade-legacy-application-link.js" location="js/upgrade-legacy-application-link.js"/>
+        <resource type="download" name="upgrade-ual-application-link.js" location="js/upgrade-ual-application-link.js"/>
+        <resource type="download" name="list-application-links.js" location="js/list-application-links.js"/>
+        <resource type="download" name="add-application-link.js"   location="js/add-application-link.js"/>
+        <resource type="download" name="edit-application-link.js"  location="js/edit-application-link.js"/>
+        <resource type="download" name="orphaned-trust.js"  location="js/orphaned-trust.js"/>
+        <resource type="download" name="upgrade-orphaned-trust.js"  location="js/upgrade-orphaned-trust.js"/>
+    </web-resource>
+
+    <servlet name="List Entity Links" key="listEntityLinks"
+             class="com.atlassian.applinks.ui.ListEntityLinksServlet">
+        <description>List configured entity links for a specific entity</description>
+        <url-pattern>/applinks/listEntityLinks/*</url-pattern>
+    </servlet>
+
+    <web-resource key="list-entity-links">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <dependency>${project.groupId}.${project.artifactId}:applinks-css</dependency>
+        <dependency>${project.groupId}.${project.artifactId}:compatibility-css</dependency>
+        <dependency>${project.groupId}.${project.artifactId}:applinks-util-js</dependency>
+        <dependency>${project.groupId}.${project.artifactId}:applinks-ui</dependency>
+        <resource type="download" name="list-entity-links.js" location="js/list-entity-links.js"/>
+        <resource type="download" name="add-entity-link.js" location="js/add-entity-link.js"/>
+        <resource type="download" name="edit-entity-link.js" location="js/edit-entity-link.js"/>
+    </web-resource>
+
+    <component-import key="templateRenderer" interface="com.atlassian.templaterenderer.TemplateRenderer"/>
+    <component-import key="localeResolver" interface="com.atlassian.sal.api.message.LocaleResolver"/>
+    <component-import key="restUrlBuilder" interface="com.atlassian.plugins.rest.common.util.RestUrlBuilder"/>
+    <component-import key="loginUriProvider" interface="com.atlassian.sal.api.auth.LoginUriProvider"/>
+    <component-import key="threadLocalDelegateExecutorFactory" interface="com.atlassian.sal.api.executor.ThreadLocalDelegateExecutorFactory"/>
+    <component-import key="webSudoManager" interface="com.atlassian.sal.api.websudo.WebSudoManager" />
+
+    <resource key="applinks.i18n" name="applinks.i18n" type="i18n" location="com.atlassian.applinks.applinks"/>
+    <resource key="ual-help-paths" name="ual-help-paths" type="i18n" location="com.atlassian.applinks.ual-help-paths"/>
+
+    <rest key="applinksRest" path="/applinks" version="1.0"
+          description="Provides REST endpoints for interacting with the AppLinks plugin" />
+
+    <web-resource key="applinks-css" name="applinks-css">
+        <resource type="download" name="applinks.css" location="css/applinks.css"/>
+    </web-resource>
+
+    <web-resource key="auth-config-css" name="auth-config-css">
+        <resource type="download" name="auth-config.css" location="css/auth-config.css" />
+    </web-resource>
+
+    <web-resource key="compatibility-css" application="fecru">
+        <resource type="download" name="fecru.css" location="css/compatibility/fecru.css"/>
+    </web-resource>
+
+    <web-resource key="compatibility-css" application="refapp">
+        <resource type="download" name="refapp.css" location="css/compatibility/refapp.css"/>
+    </web-resource>
+
+    <web-resource key="compatibility-css" application="confluence">
+        <resource type="download" name="confluence.css" location="css/compatibility/confluence.css"/>
+    </web-resource>
+
+    <web-resource key="compatibility-css" application="jira">
+        <resource type="download" name="confluence.css" location="css/compatibility/jira.css"/>
+    </web-resource>
+
+    <web-resource key="compatibility-css" application="bamboo">
+        <resource type="download" name="bamboo.css" location="css/compatibility/bamboo.css"/>
+    </web-resource>
+
+    <web-resource key="applinks-images" i18n-name-key="com.atlassian.applinks.images" name="applinks-images"
+                  state='enabled' system="true">
+        <resource type="download" name="images/" location="images/"/>
+    </web-resource>
+
+    <web-resource key="applinks-util-js">
+        <resource type="download" name="fecru-compatibility.js" location="js/fecru-compatibility.js" application="fecru" />
+        <resource type="download" name="rest-service.js" location="js/rest-service.js"/>
+        <resource type="download" name="json2.js" location="js/json2.js"/>
+        <resource type="download" name="autocomplete.js" location="js/autocomplete.js"/>
+        <resource type="download" name="wizard.js" location="js/wizard.js"/>
+        <resource type="download" name="applinkwizard.js" location="js/applinkwizard.js"/>
+    </web-resource>
+
+	<web-resource key="applinks-oauth-ui">
+        <resource type="download" name="oauth-dialog.js" location="js/oauth-dialog.js"/>
+    </web-resource>
+
+    <web-resource key="applinks-ui">
+        <resource type="download" name="confirm-dialog.js" location="js/confirm-dialog.js"/>
+        <resource type="download" name="delete-link-dialog.js" location="js/delete-link-dialog.js"/>
+        <resource type="download" name="oauth-dialog.js" location="js/oauth-dialog.js"/>
+        <resource type="download" name="permission-check-util.js" location="js/permission-check-util.js"/>
+    </web-resource>
+
+    <component-import key="pluginAccessor">
+        <interface>com.atlassian.plugin.PluginAccessor</interface>
+    </component-import>
+
+    <component-import key="webInterfaceManager">
+        <interface>com.atlassian.plugin.web.WebInterfaceManager</interface>
+    </component-import>
+
+    <component-import key="jaxbJsonMarshaller">
+        <interface>com.atlassian.plugins.rest.common.json.JaxbJsonMarshaller</interface>
+    </component-import>
+
+    <component-import key="applicationProperties">
+        <interface>com.atlassian.sal.api.ApplicationProperties</interface>
+    </component-import>
+
+    <component-import key="pluginSettingsFactory">
+        <interface>com.atlassian.sal.api.pluginsettings.PluginSettingsFactory</interface>
+    </component-import>
+
+    <component-import key="i18nResolver">
+        <interface>com.atlassian.sal.api.message.I18nResolver</interface>
+    </component-import>
+
+    <component-import key="projectManager">
+        <interface>com.atlassian.sal.api.project.ProjectManager</interface>
+    </component-import>
+
+    <component-import key="userManager">
+        <interface>com.atlassian.sal.api.user.UserManager</interface>
+    </component-import>
+
+    <component-import key="authenticationListener">
+        <interface>com.atlassian.sal.api.auth.AuthenticationListener</interface>
+    </component-import>
+
+    <component-import key="requestFactory">
+        <interface>com.atlassian.sal.api.net.RequestFactory</interface>
+    </component-import>
+
+    <component-import key="trustedApplicationsManager" application="refapp">
+        <interface>com.atlassian.security.auth.trustedapps.TrustedApplicationsManager</interface>
+    </component-import>
+
+    <component-import key="trustedApplicationsConfigurationManager" application="refapp">
+        <interface>com.atlassian.security.auth.trustedapps.TrustedApplicationsConfigurationManager</interface>
+    </component-import>
+
+    <!-- public API -->
+
+    <component key="entityLinkService"
+               class="com.atlassian.applinks.core.DefaultEntityLinkService"
+               public="true">
+        <interface>com.atlassian.applinks.api.EntityLinkService</interface>
+        <interface>com.atlassian.applinks.spi.link.MutatingEntityLinkService</interface>
+        <interface>com.atlassian.applinks.core.link.InternalEntityLinkService</interface>
+    </component>
+
+    <component key="applicationLinkService" class="com.atlassian.applinks.core.DefaultApplicationLinkService"
+               public="true">
+        <interface>com.atlassian.applinks.api.ApplicationLinkService</interface>
+        <interface>com.atlassian.applinks.spi.link.MutatingApplicationLinkService</interface>
+    </component>
+
+    <!-- Host container accessible API -->
+
+    <component key="typeAccessor" class="com.atlassian.applinks.core.DefaultTypeAccessor" public="true">
+        <interface>com.atlassian.applinks.spi.util.TypeAccessor</interface>
+        <interface>com.atlassian.applinks.core.InternalTypeAccessor</interface>
+    </component>
+
+    <!-- core components -->
+
+    <component key="entityLinkBuilderFactory" class="com.atlassian.applinks.core.link.DefaultEntityLinkBuilderFactory"
+               public="true">
+        <interface>com.atlassian.applinks.spi.link.EntityLinkBuilderFactory</interface>
+    </component>
+
+    <component key="servletMessageFactory" class="com.atlassian.applinks.core.util.MessageFactory"/>
+
+    <component key="propertyService" class="com.atlassian.applinks.core.property.SalPropertyService">
+        <interface>com.atlassian.applinks.core.property.PropertyService</interface>
+    </component>
+
+    <component key="authenticatorAccessor" class="com.atlassian.applinks.core.auth.AuthenticatorAccessor"/>
+
+    <component key="applicationLinkRequestFactoryFactory"
+               class="com.atlassian.applinks.core.auth.ApplicationLinkRequestFactoryFactoryImpl">
+        <interface>com.atlassian.applinks.core.auth.ApplicationLinkRequestFactoryFactory</interface>
+    </component>
+
+    <component key="adminUIAuthenticator" class="com.atlassian.applinks.ui.auth.AdminUIAuthenticator"/>
+
+    <component key="authenticationConfigurationManager" public="true"
+               class="com.atlassian.applinks.core.auth.AuthenticationConfigurationManagerImpl">
+        <interface>com.atlassian.applinks.spi.auth.AuthenticationConfigurationManager</interface>
+    </component>
+
+    <component key="applinkPluginUtil" class="com.atlassian.applinks.core.DefaultAppLinkPluginUtil">
+        <interface>com.atlassian.applinks.core.AppLinkPluginUtil</interface>
+    </component>
+
+    <component key="manifestRetriever" public="true"
+               class="com.atlassian.applinks.core.manifest.ManifestRetrieverDispatcher">
+        <interface>com.atlassian.applinks.spi.manifest.ManifestRetriever</interface>
+    </component>
+
+    <component key="appLinksManifestDownloader"
+               class="com.atlassian.applinks.core.manifest.AppLinksManifestDownloader"/>
+
+    <component key="jsonI18nResolver"
+               class="com.atlassian.applinks.ui.BatchedJSONi18NBuilderFactory"/>
+
+    <component key="authenticationConfigurator"
+               class="com.atlassian.applinks.core.auth.AuthenticationConfigurator"/>
+
+    <component key="entityRetriever"
+               class="com.atlassian.applinks.core.rest.client.EntityRetriever"/>
+
+    <component key="applicationLinkClient"
+               class="com.atlassian.applinks.core.rest.client.ApplicationLinkClient"/>
+
+    <component key="entityLinkClient"
+               class="com.atlassian.applinks.core.rest.client.EntityLinkClient"/>
+
+    <component key="webFragmentHelper"
+               class="com.atlassian.applinks.core.webfragment.DefaultWebFragmentHelper">
+        <interface>com.atlassian.applinks.core.webfragment.WebFragmentHelper</interface>
+    </component>
+
+    <component key="velocityContextFactory"
+               class="com.atlassian.applinks.ui.velocity.VelocityContextFactory" />
+
+    <component key="documentationLinker"
+               class="com.atlassian.applinks.core.docs.DocumentationLinkerImpl">
+        <interface>com.atlassian.applinks.core.docs.DocumentationLinker</interface>
+    </component>
+
+    <component key="delegatingOrphanedTrustDetector"
+               class="com.atlassian.applinks.core.auth.DelegatingOrphanedTrustDetector">
+        <interface>com.atlassian.applinks.core.auth.OrphanedTrustDetector</interface>
+   </component>
+
+    <component key="concurrentExecutor"
+               class="com.atlassian.applinks.core.concurrent.ConcurrentExecutor"/>
+
+    <!-- application & entity types -->
+
+    <module-type key="applinks-application-type"
+                 class="com.atlassian.applinks.core.plugin.ApplicationTypeModuleDescriptor"/>
+
+    <module-type key="applinks-entity-type"
+                 class="com.atlassian.applinks.core.plugin.EntityTypeModuleDescriptor"/>
+
+    <applinks-application-type name="fecru" key="fisheyeCrucible"
+                               class="com.atlassian.applinks.application.fecru.FishEyeCrucibleApplicationTypeImpl"
+                               interface="com.atlassian.applinks.api.application.fecru.FishEyeCrucibleApplicationType">
+        <manifest-producer class="com.atlassian.applinks.application.fecru.FishEyeCrucibleManifestProducer"/>
+    </applinks-application-type>
+
+    <applinks-entity-type name="fecru-repository" key="fisheyeCrucibleRepository"
+                               class="com.atlassian.applinks.application.fecru.FishEyeRepositoryEntityTypeImpl"
+                               interface="com.atlassian.applinks.api.application.fecru.FishEyeRepositoryEntityType" />
+
+    <applinks-entity-type name="fecru-project" key="fisheyeCrucibleProject"
+                               class="com.atlassian.applinks.application.fecru.FishEyeCrucibleProjectEntityTypeImpl"
+                               interface="com.atlassian.applinks.api.application.fecru.FishEyeCrucibleProjectEntityType" />
+
+    <applinks-application-type name="refapp" key="refapp"
+                               class="com.atlassian.applinks.application.refapp.RefAppApplicationTypeImpl"
+                               interface="com.atlassian.applinks.api.application.refapp.RefAppApplicationType">
+        <manifest-producer class="com.atlassian.applinks.application.refapp.RefAppManifestProducer"/>
+    </applinks-application-type>
+
+    <applinks-entity-type name="refapp-charlie" key="refappCharlie"
+                               class="com.atlassian.applinks.application.refapp.RefAppCharlieEntityTypeImpl"
+                               interface="com.atlassian.applinks.api.application.refapp.RefAppCharlieEntityType" />
+
+    <!--<applinks-application-type name="subversion" key="subversion"-->
+                               <!--class="com.atlassian.applinks.application.subversion.SubversionApplicationType">-->
+        <!--<manifest-producer class="com.atlassian.applinks.application.subversion.SubversionManifestProducer"/>-->
+    <!--</applinks-application-type>-->
+
+    <!--<applinks-entity-type name="subversion-path" key="subversionPath"-->
+                               <!--class="com.atlassian.applinks.application.subversion.SubversionPathEntityType" />-->
+
+
+    <applinks-application-type name="generic" key="generic"
+                               class="com.atlassian.applinks.application.generic.GenericApplicationTypeImpl"
+                               interface="com.atlassian.applinks.api.application.generic.GenericApplicationType">
+        <manifest-producer class="com.atlassian.applinks.application.generic.GenericManifestProducer"/>
+    </applinks-application-type>
+
+    <applinks-entity-type name="generic-entity" key="genericEntity"
+                               class="com.atlassian.applinks.application.generic.GenericEntityTypeImpl"
+                               interface="com.atlassian.applinks.api.application.generic.GenericEntityType"/>
+
+
+
+    <applinks-application-type name="jira" key="jira"
+                               class="com.atlassian.applinks.application.jira.JiraApplicationTypeImpl"
+                               interface="com.atlassian.applinks.api.application.jira.JiraApplicationType">
+        <manifest-producer class="com.atlassian.applinks.application.jira.JiraManifestProducer"/>
+    </applinks-application-type>
+
+    <applinks-entity-type name="jira-project" key="jira-project"
+                               class="com.atlassian.applinks.application.jira.JiraProjectEntityTypeImpl"
+                               interface="com.atlassian.applinks.api.application.jira.JiraProjectEntityType" />
+
+    <applinks-application-type name="confluence" key="confluence"
+                               class="com.atlassian.applinks.application.confluence.ConfluenceApplicationTypeImpl"
+                               interface="com.atlassian.applinks.api.application.confluence.ConfluenceApplicationType">
+        <manifest-producer class="com.atlassian.applinks.application.confluence.ConfluenceManifestProducer"/>
+    </applinks-application-type>
+
+    <applinks-entity-type name="confluence-space" key="confluence-space"
+                               class="com.atlassian.applinks.application.confluence.ConfluenceSpaceEntityTypeImpl"
+                               interface="com.atlassian.applinks.api.application.confluence.ConfluenceSpaceEntityType" />
+
+    <applinks-application-type name="bamboo" key="bamboo"
+                               class="com.atlassian.applinks.application.bamboo.BambooApplicationTypeImpl"
+                               interface="com.atlassian.applinks.api.application.bamboo.BambooApplicationType">
+        <manifest-producer class="com.atlassian.applinks.application.bamboo.BambooManifestProducer"/>
+    </applinks-application-type>
+
+    <applinks-entity-type name="bamboo-project" key="bamboo-project"
+                               class="com.atlassian.applinks.application.bamboo.BambooProjectEntityTypeImpl"
+                               interface="com.atlassian.applinks.api.application.bamboo.BambooProjectEntityType" />
+
+    <!-- whoami servlet used for testing auth providers -->
+
+    <servlet key="applinks-whoami" class="com.atlassian.applinks.core.auth.WhoAmIServlet">
+        <url-pattern>/applinks/whoami</url-pattern>
+    </servlet>
+
+    <!-- Authentication Providers -->
+
+    <module-type key="applinks-authentication-provider"
+                 class="com.atlassian.applinks.core.plugin.AuthenticationProviderModuleDescriptor"/>
+
+    <!-- Basic HTTP Authenticator -->
+
+    <applinks-authentication-provider key="BasicAuthenticationProviderPluginModule"
+                                      class="com.atlassian.applinks.core.auth.basic.BasicAuthenticationProviderPluginModule"
+                                      i18n-name-key="auth.basic.module.name"
+            />
+
+    <servlet key="basic-auth-configuration" class="com.atlassian.applinks.core.auth.basic.BasicServlet">
+        <url-pattern>/applinks/auth/conf/basic/*</url-pattern>
+    </servlet>
+
+    <web-resource key="basic-auth">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <resource type="download" name="auth-config.css" location="css/auth-config.css"/>
+    </web-resource>
+
+    <!-- Trusted Applications Authenticator -->
+
+    <applinks-authentication-provider key="trustedAppsAuthenticationProviderPluginModule"
+                                      class="com.atlassian.applinks.core.auth.trusted.TrustedAppsAuthenticationProviderPluginModule"
+                                      i18n-name-key="auth.trusted.module.name"
+                                      weight="10"
+            />
+
+    <servlet key="trusted-auth-outbound-configuration" class="com.atlassian.applinks.core.auth.trusted.ConsumerConfigurationServlet">
+        <url-pattern>/applinks/auth/conf/trusted/outbound-ual/*</url-pattern>
+        <url-pattern>/applinks/auth/conf/trusted/outbound-non-ual/*</url-pattern>
+    </servlet>
+
+    <servlet key="trusted-auth-inbound-configuration" class="com.atlassian.applinks.core.auth.trusted.ProviderConfigurationServlet">
+        <url-pattern>/applinks/auth/conf/trusted/inbound-ual/*</url-pattern>
+        <url-pattern>/applinks/auth/conf/trusted/inbound-non-ual/*</url-pattern>
+    </servlet>
+
+    <servlet key="trusted-auto-configuration-servlet" class="com.atlassian.applinks.core.auth.trusted.AutoConfigurationServlet">
+        <url-pattern>/applinks/auth/conf/trusted/autoconfig/*</url-pattern>
+    </servlet>
+
+    <web-resource key="trusted-auth">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <resource type="download" name="config.js" location="auth/trusted/config.js"/>
+        <resource type="download" name="auth-config.css" location="css/auth-config.css"/>
+    </web-resource>
+
+    <component key="trustedApplicationReaper" class="com.atlassian.applinks.core.auth.trusted.TrustedApplicationReaper"/>
+
+    <component key="trustConfigurator" class="com.atlassian.applinks.core.auth.trusted.TrustConfigurator"/>
+
+    <component key="trustedAppsOrphanedTrustDetector" class="com.atlassian.applinks.core.auth.trusted.TrustedAppsOrphanedTrustDetector"/>
+
+    <!-- Supported authenticator markers -->
+
+    <module-type key="supported-inbound-authentication"
+                 class="com.atlassian.applinks.host.spi.SupportedInboundAuthenticationModuleDescriptor"/>
+
+
+    <!-- Product specific modules -->
+
+    <!-- Reference Application -->
+
+    <supported-inbound-authentication key="refapp-inbound-basic" application="refapp"
+                                      class="com.atlassian.applinks.api.auth.types.BasicAuthenticationProvider"/>
+    <supported-inbound-authentication key="refapp-inbound-oauth" application="refapp"
+                                      class="com.atlassian.applinks.api.auth.types.OAuthAuthenticationProvider"/>
+    <supported-inbound-authentication key="refapp-inbound-trusted" application="refapp"
+                                      class="com.atlassian.applinks.api.auth.types.TrustedAppsAuthenticationProvider"/>
+
+     <component key="refAppHostApplication" class="com.atlassian.applinks.core.refapp.RefAppInternalHostApplication"
+               public="true" application="refapp">
+        <description>Provides the Host Application for the Atlassian RefApp.</description>
+        <interface>com.atlassian.applinks.host.spi.InternalHostApplication</interface>
+        <interface>com.atlassian.applinks.host.spi.HostApplication</interface>
+        <interface>com.atlassian.sal.api.lifecycle.LifecycleAware</interface>
+    </component>
+
+    <!-- Confluence -->
+    <supported-inbound-authentication key="confluence-inbound-basic" class="com.atlassian.applinks.api.auth.types.BasicAuthenticationProvider"         application="confluence"/>
+    <supported-inbound-authentication key="confluence-inbound-oauth" class="com.atlassian.applinks.api.auth.types.OAuthAuthenticationProvider"         application="confluence"/>
+    <supported-inbound-authentication key="confluence-inbound-trusted" class="com.atlassian.applinks.api.auth.types.TrustedAppsAuthenticationProvider" application="confluence"/>
+
+    <!-- FeCru -->
+    <supported-inbound-authentication key="fecru-inbound-basic" class="com.atlassian.applinks.api.auth.types.BasicAuthenticationProvider"         application="fecru"/>
+    <supported-inbound-authentication key="fecru-inbound-oauth" class="com.atlassian.applinks.api.auth.types.OAuthAuthenticationProvider"         application="fecru"/>
+    <supported-inbound-authentication key="fecru-inbound-trusted" class="com.atlassian.applinks.api.auth.types.TrustedAppsAuthenticationProvider" application="fecru"/>
+
+    <!-- JIRA -->
+    <supported-inbound-authentication key="jira-inbound-basic" class="com.atlassian.applinks.api.auth.types.BasicAuthenticationProvider"         application="jira"/>
+    <supported-inbound-authentication key="jira-inbound-oauth" class="com.atlassian.applinks.api.auth.types.OAuthAuthenticationProvider"         application="jira"/>
+    <supported-inbound-authentication key="jira-inbound-trusted" class="com.atlassian.applinks.api.auth.types.TrustedAppsAuthenticationProvider" application="jira"/>
+
+    <!-- Bamboo -->
+    <supported-inbound-authentication key="bamboo-inbound-basic" class="com.atlassian.applinks.api.auth.types.BasicAuthenticationProvider" application="bamboo"/>
+    <supported-inbound-authentication key="bamboo-inbound-oauth" class="com.atlassian.applinks.api.auth.types.OAuthAuthenticationProvider" application="bamboo"/>
+    <supported-inbound-authentication key="bamboo-inbound-trusted" class="com.atlassian.applinks.api.auth.types.TrustedAppsAuthenticationProvider" application="bamboo"/>
+
+    <web-section key="applinks" location="system.admin" weight="10" application="refapp">
+        <label key="applinks.section.title"/>
+    </web-section>
+
+    <web-item key="configuredApplinks" section="system.admin/applinks" weight="5" application="refapp">
+        <label key="applinks.web.item.list.application.links"/>
+        <link linkId="configure-application-links">/plugins/servlet/applinks/listApplicationLinks</link>
+    </web-item>
+
+    <web-panel key="applinksConfig" location="atl.admin.body" application="refapp">
+        <conditions type="AND">
+            <condition class="com.atlassian.applinks.core.plugin.condition.ApplicationLinksExistCondition" />
+            <condition class="com.atlassian.applinks.core.plugin.condition.AtLeastOneLocalEntityIsVisibleCondition" />
+        </conditions>
+        <resource name="view" type="velocity"><![CDATA[
+            <div style="margin-top: 20px; padding: 5px; border: 1px lightgray dashed;">
+            Configure AppLinks Entity Links for:
+            <ul>
+                #foreach ($key in $projectManager.allProjectKeys)
+                    <li><a href="$applicationProperties.baseUrl/plugins/servlet/applinks/listEntityLinks/com.atlassian.applinks.api.application.refapp.RefAppCharlieEntityType/$key">$key</a></li>
+                #end
+            </ul>
+            </div>
+        ]]></resource>
+    </web-panel>
+
+    <servlet key="applinksConfigServlet" name="AppLinks Configuration for RefApp"
+             class="com.atlassian.applinks.core.refapp.ApplinksConfigServlet"
+             application="refapp">
+        <url-pattern>/applinksconfig</url-pattern>
+    </servlet>
+
+    <web-panel key="updateCharlieLinks" location="atl.refapp.project" application="refapp">
+        <resource name="view" type="velocity"><![CDATA[
+            <a href="$applicationProperties.baseUrl/plugins/servlet/applinks/listEntityLinks/com.atlassian.applinks.api.application.refapp.RefAppCharlieEntityType/$projectKey">Configure Entity Links</a>
+        ]]></resource>
+    </web-panel>
+
+    <!-- Confluence -->
+    <!--Global Admin for Application Links-->
+    <web-item key="applinks-configure-application-links" section="system.admin/administration" weight="100" application="confluence">
+        <label key="applinks.web.item.list.application.links"/>
+        <link linkId="configure-application-links">/admin/listapplicationlinks.action</link>
+        <condition class="com.atlassian.applinks.core.plugin.condition.ApplicationLinksAdminCondition" />
+    </web-item>
+
+    <xwork name="applinks" key="list-application-link-action" application="confluence">
+        <package name="applinks-admin" extends="default" namespace="/admin">
+            <default-interceptor-ref name="defaultStack"/>
+            <action name="listapplicationlinks" class="com.atlassian.applinks.ui.confluence.ListApplicationLinksAction">
+                <result name="success" type="velocity">/com/atlassian/applinks/ui/admin/confluence/conf_list_application_links.vm</result>
+            </action>
+        </package>
+    </xwork>
+
+
+    <web-item key="applinks-configure-entity-links" section="system.space.admin/security" weight="30" application="confluence">
+        <label key="applinks.web.item.list.application.links"/>
+        <link linkId="configure-entity-links">/spaces/listentitylinks.action?typeId=com.atlassian.applinks.api.application.confluence.ConfluenceSpaceEntityType&amp;key=${helper.spaceKey}</link>
+        <icon height="16" width="16">
+            <link>/download/resources/${project.groupId}.${project.artifactId}:applinks-images/images/developer16.png</link>
+        </icon>
+        <condition class="com.atlassian.applinks.core.plugin.condition.ApplicationLinksExistCondition" />
+    </web-item>
+
+     <xwork name="applinks" key="list-application-entity-action" application="confluence">
+        <package name="applinks-space-admin" extends="default" namespace="/spaces">
+            <default-interceptor-ref name="defaultStack"/>
+            <action name="listentitylinks" class="com.atlassian.applinks.ui.confluence.ListEntityLinksAction">
+                <result name="success" type="velocity">/com/atlassian/applinks/ui/admin/confluence/conf_list_entity_links.vm</result>
+            </action>
+        </package>
+    </xwork>
+
+    <!-- FishEye / Crucible -->
+
+    <component key="fecruAppLinksPropertiesUpgradeTask" name="AppLink Properties Upgrade Task"
+               class="com.atlassian.applinks.core.upgrade.FishEyeCrucibleHashAuthenticatorPropertiesUpgradeTask"
+               public="true" application="fecru">
+        <interface>com.atlassian.sal.api.upgrade.PluginUpgradeTask</interface>
+    </component>
+
+    <!-- Configure Application links -->
+    <web-item key="fecruAppLinksCfgWebItem" section="system.admin/global" weight="5" application="fecru">
+        <label key="Application Links"/> <!-- FE/CRU doesn't support i18n in web fragments -->
+        <link linkId="configure-application-links">/plugins/servlet/applinks/listApplicationLinks</link>
+    </web-item>
+
+    <!-- Configure repository entity links -->
+    <web-item key="fecruAppLinksRepoCfgWebItem" section="system.admin.repo.operation" weight="5" application="fecru">
+        <label key="Application Links"/>
+        <link>/plugins/servlet/applinks/listEntityLinks/com.atlassian.applinks.api.application.fecru.FishEyeRepositoryEntityType/${helper.repository.repositoryData.name}</link>
+        <condition class="com.atlassian.applinks.core.plugin.condition.ApplicationLinksExistCondition" />
+    </web-item>
+
+    <!-- Configure project entity links -->
+    <web-item key="fecruAppLinksProjectCfgWebItem" section="system.admin.project.operation" weight="5" application="fecru">
+        <label key="Application Links"/>
+        <link>/plugins/servlet/applinks/listEntityLinks/com.atlassian.applinks.api.application.fecru.FishEyeCrucibleProjectEntityType/${helper.project.key}</link>
+        <condition class="com.atlassian.applinks.core.plugin.condition.ApplicationLinksExistCondition" />
+    </web-item>
+
+    <!-- Configure native JIRA settings -->
+    <web-item key="configureJiraSettings" section="applinks.application.link.list.operation" weight="5" application="fecru">
+        <condition class="com.atlassian.applinks.core.plugin.condition.ApplicationLinkOfTypeCondition">
+            <param name="type">com.atlassian.applinks.api.application.jira.JiraApplicationType</param>
+        </condition>
+        <label key="JIRA Settings"/>
+        <link>/admin/updateJiraServer-default.do?id=${applicationLink.id}</link>
+    </web-item>
+
+    <!-- Bamboo -->
+
+    <!-- Configure Application links -->
+    <!-- See APL-683 and APL-684 for why this is commented out. -->
+    <!--<web-item key="bambooAppLinksCfgWebItem" name="applicationLinks" section="system.admin/system" weight="5" application="bamboo">-->
+        <!--<label key="applinks.web.item.list.application.links"/>-->
+        <!--<link linkId="configure-application-links">/plugins/servlet/applinks/listApplicationLinks</link>-->
+    <!--</web-item>-->
+
+    <!-- Configure build entity links -->
+    <!-- See APL-683 and APL-684 for why this is commented out. -->
+    <!--<web-item key="bambooAppLinksProjectCfgWebItem" name="applicationLinks" section="chainConfiguration.subMenu/chainConfiguration" weight="5" application="bamboo">-->
+        <!--<label key="applinks.section.title"/>-->
+        <!--<link linkId="configure-application-links-${project.key}">/plugins/servlet/applinks/listEntityLinks/com.atlassian.applinks.api.application.bamboo.BambooProjectEntityType/${project.key}</link>-->
+        <!--<condition class="com.atlassian.applinks.core.plugin.condition.ApplicationLinksExistCondition"/>-->
+    <!--</web-item>-->
+
+    <!--OAuth related components -->
+
+    <component-import key="consumerService">
+        <interface>com.atlassian.oauth.consumer.ConsumerService</interface>
+    </component-import>
+
+    <component-import key="consumerTokenStore">
+        <interface>com.atlassian.oauth.consumer.ConsumerTokenStore</interface>
+    </component-import>
+
+    <component-import key="serviceProviderConsumerStore">
+        <interface>com.atlassian.oauth.serviceprovider.ServiceProviderConsumerStore</interface>
+    </component-import>
+
+    <component-import key="serviceProviderTokenStore">
+        <interface>com.atlassian.oauth.serviceprovider.ServiceProviderTokenStore</interface>
+    </component-import>
+
+    <component key="serviceProviderStoreService" class="com.atlassian.applinks.core.auth.oauth.DefaultServiceProviderStoreService"/>
+    <component key="consumerTokenStoreService" class="com.atlassian.applinks.core.auth.oauth.DefaultConsumerTokenStoreService"/>
+
+    <component key="oAuthTokenRetriever" class="com.atlassian.applinks.core.auth.oauth.OAuthTokenRetriever"/>
+    <component key="oAuthConfigListener" class="com.atlassian.applinks.core.auth.oauth.OAuthConfigListener"/>
+
+    <component key="oAuthOrphanedTrustDetector" class="com.atlassian.applinks.core.auth.oauth.OAuthOrphanedTrustDetector"/>
+
+    <servlet key="oauth" name="oauth" class="com.atlassian.applinks.core.auth.oauth.OAuthApplinksServlet">
+        <url-pattern>/applinks/oauth/login-dance/*</url-pattern>
+    </servlet>
+
+    <web-resource key="oauth-dance">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <dependency>${project.groupId}.${project.artifactId}:applinks-css</dependency>
+        <dependency>${project.groupId}.${project.artifactId}:compatibility-css</dependency>
+        <dependency>${project.groupId}.${project.artifactId}:applinks-util-js</dependency>
+        <resource type="download" name="oauth-dance.js" location="auth/oauth/oauth-dance.js"/>
+    </web-resource>
+
+    <servlet key="add-consumer-servlet" name="add-consumer-servlet" class="com.atlassian.applinks.core.auth.oauth.servlets.serviceprovider.AddConsumerByUrlServlet">
+        <url-pattern>/applinks/auth/conf/oauth/add-consumer-by-url/*</url-pattern>
+    </servlet>
+
+    <servlet key="add-consumer-manually" name="add-consumer-manually" class="com.atlassian.applinks.core.auth.oauth.servlets.serviceprovider.AddConsumerManuallyServlet">
+        <url-pattern>/applinks/auth/conf/oauth/add-consumer-manually/*</url-pattern>
+    </servlet>
+
+    <servlet key="add-consumer-reciprocal" name="" class="com.atlassian.applinks.core.auth.oauth.servlets.serviceprovider.AddConsumerReciprocalServlet">
+        <url-pattern>/applinks/auth/conf/oauth/outbound/apl/*</url-pattern>
+    </servlet>
+
+    <servlet key="add-non-applinks-service-provider" class="com.atlassian.applinks.core.auth.oauth.servlets.consumer.AddServiceProviderManuallyServlet">
+        <url-pattern>/applinks/auth/conf/oauth/outbound/3rdparty/*</url-pattern>
+    </servlet>
+
+    <servlet key="add-atlassian-service-provider" class="com.atlassian.applinks.core.auth.oauth.servlets.consumer.AddAtlassianServiceProviderServlet">
+        <url-pattern>/applinks/auth/conf/oauth/outbound/atlassian/*</url-pattern>
+    </servlet>
+
+    <servlet key="auto-configuration-servlet" class="com.atlassian.applinks.core.auth.oauth.servlets.AutoConfigurationServlet">
+        <url-pattern>/applinks/auth/conf/oauth/autoconfig/*</url-pattern>
+    </servlet>
+
+    <web-resource key="oauth-auth">
+       <dependency>com.atlassian.auiplugin:ajs</dependency>
+       <resource type="download" name="auth-config.css" location="css/auth-config.css"/>
+       <resource type="download" name="config.js" location="auth/oauth/config.js"/>
+       <resource type="download" name="rest-service.js" location="js/rest-service.js"/>
+    </web-resource>
+
+    <applinks-authentication-provider key="OAuthAuthenticatorProviderPluginModule"
+                                      class="com.atlassian.applinks.core.auth.oauth.OAuthAuthenticatorProviderPluginModule"
+                                      i18n-name-key="auth.oauth.module.name"
+                                      weight="20"
+            />
+
+    <!-- Template Renderer Context -->
+
+    <template-context-item key="projectManagerContextItem" component-ref="projectManager"
+        context-key="projectManager" global="false" name="SAL ProjectManager Context Item"/>
+
+    <template-context-item key="applicationPropertiesContextItem" component-ref="applicationProperties"
+        context-key="applicationProperties" name="ApplicationProperties Context Item" />
+
+    <template-context-item key="manifestRetrieverContextItem" component-ref="manifestRetriever"
+        context-key="manifestRetriever" name="ManifestRetriever Context Item" />
+
+    <!-- XSRF Protection Related Imports-->
+    <component-import key="xsrfTokenAccessor">
+        <interface>com.atlassian.sal.api.xsrf.XsrfTokenAccessor</interface>
+    </component-import>
+
+    <component-import key="xsrfTokenValidator">
+        <interface>com.atlassian.sal.api.xsrf.XsrfTokenValidator</interface>
+    </component-import>
+</atlassian-plugin>

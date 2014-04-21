@@ -1,0 +1,32 @@
+#enable_html_escaping()
+#* @vtlvariable name="textutils" type="com.opensymphony.util.TextUtils" *#
+#* @vtlvariable name="project" type="com.atlassian.jira.project.Project" *#
+#* @vtlvariable name="panel" type="com.atlassian.jira.projectconfig.beans.SimplePanel" *#
+#* @vtlvariable name="projectDescriptionRenderer" type="com.atlassian.jira.project.renderer.ProjectDescriptionRenderer" *#
+<div id="project-config-panel-summary" class="project-config-panel">
+    #if(${textutils.stringSet($project.description)})
+    <div id="project-config-description">
+        $projectDescriptionRenderer.getViewHtml($project)
+    </div>
+    #end
+    <div class="project-config-webpanel-column-wrap">
+        <div class="project-config-webpanel-column">
+            #foreach ($panel in $leftColumn)
+            <div class="project-config-webpanel-column-content">
+                ## Start webpanel content
+                ${panel.contentHtml}
+                ## End webpanel content
+            </div>
+            #end
+        </div>
+        <div class="project-config-webpanel-column">
+            #foreach ($panel in $rightColumn)
+            <div class="project-config-webpanel-column-content">
+                ## Start webpanel content
+                ${panel.contentHtml}
+                ## End webpanel content
+            </div>
+            #end
+        </div>
+    </div>
+</div>

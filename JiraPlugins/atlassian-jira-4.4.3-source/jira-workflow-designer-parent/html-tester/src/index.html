@@ -1,0 +1,30 @@
+<html>
+<head>
+<script type="text/javascript" src="jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="jquery.ba-bbq.min.js"></script>
+
+
+</head>
+
+<body>
+
+<iframe id="myFrame"></iframe>
+
+<script type="text/javascript">
+    $(function() {
+
+        $("#myFrame").load(function(){
+            alert("loaded");
+            var w = this.contentWindow;
+            w.$('a[href]').each(function(){
+                $queryString($(this),'decorator=none');
+            });
+        });
+        $("#myFrame").attr("src","http://jira.ibsys.com/secure/admin/workflows/ViewWorkflowTransition.jspa?workflowMode=live&workflowName=IB+Standard+Issue&descriptorTab=postfunctions&workflowTransition=11&workflowStep=1&decorator=none");
+    });
+
+
+
+</script>
+</body>
+</html>

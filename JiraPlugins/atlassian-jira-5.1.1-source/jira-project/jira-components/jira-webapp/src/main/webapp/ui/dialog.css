@@ -1,0 +1,14 @@
+/* view issue dialogs */
+.aui-dialog-content form.aui h2 {margin-top:0;}
+.aui-dialog-content .content {margin:0;}
+.aui-dialog-content form.edit-labels .field-group { padding-left: 0; }
+.aui-dialog-content form.edit-labels .aui-field-labelpicker label { display:none; }
+.header-issue-key, .header-issue-key:link, .header-issue-key:visited, .header-issue-key:active{color:#666}
+.header-issue-key, .header-separator{display:none;}
+/* Temp hiding till Sharpy makes it look pretty */
+.aui-popup-heading .header-issue-key, .aui-popup-heading .header-separator{display:inline}
+/*.aui-dialog-content .form-summary {display:block; padding: 0 0 10px; margin: 0 0 1.2em; border-bottom:1px solid #BBB;}*/
+
+/* workflow readonly */
+#view-workflow-readonly-dialog .content-footer .throbber {display:none;}
+#view-workflow-readonly-dialog .content-body {overflow-x:hidden;}

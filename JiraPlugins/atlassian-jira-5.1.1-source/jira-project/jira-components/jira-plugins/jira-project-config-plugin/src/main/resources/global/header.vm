@@ -1,0 +1,60 @@
+#enable_html_escaping()
+<div id="project-config-header">
+    #if ($showActionsMenu)
+        <ul class="operation-menu">
+            #if ($editProjectOperation)
+                <li>
+                    <a class="operations-menu-link" id="${editProjectOperation.linkId}" href="${editProjectOperation.displayableUrl}">
+                        <span class="project-config-icon project-config-icon-edit"></span>
+                        ${editProjectOperation.displayableLabel}
+                    </a>
+                </li>
+            #end
+            <li class="aui-dd-parent">
+                <a href="#" class="operations-menu-link project-config-operations-trigger" id="project-config-actions"><span class="project-config-icon project-config-icon-manage"></span>${i18n.getText('common.words.actions')} <span class="project-config-icon project-config-icon-drop"></span></a>
+                <div class="aui-list hidden" id="project-config-actions-list">
+                    <ul class="aui-list-section aui-first aui-last">
+                        #foreach ($item in $viewableProjectOperations)
+                            <li class="aui-list-item">
+                                <a class="aui-list-item-link" #if (${item.linkId}) id="${item.linkId}" #end href="${item.displayableUrl}">${item.displayableLabel}</a>
+                            </li>
+                        #end
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    #end
+    <img width="48" height="48" data-avatar-id="${project.avatar.id}" id="project-config-header-avatar" src="${baseurl}/secure/projectavatar?pid=${project.id}&avatarId=${project.avatar.id}" alt="" />
+    <h1><span id="project-config-header-name">${project.name}</span></h1>
+    <div id="project-config-details">
+        <ul class="project-config-details-list">
+            <li>
+                <em>${i18n.getText("common.concepts.key")}:</em>
+                <span id="project-config-details-project-key" data-pid="$simpleProject.id">${simpleProject.key}</span>
+            </li>
+            <li>
+                <em>${i18n.getText("common.concepts.url")}:</em>
+                #if (${simpleProject.url} && ${simpleProject.url} != '')
+                    <a id="project-config-details-project-url" href="${simpleProject.url}" title="${simpleProject.url}">${simpleProject.abbreviatedUrl}</a>
+                #else
+                    <span id="project-config-details-project-url">${i18n.getText('browse.projects.no.url')}</span>
+                #end
+            </li>
+            <li>
+                <em>${i18n.getText("common.concepts.category")}:</em>
+                #if (${simpleProject.projectCategory} && ${simpleProject.projectCategory} != '')
+                    #set($projectCategoryName = ${simpleProject.projectCategory.name})
+                #else
+                    #set($projectCategoryName = ${i18n.getText('common.words.none')})
+                #end
+
+                #if (${isAdmin})
+                    <a id="project-config-details-project-category" href="${baseurl}/secure/project/SelectProjectCategory!default.jspa?pid=${simpleProject.id}">${projectCategoryName}</a>
+                #else
+                    <span id="project-config-details-project-category">${projectCategoryName}</span>
+                #end
+
+            </li>
+        </ul>
+    </div>
+</div>

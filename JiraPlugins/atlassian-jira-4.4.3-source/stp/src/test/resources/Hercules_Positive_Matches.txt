@@ -1,0 +1,70 @@
+====== Crucible regex hits: ======
+java.lang.NoClassDefFoundError: com/sun/jna/Library
+com.cenqua.fisheye.perforce.client.P4ClientException: com.atlassian.utils.process.ProcessException:java.lang.NullPointerException
+Remote API version could not be determined
+reset admin password
+Invalid or missing License
+red fe hg
+com.cenqua.crucible.util.EmailAllCommentsFormatter.format(java.lang.String,int,java.lang.String)
+MySQL DB is using collation
+Unable to get binary rev for a directory
+ENTER A VALID REGEX OR DELETE THIS LINE
+special characters in URL
+host error binding web port: http: http
+Could not find a Crucible license
+"Inconsistent state while finding the revision for file at path"
+
+
+
+====== Fisheye regex hits: ======
+ext files show as binary in cvs
+svn: Processing PROPFIND request response failed: Element type
+LogMessageCallback
+java.lang.OutOfMemoryError
+Changeset comment messages may not be null or empty
+APR does not understand this error code
+non-existent in revision
+getNodeKind
+SVNCancelException: svn: authentication cancelled
+crowd logged out
+at it.unimi.dsi.fastutil.longs.Long2ObjectAVLTreeMap.firstLongKey
+P4ClientException - Unable to determine latest revision. Check output encoding
+Unable to login: Command failed to execute - non-zero exit code: 1 - Password invalid
+"org.tigris.subversion.javahl.ClientException: svn: timed out waiting for server"
+
+
+
+====== JIRA regex hits: ======
+com.atlassian.jira.issue.customfields.manager.DefaultOptionsManager.findByOptionValue
+upmRequiresRestart
+Unable to start the following plugins due to timeout while waiting for plugin to enable
+Cannot insert duplicate key in object
+GadgetUrlBuilder: could not parse spec at rest/gadgets
+ClientAbortException: java.net.SocketException: Broken pipe
+java.lang.NoClassDefFoundError: Could not initialize class com.atlassian.jira.ext.charting.jfreechart.ChartUtils
+Too many open files
+Cannot get issue navigator restriction clause for
+There is already an object named in the database
+java.lang.IllegalArgumentException: Cannot find Screen with id
+ORA-01861: literal does not match format string
+Group must not be null if trying to add or delete a user from it
+Cannot handle message as destination project is null
+
+
+
+====== Confluence regex hits: ======
+Unable to load spaces or pages from Confluence
+Does the parameter type of the setter match the return type of the getter
+com.atlassian.confluence.pages.actions.PageNotFoundAction.getPossibleAlternativesElsewhere
+java.lang.ClassCastException: gnu.mail.handler.TextPlain
+drop-active
+gnu.java.security.provider.DSAKeyFactory.engineGeneratePublic
+Error encounterd in lucene search: maxClauseCount is set to 1024
+There was a problem converting this attachment. Please create an issue at
+Domain name required for sender
+The index entry of length 1020 bytes for the index 'sp_comp_idx' exceeds the maximum length of 900 bytes
+exception setting property value with CGLIB
+com.ibm.db2.jcc.b.SqlException: DB2 SQL error: SQLCODE: -727, SQLSTATE: 56098
+java.lang.OutOfMemoryError: GC overhead limit exceeded
+com.atlassian.renderer.wysiwyg.converter.ListItemConverter.convertNode
+

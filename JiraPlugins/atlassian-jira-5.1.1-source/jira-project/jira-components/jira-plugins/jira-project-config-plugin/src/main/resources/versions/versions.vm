@@ -1,0 +1,10 @@
+#enable_html_escaping()
+<div id="project-config-panel-versions" class="project-config-panel">
+    <ul class="operation-menu"></ul>
+    <div class="project-config-panel-header project-config-icon48-versions">
+        <h2>$i18n.getText('common.concepts.versions')</h2>
+        <p>$i18n.getText('admin.project.config.summary.version.desc')</p>
+    </div>
+    <table id="project-config-versions-table"><!-- populated with js (see versions-init.js) --></table>
+    <div id="project-config-error-console"></div>
+</div>

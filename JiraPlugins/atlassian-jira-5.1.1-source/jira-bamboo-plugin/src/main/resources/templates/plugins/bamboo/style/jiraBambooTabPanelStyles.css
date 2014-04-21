@@ -1,0 +1,135 @@
+#bambooTabPanel h2 {
+    margin-top: 0;
+}
+
+#bamboo_tab_panel_server_link {
+    background: transparent url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/icon_bamboo.png) no-repeat 0 0;
+    padding: 5px 12px 5px 38px;
+}
+
+#bambooTabPanel .rss {
+    background: transparent url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/rss.png) no-repeat 0 0;
+    height: 16px;
+    overflow: hidden;
+    text-indent: -999em;
+    width: 16px;
+    display: inline-block;
+}
+
+#bambooTabPanel .view_switcher {
+    color: #333;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #EEEEEE;
+}
+
+#bambooTabPanel .rss:focus,
+#bambooTabPanel .rss:hover {
+    background-position: 0 -16px;
+}
+
+#bambooTabPanelHtml .build_result_count {
+    color: #666;
+    margin: 0 0 7px 0;
+    padding: 0 7px 0 32px;
+}
+
+#bambooTabPanelHtml .build_result_list {
+    border-top: 1px solid #EEEEEE;
+    display: block;
+    list-style: none;
+    margin: 7px 0 0 0;
+    padding: 0;
+}
+
+#bambooTabPanelHtml .build_result_list h4 {
+    color: #666;
+    font-size: 1em;
+    font-weight: normal;
+}
+
+#bambooTabPanelHtml .build_result_list h4 a {
+    font-weight: bold;
+}
+
+#bambooTabPanelHtml .build_result_list li {
+    border-bottom: 1px solid #EEEEEE;
+    display: block;
+    margin: 0;
+    overflow: hidden;
+    padding: 7px 9px 7px 32px;
+}
+
+#bambooTabPanelHtml .build_Successful,
+#bambooTabPanelHtml .build_Failed {
+    background-position: 9px 10px;
+    background-repeat: no-repeat;
+    padding: 0 1em;
+}
+
+#bambooTabPanelHtml .build_result_list h4,
+#bambooTabPanelHtml .build_result_list .summary {
+    clear: left;
+    float: left;
+    text-align: left;
+}
+
+#bambooTabPanelHtml .build_result_list .summary,
+#bambooTabPanelHtml .build_result_list .details {
+    color: #666;
+    margin: 0;
+}
+
+#bambooTabPanelHtml .build_result_list .details {
+    float: right;
+    text-align: right;
+}
+
+#bambooTabPanelHtml .build_result_list .details span {
+    color: #333;
+}
+
+#bambooTabPanelHtml .build_result_list .build_result {
+    left: -999em;
+    position: absolute;
+}
+
+#bambooTabPanelHtml .build_Successful {
+    background-image: url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/iconsv3/plan_successful_16.png);
+}
+
+#bambooTabPanelHtml .build_Successful h4 a {
+    color: #090;
+}
+
+#bambooTabPanelHtml .build_Failed {
+    background-image: url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/iconsv3/plan_failed_16.png);
+}
+
+#bambooTabPanelHtml .build_Failed h4 a {
+    color: #c00;
+}
+
+#bambooTabPanelHtml .waitingImage {
+    margin: 1em auto;
+    display: block;
+}
+
+/* jirabamboo plugin administration page */
+
+.formtitle-bamboo {
+    background: url(../../resources/com.atlassian.jira.plugin.ext.bamboo:bamboo-version-tabpanel/images/icon_bamboo.png) no-repeat 0 3px;
+    padding-left: 28px;
+    float: left;
+    height: 28px;
+}
+
+.formmessage-bamboo {
+    float: right;
+    font-weight: bold;
+    margin-right: 4px;
+    margin-top: 8px;
+}
+
+.fieldLabelArea .required {
+    font-style: italic;
+}

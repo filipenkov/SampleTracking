@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.atlassian.crowd.model.property.Property" table="cwd_property">
+
+        <cache usage="read-write"/>
+
+        <composite-id name="propertyId" class="com.atlassian.crowd.model.property.PropertyId">
+            <key-property name="key" column="property_key" type="string" length="255"/>
+            <key-property name="name" column="property_name" type="string" length="255"/>
+        </composite-id>
+
+        <property name="value" column="property_value" type="string" length="4000" />
+
+    </class>
+
+</hibernate-mapping>

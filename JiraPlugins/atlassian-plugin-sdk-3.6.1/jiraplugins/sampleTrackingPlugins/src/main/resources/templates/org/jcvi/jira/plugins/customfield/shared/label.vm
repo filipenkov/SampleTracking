@@ -1,0 +1,11 @@
+##disable_html_escaping() TODO REENABLE
+#if ($value.label)
+  #set ($outputValue = $value.label)
+#else
+  #set ($outputValue = $value)
+#end
+#if ($urlPrefix && $urlPrefix != '')
+  <a href="${urlPrefix}">$textutils.htmlEncode($outputValue)</a>
+#else
+  $textutils.htmlEncode($outputValue)
+#end

@@ -1,0 +1,77 @@
+.aui-ss {
+
+    position:relative;
+
+
+    .overlabel-apply {
+        top:2px;
+    }
+
+    /* Editing mode */
+    &.aui-ss-editing {
+
+        .aui-ss-field {
+            background-color:#fff;
+        }
+    }
+
+    /* entities with icons */
+    &.aui-ss-has-entity-icon {
+
+        .aui-ss-field {
+            padding-left:20px;
+        }
+
+        .aui-ss-entity-icon {
+            display:block;
+        }
+    }
+
+    /* Default styles */
+    .aui-ss-field {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ie-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        box-sizing: border-box;
+        background-color: #EBF1FD;
+        color: #036;
+    }
+
+    .aui-ss-entity-icon {
+        background-repeat:no-repeat;
+        position:absolute;
+        left:3px;
+        top:4px;
+        height:16px;
+        width:16px;
+        display:none;
+    }
+
+    .aui-ss-icon {
+        position:absolute;
+        top:4px;
+        right:5px;
+    }
+}
+
+/* overrides for aui */
+form.aui .aui-ss input.aui-ss-field {
+    color: #036;
+}
+
+form.aui .aui-ss .overlabel-apply {
+    left:5px;
+}
+
+form.aui .aui-ss.aui-ss-editing input.aui-ss-field {
+    color:#000;
+} 
+
+
+/* Explicity styling field back to default for IE. When we set the background colour we lose it... */
+.msie .aui-ss-field {
+    border:1px solid #8fa8c1;
+    padding-top:3px;
+    padding-bottom:3px;
+}

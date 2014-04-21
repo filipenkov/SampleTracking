@@ -1,0 +1,2 @@
+<h1 id="admin-page-heading">#if($currentHeading)${textutils.htmlEncode($currentHeading)}#else &nbsp; #end</h1>
+

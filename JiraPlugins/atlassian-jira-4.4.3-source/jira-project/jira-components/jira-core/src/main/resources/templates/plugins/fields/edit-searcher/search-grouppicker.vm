@@ -1,0 +1,5 @@
+$!{auiparams.put("controlHeaderClass", "aui-field-grouppicker")}
+#searcherEditHeader (${customField.id} ${customField.name})
+    #newGroupPicker ($action "searcher-${customField.id}" ${customField.id} $value false $null "")
+#searcherEditFooter (${customField.id} ${customField.description})
+$!{auiparams.clear()}

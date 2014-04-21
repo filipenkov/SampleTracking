@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 2.3//EN" "http://tuckey.org/res/dtds/urlrewrite2.3.dtd">
+
+<!--
+    URL Rewrite files to make issue navigator URL backwards compatible and some other things
+    @since JIRA 3.3
+-->
+<urlrewrite>
+
+    <!-- Caching of static resources -->
+    <rule>
+        <!-- because Orion and other application server apply filters to requests, you end in an infinite loop here
+             unless you only apply the filter once per request.  That is what the 'condition' and 'set' params are for
+              -->
+        <condition name="cachingHeadersApplied" type="attribute" operator="notequal">true</condition>
+        <from>^/s/(.*)/_/(.*)</from>
+        <run class="com.atlassian.plugin.servlet.ResourceDownloadUtils" method="addCachingHeaders" />
+        <to type="forward">/$2</to>
+        <set name="cachingHeadersApplied">true</set>
+        <set name="_statichash">$1</set>
+    </rule>
+
+    <!-- @since 5.0 [KickAss]-->
+    <rule>
+        <from>^/issues$</from>
+        <to type="permanent-redirect">issues/</to>
+    </rule>
+
+</urlrewrite>

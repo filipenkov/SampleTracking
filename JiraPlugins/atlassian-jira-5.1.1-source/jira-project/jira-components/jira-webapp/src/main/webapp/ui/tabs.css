@@ -1,0 +1,74 @@
+ul.tabs {list-style-type:none;margin:0;padding:0;z-index:5;}
+ul.tabs li {border:1px solid #bbb;display:block;margin:-1px -1px 0 0 ;padding:0;}
+.msie-7 ul.tabs li {list-style-position:outside;}
+ul.tabs li:hover {cursor:pointer;}
+ul.tabs li a {background-color:#f0f0f0;color:#535353;display:block;font-weight:700;text-decoration:none;}
+ul.tabs li a:hover {background:#fff none repeat scroll 0 0;color:#535353;}
+ul.tabs li em {display:none;}
+ul.tabs li strong, ul.tabs li.tab-title {display:block;overflow:hidden;padding:0.4em 0.5em 0.2em;white-space:nowrap;}
+ul.tabs li.tab-title {background-color:#fff; border:none;cursor:default;margin:0;}
+ul.tabs li.active {background-color:#fff;}
+ul.tabs li.active strong {background-color:transparent;color:#000;cursor:default;}
+ul.tabs li.active a {background:#fff none repeat scroll 0 0;color:#000;}
+ul.tabs li.active.loading a {background:#fff url("../../../images/icons/wait.gif") 95% center no-repeat;}
+/* vertical tabs
+- as used on browse projects */
+    ul.vertical {float:left;position:relative;margin-right:-1px;width:11em;}
+    ul.vertical li {margin:-1px 0 0;}
+    ul.vertical li.tab-title {border-right:1px solid #bbb;margin-bottom:1px;}
+    ul.vertical li.first {margin-top:1em;}
+    ul.vertical li.active {background-color:#fff;border-right:none;margin-left:-0.5em;}
+    .tabwrap ul.vertical {left:0;}
+/* horizontal tabs
+- if the bottom border is required the ul needs to be in a div class="tabwrap" */
+    .tabwrap {border-bottom:1px solid #bbb;margin:1em 0;padding-left:.5em;position:relative;}
+    ul.horizontal {overflow:hidden;position:relative;top:1px;}
+    ul.horizontal li {float:left;margin:0 -1px 0 0 ;width:auto;white-space:nowrap;}
+    ul.horizontal li strong, ul.horizontal li.tab-title {padding:.2em .5em .1em;}
+    ul.horizontal li.first {margin-left:1em;}
+    ul.horizontal li.active {border-bottom-color:#fff;color:#000;}
+
+/* tabs2 */
+    .tabs2 {background:#fff url("../../../images/tab_bg.png") 0 100% repeat-x;border-bottom:none;}
+    .tabs2 ul.horizontal {top:0;}
+    .tabs2 ul.horizontal li {background:#fff url("../../../images/tab_bg.png") 0 100% repeat-x;border:none;margin:0.332em 0 0;padding:0 0 1px;white-space:normal;}
+    .tabs2 ul.horizontal li a {background-color:transparent;border:1px solid #fff;border-bottom:none;color:@textLinkColour;margin:0;}
+    .tabs2 ul.horizontal li a:hover {border-color:#ddd;}
+    .tabs2 ul.horizontal li strong, .tabs2 ul.horizontal li.tab-title {font-weight:400;padding:0.166em 0.747em 0.166em;}
+    .tabs2 ul.horizontal li.first {margin-left:0;}
+    .tabs2 ul.horizontal li.active {border-bottom-color:#fff;background-image:none;color:#333;padding-bottom:0;}
+    .tabs2 ul.horizontal li.active a, .tabs2 ul.horizontal li.tab-title a {border:none;}
+    .tabs2 ul.horizontal li.active strong {border:1px solid #bbb;border-bottom-color:#fff;color:#333;}
+    .msie-7 #main-content .tabs2 .tabs {font-size:1em;}
+
+/* JIRA specific tab overrides */
+.nl ul.horizontal {margin-left:0;}
+.nl .mod-content .tabwrap {margin-top:0;padding-left:0;}
+#main-content .tabs {font-size:0.852em;}
+#main-content .tabs2 .tabs {font-size:inherit;}
+
+/* admin config tabs */
+#configureScreenTabs .tabs li.active {color:red}
+
+
+
+/* Try to remove */
+    .tabContainer {margin-top:10px;}
+    .tabHeader {margin-left:5px;overflow:hidden;width:100%;}
+    .tabHeader a {float:left;font-weight:bold;margin-right:5px;padding:3px 8px 3px 8px;}
+    .tabHeader a.selected, .tabHeader a:hover {color:#ffffff;background-color:#bbbbbb;text-decoration:none;}
+    .tabHeader a.selected:hover {text-decoration:underline;}
+    .tabContent {border:1px #cccccc solid;padding-top:5px;}
+
+    /*
+    this makes a nicely 'gridded' table.  However, you will also need to following params:
+    <table class="gridTabBox" cellpadding="3" cellspacing="1" align="center">
+    If you are just using a table to create a border around something - see the 'borderedBox' style
+    */
+    .gridTabBox {border:0;padding:0;}
+    .gridTabBoxHidden {border:0;display:none;padding:0;}
+    .unselectedTabCell {background-color:#ffffff;}
+    .selectedTabFont {color:#ffffff;font-weight:bold;}
+    .unselectedTabFont {font-weight:bold;}
+    .gridTabBox, .gridTabBoxHidden, .selectedTabCell, .pageTabSelected, .gridBox {background-color:#bbb;}
+

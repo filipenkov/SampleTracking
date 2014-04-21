@@ -1,0 +1,33 @@
+$!{auiparams.put("controlHeaderClass", "aui-field-textquery")}
+#searcherEditHeader (${searcherId} ${i18n.getText('common.words.query')})
+    <input class="text" id="searcher-${searcherId}" name="${searcherId}" type="text" value="$textutils.htmlEncode($!fieldValuesHolder.query)" />
+    #jiraHelpLink ('querysyntax' '')
+#searcherEditFooter ($searcherId '')
+$!{auiparams.clear()}
+<fieldset class="group aui-field-textquery-options">
+    <legend><span>${i18n.getText('navigator.filter.queryfields')}</span></legend>
+    <div class="checkbox">
+        #if ($searchRenderer.isFieldSelected('summary', $fieldValuesHolder)) #set ($summaryChecked = ' checked="checked"') #else #set ($summaryChecked = '') #end
+        <input${summaryChecked} class="checkbox" id="searcher-summaryId" name="summary" type="checkbox" value="true"/>
+        <label for="searcher-summaryId">${i18n.getText('common.words.summary')}</label>
+    </div>
+    #if ($searchRenderer.isFieldVisible($authcontext.getUser(), 'description', $searchContext))
+    <div class="checkbox">
+        #if ($searchRenderer.isFieldSelected('description', $fieldValuesHolder)) #set ($descriptionChecked = ' checked="checked"') #else #set ($descriptionChecked = '') #end
+        <input${descriptionChecked} class="checkbox" id="searcher-descriptionId" name="description" type="checkbox" value="true"/>
+        <label for="searcher-descriptionId">${i18n.getText('common.words.description')}</label>
+    </div>
+    #end
+    <div class="checkbox">
+        #if ($searchRenderer.isFieldSelected('body', $fieldValuesHolder)) #set ($bodyChecked = ' checked="checked"') #else #set ($bodyChecked = '') #end
+        <input${bodyChecked} class="checkbox" id="searcher-bodyId" name="body" type="checkbox" value="true"/>
+        <label for="searcher-bodyId">${i18n.getText('common.words.comments')}</label>
+    </div>
+    #if ($searchRenderer.isFieldVisible($authcontext.getUser(), 'environment', $searchContext))
+    <div class="checkbox">
+        #if ($searchRenderer.isFieldSelected('environment', $fieldValuesHolder)) #set ($environmentChecked = ' checked="checked"') #else #set ($environmentChecked = '') #end
+        <input${environmentChecked} class="checkbox" id="searcher-environmentId" name="environment" type="checkbox" value="true"/>
+        <label for="searcher-environmentId">${i18n.getText('common.words.env')}</label>
+    </div>
+    #end
+</fieldset>

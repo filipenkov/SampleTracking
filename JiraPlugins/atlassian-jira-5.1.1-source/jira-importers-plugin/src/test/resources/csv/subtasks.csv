@@ -1,0 +1,8 @@
+"Type","Summary","Version","Status","Component","More  Version","My Issue Id","Parent Issue Id"
+"A","First issue","Wersja A","OpenLike","KompA","Version X",1,
+"A","Second issue","Some Version B","Closed Like","KompB","Version Y",2,
+"B","A subtask of first issue","Some Version A","OpenLike","KompB","Version Z",3,1
+"B","A subtask","Some Version A","OpenLike","KompB","Version Z",,2
+"B","A subtask 2","Some Version A","OpenLike","KompB","Version Z",,2
+
+

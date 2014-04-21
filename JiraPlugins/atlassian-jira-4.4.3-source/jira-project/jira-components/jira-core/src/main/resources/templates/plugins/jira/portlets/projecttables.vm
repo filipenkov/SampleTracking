@@ -1,0 +1,94 @@
+#### projecttable prints a single project table for the given projects with the given categorygv (optional)
+###macro (projecttable $categorygv $projects)
+##<p>
+###if ($portlet.getBrowseableProjects().isEmpty() == false || $loggedin == true)
+##<table bgcolor="#bbbbbb" border="0" cellpadding="0" cellspacing="0" class="maxWidth"><tr><td>
+##<table border="0" cellpadding="3" cellspacing="1" width="100%" class="project-table-portlet">
+##    #if ($portlet.getBrowseableProjects().isEmpty() == false)
+##    <tr bgcolor="#f0f0f0">
+##        <td class="colHeaderLink" colspan="$numcols">
+##            #if ($enterprise == true)
+##                #if ($categorygv.getString('name'))
+##                    $i18n.getText("common.concepts.category"): <b>$textutils.htmlEncode($categorygv.getString("name"))</b>
+##                #elseif  ($portletConfig && $portletConfig.getProperty('projectcategoryid') && $portletConfig.getProperty('projectcategoryid') == '')
+##                    $i18n.getText("gadget.projects.display.name.all")
+##                #else
+##                    $i18n.getText("portlet.projecttable.with.no.category")
+##                #end
+##            #else
+##                $i18n.getText("gadget.projects.display.name.all")
+##            #end
+##        </td>
+##    </tr>
+##        <tr bgcolor="#ffffff">
+##        #foreach ($project in $projects)
+##            #set ( $mod = $velocityCount % $numcols)
+##            <td width="${math.getPercentageWidth($numcols,$mod)}%">
+##                <b><a href="${baseurl}/browse/$textutils.htmlEncode($velocityhelper.urlencode($project.getString('key')))">$textutils.htmlEncode($project.getString('name'))</a></b>
+##                <font size="1">(${textutils.htmlEncode($project.getString("key"))})</font>
+##            </td>
+##            #if ($velocityCount == $projects.size())
+##                #if ($mod != 0)
+##                    ##we need to create cells that use up the remaining columns
+##                    #set ($start = $mod + 1)
+##                    #foreach ($c in [$start..$numcols])
+##                        <td width="${math.getPercentageWidth($numcols,$c)}%">&nbsp;</td>
+##                    #end
+##                #end
+##                </tr>
+##            #else
+##                ##finish row on even division of numofcolumns
+##                #if ($mod == 0)
+##                    </tr>
+##                    <tr bgcolor="#ffffff">
+##                #end
+##            #end
+##        #end
+##    #elseif ($loggedin == true)
+##        <tr bgcolor="#f0f0f0">
+##            <td class="colHeaderLink" colspan="2">$i18n.getText("portlet.projecttable.allprojects"):</td>
+##        </tr>
+##        #parse("templates/plugins/jira/portlets/includes/noprojects.vm")
+##    #end
+##</table>
+##</td></tr>
+##</table>
+###end ## if
+##</p>
+###end ## macro
+
+## main
+#set ($numcols = $textutils.parseInt($portletConfig.getProperty("numofcolumns")))
+#if ($numcols < 1)
+    #set ($numcols = 3)
+#end
+#if ($enterprise == true)
+    #if ($portletConfig.getProperty('projectcategoryid') && $portletConfig.getProperty('projectcategoryid') != '')
+        #set ($category = $portletConfig.getProperty('projectcategoryid'))
+        #if ($allCategories || !$portlet.getProjectCategoryGv($portletConfig))
+            ## if we have chosen to show all categories, then we display all projects under their category
+            #foreach ($cat in $projectManager.getProjectCategories())
+                #if ($portlet.getBrowseableProjectsInCategory($cat).isEmpty() == false)
+                    #set ($projects = $portlet.getBrowseableProjectsInCategory($cat))
+                    #if ($projects.isEmpty() == false)
+                        #projecttable ($cat $projects)
+                    #end
+                #end
+            #end
+
+            ## show the projects with no category
+            #if ($portlet.getBrowseableProjectsWithNoCategory().isEmpty() == false)
+                #projecttable ('' $portlet.getBrowseableProjectsWithNoCategory())
+            #end
+        #else
+            ## if we have chosen to show a specific category, then we display only that category
+            #set ($catgv = $portlet.getProjectCategoryGv($portletConfig))
+            #projecttable ($catgv $portlet.getBrowseableProjectsInCategory($catgv))
+        #end
+    #else
+        #projecttable ('' $portlet.getBrowseableProjects())
+    #end
+#else
+    ## NO category filtering is done - display all projects under one table
+    #projecttable ('' $portlet.getBrowseableProjects())
+#end

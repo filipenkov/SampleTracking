@@ -1,0 +1,22 @@
+{namespace JIRA.Templates.User}
+
+/**
+ * Renders the userProfile link.
+ * @param user the user render.
+ * @param linked render using <a> or <span>
+  */
+{template .profileLink}
+{if $user}
+    {if $user.displayName and $user.active}
+        {if $linked}
+            <a class="user-hover" rel="{$user.name}" href="{contextPath()}/secure/ViewProfile.jspa?name={$user.name |escapeUri}">{if $user.avatarUrl}<img src="{$user.avatarUrl}" />{/if}{$user.displayName}</a>
+        {else}
+            <span class="user-hover" rel="{$user.name}">{if $user.avatarUrl}<img src="{$user.avatarUrl}" />{/if} {$user.displayName}</span>
+        {/if}
+    {else}
+        <span class="user-name" {if not $user.active}title="{getText('admin.viewuser.user.does.not.exist.title')}"{/if}>{$user.name}</span>
+    {/if}
+{else}
+    <span class="user-anonymous">{getText('common.words.anonymous')}</span>
+{/if}
+{/template}

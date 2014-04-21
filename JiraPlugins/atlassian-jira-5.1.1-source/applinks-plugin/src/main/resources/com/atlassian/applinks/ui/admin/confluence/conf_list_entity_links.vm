@@ -1,0 +1,26 @@
+#requireResource("com.atlassian.applinks.applinks-plugin:list-entity-links")
+<html>
+	<head>
+		<title>$action.getActionName($action.getClass().getName())</title>
+    </head>
+    #applyDecorator("root")
+        #decoratorParam("helper" $action.helper)
+        #decoratorParam("context" "space-administration")
+        #decoratorParam("mode"  "view-space-administration")
+        <body>
+            #applyDecorator ("root")
+                #decoratorParam ("context" "spaceadminpanel")
+                #decoratorParam ("selection" "applinks-configure-entity-links")
+                #decoratorParam ("title" $action.getActionName($action.getClass().getName()))
+                #decoratorParam ("selectedTab" "admin")
+                #decoratorParam("helper" $action.helper)
+
+                #set ( $context = $action.applinksContext)
+
+                #parse ("com/atlassian/applinks/ui/admin/list_entity_links.vm")
+
+            #end
+        </body>
+    #end
+</html>
+

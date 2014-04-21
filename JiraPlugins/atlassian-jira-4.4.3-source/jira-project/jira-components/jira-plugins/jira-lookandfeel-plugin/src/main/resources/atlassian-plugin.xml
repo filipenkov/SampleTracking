@@ -1,0 +1,76 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="Atlassian" url="http://www.atlassian.com/"/>
+        <application-version min="4.4" max="4.4"/>
+    </plugin-info>
+
+    <web-resource-transformer key="logoTransformer" class="com.atlassian.jira.lookandfeel.transformer.LogoTransformer"/>
+
+    <component-import key="pluginSettingsFactory" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory" system="true" />
+
+    <component-import key="featureManager" interface="com.atlassian.jira.config.FeatureManager" system="true" />
+
+    <component-import key="servletContextFactory" interface="com.atlassian.plugin.servlet.ServletContextFactory" system="true" />
+
+    <webwork1 key="lookandfeel.actions" name="Look And Feel Actions" system="true">
+        <description key="lookandfeel.actions.desc">Look And Feel Edit Actions</description>
+        <actions>
+            <action name="com.atlassian.jira.lookandfeel.EditLookAndFeel" alias="EditLookAndFeel" >
+                <view name="input">/templates/actions/editlookandfeel.vm</view>
+                <view name="success">/templates/actions/editlookandfeel.vm</view>
+                <view name="error">/templates/actions/editlookandfeel.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+
+    <web-resource key="edit-look-and-feel" name="Edit Look and Feel Javascript and CSS" system="true">
+        <transformation extension="logo">
+            <transformer key="logoTransformer"/>
+        </transformation>
+
+        <resource type="download" name="js/editmode.js" location="js/editmode.js" />
+
+        <resource type="download" name="css/edit-look-and-feel.css" location="css/edit-look-and-feel.css">
+            <param name="source"/>
+        </resource>
+
+        <resource type="download" name="css/default-logo.css" location="css/default-logo.logo" />
+
+        <resource type="download" name="js/edit-look-and-feel.js" location="js/edit-look-and-feel.js">
+            <param name="source"/>
+        </resource>
+        <resource type="download" name="images/" location="images/" />
+    </web-resource>
+
+    <resource type="i18n" name="lookandfeel.i18n" location="i18n/LookAndFeel" />
+
+    <component key="lookAndFeelProperties" name="Look and Feel Properties" public="true" system="true" class="com.atlassian.jira.lookandfeel.LookAndFeelPropertiesImpl">
+        <interface>com.atlassian.jira.lookandfeel.LookAndFeelProperties</interface>
+    </component>
+
+    <component key="imageScaler" name="Image Scaler" system="true" class="com.atlassian.jira.lookandfeel.ImageScaler">
+        <interface>com.atlassian.jira.lookandfeel.ImageScaler</interface>
+    </component>
+
+    <component key="uploadService" name="Logo Upload Service" public="true" system="true" class="com.atlassian.jira.lookandfeel.upload.UploadServiceImpl">
+        <interface>com.atlassian.jira.lookandfeel.upload.UploadService</interface>
+    </component>
+
+    <servlet-filter key="logoInterceptor" name="Logo Interceptor" class="com.atlassian.jira.lookandfeel.filter.LogoInterceptor" location="after-encoding" weight="110" system="true">
+        <url-pattern>*/jira-logo-scaled.png</url-pattern>
+    </servlet-filter>
+
+    <servlet-filter key="faviconInterceptor" name="Favicon Interceptor" class="com.atlassian.jira.lookandfeel.filter.FaviconInterceptor" location="after-encoding" weight="110" system="true">
+        <url-pattern>*/favicon.ico</url-pattern>
+        <url-pattern>*/favicon.png</url-pattern>
+        <url-pattern>*/favicon32.png</url-pattern>
+        <url-pattern>*/jira-favicon-scaled.png</url-pattern>
+        <url-pattern>*/jira-favicon-hires.png</url-pattern>
+    </servlet-filter>
+
+     <servlet-filter key="defaultLogoInterceptor" name="Default Logo Interceptor" class="com.atlassian.jira.lookandfeel.filter.DefaultLogoInterceptor" location="after-encoding" weight="110" system="true">
+        <url-pattern>*/images/logo.png</url-pattern>
+    </servlet-filter>
+</atlassian-plugin>

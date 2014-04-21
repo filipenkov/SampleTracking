@@ -1,0 +1,40 @@
+/* twixi */
+.twixi-wrap {padding-left:1.25em;position:relative;}
+.twixi-wrap .twixi, .twixi-wrap .inverted-twixi {display:block;position:absolute;left:0;top:0.25em;width:1em;height:1em;}
+.twixi-wrap .twixi .icon {margin:0;}
+
+/* Generic Twixi */
+.twixi-trigger { cursor: pointer; }
+.twixi-block.collapsed .icon-twixi { background-position: 0 -849px; }
+.twixi-block.expanded .icon-twixi { background-position: 0 -799px; }
+.twixi-block.expanded .twixi-content { display: block; }
+.twixi-block.collapsed .twixi-content { display: none; }
+
+/* a more generic open-close toggle
+ Add .toggle-wrap class to an outer container
+ Put the toggle-title on whatever you want to have the arrow */
+.toggle-wrap .toggle-title {background:#fff url(../../../images/icons/icon_blockexpanded.png) no-repeat scroll 0 8px;padding-left:14px;}
+.toggle-wrap .mod-header h3, .toggle-trigger {cursor:pointer;}
+.collapsed .toggle-title {background:#fff url(../../../images/icons/icon_blockcollapsed.png) no-repeat scroll 3px 5px;}
+.collapsed .toggle-target {display:none;}
+
+/* Contextual overrides */
+#issue-filter .toggle-wrap {background:#fff url("../../../images/mod_header_bg.png") repeat-x 0 -1px;margin-bottom:0;padding-top:5px;}
+#issue-filter .toggle-trigger {margin-bottom:0;}
+#issue-filter .toggle-title {color:@textHeadingColour;padding:3px 4px 4px 14px;width:auto;}
+#issue-filter .toggle-target {margin-bottom:1em;}
+
+.msie-7 #issue-filter .toggle-wrap,
+.msie-8 #issue-filter .toggle-wrap {background-position:0 14px;}
+
+.msie-7 #issue-filter .toggle-wrap {background-position:0 11px;margin-bottom:0.5em;}
+.msie-7 #issue-filter .toggle-title {background-position:4px 6px;display:inline;left:-8px;}
+.msie-7 #issue-filter .expanded .toggle-title {background-position:0 9px;}
+.msie-7 .toggle-wrap .toggle-title {background-position:0 11px;}
+.msie-7 .collapsed .toggle-title {background-position:3px 8px;}
+.msie-7 .iss-nav #primary .collapsed .mod-header .toggle-title {background-position:4px 5px;}
+.msie-7 .iss-nav #primary .expanded .mod-header .toggle-title {background-position:0 8px;}
+.msie-7 .toggle-wrap .mod-header,
+.msie-7 .toggle-wrap .mod-content {height: 1%;}/* Fixes toggline the blocks */
+.msie-7 form#issue-filter .aui-field-daterange .text {vertical-align: middle; }
+.msie-7 form#issue-filter label {position:static;} /* stop labels from popping through user autocompletes. */

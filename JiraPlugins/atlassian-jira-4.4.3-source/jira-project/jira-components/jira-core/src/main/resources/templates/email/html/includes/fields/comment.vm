@@ -1,0 +1,8 @@
+#if ($comment)
+<tr valign="top">
+    <td colspan="2" style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 16px 0;width:100%;">
+        <div class="comment-block" style="background-color:${commentBackground};border:1px solid #dddddd;color:${textColour};padding:12px;">$htmlComment</div>
+        <div style="color:$textSubtleColour;padding:4px 0 0 0;">#visibility()</div>
+    </td>
+</tr>
+#end

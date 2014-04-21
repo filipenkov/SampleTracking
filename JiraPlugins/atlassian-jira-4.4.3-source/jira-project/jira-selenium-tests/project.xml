@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+<project xmlns:j="jelly:core" xmlns:deploy="deploy" xmlns:ant="jelly:ant" xmlns:util="jelly:util" xmlns:m="jelly:maven">
+    <pomVersion>3</pomVersion>
+    <name>Atlassian JIRA Selenium Tests</name>
+    <id>selenium-tests</id>
+    <currentVersion>4.3-SNAPSHOT</currentVersion>
+    <organization>
+        <name>Atlassian</name>
+        <url>http://www.atlassian.com</url>
+    </organization>
+    <inceptionYear>2003</inceptionYear>
+    <package>com.atlassian.jira.webtests.selenium</package>
+
+    <shortDescription>UI tests for JIRA</shortDescription>
+    <description>UI-based functional tests for JIRA</description>
+
+    <versions>
+        <version>
+            <id>1.0</id>
+            <name>1.0</name>
+            <tag>start</tag>
+        </version>
+    </versions>
+
+    <dependencies>
+        <!-- Atlassian source dependencies -->
+        <dependency>
+            <id>jira-func-tests</id>
+            <version>${build.jira.functests.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.core</groupId>
+            <artifactId>atlassian-core</artifactId>
+            <version>4.5.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>oscore</artifactId>
+            <version>2.2.7-atlassian-1</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+                <jira.ship>jar</jira.ship>
+            </properties>
+        </dependency>
+        <dependency>
+            <id>exml</id>
+            <version>7.1</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+                <jira.ship>jar</jira.ship>
+            </properties>
+        </dependency>
+        <dependency>
+          <groupId>net.sourceforge.jwebunit</groupId>
+          <artifactId>jwebunit</artifactId>
+          <version>1.2-atlassian-1</version>
+        </dependency>
+
+        <dependency>
+          <groupId>com.meteware.httpunit</groupId>
+          <artifactId>httpunit</artifactId>
+          <version>1.5.4-atlassian-9</version>
+        </dependency>
+
+        <dependency>
+            <id>junit</id>
+            <version>3.8.1</version>
+        </dependency>
+
+        <dependency>
+            <id>commons-lang</id>
+            <version>2.1</version>
+        </dependency>
+
+        <dependency>
+            <id>commons-collections</id>
+            <version>3.1</version>
+        </dependency>
+
+        <dependency>
+            <id>commons-io</id>
+            <version>1.4</version>
+        </dependency>
+
+        <dependency>
+            <id>log4j</id>
+            <version>1.2.15</version>
+        </dependency>
+
+        <dependency>
+          <id>dom4j</id>
+          <version>1.6.1</version>
+        </dependency>
+		
+        <dependency>
+            <id>jaxen</id>
+            <version>1.1.1</version>
+        </dependency>
+
+        <dependency>
+            <id>commons-logging</id>
+            <version>1.0.4</version>
+        </dependency>
+
+        <dependency>
+            <id>xmlunit</id>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <id>nekohtml</id>
+            <version>0.8.1</version>
+        </dependency>
+
+        <!-- Rhino is not needed - we don't test any javascript-->
+        <dependency>
+            <id>rhino</id>
+            <version>1.5R4-RC3</version>
+            <jar>js-1.5R4-RC3.jar</jar>
+        </dependency>
+
+        <dependency>
+            <id>xerces</id>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.9.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium.client-drivers</groupId>
+            <artifactId>selenium-java-client-driver</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
+        <dependency>
+          <groupId>org.seleniumhq.selenium.server</groupId>
+          <artifactId>selenium-server</artifactId>
+          <version>1.0.3-standalone</version>
+          <properties>
+              <required.selenium.server>true</required.selenium.server>              
+          </properties>
+        </dependency>
+                                                                                                                                     
+        <!-- cargo dependencies -->
+        <dependency>
+            <groupId>org.codehaus.cargo</groupId>
+            <artifactId>cargo-core-uberjar</artifactId>
+            <version>1.0-atlassianpatch-CARGO-553-2</version>
+        </dependency>
+        <dependency>
+            <id>cargo-test-runner</id>
+            <version>2.1.1</version>
+        </dependency>
+        <dependency>
+            <id>ant</id>
+            <version>1.5.4</version>
+        </dependency>
+        <dependency>
+            <id>concurrent</id>
+            <version>1.3.4-withdebug</version>
+        </dependency>
+        <dependency>
+            <id>oro</id>
+            <version>2.0.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.selenium</groupId>
+            <artifactId>atlassian-selenium</artifactId>
+            <version>1.10</version>
+        </dependency>
+        <dependency>
+            <groupId>net.jcip</groupId>
+            <artifactId>jcip-annotations</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.util.concurrent</groupId>
+            <artifactId>atlassian-util-concurrent</artifactId>
+            <version>0.0.5</version>
+        </dependency>
+        <dependency>
+            <id>easymock</id>
+            <groupId>org.easymock</groupId>
+            <version>2.4</version>
+            <properties>
+            </properties>
+        </dependency>
+        <dependency>
+            <id>cglib-nodep</id>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>2.1_3</version>
+            <properties>
+            </properties>
+        </dependency>
+        <dependency>
+            <id>easymockextension</id>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymockclassextension</artifactId>
+            <version>2.4</version>
+            <properties>
+            </properties>
+        </dependency>
+    </dependencies>
+    <build>
+
+        <nagEmailAddress>dev@atlassian.com</nagEmailAddress>
+
+        <sourceDirectory>src/test</sourceDirectory>
+        <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+        <unitTest>
+            <includes>
+                <!-- To ensure test execution order - start tests from suite constructed in AcceptanceTestHarness -->
+                <include>com/atlassian/jira/webtests/AcceptanceTestHarness.java</include>
+            </includes>
+            <excludes>
+                <exclude>com/atlassian/jira/webtests/synch/*</exclude>
+            </excludes>
+
+            <resources>
+                <resource>
+                    <directory>src/etc/test</directory>
+                </resource>
+            </resources>
+            <resources>
+                <resource>
+                    <directory>src/etc/java</directory>
+                </resource>
+            </resources>
+        </unitTest>
+    </build>
+</project>
+        <!-- vim: set sw=4 expandtab: -->

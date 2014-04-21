@@ -1,0 +1,12 @@
+#macro(status $configured)
+<div class="field-group">
+    <fieldset>
+	<label>${i18n.getText("applinks.status")}</label>
+    #if($configured)
+       <span class="field-value status-configured">${i18n.getText("applinks.configured")}</span>
+    #else
+       <span class="field-value status-not-configured">${i18n.getText("applinks.not.configured")}</span>
+    #end
+	</fieldset>
+</div>
+#end

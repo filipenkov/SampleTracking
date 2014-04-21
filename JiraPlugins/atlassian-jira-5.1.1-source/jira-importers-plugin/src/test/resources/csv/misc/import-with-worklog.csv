@@ -1,0 +1,8 @@
+Key,Summary,Worklog,Worklog
+ABC-1,A,60,
+ABC-2,B,6000,
+ABC-3,C,100000,
+ABC-4,D,2012-02-10 12:30:10;wseliga;120,wseliga;3600
+ABC-5,E,With comment;2012-02-11 12:30:10;wseliga;180
+ABC-5,,With; semicolon;2012-02-12 12:30:10;wseliga;240
+ABC-5,,With; semicolons; no; date;;;wseliga;300

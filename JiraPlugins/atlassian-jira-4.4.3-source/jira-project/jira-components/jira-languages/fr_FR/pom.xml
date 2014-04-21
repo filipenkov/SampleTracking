@@ -1,0 +1,10 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.atlassian.jira</groupId>
+    <artifactId>jira-languages</artifactId>
+    <version>4.4.3</version>
+  </parent>
+  <artifactId>jira-lang-fr_FR</artifactId>
+  <name>Atlassian JIRA - Language Packs - fr_FR</name>
+</project>

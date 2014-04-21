@@ -1,0 +1,54 @@
+{namespace JIRA.Templates.ViewIssue.Fields}
+
+/**
+* @param issueKey
+* @param errors
+* @param isAccessible
+*/
+{template .saveErrorMessage}
+{let $issueLink}
+    {if $isAccessible}
+        {call JIRA.Templates.Issues.Util.issueAnchor data="all" /}
+    {else}
+        {$issueKey}
+    {/if}
+{/let}
+{getText('issue.nav.save.failed.html', $issueLink)|noAutoescape}
+<ul>
+    {foreach $message in $errors}
+    <li>{$message}</li>
+    {/foreach}
+</ul>
+{/template}
+
+/**
+* @param issue
+* @param accessKey
+*/
+{template .field}
+<form id="{$issue.id}-form" class="ajs-dirty-warning-exempt" action= "#">
+    <div class="inline-edit-fields">
+        {$issue.editHtml|noAutoescape}
+    </div>
+    <span class="overlay-icon throbber" />
+    <div class="save-options">
+        <button type="submit" class="aui-button submit" accessKey="{getText('AUI.form.submit.button.accesskey')}" title="{getText('AUI.form.submit.button.tooltip', getText('AUI.form.submit.button.accesskey'), $accessKey)}"><span class="icon icon-save">{getText('common.words.save')}</span></button>
+        <button type="cancel" class="aui-button cancel" accessKey="{getText('AUI.form.cancel.link.accesskey')}" title="{getText('AUI.form.cancel.link.tooltip', getText('AUI.form.cancel.link.accesskey'), $accessKey)}"><span class="icon icon-cancel">{getText('common.words.cancel')}</span></button>
+    </div>
+</form>
+{/template}
+
+
+/**
+* @param issueKey
+* @param errors
+* @param isAccessible
+* @param isCurrentIssue
+*/
+{template .resumableSaveErrorMessage}
+{call .saveErrorMessage data="all" /}
+<div class="buttons-container">
+    <button type="button" id="fix" class="aui-button">{if $isCurrentIssue}{getText('viewissue.error.fix')}{else}{getText('viewissue.return.to.issue')}{/if}</button>
+    <a class="aui-button-cancel ignore" href="#">{getText('common.words.ignore')}</a>
+</div>
+{/template}

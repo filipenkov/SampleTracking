@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+    <!-- remote directory monitoring: polling / listening -->
+
+    <bean id="connectorValidator" class="com.atlassian.crowd.directory.ldap.validator.ConnectorValidator">
+        <constructor-arg index="0">
+            <list>
+                <bean class="com.atlassian.crowd.directory.ldap.validator.GroupRoleDnOverlapValidator"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <!-- ldap related beans -->
+    <bean id="ldapPropertiesMapper" class="com.atlassian.crowd.directory.ldap.LDAPPropertiesMapperImpl" scope="prototype">
+        <constructor-arg ref="ldapPropertiesHelper"/>
+    </bean>
+
+    <bean id="ldapPropertiesHelper" class="com.atlassian.crowd.directory.ldap.util.LDAPPropertiesHelperImpl"
+          autowire="byName"/>
+
+    <bean id="ldapQueryTranslater" class="com.atlassian.crowd.search.ldap.LDAPQueryTranslaterImpl" />
+
+    <bean id="remoteCrowdDirectoryInstanceLoader" class="com.atlassian.crowd.directory.loader.RemoteCrowdDirectoryInstanceLoaderImpl">
+      <constructor-arg ref="instanceFactory"/>
+      <constructor-arg ref="eventPublisher"/>
+    </bean>
+
+</beans>

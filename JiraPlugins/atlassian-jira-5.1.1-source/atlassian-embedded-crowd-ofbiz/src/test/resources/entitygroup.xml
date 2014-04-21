@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE entitygroup PUBLIC "-//OFBiz//DTD Entity Group//EN" "http://www.ofbiz.org/dtds/entitygroup.dtd">
+<entitygroup>
+    <!-- sequence entity -->
+    <entity-group group="default" entity="SequenceValueItem"/>
+
+    <!-- application entities -->
+    <entity-group group="default" entity="Application"/>
+    <entity-group group="default" entity="RemoteAddress"/>
+
+    <!-- directory entities -->
+    <entity-group group="default" entity="Directory"/>
+    <entity-group group="default" entity="DirectoryAttribute"/>
+    <entity-group group="default" entity="DirectoryOperation"/>
+
+    <!-- user entities -->
+    <entity-group group="default" entity="User"/>
+    <entity-group group="default" entity="UserAttribute"/>
+    <entity-group group="default" entity="UserCredentialHistory"/>
+
+    <!-- group entities -->
+    <entity-group group="default" entity="Group"/>
+    <entity-group group="default" entity="GroupAttribute"/>
+
+    <!-- membership entity -->
+    <entity-group group="default" entity="Membership"/>
+
+</entitygroup>

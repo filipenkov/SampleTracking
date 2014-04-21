@@ -1,0 +1,15 @@
+# use glob syntax.
+syntax: glob
+
+target/*
+.idea/libraries
+.idea/workspace.xml
+*~
+atlassian-bot-killer.iml
+.classpath
+.settings
+.project
+
+# switch to regexp syntax.
+syntax: regexp
+

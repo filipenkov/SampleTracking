@@ -1,0 +1,3 @@
+.options ul li div.option-jira {
+    background-image: url('@defaultLogoUrl');
+}

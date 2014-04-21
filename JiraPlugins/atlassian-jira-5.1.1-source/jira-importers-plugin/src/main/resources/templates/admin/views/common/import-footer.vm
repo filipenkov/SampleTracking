@@ -1,0 +1,6 @@
+#parse('/templates/standard/jiraformfooter.vm')
+
+#parse("/templates/admin/views/common/reportBug.vm")
+</div>
+</body>
+</html>

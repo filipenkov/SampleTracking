@@ -1,0 +1,45 @@
+#if ($priorities)
+    #set ($irrelevantCount = $priorities.irrelevantCount)
+    <div class="mod-header">
+        #if ($priorities.isEmpty() == false || $irrelevantCount > 0)
+        <ul class="ops">
+            <li><a id="frag${fragid}_more" class="icon icon-view" href="${urlUtil.getAllUrl()}" title="$i18n.getText('browseproject.issues.by.priority.more')"><span>$i18n.getText('common.concepts.more')</span></a></li>
+        </ul>
+        #end
+        <h3>
+            $i18n.getText('common.concepts.unresolved'): $i18n.getText('common.concepts.bypriority')
+        </h3>
+    </div>
+    <div class="mod-content">
+    #if ($priorities.isEmpty() == false || $irrelevantCount > 0)
+    <table cellpadding="2" cellspacing="0">
+        <tbody>
+        #foreach ($priority in $priorities.keySet())
+            <tr #if($velocityCount % 2 == 0)class="rowAlternateLightGray"#end>
+                #if ($priority)
+                    #set ($newUrl = "${urlUtil.getUrl($priority)}")
+                    <td class="icon"><a href="${newUrl}">#displayConstantIcon($priority)</a></td>
+                    <td class="name"><a href="${newUrl}">$textutils.htmlEncode(${priority.getNameTranslation()})</a></td>
+                #else
+                    <td class="icon"></td>
+                    <td class="name">$i18n.getText('gadget.filterstats.priority.nopriority')</td>
+                #end
+                <td class="count">$priorities.get($priority)</td>
+                <td class="graph last">#histogram($priorities.getPercentage($priority))</td>
+            </tr>
+        #end
+
+        #if ($irrelevantCount > 0)
+            <td class="icon"></td>
+            <td class="name"><span title="$i18n.getText('common.concepts.irrelevant.desc')">$i18n.getText('common.concepts.irrelevant')</span></td>
+            <td class="count">$irrelevantCount</td>
+            <td class="graph last">#histogram($priorities.irrelevantPercentage)</td>
+        #end
+
+        </tbody>
+    </table>
+    #else
+    <p>$i18n.getText('common.concepts.noissues')</p>
+    #end
+    </div>
+#end

@@ -1,0 +1,26 @@
+#disable_html_escaping()
+<head>
+    <meta name="admin.active.section" content="admin_system_menu/top_system_section"/>
+    <meta name="admin.active.tab" content="general_configuration"/>
+
+    <title>${i18n.getText('admin.advancedproperties.settings.heading')}</title>
+    ${webResourceManager.requireResource("com.atlassian.jira.jira-application-properties-plugin:application-properties-global")}
+</head>
+
+<body>
+
+<h3 class="formtitle">
+    ${i18n.getText('admin.advancedproperties.settings.heading')}
+</h3>
+<div class="aui-message warning"><span class="aui-icon icon-warning"></span>
+    <p>${i18n.getText('admin.advancedproperties.settings.description')}</p>
+</div>
+<div class="module">
+    <table id="application-properties-table" class="aui"></table>
+</div>
+<div class="buttons-container">
+    <div class="buttons">
+        <a class="aui-button" href="ViewApplicationProperties.jspa">${i18n.getText('admin.menu.general.settings')}</a>
+    </div>
+</div>
+</body>

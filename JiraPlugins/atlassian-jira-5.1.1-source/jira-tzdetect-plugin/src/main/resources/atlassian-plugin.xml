@@ -1,0 +1,45 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="Atlassian" url="http://www.atlassian.com/"/>
+        <application-version min="5.0"/>
+    </plugin-info>
+
+    <servlet-filter key="tzdetect-filter" class="com.atlassian.jira.tzdetect.IncludeResourcesFilter"
+                    name="Time zone detection filter"
+                    location="before-dispatch" weight="200">
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </servlet-filter>
+
+    <web-resource key="tzdetect-lib" name="Time zone detection JavaScript resources">
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+        <resource type="download" name="detect_timezone.js" location="js/detect_timezone.js" />
+        <resource type="download" name="tzdetect-banner.js" location="js/tzdetect-banner.js" />
+    </web-resource>
+
+    <web-resource key="tzdetect-userprofile" name="Time zone detection user profile clicker">
+        <dependency>jira.webresources:userprofile</dependency>
+        <resource type="download" name="userprofile.js" location="js/userprofile.js" />
+        <context>atl.userprofile</context>
+    </web-resource>
+
+    <top-navigation key="tzdetect-headsup-display"
+                    name="Time zone detection user information"
+                    class="com.atlassian.jira.tzdetect.HeadsUp" state="enabled">
+        <resource type="velocity" name="view" location="templates/tzdetect-headsup.vm"/>
+        <order>5</order>
+    </top-navigation>
+
+    <resource key="tzdetect-i18n" name="i18n" type="i18n" location="tzdetect_i18n"/>
+
+    <rest key="tzdetect-rest" name="Time zone detection REST module" path="/tzdetect" version="1">
+        <package>com.atlassian.jira.tzdetect</package>
+    </rest>
+
+    <component key="tzdetect-bannerpref" class="com.atlassian.jira.tzdetect.BannerPreferences" name="Time zone banner preferences manager"/>
+
+</atlassian-plugin>

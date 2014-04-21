@@ -1,0 +1,13 @@
+#set($configParamsMap = $configs.get($configItemTypeKey))
+##view config
+
+#foreach( $option in $configItemType.getConfigurableProperties())
+  #if ($option.isDisplayedInView())
+    #set($value = "$!configParamsMap.get($option)")
+    <tr>
+      <td align="right">$option.getDisplayName() :</td>
+      <td>$option.getSummary($value)</td>
+    </tr>
+  #end
+#end
+

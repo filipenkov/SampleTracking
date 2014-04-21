@@ -1,0 +1,6 @@
+<!-- Remove focus : hack 4 IE -->
+#if(!$preview)
+<script type="text/javascript">
+	jQuery(function () {jQuery('input, textarea').blur();});
+</script>
+#end

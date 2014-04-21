@@ -1,0 +1,3 @@
+#if ($value)
+    <customfieldvalue key="$value.optionId">$value.toString()</customfieldvalue>
+#end

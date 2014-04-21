@@ -1,0 +1,11 @@
+#disable_html_escaping()
+#if($remoteUser.displayName)
+    $i18n.getText("jira-share-plugin.email.saved.search.activity", $remoteUser.displayName, $filterName)
+    #dashes($!remoteUser.displayName)---------------
+#end
+
+${baseurl}/secure/IssueNavigator.jspa$savedSearchLinkUrlParams
+
+$!comment
+
+#parse("templates/email/text/includes/footer.vm")

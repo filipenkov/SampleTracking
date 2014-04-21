@@ -1,0 +1,104 @@
+#macro (authorlink2 $username $style)
+    #if ($username)
+        $userformat.formatUser($username, 'profileLinkExternal', 'email', ${velocityhelper.newMap('style', $style)})
+    #else
+        $i18n.getText("common.concepts.unassigned")
+    #end
+#end
+
+#macro (authorlink $username)
+    #authorlink2($username "")
+#end
+
+#macro( makelinkedhtml $string )
+    $!jirakeyutils.linkBugKeys($textutils.plainTextToHtml($string))
+#end
+
+
+#macro (dashes $variable)
+#set ( $numdashes = $!variable.toString().length() )
+#foreach ($i in [1..$numdashes])-#end
+#end
+
+#macro (changesIncludingStatus $ignored)#if($changelog)$!{velocityhelper.printChangelog($changelog, $i18n, $ignored, false)}#end#end
+#macro (changes $ignored)#if($changelog)$!{velocityhelper.printChangelog($changelog, $i18n, $ignored)}#end#end
+
+#macro (comment)
+#if ($comment)
+
+$!comment.getBody()
+#end
+#end
+
+#macro (text $key)${i18n.getText($key)}#end
+
+#macro (originalcomment)
+  #if($originalcomment)
+    #text("template.changelog.was") (#text("template.common.author"): $comment.author):
+    $!originalcomment.body
+  #end
+#end
+
+## This is all one line so that in text emails the indentation does not get mixed up
+#macro(visibility)
+    #if($comment)
+        #if($groupVisibilityLevel)
+            (${i18n.getText('viewissue.comment.visibleby.group', $textutils.htmlEncode($groupVisibilityLevel))})
+        #elseif($roleVisibilityLevel)
+            (${i18n.getText('viewissue.comment.visibleby.role', $textutils.htmlEncode($roleVisibilityLevel))})
+        #end
+    #elseif($worklog)
+        #if($groupVisibilityLevel)
+            (${i18n.getText('worklog.visibleby.group', $textutils.htmlEncode($groupVisibilityLevel))})
+        #elseif($roleVisibilityLevel)
+            (${i18n.getText('worklog.visibleby.role', $textutils.htmlEncode($roleVisibilityLevel))})
+        #end
+    #end
+#end
+
+## This is all one line so that in text emails the indentation does not get mixed up
+#macro(originalvisibility)
+    #if($originalcomment)
+        #if($originalgroupVisibilityLevel)
+            (${i18n.getText('viewissue.comment.visibleby.group', $textutils.htmlEncode($originalgroupVisibilityLevel))})
+        #elseif($originalroleVisibilityLevel)
+            (${i18n.getText('viewissue.comment.visibleby.role', $textutils.htmlEncode($originalroleVisibilityLevel))})
+        #end
+    #elseif($originalworklog)
+        #if($originalgroupVisibilityLevel)
+            (${i18n.getText('worklog.visibleby.group', $textutils.htmlEncode($originalgroupVisibilityLevel))})
+        #elseif($originalroleVisibilityLevel)
+            (${i18n.getText('worklog.visibleby.role', $textutils.htmlEncode($originalroleVisibilityLevel))})
+        #end
+    #end
+#end
+
+#macro (key)${issue.getString("key")}#end
+
+#macro (commonEmailBanner $actionerUser $titleHtml $verbkey $verba1 $verba2 $verba3)
+<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="width:100%;">
+    <tr valign="top">
+        <td style="color:${textSubtleColour};font-family:${textFontFamily};padding:0;">
+            #if ($actionerUser)
+            ## TODO at the moment, an avatar appears only if avatars can be seen by anon (null) users fixthis
+                <img id="email-avatar" src="$avatarService.getAvatarUrlNoPermCheck($actionerUser.name, $null)" alt="" height="48" width="48" border="0" align="left" style="padding:0;margin: 0 16px 16px 0;" />
+            #else
+                &nbsp; ##TODO no avatar to show
+            #end
+            <div id="email-action" style="padding: 0 0 8px 0;font-size:12px;line-height:18px;">
+                ${i18n.getText($verbkey, $verba1, $verba2, $verba3)}
+            </div>
+            #if ($titleHtml)
+            <div id="email-summary" style="font-size:16px;line-height:20px;padding:2px 0 16px 0;">
+                $titleHtml
+            </div>
+            #end
+        </td>
+    </tr>
+</table>
+#end
+
+#macro (emailbanner $actionerUser $verbkey $verba1 $verba2 $verba3)
+    #set($issueTitleHtml = "<a style='color:${textLinkColour};text-decoration:none;' href='${baseurl}/browse/${issue.getKey()}'><strong>$textutils.htmlEncode($issue.getSummary())</strong></a>")
+    #commonEmailBanner($actionerUser $issueTitleHtml $verbkey $verba1 $verba2 $verba3)
+#end

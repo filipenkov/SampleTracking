@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.atlassian.crowd.model.token.Token" table="cwd_token">
+
+        <id name="id" column="id" type="long" unsaved-value="null">
+            <generator class="com.atlassian.crowd.util.persistence.hibernate.ResettableTableHiLoGenerator"/>
+        </id>
+
+        <property name="directoryId" column="directory_id" type="long" not-null="true"
+                  index="idx_token_dir_id,idx_token_name_dir_id"/>
+
+        <property name="name" column="entity_name" type="string" length="255" not-null="true"
+                  index="idx_token_name_dir_id"/>
+
+        <property name="randomNumber" column="random_number" type="long" not-null="true"/>
+
+        <property name="identifierHash" column="identifier_hash" type="string" not-null="true" length="255"
+                  unique-key="uk_token_id_hash"/>
+
+        <property name="randomHash" column="random_hash" type="string" not-null="true" length="255"
+                  index="idx_token_key"/>
+
+        <property name="createdDate" column="created_date" not-null="true" type="timestamp"/>
+
+        <property name="lastAccessedDate" column="last_accessed_date" not-null="true" type="timestamp"
+                  index="idx_token_last_access"/>
+
+    </class>
+
+    <!-- hql queries -->
+
+    <query name="removeTokensByDirectoryAndName">
+        delete from Token t where t.directoryId = :directoryId and t.name = :name
+    </query>
+
+    <query name="removeTokensByDirectory">
+        delete from Token t where t.directoryId = :directoryId
+    </query>
+
+    <query name="removeTokensAccessedBefore">
+        delete from Token t where t.lastAccessedDate &lt; :expiryDate
+    </query>
+
+    <query name="removeAllTokens">
+        delete from Token t
+    </query>
+
+</hibernate-mapping>

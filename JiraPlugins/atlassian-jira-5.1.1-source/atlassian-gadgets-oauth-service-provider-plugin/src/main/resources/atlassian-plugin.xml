@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atlassian-plugin key="${atlassian.plugin.key}" name="${pom.name}" pluginsVersion="2">
+    <plugin-info>
+        <description>${pom.description}</description>
+        <version>${pom.version}</version>
+        <vendor name="${pom.organization.name}" url="${pom.organization.url}"/>
+    </plugin-info>
+
+    <component-import key="gadgetSpecFactory" interface="com.atlassian.gadgets.spec.GadgetSpecFactory" />
+    <component-import key="gadgetRequestContextFactory" interface="com.atlassian.gadgets.GadgetRequestContextFactory" />
+    <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties" />
+    <component-import key="salUserManager" interface="com.atlassian.sal.api.user.UserManager" />
+    <component-import key="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver" />
+    
+    <component-import key="templateRenderer" interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRenderer" />
+    
+    <component key="helpLinkResolver" class="com.atlassian.gadgets.oauth.serviceprovider.internal.HelpLinkResolver" />
+    <template-context-item key="helpLinkResolverContextItem" component-ref="helpLinkResolver" 
+        context-key="helpLinkResolver" name="HelpLinkResolver Context Item"/>
+
+    <template-context-item key="applicationPropertiesContextItem" component-ref="applicationProperties" 
+        context-key="applicationProperties" name="ApplicationProperties Context Item" />
+
+    <component key="stringEscapeUtil" class="org.apache.commons.lang.StringEscapeUtils" />
+    <template-context-item key="stringEscapeUtilContextItem" component-ref="stringEscapeUtil" 
+        context-key="stringEscapeUtil" name="StringEscapeUtil Context Item"/>  
+        
+    <component key="openSocialRenderer" class="com.atlassian.gadgets.oauth.serviceprovider.internal.OpenSocialConsumerInformationRenderer" public="true">
+        <interface>com.atlassian.oauth.serviceprovider.ConsumerInformationRenderer</interface>
+    </component>
+
+    <component key="openSocialTokenPropertiesFactory" class="com.atlassian.gadgets.oauth.serviceprovider.internal.OpenSocialTokenPropertiesFactory" public="true">
+        <interface>com.atlassian.oauth.serviceprovider.TokenPropertiesFactory</interface>
+    </component>
+
+    <resource type="i18n" name="i18n" location="com.atlassian.gadgets.oauth.serviceprovider.internal.i18n"/>
+</atlassian-plugin>

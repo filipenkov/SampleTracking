@@ -1,0 +1,10 @@
+#if (${project})
+    #set ($msgHtml = ${i18n.getText("admin.project.back.to.project.config", "${project.name}")})
+    <div id="proj-config-return-link" class="ops-cont">
+        <ul class="ops">
+            <li>
+                <a id="back-lnk" class="back-to-proj-config button first last" href="${baseurl}/plugins/servlet/project-config/${project.key}/${tab}"><span class="icon icon-back"><span>${i18n.getText("admin.project.back.to.project.config", $project.name)}</span></span>$msgHtml</a>
+            </li>
+        </ul>
+    </div>
+#end

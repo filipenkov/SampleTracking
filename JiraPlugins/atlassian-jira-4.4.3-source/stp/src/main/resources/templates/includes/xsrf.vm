@@ -1,0 +1,5 @@
+#macro(form_xsrfToken) 
+<input type="hidden" name="$tokenName" value="$token"/>
+#end
+
+#macro(url_xsrfToken) $tokenName=$token #end

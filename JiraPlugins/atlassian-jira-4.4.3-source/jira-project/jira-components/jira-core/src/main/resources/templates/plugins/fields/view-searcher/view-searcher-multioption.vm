@@ -1,0 +1,7 @@
+#searcherHeader ($customField)
+#if ($valueObject)
+   #foreach ($option in $valueObject)
+   $!option.toString()#commaonly($valueObject)
+   #end
+#end
+#searcherFooter ($customField)

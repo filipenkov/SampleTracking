@@ -1,0 +1,17 @@
+<html>
+   <head>
+    <title>$i18n.getText('stp.plugin.name')</title>
+    <meta name="decorator" content="atl.admin"/>
+<meta name="admin.active.section" content="admin_system_menu/top_system_section/support_tools_section"/>
+<meta name="admin.active.tab" content="support-tools-home"/>
+<meta name="application-base-url" content="$applicationProperties.getBaseUrl()">
+    $webResourceManager.requireResource("com.atlassian.support.stp:resources")
+   </head>
+   
+  <body>
+	<div class="aui-message error">
+        <p class="title">$i18n.getText('stp.permission.title')</p>
+		<p>$i18n.getText("stp.permission.body")</p>
+	</div>
+  </body>
+</html>

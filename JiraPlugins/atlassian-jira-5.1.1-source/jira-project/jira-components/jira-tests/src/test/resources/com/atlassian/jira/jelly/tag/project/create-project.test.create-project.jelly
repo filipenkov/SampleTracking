@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<JiraJelly xmlns:jira="jelly:com.atlassian.jira.jelly.JiraTagLib">
+    <jira:CreateProject key="ABC" name="A Project" lead="logged-in-user">
+        ${jelly.project.id}:${jelly.project.key}
+    </jira:CreateProject>
+</JiraJelly>

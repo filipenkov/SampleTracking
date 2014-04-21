@@ -1,0 +1,49 @@
+#set ($returnUrl = $velocityhelper.urlencode("/browse/${project.key}?selectedTab=com.atlassian.jira.plugin.system.project:components-panel"))
+#if ($hasAdminPermission)
+<a id="add_component" href="$baseurl/plugins/servlet/project-config/${project.key}/components" class="show-more" title="#esc ($i18n.getText('admin.projects.addcomponent.mouseover', $project.name))">$i18n.getText('admin.projects.addcomponent', '', '')</a>
+#end
+<div id="primary" class="column full">
+    <div class="content">
+        <div class="module">
+            <div class="mod-content">
+                <table class="projectPanel report" id="components_panel">
+
+                #if ($components.empty == true)
+                <tr>
+                    <td colspan="3">$i18n.getText('projectpanels.components.no.components')</td>
+                </tr>
+                #else
+                    #foreach ($component in $components)
+                        #set ($name = "#esc($component.name)")
+                        #if ($component.description && $component.description != '')
+                            #set ($title = "$name - #esc($component.description)")
+                        #else
+                            #set ($title = $name)
+                        #end
+                <tr #if($velocityCount % 2 == 0)class="rowAlternateLightGray"#end>
+                    <td class="component-icon">
+                        <img src="$baseurl/images/icons/component.gif" height="16" width="16" border="0" align="absmiddle" title="$title" alt="$i18n.getText('common.concepts.component')">
+                    </td>
+                    <td class="component-name">
+                        <a id="component_${component.id}" title="$title" href="$baseurl/browse/${project.key}/component/${component.id}">$name</a>
+                    </td>
+                    <td class="component-lead">
+                        #if($component.lead)
+                        <strong>$i18n.getText('common.concepts.lead'):</strong>
+                        #if($tabpanel.isUserExists($component.lead))
+                            $userformat.formatUser($component.lead, 'profileLink', 'component_lead')
+                        #else
+                            <span class="errLabel">#esc($!component.lead)</span>
+                        #end
+                        #end
+                    </td>
+                    <td>#esc($!component.description)</td>
+                </tr>
+                    #end
+                #end
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

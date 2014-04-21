@@ -1,0 +1,54 @@
+#macro (displayPropertyStore $store)
+	#if ($store.values && $store.values.size() > 0) 
+		#foreach ($entry in $store.values.entrySet())
+			<div class="field-group">
+				<label for="$entry.key">$i18n.getText("$entry.key")</label>
+				<span class="field-value">$!entry.value</span>
+			</div>
+		#end
+	#end
+	#if ($store.categories && $store.categories.size() > 0)
+		<div class="stp-propertystore">
+			#foreach ($entry in $store.categories.entrySet())
+				#set ($storeCount = 0)
+				#foreach ($store in $entry.value)
+					#set ($entryId = $entry.key + "-" + $storeCount)
+					<h2 id="$entryId">$i18n.getText("$entry.key")</h2>
+					#set ($contentId = "content-" + $entry.key + "-" + $storeCount)
+					<fieldset id="$contentId">
+						#displayPropertyStore($store)
+					</fieldset>
+					#set ($storeCount = $storeCount + 1)
+				#end
+			#end
+		</div>
+	#end
+#end
+
+#foreach($warning in $info.getSystemWarnings())
+	<div class="aui-message error">$warning</div>	
+#end
+<div class="stp-module-main-block">
+	<form action="#" method="post" class="aui unsectioned">
+		#displayPropertyStore($props 0)
+	</form>
+</div>
+
+<script type="text/javascript">
+function toggleContent() {
+	var id = AJS.$(this).attr('id');
+	AJS.$("#content-" + escape(id)).toggle();
+	AJS.$(this).toggleClass("expanded");
+}
+
+function escape( str) {
+ if( str)
+     return str.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g,'\\$1')
+ else
+     return str;
+}
+
+AJS.$(document).ready(function(){
+	AJS.$(".stp-propertystore h2").bind("click", toggleContent);
+});
+</script>

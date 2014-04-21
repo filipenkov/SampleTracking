@@ -1,0 +1,3 @@
+#if ($resolution)
+  $textutils.htmlEncode($resolution.getNameTranslation())
+#end

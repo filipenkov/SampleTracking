@@ -1,0 +1,92 @@
+@import "dynamic:lookandfeel.less";
+@import "variables.less";
+
+.tabwrap.filter-menu {margin:0 0 0.5em;padding:0;}
+#filterFormHeader li strong {padding: 2px 7px 1px 7px;}
+
+.perm-link {float:right;width:auto;} /* Appears on the top right of the issue nav page */
+.perm-link a {background:transparent url('../../../images/icons/permalink_light_16.png') no-repeat 0 5px;display:block;height:20px;overflow:hidden;width:20px;text-indent:-9999px}
+.perm-link a:hover {background-image:url('../../../images/icons/permalink_dark_16.png');}
+
+#throbber-space {float:right;display:none;margin-right:10px; margin-top:4px; width:20px;} /* sits beside the permalink */
+#throbber-space.loading {display:block;background:transparent url( "../../../images/icons/wait.gif") 100% center no-repeat;}
+
+.iss-nav .item-header {min-height:24px;}
+.iss-nav #iss-wrap {padding-left:270px;}
+
+.iss-nav #iss-wrap.lhc-collapsed {padding-left:14px;}
+.toggle-lhc {
+    background: #ccc url(../../../images/icons/icon_filtercollapse.png) no-repeat scroll 5px 5px;
+    display: block;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    text-indent: -9000px;
+    top: 0;
+    width: 16px;
+    z-index: 2;
+}
+.toggle-lhc:hover {background-color:#bbb;cursor:pointer;}
+.lhc-collapsed .toggle-lhc {background-image: url(../../../images/icons/icon_filterexpand.png);}
+a.toggle-lhc:focus {outline:none;}
+
+#issuenav .results-wrap { margin: 0 -16px; }
+
+/*.iss-nav #main-content {margin-bottom:2em;min-width:1%;}*/
+/*.iss-nav #main-content:after { content: ".";display: block; height: 0; clear: both; visibility: hidden;}*/
+/*.iss-nav #primary {margin-left:-282px;position:relative;width:270px;z-index:5;}*/
+/*.iss-nav #primary .content {margin:0 0 0 14px;padding:9px;}*/
+/*.iss-nav #primary .rounded {-moz-border-radius-topleft:0;-moz-border-radius-bottomleft:0;-webkit-border-top-left-radius:0;-webkit-border-bottom-left-radius:0;border-top-left-radius:0;border-bottom-left-radius:0;border-left:none;}*/
+//
+/*.iss-nav #secondary {min-width:100%;position:relative;}*/
+/*.iss-nav #secondary .content {margin-left:0;margin-right:0;padding:0.714em 12px;}*/
+//#issuenav .results-wrap {margin:0 -16px;}
+
+
+/*.iss-nav #primary .mod-header {background-position:0 14px;}*/
+/*.iss-nav #primary .mod-header h3 {font-size:1em;}*/
+/*.iss-nav #primary .mod-header .toggle-title {background-position:1px 6px;}*/
+/*.iss-nav #primary .collapsed .mod-header .toggle-title {background-position:3px 3px;}*/
+
+.searcherValue .fieldLabel {color:#666;}
+.searcherValue .old-value {background-color:#ffe7e7;font-weight:700;}
+.searcherValue .new-value {background-color:#ddfade;font-weight:700;}
+
+#filter-description.item-details dt,
+#filter-description.item-details dd {width:auto;}
+#filter-description .filter-detail {clear:left;float:none;}
+.favourite-me {float:right;width:16px;}
+ul.filter-description {width:90%;}
+
+.filter-type li {margin-bottom:0.5em;}
+.filter-type a,
+.filter-description a,
+#filteroperations .item-details a {font-weight:400;}
+
+#jqlwarning ul {list-style-position:inside;margin:0;padding:0;}
+#jqlcomponent .jqlerror-container {clear:both;margin:0 0 1em 0;}
+#jqlnoresults {border:1px #bbb solid;margin:5px 0 2px 0;padding:4px;}
+ul.queryBox {list-style-type:none;margin:0;padding:0;}
+ul.queryBox li {border-top:1px solid #eee;overflow:hidden;text-indent:15px;white-space:nowrap;}
+ul.queryBox li.first {border-top:none;}
+ul.queryBox li a {display:block;padding:0.2em 4px 0.1em 0;text-decoration:none;}
+.msie-8 ul.queryBox li a {height:1.5em;}
+#jqlform {border-bottom:1px solid #ddd;float:left;padding-bottom:1em;margin-bottom:1em;position:relative;width:100%;}
+/*#jqlform:after,*/
+#jqlform label .icon {margin:0;}
+#jqltext {clear:both;color:#036;.border-box;font-size:15px;height:65px;line-height:1.4;margin:3px auto;padding:3px 4px;}
+.jqlundertext {margin-top:3px;}
+#jqlform .atlassian-autocomplete {position:relative!important;}
+#jqlform .atlassian-autocomplete .suggestions {float:left;width:460px!important;margin-top:5px;}
+#jqlform .atlassian-autocomplete .suggestions li {padding:2px 10px;}
+#jqlform .atlassian-autocomplete .suggestions li.groupmarker {border-top:1px solid #ddd;margin:3px 0 0 0;}
+#jqlform .atlassian-autocomplete .suggestions li.active {background-color:#3C78B5;color:#fff;}
+#jqlform .autocomplete-off {font-size:12px;}
+#jqlcolrowcount {color:#999;}
+#jqlcolrowcount span {margin:0 0.5em 0 0.25em;}
+#jqlcomponent p {margin-bottom:0}
+#jqlcomponent .warningBox {margin:1em 0;}
+.page-help {display:block;float:right;}
+.page-help a {text-decoration:none}
+#queryBoxTable .mod-content {padding:0;}
+span.jql-plugin-hints {float:right;}

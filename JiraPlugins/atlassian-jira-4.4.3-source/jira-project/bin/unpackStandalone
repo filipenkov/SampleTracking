@@ -1,0 +1,26 @@
+#!/bin/bash
+
+TAR_GZ=`ls jira-distribution/jira-standalone-distribution/target/*.tar.gz`
+TARGET_DIR=`basename $TAR_GZ .tar.gz`
+
+if [ ! -f $TAR_GZ ]; then
+    echo "Cant find built standalone tar.gz file.  Have you run the right maven commands?"
+    exit 99
+fi
+if [ -d $TARGET_DIR ]; then
+    rm -rf $TARGET_DIR
+fi
+
+tar xvf $TAR_GZ
+if [ ! -d $TARGET_DIR ]; then
+    echo "how come it didnt expand where we expected??"
+    exit 99
+fi
+
+cd $TARGET_DIR
+mkdir jirahome
+
+if [ "$1" = "run" ]; then
+  export JIRA_HOME=`pwd`/jirahome
+  bin/start-jira.sh run
+fi

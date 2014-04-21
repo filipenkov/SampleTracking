@@ -1,0 +1,276 @@
+.mod-header h3 {
+	color: black !important;
+	font-size: 14px !important;
+}
+
+div.mod-content {
+	padding: 0px 0px 0px 0px;
+}
+
+#configFileSection {
+	padding: 1em 1em 1em 0px;
+}
+
+#configFileSection input[type=checkbox] {
+	float: left;
+	margin-left: 35px;
+}
+
+#configFileSectionInfo  {
+	float: left;
+}
+
+#configFilePanel {
+	margin-top: 15px;
+}
+
+.buttons-container {
+	border-top: 0px !important;
+}
+#importers {
+			width: 700px;
+		}
+
+#importers .importer {
+	-webkit-border-radius: 7px; /* Safari, Chrome */
+	-khtml-border-radius: 7px;    /* Konqueror */
+	-moz-border-radius: 7px; /* Firefox */
+	border-radius: 7px;
+	float: left;
+	background-color: #F7F7F7;
+	padding: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+#importers .importer input[type=button] {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#importers .body {
+	width: 200px;
+	height: 150px;
+	background-color: white;
+	text-align: center;
+	padding-top: 10px;
+}
+
+#importers .body p {
+	text-align: left;
+	margin: 10px;
+}
+
+#importers .version {
+	height: 35px;
+	padding-top: 5px;
+}
+
+#helpOut {
+	background: url("images/bg_help_out.png") no-repeat;
+	height: 200px;
+}
+
+#helpOut div.message h2 {
+	margin-bottom: 20px;
+	color: #3C78B5;
+}
+
+#helpOut div.message {
+	margin-left: 200px;
+	width: 450px;
+	padding-top: 20px;
+}
+
+#helpOut input[type=button] {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#reportBug {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+
+#reportBug2 {
+	height: 35px;
+}
+
+.jim-wrapper {
+	position: relative;
+}
+
+#whatNow {
+	margin-top: 75px;
+}
+
+#whatNow p {
+	margin-top: 15px;
+}
+
+#importSteps li {
+	list-style: none;
+	padding-bottom: 5px;
+	position: relative;
+}
+
+#importSteps li div.title {
+	display: inline-block;
+	position: relative;
+	left: 30px;
+}
+
+#importSteps span.jim-icon {
+	position: absolute;
+	left: 0;
+	display: none;
+}
+
+span.icon.error {
+	background: url("images/error.png") 0 center no-repeat;
+}
+
+span.icon.success {
+	background: url("images/success.png") 0 center no-repeat;
+}
+
+#importSteps li.RUNNING span.jim-icon.loading,
+#importSteps li.SUCCESS span.jim-icon.success,
+#importSteps li.ERROR span.jim-icon.error {
+	display: inline-block !important;
+}
+
+#importSteps .SUCCESS {
+	color: green;
+}
+
+#importSteps .ERROR {
+	color: red;
+}
+
+#importSteps {
+	margin-bottom: 75px;
+}
+
+#importSteps div.title span.ERROR {
+	margin-left: 10px;
+	font-weight: bold;
+}
+
+#importSteps div.progress-fill-color {
+	background-color: #ccc;
+}
+
+#importSteps div.progress-bar {
+	margin-left: 33px;
+	margin-top: 10px;
+}
+
+tr.mappingrow select {
+	width: 250px;
+}
+
+table.aui td.rightarrowcolumn {
+	font-size: 20px;
+	padding-right: 30px;
+	padding-left: 30px;
+	padding-top: 0;
+	vertical-align: top !important;
+}
+
+
+table.aui tr.nobottomborder td {
+	border-bottom: none !important;
+}
+
+table.aui tr td.nobottomborder {
+	border-bottom: none !important;
+}
+
+
+.smallpadding {
+	padding: 5px;
+}
+
+.nopadding {
+	padding: 0;
+}
+
+#CSV-select-label {
+	left: 5px !important;
+	position: absolute !important;
+	text-align: left !important;
+	top: 0 !important;
+}
+
+label[for=CSV_project_uncheck] {
+	left: 0px !important;
+	text-align: left !important;
+	float: none !important;
+	display: inline !important;
+}
+
+label[for=CSV_project_uncheck], #CSV_project_uncheck {
+	margin-top: 5px;
+}
+
+#CSV_project_description {
+	padding-left: 22px;
+}
+
+ul.tabs-menu li.aui-tabs-group ul.aui-tabs-group-menu li.menu-item a[href='#'] {
+	cursor: default !important;
+}
+
+ul.tabs-menu li.aui-tabs-group ul.aui-tabs-group-menu li.menu-item a[href='#']:focus,
+ul.tabs-menu li.aui-tabs-group ul.aui-tabs-group-menu li.menu-item a[href='#']:hover,
+ul.tabs-menu li.aui-tabs-group ul.aui-tabs-group-menu li.menu-item a[href='#']:visited,
+ul.tabs-menu li.aui-tabs-group ul.aui-tabs-group-menu li.menu-item a[href='#']:active {
+	background-color: #F0F0F0;
+}
+
+ul.failures li, ul.warnings li {
+	margin-bottom: 5px;
+}
+
+li.show-more {
+	list-style-type: none;
+	text-align: right;
+}
+
+.jim-hints-section {
+	color: #999999;
+}
+
+.in-table-hint {
+	text-align: right;
+}
+
+.padded-column {
+	padding-left: 30px !important;
+}
+
+.jim-table {
+	width: auto !important;
+}
+
+#unmappedFields {
+	position: relative;
+	left: 10px;
+	top: 10px;
+}
+
+form[name=jiraform] input[name=jdbcAdvanced] {
+	width: 500px;
+}
+
+#rapidBoardLinks span {
+	margin-left: 5px;
+	padding-right: 5px;
+	border-right: 1px solid #ccc;
+}
+
+#rapidBoardLinks span:last-child {
+	border-right: 0px;
+}

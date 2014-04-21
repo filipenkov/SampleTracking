@@ -1,0 +1,4 @@
+<div id="upgrade-userinfo">
+    $i18n.getText('module.portlet.currentuser', '<b>', ${username}, '</b>')<span>&nbsp;[UPGRADE!!!]</span>
+</div>
+

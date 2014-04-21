@@ -1,0 +1,10 @@
+#if ($issue.getEnvironment() && $issue.getEnvironment().length() != 0)
+<tr valign="top">
+    <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+        <strong style="font-weight:normal;color:${textSubtleColour};">#text("common.words.env"):</strong>
+    </td>
+    <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+        $issue.getHtmlEnvironment()
+    </td>
+</tr>
+#end

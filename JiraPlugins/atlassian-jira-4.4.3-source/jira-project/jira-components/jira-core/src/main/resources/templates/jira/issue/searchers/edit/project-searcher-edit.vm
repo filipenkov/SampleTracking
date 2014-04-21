@@ -1,0 +1,19 @@
+## @vtlvariable name="visibleProjects" type="java.util.List<org.ofbiz.core.entity.GenericValue>"
+## @vtlvariable name="selectedProjects" type="java.util.List<java.lang.Long>"
+#if ($visibleProjects.isEmpty() == false)
+$!{auiparams.put("controlHeaderClass", "aui-field-project")}
+#searcherEditHeader ("pid" ${i18n.getText($searcherNameKey)})
+    <select class="select" id="searcher-pid" multiple="multiple" name="pid" size="#minSelectSize ($visibleProjects 1 5)">
+        <option class="headerOption" #if (!$selectedProjects || $selectedProjects.empty) selected="selected"#end value="-1">${i18n.getText('common.filters.allprojects')}</option>
+        #foreach ($option in $visibleProjects)
+            #set ($name = $textutils.htmlEncode($option.getString('name')))
+            #if ($selectedProjects && $option && $selectedProjects.contains($option.getString('id')))
+                <option selected="selected" title="$name" value="$option.getLong('id')">$name</option>
+            #else
+                <option title="$name" value="$option.getLong('id')">$name</option>
+            #end
+        #end
+    </select>
+#searcherEditFooter ("pid" '')
+$!{auiparams.clear()}
+#end

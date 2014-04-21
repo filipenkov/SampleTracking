@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--suppress SpringBeanConstructorArgInspection, AutowiredDependenciesInspection -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+    <bean id="requestScope" class="com.atlassian.jira.rest.v2.issue.scope.RequestScope"/>
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="restmethod" value-ref="requestScope"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean name="uriBuilder" class="com.atlassian.jira.rest.v2.issue.ResourceUriBuilder" autowire="constructor" scope="singleton"/>
+    <bean name="cfOps" class="com.atlassian.jira.rest.v2.issue.customfield.CustomFieldOpsImpl" autowire="constructor"/>
+    <bean name="marshallerService" class="com.atlassian.jira.rest.v2.issue.customfield.MarshallerServiceImpl" autowire="constructor"/>
+    <bean name="watcherOps" class="com.atlassian.jira.rest.v2.issue.watcher.WatcherOpsImpl" autowire="constructor"/>
+    <bean name="beanBuilderFactory" class="com.atlassian.jira.rest.v2.issue.builder.BeanBuilderFactoryImpl" autowire="constructor"/>
+    <bean name="versionBeanFactory" class="com.atlassian.jira.rest.v2.issue.version.VersionBeanFactoryImpl" autowire="constructor"/>
+    <bean name="versionIssueCountsBeanFactory" class="com.atlassian.jira.rest.v2.issue.version.VersionIssueCountsBeanFactoryImpl" autowire="constructor"/>
+    <bean name="versionUnresolvedIssueCountsBeanFactory" class="com.atlassian.jira.rest.v2.issue.version.VersionUnresolvedIssueCountsBeanFactoryImpl" autowire="constructor"/>
+    <bean name="componentIssueCountsBeanFactory" class="com.atlassian.jira.rest.v2.issue.component.ComponentIssueCountsBeanFactoryImpl" autowire="constructor"/>
+    <bean name="projectBeanFactory" class="com.atlassian.jira.rest.v2.issue.project.ProjectBeanFactoryImpl" autowire="constructor"/>
+
+    <!--
+       - request-scoped beans
+       -->
+    <bean id="ctxUriInfo" class="com.atlassian.jira.rest.v2.issue.scope.ContextUriInfoFactoryBean" scope="restmethod">
+        <constructor-arg ref="requestScope"/>
+        <aop:scoped-proxy proxy-target-class="false"/>
+    </bean>
+    <bean id="contextI18n" class="com.atlassian.jira.rest.v2.issue.scope.ContextI18nFactoryBean" scope="restmethod">
+        <constructor-arg ref="jiraAuthenticationContext"/>
+        <aop:scoped-proxy proxy-target-class="false"/>
+    </bean>
+
+    <!-- TODO: inject base uri builder -->
+    <!--<bean name="baseUriBuilder" class="com.atlassian.jira.rest.v2.issue.inject.BaseUriBuilderFactory" scope="restmethod" autowire="constructor">-->
+        <!--<aop:scoped-proxy/>-->
+    <!--</bean>-->
+
+</beans>

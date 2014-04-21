@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+    <ModulePrefs title="Hello" author="Atlassian" author_email="ag-dev@lists.atlassian.com"/>
+    <Content type="html">
+        <![CDATA[
+        Hello, Atlassian!
+        
+        I'm hosted on __ATLASSIAN_BASE_URL__
+        ]]>
+    </Content>
+</Module>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml">
+
+    <mx:Canvas width="16" height="16" clipContent="true">
+        <mx:Image x="0" y="-128" source="@Embed(source='/assets/icons/jira-sprite-icons.png')"/>
+    </mx:Canvas>
+
+</mx:Canvas>

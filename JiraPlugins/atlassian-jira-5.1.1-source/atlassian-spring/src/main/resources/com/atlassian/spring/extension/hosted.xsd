@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<xsd:schema xmlns="http://atlassian.com/schema/spring/hosted"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         targetNamespace="http://atlassian.com/schema/spring/hosted"
+         elementFormDefault="qualified"
+         attributeFormDefault="unqualified">
+
+    <xsd:attribute name="override" type="xsd:boolean">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[
+            Whether the bean can be overridden by hosted overrides. This attribute will override the @AllowHostedOverride annotation.
+            ]]></xsd:documentation>
+        </xsd:annotation>
+    </xsd:attribute>
+
+</xsd:schema>

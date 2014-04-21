@@ -1,0 +1,594 @@
+<object-stream>
+  <RegexEntry>
+    <pageName>Dashboard Loads Too Slow</pageName>
+    <regex>Activity\ssearch\struncated\sbecause\sit\stook\stoo\slong;\ssome\ssources\smay\sbe\sexcluded\sor\sincomplete\.\sTry\sagain\swith\slonger\stimeout\.</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Dashboard+Loads+Too+Slow</URL>
+    <Id>FISHKB206866191</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Fisheye Treats Text Files as Binary Files in CVS Repository</pageName>
+    <regex>text files show as binary in cvs</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Fisheye+Treats+Text+Files+as+Binary+Files+in+CVS+Repository</URL>
+    <Id>FISHKB149717008</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>FishEye Scan Interrupted Due to SVN Timeout</pageName>
+    <regex>fisheye\.app SvnThrottledClient$1-run - Cancelling SVN Operation</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/FishEye+Scan+Interrupted+Due+to+SVN+Timeout</URL>
+    <Id>FISHKB163414557</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Subversion Scan Fails Due to Invalid XML</pageName>
+    <regex>svn: Processing PROPFIND request response failed: Element type</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Subversion+Scan+Fails+Due+to+Invalid+XML</URL>
+    <Id>FISHKB121045020</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Native Client Throws NoClassDefFoundError in Fisheye 2.x</pageName>
+    <regex>LogMessageCallback</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Native+Client+Throws+NoClassDefFoundError+in+Fisheye+2.x</URL>
+    <Id>FISHKB193791085</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Getting A sun.java2d.HeadlessGraphicsEnvironment cannot be cast to sun.awt.Win32GraphicsEnvironment Error on Startup</pageName>
+    <regex>java\.lang\.ClassCastException: sun\.java2d\.HeadlessGraphicsEnvironment cannot be cast to sun\.awt\.Win32GraphicsEnvironment</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Getting+A+sun.java2d.HeadlessGraphicsEnvironment+cannot+be+cast+to+sun.awt.Win32GraphicsEnvironment+Error+on+Startup</URL>
+    <Id>FISHKB178259867</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>How to Replace the FISHEYE Logo with Custom Logo</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/How+to+Replace+the+FISHEYE+Logo+with+Custom+Logo</URL>
+    <Id>FISHKB165119350</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Getting com.cenqua.fisheye.rep.DbException Unable to find path trunk, not in database</pageName>
+    <regex>com\.cenqua\.fisheye\.rep\.DbException:\sUnable\sto\sfind\spath\s.*,\snot\sin\sdatabase</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Getting+com.cenqua.fisheye.rep.DbException+Unable+to+find+path+trunk%2C+not+in+database</URL>
+    <Id>FISHKB127369880</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>FishEye Can&apos;t Start GIT Repository Due to Non-Zero Return Code</pageName>
+    <regex>ERROR\s-\sProblem\sprocessing\srevisions\sfrom\srepo\sGit\sdue\sto\sclass\scom\.atlassian\.fisheye\.plugins\.scm\.utils\.process\.ProcessException\s-\sNon-zero\sexit\scode</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/FishEye+Can%27t+Start+GIT+Repository+Due+to+Non-Zero+Return+Code</URL>
+    <Id>FISHKB207487939</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Files are being downloaded as .zip when they are not zip files in Internet Explorer</pageName>
+    <regex>\.zip in IE</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Files+are+being+downloaded+as+.zip+when+they+are+not+zip+files+in+Internet+Explorer</URL>
+    <Id>FISHKB191005043</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Upgrades</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+Upgrades</URL>
+    <Id>FISHKB218269745</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Can&apos;t Start Fisheye Due to Error &apos;Address already in use&apos;</pageName>
+    <regex>java\.net\.BindException:\sAddress\salready\sin\suse:\sJVM_Bind</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Can%27t+Start+Fisheye+Due+to+Error+%27Address+already+in+use%27</URL>
+    <Id>FISHKB195428370</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Integration With Atlassian Applications</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+Integration+With+Atlassian+Applications</URL>
+    <Id>FISHKB218269747</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot Start Fisheye Due to com.cenqua.obfuscate.idbktbulx.locking.FileLockedExternallyException</pageName>
+    <regex>com\.cenqua\.fisheye\.rep\.DbException: com\.cenqua\.obfuscate\.idbktbulx\.locking\.FileLockedExternallyException: Cannot lock file in exclusive mode</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Cannot+Start+Fisheye+Due+to+com.cenqua.obfuscate.idbktbulx.locking.FileLockedExternallyException</URL>
+    <Id>FISHKB213059220</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting LDAP Integration</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+LDAP+Integration</URL>
+    <Id>FISHKB218269743</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Perforce Integration</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+Perforce+Integration</URL>
+    <Id>FISHKB218269749</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Getting &quot;non-existent in revision&quot; errors when trying to add or index a repository</pageName>
+    <regex>non-existent in revision</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=193790128</URL>
+    <Id>FISHKB193790128</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>&quot;java.lang.IncompatibleClassChangeError&quot; with Crowd&apos;s client 1.4 in Fisheye/Crucible</pageName>
+    <regex>com\.cenqua\.fisheye\.user\.crowd\.CrowdAuth\.setupProps\(CrowdAuth\.java:62\)</regex>
+    <URL>http://jira.atlassian.com/browse/FE-475</URL>
+    <Id>FE-475</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot Set Up Trusted Applications To SSL Services Due To &quot;PKIX Path Building Failed sun.security.provider.certpath.SunCertPathBuilderException&quot;</pageName>
+    <regex>sun\.security\.provider\.certpath\.SunCertPathBuilderException:\sunable\sto\sfind\svalid\scertification\spath\sto\srequested\starget</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=186712330</URL>
+    <Id>FISHKB186712330</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>How do I prevent ?No supported authentication methods available? error when using TortoiseHg?</pageName>
+    <regex>N/A</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=218274615</URL>
+    <Id>FISHKB218274615</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable To Extract Fisheye Due to Error &quot;This is the first disk in a backup set, please insert the last disk of this set&quot;</pageName>
+    <regex>This is the first disk in a backup set, please insert the last disk of this set</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=160792792</URL>
+    <Id>FISHKB160792792</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Search and Indexing</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+Search+and+Indexing</URL>
+    <Id>FISHKB218270937</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Error &quot;JVM appears hung&quot; in wrapper.log</pageName>
+    <regex>JVM appears hung: Timed out waiting for signal from JVM</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=186712400</URL>
+    <Id>FISHKB186712400</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Character Encoding</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+Character+Encoding</URL>
+    <Id>FISHKB218270938</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Initial Scan of Repository, Fails Due to Incorrect SVN Username and Password</pageName>
+    <regex>fisheye\.app SvnPasswordSupplier-getUsername - Getting</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Initial+Scan+of+Repository%2C+Fails+Due+to+Incorrect+SVN+Username+and+Password</URL>
+    <Id>FISHKB133267960</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>FishEye Fails to Start, But No Errors Appear in the Logs</pageName>
+    <regex>java\.security\.egd</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/FishEye+Fails+to+Start%2C+But+No+Errors+Appear+in+the+Logs</URL>
+    <Id>FISHKB166002850</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Getting &quot;Unprocessed Continuation Reference&quot; errors in the logs</pageName>
+    <regex>javax\.naming\.PartialResultException: Unprocessed Continuation Reference</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=168003825</URL>
+    <Id>FISHKB168003825</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Database Migration Fails Due to Duplicate Entry</pageName>
+    <regex>of the input: Duplicate entry</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Database+Migration+Fails+Due+to+Duplicate+Entry</URL>
+    <Id>FISHKB204050111</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cache Errors After Upgrading FishEye</pageName>
+    <regex>ERROR - Problem processing revisions from repo ad-tag due to class java\.lang\.IllegalStateException - Unable to load changeset</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Cache+Errors+After+Upgrading+FishEye</URL>
+    <Id>FISHKB213060111</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>FishEye 2.0 Known Issues</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/FishEye+2.0+Known+Issues</URL>
+    <Id>FISHKB218275834</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>java.lang.ArrayIndexOutOfBoundsException in ChangelogServlet-doImageMap</pageName>
+    <regex>com\.cenqua\.fisheye\.bucket\.CalculatedBucketGraphXY.constructXYSeries\(CalculatedBucketGraphXY\.java:227</regex>
+    <URL>http://jira.atlassian.com/browse/FE-517</URL>
+    <Id>FE-517</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>StackOverflow</pageName>
+    <regex>com\.cenqua\.fisheye\.syntax\.r\.Branch\.match\(Branch.java:17</regex>
+    <URL>http://jira.atlassian.com/browse/FE-237</URL>
+    <Id>FE-237</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>FishEye Repository Scan Aborts with &apos;Timer already cancelled&apos; Exception</pageName>
+    <regex>Caused by: java\.lang\.IllegalStateException: Timer already cancelled.</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/FishEye+Repository+Scan+Aborts+with+%27Timer+already+cancelled%27+Exception</URL>
+    <Id>FISHKB104300805</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Add support for local SVN 1.5 repositories using pure java client </pageName>
+    <regex>svn: Expected FS format \&apos;2\&apos;; found format \&apos;3\&apos;</regex>
+    <URL>http://jira.atlassian.com/browse/FE-551</URL>
+    <Id>FE-551</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Integrate with JIRA due to Disabled Remote API Access</pageName>
+    <regex>Remote\sAPI\snot\sactivated\sfor\sthis\sJIRA\sinstallation\.</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Unable+to+Integrate+with+JIRA+due+to+Disabled+Remote+API+Access</URL>
+    <Id>FISHKB218273808</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Subversion Scan Fails when SVNKit Encounters A Deleted Revision</pageName>
+    <regex>No part of path.*was found in repository HEAD</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Subversion+Scan+Fails+when+SVNKit+Encounters+A+Deleted+Revision</URL>
+    <Id>FISHKB104300800</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>CursorLengthException when indexing P4</pageName>
+    <regex>com\.infinitydb\.CursorLengthException</regex>
+    <URL>http://jira.atlassian.com/browse/FE-178</URL>
+    <Id>FE-178</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>WARN Repository URL does not match URL returned from repository</pageName>
+    <regex>Repository\sURL.*does\snot\smatch\sURL\sreturned\sfrom\srepository</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/WARN+Repository+URL+does+not+match+URL+returned+from+repository</URL>
+    <Id>FISHKB218278878</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting JIRA FishEye Plugin</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+JIRA+FishEye+Plugin</URL>
+    <Id>FISHKB218269779</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Fisheye Reports License as Being Invalid</pageName>
+    <regex>java.io.IOException: Invalid license file [E1203]</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Fisheye+Reports+License+as+Being+Invalid</URL>
+    <Id>FISHKB155484622</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Installation</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+Installation</URL>
+    <Id>FISHKB218269773</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>FishEye 2.1 Known Issues</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/FishEye+2.1+Known+Issues</URL>
+    <Id>FISHKB218275830</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Subversion Integration Fails due to Missing SVNKit Dependency</pageName>
+    <regex>java\.lang\.NoClassDefFoundError: org\/tigris\/subversion\/javahl\/SVNClientInterface</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Subversion+Integration+Fails+due+to+Missing+SVNKit+Dependency</URL>
+    <Id>FISHKB104300801</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SVN Repository Stops Indexing With Error &quot;Only one usage of each socket address&quot;</pageName>
+    <regex>Only one usage of each socket address \(protocol\/network address\/port\) is normally permitted</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=168002434</URL>
+    <Id>FISHKB168002434</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Fisheye Fails to Start After License Upgrade</pageName>
+    <regex>Upgrades for your FishEye license ended</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Fisheye+Fails+to+Start+After+License+Upgrade</URL>
+    <Id>FISHKB104300802</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>User hijacking problem that occurs along with number format exception</pageName>
+    <regex>java.lang.NumberFormatException</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/User+hijacking+problem+that+occurs+along+with+number+format+exception</URL>
+    <Id>FISHKB183469796</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Integration With Third Party Applications</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+Integration+With+Third+Party+Applications</URL>
+    <Id>FISHKB218270961</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Changeset Missing Authors</pageName>
+    <regex>no author defined</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Changeset+Missing+Authors</URL>
+    <Id>FISHKB165119370</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Subversion Indexer Paused with &quot;Too many open files&quot; Error</pageName>
+    <regex>Too many open files</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=137265407</URL>
+    <Id>FISHKB137265407</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Fisheye Knowledge Base Home</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Fisheye+Knowledge+Base+Home</URL>
+    <Id>FISHKB179443498</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Getting NullPointerException While Testing for A New Repository Configuration</pageName>
+    <regex>Error testing connection</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Getting+NullPointerException+While+Testing+for+A+New+Repository+Configuration</URL>
+    <Id>FISHKB163415436</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Performance</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+Performance</URL>
+    <Id>FISHKB218269761</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>FishEye 2.2 Known Issues</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/FishEye+2.2+Known+Issues</URL>
+    <Id>FISHKB218275827</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting User Management</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+User+Management</URL>
+    <Id>FISHKB218269768</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SVN Integration Stops Working With Error &quot;Interrupting SVN operation thread due to non-response&quot;</pageName>
+    <regex>Interrupting SVN operation thread due to non-response</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=190482133</URL>
+    <Id>FISHKB190482133</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>NoClassDefFoundError when Scanning SVN Repository</pageName>
+    <regex>java\.lang\.NoClassDefFoundError\s-\sCould\snot\sinitialize\sclass\sorg\.tigris\.subversion\.javahl\.SVNClient</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/NoClassDefFoundError+when+Scanning+SVN+Repository</URL>
+    <Id>FISHKB159514789</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Getting &quot;Unable to login&quot; Error Messages For p4 Repository</pageName>
+    <regex>Unable to login: Command failed to execute - non-zero exit code: 1 - Password invalid</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=192479715</URL>
+    <Id>FISHKB192479715</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Scanning Perforce Repository Fails WIth &apos;Unable to determine latest revision. Check output encoding&apos;</pageName>
+    <regex>P4ClientException - Unable to determine latest revision. Check output encoding</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Scanning+Perforce+Repository+Fails+WIth+%27Unable+to+determine+latest+revision.+Check+output+encoding%27</URL>
+    <Id>FISHKB207487950</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Crowd Integration</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+Crowd+Integration</URL>
+    <Id>FISHKB218270959</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>NoSuchElementException when defining a start revision for a svn url + path that is a sub section of a bigger repository</pageName>
+    <regex>at it.unimi.dsi.fastutil.longs.Long2ObjectAVLTreeMap.firstLongKey</regex>
+    <URL>http://jira.atlassian.com/browse/FE-1932</URL>
+    <Id>FE-1932</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Use Session Expires due to Jetty bug (JETTY-688)</pageName>
+    <regex>org\.mortbay\.log sun\.reflect\.GeneratedMethodAccessor991-invoke - EXCEPTION</regex>
+    <URL>http://jira.atlassian.com/browse/FE-1369</URL>
+    <Id>FE-1369</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Running Out Of Disk Space As Fisheye tmp Directory Gets Full</pageName>
+    <regex>There is not enough space on the disk</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Running+Out+Of+Disk+Space+As+Fisheye+tmp+Directory+Gets+Full</URL>
+    <Id>FISHKB153749306</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Frequently being logged out of Fisheye or Crucible</pageName>
+    <regex>crowd logged out</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Frequently+being+logged+out+of+Fisheye+or+Crucible</URL>
+    <Id>FISHKB191005034</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Inital Scan of Perforce Repository Fails with A NumberFormatException</pageName>
+    <regex>com\.cenqua\.fisheye\.perforce\.client\.P4Exec\.executeZTagCommand\(P4Exec\.java</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Inital+Scan+of+Perforce+Repository+Fails+with+A+NumberFormatException</URL>
+    <Id>FISHKB165119362</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>NPE thrown when creating a review from JIRA when not logged into Crucible as post parameters are not passed on after you are redirected to Login</pageName>
+    <regex>com.cenqua.crucible.actions.create.CreateReviewFromChangesetAction.execute(CreateReviewFromChangesetAction.java:147)</regex>
+    <URL>http://jira.atlassian.com/browse/FE-1630</URL>
+    <Id>FE-1630</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Git Integration</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+Git+Integration</URL>
+    <Id>FISHKB218269753</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Fisheye 2.3 Known Issues</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Fisheye+2.3+Known+Issues</URL>
+    <Id>FISHKB218275815</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Login Fails after Updating Subversion Credentials</pageName>
+    <regex>fisheye\.svnkit\sa-publish\s-\sauthentication\scancelled</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Login+Fails+after+Updating+Subversion+Credentials</URL>
+    <Id>FISHKB104300799</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>FishEye is Incompatible with JRockit JDK</pageName>
+    <regex>com\.cenqua\.fisheye\.rep\.DbException: Unable to find path branches</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/FishEye+is+Incompatible+with+JRockit+JDK</URL>
+    <Id>FISHKB133267948</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Subversion Integration</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+Subversion+Integration</URL>
+    <Id>FISHKB218269751</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Mercurial Integration</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+Mercurial+Integration</URL>
+    <Id>FISHKB218269757</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Fisheye does not scan all of the repository</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Fisheye+does+not+scan+all+of+the+repository</URL>
+    <Id>FISHKB218278577</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting ClearCase Integration</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+ClearCase+Integration</URL>
+    <Id>FISHKB218269755</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Miscellaneous</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Miscellaneous</URL>
+    <Id>FISHKB218271460</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting SCM Integration</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+SCM+Integration</URL>
+    <Id>FISHKB218270940</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>FishEye is Incompatible with IBM JDK</pageName>
+    <regex>java\.io\.IOException: Bad Cell format: bad type byte:</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/FishEye+is+Incompatible+with+IBM+JDK</URL>
+    <Id>FISHKB166003917</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Can&apos;t Index Subversion Repository Due to Error, &apos;Server SSL ceritificate for SVN_URL cannot be saved&apos;</pageName>
+    <regex>Server SSL ceritificate for \&apos;https://*:443\&apos; cannot be saved</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Can%27t+Index+Subversion+Repository+Due+to+Error%2C+%27Server+SSL+ceritificate+for+SVN_URL+cannot+be+saved%27</URL>
+    <Id>FISHKB203395188</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Clone Mercurial Repository</pageName>
+    <regex>abort: HTTP Error 414: Request-URI Too Large</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Unable+to+Clone+Mercurial+Repository</URL>
+    <Id>FISHKB218268760</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bind as login user but read as initial-bind user</pageName>
+    <regex>username\/password check failed</regex>
+    <URL>http://jira.atlassian.com/browse/FE-117</URL>
+    <Id>FE-117</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Fisheye Fails to Start With &apos;Gtk-WARNING cannot open display&apos;</pageName>
+    <regex>cannot open display</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Fisheye+Fails+to+Start+With+%27Gtk-WARNING+cannot+open+display%27</URL>
+    <Id>FISHKB200707857</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot Access SVN Repository Over SSH Due to Error &apos;svn authentication cancelled&apos;</pageName>
+    <regex>SVNCancelException: svn: authentication cancelled</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Cannot+Access+SVN+Repository+Over+SSH+Due+to+Error+%27svn+authentication+cancelled%27</URL>
+    <Id>FISHKB166528438</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting CVS Integration</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+CVS+Integration</URL>
+    <Id>FISHKB218269759</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Fisheye Has Completed Indexing The Subversion Repository but Only Shows One Changeset</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Fisheye+Has+Completed+Indexing+The+Subversion+Repository+but+Only+Shows+One+Changeset</URL>
+    <Id>FISHKB194314898</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Native Subversion Client Fails due to NoSuchMethodError</pageName>
+    <regex>getNodeKind</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Native+Subversion+Client+Fails+due+to+NoSuchMethodError</URL>
+    <Id>FISHKB206865390</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>IndexOutOfBoundsException When Trying to Display Annotated View of a File</pageName>
+    <regex>com.cenqua.fisheye.cvsrep.cache.CachedCvsRepository.getBlame</regex>
+    <URL>http://confluence.atlassian.com/display/FISHKB/IndexOutOfBoundsException+When+Trying+to+Display+Annotated+View+of+a+File</URL>
+    <Id>FISHKB149324005</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Databases</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+Databases</URL>
+    <Id>FISHKB218273336</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Email And Notifications</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+Email+And+Notifications</URL>
+    <Id>FISHKB218270945</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot Delete a Repository</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Cannot+Delete+a+Repository</URL>
+    <Id>FISHKB151519233</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Security And Permissions</pageName>
+    <URL>http://confluence.atlassian.com/display/FISHKB/Troubleshooting+Security+And+Permissions</URL>
+    <Id>FISHKB218270947</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+</object-stream>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+    <ModulePrefs title="__MSG_gadget.admin.title__" description="__MSG_gadget.admin.description__"
+                 author="Atlassian" author_affiliation="Atlassian"
+                 author_location="Sydney, Australia" height="100"
+                 screenshot='#staticResourceUrl("com.atlassian.jira.gadgets:admin-gadget", "admin-screenshot.png")'
+                 thumbnail='#staticResourceUrl("com.atlassian.jira.gadgets:admin-gadget", "admin-thumb.png")'>
+        <Optional feature="gadget-directory">
+            <Param name="categories">
+                JIRA
+                Administration
+            </Param>
+        </Optional>
+        <Require feature="dynamic-height"/>
+        <Require feature="views"/>
+        <Require feature="settitle"/>
+        <Optional feature="atlassian.util"/>
+        <Optional feature='auth-refresh'/>
+        <Require feature="oauthpopup"/>
+        #oauth
+        #supportedLocales("gadget.common,gadget.admin,common.words.or,admin.globalpermissions.user.limit.warning,admin.systeminfo.environment.warnings")
+    </ModulePrefs>
+    <Content type="html">
+        <![CDATA[
+        #requireResource("com.atlassian.jira.gadgets:g-admin")
+        #includeResources()
+
+        <script type="text/javascript">
+            (function () {
+                gadgets.window.setTitle("__MSG_gadget.admin.title__");
+                var gadget = AJS.Gadget({
+                    baseUrl: "__ATLASSIAN_BASE_URL__",
+                    useOauth: "/rest/gadget/1.0/currentUser",
+                    view: {
+                        enableReload: false,
+                        onResizeReload: false,
+                        template: function (args) {
+                            var gadget = this;
+                            args.baseUrl = "__ATLASSIAN_BASE_URL__";
+                            gadget.getView().addClass("g-admin").html(JIRA.Templates.Gadgets.admin(args));
+
+                            AJS.$("#greenHopperInstall").click(installGreenHopper);
+                            AJS.$("#bonfireInstall").click(installBonfire);
+                        },
+                        args: [
+                            {
+                                key: "admin",
+                                ajaxOptions: function () {
+                                    return {
+                                        url: "/rest/gadget/1.0/admin"
+                                    };
+                                }
+                            }
+                        ]
+                    }
+                });
+
+                function installGreenHopper(event) {
+                    event.preventDefault();
+                    AJS.gadget.plugin.installer("com.pyxis.greenhopper.jira-key", "/secure/SetupGreenHopper!default.jspa");
+                }
+
+                function installBonfire(event) {
+                    event.preventDefault();
+                    AJS.gadget.plugin.installer("com.atlassian.bonfire.plugin-key", "/secure/SetupBonfire!default.jspa");
+                }
+            })();
+        </script>
+        ]]>
+    </Content>
+</Module>

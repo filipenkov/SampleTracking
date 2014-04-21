@@ -1,0 +1,16 @@
+<FindBugsFilter>
+    <Match>
+        <Or>
+            <!-- These are the categories that are actually enabled -->
+            <!-- <Bug category="MT_CORRECTNESS" /> -->
+            <!-- <Bug category="SECURITY" /> -->
+            <!-- <Bug category="CORRECTNESS" /> -->
+
+            <Bug category="BAD_PRACTICE" />
+            <Bug category="PERFORMANCE" />
+            <Bug category="STYLE" />
+            <Bug category="EXPERIMENTAL" />
+            <Bug category="MALICIOUS_CODE" />
+        </Or>
+    </Match>
+</FindBugsFilter>

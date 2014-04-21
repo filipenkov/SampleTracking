@@ -1,0 +1,10 @@
+{namespace AG.templates.messages}
+
+/**
+ * @param message message text
+ */
+{template .error autoescape="false"}
+<div class="aui-message error">
+    <span class="aui-icon icon-error"></span> <p>{$message}</p>
+</div>
+{/template}

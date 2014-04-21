@@ -1,0 +1,33 @@
+#* @vtlvariable name="projects" type="com.atlassian.jira.web.bean.StatisticMapWrapper" *#
+#* @vtlvariable name="urlBuilder" type="com.atlassian.jira.user.profile.AssignedAndOpenUserProfileFragment.UrlBuilder" *#
+<div class="mod-header">
+    <h3>$i18n.getText('user.assignedopen')</h3>
+</div>
+#if ($projects)
+<div class="mod-content">
+
+        #set ($projectKeys = $projects.keySet())
+        #if ($projectKeys && $projectKeys.empty == false)
+            <ul class="stat-list">
+                #foreach ($project in $projectKeys)
+                <li>
+                    <span class="stat"><a href="${baseurl}/secure/IssueNavigator.jspa?reset=true${urlBuilder.getUrl($project)}">$projects.get($project)</a></span>
+                    <img alt="$textutils.htmlEncode($project.getString('name'))" class="project-avatar-16" height="16" src="${baseurl}/secure/projectavatar?size=small&pid=${project.getString('id')}&avatarId=${project.getString('avatar')}" width="16" />
+                    <a title="$i18n.getText('tooltip.browseproject.specified', $textutils.htmlEncode($project.getString('name')))" href="${baseurl}/browse/${project.getString('key')}">
+                        $textutils.htmlEncode($project.getString('name'))
+                    </a>
+                </li>
+                #end
+            </ul>
+        #else
+            <p>
+                #if ($profileUser == $currentUser)
+                    $i18n.getText('user.assignedopen.none.self')
+                #else
+                    $i18n.getText('user.assignedopen.none')
+                #end
+            </p>
+        #end
+
+</div>
+#end

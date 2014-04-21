@@ -1,0 +1,14 @@
+#if($action.configBean.getProjectKey($entry))
+	#set($selectedKey = $action.configBean.getProjectKey($entry))
+#end
+
+<span style="display: inline-block; position: relative; width: 250px;">
+	<select name="${fieldId}_project" id="${fieldId}-select" class="select project_select select_project" selected="$!esc.javascript($selectedKey)" />
+	<input type="hidden" class="hidden JIM_new_project_name" id="${fieldId}_project_name" name="${fieldId}_project_name" value="$!textutils.htmlEncode($action.configBean.getProjectName($entry))"/>
+	<input type="hidden" class="hidden JIM_new_project_key" id="${fieldId}_project_key" name="${fieldId}_project_key" value="$!textutils.htmlEncode($action.configBean.getProjectKey($entry))"/>
+	<input type="hidden" class="hidden JIM_new_project_lead" id="${fieldId}_project_lead" name="${fieldId}_project_lead" value="$!textutils.htmlEncode($action.configBean.getProjectLead($entry))"/>
+</span>
+<a href="#" id="${fieldId}_edit" class="project_edit" style="position: relative;">Edit</a>
+#if ($action.errors.get($entry))
+	<div id="${fieldId}_project_errorMsg" class="error">$textutils.htmlEncode($action.errors.get($entry))</div>
+#end

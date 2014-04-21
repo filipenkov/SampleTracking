@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="admin.active.section" content="admin_plugins_menu/builds_section"/>
+    <meta name="admin.active.tab" content="bamboo_config"/>
+    <title>$i18n.getText("bamboo.config.server.update.title")</title>
+</head>
+<body>
+
+<form onsubmit="if (this.submitted) return false; this.submitted = true; return true" name="jiraform" method="post" action="EditBambooApplicationLink.jspa">
+<input type="hidden" name="atl_token" value="$atl_token" />
+<input type="hidden" name="applicationId" value="${applicationId}" />
+<table class="jiraform maxWidth">
+    <tbody>
+        <tr>
+            <td colspan="2" class="jiraformheader">
+                <h3 class="formtitle formtitle-bamboo">$i18n.getText("bamboo.config.server.update.title")</h3>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="jiraformheader">$i18n.getText("bamboo.config.server.update.description")</td>
+        </tr>
+        <tr>
+            <td class="fieldLabelArea" title="$i18n.getText("bamboo.config.requiredField")">$i18n.getText("common.words.name"):</td>
+            <td bgcolor="#ffffff" class="fieldValueArea">$textutils.htmlEncode($!name)</td>
+        </tr>
+        <tr>
+            #set ($encodedHost = $textutils.htmlEncode($!host))
+            <td class="fieldLabelArea" title="$i18n.getText("bamboo.config.requiredField")">$i18n.getText("bamboo.config.host"):</td>
+            <td bgcolor="#ffffff" class="fieldValueArea"><a href="$encodedHost">$encodedHost</a></td>
+        </tr>
+        <tr>
+            <td class="fieldLabelArea">$i18n.getText("bamboo.config.associated-projects-keys.label"):</td>
+            <td bgcolor="#ffffff" class="fieldValueArea">
+                <input class="textfield"  type="text" name="associatedKeys" label="$i18n.getText("bamboo.config.associated-projects-keys.label")" value="$textutils.htmlEncode($!associatedKeys)" />
+                <br /><font size="1">$i18n.getText("bamboo.config.associated-projects-keys.hint")</font>
+            </td>
+        </tr>
+        <tr>
+            <tr>
+                <td colspan="2" class="fullyCentered jiraformfooter">
+                    <input type="submit"
+                           id=" Update " name=" Update "
+                           value=" $i18n.getText("common.forms.update") "
+                           accesskey="S"
+                           title="$i18n.getText("common.forms.update.title")"
+                           class="spaced"
+                           />
+
+                    <input type="button" id="cancelButton"
+                           accesskey="`"
+                           title="$i18n.getText("common.forms.cancel") (Alt + `)"
+                           name="ViewBambooApplicationLinks.jspa"
+                           value="$i18n.getText("common.forms.cancel")"
+                           onclick="location.href='ViewBambooApplicationLinks.jspa'"
+                           />
+                </td>
+            </tr>
+        </tr>
+        #if ($action.hasAnyErrors())
+        <tr>
+            <td colspan="2" class="formErrors">
+                <div class="errorArea">
+                    <h4>Errors</h4>
+                    <ul>
+                        #foreach ($error in $action.getErrorMessages())
+                            <li>$textutils.htmlEncode(${error})</li>
+                        #end
+                        #foreach ($error in $action.errors)
+                            <li>$textutils.htmlEncode(${error})</li>
+                        #end
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        #end
+    </tbody>
+</table>
+</form>
+</body>
+</html>

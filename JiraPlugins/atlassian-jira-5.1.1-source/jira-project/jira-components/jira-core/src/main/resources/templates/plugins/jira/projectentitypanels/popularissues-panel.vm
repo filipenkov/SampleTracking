@@ -1,0 +1,71 @@
+#disable_html_escaping()
+<div class="module">
+    <div class="mod-header">
+        <p>$i18n.getText("popularissues.description")</p>
+        <ul id="resolution-picker" class="paging">
+            #if($isVersion)
+                #set ($linkURL = "$baseurl/browse/$project.key/fixforversion/$versionContext.version.id?selectedTab=com.atlassian.jira.plugin.system.project:version-popularissues-panel")
+            #else
+                #set ($linkURL = "$baseurl/browse/$project.key/component/$componentContext.component.id?selectedTab=com.atlassian.jira.plugin.system.project:component-popularissues-panel")
+            #end
+            #if (!$resolved)
+                #set ($unresolvedText = "<strong>$i18n.getText('common.concepts.unresolved.issues').toLowerCase()</strong>")
+                #set ($resolvedText = "<a href='$linkURL&resolved=true'>$i18n.getText('common.concepts.resolved.issues').toLowerCase()</a>")
+            #else
+                #set ($unresolvedText = "<a href='$linkURL&resolved=false'>$i18n.getText('common.concepts.unresolved.issues').toLowerCase()</a>")
+                #set ($resolvedText = "<strong>$i18n.getText('common.concepts.resolved.issues').toLowerCase()</strong>")
+            #end
+            <li>$unresolvedText</li>
+            <li class="last">$resolvedText</li>
+        </ul>
+    </div>
+    <div class="mod-content">
+        <table class="projectPanel report" width="100%" id="popular_issues_table">
+            <colgroup>
+                <col width="1%"/>
+                <col width="1%"/>
+                <col width="1%"/>
+                <col width="94%"/>
+                <col width="1%"/>
+                <col width="1%"/>
+                <col width="1%"/>
+            </colgroup>
+            <tbody>
+                #if ($popularIssues && $popularIssues.size() > 0)
+                    #foreach ($issue in $popularIssues)
+                    <tr #if($velocityCount % 2 == 0)class="rowAlternateLightGray"#end>
+                        <td nowrap="nowrap" style="padding: 5px 15px" title="$i18n.getText("popularissues.number.of.votes", $issue.getVotes())">$issue.getVotes()</td>
+                        <td>#displayType($issue)</td>
+                        <td nowrap="nowrap" style="font-size: 0.9em">$issue.getKey()</td>
+                        <td>
+                            <a href="$baseurl/browse/$issue.getKey()">$textutils.htmlEncode($issue.getSummary())</a>
+                        </td>
+                        <td nowrap="nowrap">
+                        #if ($fieldVisibility.isFieldHidden("fixVersions", $issue) == false)
+                            #set ($versions = $issue.getFixVersions())
+                            #foreach ($version in $versions)
+                                #if(!$isVersion || $versionContext.version.id != $version.id)
+                                    <a href="$baseurl/browse/$project.key/fixforversion/$version.id">$textutils.htmlEncode($version.getName())</a>#else
+                                    $textutils.htmlEncode($version.getName())#end#if($velocityCount < $versions.size()), #end
+                            #end
+                        #end
+                        </td>
+                        <td>
+                        #if ($fieldVisibility.isFieldHidden("priority", $issue) == false)
+                            #displayConstantIcon($issue.getPriorityObject())
+                        #end
+                        </td>
+                        <td>
+                            #displayConstantIcon($issue.getStatusObject())
+                        </td>
+                    </tr>
+                    #end
+                #else
+                    <tr>
+                        <td colspan="7">$i18n.getText("common.concepts.noissues").</td>
+                    </tr>
+                #end
+            </tbody>
+        </table>
+    </div>
+</div>

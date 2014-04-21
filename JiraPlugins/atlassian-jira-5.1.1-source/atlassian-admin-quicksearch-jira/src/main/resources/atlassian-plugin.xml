@@ -1,0 +1,135 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+  <plugin-info>
+    <description>${project.description}</description>
+    <version>${project.version}</version>
+    <vendor name="Atlassian" url="http://www.atlassian.com/"/>
+    <application-version min="4.4" />
+  </plugin-info>
+
+  <rest key="admin-links-api" path="/adminquicksearch" version="1.0">
+    <description>REST resource delivering admin links data</description>
+    <package>com.atlassian.administration.quicksearch.jira.rest</package>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+  </rest>
+
+  <component-import key="sal-user-manager-import" interface="com.atlassian.sal.api.user.UserManager" />
+  <component-import key="sal-i18n-resolver-import" interface="com.atlassian.sal.api.message.I18nResolver" />
+  <component-import key="sal-locale-resolver-import" interface="com.atlassian.sal.api.message.LocaleResolver" />
+  <component-import key="sal-request-factory-import" interface="com.atlassian.sal.api.net.RequestFactory" />
+  <component-import key="sal-app-properties-import" interface="com.atlassian.sal.api.ApplicationProperties" />
+
+  <component key="user-context-provider" name="JIRA User context provider"
+             class="com.atlassian.administration.quicksearch.jira.spi.JiraUserContextProvider"
+             interface="com.atlassian.administration.quicksearch.spi.UserContextProvider"
+             public="true"/>
+
+  <component key="admin-link-manager" name="JIRA Admin Link Manager"
+             class="com.atlassian.administration.quicksearch.jira.spi.JiraAdminLinkManager"
+             interface="com.atlassian.administration.quicksearch.spi.AdminLinkManager"
+             public="true" />
+
+  <component key="simple-link-provider" name="Default Simple Link Provider"
+             class="com.atlassian.administration.quicksearch.jira.spi.DefaultSimpleLinkProvider"
+             interface="com.atlassian.administration.quicksearch.jira.spi.SimpleLinkProvider" />
+
+  <component key="context-map-provider" name="Null Context Map provider"
+             class="com.atlassian.administration.quicksearch.internal.NullContextMapProvider"
+             interface="com.atlassian.administration.quicksearch.internal.ContextMapProvider" />
+
+
+  <!-- Alias configuration defined in alias-provider-configuration.xml -->
+
+  <!-- Built-in alias providers -->
+  <component key="static-param-alias-provider" name="JIRA Static Parameter Alias Provider"
+             class="com.atlassian.administration.quicksearch.jira.spi.alias.JiraStaticParamAliasProvider"
+             interface="com.atlassian.administration.quicksearch.spi.AdminLinkAliasProvider"
+             public="true" />
+
+  <component key="project-key-alias-provider" name="JIRA Project Key/Name Alias Provider"
+             class="com.atlassian.administration.quicksearch.jira.spi.alias.ProjectLinkAliasProvider"
+             interface="com.atlassian.administration.quicksearch.spi.AdminLinkAliasProvider"
+             public="true" />
+
+  <component key="section-alias-provider" name="Section Alias Provider"
+             class="com.atlassian.administration.quicksearch.impl.spi.alias.SectionAliasProvider"
+             interface="com.atlassian.administration.quicksearch.spi.AdminLinkAliasProvider"
+             public="true" />
+
+
+  <!-- Util -->
+  <component key="version-verifier" class="com.atlassian.administration.quicksearch.util.VersionVerifier" />
+  <component key="self-disabler" class="com.atlassian.administration.quicksearch.jira.util.SelfDisabler" />
+
+  <!-- I18n -->
+  <resource name="quicksearch-i18n" type="i18n" location="com.atlassian.administration.quicksearch.i18n.quicksearch" />
+  <resource name="keywords" type="i18n" location="com.atlassian.administration.quicksearch.jira.i18n.jira-aliases" />
+
+  <web-panel key="admin-quicksearch-show" name="Meta flag to show admin quicksearch" location="atl.header">
+    <resource name="view" type="velocity">
+      <![CDATA[
+            <meta name="ajs-admin-quicksearch-show" content="true">
+            ]]>
+    </resource>
+    <conditions type="OR">
+      <condition class="com.atlassian.jira.plugin.webfragment.conditions.JiraGlobalPermissionCondition">
+        <param name="permission">admin</param>
+      </condition>
+      <condition class="com.atlassian.jira.plugin.webfragment.conditions.UserIsProjectAdminCondition"/>
+    </conditions>
+  </web-panel>
+
+  <keyboard-shortcut key="admin.quicksearch.dialog.shortcut" i18n-name-key="admin.keyboard.shortcut.admin.quicksearch.name"
+                     name="Quick navigation to admin pages" state='enabled'>
+    <order>40</order>
+    <description key="admin.keyboard.shortcut.admin.quicksearch.desc">Admin Operations Dialog</description>
+    <shortcut>gg</shortcut>
+    <operation type="execute">
+      <![CDATA[
+            if (AJS.Meta.get('admin-quicksearch-show')) {
+              jira.app.adminQuickNavDialog.show();
+            }
+            ]]>
+    </operation>
+  </keyboard-shortcut>
+
+  <web-resource key="admin-quicksearch-webresources" name="Web Resources for the Administration Quicksearch">
+
+    <condition class="com.atlassian.administration.quicksearch.web.condition.VersionGreaterThanOrEqual">
+      <param name="majorVersion" value="5" />
+      <param name="minorVersion" value="1"/>
+    </condition>
+
+    <transformation extension="js">
+      <transformer key="jsI18n"/>
+    </transformation>
+
+    <context>atl.general</context>
+    <context>atl.admin</context>
+
+    <dependency>com.atlassian.soy.soy-template-plugin:soy-deps</dependency>
+    <dependency>jira.webresources:jira-global</dependency>
+
+    <transformation extension="less">
+      <transformer key="lessTransformer"/>
+    </transformation>
+    <transformation extension="soy">
+      <transformer key="soyTransformer"/>
+    </transformation>
+
+    <resource type="download" name="adminQuickNav.css" location="com/atlassian/administration/quicksearch/jira/js/adminQuickNav.less">
+      <property key="content-type" value="text/css"/>
+    </resource>
+
+    <resource type="download" name="adminQuickNavDialogHTML.js" location="com/atlassian/administration/quicksearch/jira/js/adminQuickNavDialog.soy" />
+
+    <resource type="download" name="adminQuickNav.js" location="com/atlassian/administration/quicksearch/jira/js/adminQuickNav.js">
+      <property key="content-type" value="text/javascript"/>
+    </resource>
+    <resource type="download" name="analytics.js" location="com/atlassian/administration/quicksearch/js/analytics.js">
+      <property key="content-type" value="text/javascript"/>
+    </resource>
+  </web-resource>
+
+</atlassian-plugin>

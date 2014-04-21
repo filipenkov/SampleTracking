@@ -1,0 +1,27 @@
+#disable_html_escaping()
+#if ($requestContext.getRequestParameter('focusedCommentId') && "$action.comment.id" == $requestContext.getRequestParameter('focusedCommentId'))
+    #set ($focusedComment = " focused")
+#end
+<div id="comment-${action.comment.id}" class="issue-data-block activity-comment twixi-block expanded$!focusedComment">
+    <div class="twixi-wrap verbose actionContainer">
+        <a href="#" class="twixi"><span class="icon twixi-opened"><span>$i18n.getText("admin.common.words.hide")</span></span></a>
+        <div class="action-links">
+            <a href="${requestContext.baseUrl}/browse/${action.issue.key}?focusedCommentId=${action.comment.id}&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel\#comment-${action.comment.id}" title="$i18n.getText('viewissue.permlink.title')" class="icon icon-perma activitymodule-link"><span>$i18n.getText('viewissue.permlink')</span></a>
+            #if ($action.canEditComment)
+                <a id="edit_comment_${action.comment.id}" href="${requestContext.baseUrl}/secure/EditComment!default.jspa?id=${action.issue.id}&commentId=${action.comment.id}" title="$i18n.getText('common.words.edit')" class="icon icon-edit-sml"><span>$i18n.getText('common.words.edit')</span></a>
+            #end
+            #if ($action.canDeleteComment)
+                <a id="delete_comment_${action.comment.id}" href="${requestContext.baseUrl}/secure/DeleteComment!default.jspa?id=${action.issue.id}&commentId=${action.comment.id}" title="$i18n.getText('common.words.delete')" class="icon icon-delete"><span>$i18n.getText('common.words.delete')</span></a>
+            #end
+        </div>
+        <div class="action-details">#actionDetailsBody($action $i18n "verbose")</div>
+        <div class="action-body flooded">#if($renderedContent)$renderedContent #else #makelinkedhtml ( $action.comment ) #end</div>
+    </div>
+    <div class="twixi-wrap concise actionContainer">
+        <a href="#" class="twixi"><span class="icon twixi-closed"><span>$i18n.getText("admin.common.words.show")</span></span></a>
+        <div class="action-details flooded">
+            #actionDetailsBody($action $i18n "concise")
+            #if($renderedContent) $velocityhelper.removeHtmlTags($renderedContent) #else $velocityhelper.removeHtmlTags($action.comment) #end
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<tr valign="top">
+    <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+        <strong style="font-weight:normal;color:${textSubtleColour};">#text("issue.field.priority"):</strong>
+    </td>
+    <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+        #set ($priority = $issue.getPriorityObject())
+        #renderIcon(${priority.iconUrlHtml} ${priority.getNameTranslation($i18n)})
+        $textutils.htmlEncode(${priority.getNameTranslation($i18n)}, false)
+    </td>
+</tr>

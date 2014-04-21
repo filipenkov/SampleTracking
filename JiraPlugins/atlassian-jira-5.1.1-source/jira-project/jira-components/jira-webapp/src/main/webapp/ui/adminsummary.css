@@ -1,0 +1,18 @@
+.admin-summary-panel {overflow:hidden;}
+
+.admin-summary-webpanel-column {
+    float: left;
+    width: 50%;
+}
+
+.msie-7 .admin-summary-webpanel-column {
+    width: 49.9%;
+}
+
+.admin-summary-webpanel-column .admin-summary-webpanel-column-content {
+    padding: 0 0 0 8px;
+}
+
+.admin-summary-webpanel-column:first-child .admin-summary-webpanel-column-content {
+    padding: 0 8px 0 0;
+}

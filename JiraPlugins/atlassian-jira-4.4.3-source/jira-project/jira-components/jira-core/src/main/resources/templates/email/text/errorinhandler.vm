@@ -1,0 +1,17 @@
+$i18n.getText("template.errorinhandler.automatedemail", $baseurl)
+
+$i18n.getText("template.errorinhandler.erroroccurred.line1")
+$i18n.getText("template.errorinhandler.erroroccurred.line2", $serverName, $handlerName)
+
+$i18n.getText("template.errorinhandler.errorwas")
+------------------------
+"$error"
+------------------------
+
+$i18n.getText("template.errorinhandler.errorattached")
+
+$i18n.getText("template.errorinhandler.check")
+##Disabled until http://jdog.atlassian.com/browse/JRADEV-1422 has been resolved
+##${baseurl}/secure/Administrators.jspa
+
+#parse("templates/email/text/includes/footer.vm")

@@ -1,0 +1,22 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.monitor.database.MonitorDatabase" *#
+
+<html>
+<head>
+    <title>${action.getText('admin.monitor.database')}</title>
+    <meta name="admin.active.section" content="admin_plugins_menu/monitoring_section"/>
+    <meta name="admin.active.tab" content="database_connections_link"/>
+</head>
+
+<body>
+    <h2>${action.getText('admin.monitor.database')}</h2>
+    <p>${action.getText('admin.monitor.database.desc', ${action.getDatabaseConnectionHelpLinkHtml()} )}</p>
+
+    <p>
+    #foreach($graph in $action.graphs)
+    <h5>$graph.title</h5>
+    <img src="$graph.imageUrl"/>
+    #end
+    </p>
+
+</body>
+</html>

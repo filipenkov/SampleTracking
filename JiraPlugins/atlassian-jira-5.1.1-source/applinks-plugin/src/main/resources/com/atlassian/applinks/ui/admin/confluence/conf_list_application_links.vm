@@ -1,0 +1,4 @@
+#requireResource("com.atlassian.applinks.applinks-plugin:list-application-links")
+<content tag="selectedWebItem">applinks-configure-application-links</content>
+#set ( $context = $action.applinksContext)
+#parse ( "com/atlassian/applinks/ui/admin/list_application_links.vm" )

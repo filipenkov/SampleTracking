@@ -1,0 +1,3 @@
+<div>
+    <h3 id="error">$i18n.getText("module.action.resource.notFoundMessage")</h3>
+</div>

@@ -1,0 +1,14 @@
+<scheduler>
+
+    <jobs>
+        <job name="ServicesJob" class="com.atlassian.jira.service.ServiceRunner" />
+    </jobs>
+
+    <triggers>
+        <trigger name="ServicesTrigger" job="ServicesJob">
+            <startDelay>1m</startDelay>
+            <period>1m</period>
+        </trigger>
+    </triggers>
+
+</scheduler>

@@ -1,0 +1,54 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${pom.name}" pluginsVersion="2">
+    <plugin-info>
+        <description>${pom.description}</description>
+        <version>${pom.version}</version>
+        <vendor name="${pom.organization.name}" url="${pom.organization.url}"/>
+    </plugin-info>
+
+    <!-- component-imports in META-INF/spring/directory-context-osgi.xml -->
+    <!-- components in META-INF/spring/directory-context.xml -->
+
+    <component-import key="pluginSettingsFactory" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory" />
+    <component-import key="userManager" interface="com.atlassian.sal.api.user.UserManager" />
+    <component-import key="loginUriProvider" interface="com.atlassian.sal.api.auth.LoginUriProvider" />
+    <component-import key="templateRenderer" interface="com.atlassian.templaterenderer.TemplateRenderer" />
+    <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties" />
+    <component-import key="threadLocalDelegateExecutorFactory" interface="com.atlassian.sal.api.executor.ThreadLocalDelegateExecutorFactory" />
+    <component-import key="eventPublisher" interface="com.atlassian.event.api.EventPublisher" />
+
+    <template-context-item key="applicationPropertiesContextItem" component-ref="applicationProperties" 
+        context-key="applicationProperties" name="Application Properties Context Item"/>
+    <template-context-item key="urlBuilderContextItem" component-ref="directoryUrlBuilder" 
+        context-key="urlBuilder" name="Url Builder Context Item"/>
+    
+    <component key="feedSpecProvider" class="com.atlassian.gadgets.directory.internal.GadgetFeedsSpecProvider" public="true">
+        <interface>com.atlassian.gadgets.GadgetSpecProvider</interface>
+    </component>
+    
+    <component key="transactionRunner" class="com.atlassian.gadgets.util.TransactionRunner" />
+    <component key="httpCache" class="com.atlassian.gadgets.directory.internal.HttpCache" />
+    <component key="applicationGadgetFeedStore" class="com.atlassian.gadgets.directory.internal.impl.SubscribedGadgetFeedStoreImpl" />
+
+    <!-- REST endpoint for directory configuration. -->
+    <rest key="directory-config" path="/config" version="1.0">
+        <description>Provides a representation of the directory's contents.</description>
+    </rest>
+    
+    <servlet key="directoryConfigServlet" class="com.atlassian.gadgets.directory.internal.DirectoryConfigServlet">
+        <url-pattern>/gadgets/directory/config</url-pattern>
+    </servlet>
+
+    <web-resource name="Directory Web Resources" key="directory-resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <resource type="download" name="js/directory.js" location="js/directory.js"/>
+        <resource type="download" name="css/general.css" location="css/general.css"/>
+        <resource type="download" name="css/directory.css" location="css/directory.css"/>
+    </web-resource>
+
+    <resource type="i18n" name="i18n" location="com.atlassian.gadgets.directory.internal.i18n"/>
+
+    <resource type="download" name="js/" location="js/"/>
+    <resource type="download" name="css/" location="css/"/>
+    <resource type="download" name="css/images/" location="css/images/"/>
+    <resource type="download" name="images/" location="images/"/>
+</atlassian-plugin>

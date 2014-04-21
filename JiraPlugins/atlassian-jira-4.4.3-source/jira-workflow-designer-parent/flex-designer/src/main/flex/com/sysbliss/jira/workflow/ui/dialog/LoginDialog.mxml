@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BaseDialog xmlns="com.sysbliss.jira.workflow.ui.dialog.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+	width="450" minWidth="450"
+	height="230" minHeight="230"
+	title="{niceResourceManager.getString('json','workflow.designer.jira.login')}"
+	resizable="false"
+	showCloseButton="false"
+	showControls="false"
+    paddingTop="0" paddingRight="5" paddingBottom="0" paddingLeft="5">
+	
+	<mx:Script>
+		<![CDATA[
+        import com.sysbliss.jira.workflow.Il8n.INiceResourceManager;
+
+        import com.sysbliss.jira.workflow.Il8n.NiceResourceManager;
+
+        import org.swizframework.Swiz;
+			import com.sysbliss.jira.workflow.event.GenericDataEvent;
+			import com.sysbliss.jira.workflow.event.EventTypes;
+
+            private const niceResourceManager:INiceResourceManager = NiceResourceManager.getInstance();
+
+			override public function doOk(e:Event):void {
+				var event:GenericDataEvent = new GenericDataEvent(EventTypes.DO_LOGIN,{username:username.text,password:password.text});
+				Swiz.dispatchEvent(event);
+			}
+			
+			override public function clear():void {
+				if(_childrenReady){
+					username.text = "";
+					password.text = "";
+					buttons.okButton.enabled = false;
+				}
+			}
+			
+			private function onTextChange(e:Event):void {
+				if(username.text != "" && password.text != ""){
+					buttons.okButton.enabled = true;
+					errorField.text = "";
+				} else {
+					buttons.okButton.enabled = false;
+					errorField.text = niceResourceManager.getString('json','workflow.designer.username.password.required');
+				}
+			}
+			
+			public function loginFailure():void {
+				errorField.text = niceResourceManager.getString('json','workflow.designer.login.failure');
+			}
+			
+			[Mediate(event="${eventTypes.LOGIN_SUCCESS}")]
+			public function loginSuccess():void {
+				clear();
+				removeMe();
+			}
+
+        override public function onShowDialog():void {
+            super.onShowDialog();
+            username.setFocus();
+        }
+		]]>
+	</mx:Script>
+	
+	<mx:Label id="errorField" styleName="errorField" text="{niceResourceManager.getString('json','workflow.designer.username.password.required')}" />
+	<mx:Form width="100%">
+		<mx:FormItem width="100%" label="{niceResourceManager.getString('json','workflow.designer.username')}" labelStyleName="fieldLabel" required="true">
+			<mx:TextInput id="username" width="100%" change="onTextChange(event);"/>
+		</mx:FormItem>
+		<mx:FormItem width="100%" label="{niceResourceManager.getString('json','workflow.designer.password')}" labelStyleName="fieldLabel" required="true">
+			<mx:TextInput id="password" displayAsPassword="true" width="100%" change="onTextChange(event);"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:StringValidator/>
+    <mx:HRule styleName="hrule" width="100%" height="1"/>
+	<DialogButtonBar id="buttons" styleName="buttonsContainer" buttonFlags="{DialogButtonBar.OK}"/>
+</BaseDialog>

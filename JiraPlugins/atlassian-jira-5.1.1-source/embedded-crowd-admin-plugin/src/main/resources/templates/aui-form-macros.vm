@@ -1,0 +1,143 @@
+#*
+    Velocity macros for AUI form controls
+
+    Required context variables for all form macros:
+    - $formPrefix - prefix to be used for IDs of form controls
+    - $i18nPrefix - prefix to be used for i18n keys
+
+    Additional options available to most form macros:
+    - $options.required - if true, marks field as required
+    - $options.disabled - if true, disables the field
+    - $options.showDescription - if true, shows the field's description (hidden by default)
+    - $options.hideLabel - if true, hides the field's label (visible by default)
+    - $options.inputClass - additional class name to be added to the input element
+    - $options.disableAutocomplete - if true, disables the browser's default form completion (available on text and password fields only)
+    - $options.showLabelAfter - put the label after the control rather than before (available on text and password fields only)
+*#
+
+## Normal form input (i.e. text box) macro
+#macro(auiFormInput $path $options)
+    #springBind($path)
+    #if (!$options.hideLabel && !$options.showLabelAfter)
+        #auiFormLabel("${status.expression}" $options.required)
+    #end
+    <input class="text $!options.inputClass" #if ($options.disabled) disabled #end id="${formPrefix}-${status.expression}"
+           name="${status.expression}" value="$!status.value" #if ($options.disableAutocomplete) autocomplete="off" #end >
+    #if (!$options.hideLabel && $options.showLabelAfter)
+        #auiFormLabel("${status.expression}" $options.required)
+    #end
+    #foreach($error in $status.errorMessages)<div class="error">$error</div>#end
+    #if ($options.showDescription)<div class="description">$i18n.getText("${i18nPrefix}.${status.expression}.description")</div>#end
+#end
+
+## Password input macro
+#macro(auiFormPassword $path $options)
+    #springBind($path)
+    #if (!$options.hideLabel && !$options.showLabelAfter)
+        #auiFormLabel("${status.expression}" $options.required)
+    #end
+    <input class="text $!options.inputClass" #if ($options.disabled) disabled #end id="${formPrefix}-${status.expression}" name="${status.expression}"
+           type="password" value="$!status.value" #if ($options.disableAutocomplete) autocomplete="off" #end >
+    #if (!$options.hideLabel && $options.showLabelAfter)
+        #auiFormLabel("${status.expression}" $options.required)
+    #end
+    #foreach($error in $status.errorMessages)<div class="error">$error</div>#end
+    #if ($options.showDescription)<div class="description">$i18n.getText("${i18nPrefix}.${status.expression}.description")</div>#end
+#end
+
+## Hidden form input macro (no options needed)
+#macro(auiFormHiddenInput $path $options)
+    #springBind($path)
+    <input #if (!$options.omitId) id="${formPrefix}-${status.expression}" #end name="${status.expression}" type="hidden" value="$!status.value">
+#end
+
+## Checkbox macro
+#macro(auiFormCheckBox $path $options)
+    #springBind($path)
+    <!-- hidden field detected by Spring MVC to set the checkbox value to false when the checkbox value isn't found in the request -->
+    <input type="hidden" name="_${status.expression}" value="visible"> 
+    <input type="checkbox" class="checkbox $!options.inputClass" #if ($options.disabled) disabled #end
+           id="${formPrefix}-${status.expression}" name="${status.expression}" value="true" #if($status.value) checked #end >
+    #if (!$options.hideLabel)
+        #auiFormLabel("${status.expression}" false)
+    #end
+    #if ($options.showDescription)
+        #if ($options.i18nValue)
+            <div class="description">$i18n.getText("${i18nPrefix}.${status.expression}.description", $options.i18nValue)</div>
+        #else
+            <div class="description">$i18n.getText("${i18nPrefix}.${status.expression}.description")</div>
+        #end
+    #end
+#end
+
+## Single-option select list macro
+#macro(auiFormSelect $path $values $options)
+	#springBind($path)
+    #if (!$options.hideLabel)
+        #auiFormLabel("${status.expression}" true) ## select lists are always "required"
+    #end
+    <select class="select $!options.inputClass" #if ($options.disabled) disabled #end
+        id="${formPrefix}-${status.expression}" name="${status.expression}">
+        <option value="">$i18n.getText("${i18nPrefix}.${status.expression}.placeholder")</option>
+    #foreach($key in $values.keySet())
+        <option value="${key}" #if($status.value && $status.value == $key) selected #end>$i18n.getText($values.get($key))</option>
+    #end
+    </select>
+    #foreach($error in $status.errorMessages)<div class="error">$error</div>#end
+    #if ($options.showDescription)<div class="description">$i18n.getText("${i18nPrefix}.${status.expression}.description")</div>#end
+#end
+
+## Single-option select list macro
+#macro(auiFormSelectNumeric $path $values $options)
+	#springBind($path)
+    #if (!$options.hideLabel)
+        #auiFormLabel("${status.expression}" true) ## select lists are always "required"
+    #end
+    <select class="select $!options.inputClass" #if ($options.disabled) disabled #end
+        id="${formPrefix}-${status.expression}" name="${status.expression}">
+        <option value="-1">$i18n.getText("${i18nPrefix}.${status.expression}.placeholder")</option>
+    #foreach($key in $values.keySet())
+        <option value="${key}" #if($status.value && $status.value == $key) selected #end>$htmlEncoder.encode($values.get($key))</option>
+    #end
+    </select>
+    #foreach($error in $status.errorMessages)<div class="error">$error</div>#end
+    #if ($options.showDescription)<div class="description">$i18n.getText("${i18nPrefix}.${status.expression}.description")</div>#end
+#end
+
+## Radio buttons macro
+#macro(auiFormRadioButtons $path $values $options)
+    #springBind($path)
+    #if (!$options.hideLabel)
+        #auiFormLabel("${status.expression}" true) ## radio buttons are always "required"
+    #end
+    #foreach($value in $values)
+        <div class="field-group">
+            <input class="radio" id="${formPrefix}-${status.expression}-${value}" #if ($options.disabled) disabled #end
+               name="${status.expression}" value="${value}"
+                type="radio" #if($status.value && $status.value == ${value}) checked #end>
+            #auiFormLabel("${status.expression}-${value}" false)
+            #if ($options.showDescription)<div class="description">$i18n.getText("${i18nPrefix}.${status.expression}-${value}.description", $options.i18nValue)</div>#end
+        </div>
+    #end
+    #foreach($error in $status.errorMessages)<div class="error">$error</div>#end
+#end
+
+## Label macro (used internally)
+#macro(auiFormLabel $expression $required)
+    <label for="${formPrefix}-${expression}">
+        $i18n.getText("${i18nPrefix}.${expression}")
+        #if ($required)<span class="aui-icon icon-required"></span><span class="content"> required</span>#end
+    </label>
+#end
+
+## Help link macro
+#macro(helpLink $key)
+    #set ($helpPath = $helpPathResolver.getHelpPath($key))
+    #if ($helpPath)
+        #if ($helpPath.local) ## Open local help in a popup window
+            <a class="aui-icon icon-help" #if ($helpPath.title)title="$i18n.getText("local.help") $!helpPath.title"#end href="$helpPath.url" onclick="var child = window.open('$helpPath.url', 'localHelp', 'width=600, height=500, resizable, scrollbars=yes'); child.focus(); return false;"></a>
+        #else ## Open remote help (docs) in a new window
+            <a class="aui-icon icon-help" #if ($helpPath.title)title="$i18n.getText("online.help") $!helpPath.title"#end href="$helpPath.url" target="_help"></a>
+        #end
+    #end
+#end

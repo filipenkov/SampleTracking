@@ -1,0 +1,393 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+    </plugin-info>
+
+    <!-- Add UPM admin menu item to Refapp Administration page. The UPM menu item will be placed under the "General"
+         sub-menu of the Administration page. By default, it is placed at the top of the section (noted by the weight) -->
+    <web-item key="refimpl-upm-admin-menu" name="Universal Plugin Manager" section="system.admin/general"  weight="1" application="refapp">
+        <label key="upm.title"/>
+        <link linkId="upm-admin-link">/plugins/servlet/upm</link>
+    </web-item>
+
+    <web-item key="refimpl-upm-audit-menu" name="Plugin Manager Audit Log" section="system.admin/general"  weight="2">
+        <label key="upm.log.title"/>
+        <link linkId="upm-audit-link">/plugins/servlet/upm/log</link>
+        <condition class="com.atlassian.upm.conditions.IsPermittedToView">
+            <param name="page">audit-log</param>
+        </condition>
+    </web-item>
+
+    <web-item key="refimpl-upm-update-check-menu" name="Plugin Compatibility Update Check" section="system.admin/general"  weight="3">
+        <label key="upm.updateCheck.refapp.title"/>
+        <link linkId="upm-update-check-link">/plugins/servlet/upm/check</link>
+        <condition class="com.atlassian.upm.conditions.IsPermittedToView">
+            <param name="page">update-check</param>
+        </condition>
+    </web-item>
+    
+    <!-- Add UPM admin menu item to Confluence Administration page. We don't need application="confluence" here because
+         it wouldn't work, and Confluence will just disregard it. The UPM menu item will be placed under the
+         "Configuration" sub-menu of the Administration page. By default, it is placed under the "Manage Referrers" menu
+         item (noted by the weight) -->
+    <web-item key="confluence-upm-admin-menu" name="Universal Plugin Manager" section="system.admin/configuration"  weight="40">
+        <label key="upm.title"/>
+        <link linkId="upm-admin-link">/plugins/servlet/upm</link>
+    </web-item>
+
+    <web-item key="confluence-upm-audit-menu" name="Plugin Manager Audit Log" section="system.admin/configuration"  weight="41">
+        <label key="upm.log.title"/>
+        <link linkId="upm-audit-link">/plugins/servlet/upm/log</link>
+        <condition class="com.atlassian.upm.conditions.IsPermittedToView">
+            <param name="page">audit-log</param>
+        </condition>
+    </web-item>
+
+    <web-item key="confluence-upm-update-check-menu" name="Plugin Compatibility Update Check" section="system.admin/configuration"  weight="42">
+        <label key="upm.updateCheck.confluence.title"/>
+        <link linkId="upm-update-check-link">/plugins/servlet/upm/check</link>
+        <condition class="com.atlassian.upm.conditions.IsPermittedToView">
+            <param name="page">update-check</param>
+        </condition>
+    </web-item>
+
+    <!-- Add UPM admin menu item to JIRA Administration page. The UPM menu item will be placed under the "System"
+         sub-menu of the Administration page. By default, it is placed under the "Oauth" menu item (noted by the weight)
+         PRIOR to 4.4 -->
+    <web-item key="jira-upm-admin-menu" name="Universal Plugin Manager" section="system.admin/system"  weight="145" application="jira">
+        <label key="upm.title"/>
+        <link linkId="upm-admin-link">/plugins/servlet/upm</link>
+        <condition class="com.atlassian.upm.conditions.IsPriorToJiraVersion">
+            <param name="majorVersion">4</param>
+            <param name="minorVersion">4</param>
+        </condition>
+        <condition class="com.atlassian.upm.conditions.IsPermittedToView">
+            <param name="page">plugins</param>
+        </condition>
+    </web-item>
+
+    <!-- Add UPM audit log admin menu item to JIRA Administration page. -->
+    <web-item key="jira-upm-audit-menu" name="Universal Plugin Manager" section="system.admin/system"  weight="146" application="jira">
+        <label key="upm.log.title"/>
+        <link linkId="upm-audit-link">/plugins/servlet/upm/log</link>
+        <condition class="com.atlassian.upm.conditions.IsPriorToJiraVersion">
+            <param name="majorVersion">4</param>
+            <param name="minorVersion">4</param>
+        </condition>
+        <condition class="com.atlassian.upm.conditions.IsPermittedToView">
+            <param name="page">audit-log</param>
+        </condition>
+    </web-item>
+
+    <!-- Add UPM audit log admin menu item to JIRA Administration page. -->
+    <web-item key="jira-upm-update-check-menu" name="Plugin Compatibility Update Check" section="system.admin/system"  weight="147" application="jira">
+        <label key="upm.updateCheck.jira.title"/>
+        <link linkId="upm-update-check-link">/plugins/servlet/upm/check</link>
+        <condition class="com.atlassian.upm.conditions.IsPriorToJiraVersion">
+            <param name="majorVersion">4</param>
+            <param name="minorVersion">4</param>
+        </condition>
+        <condition class="com.atlassian.upm.conditions.IsPermittedToView">
+            <param name="page">update-check</param>
+        </condition>
+    </web-item>
+
+    <!-- Add UPM admin menu item to JIRA Administration page and to the plugins dropdown. The UPM menu item will be placed in its own subsection in the "Plugins" menu
+     in the jira admin section. 4.4 and beyond -->
+    <web-section key="upm_section" name="Top Plugins Section" location="admin_plugins_menu" i18n-name-key="webfragments.admin.menu.section.top.plugins.name" weight="5">
+        <label key="upm.title"/>
+    </web-section>
+
+    <web-item key="jira-upm-admin-menu-upm" name="Universal Plugin Manager" section="admin_plugins_menu/upm_section"  weight="145" application="jira">
+        <label key="upm.title"/>
+        <link linkId="upm-admin-link">/plugins/servlet/upm</link>
+        <condition class="com.atlassian.upm.conditions.IsPermittedToView">
+            <param name="page">plugins</param>
+        </condition>
+    </web-item>
+
+    <web-item key="jira-upm-admin-menu-audit" name="Plugin Audit Log" section="admin_plugins_menu/upm_section"  weight="147" application="jira">
+        <label key="upm.log.title"/>
+        <link linkId="upm-audit-link">/plugins/servlet/upm/log</link>
+        <condition class="com.atlassian.upm.conditions.IsPermittedToView">
+            <param name="page">audit-log</param>
+        </condition>
+    </web-item>
+
+    <web-item key="jira-upm-admin-menu-update-check" name="Plugin Update Compatibility Check" section="admin_plugins_menu/upm_section"  weight="148" application="jira">
+        <label key="upm.updateCheck.jira.title"/>
+        <link linkId="upm-update-check-link">/plugins/servlet/upm/check</link>
+        <condition class="com.atlassian.upm.conditions.IsPermittedToView">
+            <param name="page">update-check</param>
+        </condition>
+    </web-item>
+
+    <!-- Add UPM admin menu item to Bamboo Administration page. The UPM menu item will be placed under the "Plugins"
+         sub-menu of the Administration page. By default, it is placed under the "Application Links" menu item (noted by the weight) -->
+    <web-item key="bamboo-upm-admin-menu" name="Universal Plugin Manager" section="system.admin/plugins"  weight="15" application="bamboo">
+        <label key="Plugin Manager"/>
+        <link linkId="upm-admin-link">/plugins/servlet/upm</link>
+        <condition class="com.atlassian.upm.conditions.IsPermittedToView">
+            <param name="page">plugins</param>
+        </condition>
+    </web-item>
+
+    <web-item key="bamboo-upm-audit-menu" name="Plugin Audit Log" section="system.admin/plugins"  weight="15" application="bamboo">
+        <label key="upm.log.title"/>
+        <link linkId="upm-audit-link">/plugins/servlet/upm/log</link>
+        <condition class="com.atlassian.upm.conditions.IsPermittedToView">
+            <param name="page">audit-log</param>
+        </condition>
+    </web-item>
+
+    <web-item key="bamboo-upm-update-check-menu" name="Plugin Update Compatibility Check" section="system.admin/plugins"  weight="16" application="bamboo">
+        <label key="upm.updateCheck.bamboo.title"/>
+        <link linkId="upm-update-check-link">/plugins/servlet/upm/check</link>
+        <condition class="com.atlassian.upm.conditions.IsPermittedToView">
+            <param name="page">update-check</param>
+        </condition>
+    </web-item>
+
+    <!-- Add UPM admin menu item to Fisheye/Crucible Administration page. The UPM menu item will be placed under the "System"
+         sub-menu of the Administration page. By default, it is placed under the "Shutdown" menu item (noted by the weight) -->
+    <web-item key="fecru-upm-admin-menu" name="Universal Plugin Manager" section="system.admin/system"  weight="15" application="fisheye">
+        <label>Plugins</label>
+        <link linkId="upm-admin-link">/plugins/servlet/upm</link>
+        <condition class="com.atlassian.upm.conditions.IsPermittedToView">
+            <param name="page">plugins</param>
+        </condition>
+    </web-item>
+
+    <web-item key="fecru-upm-audit-menu" name="Plugin Audit Log" section="system.admin/system"  weight="15" application="fisheye">
+        <label>Plugin Audit Log</label>
+        <link linkId="upm-audit-link">/plugins/servlet/upm/log</link>
+        <condition class="com.atlassian.upm.conditions.IsPermittedToView">
+            <param name="page">audit-log</param>
+        </condition>
+    </web-item>
+
+    <web-item key="fecru-upm-update-check-menu" name="Plugin Update Compatibility" section="system.admin/system"  weight="15" application="fisheye">
+        <label>FishEye Update Check</label>
+        <link linkId="upm-update-check-link">/plugins/servlet/upm/check</link>
+        <condition class="com.atlassian.upm.conditions.IsPermittedToView">
+            <param name="page">update-check</param>
+        </condition>
+    </web-item>
+
+    <web-resource name="UPM Web Resources" key="upm-web-resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <resource type="download" name="upm.css" location="css/upm.css"/>
+        <resource type="download" name="css/cloud-carousel.css" location="css/cloud-carousel.css"/>
+        <resource type="download" name="ie/upm-ie.css" location="css/ie/upm-ie.css">
+            <param name="ieonly" value="true"/>
+        </resource>
+        <resource type="download" name="js/upm.js" location="js/upm.js"/>
+        <resource type="download" name="js/cloud-carousel.js" location="js/cloud-carousel.js"/>
+        <resource type="download" name="js/upm.json.js" location="js/upm.json.js"/>
+        <resource type="download" name="js/html-sanitizer.js" location="js/html-sanitizer.js"/>
+        <resource type="download" name="js/jquery.hashchange.js" location="js/jquery.hashchange.js"/>
+    </web-resource>
+
+    <web-resource name="UPM Plugin Resources" key="upm-plugin-resources">
+        <resource type="download" name="js/upm-plugins.js" location="js/upm-plugins.js"/>
+    </web-resource>
+
+    <web-resource name="UPM Audit Log Resources" key="audit-log-resources">
+        <resource type="download" name="js/upm-audit-log.js" location="js/upm-audit-log.js"/>
+    </web-resource>
+
+    <web-resource name="UPM Update Compatibility Check Resources" key="update-check-resources">
+        <resource type="download" name="js/upm-update-check.js" location="js/upm-update-check.js"/>
+    </web-resource>
+
+    <web-resource name="Plugin Notification Resources" key="plugin-notifications">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <resource type="download" name="admin-notifications.css" location="css/admin-notifications.css"/>
+        <resource type="download" name="ie/admin-notifications-ie.css" location="css/ie/admin-notifications-ie.css">
+            <param name="ieonly" value="true"/>
+        </resource>
+        <resource type="download" name="js/upm.json.js" location="js/upm.json.js">
+            <param name="cache" value="false" />
+        </resource>
+        <resource type="download" name="js/admin-notifications.js" location="js/admin-notifications.js">
+            <param name="cache" value="false" />
+        </resource>
+        <context>atl.admin</context>
+        <!-- Bamboo 3.4 special cases UPM and gives it a different context to remove History.js BAM-9421 UPM-1739 -->
+        <context>upm</context>
+        <transformation extension="js">
+            <transformer key="notificationWebResourceTransformer" />
+        </transformation>
+    </web-resource>
+
+    <web-resource name="Refapp Web Resources" key="refapp">
+        <resource type="download" name="refapp.css" location="css/refapp.css"/>
+    </web-resource>
+    <web-resource name="Fake JSON Data" key="fakedata">
+        <resource type="download" name="fakedata/plugindetails.json" location="fakedata/plugindetails.json"/>
+        <resource type="download" name="fakedata/pluginlist.json" location="fakedata/pluginlist.json"/>
+    </web-resource>
+
+    <web-resource-transformer key="notificationWebResourceTransformer" class="com.atlassian.upm.notification.NotificationWebResourceTransformer" />
+
+    <component-import key="renderer" interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRenderer" />
+    <component-import key="pluginSystemEventManager" interface="com.atlassian.plugin.event.PluginEventManager" />
+    <component-import key="pluginSettingsFactory" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory" />
+    <component-import key="pluginController" interface="com.atlassian.plugin.PluginController" />
+    <component-import key="webResourceManager" interface="com.atlassian.plugin.webresource.WebResourceManager" />
+    <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties" />
+    <component-import key="userManager" interface="com.atlassian.sal.api.user.UserManager" />
+    <component-import key="requestFactory" interface="com.atlassian.sal.api.net.RequestFactory" />
+    <component-import key="pluginAccessor" interface="com.atlassian.plugin.PluginAccessor" />
+    <component-import key="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver" />
+    <component-import key="localeResolver" interface="com.atlassian.sal.api.message.LocaleResolver" />
+    <component-import key="txTemplate" interface="com.atlassian.sal.api.transaction.TransactionTemplate" />
+    <component-import key="loginUriProvider" interface="com.atlassian.sal.api.auth.LoginUriProvider" />
+    <component-import key="pluginMetaDataManager" interface="com.atlassian.plugin.metadata.PluginMetadataManager" />
+    <component-import key="salWebSudoManager" interface="com.atlassian.sal.api.websudo.WebSudoManager" />
+    <component-import key="salPluginScheduler" interface="com.atlassian.sal.api.scheduling.PluginScheduler" />
+    <component-import key="executorFactory" interface="com.atlassian.sal.api.executor.ThreadLocalDelegateExecutorFactory" />
+
+    <template-context-item key="userManagerContextItem" component-ref="userManager" context-key="userManager" name="User Manager Context Item"/>
+    <template-context-item key="applicationPropertiesContextItem" component-ref="applicationProperties" context-key="applicationProperties" name="Application Properties Context Item"/>
+    <template-context-item key="linkBuilderContextItem" component-ref="linkBuilder" context-key="linkBuilder" name="Link Builder Context Item"/>
+    <template-context-item key="tabVisibilityContextItem" component-ref="tabVisibility" context-key="tabVisibility" name="Tab Visibility Context Item"/>
+    <template-context-item key="upmVersionTrackerContextItem" component-ref="upmVersionTracker" context-key="upmVersionTracker" name="UPM Version Tracker Context Item"/>
+
+    <component key="uriBuilder" class="com.atlassian.upm.rest.UpmUriBuilder" />
+    <component key="linkBuilder" class="com.atlassian.upm.rest.representations.LinkBuilder" />
+    <component key="tabVisibility" class="com.atlassian.upm.permission.UpmVisibilityImpl" />
+    <component key="asynchronousTaskManager" class="com.atlassian.upm.rest.async.AsynchronousTaskManager" />
+    <component key="representationFactory" class="com.atlassian.upm.rest.representations.RepresentationFactoryImpl" />
+    <component key="pluginDownloadService" class="com.atlassian.upm.impl.PluginDownloadServiceImpl" />
+    <component key="pluginSettingsConfigurationStore" interface="com.atlassian.upm.ConfigurationStore"
+               class="com.atlassian.upm.impl.PluginSettingsConfigurationStore" stateful="true"/>
+    <component key="pluginInstaller" class="com.atlassian.upm.PluginInstaller"/>
+    <component key="pluginAccessorAndController" class="com.atlassian.upm.PluginAccessorAndControllerImpl"/>
+    <component key="auditLogService" interface="com.atlassian.upm.log.AuditLogService"
+               class="com.atlassian.upm.log.PluginSettingsAuditLogService" stateful="true"/>
+    <component key="pluginLogService" class="com.atlassian.upm.log.PluginLogServiceImpl" public="true">
+        <interface>com.atlassian.upm.api.log.PluginLogService</interface>
+    </component>
+    <component key="applicationLifecycleLogger" class="com.atlassian.upm.log.ApplicationLifecycleLoggerImpl" public="true">
+        <interface>com.atlassian.sal.api.lifecycle.LifecycleAware</interface>
+        <interface>com.atlassian.upm.log.ApplicationLifecycleLogger</interface>
+    </component>
+    <component key="pacClient" class="com.atlassian.upm.pac.PacClientImpl" />
+    <component key="pacAuditClient" class="com.atlassian.upm.pac.PacAuditClientImpl" />
+    <component key="pacServiceFactory" class="com.atlassian.upm.pac.PacServiceFactoryImpl" />
+    <component key="pacClientContextFactory" class="com.atlassian.upm.pac.UpmPacClientContextFactory" />
+    <component key="obrPluginInstallHandler" class="com.atlassian.upm.impl.ObrPluginInstallHandler" />
+    <component key="permissionEnforcer" class="com.atlassian.upm.rest.resources.permission.PermissionEnforcer"/>
+    <component key="bundleAccessor" class="com.atlassian.upm.osgi.impl.BundleAccessorImpl"/>
+    <component key="serviceAccessor" class="com.atlassian.upm.osgi.impl.ServiceAccessorImpl"/>
+    <component key="packageAccessor" class="com.atlassian.upm.osgi.impl.PackageAccessorImpl"/>
+    <component key="pluginFactory" class="com.atlassian.upm.PluginFactory"/>
+    <component key="tokenManager" class="com.atlassian.upm.token.TokenManagerImpl" />
+    <component key="permissionService" class="com.atlassian.upm.permission.PermissionServiceImpl"/>
+    <component key="pluginNotificationScheduler" interface="com.atlassian.sal.api.lifecycle.LifecycleAware"
+               class="com.atlassian.upm.notification.cache.NotificationCacheUpdateScheduler" public="true" />
+    <component key="selfUpdateController" class="com.atlassian.upm.SelfUpdateController" />
+    <component key="selfUpdatePluginAccessor" class="com.atlassian.upm.SelfUpdatePluginAccessorImpl" />
+    <component key="upmVersionTracker" class="com.atlassian.upm.UpmVersionTracker" />
+    <component key="pluginManagerHandler" class="com.atlassian.upm.PluginManagerHandler" />
+    <component key="upmSchedulerUpgradeTask" interface="com.atlassian.sal.api.lifecycle.LifecycleAware"
+               class="com.atlassian.upm.UpmSchedulerUpgradeTask" public="true" />
+    
+    <!-- licensing components -->
+    <component key="licenseEntityFactory" class="com.atlassian.upm.license.internal.impl.LicenseEntityFactoryImpl" />
+    <component key="pluginLicenseRepository" class="com.atlassian.upm.license.internal.impl.PluginLicenseRepositoryImpl"/>
+    <component key="pluginLicenseValidator" class="com.atlassian.upm.license.internal.impl.PluginLicenseValidatorImpl" />
+    <component key="pluginLicenseManager" class="com.atlassian.upm.license.internal.impl.PluginLicenseManagerServiceFactory" public="true">
+        <interface>com.atlassian.upm.api.license.PluginLicenseManager</interface>
+    </component>
+    <component key="pluginLicenseEventPublisherRegistry" class="com.atlassian.upm.license.internal.event.PluginLicenseEventPublisherRegistry" />
+    <component key="pluginLicenseEventPublisher" class="com.atlassian.upm.license.internal.event.PluginLicenseEventPublisherServiceFactory" public="true">
+        <interface>com.atlassian.upm.api.license.PluginLicenseEventRegistry</interface>
+    </component>
+    <component-import key="eventPublisher" interface="com.atlassian.event.api.EventPublisher"/>
+    <component key="licenseManagerProvider" class="com.atlassian.upm.license.internal.impl.LicenseManagerProviderImpl" />
+    <component key="licenseExpiryCheckScheduler" interface="com.atlassian.sal.api.lifecycle.LifecycleAware"
+               class="com.atlassian.upm.license.internal.scheduling.PluginLicenseExpiryCheckScheduler" public="true" />
+    <component key="licenseDateFormatter" class="com.atlassian.upm.license.internal.impl.LicenseDateFormatterImpl" />
+    <component key="pluginLicenseCache" class="com.atlassian.upm.license.internal.impl.PluginLicenseCacheImpl" />
+    <component key="pluginLicenseStore" class="com.atlassian.upm.license.internal.impl.PluginSettingsPluginLicenseStore" />
+
+    <component key="pluginNotificationService" class="com.atlassian.upm.notification.cache.PluginSettingsNotificationCache">
+        <interface>com.atlassian.upm.notification.cache.NotificationCache</interface>
+    </component>
+    <component key="notificationRepresentationFactory" class="com.atlassian.upm.notification.rest.representations.NotificationRepresentationFactoryImpl" />
+    <component key="pluginNotificationUpdater" class="com.atlassian.upm.notification.cache.NotificationCacheUpdaterImpl" />
+    <component key="notificationFactoryImpl" class="com.atlassian.upm.notification.NotificationFactoryImpl" />
+    <component key="hostLicenseUpdateListener" class="com.atlassian.upm.notification.cache.HostLicenseUpdateListener" />
+    <component key="licenseReceiptValidator" class="com.atlassian.upm.license.internal.mac.LicenseReceiptValidator" />
+    <component key="licenseReceiptHandler" class="com.atlassian.upm.license.internal.mac.LicenseReceiptHandler" />
+    
+    <!-- host license provider components -->
+    <component-import key="bambooUserManager" interface="com.atlassian.bamboo.user.BambooUserManager" application="bamboo" />
+    <component-import key="fecruUserService" interface="com.atlassian.crucible.spi.services.UserService" application="fecru" />
+    <component-import key="jiraLicenseManager" interface="com.atlassian.jira.license.JiraLicenseManager" application="jira" />
+    <component-import key="jiraAuthenticationContext" interface="com.atlassian.jira.security.JiraAuthenticationContext" application="jira" />
+    <component-import key="jiraUserUtil" interface="com.atlassian.jira.user.util.UserUtil" application="jira" />
+    <component-import key="bandanaManager" interface="com.atlassian.bandana.BandanaManager" application="confluence" />
+    <component-import key="formatSettingsManager" interface="com.atlassian.confluence.core.FormatSettingsManager" application="confluence" />
+    <component-import key="userAccessor" interface="com.atlassian.confluence.user.UserAccessor" application="confluence" />
+    <component key="refappHostLicenseProvider" class="com.atlassian.upm.license.internal.host.DefaultHostLicenseProvider" application="refapp" />
+    <component key="refappLicenseDatePreferenceProvider" class="com.atlassian.upm.license.internal.impl.DefaultLicenseDatePreferenceProvider" application="refapp" />
+    <component key="refappHostLicenseEventReader" class="com.atlassian.upm.license.internal.impl.DefaultHostLicenseEventReader" application="refapp" />
+    <component key="refappApplicationDescriptor" class="com.atlassian.upm.license.internal.host.RefappApplicationDescriptor" application="refapp" />
+    <component key="jiraHostLicenseProvider" class="com.atlassian.upm.license.internal.host.JiraHostLicenseProvider" application="jira" />
+    <component key="jiraHostLicenseEventReader" class="com.atlassian.upm.license.internal.JiraHostLicenseEventReader" application="jira" />
+    <component key="jiraLicenseDatePreferenceProvider" class="com.atlassian.upm.license.internal.JiraLicenseDatePreferenceProvider" application="jira" />
+    <component key="jiraApplicationDescriptor" class="com.atlassian.upm.license.internal.host.JiraApplicationDescriptor" application="jira" />
+    <component key="fecruHostLicenseProvider" class="com.atlassian.upm.license.internal.host.FecruHostLicenseProvider" application="fecru" />
+    <component key="fecruHostLicenseEventReader" class="com.atlassian.upm.license.internal.impl.DefaultHostLicenseEventReader" application="fecru" />
+    <component key="fecruLicenseDatePreferenceProvider" class="com.atlassian.upm.license.internal.FecruLicenseDatePreferenceProvider" application="fecru" />
+    <component key="fecruApplicationDescriptor" class="com.atlassian.upm.license.internal.host.FecruApplicationDescriptor" application="fecru" />
+    <component key="confluenceHostLicenseProvider" class="com.atlassian.upm.license.internal.host.ConfluenceHostLicenseProvider" application="confluence" />
+    <component key="confluenceHostLicenseEventReader" class="com.atlassian.upm.license.internal.ConfluenceHostLicenseEventReader" application="confluence" />
+    <component key="confluenceLicenseDatePreferenceProvider" class="com.atlassian.upm.license.internal.ConfluenceLicenseDatePreferenceProvider" application="confluence" />
+    <component key="confluenceApplicationDescriptor" class="com.atlassian.upm.license.internal.host.ConfluenceApplicationDescriptor" application="confluence" />
+    <component key="bambooHostLicenseProvider" class="com.atlassian.upm.license.internal.host.BambooHostLicenseProvider" application="bamboo" />
+    <component key="bambooHostLicenseEventReader" class="com.atlassian.upm.license.internal.impl.DefaultHostLicenseEventReader" application="bamboo" />
+    <component key="bambooLicenseDatePreferenceProvider" class="com.atlassian.upm.license.internal.impl.DefaultLicenseDatePreferenceProvider" application="bamboo" />
+    <component key="bambooApplicationDescriptor" class="com.atlassian.upm.license.internal.host.BambooApplicationDescriptor" application="bamboo" />
+
+    <rest key="rest" path="/plugins" version="1.0">
+        <description>Provides REST resources for the plugin system.</description>
+    </rest>
+
+    <servlet-filter name="plugin manager pdk install usurper filter" key="plugin-manager-pdk-usurper" class="com.atlassian.upm.PluginManagerPdkUsurperFilter" location="before-decoration" weight="1">
+        <url-pattern>/admin/uploadplugin.action</url-pattern>
+    </servlet-filter>
+
+    <servlet-context-listener key="fileCleanup" class="org.apache.commons.fileupload.servlet.FileCleanerCleanup" />
+
+    <servlet key="plugin-manager-servlet" class="com.atlassian.upm.PluginManagerServlet">
+        <url-pattern>/upm</url-pattern>
+    </servlet>
+
+    <servlet key="license-receipt-servlet" class="com.atlassian.upm.mac.UpmLicenseReceiptServlet">
+        <url-pattern>/upm/license/*</url-pattern>
+    </servlet>
+    
+    <servlet key="audit-log-servlet" class="com.atlassian.upm.AuditLogServlet">
+        <url-pattern>/upm/log</url-pattern>
+    </servlet>
+
+    <servlet key="update-check-servlet" class="com.atlassian.upm.UpdateCheckServlet">
+        <url-pattern>/upm/check</url-pattern>
+    </servlet>
+
+    <!-- Shared resources -->
+    <resource type="i18n" name="i18n" location="com.atlassian.upm.i18n" />
+
+    <resource type="download" name="images/" location="images/"/>
+
+    <component key="auditLogUpgradeTask" name="Audit Log Upgrade Task" class="com.atlassian.upm.log.AuditLogUpgradeTask" public="true">
+        <interface>com.atlassian.sal.api.upgrade.PluginUpgradeTask</interface>
+    </component>
+
+</atlassian-plugin>

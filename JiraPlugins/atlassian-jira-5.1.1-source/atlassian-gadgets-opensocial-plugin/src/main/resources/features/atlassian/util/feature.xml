@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<feature>
+  <!--
+  Required Configuration:
+
+  baseUrl: Base URL for the rendering server
+
+  -->
+  <name>atlassian.util</name>
+  <gadget>
+      <script src="atlassian.util.js"/>
+  </gadget>
+</feature>

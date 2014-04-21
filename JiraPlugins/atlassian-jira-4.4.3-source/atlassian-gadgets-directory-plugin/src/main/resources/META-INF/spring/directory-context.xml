@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Used by DirectoryResource -->
+    <bean id="directoryConfigurationPermissionChecker"
+          class="com.atlassian.gadgets.directory.internal.DirectoryConfigurationPermissionChecker">
+        <constructor-arg type="com.atlassian.gadgets.directory.spi.DirectoryPermissionService" ref="permissionService"/>
+        <constructor-arg type="com.atlassian.sal.api.user.UserManager" ref="userManager"/>
+    </bean>
+
+    <bean id="directoryUrlBuilder" class="com.atlassian.gadgets.directory.internal.impl.DirectoryUrlBuilderImpl">
+        <constructor-arg type="com.atlassian.sal.api.ApplicationProperties" ref="applicationProperties"/>
+        <constructor-arg type="com.atlassian.plugin.webresource.WebResourceManager" ref="webResourceManager"/>
+    </bean>
+
+    <bean id="pluginExternalGadgetSpecDirectoryEntryProvider"
+          class="com.atlassian.gadgets.directory.internal.impl.PluginExternalGadgetSpecDirectoryEntryProvider">
+        <constructor-arg type="com.atlassian.gadgets.spec.GadgetSpecFactory" ref="gadgetSpecFactory"/>
+        <constructor-arg type="com.atlassian.sal.api.executor.ThreadLocalDelegateExecutorFactory"
+                         ref="threadLocalDelegateExecutorFactory"/>
+    </bean>
+
+    <!-- Used by DirectoryResource -->
+    <bean id="configurableExternalGadgetSpecDirectoryEntryProvider"
+          class="com.atlassian.gadgets.directory.internal.impl.ConfigurableExternalGadgetSpecDirectoryEntryProvider">
+        <constructor-arg type="com.atlassian.gadgets.spec.GadgetSpecFactory" ref="gadgetSpecFactory"/>
+        <constructor-arg type="com.atlassian.gadgets.directory.spi.ExternalGadgetSpecStore" ref="externalGadgetStore"/>
+        <constructor-arg type="com.atlassian.gadgets.directory.internal.DirectoryUrlBuilder" ref="directoryUrlBuilder"/>
+        <constructor-arg type="com.atlassian.sal.api.transaction.TransactionTemplate" ref="txTemplate"/>
+        <constructor-arg type="com.atlassian.sal.api.executor.ThreadLocalDelegateExecutorFactory" ref="threadLocalDelegateExecutorFactory"/>
+        <constructor-arg type="com.atlassian.event.api.EventPublisher" ref="eventPublisher"/>
+    </bean>
+
+    <bean id="directory" class="com.atlassian.gadgets.directory.internal.impl.DirectoryImpl">
+        <constructor-arg>
+            <list>
+                <ref bean="pluginExternalGadgetSpecDirectoryEntryProvider"/>
+                <ref bean="configurableExternalGadgetSpecDirectoryEntryProvider"/>
+                <bean class="com.atlassian.gadgets.directory.internal.impl.GadgetSpecProviderDirectoryEntryProvider">
+                    <constructor-arg type="com.atlassian.gadgets.spec.GadgetSpecFactory" ref="gadgetSpecFactory"/>
+                    <constructor-arg type="java.lang.Iterable" ref="gadgetSpecProviders"/>
+                    <constructor-arg type="com.atlassian.sal.api.executor.ThreadLocalDelegateExecutorFactory"
+                         ref="threadLocalDelegateExecutorFactory"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+</beans>

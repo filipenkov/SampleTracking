@@ -1,0 +1,25 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${pom.name}" pluginsVersion="2">
+    <plugin-info>
+        <description>${pom.description}</description>
+        <version>${pom.version}</version>
+        <application-version min="4.0" max="4.0"/>
+        <vendor name="Atlassian" url="http://www.atlassian.com/"/>
+    </plugin-info>
+
+    <rest key="functest-rest-service-resources" path="/func-test" version="1.0">
+        <description>Provides the REST resource for the func test plugin.</description>
+    </rest>
+
+    <servlet name="TimeZone Servlet" key="timezone-servlet" class="com.atlassian.jira.dev.backdoor.sal.TimeZoneServlet">
+        <description>A servlet that uses the sal TimeZoneManager</description>
+        <url-pattern>/timezone-servlet</url-pattern>
+    </servlet>
+
+    <component-import key="lifeCycleManager" interface="com.atlassian.sal.api.lifecycle.LifecycleManager"/>
+
+    <component-import key="pluginTimeZoneManager" interface="com.atlassian.sal.api.timezone.TimeZoneManager"/>
+
+    <component interface="com.atlassian.jira.dev.backdoor.PlaintextEncoderLoaderInterface" key="plaintextEncoderLoader" name="Plaintext Encoder Loader" class="com.atlassian.jira.dev.backdoor.PlaintextEncoderLoader" public="true" system="true"/>
+
+    <component interface="com.atlassian.jira.dev.backdoor.Log4JHackery" key="log4jHackery" name="Log4J modifications for func testing" class="com.atlassian.jira.dev.backdoor.Log4JHackeryImpl" />
+</atlassian-plugin>

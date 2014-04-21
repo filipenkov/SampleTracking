@@ -1,0 +1,21 @@
+#
+# Edit to customise the version of IDEA that you are using. This is
+# needed to install code formatting styles into your IDEA configuration
+# directory.
+idea.version.string= IntelliJIdea11
+
+#
+# Edit to change Tomcat-related parameters.
+#
+tomcat.port = 8090
+tomcat.context = /jira
+tomcat.basedir=${project.root.dir}/tomcatBase
+tomcat.workdir = ${tomcat.basedir}/work
+# Uncomment this to specify additional arguments when tomcat runs
+# tomcat.additional.jvmargs = -Dplugin.resource.directories=${project.root.dir}/jira-components/jira-plugins/jira-project-config-plugin/src/main/resources
+
+#
+# Edit to change the location of the jira home (default: 'jirahome')
+#
+jira.home = ${project.root.dir}/jirahome
+

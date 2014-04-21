@@ -1,0 +1,54 @@
+#* @vtlvariable name="manageVersionLink" type="java.lang.String" *#
+#* @vtlvariable name="versions" type="java.util.List<com.atlassian.jira.projectconfig.contextproviders.VersionsSummaryPanelContextProvider.SimpleVersion>" *#
+#* @vtlvariable name="actualSize" type="java.lang.Integer" *#
+#* @vtlvariable name="totalSize" type="java.lang.Integer" *#
+#* @vtlvariable name="i18n" type="com.atlassian.jira.util.I18nHelper" *#
+
+<div class="project-config-webpanel-content project-config-icon48-versions">
+    <div class="project-config-webpanel-help">
+        <p>$i18n.getText("admin.project.config.summary.version.desc")</p>
+    </div>
+    #if (!$errors.empty)
+        <div class="aui-message error">
+            <p>$i18n.getText("admin.project.config.summary.version.error"):</p>
+            <ul>
+                #foreach ($error in $errors)
+                    <li>$error</li>
+                #end
+            </ul>
+        </div>
+    #elseif ($totalSize > 0)
+        <ul id="project-config-summary-versions-list" class="project-config-list project-config-itemlist">
+            #foreach($version in $versions)
+                <li>
+                    <span class="project-config-list-label">
+                        #if ($version.released)
+                            #set ($releasedClass = " project-config-icon-version-released")
+                        #else
+                            #set ($releasedClass = "")
+                        #end
+                        <span class="project-config-icon project-config-icon-version${releasedClass}"></span>
+                        ${version.name}
+                    </span>
+                    #if ($version.hasReleaseDate)
+                        #if ($version.overdue)
+                            #set ($overdueClass = " project-config-version-overdue")
+                            #set ($overdueTitle = $i18n.getText("admin.project.config.summary.version.overdue"))
+                        #else
+                            #set ($overdueClass = "")
+                            #set ($overdueTitle = ${version.releaseDate})
+                        #end
+                        <span class="project-config-list-value${overdueClass}" title="${overdueTitle}">${version.releaseDate}</span>
+                    #end
+                </li>
+            #end
+        </ul>
+        #if ($totalSize > $actualSize)
+            <p class="project-config-list-note"><span>$i18n.getText("admin.project.config.summary.version.some", "$actualSize", "$totalSize")</span> <a href="${manageVersionLink}">$i18n.getText("common.concepts.showall")</a></p>
+        #else
+            <a class="project-config-more-link" href="${manageVersionLink}" title="${i18n.getText("admin.project.config.summary.version.manage")}">${i18n.getText("common.concepts.more")}</a>
+        #end
+    #else
+        <p class="project-config-list-empty"><span>$i18n.getText("admin.project.config.summary.version.none")</span> <a href="${manageVersionLink}">$i18n.getText("admin.project.config.summary.version.add")</a></p>
+    #end
+</div>

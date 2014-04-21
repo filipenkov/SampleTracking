@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+#* @vtlvariable name="i18n" type="com.atlassian.sal.api.message.I18nResolver" *#
+#parse("/common/_help_link.vm")
+#parse("/common/_configured_status.vm")
+#parse("/common/_xsrf_token_element.vm")
+<html>
+<head>
+    ${webResources.get()}
+    <script type="text/javascript">
+    var appLinksI18n = ${applinksI18n.get()};
+    </script>
+</head>
+<body class="auth-config">
+    #if($fieldErrorMessages.communication)
+        <div class="aui-message error shadowed auth-config-message">$fieldErrorMessages.communication</div>
+    #end
+    <form method="post" class="aui" id="add-consumer-manually">
+        #status($enabled)
+        #xsrfTokenElement()
+        <fieldset>
+            <div>
+                #if($enabled)
+                   ${i18n.getText("auth.oauth.config.serviceprovider.consumer.registered", $remoteApplicationName, $remoteApplicationType, $localApplicationName, $localApplicationType)}
+                #else
+                   ${i18n.getText("auth.oauth.config.serviceprovider.consumer.not.registered", $remoteApplicationName, $remoteApplicationType, $localApplicationName, $localApplicationType)}
+                #end
+                #help('applinks.docs.configuring.auth.oauth')
+            </div>
+        </fieldset>
+        <fieldset>
+            <input name="oauth-incoming-enabled" id="oauth-incoming-enabled" type="hidden" value="true" />
+            <div class="field-group">
+                <label for="key">${i18n.getText("auth.oauth.config.consumer.key")} #if (!$enabled)<span class="aui-icon icon-required"></span>#end</label>
+                #if ($enabled)
+                    <span class="field-value" id="key" name="key" title="${i18n.getText("auth.oauth.config.consumer.key.description")}">$!consumer.key</span>
+                #else
+                    <input class="text" type="text" id="key" name="key" value="$!consumer.key" title="${i18n.getText("auth.oauth.config.consumer.key.description")}" />
+                #end
+                #if($fieldErrorMessages.key)<div class="error">$fieldErrorMessages.key</div>#end
+                <div class="description">${i18n.getText("auth.oauth.config.consumer.key.description")}</div>
+            </div>
+            <div class="field-group">
+                <label for="consumerName">${i18n.getText("auth.oauth.config.consumer.name")} #if (!$enabled)<span class="aui-icon icon-required"></span>#end</label>
+                #if ($enabled)
+                    <span class="field-value" id="consumerName" name="consumerName">$!consumer.name</span>
+                #else
+                    <input type="text" name="consumerName" id="consumerName" class="text" value="$!consumer.name" />
+                #end
+                #if($fieldErrorMessages.consumerName)<div class="error">$fieldErrorMessages.consumerName</div>#end
+                <div class="description">${i18n.getText("auth.oauth.config.consumer.name.description")}</div>
+            </div>
+            <div class="field-group">
+                #if ($enabled)
+                    <span class="field-value" id="description" name="description" title="${i18n.getText("auth.oauth.config.consumer.description.description")}">#if ($!consumer.description == "")${i18n.getText("applinks.none")} #else $!consumer.description #end</span>
+                #else
+                    <input class="text" type="text" id="description" name="description" value="$!consumer.description" title="${i18n.getText("auth.oauth.config.consumer.description.description")}" />
+                #end
+                <label for="description">${i18n.getText("auth.oauth.config.consumer.description")}</label>
+                #if($fieldErrorMessages.description)<div class="error">$fieldErrorMessages.description</div>#end
+                <div class="description">${i18n.getText("auth.oauth.config.consumer.description.description")}</div>
+            </div>
+            <div class="field-group">
+                <label for="publicKey">${i18n.getText("auth.oauth.config.consumer.public.key")} #if (!$enabled)<span class="aui-icon icon-required"></span>#end</label>
+                #if ($enabled)
+                    <textarea id="publicKey" name="publicKey" class="textarea" cols="10" rows="6" disabled="yes">$!publicKey</textarea>
+                #else
+                    <textarea id="publicKey" name="publicKey" class="textarea" cols="10" rows="6" >$!publicKey</textarea>
+                #end
+                #if($fieldErrorMessages.publicKey)<div class="error">$fieldErrorMessages.publicKey</div>#end
+                <div class="description">${i18n.getText("auth.oauth.config.consumer.public.key.description")}</div>
+            </div>
+            <div class="field-group">
+                <label for="callback">${i18n.getText("auth.oauth.config.consumer.callback")}</label>
+                #if ($enabled)
+                    <span class="field-value" id="callback" name="callback" title="${i18n.getText("auth.oauth.config.consumer.callback.description")}">#if (!$consumer.callback) ${i18n.getText("applinks.none")} #else $!consumer.callback #end</span>
+                #else
+                    <input class="text" type="text" id="callback" name="callback" value="$!consumer.callback" title="${i18n.getText("auth.oauth.config.consumer.callback.description")}" />
+                #end
+                #if($fieldErrorMessages.callback)<div class="error">$fieldErrorMessages.callback</div>#end
+                <div class="description">${i18n.getText("auth.oauth.config.consumer.callback.description")}</div>
+            </div>
+        </fieldset>
+        <div class="buttons-container">
+            <div class="buttons">
+                #if ($enabled)
+                  <input class="button submit" id="delete" type="button" value="${i18n.getText("auth.oauth.config.consumer.delete")}" onclick="deleteConsumerInformation('${i18n.getText("auth.oauth.config.serviceprovider.consumer.delete")}',  '${i18n.getText("auth.oauth.config.serviceprovider.consumer.delete.message")}');" />
+                #else
+                  <input class="button submit" id="save" type="submit" value="${i18n.getText("auth.oauth.config.consumer.save")}" />
+                #end
+            </div>
+        </div>
+    </form>
+</body>
+</html>

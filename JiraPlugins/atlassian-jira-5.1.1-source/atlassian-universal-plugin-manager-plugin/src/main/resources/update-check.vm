@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>$i18n.getText("upm.updateCheck.title", $applicationProperties.getDisplayName())</title>
+    <meta name="decorator" content="atl.admin">
+    <meta name="admin.active.section" content="admin_plugins_menu/upm_section"/>
+    <meta name="admin.active.tab" content="upm-update-check-link"/>
+    $webResourceManager.requireResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:upm-web-resources")
+    $webResourceManager.requireResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:upm-plugin-resources")
+    $webResourceManager.requireResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:update-check-resources")
+    #if($applicationProperties.getDisplayName().toLowerCase() == "refimpl")
+    $webResourceManager.requireResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:refapp")
+    #end
+    $webResourceManager.requireResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:fakedata")
+</head>
+<body>
+    #parse("upm-resources.vm")
+
+    <div id="upm-container" class="upm-$applicationProperties.getDisplayName().toLowerCase()">
+
+        <h2>
+            <img src="$webResourceManager.getStaticPluginResource("com.atlassian.upm.atlassian-universal-plugin-manager-plugin:upm-web-resources", "images/upm-logo.png")" class="upm-logo" height="31" width="31" alt=""> 
+            <span id="update-check-title">$updateCheckTitle</span>
+        </h2>
+
+        <div id="upm-pending-tasks" class="upm-info-box info">
+            <p>
+                <strong>$i18n.getText("upm.pendingTasks.message")</strong>
+            </p>
+            <ul id="upm-pending-tasks-details"></ul>
+        </div>
+
+        <div id="upm-safe-mode-off" class="upm-info-box">
+            <p>
+                <strong>$i18n.getText("upm.manage.safeMode", "$applicationProperties.getDisplayName()")</strong>
+            </p>
+            <p id="upm-safe-mode-exit-links" class="hidden">
+                <a href="#" id="upm-safe-mode-restore">$i18n.getText("upm.manage.safeMode.restore")</a>
+                <span class="pipe">|</span>
+                <a href="#" id="upm-safe-mode-keep-state">$i18n.getText("upm.manage.safeMode.keepState")</a>
+            </p>
+        </div>
+
+        <div id="upm-pac-checking-availability" class="upm-info-box hidden closeable">
+            <p>
+                $upmPacAvailabilityCheckingHtml
+            </p>
+        </div>
+
+        <div id="upm-pac-unavailable" class="upm-info-box hidden closeable">
+            <p>
+                $upmPacAvailabilityErrorHtml
+            </p>
+        </div>
+
+        <div id="upm-pac-disabled" class="upm-info-box hidden closeable">
+            <p>
+                $upmPacAvailabilityDisabledHtml
+            </p>
+        </div>
+
+        <div id="upm-messages"></div>
+
+        <div id="upm-content">
+            <div id="upm-panel-compatibility" class="upm-panel upm-selected">
+
+                <p>
+                    $i18n.getText("upm.check.summary", "$applicationProperties.getDisplayName()")
+                </p>
+
+                <div class="hidden" id="upm-compatibility-no-versions">
+                    
+                    <p>
+                        $i18n.getText("upm.check.summary.up.to.date", "$applicationProperties.getDisplayName()")
+                    </p>
+                        
+                    <div class="upm-congrats-message upm-congrats-message-product-updates">
+                        <h4>$i18n.getText("upm.update.congratulations")</h4>
+                        <p>
+                            $i18n.getText("upm.update.up.to.date", "$applicationProperties.getDisplayName()")
+                        </p>
+                    </div>
+                </div>
+    
+                <div class="hidden" id="upm-compatibility-versions-available">
+                    
+                    <p>
+                        $i18n.getText("upm.check.summary.update.available")
+                    </p>
+
+                    <form action="" class="skip-dirty-check" id="upm-compatibility-form">
+                        <label for="upm-compatibility-version">$i18n.getText("upm.check.checkCompatibility"):</label>
+                        <select name="version" id="upm-compatibility-version" disabled="disabled">
+                            <option value="" selected="selected">$i18n.getText("upm.check.selectVersion")</option>
+                        </select>
+                        <input name="submit" class="submit" type="submit" value="$i18n.getText("upm.check.check")">
+                    </form>
+    
+                    <div id="upm-compatibility-content">
+
+                        <div id="upm-recent-product-release-container" class="aui-message info">$recentProductReleaseWithHtml</div>
+
+                        <div id="upm-incompatible-plugins" class="upm-compatibility-category">
+                            <h3>$i18n.getText("upm.check.incompatible")</h3>
+                            <p class="upm-section-description">
+                                $incompatibleDescriptionWithHtml
+                            </p>
+                        </div>
+    
+                        <div id="upm-need-update-plugins" class="upm-compatibility-category">
+                            <h3>$i18n.getText("upm.check.needUpdate")</h3>
+                            <p class="upm-section-description">
+                                $needUpdateDescriptionWithHtml
+                            </p>
+                        </div>
+    
+                        <div id="upm-need-product-update-plugins" class="upm-compatibility-category">
+                            <h3>$i18n.getText("upm.check.needProductUpdate", "$applicationProperties.getDisplayName()")</h3>
+                            <p class="upm-section-description">
+                                $needProductUpdateDescriptionWithHtml
+                            </p>
+                        </div>
+    
+                        <div id="upm-compatible-plugins" class="upm-compatibility-category">
+                            <h3>$i18n.getText("upm.check.compatible")</h3>
+                            <p class="upm-section-description">
+                                $compatibleDescriptionWithHtml
+                            </p>
+                        </div>
+    
+                        <div id="upm-unknown-plugins" class="upm-compatibility-category">
+                            <h3>$i18n.getText("upm.check.unknown")</h3>
+                            <p class="upm-section-description">
+                                $unknownDescriptionWithHtml
+                            </p>
+                        </div>
+
+                        <div id="upm-no-userinstalled" class="upm-no-userinstalled hidden">
+                            <p>
+                                $i18n.getText("upm.check.no.plugins.installed")
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="upm-footer">
+        <p>$upmVersionTextWithHtml</p>
+    </div>
+</body>
+</html>

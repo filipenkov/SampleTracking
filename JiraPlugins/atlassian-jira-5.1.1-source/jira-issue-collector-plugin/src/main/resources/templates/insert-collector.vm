@@ -1,0 +1,75 @@
+<html>
+<head>
+    $webResourceManager.requireResource("com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:admin-resources")
+    <title>$action.getText('collector.plugin.insert.title')</title>
+    <meta name="decorator" content="atl.admin" />
+    <meta name="admin.active.section" content="atl.jira.proj.config"/>
+    <meta name="admin.active.tab" content="view_issue_collectors"/>
+    <meta name="projectKey" content="$textutils.htmlEncode($action.projectKey)"/>
+</head>
+<body>
+<div class="admin-wrap issue-collector-admin">
+    <div id="main-content">
+        <a class="collectors-back-lnk" href="${baseurl}/secure/ViewCollectors!default.jspa?projectKey=$textutils.htmlEncode($action.projectKey)">$i18n.getText("collector.plugin.view.back")</a>
+        <h1>$action.getText('collector.plugin.insert.title')</h1>
+        <p>$action.getText('collector.plugin.insert.desc')</p>
+        <div id="embedding-module" class="module">
+            <div class="mod-header">
+                <h3>$i18n.getText("collector.plugin.adding.embed")</h3>
+            </div>
+            <div class="mod-content">
+                <ul id="embed-details" class="property-list">
+                    <li class="item embed-type">
+                        <div class="matrix">
+                            <div class="radio">
+                                <input id="embed-html-type" class="radio embed-type" type="radio" name="embed-type" value="html" checked="checked"/>
+                                <label for="embed-html-type">$i18n.getText("collector.plugin.embed.html")</label>
+                            </div>
+							<div class="radio">
+								<input id="embed-script-type" class="radio embed-type" type="radio" name="embed-type" value="script" />
+								<label for="embed-script-type">$i18n.getText("collector.plugin.embed.javascript")</label>
+							</div>
+						</div>
+                    </li>
+                    <li class="item embed-html">
+                        <span id="scriptlet-val" class="value">
+                            <textarea class="script-source" id="script-source-html">$action.scriptSource</textarea>
+							<textarea class="script-source hidden" id="script-source-script">$action.scriptSourceJavascript</textarea>
+                            <input type="hidden" id="collector-id" value="$action.collectorId" />
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="further-help-module" class="module">
+            <div class="mod-header">
+                <h3>$i18n.getText("collector.plugin.adding.assistance")</h3>
+            </div>
+            <div class="mod-content">
+                <div class="aui-group">
+                    <div class="aui-item">
+                        <h3>$i18n.getText("collector.plugin.adding.html")</h3>
+                        <p>$i18n.getText("collector.plugin.adding.assistance.desc")</p>
+						<h5>$i18n.getText("collector.plugin.adding.collector.1")</h5>
+						<div>
+							<p>$action.getText('collector.plugin.adding.collector.1.desc', '<span class="code">', '</span>')</p>
+							<pre class="issue-collector-snippet aui-panel">#include("templates/instruction-html.vm")</pre>
+						</div>
+						<h5>$i18n.getText("collector.plugin.adding.collector.2")</h5>
+						<div>
+							$action.getText('collector.plugin.adding.collector.2.desc', '<a href="http://www.google.com/analytics/">', '</a>')
+						</div>
+                    </div>
+					<div class="aui-item">
+						<h3>$i18n.getText("collector.plugin.adding.javascript")</h3>
+						<p>$i18n.getText("collector.plugin.adding.javascript.desc")</p>
+						<p>$i18n.getText("collector.plugin.adding.javascript.desc.2")</p>
+						<pre class="issue-collector-snippet aui-panel">#include("templates/instruction-js.vm")</pre>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

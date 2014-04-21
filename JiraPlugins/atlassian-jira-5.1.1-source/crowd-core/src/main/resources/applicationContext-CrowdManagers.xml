@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:plugin="http://atlassian.com/schema/spring/plugin"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+       http://atlassian.com/schema/spring/plugin http://atlassian.com/schema/spring/plugin.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+    <bean id="eventPublisher" class="com.atlassian.crowd.util.CrowdEventPublisherFactory" factory-method="createEventPublisher"/>
+
+    <bean id="profilingInterceptor" class="com.atlassian.spring.interceptors.SpringProfilingInterceptor"/>
+
+    <!-- Tranaction wrapping for the event jobs with a hibernate interceptor -->
+    <bean id="txReadWriteNonWebProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+          abstract="true">
+        <property name="preInterceptors">
+            <list>
+                <bean class="org.springframework.orm.hibernate3.HibernateInterceptor">
+                    <property name="sessionFactory" ref="sessionFactory"/>
+                </bean>
+            </list>
+        </property>
+
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">
+                    PROPAGATION_REQUIRED
+                </prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- Tranaction wrapping for the event jobs with a hibernate interceptor -->
+    <bean id="txReadWriteProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">
+                    PROPAGATION_REQUIRED
+                </prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">
+                    PROPAGATION_REQUIRES_NEW
+                </prop>
+                <prop key="addUsers">PROPAGATION_SUPPORTS</prop>
+                <prop key="addGroups">PROPAGATION_SUPPORTS</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- Managers -->
+    <bean id="cacheManager" class="com.atlassian.crowd.manager.cache.CacheManagerEhcache" init-method="configureCaches">
+        <constructor-arg ref="ehcacheManager"/>
+    </bean>
+
+    <bean id="applicationManager" plugin:available="true" parent="txReadWriteProxy">
+        <property name="target">
+            <bean class="com.atlassian.crowd.manager.application.ApplicationManagerGeneric">
+                <constructor-arg index="0" ref="applicationDao"/>
+                <constructor-arg index="1" ref="passwordEncoderFactory"/>
+                <constructor-arg index="2" ref="eventPublisher"/>
+            </bean>
+        </property>
+        <property name="postInterceptors">
+            <list>
+                <ref local="profilingInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="userAuthorisationCache" class="com.atlassian.crowd.cache.UserAuthorisationCacheImpl">
+        <constructor-arg ref="cacheManager"/>
+    </bean>
+
+    <bean id="applicationService" plugin:available="true" parent="txReadWriteProxy">
+        <property name="target">
+            <bean class="com.atlassian.crowd.manager.application.TranslatingApplicationService">
+                <constructor-arg index="0" ref="applicationServiceCaching"/>
+                <constructor-arg index="1" ref="aliasManager"/>
+            </bean>
+        </property>
+        <property name="postInterceptors">
+            <list>
+                <ref local="profilingInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="applicationServiceCaching" autowire-candidate="false" parent="txReadWriteProxy">
+        <property name="target">
+            <bean class="com.atlassian.crowd.manager.application.CachingApplicationService">
+                <constructor-arg index="0" ref="applicationServiceInternal"/>
+                <constructor-arg index="1" ref="userAuthorisationCache"/>
+            </bean>
+        </property>
+        <property name="postInterceptors">
+            <list>
+                <ref local="profilingInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="applicationServiceInternal" autowire-candidate="false" parent="txReadWriteProxy">
+        <property name="target">
+            <bean class="com.atlassian.crowd.manager.application.ApplicationServiceGeneric">
+                <constructor-arg index="0" ref="directoryManager"/>
+                <constructor-arg index="1" ref="permissionManager"/>
+                <constructor-arg index="2" ref="directoryInstanceLoader"/>
+                <constructor-arg index="3" ref="eventPublisher"/>
+                <constructor-arg index="4" ref="eventStore"/>
+            </bean>
+        </property>
+        <property name="postInterceptors">
+            <list>
+                <ref local="profilingInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="storingEventListener" class="com.atlassian.crowd.event.StoringEventListener">
+        <constructor-arg index="0" ref="eventStore"/>
+        <constructor-arg index="1" ref="eventPublisher"/>
+        <constructor-arg index="2" value="true"/>
+    </bean>
+
+    <bean id="eventStore" class="com.atlassian.crowd.event.EventStoreGeneric">
+        <constructor-arg index="0" value="10000"/>
+    </bean>
+
+    <bean id="propertyManager" plugin:available="true" parent="txReadWriteProxy">
+        <property name="target">
+            <bean class="com.atlassian.crowd.manager.property.PropertyManagerGeneric">
+                <constructor-arg ref="propertyDao"/>
+            </bean>
+        </property>
+        <property name="postInterceptors">
+            <list>
+                <ref local="profilingInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="directoryManager" plugin:available="true" parent="txReadWriteProxy">
+        <property name="target">
+            <bean class="com.atlassian.crowd.manager.directory.DirectoryManagerGeneric">
+                <constructor-arg index="0" ref="directoryDao"/>
+                <constructor-arg index="1" ref="applicationDao"/>
+                <constructor-arg index="2" ref="eventPublisher"/>
+                <constructor-arg index="3" ref="permissionManager"/>
+                <constructor-arg index="4" ref="passwordHelper"/>
+                <constructor-arg index="5" ref="directoryInstanceLoader"/>
+                <constructor-arg index="6" ref="directorySynchroniser"/>
+                <constructor-arg index="7" ref="directoryPollerManager"/>
+                <constructor-arg index="8" ref="directoryLockManager"/>
+                <constructor-arg index="9" ref="synchronisationStatusManager"/>
+            </bean>
+        </property>
+        <property name="postInterceptors">
+            <list>
+                <ref local="profilingInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="directoryPollerManager"
+        class="com.atlassian.crowd.manager.directory.monitor.poller.SpringQuartzDirectoryPollerManager"/>
+
+    <bean id="directoryLockManager" class="com.atlassian.crowd.manager.lock.DirectoryLockManager"/>
+
+    <bean id="synchronisationStatusManager" class="com.atlassian.crowd.manager.directory.SynchronisationStatusManagerImpl">
+        <constructor-arg>
+            <bean class="com.atlassian.crowd.manager.directory.DirectorySynchronisationInformationStoreImpl"/>
+        </constructor-arg>
+        <constructor-arg ref="eventPublisher"/>
+    </bean>
+
+    <bean id="directoryCacheFactory" class="com.atlassian.crowd.directory.TransactionalDirectoryCacheFactory">
+        <constructor-arg index="0" ref="directoryDao"/>
+        <constructor-arg index="1" ref="synchronisationStatusManager"/>
+        <constructor-arg index="2" ref="eventPublisher"/>
+        <constructor-arg index="3" ref="transactionInterceptor"/>
+    </bean>
+
+    <bean id="directorySynchroniser" class="com.atlassian.crowd.manager.directory.DirectorySynchroniserImpl">
+        <constructor-arg ref="directoryLockManager"/>
+        <constructor-arg ref="directoryDao"/>
+        <constructor-arg ref="directorySynchroniserHelper"/>
+        <constructor-arg ref="synchronisationStatusManager"/>
+        <constructor-arg ref="eventPublisher"/>
+    </bean>
+
+    <bean id="directorySynchroniserHelper" parent="txReadWriteNonWebProxy" plugin:available="true">
+        <property name="target">
+            <bean class="com.atlassian.crowd.manager.directory.DirectorySynchroniserHelperImpl">
+                <constructor-arg ref="directoryDao"/>
+                <constructor-arg ref="eventPublisher"/>
+            </bean>
+        </property>
+        <property name="postInterceptors">
+            <list>
+                <ref local="profilingInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="permissionManager" parent="txReadWriteProxy" plugin:available="true">
+        <property name="target">
+            <bean class="com.atlassian.crowd.manager.permission.PermissionManagerImpl">
+                <constructor-arg index="0" ref="applicationDao"/>
+                <constructor-arg index="1" ref="directoryDao"/>
+            </bean>
+        </property>
+        <property name="postInterceptors">
+            <list>
+                <ref local="profilingInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="aliasManager" plugin:available="true" parent="txReadWriteProxy">
+        <property name="target">
+            <bean class="com.atlassian.crowd.manager.application.AliasManagerImpl">
+                <constructor-arg ref="aliasDao"/>
+                <constructor-arg ref="applicationServiceInternal"/>
+            </bean>
+        </property>
+        <property name="postInterceptors">
+            <list>
+                <ref local="profilingInterceptor"/>
+            </list>
+        </property>
+    </bean>
+</beans>

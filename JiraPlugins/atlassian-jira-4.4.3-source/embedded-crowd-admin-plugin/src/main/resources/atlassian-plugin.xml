@@ -1,0 +1,76 @@
+<atlassian-plugin key="com.atlassian.crowd.embedded.admin" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+    </plugin-info>
+
+    <servlet key="dispatcher-servlet" name="Dispatcher Servlet" class="com.atlassian.plugin.web.springmvc.DispatcherServlet">
+        <url-pattern>/embedded-crowd/*</url-pattern>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:/META-INF/spring/web-context.xml</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-context-param key="enable-html-escaping" name="Enable HTML escaping context parameter">
+        <description>Enables automatic HTML escaping in Spring MVC.</description>
+        <param-name>defaultHtmlEscape</param-name>
+        <param-value>true</param-value>
+    </servlet-context-param>
+
+    <resource type="i18n" name="i18n" location="com.atlassian.crowd.embedded.admin.EmbeddedCrowdAdmin"/>
+
+    <web-resource key="web-resources" name="Web Resources">
+        <resource type="download" name="embedded-crowd-admin.css" location="web/embedded-crowd-admin.css"/>
+        <resource type="download" name="embedded-crowd-admin.js" location="web/embedded-crowd-admin.js"/>
+        <resource type="download" name="json2min.js" location="web/json2min.js"/>
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+    </web-resource>
+
+    <resource type="download" name="images/" location="images/"/>
+
+    <web-item key="confluence-user-directories-web-item" name="Confluence administration menu item"
+            section="system.admin/security" weight="50" application="com.atlassian.confluence">
+        <label key="embedded.crowd.directory.list.menu.label" />
+        <link>/plugins/servlet/embedded-crowd/directories/list</link>
+        <condition class="com.atlassian.crowd.embedded.admin.condition.UserIsSysAdminCondition" />
+    </web-item>
+
+    <web-section key="embedded_crowd_section" name="Embedded Crowd Admin Section"
+                 location="users_groups_configuration"  application="jira" weight="5">
+        <label key="embedded.crowd.directory.list.menu.label" />
+        <condition class="com.atlassian.crowd.embedded.admin.condition.UserIsSysAdminCondition" />
+    </web-section>
+
+    <web-item key="jira-user-directories-web-item" name="JIRA administration menu item"
+            section="users_groups_configuration/embedded_crowd_section" weight="50" application="jira">
+        <label key="embedded.crowd.directory.list.menu.label" />
+        <link linkId="user_directories">/plugins/servlet/embedded-crowd/directories/list</link>
+        <condition class="com.atlassian.crowd.embedded.admin.condition.UserIsSysAdminCondition" />
+    </web-item>
+
+    <web-item key="refapp-user-directories-web-item" name="RefApp administration menu item"
+            section="system.admin/general" weight="50" application="refapp">
+        <label key="embedded.crowd.directory.list.menu.label" />
+        <link linkId="user_directories">/plugins/servlet/embedded-crowd/directories/list</link>
+        <condition class="com.atlassian.crowd.embedded.admin.condition.UserIsSysAdminCondition" />
+    </web-item>
+    
+    <web-item key="confluence-ldap-additional-config" name="Confluence additional LDAP config link"
+            section="embedded.crowd.additional" weight="50" application="com.atlassian.confluence">
+        <label key="embedded.crowd.connection.pool.title" />
+        <link>/plugins/servlet/embedded-crowd/configure/connection-pool/</link>
+    </web-item>
+
+    <web-item key="support-directory-configuration" name="Support Directory Configuration Summary link"
+            section="embedded.crowd.additional" weight="60">
+        <label key="embedded.crowd.support.directory.configuration" />
+        <link>/plugins/servlet/embedded-crowd/support/directories</link>
+    </web-item>
+
+    <rest key="rest" name="Crowd Admin plugin REST resources" path="/crowd" version="1">
+        <description>Provides REST resources for Embedded Crowd</description>
+    </rest>
+
+</atlassian-plugin>

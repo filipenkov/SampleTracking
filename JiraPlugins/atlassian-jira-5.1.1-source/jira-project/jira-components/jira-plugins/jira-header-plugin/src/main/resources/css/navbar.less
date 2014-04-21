@@ -1,0 +1,141 @@
+/* an aui-navbar contains one or more aui-nav components */
+.aui-navbar {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+
+    .aui-nav {
+        float: left;
+        margin: 0;
+
+        > li {
+            float: left;
+        }
+
+        &.aui-align-right {
+            float: right;
+        }
+    }
+}
+.aui-navbar:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+/* set the aui-navbar-inner if you want a fixed width, center aligned site
+.aui-navbar-inner {
+    margin: 0 auto;
+    width: 1024px;
+}
+*/
+
+/* aui-nav components are basically just lists of items */
+.aui-nav {
+    margin: 16px 0 0 0;
+    padding: 0;
+    list-style: none;
+    line-height: 20px;
+}
+
+.aui-nav-link {
+    display: block;
+}
+
+.aui-nav-imagelink {
+    display: block;
+    img {
+        display: block;
+    }
+}
+
+/* Alternate styles for nav and navbar  */
+
+.aui-navbar.aui-style-header {
+    background-color: #205081;
+    border-bottom: 1px solid #2E3D54;
+    padding: 0 10px;
+    width: 100%;
+
+    .aui-nav-link {
+        color: #fff;
+        font-size: 14px;
+        text-decoration: none;
+        &.current {
+            font-weight: bold;
+        }
+    }
+    .aui-nav-link,
+    .aui-nav-imagelink {
+        &:focus,
+        &:hover,
+        &.active {
+            background-color: #296CA3;
+        }
+    }
+    .aui-dropdown2-trigger-arrow {
+        &:after {
+            border-top-color: #93AAC2;
+        }
+        &:focus,
+        &:hover {
+            &:after {
+                border-top-color: #fff;
+            }
+        }
+    }
+    form {
+        padding: 8px 10px;
+        .text {
+            border: none;
+            background-color: #f0f0f0;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            color: #696969;
+            font-size: 14px;
+            height: 24px;
+            line-height: 20px;
+            margin: 0;
+            max-width: none;
+            padding: 2px 10px;
+            -webkit-transition: background-color 0.2s ease-in;
+            &:focus {
+                background-color: #fff;
+                outline: none;
+            }
+            &::-webkit-input-placeholder {
+                color: #747474;
+            }
+            &:-moz-placeholder {
+                color: #747474;
+            }
+        }
+        .app-search {
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAABrUlEQVR42n2QPUtCUQCGTYiWfkJDY3+gn2CCiopfGCIXVChEiBARcXNyMREFoSCETFAUHUxHrQa1RUyEaBIkEk0dTNTrx9s5B250l154Lnc4zzkvrwQA5ZhwMxwOn2u12lu1Wn3pdDqPy+XyDsAZYWe73Uo2mw1DkJ7q9Tq8Xi+0Wi1UKhVsNhvC4TC63e4XAAeRpCKJ3A6dTgeO41AoFEBeQjqdhtVqhcvlQq/XewdwJJLcbjfsdjva7Tb+ptVqwWw2IxqNTnme52hFCpOUSiW7Wch6vYaQeDwOi8XyPRgMzulZCvvI5XKUSiXQkOd/oclkMjCZTJN+v38qkmi1SCQCUgF/M5/PEQwGEQgEPsmSJyIpkUiwIbLZLKbTKcgBjMdjpFIpNkaj0XgFcCCSRqPRQygUgkajobOzqf1+PxQKBYxGI4rF4udqteIASAWJcrhYLO7L5fKHz+fjnU4nH4vFZrlcDnq9nsnkny54AWCPCgK7BDmpdjmbzS4BOAi3lUoFarUaMpkMyWRyNZlMrpjwD/uEEBE3BoMBdGXS5h9BLF7n83l4PB40m038ADI9+2zLHHTyAAAAAElFTkSuQmCC);
+            background-position: 6px 6px;
+            background-repeat: no-repeat;
+            box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.3);
+            border-radius: 100px;
+            padding: 2px 10px 2px 24px;
+            width: 200px;
+        }
+    }
+    .aui-button2.aui-style-hero {
+        margin: 6px 10px;
+    }
+    #admin-quicksearch {
+        margin: 0;
+        padding: 6px 10px;
+    }
+}
+
+.aui-nav.aui-style-blocks {
+    .aui-nav-link {
+        padding: 10px;
+    }
+    .aui-nav-imagelink {
+        padding: 8px 10px;
+    }
+}
+
+.aui-theme-default #header .aui-navbar a { color: #fff; }

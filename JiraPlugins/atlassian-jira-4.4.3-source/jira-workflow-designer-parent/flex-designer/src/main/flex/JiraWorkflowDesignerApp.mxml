@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+        xmlns:mx="http://www.adobe.com/2006/mxml"
+        xmlns:diagram="com.sysbliss.diagram.*"
+        xmlns:menu="com.sysbliss.jira.workflow.ui.menu.*"
+        xmlns:flexlib="flexlib.containers.*"
+        xmlns:arc90="com.arc90.flexlib.containers.*"
+        xmlns:comp="com.sysbliss.jira.workflow.ui.component.*"
+        preinitialize="preinit();"
+        resize="onResize();"
+        applicationComplete="onApplicationComplete();"
+        preloader="com.sysbliss.jira.workflow.ui.dialog.JiraDownloadProgressBar"
+        layout="absolute">
+    <!--
+        width="786"
+        height="460">
+-->
+    <mx:Style source="/css/main.css"/>
+    <mx:Style source="/css/diagram.css"/>
+
+    <mx:Script>
+		<![CDATA[
+        import com.sysbliss.diagram.Diagram;
+        import com.sysbliss.diagram.ToolTypes;
+        import com.sysbliss.diagram.tools.DiagramTool;
+        import com.sysbliss.diagram.util.CursorUtil;
+        import com.sysbliss.diagram.util.ObjectChainUtil;
+        import com.sysbliss.jira.plugins.workflow.model.FlexJiraWorkflow;
+        import com.sysbliss.jira.workflow.Beans;
+        import com.sysbliss.jira.workflow.Il8n.INiceResourceManager;
+        import com.sysbliss.jira.workflow.Il8n.JSONResourceBundle;
+        import com.sysbliss.jira.workflow.Il8n.NiceResourceManager;
+        import com.sysbliss.jira.workflow.controller.AnnotationController;
+        import com.sysbliss.jira.workflow.controller.ApplicationInitializer;
+        import com.sysbliss.jira.workflow.controller.GlobalActionController;
+        import com.sysbliss.jira.workflow.controller.JiraStatusController;
+        import com.sysbliss.jira.workflow.controller.LabelToolbarController;
+        import com.sysbliss.jira.workflow.controller.LayoutToolbarController;
+        import com.sysbliss.jira.workflow.controller.OpenWorkflowController;
+        import com.sysbliss.jira.workflow.controller.ToolToolbarController;
+        import com.sysbliss.jira.workflow.controller.ZoomToolbarController;
+        import com.sysbliss.jira.workflow.event.EventTypes;
+        import com.sysbliss.jira.workflow.event.JiraDiagramEvent;
+        import com.sysbliss.jira.workflow.manager.JiraServerManager;
+        import com.sysbliss.jira.workflow.manager.WorkflowDiagramManager;
+        import com.sysbliss.jira.workflow.service.RemotingConfiguration;
+        import com.sysbliss.jira.workflow.ui.AssetEmbedder;
+        import com.sysbliss.jira.workflow.ui.component.PrintTool;
+        import com.sysbliss.jira.workflow.ui.component.SnapshotContainer;
+        import com.sysbliss.jira.workflow.ui.component.SnapshotTool;
+        import com.sysbliss.jira.workflow.utils.MouseWheelTrap;
+        import com.sysbliss.jira.workflow.utils.SnapshotUtil;
+
+        import mx.controls.Alert;
+        import mx.core.UIComponent;
+        import mx.effects.easing.Circular;
+        import mx.events.FlexEvent;
+        import mx.events.ItemClickEvent;
+        import mx.graphics.codec.PNGEncoder;
+        import mx.logging.LogEventLevel;
+        import mx.printing.FlexPrintJob;
+        import mx.printing.FlexPrintJobScaleType;
+        import mx.resources.ResourceBundle;
+
+        import org.swizframework.Swiz;
+
+        [Bindable]
+        public var numOperations:Number;
+
+        [Autowire]
+        public var appInitializer:ApplicationInitializer;
+
+        [Autowire]
+        public var openWorkflowController:OpenWorkflowController;
+
+        [Autowire]
+        public var toolController:ToolToolbarController;
+
+        [Autowire]
+        public var layoutController:LayoutToolbarController;
+
+        [Autowire]
+        public var labelController:LabelToolbarController;
+
+        [Autowire]
+        public var globalActionController:GlobalActionController;
+
+        [Autowire]
+        public var annotationController:AnnotationController;
+
+        [Bindable]
+        [Autowire]
+        public var jiraStatusController:JiraStatusController;
+
+        [Autowire]
+        public var workflowDiagramManager:WorkflowDiagramManager;
+
+        [Autowire]
+        public var jiraServerManager:JiraServerManager;
+
+        [Autowire(bean="jiraServiceConfiguration")]
+        public var jiraServiceConfig:RemotingConfiguration;
+
+        [Autowire]
+        public var zoomController:ZoomToolbarController;
+
+        [Embed(source="/i18n/default.json",mimeType="application/octet-stream")]
+        private var defaultJsonFile:Class;
+
+        private const niceResourceManager:INiceResourceManager = NiceResourceManager.getInstance();
+
+        private var drawerTimer:Timer;
+
+        public function preinit():void {
+            initLogging();
+
+            //for whatever reason, flash returns "null" as a string here instead of null.
+            //see the if statement below
+            var translations:String = unescape(Application.application.parameters['translations']);
+
+            var backSlash:RegExp = /\\/g;
+            translations = translations.replace(backSlash, "");
+
+            var jsonBundle:ResourceBundle;
+
+            if (translations != null && translations != "null") {
+                jsonBundle = new JSONResourceBundle(translations, "en_US", "json");
+            } else {
+                var bytes:ByteArray = new defaultJsonFile();
+                var jsonString:String = bytes.readUTFBytes(bytes.length);
+                jsonBundle = new JSONResourceBundle(jsonString, "en_US", "json");
+            }
+
+            resourceManager.addResourceBundle(jsonBundle);
+            resourceManager.update();
+
+            Alert.cancelLabel = niceResourceManager.getString("json", "workflow.designer.cancel");
+            Alert.okLabel = niceResourceManager.getString("json", "workflow.designer.ok");
+            Alert.yesLabel = niceResourceManager.getString('json', 'workflow.designer.yes');
+            Alert.noLabel = niceResourceManager.getString('json', 'workflow.designer.no');
+        }
+
+        private function onResize():void {
+            if (workflowDiagramManager) {
+                var d:Diagram = workflowDiagramManager.getCurrentDiagram();
+                if (d) {
+                    Swiz.dispatchEvent(new JiraDiagramEvent(EventTypes.CURRENT_DIAGRAM_UPDATED, d));
+                }
+            }
+        }
+
+        private function onApplicationComplete():void {
+            Alert.buttonWidth = 80;
+            Swiz.autowire(this);
+            appInitializer.initialize();
+            initTools();
+            toolController.toolbar = toolType;
+            layoutController.toolbar = layoutBar;
+            labelController.toolbar = labelBar;
+            addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+
+            MouseWheelTrap.setup(stage);
+        }
+
+        protected override function keyDownHandler(e:KeyboardEvent):void {
+            super.keyDownHandler(e);
+            var myDiagram:Diagram = workflowDiagramManager.getCurrentDiagram();
+            if (myDiagram != null) {
+                myDiagram.passThruKeyHandler(e);
+            }
+        }
+
+        private function initTools():void {
+            ToolTypes.TOOL_SELECT.icon = AssetEmbedder.selectIcon;
+            ToolTypes.TOOL_SELECT.cursor = null;
+            ToolTypes.LINK_STRAIGHT.icon = AssetEmbedder.straightIcon;
+            ToolTypes.LINK_STRAIGHT.disabledIcon = AssetEmbedder.straightDisabledIcon;
+            ToolTypes.LINK_POLY.icon = AssetEmbedder.polyIcon;
+            ToolTypes.LINK_BEZIER.icon = AssetEmbedder.bezierIcon;
+
+            ToolTypes.LAYOUT_SAVE.icon = AssetEmbedder.saveLayoutIcon;
+            ToolTypes.LAYOUT_LOAD.icon = AssetEmbedder.loadLayoutIcon;
+            ToolTypes.LAYOUT_AUTO.icon = AssetEmbedder.autoLayoutIcon;
+
+            ToolTypes.TOOL_ZOOM_IN.icon = AssetEmbedder.zoomInIcon;
+            ToolTypes.TOOL_ZOOM_IN.cursor = AssetEmbedder.zoomInCursor;
+            ToolTypes.TOOL_ZOOM_OUT.icon = AssetEmbedder.zoomOutIcon;
+            ToolTypes.TOOL_ZOOM_OUT.cursor = AssetEmbedder.zoomOutCursor;
+
+            var snapShotTool:DiagramTool = new SnapshotTool();
+            snapShotTool.icon = AssetEmbedder.snapshotIcon;
+
+            var printTool:DiagramTool = new PrintTool();
+            printTool.icon = AssetEmbedder.printIcon;
+
+            var toolsDP:Array = [ToolTypes.TOOL_SELECT,ToolTypes.LINK_STRAIGHT,ToolTypes.LINK_POLY,ToolTypes.LINK_BEZIER];
+            toolType.dataProvider = toolsDP;
+            toolType.selectedIndex = 0;
+
+            var layoutDP:Array = [ToolTypes.LAYOUT_SAVE,ToolTypes.LAYOUT_LOAD,ToolTypes.LAYOUT_AUTO];
+            layoutBar.dataProvider = layoutDP;
+
+            var zoomDP:Array = [ToolTypes.TOOL_ZOOM_IN,ToolTypes.TOOL_ZOOM_OUT];
+            zoomTools.dataProvider = zoomDP;
+            zoomController.toolbar = zoomTools;
+
+            //imageBar.dataProvider = [snapShotTool];
+
+            /*
+             <mx:Button id="snapshotButton" icon="@Embed('/assets/icons/camera.png')" click="{generateSnapshot()}"/>
+             <mx:Button id="printButton" icon="@Embed('/assets/icons/printer.png')" click="{printSnapshot()}"/>
+             */
+        }
+
+        private function initLogging():void {
+            /*var logTarget:TraceTarget = new TraceTarget();
+             logTarget.filters=["com.sysbliss.*"];
+             logTarget.level = LogEventLevel.ALL;
+             logTarget.includeDate = true;
+             logTarget.includeTime = true;
+             logTarget.includeCategory = true;
+             logTarget.includeLevel = true;
+             Log.addTarget(logTarget);*/
+        }
+
+        public function generateSnapshot():void {
+            var snap:SnapshotContainer = new SnapshotContainer();
+            snap.name = "snap";
+            snap.globalActionController = globalActionController;
+            var myWorkflow:FlexJiraWorkflow = workflowDiagramManager.getCurrentWorkflow();
+            var myDiagram:Diagram = workflowDiagramManager.getCurrentDiagram();
+
+            if (myDiagram.isLinking()) {
+                myDiagram.cancelLink();
+            }
+
+            snap.workflowTitle = myWorkflow.name;
+            snap.snapshotImage = SnapshotUtil.getCroppedBitmap(DisplayObject(myDiagram.contentLayer));
+            addChild(snap);
+            validateNow();
+            snap.checkGlobalActions();
+            validateNow();
+
+            onSnapshotAdded();
+
+        }
+
+        public function createAnnotation():void {
+            annotationController.createAnnotation();
+        }
+
+        [Mediate(event="${eventTypes.APPLICATION_INITIALIZED}")]
+        public function automaticallyOpenWorkflow():void {
+            var workflowName:String = Application.application.parameters['workflowName'];
+            var isDraft:Boolean = (Application.application.parameters['workflowIsDraft'] == "true");
+            if (workflowName != null) {
+                workflowPanel.visible = false;
+
+                //this is crappy. we really should use the controller here and not rely on the panel
+                workflowPanel.openWorkflow(workflowName, isDraft);
+            } else {
+                workflowPanel.visible = true;
+            }
+        }
+
+        private function onSnapshotAdded():void {
+            removeEventListener(FlexEvent.UPDATE_COMPLETE, onSnapshotAdded);
+            var myWorkflow:FlexJiraWorkflow = workflowDiagramManager.getCurrentWorkflow();
+            var snap:SnapshotContainer = getChildByName("snap") as SnapshotContainer;
+
+
+            var bmp:Bitmap = SnapshotUtil.getFullBitmap(DisplayObject(snap));
+            removeChild(snap);
+
+            var pngEncoder:PNGEncoder = new PNGEncoder();
+            var ba:ByteArray = pngEncoder.encode(bmp.bitmapData);
+
+            var file:FileReference = new FileReference();
+            var illegalChars:RegExp = /[\/\\ :\*\?\"<>\|\%]/ig;
+            var fn:String = myWorkflow.name.replace(illegalChars, "-") + ".png";
+
+            file.save(ba, fn);
+            validateNow();
+        }
+
+        public function printSnapshot():void {
+            var snap:SnapshotContainer = new SnapshotContainer();
+            snap.name = "snap";
+            snap.globalActionController = globalActionController;
+            var myWorkflow:FlexJiraWorkflow = workflowDiagramManager.getCurrentWorkflow();
+            var myDiagram:Diagram = workflowDiagramManager.getCurrentDiagram();
+            snap.workflowTitle = myWorkflow.name;
+            snap.snapshotImage = SnapshotUtil.getCroppedBitmap(DisplayObject(myDiagram.contentLayer));
+
+            addChild(snap);
+            snap.visible = false;
+            //snap.checkGlobalActions();
+            validateNow();
+
+            var printJob:FlexPrintJob = new FlexPrintJob();
+            printJob.printAsBitmap = true;
+            // Show the print dialog
+            if (printJob.start()) {
+                printJob.addObject(snap, FlexPrintJobScaleType.SHOW_ALL);
+                printJob.send();
+                removeChild(snap);
+            }
+
+
+            validateNow();
+        }
+
+
+        private function onSnapToolClick(e:ItemClickEvent):void {
+            var currentDiagram:Diagram = workflowDiagramManager.getCurrentDiagram();
+            if (currentDiagram) {
+                if (e.item.name == "snapshot") {
+                    generateSnapshot();
+                } else if (e.item.name == "print") {
+                    printSnapshot();
+                }
+            }
+        }
+
+        [Mediate(event="${eventTypes.DIAGRAM_CREATED}", properties="diagram")]
+        public function addDiagramToTab(diagram:Diagram):void {
+            diagramContainer.addChild(DisplayObject(diagram));
+            diagramContainer.invalidateDisplayList();
+            diagramContainer.validateNow();
+            UIComponent(diagram).validateNow();
+        }
+
+        public function onSliderButton(e:MouseEvent) {
+            if (sliderRightButton.visible) {
+                openDrawer();
+            } else {
+                closeDrawer();
+            }
+        }
+
+        public function openDrawer():void {
+            sliderRightButton.visible = false;
+            sliderLeftButton.visible = true;
+            moveIn.play([slideBar]);
+        }
+
+        [Mediate(event="${eventTypes.APPLICATION_INITIALIZED}")]
+        public function setCloseDrawerTimer():void {
+            this.drawerTimer = new Timer(2000, 1);
+            drawerTimer.addEventListener(TimerEvent.TIMER, closeDrawerTimer);
+            drawerTimer.start();
+        }
+
+        public function closeDrawerTimer(e:TimerEvent):void {
+            drawerTimer.stop();
+            drawerTimer.removeEventListener(TimerEvent.TIMER, closeDrawerTimer);
+            closeDrawer();
+        }
+
+        public function closeDrawer():void {
+
+            sliderRightButton.visible = true;
+            sliderLeftButton.visible = false;
+            moveOut.play([slideBar]);
+        }
+
+        private function onToolbarMouseOver(event:MouseEvent):void {
+            CursorUtil.forcePointer();
+        }
+
+
+        ]]>
+	</mx:Script>
+
+    <mx:Move id="moveIn" xTo="0" duration="350" easingFunction="Circular.easeOut"/>
+    <mx:Move id="moveOut" xTo="-220" duration="350" easingFunction="Circular.easeOut"/>
+
+    <swizframework:SwizConfig xmlns:swizframework="org.swizframework.*"
+                              beanLoaders="{[Beans]}"
+                              logEventLevel="{LogEventLevel.WARN}"
+            />
+
+    <mx:Panel id="appContainer" styleName="appContainer" width="100%" height="100%"
+              layout="absolute" headerHeight="0" borderThicknessTop="0" bottom="0" left="0" top="0" right="0">
+        <mx:VBox width="100%" height="100%">
+            <mx:HBox id="mainToolbar" mouseOver="onToolbarMouseOver(event)" verticalAlign="middle" width="100%" styleName="buttonBarContainer">
+                <mx:HBox horizontalGap="0">
+                    <mx:ToggleButtonBar id="toolType" buttonWidth="25" enabled="true"/>
+                    <mx:Spacer width="6"/>
+                    <mx:Button styleName="buttonStyle"
+                               width="25"
+                               toolTip="{niceResourceManager.getString('json','workflow.designer.create.sticky.note')}"
+                               icon="{AssetEmbedder.stickyNoteIcon}" click="{createAnnotation()}"/>
+                    <mx:Spacer width="6"/>
+
+                </mx:HBox>
+                <mx:HBox horizontalGap="0" id="zoomBar">
+                    <mx:ButtonBar id="zoomTools" buttonWidth="25" enabled="true"/>
+                    <mx:Spacer width="6"/>
+                </mx:HBox>
+                <mx:HBox horizontalGap="0">
+                    <mx:ButtonBar id="layoutBar"/>
+                </mx:HBox>
+                <mx:HBox id="snapShotBar">
+                    <mx:Button styleName="buttonStyle"
+                               toolTip="{niceResourceManager.getString('json','workflow.designer.save.snapshot.image')}"
+                               icon="{AssetEmbedder.snapshotIcon}" click="{generateSnapshot()}"/>
+                </mx:HBox>
+                <mx:HBox id="labelBar">
+                    <mx:Button styleName="buttonStyle" id="labelButton"
+                               label="{niceResourceManager.getString('json','workflow.designer.toggle.labels')}"/>
+                </mx:HBox>
+
+
+                <!-- Comment this in for development.  -->
+                <!--<mx:Script><![CDATA[ import com.flexspy.FlexSpy; ]]></mx:Script>-->
+                <!--<mx:Button id="btnFlexSpy" label="FlexSpy" click="FlexSpy.show()" />-->
+                <!-- End of dev only block -->
+
+            </mx:HBox>
+            <mx:Canvas id="diagramContainer" width="100%" height="100%" verticalScrollPolicy="off"
+                       horizontalScrollPolicy="off"/>
+        </mx:VBox>
+
+        <mx:HBox x="0" id="slideBar" width="230" height="100%" y="30" horizontalGap="0" backgroundColor="#ffffff">
+
+            <mx:VBox verticalGap="0" width="220" height="100%" paddingRight="0">
+                <comp:StatusPanel styleName="toolPanel" id="statusPanel" width="220" height="50%"/>
+                <comp:GlobalActionPanel styleName="toolPanel" id="globalActionsPanel" width="220" height="50%"/>
+                <!-- <comp:NavigatorPanel id="navigatorPanel" styleName="toolPanel" width="220" height="40%"/> -->
+            </mx:VBox>
+            <mx:Canvas width="10" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+                <mx:Button id="sliderRightButton" useHandCursor="true" buttonMode="true" width="10" height="100%"
+                           styleName="sliderRightButton" visible="false" click="onSliderButton(event)"/>
+                <mx:Button id="sliderLeftButton" useHandCursor="true" buttonMode="true" width="10" height="100%"
+                           styleName="sliderLeftButton" visible="true" click="onSliderButton(event)"/>
+            </mx:Canvas>
+        </mx:HBox>
+
+
+    </mx:Panel>
+    <comp:WorkflowPanel id="workflowPanel" visible="false" includeInLayout="false"/>
+</mx:Application>

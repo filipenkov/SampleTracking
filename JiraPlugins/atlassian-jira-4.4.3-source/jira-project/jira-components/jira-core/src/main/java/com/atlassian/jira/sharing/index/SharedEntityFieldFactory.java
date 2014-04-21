@@ -1,0 +1,144 @@
+/**
+ * Copyright 2008 Atlassian Pty Ltd
+ */
+package com.atlassian.jira.sharing.index;
+
+import com.atlassian.jira.issue.index.indexers.impl.FieldIndexerUtil;
+import com.atlassian.jira.sharing.SharedEntity;
+import com.atlassian.jira.sharing.SharedEntityColumn;
+import com.atlassian.jira.util.EasyList;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.Field.Index;
+import org.apache.lucene.document.Field.Store;
+
+import javax.annotation.concurrent.Immutable;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Build a Field from a {@link SharedEntity}
+ *
+ * @since v3.13
+ */
+public interface SharedEntityFieldFactory
+{
+    String getFieldName();
+
+    Collection<Field> getField(SharedEntity entity);
+
+    /**
+     * Default builders.
+     */
+    @Immutable
+    static abstract class Default implements SharedEntityFieldFactory
+    {
+        static final Default ID = new Default(SharedEntityColumn.ID.getName(), Field.Store.YES, Field.Index.UN_TOKENIZED)
+        {
+            @Override
+            String getValue(final SharedEntity entity)
+            {
+                return entity.getId().toString();
+            }
+        };
+
+        static final Default NAME = new Default(SharedEntityColumn.NAME.getName())
+        {
+            @Override
+            String getValue(final SharedEntity entity)
+            {
+                return entity.getName();
+            }
+        };
+
+        static final Default NAME_CASE_INSENSITIVE = new Default(SharedEntityColumn.NAME.getCaseInsensitiveColumn(), Store.NO, Index.UN_TOKENIZED)
+        {
+            @Override
+            String getValue(final SharedEntity entity)
+            {
+                final String result = entity.getName();
+                return (result == null) ? null : result.toLowerCase();
+            }
+        };
+
+        static final Default NAME_SORT = new Default(SharedEntityColumn.NAME.getSortColumn(), Store.YES, Index.UN_TOKENIZED)
+        {
+            @Override
+            String getValue(final SharedEntity entity)
+            {
+                final String result = entity.getName();
+                return (result == null) ? null : FieldIndexerUtil.getValueForSorting(result.toLowerCase());
+            }
+        };
+
+        static final Default DESCRIPTION = new Default(SharedEntityColumn.DESCRIPTION.getName())
+        {
+            @Override
+            String getValue(final SharedEntity entity)
+            {
+                return entity.getDescription();
+            }
+        };
+
+        static final Default DESCRIPTION_SORT = new Default(SharedEntityColumn.DESCRIPTION.getSortColumn())
+        {
+            @Override
+            String getValue(final SharedEntity entity)
+            {
+                final String result = entity.getDescription();
+                return (result == null) ? null : FieldIndexerUtil.getValueForSorting(result.toLowerCase());
+            }
+        };
+
+        static final Default OWNER = new Default(SharedEntityColumn.OWNER.getName(), Store.YES, Index.UN_TOKENIZED)
+        {
+            @Override
+            String getValue(final SharedEntity entity)
+            {
+                return entity.getOwnerUserName();
+            }
+        };
+
+        static final Default FAVOURITE_COUNT = new Default(SharedEntityColumn.FAVOURITE_COUNT.getName())
+        {
+            @Override
+            String getValue(final SharedEntity entity)
+            {
+                return String.valueOf(entity.getFavouriteCount());
+            }
+        };
+
+        static final List<Default> BUILDERS = Collections.unmodifiableList(EasyList.build(ID, NAME, NAME_SORT, NAME_CASE_INSENSITIVE, DESCRIPTION, DESCRIPTION_SORT, OWNER,
+            FAVOURITE_COUNT));
+
+        private final String fieldName;
+        private final Field.Store store;
+        private final Field.Index index;
+
+        protected Default(final String fieldName)
+        {
+            this(fieldName, Field.Store.YES, Field.Index.TOKENIZED);
+        }
+
+        protected Default(final String fieldName, final Store store, final Index index)
+        {
+            this.fieldName = fieldName;
+            this.index = index;
+            this.store = store;
+        }
+
+        public Collection<Field> getField(final SharedEntity entity)
+        {
+            String value = getValue(entity);
+            value = (value == null) ? "" : value;
+            return Collections.singleton(new Field(fieldName, value, store, index));
+        }
+
+        public String getFieldName()
+        {
+            return fieldName;
+        }
+
+        abstract String getValue(final SharedEntity entity);
+    }
+}

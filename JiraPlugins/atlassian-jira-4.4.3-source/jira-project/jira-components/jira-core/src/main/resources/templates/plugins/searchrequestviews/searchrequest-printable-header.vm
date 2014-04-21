@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>$textutils.htmlEncode($title)</title>
+    <meta http-equiv="Content-Type" Content="text/html; charset=UTF-8">
+    $webResourceManager.requireResource('jira.webresources:global-static')
+    $webResourceManager.getRequiredResources($urlModeAbsolute)
+</head>
+<body class="printable">
+$linkToPrevious
+$searchRequestHeader
+
+<div class="printable-content">

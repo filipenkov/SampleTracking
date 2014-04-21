@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    
+
+    <groupId>com.atlassian.pom</groupId>
+    <artifactId>jira-workflow-designer-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>2.0.0</version>
+    <name>Parent POM</name>
+
+    <description>The visual way to edit JIRA Workflows.</description>
+
+    <organization>
+        <name>Atlassian</name>
+        <url>http://www.atlassian.com/</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <name>Jonathan Doklovic</name>
+            <organization>Atlassian</organization>
+        </developer>
+        <developer>
+            <name>Robert Smart</name>
+            <organization>Atlassian</organization>
+        </developer>
+        <developer>
+            <name>Rupert Shuttleworth</name>
+            <organization>Atlassian</organization>
+        </developer>
+        <developer>
+            <name>Mike Sharp</name>
+            <organization>Atlassian</organization>
+        </developer>
+        <developer>
+            <name>Andreas Knecht</name>
+            <organization>Atlassian</organization>
+        </developer>
+    </developers>
+
+
+    <modules>
+        <module>sysbliss-graniteds</module>
+        <module>sysbliss-commons</module>
+        <module>sysbliss-diagram-core</module>
+        <module>java-model</module>
+        <module>flex-model</module>
+        <module>flex-designer</module>
+        <module>jira-plugin</module>
+    </modules>
+
+    <properties>
+        <atlassian.plugin.key>com.atlassian.jira.plugins.jira-workflow-designer</atlassian.plugin.key>
+        <jira.version>4.4-m6-prerelease</jira.version>
+        <jira.compile.version>4.4-m6-prerelease</jira.compile.version>
+        <jira.data.version>4.0</jira.data.version>
+        <flex.version>3.6.0.16321</flex.version>
+        <flexmojos.version>3.8</flexmojos.version>
+        <flash.version>10.0.0</flash.version>
+        <flash.player.classifier>10</flash.player.classifier>
+        <flexunit.version>4.0-beta-2</flexunit.version>
+        <flash.debug>true</flash.debug>
+        <!-- <flashPlayer.command>set the path to your flash player in your default profile</flashPlayer.command> -->
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>sonatype-flex</id>
+            <url>https://repository.sonatype.org/content/groups/flexgroup</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
+
+    <scm>
+        <connection>scm:svn:https://studio.atlassian.com/svn/JWD/tags/jira-workflow-designer-parent-2.0.0</connection>
+        <developerConnection>scm:svn:https://studio.atlassian.com/svn/JWD/tags/jira-workflow-designer-parent-2.0.0</developerConnection>
+        <url>https://studio.atlassian.com/source/browse/JWD/tags/jira-workflow-designer-parent-2.0.0</url>
+    </scm>
+</project>

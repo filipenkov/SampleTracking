@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/osgi"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="http://www.springframework.org/schema/osgi
+                                 http://www.springframework.org/schema/osgi/spring-osgi.xsd
+                                 http://www.springframework.org/schema/beans
+                                 http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- Imported OSGi Service References -->
+
+    <!-- SPI component implementations -->
+    <reference id="permissionService" interface="com.atlassian.gadgets.directory.spi.DirectoryPermissionService"/>
+    <reference id="externalGadgetStore" interface="com.atlassian.gadgets.directory.spi.ExternalGadgetSpecStore"/>
+
+    <!-- SAL components -->
+    <reference id="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
+    <reference id="userManager" interface="com.atlassian.sal.api.user.UserManager"/>
+    <reference id="txTemplate" interface="com.atlassian.sal.api.transaction.TransactionTemplate"/>
+    <reference id="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver"/>
+
+    <!-- AG components -->
+    <!--
+        Using cardinality 0..1 because the directory plugin depends on the renderer plugin
+        for this component and the renderer plugin depends on the exported URL validator
+        bean below. It creates a circular dependency, so this allows the directory plugin
+        to start with a service proxy to the Shindig GadgetSpecFactory; the real Factory
+        will be placed behind the proxy when it becomes available.
+     -->
+    <reference id="gadgetSpecFactory" interface="com.atlassian.gadgets.spec.GadgetSpecFactory" cardinality="0..1"/>
+
+    <reference id="gadgetRequestContextFactory" interface="com.atlassian.gadgets.GadgetRequestContextFactory"/>
+
+    <!-- Gadget spec providers. 1..N cardinality because we expect at least one (from the gadget publisher plugin).  -->
+    <set id="gadgetSpecProviders" interface="com.atlassian.gadgets.GadgetSpecProvider" cardinality="1..N"/>
+
+    <!-- Host components from the containing application -->
+    <reference id="webResourceManager" interface="com.atlassian.plugin.webresource.WebResourceManager"/>
+
+
+    <!-- Exported OSGi Service Declarations -->
+
+    <service interface="com.atlassian.gadgets.opensocial.spi.GadgetSpecUrlRenderPermission">
+        <beans:bean class="com.atlassian.gadgets.directory.internal.impl.GadgetSpecUrlRenderPermissionImpl">
+            <beans:constructor-arg type="com.atlassian.gadgets.directory.Directory" ref="directory"/>
+        </beans:bean>
+    </service>
+    <service interface="com.atlassian.gadgets.plugins.PluginGadgetSpecEventListener"
+             ref="pluginExternalGadgetSpecDirectoryEntryProvider"/>
+
+    <service interface="com.atlassian.gadgets.directory.Directory" ref="directory"/>
+</beans:beans>

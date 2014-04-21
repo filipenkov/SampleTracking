@@ -1,0 +1,41 @@
+<div id="primary" class="column full">
+    <div class="content">
+        <div class="module">
+            <div class="mod-content">
+                <p>$i18n.getText("popularissues.description")</p>
+                <table class="projectPanel report" width="100%" id="popular_issues_table">
+                <tbody>
+                #if ($popularIssues && $popularIssues.size() > 0)
+                    #foreach ($issue in $popularIssues)
+                    <tr #if($velocityCount % 2 == 0)class="rowAlternateLightGray"#end>
+                        <td class="votes" title="$i18n.getText("popularissues.number.of.votes", $issue.getVotes())">$issue.getVotes()</td>
+                        <td class="issuetype">#displayType($issue)</td>
+                        <td class="issuekey">$issue.getKey()</td>
+                        <td class="summary"><a href="$req.contextPath/browse/${issue.key}">$textutils.htmlEncode($issue.getSummary())</a></td>
+                        <td class="version">
+                        #if ($fieldVisibility.isFieldHidden("fixVersions", $issue) == false)
+                            #set ($versions = $issue.getFixVersions())
+                            #foreach ($version in $versions)
+                                <a href="$baseurl/browse/${project.key}/fixforversion/${version.id}">$textutils.htmlEncode($version.getName())</a>#if ($velocityCount < $versions.size()), #end
+                            #end
+                        #end
+                        </td>
+                        <td class="priority">
+                        #if ($fieldVisibility.isFieldHidden("priority", $issue) == false)
+                            #displayConstantIcon($issue.getPriorityObject())
+                        #end
+                        </td>
+                        <td class="status">
+                            #displayConstantIcon($issue.getStatusObject())
+                        </td>
+                    </tr>
+                    #end
+                #else
+                    <tr><td colspan="7">$i18n.getText("common.concepts.noissues").</td></tr>
+                #end
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

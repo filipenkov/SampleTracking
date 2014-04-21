@@ -1,0 +1,127 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Tomcat 5" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 5">
+    <option name="OPEN_IN_BROWSER" value="false" />
+    <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8090/jira" />
+    <option name="COMMON_VM_ARGUMENTS" value="-Xms128m -Xmx1024m -XX:MaxPermSize=256m  -XX:+HeapDumpOnOutOfMemoryError -Djira.i18n.texthighlight=false -Dmail.debug=false -Djira.jelly.on=true -Datlassian.mail.popdisabled=true -Dorg.apache.jasper.runtime.BodyContentImpl.LIMIT_BUFFER=true -Datlassian.mail.senddisabled=true -Dmail.mime.decodeparameters=true -Djira.home=${jira.home} -Djira.dev.mode=true -Djira.plugins.bundled.disable=false -Datlassian.disable.caches=true -Djira.paths.set.allowed=true -Duser.language=en -Duser.region=AU -Duser.timezone=Australia/Sydney -Djira.websudo.is.disabled=true -Dplugin.webresource.batching.off=true -Djira.dev.bundledplugins.url=file://${project.root.dir}/jira-components/jira-plugins/jira-bundled-plugins/target/atlassian-bundled-plugins.list -Djava.awt.headless=true ${tomcat.additional.jvmargs}" />
+    <deployment>
+      <artifact name="JIRA">
+        <settings>
+          <option name="CONTEXT_PATH" value="/" />
+        </settings>
+      </artifact>
+    </deployment>
+    <server-settings>
+      <option name="DEPLOY_TOMCAT_MANAGER" value="false" />
+      <option name="BASE_DIRECTORY_NAME" value="Unnamed_jira-projectd31d34d6" />
+    </server-settings>
+    <log_file path="$PROJECT_DIR$/../../Library/Caches/IntelliJIDEA8x/tomcat/Unnamed_jira-projectd31d34d6/logs/localhost*" checked="true" skipped="true" show_all="false" alias="Tomcat Log" />
+    <RunnerSettings RunnerId="Debug">
+      <option name="DEBUG_PORT" value="59028" />
+      <option name="TRANSPORT" value="0" />
+      <option name="LOCAL" value="true" />
+    </RunnerSettings>
+    <RunnerSettings RunnerId="Run" />
+    <RunnerSettings RunnerId="JavaRebel">
+      <option name="bootstrapPath" />
+      <option name="jrebelArgs" value="-Djira.rebel.root=$PROJECT_DIR$" />
+      <option name="loggingEnabled" value="false" />
+      <option name="useBootstrapDefaults" value="true" />
+    </RunnerSettings>
+    <RunnerSettings RunnerId="JavaRebel Debug">
+      <option name="bootstrapPath" />
+      <option name="debugPort" value="65227" />
+      <option name="jrebelArgs" value="-Djira.rebel.root=$PROJECT_DIR$" />
+      <option name="loggingEnabled" value="false" />
+      <option name="transport" value="0" />
+      <option name="useBootstrapDefaults" value="true" />
+      <option name="DEBUG_PORT" value="65227" />
+      <option name="TRANSPORT" value="0" />
+      <option name="LOCAL" value="true" />
+    </RunnerSettings>
+    <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+      <option name="USE_ENV_VARIABLES" value="true" />
+      <STARTUP>
+        <option name="USE_DEFAULT" value="true" />
+        <option name="SCRIPT" value="$PROJECT_DIR$/../../tools/apache-tomcat-5.5.28/bin/catalina.sh" />
+        <option name="VM_PARAMETERS" value="" />
+        <option name="PROGRAM_PARAMETERS" value=" run" />
+      </STARTUP>
+      <SHUTDOWN>
+        <option name="USE_DEFAULT" value="true" />
+        <option name="SCRIPT" value="$PROJECT_DIR$/../../tools/apache-tomcat-5.5.28/bin/catalina.sh" />
+        <option name="VM_PARAMETERS" value="" />
+        <option name="PROGRAM_PARAMETERS" value=" stop" />
+      </SHUTDOWN>
+      <EnvironmentVariables>
+        <option name="NAME" value="CATALINA_BASE" />
+        <option name="VALUE" value="${tomcat.basedir}/tomcat5" />
+        <option name="IS_PREDEFINED" value="false" />
+      </EnvironmentVariables>
+    </ConfigurationWrapper>
+    <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+      <option name="USE_ENV_VARIABLES" value="true" />
+      <STARTUP>
+        <option name="USE_DEFAULT" value="true" />
+        <option name="SCRIPT" value="$PROJECT_DIR$/../../tools/apache-tomcat-5.5.28/bin/catalina.sh" />
+        <option name="VM_PARAMETERS" value="" />
+        <option name="PROGRAM_PARAMETERS" value=" run" />
+      </STARTUP>
+      <SHUTDOWN>
+        <option name="USE_DEFAULT" value="true" />
+        <option name="SCRIPT" value="$PROJECT_DIR$/../../tools/apache-tomcat-5.5.28/bin/catalina.sh" />
+        <option name="VM_PARAMETERS" value="" />
+        <option name="PROGRAM_PARAMETERS" value=" stop" />
+      </SHUTDOWN>
+      <EnvironmentVariables>
+        <option name="NAME" value="CATALINA_BASE" />
+        <option name="VALUE" value="${tomcat.basedir}/tomcat5" />
+        <option name="IS_PREDEFINED" value="false" />
+      </EnvironmentVariables>
+    </ConfigurationWrapper>
+    <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="JavaRebel">
+      <option name="USE_ENV_VARIABLES" value="true" />
+      <STARTUP>
+        <option name="USE_DEFAULT" value="true" />
+        <option name="SCRIPT" value="%IDEA_RUN:TOMCAT_HOME%/bin/catalina.sh" />
+        <option name="VM_PARAMETERS" value="" />
+        <option name="PROGRAM_PARAMETERS" value=" run" />
+      </STARTUP>
+      <SHUTDOWN>
+        <option name="USE_DEFAULT" value="true" />
+        <option name="SCRIPT" value="%IDEA_RUN:TOMCAT_HOME%/bin/catalina.sh" />
+        <option name="VM_PARAMETERS" value="" />
+        <option name="PROGRAM_PARAMETERS" value=" stop" />
+      </SHUTDOWN>
+      <EnvironmentVariables>
+        <option name="NAME" value="CATALINA_BASE" />
+        <option name="VALUE" value="${tomcat.basedir}/tomcat6" />
+        <option name="IS_PREDEFINED" value="false" />
+      </EnvironmentVariables>
+    </ConfigurationWrapper>
+    <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="JavaRebel Debug">
+      <option name="USE_ENV_VARIABLES" value="true" />
+      <STARTUP>
+        <option name="USE_DEFAULT" value="true" />
+        <option name="SCRIPT" value="%IDEA_RUN:TOMCAT_HOME%/bin/catalina.sh" />
+        <option name="VM_PARAMETERS" value="" />
+        <option name="PROGRAM_PARAMETERS" value=" run" />
+      </STARTUP>
+      <SHUTDOWN>
+        <option name="USE_DEFAULT" value="true" />
+        <option name="SCRIPT" value="%IDEA_RUN:TOMCAT_HOME%/bin/catalina.sh" />
+        <option name="VM_PARAMETERS" value="" />
+        <option name="PROGRAM_PARAMETERS" value=" stop" />
+      </SHUTDOWN>
+      <EnvironmentVariables>
+        <option name="NAME" value="CATALINA_BASE" />
+        <option name="VALUE" value="${tomcat.basedir}/tomcat6" />
+        <option name="IS_PREDEFINED" value="false" />
+      </EnvironmentVariables>
+    </ConfigurationWrapper>
+    <method>
+      <option name="BuildArtifacts" enabled="true">
+        <artifact name="JIRA" />
+      </option>
+    </method>
+  </configuration>
+</component>

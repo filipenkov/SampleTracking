@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+	<people>
+		<person>
+			<ixPerson>2</ixPerson>
+			<sFullName><![CDATA[Pawel Niewiadomski]]></sFullName>
+			<sEmail><![CDATA[pniewiadomski@atlassian.com]]></sEmail>
+			<sPhone><![CDATA[pniewiadomski@atlassian.com]]></sPhone>
+			<fAdministrator>true</fAdministrator>
+			<fCommunity>false</fCommunity>
+			<fVirtual>false</fVirtual>
+			<fDeleted>false</fDeleted>
+			<fNotify>true</fNotify>
+			<sHomepage></sHomepage>
+			<sLocale><![CDATA[*]]></sLocale>
+			<sLanguage><![CDATA[*]]></sLanguage>
+			<sTimeZoneKey><![CDATA[*]]></sTimeZoneKey>
+			<sLDAPUid></sLDAPUid>
+			<dtLastActivity>2011-06-17T13:46:41Z</dtLastActivity>
+			<fExpert>false</fExpert>
+			<fRecurseBugChildren>false</fRecurseBugChildren>
+			<fPaletteExpanded>true</fPaletteExpanded>
+			<ixBugWorkingOn>0</ixBugWorkingOn>
+			<sFrom></sFrom>
+		</person>
+		<person>
+			<ixPerson>3</ixPerson>
+			<sFullName><![CDATA[Wojtek Seliga]]></sFullName>
+			<sEmail><![CDATA[wseliga@atlassian.com]]></sEmail>
+			<sPhone></sPhone>
+			<fAdministrator>true</fAdministrator>
+			<fCommunity>false</fCommunity>
+			<fVirtual>false</fVirtual>
+			<fDeleted>false</fDeleted>
+			<fNotify>true</fNotify>
+			<sHomepage></sHomepage>
+			<sLocale><![CDATA[*]]></sLocale>
+			<sLanguage><![CDATA[*]]></sLanguage>
+			<sTimeZoneKey><![CDATA[*]]></sTimeZoneKey>
+			<sLDAPUid></sLDAPUid>
+			<dtLastActivity></dtLastActivity>
+			<fExpert>false</fExpert>
+			<fRecurseBugChildren>true</fRecurseBugChildren>
+			<fPaletteExpanded>false</fPaletteExpanded>
+			<ixBugWorkingOn>0</ixBugWorkingOn>
+			<sFrom></sFrom>
+		</person>
+	</people>
+</response>

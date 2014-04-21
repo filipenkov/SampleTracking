@@ -1,0 +1,2 @@
+##disable_html_escaping() TODO REENABLE
+#if ($value) <span title="${title}"><time datetime="${iso8601}">${value}</time></span> #else &nbsp; #end

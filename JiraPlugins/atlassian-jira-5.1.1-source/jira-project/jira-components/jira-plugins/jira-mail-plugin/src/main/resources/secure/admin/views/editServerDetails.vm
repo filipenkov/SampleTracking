@@ -1,0 +1,65 @@
+#disable_html_escaping()
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.mail.webwork.EditServerDetailsWebAction" *#
+<html>
+<head>
+    <title>$i18n.getText('jmp.editServerDetails.title')</title>
+    $webResourceManager.requireResource("com.atlassian.jira.jira-mail-plugin:edit-server-details-page")
+</head>
+<body>
+    <form id="edit-mail-server-form" class="aui" action="EditServerDetails.jspa" method="POST">
+        <div class="form-body">
+            <h2>$i18n.getText('jmp.editServerDetails.title')</h2>
+
+            #parse("/secure/admin/views/printGlobalErrors.vm")
+            #if ($action.editing)
+                <input type="hidden" name="serviceId" value="$action.serviceId">
+            #else
+                <input type="hidden" name="handlerType" value="$textutils.htmlEncode($action.handlerType)">
+            #end
+
+            <input type="hidden" name="atl_token" value="$atl_token">
+
+            #set ($auiparams = $map.build("name", "serviceName", "label", 'common.words.name', "value", $action.serviceName, 'required', true))
+            #parse("/templates/formfields/textfield.vm")
+
+            #set ($auiparams = $map.build("name", "mailServer", "label", 'admin.service.common.handler.popserver', "value", $action.mailServer, "optgroups", $action.mailServers))
+            #if ($action.systemAdministrator)
+                #set ($auiparams.headerrow = $i18n.getText('jmp.editServerDetails.local.files'))
+                #set ($auiparams.headervalue = "")
+            #elseif ($action.mailServers.isEmpty())
+                #set ($auiparams.description = "jmp.selectEmailHandler.no.servers")
+ 	 	 	    #set ($auiparams.disabled = true)
+            #end
+            #parse("/templates/formfields/select.vm")
+
+            #set ($auiparams = $map.build("name", "delay", "label", "admin.services.delay", "value", "$!action.delay", "description", "admin.services.delay.description"))
+            #parse("/templates/formfields/textfield.vm")
+
+            #* handler select *#
+            #set ($auiparams = $map.build("name", "handler", "label", 'admin.service.common.handler', "value", $action.handler, "map", $action.handlers, "class", "select"))
+            #parse("/templates/formfields/aui.vm")
+            #parse("/templates/formfields/normalHeader.vm")
+            #parse("/templates/simple/select.vm")
+            <a href="$action.getHelpPath('jmp.message.handlers').url" target="_blank">
+                <img src="$req.contextPath/images/icons/ico_help.png" style="vertical-align: middle;" border=0 title="$i18n.getText('jmp.editServerDetails.get.help')">
+            </a>
+            #parse("/templates/formfields/normalFooter.vm")
+            #* handler select *#
+
+            #set ($auiparams = $map.build("name", "folder", "label", 'admin.service.imap.folder', "value", $action.folder, "description", 'admin.service.imap.folder.desc'))
+            #parse("/templates/formfields/textfield.vm")
+        </div>
+        <div class="buttons-container form-footer">
+            <div class="buttons">
+                #parse("/secure/admin/views/accessKeys.vm")
+                <input id="nextButton" type="submit" class="button" value="$i18n.getText('common.forms.next')" accesskey="$submitAccessKey" title="$submitTitle">
+                <a href="IncomingMailServers.jspa" class="cancel" accesskey="$cancelAccessKey" title="$cancelTitle">$i18n.getText("AUI.form.cancel.link.text")</a>
+            </div>
+        </div>
+        <script type="text/javascript">
+            Mail.EditServerDetails();
+        </script>
+    </form>
+</body>
+</html>
+

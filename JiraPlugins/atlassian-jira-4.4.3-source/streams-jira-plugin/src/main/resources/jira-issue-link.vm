@@ -1,0 +1,10 @@
+#if($issue.getResolutionDate())
+  #set ($objectHtml = '<span class="resolved-link">' + $issue.getKey() + '</span>')
+#else
+  #set ($objectHtml = $issue.getKey())
+#end
+#if($withSummary && $issueSummary)
+  <a href="$uriProvider.getIssueUri($issue).toASCIIString()" class="issue-link">$objectHtml - $!issueSummary</a>
+#else
+  <a href="$uriProvider.getIssueUri($issue).toASCIIString()" class="issue-link">$objectHtml</a>
+#end

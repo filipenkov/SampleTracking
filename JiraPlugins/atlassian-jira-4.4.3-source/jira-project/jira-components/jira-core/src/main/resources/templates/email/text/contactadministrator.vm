@@ -1,0 +1,3 @@
+$content
+
+#parse("templates/email/text/includes/footer.vm")

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:hosted="http://atlassian.com/schema/spring/hosted"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://atlassian.com/schema/spring/hosted http://atlassian.com/schema/spring/hosted.xsd">
+
+    <!-- This should be overridden -->
+    <bean id="nonOverridableBean" class="com.atlassian.spring.hosted.DefaultNonOverridableBean" hosted:override="true"/>
+
+    <!-- This is the post processor, just registering it as a bean should be enough for it to take effect -->
+    <bean id="studioBeanFactoryPostProcessor" class="com.atlassian.spring.hosted.HostedBeanFactoryPostProcessor">
+        <property name="resource" value="hosted-bean-factory-post-processor-attribute-overrides-test.xml"/>
+    </bean>
+
+</beans>

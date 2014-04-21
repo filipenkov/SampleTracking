@@ -1,0 +1,13 @@
+<table class="aui">
+	<thead><tr><th>Bundle</th><th>Description</th></tr></thead>
+	<tbody>
+		#foreach($bundle in $info.getApplicationFileBundles())
+			#if ($bundle.isSelected())
+			<tr>
+				<td>$i18n.getText($bundle.getTitle())</td>
+				<td>$i18n.getText($bundle.getDescription())</td>
+			</tr>
+			#end
+		#end
+	</tbody>
+</table>

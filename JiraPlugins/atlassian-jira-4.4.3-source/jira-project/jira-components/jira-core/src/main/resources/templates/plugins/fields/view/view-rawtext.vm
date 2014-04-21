@@ -1,0 +1,4 @@
+## Displays unescaped text - use only for 'trusted' content (entered by admins) that can contain HTML tags
+#if ($value)
+  $!value.toString()
+#end

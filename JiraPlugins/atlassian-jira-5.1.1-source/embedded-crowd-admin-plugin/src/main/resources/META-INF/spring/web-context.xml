@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="handler" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/directories/migrate/**">migrateDirectoryUsersController</prop>
+                <prop key="/directories/troubleshoot/**">troubleshootingController</prop>
+                <prop key="/directories/**">directoriesController</prop>
+                <prop key="/configure/new/**">newConfigurationController</prop>
+                <prop key="/configure/crowd/**">crowdConfigurationController</prop>
+                <prop key="/configure/jira/**">crowdConfigurationController</prop>
+                <prop key="/configure/internal/**">internalConfigurationController</prop>
+                <prop key="/configure/activedirectory/**">ldapConfigurationController</prop>
+                <prop key="/configure/ldap/**">ldapConfigurationController</prop>
+                <prop key="/configure/delegatingldap/**">delegatingLdapConfigurationController</prop>
+                <prop key="/configure/connection-pool/**">ldapConnectionPoolController</prop>
+                <prop key="/configure/jirajdbc/**">jiraJdbcConfigurationController</prop>
+                <prop key="/support/**">supportController</prop>
+            </props>
+        </property>
+        <property name="interceptors">
+            <list>
+                <bean class="com.atlassian.plugin.web.springmvc.interceptor.ContentTypeInterceptor"/>
+                <bean class="com.atlassian.plugin.web.springmvc.interceptor.SystemAdminAuthorisationInterceptor">
+                    <constructor-arg index="0" ref="userManager"/>
+                    <constructor-arg index="1" ref="loginUriProvider"/>
+                    <constructor-arg index="2" ref="applicationProperties"/>
+                </bean>
+                <bean class="com.atlassian.plugin.web.springmvc.interceptor.WebSudoAuthorisationInterceptor">
+                    <constructor-arg ref="webSudoManager"/>
+                </bean>
+                <bean class="com.atlassian.plugin.web.springmvc.interceptor.XsrfTokenInterceptor">
+                    <property name="applicationProperties" ref="applicationProperties"/>
+                    <property name="xsrfTokenGenerator" ref="xsrfTokenGenerator"/>
+                    <property name="redirectPath" value="/directories/list?timeout=true"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="xsrfTokenGenerator" class="com.atlassian.plugin.web.springmvc.xsrf.SimpleXsrfTokenGenerator"/>
+
+    <bean id="htmlEncoder" class="com.atlassian.crowd.embedded.admin.util.DefaultHtmlEncoder"/>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <property name="prefix" value="/templates/"/>
+        <property name="suffix" value=".vm"/>
+        <property name="exposeSpringMacroHelpers" value="true"/>
+        <!--<property name="contentType" value="text/html; charset=UTF-8"/>--> <!-- this should ensure Sitemesh decoration but doesn't, so instead we use a ContentTypeInterceptor -->
+        <property name="attributesMap">
+            <map>
+                <entry key="i18n" value-ref="i18nResolver"/>
+                <entry key="helpPathResolver" value-ref="helpPathResolver"/>
+                <entry key="applicationProperties" value-ref="applicationProperties"/>
+                <entry key="webResourceManager" value-ref="webResourceManager"/>
+                <entry key="webInterfaceManager" value-ref="webInterfaceManager"/>
+                <entry key="xsrfTokenGenerator" value-ref="xsrfTokenGenerator"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="velocityProperties">
+            <props>
+                <prop key="velocimacro.library">templates/aui-form-macros.vm</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="messageSource" class="com.atlassian.plugin.web.springmvc.message.ApplicationMessageSource">
+        <property name="keyPrefix" value="embedded.crowd.validation."/>
+        <property name="i18nResolver" ref="i18nResolver"/>
+    </bean>
+
+    <bean id="directoriesController" class="org.springframework.web.servlet.mvc.multiaction.MultiActionController">
+        <property name="delegate">
+            <bean class="com.atlassian.crowd.embedded.admin.list.DirectoriesController">
+                <property name="crowdService" ref="crowdService"/>
+                <property name="crowdDirectoryService" ref="crowdDirectoryService"/>
+                <property name="directoryRetriever" ref="directoryRetriever"/>
+                <property name="ldapPropertiesMapper" ref="ldapPropertiesMapper"/>
+                <property name="transactionTemplate" ref="transactionTemplate"/>
+                <property name="userManager" ref="userManager"/>
+                <property name="applicationProperties" ref="applicationProperties"/>
+                <property name="xsrfTokenGenerator" ref="xsrfTokenGenerator"/>
+                <property name="htmlEncoder" ref="htmlEncoder"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="directoryRetriever" class="com.atlassian.crowd.embedded.admin.DirectoryRetriever">
+        <property name="crowdDirectoryService" ref="crowdDirectoryService"/>
+    </bean>
+
+    <bean id="newConfigurationController" class="com.atlassian.crowd.embedded.admin.list.NewDirectoryController">
+        <property name="commandClass" value="com.atlassian.crowd.embedded.admin.list.NewDirectoryCommand"/>
+        <property name="redirectPath"><value>/directories/list?timeout=true</value></property>
+    </bean>
+
+    <bean id="ldapConnectionPoolController" class="com.atlassian.crowd.embedded.admin.ldap.LdapConnectionPoolController">
+        <!-- dependencies -->
+        <property name="crowdDirectoryService" ref="crowdDirectoryService"/>
+        <property name="transactionTemplate" ref="transactionTemplate"/>
+        <property name="i18nResolver" ref="i18nResolver"/>
+        <property name="htmlEncoder" ref="htmlEncoder"/>
+
+        <!-- form controller properties -->
+        <property name="commandClass" value="com.atlassian.crowd.embedded.api.ConnectionPoolProperties"/>
+        <property name="commandName" value="poolProperties"/>
+        <property name="formView" value="connection-pool-form"/>
+        <property name="successView" value="redirect:/plugins/servlet/embedded-crowd/configure/connection-pool"/>
+        <property name="validator">
+            <bean class="com.atlassian.crowd.embedded.admin.ldap.LdapConnectionPoolValidator"/>
+        </property>
+    </bean>
+
+    <bean id="configurationController" abstract="true" class="com.atlassian.crowd.embedded.admin.ConfigurationController">
+        <!-- dependencies -->
+        <property name="crowdDirectoryService" ref="crowdDirectoryService"/>
+        <property name="directoryMapper" ref="directoryMapper"/>
+        <property name="directoryRetriever" ref="directoryRetriever"/>
+        <property name="i18nResolver" ref="i18nResolver"/>
+        <property name="transactionTemplate" ref="transactionTemplate"/>
+        <property name="htmlEncoder" ref="htmlEncoder"/>
+        <property name="directoryManager" ref="crowdDirectoryManager"/>
+        <property name="applicationProperties" ref="applicationProperties"/>
+
+        <!-- form controller properties -->
+        <property name="commandName" value="configuration"/>
+        <property name="successView" value="redirect:/plugins/servlet/embedded-crowd/directories/list"/>
+    </bean>
+
+    <bean id="ldapConfigurationController" class="com.atlassian.crowd.embedded.admin.ldap.LdapConfigurationController"
+          parent="configurationController">
+        <!-- dependencies -->
+        <property name="ldapPropertiesMapper" ref="ldapPropertiesMapper"/>
+        <property name="passwordEncoderFactory" ref="passwordEncoderFactory"/>
+
+        <!-- form controller properties -->
+        <property name="commandClass" value="com.atlassian.crowd.embedded.admin.ldap.LdapDirectoryConfiguration"/>
+        <property name="formView" value="configure-ldap-form"/>
+        <property name="validator">
+            <bean class="com.atlassian.crowd.embedded.admin.ldap.LdapDirectoryConfigurationValidator"/>
+        </property>
+		<property name="successView" value="redirect:/plugins/servlet/embedded-crowd/directories/troubleshoot?directoryId={directoryId}&amp;forceTest=true"/>
+    </bean>
+
+    <bean id="delegatingLdapConfigurationController" class="com.atlassian.crowd.embedded.admin.delegatingldap.DelegatingLdapConfigurationController"
+          parent="configurationController">
+        <!-- dependencies -->
+        <property name="ldapPropertiesMapper" ref="ldapPropertiesMapper"/>
+
+        <!-- form controller properties -->
+        <property name="commandClass" value="com.atlassian.crowd.embedded.admin.delegatingldap.DelegatingLdapDirectoryConfiguration"/>
+        <property name="formView" value="configure-delegatingldap-form"/>
+        <property name="validator">
+            <bean class="com.atlassian.crowd.embedded.admin.delegatingldap.DelegatingLdapDirectoryConfigurationValidator"/>
+        </property>
+    </bean>
+
+    <bean id="crowdConfigurationController" class="com.atlassian.crowd.embedded.admin.crowd.CrowdConfigurationController"
+          parent="configurationController">
+
+        <!-- form controller properties -->
+        <property name="commandClass" value="com.atlassian.crowd.embedded.admin.crowd.CrowdDirectoryConfiguration"/>
+        <property name="formView" value="configure-crowd-form"/>
+        <property name="validator">
+            <bean class="com.atlassian.crowd.embedded.admin.crowd.CrowdDirectoryConfigurationValidator"/>
+        </property>
+    </bean>
+
+    <bean id="internalConfigurationController" class="com.atlassian.crowd.embedded.admin.internal.InternalConfigurationController"
+          parent="configurationController">
+
+        <!-- form controller properties -->
+        <property name="commandClass" value="com.atlassian.crowd.embedded.admin.internal.InternalDirectoryConfiguration"/>
+        <property name="formView" value="configure-internal-form"/>
+    </bean>
+
+    <bean id="jiraJdbcConfigurationController" class="com.atlassian.crowd.embedded.admin.jirajdbc.JiraJdbcConfigurationController"
+          parent="configurationController">
+
+        <!-- form controller properties -->
+        <property name="commandClass" value="com.atlassian.crowd.embedded.admin.jirajdbc.JiraJdbcDirectoryConfiguration"/>
+        <property name="formView" value="configure-jirajdbc-form"/>
+    </bean>
+
+    <bean id="migrateDirectoryUsersController" class="com.atlassian.crowd.embedded.admin.directory.MigrateDirectoryUsersController">
+        <!-- dependencies -->
+        <property name="crowdDirectoryService" ref="crowdDirectoryService"/>
+        <property name="directoryManager" ref="crowdDirectoryManager"/>
+        <property name="i18nResolver" ref="i18nResolver"/>
+        <property name="transactionTemplate" ref="transactionTemplate"/>
+        <property name="htmlEncoder" ref="htmlEncoder"/>
+        <property name="applicationProperties" ref="applicationProperties"/>
+        <property name="userManager" ref="userManager"/>
+        <!-- form controller properties -->
+        <property name="commandClass" value="com.atlassian.crowd.embedded.admin.directory.MigrateDirectoryUsersCommand"/>
+        <property name="commandName" value="migration"/>
+        <property name="successView" value="migrate-directory-users-form"/>
+        <property name="formView" value="migrate-directory-users-form"/>
+    </bean>
+
+    <bean id="supportController" class="org.springframework.web.servlet.mvc.multiaction.MultiActionController">
+        <property name="delegate">
+            <bean class="com.atlassian.crowd.embedded.admin.support.SupportController">
+                <constructor-arg index="0" ref="crowdService"/>
+                <constructor-arg index="1" ref="crowdDirectoryService"/>
+                <constructor-arg index="2" ref="userManager"/>
+                <constructor-arg index="3" ref="htmlEncoder"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="troubleshootingController" class="com.atlassian.crowd.embedded.admin.support.TroubleshootingController">
+        <property name="crowdDirectoryService" ref="crowdDirectoryService"/>
+        <property name="directoryManager" ref="crowdDirectoryManager"/>
+        <property name="directoryRetriever" ref="directoryRetriever"/>
+        <property name="directoryInstanceLoader" ref="directoryInstanceLoader"/>
+        <property name="ldapPropertiesMapper" ref="ldapPropertiesMapper"/>
+        <property name="i18nResolver" ref="i18nResolver"/>
+        <property name="htmlEncoder" ref="htmlEncoder"/>
+		<property name="xsrfTokenGenerator" ref="xsrfTokenGenerator"/>
+        <property name="formView" value="troubleshooting-form"/>
+		<property name="editView" value="redirect:/plugins/servlet/embedded-crowd/directories/edit?directoryId={directoryId}"/>
+        <property name="commandClass" value="com.atlassian.crowd.embedded.admin.support.TroubleshootingCommand"/>
+        <property name="commandName" value="credential"/>
+    </bean>
+
+    <bean id="directoryMapper" class="com.atlassian.crowd.embedded.admin.DefaultDirectoryMapper"/>
+</beans>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>jira-workflow-designer-parent</artifactId>
+        <groupId>com.atlassian.pom</groupId>
+        <version>2.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.atlassian.jira.plugins</groupId>
+    <artifactId>jira-workflow-flex-model</artifactId>
+    <packaging>swc</packaging>
+    <name>Flex Model</name>
+
+    <build>
+        <sourceDirectory>src/main/flex</sourceDirectory>
+        <testSourceDirectory>src/test/flex</testSourceDirectory>
+
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+            </resource>
+
+        </resources>
+
+
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.flexmojos</groupId>
+                <artifactId>flexmojos-maven-plugin</artifactId>
+                <version>${flexmojos.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <storepass>true</storepass>
+                    <configurationReport>true</configurationReport>
+                    <targetPlayer>${flash.version}</targetPlayer>
+                    <debug>${flash.debug}</debug>
+                    <!-- This should fix release:perform http://stackoverflow.com/questions/4180336/maven-releaseperform-seems-to-break-build-helperadd-source -->
+                    <sourcePaths>
+                        <path>${project.basedir}/src/main/flex</path>
+                        <path>${build.directory}/generated-sources/flexmojos</path>
+                    </sourcePaths>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>optimize</goal>
+                            <!-- Optimized RSL generation -->
+                            <goal>generate</goal>
+                            <!-- ActionScript POJOs generation based on Java POJOs -->
+                        </goals>
+                        <configuration>
+                            <generatorToUse>graniteds21</generatorToUse>
+                            <includeJavaClasses>
+                                <includeClass>com.sysbliss.jira.plugins.workflow.model.*</includeClass>
+                                <includeClass>com.sysbliss.jira.plugins.workflow.model.layout.*</includeClass>
+                                <includeClass>com.sysbliss.jira.plugins.workflow.exception.*</includeClass>
+                            </includeJavaClasses>
+                            <excludeJavaClasses>
+                                <excludeJavaClass>com.sysbliss.jira.plugins.workflow.model.layout.serialize.*</excludeJavaClass>
+                            </excludeJavaClasses>
+                            <beanTemplate>
+                                <template>${basedir}/src/main/template/beanBase.gsp</template>
+                                <template>${basedir}/src/main/template/bean.gsp</template>
+                            </beanTemplate>
+                            <interfaceTemplate>
+                                <template>${basedir}/src/main/template/interfaceBase.gsp</template>
+                                <template>${basedir}/src/main/template/interface.gsp</template>
+                            </interfaceTemplate>
+                            <extraOptions>
+                                <as3typefactory>com.sysbliss.graniteds.FlamingoAs3TypeFactory</as3typefactory>
+                            </extraOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>com.adobe.flex</groupId>
+                        <artifactId>compiler</artifactId>
+                        <version>${flex.version}</version>
+                        <type>pom</type>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>jira-workflow-gui-model</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sysbliss.utils</groupId>
+            <artifactId>sysbliss-graniteds</artifactId>
+	   <version>${project.version}</version>
+        </dependency>
+
+<!--
+        <dependency>
+            <groupId>org.graniteds</groupId>
+            <artifactId>granite-core-swc</artifactId>
+            <version>1.2.0</version>
+            <type>swc</type>
+        </dependency>
+-->
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>framework</artifactId>
+            <version>${flex.version}</version>
+            <type>swc</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>flex</artifactId>
+            <version>${flex.version}</version>
+            <type>swc</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>flex-framework</artifactId>
+            <version>${flex.version}</version>
+            <type>pom</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.adobe.flex.framework</groupId>
+                    <artifactId>playerglobal</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>playerglobal</artifactId>
+            <version>${flex.version}</version>
+            <classifier>${flash.player.classifier}</classifier>
+            <type>swc</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>rpc</artifactId>
+            <version>${flex.version}</version>
+            <type>swc</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>utilities</artifactId>
+            <version>${flex.version}</version>
+            <type>swc</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.adobe.flexunit</groupId>
+            <artifactId>flexunit</artifactId>
+            <version>${flexunit.version}</version>
+            <type>swc</type>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

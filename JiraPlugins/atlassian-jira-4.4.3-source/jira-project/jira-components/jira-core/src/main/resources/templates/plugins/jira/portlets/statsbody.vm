@@ -1,0 +1,50 @@
+        ## requires $statType (String - field) and $statsWrapper (StatisticMapWrapper) to be set in the context
+        #set ($statsMapper = $statsBean.getMapper($statType))
+        #set ($searchRequest = $statsBean.getFilter())
+        #if ($searchRequest)
+            #set ($urlPrefix = "${baseurl}/secure/IssueNavigator.jspa?reset=true&mode=hide")
+        #end
+
+        #if (!$statsWrapper.entrySet().isEmpty() || $statsWrapper.irrelevantCount > 0)
+        <tr bgcolor="#ffffff">
+            <td colspan="2">
+                <table id="stats_body" cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+                    #foreach ($stat in $statsWrapper.entrySet())
+                        #if ($stat.value != 0)
+                            <tr>
+                                <td valign="top">
+                                    #statHeading($statType $stat.key $customFieldManager "${urlPrefix}$!searchService.getQueryString($user, $statsMapper.getSearchUrlSuffix($stat.key, $searchRequest).getQuery())")
+                                </td>
+                                <td align="right">
+                                    $stat.value
+                                </td>
+                                <td width="60%">
+                                    #histogram($statsWrapper.getPercentage($stat.key))
+                                </td>
+                            </tr>
+                        #end
+                    #end
+                    #if ($statsWrapper.irrelevantCount > 0)
+                        <tr>
+                            <td valign="top">
+                                <span title="$i18n.getText('common.concepts.irrelevant.desc')">$i18n.getText('common.concepts.irrelevant')</span>
+                            </td>
+                            <td align="right">
+                                $statsWrapper.irrelevantCount
+                            </td>
+                            <td width="60%">
+                                #histogram($statsWrapper.getIrrelevantPercentage())
+                            </td>
+                        </tr>
+
+                    #end 
+                </table>
+            </td>
+        </tr>
+        #else
+        <tr bgcolor="#ffffff">
+            <td colspan="2">
+            $i18n.getText('portlet.stats.nodata')
+            </td>
+        </tr>
+        #end

@@ -1,0 +1,39 @@
+<atlassian-plugin key="com.atlassian.streams.core" name="Streams Core Plugin" pluginsVersion="2">
+    <plugin-info>
+        <description>Streams Core Plugin</description>
+        <version>${project.version}</version>
+        <vendor name="Atlassian Software Systems Pty Ltd" url="http://www.atlassian.com/"/>
+    </plugin-info>
+
+    <!-- import SAL components -->
+    <component-import key="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver" />
+    <component-import key="localeResolver" interface="com.atlassian.sal.api.message.LocaleResolver" />
+    <component-import key="userManager" interface="com.atlassian.sal.api.user.UserManager" />
+    
+    <module-type key="activity-streams-provider" 
+        class="com.atlassian.streams.spi.ActivityProviderModuleDescriptor"/>
+
+    <component-import key="templateRendererFactory" interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRendererFactory" />
+    <component key="templateRenderer" class="com.atlassian.streams.spi.renderer.CachingTemplateRenderer" /> 
+    
+    <component key="streamsI18nResolver" name="Streams I18n Resolver"
+        class="com.atlassian.streams.common.StreamsI18nResolverImpl" public="true">
+        <interface>com.atlassian.sal.api.message.I18nResolver</interface>
+        <interface>com.atlassian.streams.spi.StreamsI18nResolver</interface>
+    </component> 
+    
+    <component key="streamsEntryRendererFactory" class="com.atlassian.streams.common.renderer.StreamsEntryRendererFactoryImpl"
+            public="true">
+        <interface>com.atlassian.streams.api.renderer.StreamsEntryRendererFactory</interface>
+    </component>
+
+    <component key="streamsFeedUriBuilderFactory" name="Streams Feed URL Builder Factory"
+        class="com.atlassian.streams.common.StreamsFeedUriBuilderFactoryImpl" public="true">
+        <interface>com.atlassian.streams.api.builder.StreamsFeedUriBuilderFactory</interface>
+    </component>
+    
+    <component key="feedSanitizer" class="com.atlassian.streams.internal.feed.FeedContentSanitizerImpl" public="true">
+        <interface>com.atlassian.streams.api.FeedContentSanitizer</interface>
+    </component>
+    
+</atlassian-plugin>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>jira-workflow-designer-parent</artifactId>
+        <groupId>com.atlassian.pom</groupId>
+        <version>2.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.atlassian.jira.plugins</groupId>
+    <artifactId>jira-workflow-designer-flex</artifactId>
+    <packaging>swf</packaging>
+    <name>Flex Designer</name>
+
+    <build>
+        <sourceDirectory>src/main/flex</sourceDirectory>
+        <testSourceDirectory>src/test/flex</testSourceDirectory>
+
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+            </resource>
+
+        </resources>
+
+
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.flexmojos</groupId>
+                <artifactId>flexmojos-maven-plugin</artifactId>
+                <version>${flexmojos.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <configurationReport>true</configurationReport>
+                    <storepass>true</storepass>
+                    <targetPlayer>${flash.version}</targetPlayer>
+                    <debug>${flash.debug}</debug>
+                    <sourceFile>JiraWorkflowDesignerApp.mxml</sourceFile>
+                    <keepAs3Metadatas>
+                        <keepAs3Metadata>Autowire</keepAs3Metadata>
+                        <keepAs3Metadata>Mediate</keepAs3Metadata>
+                    </keepAs3Metadatas>
+
+
+                    <compiledLocales>
+                        <locale>en_US</locale>
+                    </compiledLocales>
+
+                    <resourceBundlePath>${basedir}/src/main/locales/{locale}</resourceBundlePath>
+
+                </configuration>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>com.adobe.flex</groupId>
+                        <artifactId>compiler</artifactId>
+                        <version>${flex.version}</version>
+                        <type>pom</type>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>jira-workflow-flex-model</artifactId>
+            <version>${project.version}</version>
+            <type>swc</type>
+            <scope>internal</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>framework</artifactId>
+            <version>${flex.version}</version>
+            <type>swc</type>
+
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>flex</artifactId>
+            <version>${flex.version}</version>
+            <type>swc</type>
+
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>flex-framework</artifactId>
+            <version>${flex.version}</version>
+            <type>pom</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.adobe.flex.framework</groupId>
+                    <artifactId>playerglobal</artifactId>
+                </exclusion>
+            </exclusions>
+
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>playerglobal</artifactId>
+            <version>${flex.version}</version>
+            <classifier>${flash.player.classifier}</classifier>
+            <type>swc</type>
+
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>rpc</artifactId>
+            <version>${flex.version}</version>
+            <type>swc</type>
+
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>utilities</artifactId>
+            <version>${flex.version}</version>
+            <type>swc</type>
+
+        </dependency>
+
+        <dependency>
+            <groupId>com.adobe.flexunit</groupId>
+            <artifactId>flexunit</artifactId>
+            <version>${flexunit.version}</version>
+            <type>swc</type>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>swizframework</groupId>
+            <artifactId>swiz</artifactId>
+            <version>0.6.4</version>
+            <classifier>flex3</classifier>
+            <type>swc</type>
+        </dependency>
+
+        <dependency>
+            <groupId>flexlib</groupId>
+            <artifactId>flexlib</artifactId>
+            <version>2.4</version>
+            <type>swc</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sysbliss.lib</groupId>
+            <artifactId>sysbliss-commons</artifactId>
+            <version>${project.version}</version>
+            <type>swc</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sysbliss.lib</groupId>
+            <artifactId>sysbliss-diagram-core</artifactId>
+            <version>${project.version}</version>
+            <type>swc</type>
+
+        </dependency>
+
+        <dependency>
+            <groupId>com.arc90</groupId>
+            <artifactId>arc90flexlib</artifactId>
+            <version>1.0.0</version>
+            <type>swc</type>
+        </dependency>
+
+        <!-- This should only be commented out during dev.  It is a firebug like utility that makes styling
+            things easier! -->
+        <dependency>
+            <groupId>com.flexspy.flex3</groupId>
+            <artifactId>flexspy</artifactId>
+            <version>1.3</version>
+            <type>swc</type>
+        </dependency>
+    </dependencies>
+</project>

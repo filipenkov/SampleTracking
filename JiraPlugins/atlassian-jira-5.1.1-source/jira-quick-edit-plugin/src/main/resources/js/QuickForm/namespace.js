@@ -1,0 +1,1 @@
+jQuery.namespace("JIRA.Forms");

@@ -1,0 +1,67 @@
+#if ($applicationProperties.getOption('jira.option.timetracking'))
+    #if ($issue.getOriginalEstimate() || $issue.getAggregateOriginalEstimate())
+    <tr valign="top">
+        <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+            <strong style="font-weight:normal;color:${textSubtleColour};">#text("common.concepts.original.estimate"):</strong>
+        </td>
+        <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+            $issue.getNiceTimeOriginalEstimate($i18n)
+        </td>
+    </tr>
+    #end
+
+    #if ($issue.getEstimate() || $issue.getAggregateRemainingEstimate())
+    <tr valign="top">
+        <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+            <strong style="font-weight:normal;color:${textSubtleColour};">#text("common.concepts.remaining.estimate"):</strong>
+        </td>
+        <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+            $issue.getNiceTimeEstimate($i18n)
+        </td>
+    </tr>
+    #end
+
+    #if ($issue.getTimeSpent() || $issue.getAggregateTimeSpent())
+    <tr valign="top">
+        <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+            <strong style="font-weight:normal;color:${textSubtleColour};">#text("common.concepts.time.spent"):</strong>
+        </td>
+        <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+            $issue.getNiceTimeSpent($i18n)
+        </td>
+    </tr>
+    #end
+
+    #if ($issue.isAnyAggregateDifferent())
+        #if ($issue.getOriginalEstimate() || $issue.getAggregateOriginalEstimate())
+        <tr valign="top">
+            <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+                <strong style="font-weight:normal;color:${textSubtleColour};">#text("common.concepts.aggregate.original.estimate"):</strong>
+            </td>
+            <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+                $issue.getNiceTimeAggregateOriginalEstimate($i18n)
+            </td>
+        </tr>
+        #end
+        #if ($issue.getEstimate() || $issue.getAggregateRemainingEstimate())
+        <tr valign="top">
+            <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+                <strong style="font-weight:normal;color:${textSubtleColour};">#text("common.concepts.aggregate.remaining.estimate"):</strong>
+            </td>
+            <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+                $issue.getNiceTimeAggregateRemainingEstimate($i18n)
+            </td>
+        </tr>
+        #end
+        #if ($issue.getTimeSpent() || $issue.getAggregateTimeSpent())
+        <tr valign="top">
+            <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+                <strong style="font-weight:normal;color:${textSubtleColour};">#text("common.concepts.aggregate.time.spent"):</strong>
+            </td>
+            <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+                $issue.getNiceTimeAggregateTimeSpent($i18n)
+            </td>
+        </tr>
+        #end
+    #end
+#end

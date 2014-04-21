@@ -1,0 +1,48 @@
+#if ($worklog)
+    #if($originalworklog && $startDateUpdated)
+    <tr valign="top">
+        <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+            <strong style="font-weight:normal;color:${textSubtleColour};">#text("template.issue.worklog.start.date"):</strong>
+        </td>
+        <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+            $!diffutils.diff($dateformatter.formatDMYHMS($originalworklog.getStartDate()), "background-color:${auiErrorBackgroundColour};text-decoration:line-through;", $dateformatter.formatDMYHMS($worklog.getStartDate()), "background-color:${auiSuccessBackgroundColour};")
+        </td>
+    </tr>
+    #end
+    #if($originalworklog && $timeSpentUpdated)
+    <tr valign="top">
+        <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+            <strong style="font-weight:normal;color:${textSubtleColour};">#text("template.issue.worklog.time.spent"):</strong>
+        </td>
+        <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+            $!diffutils.diff($context.getTimeLogged($originalworklog, $i18n), "background-color:${auiErrorBackgroundColour};text-decoration:line-through;", $context.getTimeLogged($worklog, $i18n), "background-color:${auiSuccessBackgroundColour};")
+        </td>
+    </tr>
+    #end
+    #if($originalworklog.getRoleLevelId() || $originalworklog.getGroupLevel() || $worklog.getRoleLevelId() || $worklog.getGroupLevel())
+        #if ($originalworklog && $visibilityUpdated)
+        <tr valign="top">
+            <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+                <strong style="font-weight:normal;color:${textSubtleColour};">#text("template.issue.worklog.visibility"):</strong>
+            </td>
+            <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+                #set ($oldVisibilityText = "#originalvisibility()")
+                #set ($newVisibilityText = "#visibility()")
+                $!diffutils.diff($oldVisibilityText, "background-color:${auiErrorBackgroundColour};text-decoration:line-through;", $newVisibilityText, "background-color:${auiSuccessBackgroundColour};")
+            </td>
+        </tr>
+        #end
+    #end
+    #if($textutils.stringSet($originalworklog.getComment()) || $textutils.stringSet($worklog.getComment()))
+        #if ($originalworklog && $commentUpdated)
+        <tr valign="top">
+            <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+                <strong style="font-weight:normal;color:${textSubtleColour};">#text("template.issue.worklog.comment"):</strong>
+            </td>
+            <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+                $!diffutils.diff($originalworklog.getComment(), "background-color:${auiErrorBackgroundColour};text-decoration:line-through;", $worklog.getComment(), "background-color:${auiSuccessBackgroundColour};")
+            </td>
+        </tr>
+        #end
+    #end
+#end

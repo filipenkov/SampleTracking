@@ -1,0 +1,26 @@
+.versionBanner { padding-left: 20px; width: 100%; }
+table.versionBanner { border-bottom: 1px solid #f0f0f0; }
+.projectPanel .versionBanner { background-color: #fffff0; padding: 4px; width: 100%; }
+ul.versionBannerList { list-style-type: none; margin: 0.5em 0 0; padding: 0; }
+.versionBannerList li { clear: both; }
+.versionBannerList li .versionBanner-header { background-image:url(" ../../../images/icons/box_24.gif"); background-position:22px 8px; background-repeat:no-repeat; list-style-type:none; }
+.versionBannerList li.released .versionBanner-header{ background-image:url(" ../../../images/icons/package_24.gif"); }
+.versionBannerList li { background-image: url(" ../../../images/icons/arrow_show.gif"); background-position: 3px 12px; background-repeat: no-repeat; border-top: 1px solid #FFFFFF; display: block; list-style-type: none; margin: 0 0 0.25em; padding: 0; }
+.versionBannerList li:hover{ background-color: #F0F0F0; border-top: 1px solid #F0F0F0; }
+.versionBannerList li.active { background-color: #F0F0F0; background-image: url(" ../../../images/icons/arrow_hide.gif"); border-top: 1px solid #BBBBBB; }
+.versionBanner-name { color: #003366; display: inline-block; font-size: 1.4em; font-weight: bold; min-width: 15%; }
+.versionBanner-description { font-size: 1.2em; padding-left: 50px; }
+.versionBanner-releaseDate { font-size: 0.9em; padding-right: 10px; }
+.versionBanner-releaseDate span{ font-weight: bold; }
+.versionBanner-content { background-color: #FFFFFF; clear: both; padding-bottom: 5px; padding-left: 48px; padding-top: 2px; }
+.versionBanner-content:hover { cursor: default; }
+.versionBanner-content tr{ padding-bottom: 5px; padding-top: 5px; }
+.versionBanner-content div{ padding-top: 5px; }
+.versionBanner-header { padding-bottom: 3px; padding-left: 51px; padding-top: 3px; }
+.versionBanner-header:hover { cursor: pointer; }
+*+ html .versionBanner-header { display: inline-block; }
+.versionBanner-header:after { clear: both; content: "."; display: block; height: 0; visibility: hidden; }
+.versionBannerList li .numberOfIssues { float: right; padding-right: 13px; padding-top: 13px; }
+.versionHeaderLink a { color: #003366; text-decoration: none; }
+.versionProgress { float: right; padding-top: 5px; padding-right: 9px; width: 200px; }
+.versionProgress td{ padding: 0; }

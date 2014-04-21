@@ -1,0 +1,72 @@
+/* TODO: These are hacks. */
+div.ops-cont {overflow: visible;}
+.dropdown-text {float:none!important;}
+#content > header:after {
+  clear: both;
+  content: "";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+.command-bar .disabled .drop-menu, .command-bar .disabled .drop-menu:hover {
+    background-position: 0 -199px;
+}
+
+
+
+#issue-content {
+
+    position:relative;
+
+    > header {
+        padding:0;
+        h1, h2 {
+            margin: 0;
+        }
+        > h1 > a {
+            text-decoration: none;
+        }
+        #heading-avatar {
+            float: left;
+            height: 48px;
+            margin: 0;
+            overflow: hidden;
+            width: 48px;
+            > img {
+                display: block;
+            }
+             + h1 {
+                padding-top: 9px;
+            }
+            + ul.breadcrumbs,
+            + ul.breadcrumbs + h1,
+            + h1 {
+                margin-left: 64px;
+            }
+        }
+    }
+
+    .issue-blanket {
+        position:absolute;
+        top:0;
+        left:0;
+        background: white;
+        opacity: 0.5;
+        z-index: 9990;
+    }
+
+    .aui-loading {
+        display: block;
+        z-index: 9991;
+    }
+}
+
+.focus-shifter-mesg {
+    display: inline;
+    color: #666;
+    line-height: 1.2;
+}
+
+.inline-edit-fields {
+    outline: none;
+}

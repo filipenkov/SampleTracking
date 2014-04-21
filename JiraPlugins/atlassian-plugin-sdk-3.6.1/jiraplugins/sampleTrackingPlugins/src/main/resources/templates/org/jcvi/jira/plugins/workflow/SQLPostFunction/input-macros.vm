@@ -1,0 +1,32 @@
+## #############################################################################
+## Some Macros to reduce redundant boiler plate in the template
+## #############################################################################
+#macro (radioButton $label $section $sub-section $set)
+#if ($sub-section && $set && $sub-section == $set)
+    #set ($mark-checked = "checked")
+#else
+    #set ($mark-checked = "")
+#end
+<p>
+    <input id="${section}-${sub-section}" type="radio" name="${section}"
+           value="${sub-section}" $!{mark-checked} />
+    <label for="${section}-${sub-section}">${label}</label>
+</p>
+#end
+
+#macro (textFieldRow $label $section $sub-section $set $field $value)
+#if ($sub-section && $set && $sub-section == $set)
+    #set ($style = "")
+#else
+    #set ($style = "display: none")
+#end
+<tr class="${section}-${sub-section}" style="${style}">
+    <td>
+        <label for="${section}-${sub-section}-${field}">${label}</label>
+    </td><td>
+        <input type="text" id="${section}-${sub-section}-${field}"
+               name="${section}-${sub-section}-${field}"
+              value="$!{value}"/>
+    </td>
+</tr>
+#end

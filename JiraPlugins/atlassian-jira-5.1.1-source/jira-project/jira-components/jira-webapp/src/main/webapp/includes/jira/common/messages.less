@@ -1,0 +1,21 @@
+.global-msg {
+    position:fixed;
+    left: 50%;
+    z-index: 1000;
+    max-width:500px;
+}
+
+.global-msg .aui-message {
+    -moz-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.global-msg .aui-message.closeable {
+    padding-right:25px;
+}
+
+/* Needed because Aui message styles are in aui form context */
+.global-msg .aui-message.closeable .aui-icon.icon-close {
+    top: 1em;
+}

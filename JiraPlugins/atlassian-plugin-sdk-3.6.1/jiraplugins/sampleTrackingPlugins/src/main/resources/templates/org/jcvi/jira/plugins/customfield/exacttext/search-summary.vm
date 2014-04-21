@@ -1,0 +1,15 @@
+#searcherHeader ($customField)
+
+##todo: handle multiple values better
+
+#if ($value) ##despite its name value contains all values for all sections
+  #set ($values = $value.getValuesForNullKey()) ##only one section and so uses the null key
+
+  #if ($values)
+    #foreach ($valuePart in $values)
+      <span>$textutils.htmlEncode($valuePart)</span>
+    #end ##end of foreach
+  #end ##end of if/else $values
+#end ##end of if $value
+
+#searcherFooter ($customField)

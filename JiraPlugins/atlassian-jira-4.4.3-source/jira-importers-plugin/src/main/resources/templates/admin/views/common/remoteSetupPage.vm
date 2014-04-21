@@ -1,0 +1,14 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.RemoteSiteImporterSetupPage" *#
+#parse('/templates/admin/views/common/import-header.vm')
+#if ($action.siteUrlRequired == true)
+	#set ($auiparams = $map.build('name', 'siteUrl', 'label', $i18n.getText('jira-importer-plugin.external.site.url', $action.title), 'size', 60, 'value', $action.siteUrl, 'required', true))
+#parse("/templates/standard/textfield.vm")
+#end
+
+#set ($auiparams = $map.build('name', 'siteUsername', 'label', $action.loginLabel, 'size', 60, 'required', true, 'value', $action.siteUsername))
+#parse("/templates/standard/textfield.vm")
+
+#set ($auiparams = $map.build('name', 'sitePassword', 'password', true, 'label', $action.passwordLabel, 'size', 60, 'required', true, 'value', $action.sitePassword, 'autocomplete', true))
+#parse("/templates/standard/textfield.vm")
+
+#parse("/templates/admin/views/common/standardSetupFooter.vm")

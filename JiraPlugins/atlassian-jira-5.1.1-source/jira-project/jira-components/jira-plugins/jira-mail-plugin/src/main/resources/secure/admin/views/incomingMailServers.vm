@@ -1,0 +1,16 @@
+#disable_html_escaping()
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.mail.webwork.MailServerActionSupport" *#
+<html>
+<head>
+    <meta name="admin.active.section" content="admin_system_menu/top_system_section/mail_section">
+    <meta name="admin.active.tab" content="incoming_mail">
+    <title>$action.getText('jmp.tabs.mail.incoming.title')</title>
+    $webResourceManager.requireResourcesForContext("admin.mail.incoming")
+</head>
+<body>
+#if ($action.canManagePopMailServers())
+    #parse("/secure/admin/views/popServers.vm")
+#end
+</body>
+</html>
+

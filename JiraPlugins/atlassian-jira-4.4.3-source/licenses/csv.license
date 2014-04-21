@@ -1,0 +1,14 @@
+JIRA uses the MindProd CSV library written by Roedy Green:
+http://mindprod.com/products1.html#CSV
+
+All software that Roedy Green's writes is marked, for non-military use only with the exception of U.N. Peacekeeping
+Missions. For more information see:
+http://mindprod.com/contact/roedy.html#NONMIL
+
+The conditions of use are:
+"You may incorporate my code into your own products so long as those products are not primarily for military use. If you
+used my code in your drafting program for example, and the military used it, you would be ok. If you used it in a
+drafting program for nuclear submarines, then you would not. You are not required to enforce the non-military use-only
+clause, just leave it visible in the programs distributed."
+
+As JIRA is not primarily written for military use, Roedy Green grants us the right to use his CSV library.

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+        var contextPath = "$baseurl";
+    </script>
+    $webResourcesHtml
+</head>
+<body id="atlScriptlet">
+<div class="collector-template-bar"></div>
+<div class="aui-dialog collector-dialog">
+    <h2 class="dialog-title">$i18n.getText('collector.plugin.template.bug.raise.bug')</h2>
+    <form class="aui #if($preview)dont-default-focus #end" action="$canocialBaseurl/rest/collectors/1.0/template/form/$!{collector.id}" method="POST">
+        <div class="content-body">
+            <div class="event-shield-wrapper">
+                <div class="event-shield"></div>
+            #parse('templates/collector/custommessage.vm')
+            <div id="desc-group" class="field-group">
+                <label for="description">$i18n.getText('collector.plugin.template.bug.description')<span class="aui-icon icon-required"></span></label>
+                <textarea class="textarea long-field" rows="10" id="description" name="description"></textarea>
+            </div>
+            <fieldset class="hidden parameters">
+                <input type="hidden" title="collectorId" value="$!collector.id"/>
+            </fieldset>
+            <fieldset class="group #if (!$attachmentsEnabled)hidden#end ">
+                <legend><span>$i18n.getText('collector.plugin.template.add.file')</span></legend>
+                <div id="screenshot-group" class="field-group">
+                    <input type="file" name="screenshot" class="file" id="screenshot">
+                    <input type="hidden" name="pid" value="$!collector.projectId">
+                    <input type="hidden" name="atl_token" value="$atl_token"/>
+                    <div id="attach-max-size" class="hidden">$!maxAttachSize</div>
+                </div>
+            </fieldset>
+            #parse('templates/collector/contactform.vm')
+            <input type="hidden" name="webInfo" id="webInfo" value="$!webInfo">
+            </div>
+        </div>
+        <div class="dialog-button-panel">
+            <input type="submit" class="button-panel-button submit-button"  value="$i18n.getText('admin.common.words.submit')"/>
+            <a href="#" class="cancel">$i18n.getText('admin.common.words.close')</a>
+        </div>
+    </form>
+</div>
+#parse('templates/form-fields-blur.vm')
+</body>
+</html>

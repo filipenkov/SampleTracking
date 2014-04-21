@@ -1,0 +1,10 @@
+#if ($issue.getDescription() && $issue.getDescription().length() != 0)
+<tr valign="top">
+    <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+        <strong style="font-weight:normal;color:${textSubtleColour};">#text("common.concepts.description"):</strong>
+    </td>
+    <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+        $issue.htmlDescription
+    </td>
+</tr>
+#end

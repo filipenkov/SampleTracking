@@ -1,0 +1,101 @@
+################################################################################
+## Renders a single project box (reused by the Project and Projects Portlets) ##
+################################################################################
+#if ($project)
+#if ($hasBrowsePermission == true)
+
+#set ($ppid = "project_${portletConfigurationId}_${project.id}")
+
+<table border="0" cellpadding="3" cellspacing="0" width="99%" class="projectTable">
+    <tr class="rowHeader">
+        <td class="colHeaderLink projectOuterTd" colspan="2">
+            #if ($showToggle == true && $!portletConfig.getProperty('projectinfo') != 'brief')
+                #if ($isGoodBrowser == true && $portletConfig.isResourcesProvided())
+                    #set ($showText = $i18n.getText('displaypane.show'))
+                    #set ($hideText = $i18n.getText('displaypane.hide'))
+                <span class="switch actionLinks subText" id="${ppid}-switch" onclick="CookieUtil.toggleVisibility('$ppid', '$showText', '$hideText')">$hideText</span>
+                #end
+            #end
+            $i18n.getText('common.concepts.project'):
+            <b><a href="${baseurl}/browse/$textUtils.htmlEncode(${project.key})">$textUtils.htmlEncode(${project.name})</a></b>
+            <font size="1">($textUtils.htmlEncode(${project.key}))</font>
+        </td>
+    </tr>
+<tbody id="$ppid">
+<tr class="rowClear">
+    <td class="projectOuterTd" colspan="2">
+    #if ($project.leadUserName && $!portletConfig.getProperty('projectinfo') != 'brief')
+        <strong>$i18n.getText('common.concepts.projectlead'):</strong>
+        $userformat.formatUser(${project.leadUserName}, 'profileLink', 'project_lead_portlet')
+        <br/>
+    #end
+    #if ($tabPanels.empty == false)
+        <strong>$i18n.getText('common.concepts.reports'):</strong>
+        #foreach ($tabPanel in $tabPanels)
+        #if ($velocityCount > 1)|#end
+        <a href="${baseurl}/browse/$textUtils.htmlEncode(${project.key})?selectedTab=$urlcodec.encode(${tabPanel.completeKey})">$textUtils.htmlEncode(${tabPanel.label})</a>
+        #end
+    #end
+    </td>
+</tr>
+
+#if ($!portletConfig.getProperty('projectinfo') != 'brief')
+
+    #if ($isPriorityVisible == true)
+<tr class="rowClear">
+    <td class="projectOuterTd">
+        <strong>$i18n.getText('common.concepts.openissues'):</strong>
+        <span class="small">($i18n.getText('common.concepts.bypriority'))</span>
+    </td>
+    <td class="projectOuterTd" valign="middle">
+        #if ($priorityStats && $priorityStats.isEmpty() == false)
+        <table width="100" valign="middle" align="center" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+            #foreach ($stat in $priorityStats)
+            #set ($linkTitle = $i18n.getText('percentagegraph.title', ${stat.name}, ${stat.percentage}, ${stat.count}))
+            ## NOTE: The following line MUST NOT have spaces for IE to render it properly
+            <td width="${stat.percentage}" bgcolor="${stat.color}"><a href="${baseurl}/secure/IssueNavigator.jspa?reset=true&amp;pid=${project.id}&amp;priority=${stat.id}&amp;resolution=-1" title="$linkTitle"><img class="hideOnPrint" src="${baseurl}/images/bar.gif" alt="$linkTitle" height="10" width="${stat.percentage}" border="0" /></a></td>
+            #end
+        </tr>
+        </table>
+        #else
+        <span style="font-size:x-small;">$i18n.getText('common.concepts.noopenissues')</span>
+        #end
+    </td>
+</tr>
+    #end
+
+    #if ($hasDisplayableItems == true)
+<tr class="rowClear">
+    <td class="projectOuterTd" colspan="2">
+        <strong>$i18n.getText('common.concepts.filterissues'):</strong>
+        <br/>
+        $displayableItemsHtml
+    </td>
+</tr>
+    #end
+
+#end
+ </tbody>
+</table>
+
+#if ($portletConfig.isResourcesProvided())
+    ## this script shows or hides the project category based on a cookie
+    <script type="text/javascript" language="JavaScript">
+        cookieHide("$ppid", "$i18n.getText('displaypane.show')");
+    </script>
+    #end
+#end
+
+#else
+<table class="invalid tableBorder" cellpadding="0" cellspacing="0">
+<tbody>
+    <tr class="rowHeader">
+        <td class="colHeaderLink">
+            $i18n.getText('common.concepts.project'): <i>$i18n.getText('common.words.unknown')</i>
+        </td>
+    </tr>
+    <tr><td class="message">$i18n.getText('portlet.invalid')</td></tr>
+</tbody>
+</table>
+#end

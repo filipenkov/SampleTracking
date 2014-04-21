@@ -1,0 +1,47 @@
+#disable_html_escaping()
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.mail.webwork.DeleteMailHandler" *#
+<html>
+<head>
+	<title>$i18n.getText('jmp.deleteMailHandler.title')</title>
+    <meta name="admin.active.section" content="admin_system_menu/top_system_section/mail_section"/>
+    <meta name="admin.active.tab" content="incoming_mail"/>
+</head>
+
+<body>
+    <form action="${action.actionName}.jspa" method="POST">
+        <input type="hidden" name="id" value="$action.id">
+        <input type="hidden" name="confirmed" value="true">
+        <input type="hidden" name="atl_token" value="$atl_token">
+
+        <table class="jiraform maxWidth">
+            <tbody>
+                <tr class="titlerow">
+                    <td colspan="2" class="jiraformheader">
+                        <h3 class="formtitle">$i18n.getText('jmp.deleteMailHandler.title')</h3>
+                    </td>
+                </tr>
+                <tr class="descriptionrow">
+                    <td colspan="2" class="jiraformheader">
+                        <div class="desc-wrap">
+                            $i18n.getText('admin.mailservers.delete.confirmation', "<b>$textutils.htmlEncode($action.name)</b>")
+                        </div>
+                    </td>
+                </tr>
+                <tr class="hidden"><td colspan="2"></td></tr>
+                <tr class="buttons-container">
+                    <td class="jiraformfotter"></td>
+                    <td colspan="1">
+                        <div class="buttons-container noprint">
+                            <div class="buttons">
+                                #parse("/secure/admin/views/accessKeys.vm")
+                                <input id="delete_submit" type="submit" class="aui-button" value="$i18n.getText('common.words.delete')" accesskey="$submitAccessKey" title="$submitTitle">
+                                <a href="$action.cancelURI" id="cancelButton" class="aui-button-cancel" accesskey="$cancelAccessKey" title="$cancelTitle">$i18n.getText("AUI.form.cancel.link.text")</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</body>
+</html>

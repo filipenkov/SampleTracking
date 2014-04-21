@@ -1,0 +1,7 @@
+.version-navigation { clear: right; color: #aaa; float: right; list-style-type: none; margin: 0; padding: 0; position: relative; white-space: nowrap; }
+.version-navigation li { display: inline; vertical-align: middle; }
+.version-navigation li a img { vertical-align: middle; }
+.version-navigation li a { font-size: 1.1em; text-decoration: none; }
+.version-navigation li a:hover span { text-decoration: underline; }
+.version-navigation li a span { margin: 0 5px; }
+.version-navigation li.current span { font-size: 1.1em; margin: 0 5px; }

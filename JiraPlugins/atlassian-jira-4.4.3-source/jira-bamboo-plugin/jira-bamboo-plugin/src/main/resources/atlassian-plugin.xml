@@ -1,0 +1,234 @@
+<atlassian-plugin key="com.atlassian.jira.plugin.ext.bamboo" name="${project.name}" plugins-version="2">
+
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="Atlassian Software Systems Pty Ltd" url="http://www.atlassian.com"/>
+        <param name="configure.url">/secure/admin/jira/ViewBambooApplicationLinks.jspa</param>
+    </plugin-info>
+
+    <resource type="i18n" name="i18n-bamboo-plugin" location="templates.plugins.bamboo.bamboo-plugin"/>
+
+    <!-- ================================================================================================== Tab Panels -->
+
+    <issue-tabpanel key="bamboo-build-results-tabpanel"
+                    name="Bamboo Build Results"
+                    class="com.atlassian.jira.plugin.ext.bamboo.panel.BambooBuildResultsTabPanel">
+        <description key="bamboo.tabpanel.description"/>
+        <label key="bamboo.tabpanel.label"/>
+        <resource type="velocity" name="view" location="templates/plugins/bamboo/panel/bambooTabPanel.vm"/>
+    </issue-tabpanel>
+
+    <version-tabpanel key="bamboo-version-tabpanel"
+                      name="Builds Version Panel"
+                      class="com.atlassian.jira.plugin.ext.bamboo.panel.BuildsForVersionTabPanel">
+        <description key="bamboo.tabpanel.version.description"/>
+        <label key="bamboo.tabpanel.version.label"/>
+        <order>100</order>
+        <resource type="velocity" name="view" location="templates/plugins/bamboo/panel/bambooTabPanel.vm"/>
+    </version-tabpanel>
+
+    <project-tabpanel key="bamboo-project-tabpanel"
+                      name="Builds Project Panel"
+                      class="com.atlassian.jira.plugin.ext.bamboo.panel.BuildsForProjectTabPanel">
+        <description key="bamboo.tabpanel.project.description"/>
+        <label key="bamboo.tabpanel.project.label"/>
+        <order>100</order>
+        <resource type="velocity" name="view" location="templates/plugins/bamboo/panel/bambooTabPanel.vm"/>
+    </project-tabpanel>
+
+   <!-- ========================================================================================= Release Management -->
+
+    <version-tabpanel key="bamboo-release-tabpanel"
+                      name="Release"
+                      class="com.atlassian.jira.plugin.ext.bamboo.release.ReleaseForVersionTabPanel">
+      <description>Release Information For This Version</description>
+      <label key="Release"/>
+      <order>150</order>
+      <resource type="velocity" name="view" location="templates/plugins/bamboo/release/releaseTabPanel.vm"/>
+    </version-tabpanel>
+
+    <webwork1 key="bamboo-release-xwork" name="Configure Your Release">
+    <actions>
+        <action name="com.atlassian.jira.plugin.ext.bamboo.release.ConfigureBambooRelease" alias="ConfigureBambooRelease">
+          <view name="input">/templates/plugins/bamboo/release/releaseConfigDialog.vm</view>
+          <view name="error">/templates/plugins/bamboo/release/releaseConfigDialog.vm</view>
+          <view name="permissionviolation">/templates/plugins/bamboo/action/permissionDenied.vm</view>
+        </action>
+        <action name="com.atlassian.jira.plugin.ext.bamboo.release.ConfigureBambooRelease" alias="SubmitBambooRelease">
+          <view name="input">/templates/plugins/bamboo/release/releaseConfigDialog.vm</view>
+          <view name="error">/templates/plugins/bamboo/release/releaseConfigDialog.vm</view>
+          <view name="permissionviolation">/templates/plugins/bamboo/action/permissionDenied.vm</view>
+        </action>
+        <action name="com.atlassian.jira.plugin.ext.bamboo.release.ClearReleaseErrorAction" alias="clearReleaseErrors">
+        </action>
+      </actions>
+    </webwork1>
+    
+   <!-- ======================================================================================= Custom Bamboo Styles -->
+    
+    <web-resource key="css" name="Plugin Tab Panel CSS">
+        <resource type="download" name="jiraBambooTabPanels.css" location="templates/plugins/bamboo/style/jiraBambooTabPanels.css"/> <!-- works with old versions of Bamboo -->
+        <resource type="download" name="buildResultsList.css" location="templates/plugins/bamboo/style/buildResultsList.css"/> <!-- works with old versions of Bamboo -->
+        <resource type="download" name="jiraBambooTabPanelStyles.css" location="templates/plugins/bamboo/style/jiraBambooTabPanelStyles.css"/>
+        <resource type="download" name="release.css" location="templates/plugins/bamboo/style/release.css"/>
+        <resource type="download" name="common.js" location="templates/plugins/bamboo/script/common.js"/>
+    </web-resource>
+
+    <!-- =============================================================================================== Server Config -->
+
+    <webwork1 key="bambooServerConfig" name="Configure Your Bamboo Server">
+        <actions>
+            <action name="com.atlassian.jira.plugin.ext.bamboo.web.ViewBambooApplicationLinks" alias="ViewBambooApplicationLinks">
+                <view name="success">/templates/plugins/bamboo/viewApplicationLinks.vm</view>
+                <view name="permissionviolation">/templates/plugins/bamboo/action/permissionDenied.vm</view>
+            </action>
+            <action name="com.atlassian.jira.plugin.ext.bamboo.web.EditBambooApplicationLink" alias="EditBambooApplicationLink">
+                <view name="input">/templates/plugins/bamboo/editApplicationLink.vm</view>
+                <view name="permissionviolation">/templates/plugins/bamboo/action/permissionDenied.vm</view>
+                <view name="error">/templates/plugins/bamboo/editApplicationLink.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+
+    <webwork1 key="bambooPanelActions" name="View Your Bamboo Builds">
+        <actions>
+            <action name="com.atlassian.jira.plugin.ext.bamboo.web.ViewBambooPanelContent" alias="ViewBambooPanelContent">
+                <view name="success">/templates/plugins/bamboo/action/simpleHtml.vm</view>
+                <view name="permissionviolation">/templates/plugins/bamboo/action/redirect.vm</view>
+                <view name="error">/templates/plugins/bamboo/action/connectionError.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+
+    <!-- Link to Bamboo Servers configuration on system.admin panel in globalsettings section. Prior to Jira 4.4-->
+    <web-item key="bambooConfigLink-old" name="Bamboo Config Web Item" section="system.admin/globalsettings" weight="19">
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.JiraGlobalPermissionCondition">
+            <param name="permission">admin</param>
+        </condition>
+        <condition class="com.atlassian.jira.plugin.ext.bamboo.conditions.IsPriorToJiraVersion">
+                <param name="majorVersion">4</param>
+                <param name="minorVersion">4</param>
+        </condition>
+        <label key="bamboo.config.title"/>
+        <link linkId="bamboo_config">/secure/admin/jira/ViewBambooApplicationLinks.jspa</link>
+    </web-item>
+
+    <!-- Link to Bamboo Servers configuration on system.admin panel in teh builds section. Since Jira 4.4-->
+    <web-item key="bambooConfigLink" name="Bamboo Config Web Item" section="admin_plugins_menu/builds_section" weight="10">
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.JiraGlobalPermissionCondition">
+            <param name="permission">admin</param>
+        </condition>
+        <label key="bamboo.config.title"/>
+        <link linkId="bamboo_config">/secure/admin/jira/ViewBambooApplicationLinks.jspa</link>
+    </web-item>
+
+    <!-- Link shown next to each Bamboo application link -->
+    <web-item key="bambooApplinkConfigLink" name="Bamboo Application Link Config Web Item" section="applinks.application.link.list.operation" weight="19">
+        <condition class="com.atlassian.jira.plugin.ext.bamboo.applinks.BambooApplicationTypeCondition"/>
+        <condition class="com.atlassian.jira.plugin.ext.bamboo.applinks.MultipleBambooApplicationLinksExistCondition"/>
+        <label key="bamboo.config.title"/>
+        <link linkId="bamboo_config">/secure/admin/jira/EditBambooApplicationLink!default.jspa?applicationId=${applicationLink.id}</link>
+    </web-item>
+
+    <!-- =================================================================================================== REST -->
+
+    <rest key="rest-service-resources" path="/bamboo" version="1.0">
+        <description>Provides a REST proxy for requests to resources on UAL domains only to Bamboo servers.</description>
+    </rest>
+
+  <!-- ==================================================================================================== Portlets -->
+
+  <portlet key="bambooStatus" name="Bamboo Status"
+           class="com.atlassian.jira.plugin.ext.bamboo.portlets.StatusPortlet">
+    <description key="bamboo.jiraportlet.status.description">i18n description</description>
+    <resource type="velocity" name="view" location="templates/plugins/bamboo/portlets/bambooStatusPortlet.vm"/>
+    <label key="bamboo.jiraportlet.status.name"/>
+    <objectdescriptor key="bamboo.jiraportlet.status.name"/>
+    <properties>
+    </properties>
+  </portlet>
+
+  <portlet key="buildGraph" name="Build Summary Graphs"
+           class="com.atlassian.jira.plugin.ext.bamboo.portlets.BuildGraphPortlet">
+    <description key="bamboo.jiraportlet.buildgraph.description">i18n description</description>
+    <resource type="velocity" name="view" location="templates/plugins/bamboo/portlets/bambooBuildGraphPortlet.vm"/>
+    <label key="bamboo.jiraportlet.buildgraph.name"/>
+    <objectdescriptor key="bamboo.jiraportlet.buildgraph.name"/>
+    <properties>
+    </properties>
+  </portlet>
+
+  <!-- =================================================================================================== Resources -->
+
+    <resource type="download" name="images/" location="templates/plugins/bamboo/images/"/>
+
+    <!-- =========================================================================================== Component imports -->
+
+    <component-import key="authenticationContext" interface="com.atlassian.jira.security.JiraAuthenticationContext"/>
+    <component-import key="searchProvider" interface="com.atlassian.jira.issue.search.SearchProvider"/>
+    <component-import key="versionManager" interface="com.atlassian.jira.project.version.VersionManager"/>
+    <component-import key="permissionManager" interface="com.atlassian.jira.security.PermissionManager"/>
+    <component-import key="issueManager" interface="com.atlassian.jira.issue.IssueManager"/>
+    <component-import key="projectManager" interface="com.atlassian.jira.project.ProjectManager"/>
+    <component-import key="fieldVisibilityManager" interface="com.atlassian.jira.web.FieldVisibilityManager"/>
+    <component-import key="jiraApplicationProperties" interface="com.atlassian.jira.config.properties.ApplicationProperties"/>
+    <component-import key="userManager" interface="com.atlassian.jira.user.util.UserManager"/>
+    <component-import key="salUserManager" interface="com.atlassian.sal.api.user.UserManager"/>
+    <component-import key="applicationLinkService" interface="com.atlassian.applinks.spi.link.MutatingApplicationLinkService"/>
+    <component-import key="typeAccessor" interface="com.atlassian.applinks.spi.util.TypeAccessor"/>
+    <component-import key="authenticationConfigurationManager" interface="com.atlassian.applinks.spi.auth.AuthenticationConfigurationManager"/>
+    <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
+    <component-import key="eventPublisher" interface="com.atlassian.event.api.EventPublisher"/>
+    <component-import key="webResourceManager" interface="com.atlassian.plugin.webresource.WebResourceManager"/>
+    <component-import key="entityLinkService" interface="com.atlassian.applinks.api.EntityLinkService"/>
+    <component-import key="pluginSettingsFactory" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory"/>
+    <component-import key="pluginScheduler" interface="com.atlassian.sal.api.scheduling.PluginScheduler"/>
+
+    <!-- ================================================================================================== Components -->
+
+    <component key="bambooGadgetSpecProvider" name="Bamboo Gadget Spec Provider" class="com.atlassian.jira.plugin.ext.bamboo.gadgets.BambooGadgetSpecProvider" public="true">
+        <interface>com.atlassian.gadgets.GadgetSpecProvider</interface>
+    </component>
+    <component key="applicationLinkMigrationUpgradeTask" class="com.atlassian.jira.plugin.ext.bamboo.upgrade.ApplicationLinkMigrationUpgradeTask" public="true">
+        <interface>com.atlassian.sal.api.upgrade.PluginUpgradeTask</interface>
+    </component>
+
+    <component key="gadgetListener" name="Bamboo Gadget Listener" class="com.atlassian.jira.plugin.ext.bamboo.gadgets.GadgetListener"/>
+    <component key="bambooApplicationLinkManager" name="Bamboo Application Links" class="com.atlassian.jira.plugin.ext.bamboo.applinks.BambooApplicationLinkManagerImpl"/>
+    <component key="bambooContentRewriter" name="Bamboo Content Rewriter" class="com.atlassian.jira.plugin.ext.bamboo.service.BambooContentRewriter"/>
+
+    <component key="releaseErrorReportingService" name="Release Error Reporting Service" class="com.atlassian.jira.plugin.ext.bamboo.service.ReleaseErrorReportingServiceImpl">
+      <interface>com.atlassian.jira.plugin.ext.bamboo.service.ReleaseErrorReportingService</interface>
+    </component>
+
+    <component key="impersonationService" name="Impersonation Service" class="com.atlassian.jira.plugin.ext.bamboo.service.ImpersonationServiceImpl">
+      <interface>com.atlassian.jira.plugin.ext.bamboo.service.ImpersonationService</interface>
+    </component>
+
+
+    <component key="bambooPanelHelper" name="Bamboo Panel Helper" class="com.atlassian.jira.plugin.ext.bamboo.panel.BambooPanelHelper"/>
+
+    <component key="bambooRestService" name="Bamboo Rest Service" class="com.atlassian.jira.plugin.ext.bamboo.service.BambooRestServiceImpl" public="true">
+      <interface>com.atlassian.jira.plugin.ext.bamboo.service.BambooRestService</interface>
+    </component>
+
+    <component key="planStatusUpdateService" name="Bamboo Status Update Service" class="com.atlassian.jira.plugin.ext.bamboo.service.PlanStatusUpdateServiceImpl" public="true">
+      <interface>com.atlassian.jira.plugin.ext.bamboo.service.PlanStatusUpdateService</interface>
+      <interface>com.atlassian.sal.api.lifecycle.LifecycleAware</interface>
+      <description>Subscribe to Status updates from Bamboo</description>
+    </component>
+
+    <component key="bambooReleaseService" name="Bamboo Release Service" class="com.atlassian.jira.plugin.ext.bamboo.service.BambooReleaseServiceImpl" public="true">
+      <interface>com.atlassian.jira.plugin.ext.bamboo.service.BambooReleaseService</interface>
+      <interface>com.atlassian.sal.api.lifecycle.LifecycleAware</interface>
+      <description>Provides functionality to release JIRA versions by building a Plan in Bamboo</description>
+    </component>
+
+    <component key="bambooServerAccessor" name="Bamboo Server Accessor" class="com.atlassian.jira.plugin.ext.bamboo.service.BambooServerAccessorImpl"/>
+
+    <component key="legacyBambooServerManager" class="com.atlassian.jira.plugin.ext.bamboo.upgrade.legacy.manager.LegacyBambooServerManagerImpl"/>
+    <component key="legacyPropertyManager" class="com.atlassian.jira.plugin.ext.bamboo.upgrade.legacy.util.LegacyBambooPropertyManagerImpl"/>
+    <component key="legacyServerIdGenerator" class="com.atlassian.jira.plugin.ext.bamboo.upgrade.legacy.util.LegacyBambooServerIdGeneratorImpl"/>
+
+</atlassian-plugin>

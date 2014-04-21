@@ -1,0 +1,18 @@
+#parse("templates/email/includes/issueplugins.vm")
+    #if($comment.getId())[ ${baseurl}/browse/${issue.getKey()}?page=${tabpanel-comment}&focusedCommentId=${comment.getId()}\#comment-${comment.getId()} ] #end
+
+
+#if($remoteUser.fullName)
+$i18n.getText("template.issue.commented.on", $remoteUser.fullName, $issue.getKey())
+#dashes($!remoteUser.fullName)--------------#dashes($issue.getKey())-
+#end
+#if($changelog)
+
+#changes([])
+#end
+#comment()
+#visibility()
+
+#parse("templates/email/text/includes/issuesummary.vm")
+
+#parse("templates/email/text/includes/footer.vm")

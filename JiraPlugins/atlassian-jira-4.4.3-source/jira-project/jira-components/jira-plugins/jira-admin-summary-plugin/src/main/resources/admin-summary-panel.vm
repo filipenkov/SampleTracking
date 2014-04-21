@@ -1,0 +1,34 @@
+#macro (drawadminsummarysection $section $sectionKey)
+    #set ($dropdownLinks = $linkManager.getLinksForSection($sectionKey, $user, $helper))
+    #set ($innerDropdownSections = $linkManager.getSectionsForLocation($section.id, $user, $helper))
+
+    #if (! $dropdownLinks.empty || !$innerDropdownSections.isEmpty())
+        #if ($section.label)
+            <h5 class="as-label">$section.label</h5>
+        #end
+        #if (!$dropdownLinks.empty)
+        <ul id="$section.id" class="as-list">
+            #foreach ($dropdownLink in $dropdownLinks)
+                <li><a href="$dropdownLink.url">$textutils.htmlEncode($dropdownLink.label)</a></li>
+            #end
+        </ul>
+        #end
+        #foreach ($innerSection in $innerDropdownSections)
+            #set ($sectionKey = "$section.id/$innerSection.id")
+            #drawadminsummarysection($innerSection $sectionKey)
+        #end
+    #end
+#end
+
+#if ($childSections.size() > 0)
+    <div class="mod-header">
+        <h3 class="toggle-title">$panelName</h3>
+    </div>
+    <div id="admin-summary-section-$outerSectionId" class="mod-content">
+        #foreach ($section in $childSections)
+            #set ($sectionKey = "$outerSectionId/$section.id")
+            #drawadminsummarysection($section $sectionKey)
+        #end
+    </div>
+#end
+

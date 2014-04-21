@@ -1,0 +1,99 @@
+.aui-ss {
+
+    // Much of this borrowed from .multi-select in layer.css.
+    position: relative;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+
+    .overlabel-apply {
+        top: 0;
+        left: 0;
+    }
+
+    /* entities with icons */
+    &.aui-ss-has-entity-icon {
+
+        .aui-ss-field {
+            padding-left:20px;
+        }
+
+        .aui-ss-entity-icon {
+            -moz-background-size: 16px;
+            background-size: 16px;
+            display:block;
+        }
+    }
+
+    /* Default styles */
+    .aui-ss-field {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ie-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        box-sizing: border-box;
+        color: #036;
+        display:block;
+        float:left;
+        line-height:15px;
+        overflow:hidden;
+        padding-right:18px;
+        resize:none;
+        width:100%;
+    }
+
+    .aui-ss-entity-icon {
+        background-repeat:no-repeat;
+        position:absolute;
+        left:3px;
+        top:4px;
+        height:16px;
+        width:16px;
+        display:none;
+    }
+
+    .aui-ss-icon {
+        position:absolute;
+        top:4px;
+        right:3px;
+    }
+}
+
+/* overrides for aui */
+form.aui .aui-ss {
+
+    input.aui-ss-field {
+        color: #036;
+    }
+
+    &.aui-ss-editing input.aui-ss-field {
+        color:#000;
+    }
+
+    &.long-field input.aui-ss-field {
+        width: 100%;
+    }
+}
+
+
+.issuetype-ss, .project-ss, #priority-single-select  {
+    width: 250px;
+}
+
+/*
+    Long fields are 500px but in the normal "medium" width 'aui-dialog-content' dialog
+    they should adapt to the dialog width.
+*/
+.popup-width-medium .aui-dialog-content .aui-ss.long-field {
+    width: 100%;
+}
+
+/* Explicity styling field back to default for IE. When we set the background colour we lose it... */
+.msie .aui-ss-field {
+    border:1px solid #8fa8c1;
+    padding-top:3px;
+    padding-bottom:3px;
+}

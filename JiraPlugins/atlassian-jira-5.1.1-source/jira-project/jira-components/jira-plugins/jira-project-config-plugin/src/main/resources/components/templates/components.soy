@@ -1,0 +1,178 @@
+{namespace JIRA.Templates.Component}
+
+/**
+* Renders component icon
+*/
+{template .icon}
+    <span class="project-config-icon project-config-icon-component"></span>
+{/template}
+
+
+/**
+* @param name
+* @param project
+* @param update
+*/
+{template .editComponentName}
+<input class="text" name="name" value="{$name ? $name : ''}" />
+{if not $update}
+    <input name="project" type="hidden" value="{$project}">
+{/if}
+{/template}
+
+/**
+* @param component
+*/
+{template .componentLead}
+<span class="{if $component.lead and not $component.lead.active}project-config-invalid{/if}">
+    {if $component.lead}
+        {call JIRA.Templates.User.profileLink}
+            {param user: $component.lead /}
+            {param linked: false /}
+        {/call}
+    {elseif $component.leadUserName}
+        {$component.leadUserName}
+    {else}
+        <em>{getText('admin.project.components.lead')}</em>
+    {/if}
+</span>
+{/template}
+
+/**
+* @param lead
+* @param leadUserName
+* @param isLeadPickerDisabled
+*/
+{template .editComponentLead}
+{if $isLeadPickerDisabled}
+    <input name="leadUserName" class="aui-ss-disabled" value="{if $lead}{$lead.name}{elseif $leadUserName}{$leadUserName}{/if}" />
+{else}
+    <select class="single-user-picker js-default-user-picker hidden" name="leadUserName">
+        {if $lead}
+            <option style="background-image:url({$lead.avatarUrls['16x16']})" selected="selected" value="{$lead.name}">{$lead.displayName}</option>
+        {elseif $leadUserName}
+            <option selected="selected" value="{$leadUserName}">{$leadUserName}</option>
+        {/if}
+    </select>
+{/if}
+{/template}
+
+/**
+* @param component
+*/
+{template .defaultAssignee}
+{switch $component.assigneeType}
+    {case 'PROJECT_DEFAULT'}
+        <span class="project-config-component-assignee project-config-component-project-default {if not $component.isAssigneeTypeValid}project-config-invalid{/if}" {if $component.assigneeInvalidMsg} title="{$component.assigneeInvalidMsg}"{/if}>
+            {getText('admin.assignee.type.project.default')}
+        </span>
+    {case 'COMPONENT_LEAD'}
+        <span class="project-config-component-assignee project-config-component-component-lead {if not $component.isAssigneeTypeValid}project-config-invalid{/if}" {if $component.assigneeInvalidMsg} title="{$component.assigneeInvalidMsg}"{/if}>
+            {getText('admin.assignee.type.component.lead')}
+        </span>
+    {case 'PROJECT_LEAD'}
+        <span class="project-config-component-assignee project-config-component-project-lead {if not $component.isAssigneeTypeValid}project-config-invalid{/if}" {if $component.assigneeInvalidMsg} title="{$component.assigneeInvalidMsg}"{/if}>
+            {getText('admin.assignee.type.project.lead')}
+        </span>
+    {case 'UNASSIGNED'}
+        <span class="project-config-component-assignee project-config-component-unassigned {if not $component.isAssigneeTypeValid}project-config-invalid{/if}"{if $component.assigneeInvalidMsg} title="{$component.assigneeInvalidMsg}"{/if}>
+            {getText('admin.assignee.type.unassigned')}
+        </span>
+    {default}
+        <span class="project-config-component-assignee project-config-component-unknown {if not $component.isAssigneeTypeValid}project-config-invalid{/if}">
+            {$component.assigneeType}
+        </span>
+    {/switch}
+{/template}
+
+/**
+ * Render field for editing the default assignee
+ *
+ * @param isDefaultAssigneeProjectLead
+ * @param projectLeadAssignee
+ * @param assigneeType
+ * @param lead
+*/
+{template .editDefaultAssignee}
+ <select name="assigneeType">
+    <option value="PROJECT_DEFAULT"{if $assigneeType == 'PROJECT_DEFAULT'} selected{/if}>
+        {getText('admin.assignee.type.project.default')} (
+        {if $isDefaultAssigneeProjectLead}
+            {getText('admin.assignee.type.project.lead')}
+        {else}
+            {getText('admin.assignee.type.unassigned')}
+        {/if})
+    </option>
+    <option value="COMPONENT_LEAD"{if $assigneeType == 'COMPONENT_LEAD'} selected{/if}>
+        {getText('admin.assignee.type.component.lead')} {if $lead}({$lead.displayName}){/if}
+    </option>
+    <option value="PROJECT_LEAD"{if $assigneeType == 'PROJECT_LEAD'} selected{/if}>
+        {getText('admin.assignee.type.project.lead')} ({$projectLeadAssignee})
+    </option>
+    <option value="UNASSIGNED"{if $assigneeType == 'UNASSIGNED'} selected{/if}>
+        {getText('admin.assignee.type.unassigned')}
+    </option>
+</select>
+{/template}
+
+/**
+ * Renderer for delete component form
+ *
+ * @param relatedIssueCount
+ * @param projectId
+ * @param component
+ * @param swapComponents
+ */
+{template .deleteForm}
+<h2 class="dialog-title">{getText('common.words.delete')} {getText('common.concepts.component')}: {$component.name}</h2>
+<form class="aui" action="#" method="post">
+
+    <div class="form-body">
+        {if $relatedIssueCount}
+            {if $swapComponents.length}
+                <div class="aui-message info">
+                    <span class="aui-icon icon-info"></span>{getText('admin.project.component.delete.specify.migration')}
+                </div>
+
+                <fieldset class="group">
+
+                    <legend><span>{getText('admin.project.config.related.issues')} (<a id="issue-count" href="{contextPath()}/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;pid={$projectId}&amp;component={$component.id}">{$relatedIssueCount}</a>)</span></legend>
+
+                    <div class="radio">
+                        <input name="component" value="swap" id="component-swap" class="radio" checked="checked" type="radio" /><label for="component-swap">{getText('admin.delete.component.issues.swap.comp')} </label>
+                        <select name="moveIssuesTo">
+                        {foreach $component in $swapComponents}
+                            <option value="{$component.id}">{$component.name}</option>
+                        {/foreach}
+                        </select>
+                    </div>
+                    <div class="radio">
+                        <input name="component" value="remove" id="component-remove" class="radio" type="radio"><label for="component-remove">{getText('admin.delete.component.issues.remove.comp')}</label>
+                    </div>
+                {else}
+                    <div class="aui-message info">
+                        <span class="aui-icon icon-info"></span> <p>{getText('admin.project.component.delete.no.migration')} <strong>{getText('admin.project.component.delete.no.migration.path')}</strong></p>
+                        <ul>
+                            <li>{getText('admin.project.config.related.issues')} (<a id="issue-count" href="{contextPath()}/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;pid={$projectId}&amp;component={$component.id}">{$relatedIssueCount}</a>)</li>
+                        </ul>
+                    </div>
+                {/if}
+            </fieldset>
+
+        {else}
+            <div class="aui-message info">
+                <span class="aui-icon icon-info"></span>
+                {getText('admin.project.component.delete.no.issues')}
+            </div>
+        {/if}
+    </div>
+
+    <div class="buttons-container form-footer">
+        <div class="buttons">
+            <input id="submit" class="aui-button" type="submit" value="{getText('common.words.delete')}" />
+            <a href="#" class="aui-button-cancel cancel">{getText('common.forms.cancel')}</a>
+        </div>
+    </div>
+
+</form>
+{/template}

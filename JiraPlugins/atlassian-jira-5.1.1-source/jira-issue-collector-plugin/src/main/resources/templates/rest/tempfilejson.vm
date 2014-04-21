@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>Attach Temporary Files</title></head>
+<body>
+<textarea>
+    #if(!$errorMsg)
+        {"id":"$temporaryAttachment.id", "name":"$temporaryAttachment.filename", "title":"$i18n.getText('attachfile.attachment.checkbox.title')"}
+    #else
+        {"errorMsg":"$errorMsg" }
+    #end
+</textarea>
+</body>
+</html>

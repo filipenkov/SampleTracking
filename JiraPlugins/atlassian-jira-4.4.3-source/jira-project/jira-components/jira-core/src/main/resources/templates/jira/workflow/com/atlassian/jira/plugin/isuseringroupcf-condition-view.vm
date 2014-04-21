@@ -1,0 +1,1 @@
+$i18n.getText("admin.workflow.condition.isuseringroupcf.view", "<b>", "${groupcf}", "</b>", "")

@@ -1,0 +1,288 @@
+/* Container elements */
+
+#upm-notifications {
+    float: right;
+    margin: 0 4px;
+    position: relative;
+}
+
+#upm-notifications h3 {
+    border: none;
+    font-size: 1.2em;
+    font-weight: normal;
+    margin: 4px 16px 7px;
+    color: #036;
+}
+
+#upm-notifications p {
+    margin: 0 5px 10px 5px;
+}
+
+p#upm-no-notifications {
+    margin: 0 10px 10px 16px;
+    /* UPM-1636 - Confluence override */
+    white-space: normal;
+}
+
+#upm-notifications .upm-notifications-dropdown {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+    color: #222;
+    margin-top: -1px;
+    position: absolute;
+    right: 0;
+    top: 23px;
+    width: 325px;
+}
+
+/* Button (clickable element) styles */
+
+#upm-notifications #upm-notifications-trigger {
+    background: none;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    height: auto;
+    padding: 4px;
+    position: absolute;
+    right: 0;
+    text-indent: 0;
+    width: auto; /* Overriding fecru styles */
+    z-index: 100;
+}
+
+#upm-notifications #upm-notifications-trigger:hover {
+    background: #fafafa;
+    border-color: #ddd;
+    text-decoration: none;
+}
+
+#upm-notifications #upm-notifications-trigger:active {
+    background: #eee;
+}
+
+/* Icon inside button styles */
+
+#upm-notifications-icon {
+    background: transparent url(../com.atlassian.upm.atlassian-universal-plugin-manager-plugin%3Aupm-web-resources/images/marketplace-icon-sprite.png) no-repeat 0 0;
+    display: block;
+    height: 18px;
+    width: 18px;
+}
+
+/* Inverse (white on blue) button + icon */
+
+#upm-notifications.upm-inverse #upm-notifications-trigger {
+    border-radius: 0;
+    border: 0 none;
+    padding: 3px 2px 2px 1px;
+}
+
+#upm-notifications.upm-inverse #upm-notifications-trigger #upm-notifications-icon {
+    background-position: 0 -54px;
+}
+
+#upm-notifications.upm-inverse.active #upm-notifications-trigger {
+    border-radius: 0;
+}
+
+/* Active icon */
+
+#upm-notifications #upm-notifications-trigger:hover #upm-notifications-icon {
+    background-position: 0 -18px;
+}
+
+/* Active notifications */
+
+#upm-notifications.active #upm-notifications-trigger {
+    background-color: #fff;
+    border-bottom: 0 none;
+    border-color: #ddd;
+    border-radius: 3px 3px 0 0;
+    height: 20px;
+    z-index: 2004;
+}
+
+#upm-notifications.active #upm-notifications-trigger #upm-notifications-icon {
+    background-position: 0 0;
+}
+
+#upm-notifications.active .upm-notifications-dropdown {
+    display: block;
+    border: 1px solid #ddd;
+}
+
+/* Notification group in the dropdown */
+
+.upm-notification {
+    border-top: 1px solid #eee;
+    float: left;
+    padding: 1em 1em 1em 46px;
+}
+
+.upm-notification:hover {
+    background: #f0f0f0;
+}
+
+.upm-notification .upm-notification-icon {
+    float: left;
+    height: 24px;
+    margin-left: -35px;
+    overflow: hidden;
+    text-align: center;
+    width: 24px;
+}
+
+.upm-notification .upm-notification-icon.empty {
+    background: #eee;
+    border: 1px solid #ddd;
+}
+
+.upm-notification-icon img {
+    margin: 0 auto;
+}
+
+.upm-notification .upm-notification-text {
+    display: block;
+    margin-top: -2px;
+    white-space: normal;
+}
+
+/* Unseen notifications */
+
+.upm-notification-new {
+    background: #e0f0ff;
+    border-color: #fff;
+}
+
+.upm-notification-new:hover {
+    background: #e0f0ff;
+}
+
+/* If the notification needs to be moved specially relative to admin headers */
+
+.upm-admin-headers#upm-notifications {
+    margin: -1.2em 0 0 0;
+}
+
+.upm-page-headers#upm-notifications {
+    margin: -1.9em 0 0 0;
+}
+
+/* Notifications count */
+
+#upm-notifications-count {
+    background: #ffa500;
+    border-radius: 2px;
+    box-shadow: -1px 1px 1px #666;
+    display: none;
+    font-size: 10px;
+    height: 12px;
+    line-height: 10px;
+    margin: 3px;
+    position: absolute;
+    right: -5px;
+    text-align: center;
+    text-indent: 0;
+    text-shadow: 1px 1px 0.05em #666;
+    top: -5px;
+    width: 12px;
+}
+
+.new-notifications #upm-notifications-count {
+    display: inline-block;
+}
+
+/* Jira >= 4.4 (will have admin-headers class) needs to be nudged up in line with h2 */
+
+.upm-notifications-jira.upm-admin-headers {
+    top: -1.0em;
+}
+
+.upm-notifications-jira.upm-project-config {
+    top: 0.7em;
+}
+
+#upm-container .upm-notifications-jira#upm-notifications {
+    top: -3.2em;
+}
+
+#upm-container .upm-notifications-jira#upm-notifications.jira44 {
+    top: -1.2em;
+}
+
+/* give it some breathing room from button / links */
+
+#upm-notifications.upm-action-buttons, #upm-notifications.upm-operations-headers {
+    margin: 0 11px 0 0;
+    top: 0;
+}
+
+/* Align vertically with action button in jira 44 */
+
+#upm-notifications.upm-action-buttons.jira44 {
+    top: -0.4em;
+}
+
+/* Bamboo >= 3.4 */
+
+.upm-h1.upm-notifications-bamboo {
+    top: -2.6em;
+}
+
+/* Bamboo < 3.4 specific styles */
+
+.upm-notifications-bamboo {
+    top: -23px;
+}
+
+
+#upm-notifications.upm-notifications-bamboo .upm-notification {
+    line-height: 1.2em;
+}
+
+#upm-notifications.upm-notifications-bamboo .upm-notification a {
+    color: #326Ca6;
+    display: inline;
+    padding: 0;
+}
+
+#upm-notifications.upm-notifications-bamboo .upm-notification a:hover {
+    background: none;
+    color: #326Ca6;
+}
+
+/* FeCru-specific styles */
+
+.upm-notifications-fisheye,
+.upm-notifications-crucible {
+    bottom: 17px;
+    position: absolute;
+    right: -235px;
+}
+
+.upm-notifications-fisheye #upm-notifications-count,
+.upm-notifications-crucible #upm-notifications-count {
+    line-height: 13px;
+}
+
+#upm-notifications.upm-notifications-fisheye #upm-notifications-trigger,
+#upm-notifications.upm-notifications-crucible #upm-notifications-trigger {
+    background-position: 0 -24px;
+    border: 1px solid transparent;
+    border-bottom: none;
+}
+
+#upm-notifications.upm-notifications-fisheye .upm-notifications-dropdown
+#upm-notifications.upm-notifications-crucible .upm-notifications-dropdown {
+    border-top: 1px solid #ddd;
+}
+
+#upm-notifications.upm-notifications-fisheye.active #upm-notifications-trigger,
+#upm-notifications.upm-notifications-crucible.active #upm-notifications-trigger {
+    background-color: #fff;
+    border-color: #bbb;
+}

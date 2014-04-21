@@ -1,0 +1,30 @@
+{
+    "projects": [
+        {
+            "name": "Sample data",
+            "key": "SAM",
+            "issues": [
+                {
+                    "status" : "Open",
+                    "reporter" : "admin",
+                    "created" : "P7D",
+                    "updated" : "P1D",
+                    "summary" : "Parent case",
+                    "externalId": "1",
+                    "comments": [
+                        {
+                            "body": "This is a comment from admin 5 days ago",
+                            "author": "admin",
+                            "created": "P5D"
+                        },
+                        {
+                            "body": "This is a comment from admin 1 day ago",
+                            "author": "admin",
+                            "created": "P1D"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

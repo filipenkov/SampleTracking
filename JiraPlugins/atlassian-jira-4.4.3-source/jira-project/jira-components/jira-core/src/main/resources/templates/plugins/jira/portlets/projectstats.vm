@@ -1,0 +1,49 @@
+#if ($project)
+    <table class="tableBorder maxWidth" border="0" cellpadding="0" cellspacing="0" ><tr><td>
+    <table id="portlet_$portletConfig.id" border="0" cellpadding="3" cellspacing="1" width="100%">
+    <tr class=rowHeader>
+            <td class="colHeaderLink" colspan="2">
+                #set ($statType = $portletConfig.getProperty('statistictype'))
+                #set ($statsWrapper = $statsBean.getAllFilterBy($statType, $sortOrder, $sortDirection))
+                <small><span style="float: right;">$i18n.getText("common.concepts.total.issues", $!statsWrapper.totalCount)</span></small>
+
+                $i18n.getText("portlet.projectstats.statistics"):
+                <b><a href="$req.contextPath/browse/$project.getString('key')">$textutils.htmlEncode($project.getString('name'))</a></b>
+                &nbsp;($i18n.getText("$portletConfig.getObjectConfiguration().getFieldValues('statistictype').get($portletConfig.getProperty('statistictype'))"))
+            </td>
+    </tr>
+#if ($indexing)
+    #parse('templates/plugins/jira/portlets/statsbody.vm')
+#else
+    <tr><td bgcolor=#ffffff>
+        #configureIndexing($req.contextPath)
+    </td></tr>
+#end
+
+    </table>
+    </td></tr></table>
+## Display invalid project association only if user is logged in
+#elseif ($invalidProjectReference && $user)
+    <table class="tableBorder maxWidth"border="0" cellpadding="0" cellspacing="0" ><tr><td>
+    <table border="0" cellpadding="3" cellspacing="1" width="100%"><tr class=rowHeader><td>
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr class=rowHeader>
+            <td class="colHeaderLink" colspan="2">
+                <font size="1" color="#000000">$descriptor.getText("portlet.projectstats.notavailable")&nbsp;
+                    ## Only allow user to edit/delete portlet if they are using a non-default dashboard - otherwise, the admin will have to delete this portlet.
+                    #if ($editablePortletConfig)
+                        (<a href="$req.contextPath/secure/SavePortlet!default.jspa?portletConfigId=$portletConfig.id" title="$i18n.getText('portlet.edit.title')">$i18n.getText('portlet.edit')</a> |
+                        <a href="$req.contextPath/secure/DeletePortlet!delete.jspa?portletConfigId=$portletConfig.id" title="$i18n.getText('portlet.delete.title')">$i18n.getText('portlet.delete')</a>)
+                    #end
+                </font>
+            </td>
+    </tr>
+    </td></tr></table>
+    <tr bgcolor="#ffffff">
+        <td colspan=2>
+            $descriptor.getText("portlet.projectstats.notavailable.description")
+        </td>
+    </tr>
+    </table>
+    </td></tr></table>
+#end

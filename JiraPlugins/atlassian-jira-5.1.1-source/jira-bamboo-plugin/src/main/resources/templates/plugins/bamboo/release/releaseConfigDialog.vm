@@ -1,0 +1,150 @@
+#* @vtlvariable name="moveUnfixedIssuesTo" type="java.lang.Long" *#
+#* @vtlvariable name="plansByProject" type="java.util.Map<com.atlassian.jira.plugin.ext.bamboo.model.BambooProject, java.util.List<com.atlassian.jira.plugin.ext.bamboo.model.BambooPlan>>" *#
+#* @vtlvariable name="versions" type="java.util.Collection<com.atlassian.jira.project.version.Version>" *#
+#* @vtlvariable name="i18n" type="com.atlassian.sal.api.message.I18nResolver" *#
+#macro(fielderror $fieldErrors $fieldName)
+    #if ($fieldErrors.get($fieldName))
+    <div class="error">$fieldErrors.get($fieldName)</div>
+    #end
+#end
+#macro(icon $type $text $showTitle)<span class="bamboo-icon bamboo-icon-${type}"#if ($text != "" && $showTitle) title="${text}"#end>#if ($text != "")<span>${text}</span>#end</span>#end
+
+<h2 class="dialog-title">Release $version.name</h2>
+
+#if ($errorMessages && $errorMessages.size() > 0)
+<div class="form-body">
+    <div class="aui-message error">
+        <span class="aui-icon icon-error"></span>
+        <strong>Error</strong>
+        <ul>
+            #foreach ($error in $errorMessages)
+                <li class="error-list-item">$textutils.htmlEncode($error)</li>
+            #end
+        </ul>
+    </div>
+</div>
+<div class="form-footer">
+    <a class="cancel">Cancel</a>
+</div>
+
+#elseif ($credentialsUrl)
+<div class="form-body">
+    <div class="aui-message warning">
+        <span class="aui-icon icon-warning"></span>
+        <strong>Authentication Required</strong>
+        <p>You will need to log in and approve before continuing with the release.</p>
+    </div>
+</div>
+<div class="form-footer">
+    <a href="$credentialsUrl.toString()">Login &amp; Approve</a> | <a class="cancel">Cancel</a>
+</div>
+#elseif ($plansByProject.isEmpty())
+<div class="content-body">
+    <div class="aui-message info">
+        <span class="aui-icon icon-info"></span>
+        <strong>No Active Plans</strong>
+        <p>Bamboo server has not returned any Plans.</p>
+    </div>
+</div>
+<div class="content-footer">
+    <a class="cancel">Cancel</a>
+</div>
+#else
+<form id="release-form" class="aui long-label" action="${req.contextPath}/secure/SubmitBambooRelease.jspa" method="post">
+    <div class="form-body">
+        <fieldset>
+            <fieldset class="group">
+                <legend><span>Release</span></legend>
+                <div class="radio">
+                    <input type="radio" class="radio" name="buildType" #if ($buildType && $buildType == "no-build") checked="checked" #end id="no-build" value="no-build"/>
+                    <label for="no-build">with no Build</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" class="radio" name="buildType" #if (!$buildType || $buildType == "new-build") checked="checked" #end id="new-build" value="new-build"/>
+                    <label for="new-build">with new Build</label>
+                </div>
+                #fielderror ($errors "new-build")
+                <div class="radio">
+                    <input type="radio" class="radio" name="buildType" #if ($buildType && $buildType == "existing-build") checked="checked" #end id="existing-build" value="existing-build"/>
+                    <label for="existing-build">with existing Build</label>
+                </div>
+                #fielderror ($errors "existing-build")
+            </fieldset>
+            <div class="field-group">
+                <label for="bamboo-plan">Plan</label>
+                <select class="select" id="bamboo-plan" name="selectedPlanKey">
+                    #foreach ( $project in $plansByProject.keySet() )
+                        <optgroup label="$textutils.htmlEncode($project.name)">
+                            #foreach ( $plan in $plansByProject.get($project) )
+                                <option value="$textutils.htmlEncode($plan.key)"
+                                    #if ($selectedPlanKey && $selectedPlanKey == $plan.key)
+                                        selected="selected"
+                                        #if ($selectedStages) data-selected-stages="$textutils.htmlEncode($selectedStages)"#end
+                                        #if ($variablesJson) data-selected-variables='$textutils.htmlEncode($variablesJson)'#end
+                                    #end
+                                >$textutils.htmlEncode($plan.shortName)</option>
+                            #end
+                        </optgroup>
+                    #end
+                </select>
+                #fielderror ($errors "selectedPlanKey")
+            </div>
+        </fieldset>
+
+        ##
+        ## Renderer for release version form
+        ##
+        ## Required:
+        ## @param openIssueCount = number of issues unresolved
+        ## @param versions = available unresolved versions
+        ## @param version = the version object being released
+        ##
+        ## Produces:
+        ## unresolved = move|ignore
+        ## moveUnfixedIssuesTo = version id.
+
+        #if ($openIssueCount && $openIssueCount > 0)
+            <fieldset>
+                <h3>Remaining Issues</h3>
+
+                <div class="aui-message warning" id="unresolved-message">
+                    <span class="aui-icon icon-warning"></span>
+                    $i18n.getText('bamboo.project.versions.release.unresolved.issues.1')
+                    <a id="unresolved-issues-link" href="${req.contextPath}/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;pid=${version.projectObject.id}&amp;fixfor=${versionId}&amp;resolution=-1">$openIssueCount $i18n.getText('bamboo.project.versions.release.unresolved.issues.2')</a>.
+                </div>
+                <fieldset class="group">
+                    <legend><span>$i18n.getText('common.concepts.unresolved.issues')</span></legend>
+                    <div class="radio">
+                        <input name="unresolved" id="unresolved-ignore" class="radio" #if (!$unresolved || $unresolved != "move") checked="checked" #end type="radio" value="ignore">
+                        <label for="unresolved-ignore" id="unresolved-ignore-label">$i18n.getText('bamboo.project.versions.release.ignore.issues')</label>
+                    </div>
+                    #if ($versions && $versions.size() > 0)
+                        <div class="radio">
+                            <input name="unresolved" id="unresolved-move" class="radio" type="radio" value="move" #if ($unresolved && $unresolved == "move") checked="checked" #end>
+                            <label for="unresolved-move" id="unresolved-move-label">$i18n.getText('bamboo.project.versions.release.move.issues.to.version'): </label>
+                            <select name="moveUnfixedIssuesTo" id="moveUnfixedIssuesTo" class="select short-field">
+                                #foreach ($version in $versions)
+                                    <option value="$version.id" #if ($moveUnfixedIssuesTo && $moveUnfixedIssuesTo == $version.id)selected="selected" #end>$version.name</option>
+                                #end
+                            </select>
+                        </div>
+                    #end
+                    #fielderror ($errors "moveUnfixedIssuesTo")
+                    #fielderror ($errors "unresolved")
+                </fieldset>
+            </fieldset>
+        #else
+            <input type="hidden" name="unresolved" value="ignore"/>
+        #end
+
+    </div>
+    <input type="hidden" name="versionId" value="$versionId" />
+    <div class="form-footer">
+        <div class="buttons">
+            <input id="release" class="submit" type="submit" value="Release"/>
+            <a class="cancel">Cancel</a>
+        </div>
+    </div>
+</form>
+
+#end

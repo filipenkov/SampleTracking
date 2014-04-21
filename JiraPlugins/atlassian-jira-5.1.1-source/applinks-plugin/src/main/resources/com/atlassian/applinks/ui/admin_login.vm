@@ -1,0 +1,48 @@
+#* @vtlvariable name="webResources" type="com.atlassian.applinks.core.util.WebResources" *#
+#* @vtlvariable name="originalUrl" type="com.atlassian.applinks.core.util.HtmlSafeContent" *#
+#* @vtlvariable name="error" type="java.lang.String" *#
+#* @vtlvariable name="username" type="java.lang.String" *#
+#* @vtlvariable name="req" type="javax.servlet.http.HttpServletRequest" *#
+#* @vtlvariable name="i18n" type="com.atlassian.sal.api.message.I18nResolver" *#
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$i18n.getText("applinks.admin.remote.login.title", $applicationName)</title>
+    ${webResources.get()}
+</head>
+<body class="auth-login">
+<form action="${req.contextPath}${req.servletPath}" method="post" class="aui">
+    <h3>$i18n.getText("applinks.admin.remote.login.title", $applicationName)</h3>
+    <p>
+        #if ($applicationtype == 'jira' || $applicationType == 'confluence')
+            $i18n.getText('applinks.admin.login.sysadmin.required', $applicationName)
+        #else
+            $i18n.getText('applinks.admin.login.admin.required', $applicationName)
+        #end
+    </p>
+    <fieldset>
+        <div class="field-group">
+            <label for="al_username">$i18n.getText("applinks.admin.login.username") <span class="aui-icon icon-required"></span></label>
+            <input class="text medium-field" type="text" id="al_username" name="al_username" title="Username" #if($username)value="$username"#end />
+        </div>
+        <div class="field-group">
+            <label for="al_password">$i18n.getText("applinks.admin.login.password") <span class="aui-icon icon-required"></span></label>
+            <input class="text medium-field" type="password" id="al_password" name="al_password" title="Password" />
+            #if($error)
+            <div class="error">
+                $i18n.getText($error.key, $error.arguments)
+            </div>
+            #end
+        </div>
+    </fieldset>
+    <div class="buttons-container">
+        <div class="buttons">
+            #if ($originalUrl)
+                <input type="hidden" id="originalUrl" name="originalUrl" value="$originalUrl" />
+            #end
+            <input class="button" type="submit" value="$i18n.getText("applinks.admin.login.button.login")" id="login-btn1" />
+        </div>
+    </div>
+</form>
+</body>
+</html>

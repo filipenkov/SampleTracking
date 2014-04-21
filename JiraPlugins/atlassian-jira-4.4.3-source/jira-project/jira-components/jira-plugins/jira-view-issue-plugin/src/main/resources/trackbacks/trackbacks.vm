@@ -1,0 +1,14 @@
+#if (${hasTrackbacks})
+#foreach (${trackback} in ${trackbacks})
+<div class="trackback">
+    <div class="trackbackheader">
+        <img border="0" src="${baseurl}/images/icons/document_exchange.gif" width=16 height=16 align=absmiddle>
+        <span class="trackbacklink"><a href="${trackback.url}">${trackback.title}</a></span>
+        <span class="trackbackblogname">($!{trackback.blogName})</span>
+    </div>
+    #if (${trackback.excerpt})
+        <div class="trackbackexcerpt">${trackback.excerpt}</div>
+    #end
+</div>
+#end
+#end

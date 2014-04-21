@@ -1,0 +1,45 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="Atlassian" url="http://www.atlassian.com/"/>
+    </plugin-info>
+
+
+    <component-import key="helpPathResolver" interface="com.atlassian.sal.api.message.HelpPathResolver" />
+
+    <resource type="i18n" name="monitor-i18n" location="monitor-i18n"/>
+
+    <!-- add the Monitoring admin section -->
+    <web-section key="monitoring_section"
+                 location="admin_plugins_menu"
+                 name="Monitoring"
+                 i18n-name-key="admin.monitor.section"
+                 weight="200">
+        <label key="admin.monitor.section" />
+        <tooltip key="admin.monitor.section" />
+        <description key="admin.monitor.section.desc" />
+        <condition class="com.atlassian.jira.plugins.monitor.DisplayMonitoringCondition"/>
+    </web-section>
+
+    <!-- database connections -->
+    <web-item key="database_connections_link"
+              section="admin_plugins_menu/monitoring_section"
+              name="Database Connections"
+              i18n-name-key="admin.monitor.database"
+              weight="100">
+        <label key="admin.monitor.database" />
+        <link linkId="database_connections_link">/secure/admin/monitor_database.jspa</link>
+        <param name="webfragments.keywords">admin.monitor.database.keywords</param>
+        <condition class="com.atlassian.jira.plugins.monitor.DisplayMonitoringCondition"/>
+    </web-item>
+
+    <webwork1 key="monitorWebworkActions" class="com.atlassian.jira.plugins.monitor.database.MonitorDatabase">
+        <actions>
+            <action name="com.atlassian.jira.plugins.monitor.database.MonitorDatabase" alias="monitor_database">
+                <view name="success">/com/atlassian/jira/plugins/monitor/monitor_database.vm</view>
+                <view name="securitybreach">/secure/views/securitybreach.jsp</view>
+            </action>
+        </actions>
+    </webwork1>
+</atlassian-plugin>

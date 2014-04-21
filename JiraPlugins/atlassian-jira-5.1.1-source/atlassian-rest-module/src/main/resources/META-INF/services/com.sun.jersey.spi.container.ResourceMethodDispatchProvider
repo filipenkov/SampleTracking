@@ -1,0 +1,5 @@
+com.sun.jersey.server.impl.model.method.dispatch.VoidVoidDispatchProvider
+com.sun.jersey.server.impl.model.method.dispatch.HttpReqResDispatchProvider
+com.atlassian.plugins.rest.common.multipart.jersey.MultipartFormDispatchProvider
+com.sun.jersey.server.impl.model.method.dispatch.FormDispatchProvider
+com.atlassian.plugins.rest.common.interceptor.impl.EntityParamDispatchProviderWrapper

@@ -1,0 +1,34 @@
+{
+    "projects": [
+        {
+            "name": "Sample data",
+            "key": "SAM",
+            "issues": [
+                {
+                    "status" : "Open",
+                    "reporter" : "admin",
+                    "created" : "P7D",
+                    "updated" : "P1D",
+                    "summary" : "Parent case",
+                    "externalId": "1",
+                    "originalEstimate": "P1W3D",
+                    "timeSpent": "PT4H",
+                    "estimate": "P2D",
+                    "worklogs": [
+                        {
+                            "author": "admin",
+                            "comment": "Worklog",
+                            "startDate": "P1D",
+                            "timeSpent": "PT1M"
+                        },
+                        {
+                            "author": "admin",
+                            "startDate": "PT20H",
+                            "timeSpent": "PT3H"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

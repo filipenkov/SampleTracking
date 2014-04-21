@@ -1,0 +1,48 @@
+.admin-menu {
+    float: none;
+    *left: 0;
+    position: absolute;
+}
+
+.admin-menu a:hover {
+    text-decoration: underline;
+}
+
+.refapp-footer {
+    margin-bottom: 0.8em;
+}
+
+.refapp-footer hr {
+    background-color: #FFFFFF;
+    border: none;    
+    border-bottom: #E0E0E0 1px solid;
+    color: #FFFFFF;
+    height: 1px;
+    margin: 0.5em 0 1em 0;
+}
+
+.refapp-footer a {
+    color: #183765;
+}
+
+html, body, p, div, h1, h2, h3, h4, h5, h6, img, ul, ol, li, dl, dt, dd, pre, form, fieldset, textarea, input, select, option, button {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 1em;
+    font: 12px/1.4 Helvetica,Arial,sans-serif;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+ul {
+    margin: 0 0 1em 2em;
+}
+
+.refapp-body .aui-toolbar .aui-shadow {
+    display: none;
+}

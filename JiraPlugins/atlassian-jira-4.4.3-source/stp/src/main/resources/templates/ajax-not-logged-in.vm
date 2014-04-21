@@ -1,0 +1,4 @@
+<h2>$i18n.getText('stp.permission.body')</h2>
+<div class="aui-message error">
+	<p class="title">$i18n.getText("stp.not.logged.in.body")</p>
+</div>

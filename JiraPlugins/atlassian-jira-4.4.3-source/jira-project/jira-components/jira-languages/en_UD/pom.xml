@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.atlassian.jira</groupId>
+    <artifactId>jira-languages</artifactId>
+    <version>4.4.3</version>
+  </parent>
+  <artifactId>jira-lang-en_UD</artifactId>
+  <name>Atlassian JIRA - Language Packs - en_UD</name>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>atlassian-i18n-upsidedown-text-maven-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <id>upsidedowntext</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>upsidedowntext</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <upsideDownActions>
+                        <upsideDownAction>
+                            <sourceProperties>../../jira-core/src/main/resources/com/atlassian/jira/web/action/JiraWebActionSupport.properties</sourceProperties>
+                            <targetProperties>src/main/resources/com/atlassian/jira/web/action/JiraWebActionSupport_en_UD.properties</targetProperties>
+                        </upsideDownAction>
+                    </upsideDownActions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

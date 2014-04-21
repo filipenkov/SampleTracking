@@ -1,0 +1,3 @@
+<div>
+    <h3 id="error">$i18n.getText("module.action.resource.emptyKeyMessage")</h3>
+</div>

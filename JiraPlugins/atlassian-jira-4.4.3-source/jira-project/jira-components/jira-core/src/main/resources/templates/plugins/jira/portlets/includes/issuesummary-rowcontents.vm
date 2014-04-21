@@ -1,0 +1,26 @@
+<td nowrap width="1%">
+    #displayType($issue)
+</td>
+
+<td nowrap width="1%"><font size="1"><a href="$req.contextPath/browse/$issue.getKey()"><span class="issuekey">$issue.getKey()</span></a></font></td>
+
+<td width="100%">
+    #if ($issue.isSubTask())
+        #set ($parentIssue = $issue.getParentObject())
+        #if ($permissionCheck && $permissionCheck.isIssueVisible($parentIssue) == true)
+            <span class="smallgrey"><a href="$req.contextPath/browse/$parentIssue.key" style="text-decoration: none;" title="$textutils.htmlEncode($parentIssue.summary)">$parentIssue.key</a></span><br/>
+        #else
+            <span class="smallgrey">$parentIssue.key</span><br/>
+        #end
+        <img src="$req.contextPath/images/icons/link_out_bot.gif" width="16" height="16" border="0" align="absmiddle" alt="" />
+    #end
+    <a href="$req.contextPath/browse/$issue.getKey()" style="text-decoration: none; ">$textutils.htmlEncode($issue.getSummary())</a>
+</td>
+
+<td nowrap width="1%">
+    #if ($fieldVisibility.isFieldHidden($issue.getProjectObject().id, "priority", $issue.getIssueTypeObject().id) == false)
+    #displayPriorityNoLink($issue)
+    #else
+      &nbsp;
+    #end
+</td>

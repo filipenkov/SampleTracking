@@ -1,0 +1,317 @@
+<atlassian-plugin key="com.atlassian.jira.plugins.jira-importers-plugin" name="${project.name}" plugins-version="2">
+	<plugin-info>
+		<description>${project.description}</description>
+		<version>${project.version}</version>
+		<vendor name="${project.organization.name}" url="${project.organization.url}"/>
+	</plugin-info>
+
+	<customfield-type key="bug-importid" name="Bug Import Id"
+					  i18n-name-key="jira-importer-plugin.customfield.importid.name"
+					  class="com.atlassian.jira.plugins.importer.issue.customfields.impl.ImportIdLinkCFType">
+		<description key="jira-importer-plugin.bugzilla.customfield.importid.desc">
+			A read-only custom field that points back to the previously imported bug id.
+		</description>
+
+		<resource type="velocity" name="view" location="templates/plugins/fields/view/view-importid.vm"/>
+		<resource type="velocity" name="column-view" location="templates/plugins/fields/view/view-importid-column.vm"/>
+		<!--        there is no edit template, as this field is readonly-->
+		<resource type="velocity" name="xml" location="templates/plugins/fields/xml/xml-integer.vm"/>
+	</customfield-type>
+
+	<resource type="i18n" name="i18n" location="com.atlassian.jira.plugins.importer.web.action.util.messages"/>
+
+	<rest name="JIRA Importer REST" key="rest-plugin" path="/jira-importers-plugin" version="1.0"/>
+
+	<web-item key="external_import" name="External Import Link" section="top_system_section/import_export_section"
+			  i18n-name-key="jira-importer-plugin.menu.item.external.import.name" system="true" weight="5">
+		<label key="jira-importer-plugin.menu.item.external.system.import"/>
+		<link linkId="external_import">/secure/admin/views/ExternalImport1.jspa</link>
+		<param name="webfragments.keywords">jira-importer-plugin.webfragments.standalone.keywords</param>
+	</web-item>
+
+	<component-import key="userManager" interface="com.atlassian.jira.user.util.UserManager"/>
+
+	<component key="importerControllerFactory"
+			   class="com.atlassian.jira.plugins.importer.web.ImporterControllerFactory">
+		<description>Importer Controller Factory</description>
+	</component>
+
+	<component key="jiraDataImporterFactory"
+			   class="com.atlassian.jira.plugins.importer.imports.importer.impl.JiraDataImporterFactoryImpl">
+		<description>Data Importer Factory.</description>
+	</component>
+
+	<component key="pivotalSchemeManager"
+			   class="com.atlassian.jira.plugins.importer.imports.pivotal.PivotalSchemeManager">
+		<description>Scheme manager for projects imported from Pivotal Tracker</description>
+	</component>
+
+	<component key="tracWikiConverter" class="com.atlassian.jira.plugins.importer.imports.trac.TracWikiConverter">
+		<description>Trac Wiki Converter.</description>
+	</component>
+
+	<component key="createIssueLinkManager"
+			   class="com.atlassian.jira.plugins.importer.managers.CreateIssueLinkManagerImpl">
+		<description>Create Issue Link Manager.</description>
+		<interface>com.atlassian.jira.plugins.importer.managers.CreateIssueLinkManager</interface>
+	</component>
+
+	<component key="createProjectManager" class="com.atlassian.jira.plugins.importer.managers.CreateProjectManagerImpl">
+		<description>Create Project Manager.</description>
+		<interface>com.atlassian.jira.plugins.importer.managers.CreateProjectManager</interface>
+	</component>
+
+	<component key="createConstantsManager"
+			   class="com.atlassian.jira.plugins.importer.managers.CreateConstanstManagerImpl">
+		<description>Create Constants Managers.</description>
+		<interface>com.atlassian.jira.plugins.importer.managers.CreateConstantsManager</interface>
+	</component>
+
+	<component key="externalUserUtils" class="com.atlassian.jira.plugins.importer.external.ExternalUserUtils">
+		<description>External User Utils.</description>
+	</component>
+
+	<component key="externalUtils" class="com.atlassian.jira.plugins.importer.external.ExternalUtils">
+		<description>External Utils.</description>
+	</component>
+
+	<component key="usageTrackingService" class="com.atlassian.jira.plugins.importer.tracking.UsageTrackingService">
+		<description>Usage Tracking Service</description>
+	</component>
+
+	<web-resource key="importerHeaderResources" name="Default HTML resources">
+		<dependency>com.atlassian.auiplugin:ajs</dependency>
+		<dependency>jira.webresources:jira-global</dependency>
+
+		<resource type="download" name="importer.js" location="web/javascript/import.js"/>
+		<resource type="download" name="importer.css" location="web/importerHeader.css"/>
+		<resource type="download" name="bg_help_out.png" location="web/images/bg_help_out.png"/>
+
+		<resource type="download" name="underscore.js" location="web/javascript/underscore.js"/>
+		<resource type="download" name="backbone.js" location="web/javascript/backbone.js"/>
+	</web-resource>
+
+	<web-resource key="importerProjectMappingResources" name="Project Mapping related resources">
+		<dependency>com.atlassian.auiplugin:ajs</dependency>
+		<dependency>jira.webresources:jira-global</dependency>
+		<dependency>jira.webresources:jira-admin</dependency>
+		<dependency>com.atlassian.jira.plugins.jira-importers-plugin:importerHeaderResources</dependency>
+
+		<resource type="download" name="project-mappings.js" location="web/javascript/project-mappings.js"/>
+	</web-resource>
+
+	<web-resource key="graphics" name="Importer Graphics">
+		<resource type="download" name="bugzilla" location="web/images/logo_bugzilla.png"/>
+		<resource type="download" name="csv" location="web/images/logo_csv.png"/>
+		<resource type="download" name="fogbugz" location="web/images/logo_fogbugz_firewall.png"/>
+		<resource type="download" name="fogbugzhosted" location="web/images/logo_fogbugz_ondemand.png"/>
+		<resource type="download" name="jelly" location="web/images/logo_jelly.png"/>
+		<resource type="download" name="mantis" location="web/images/logo_mantis.png"/>
+		<resource type="download" name="pivotal" location="web/images/logo_pivotal.png"/>
+		<resource type="download" name="trac" location="web/images/logo_trac.png"/>
+	</web-resource>
+
+	<web-resource key="ga" name="Importer Java Script Google Analytics integration">
+		<resource type="download" name="ga.js" location="web/javascript/ga.js"/>
+	</web-resource>
+
+	<webwork1 key="actions" name="Actions" class="java.lang.Object">
+		<actions>
+			<action name="com.atlassian.jira.plugins.importer.web.ExternalImport" alias="ExternalImport1">
+				<view name="success">/templates/admin/views/externalimport.vm</view>
+				<view name="denied">/secure/views/securitybreach.jsp</view>
+			</action>
+
+			<action name="com.atlassian.jira.plugins.importer.web.ImporterSetupPage" alias="ImporterSetupPage">
+				<view name="input">/templates/admin/views/common/importerSetupPage.vm</view>
+				<view name="denied">/secure/views/securitybreach.jsp</view>
+			</action>
+
+			<action name="com.atlassian.jira.plugins.importer.web.ImporterProjectMappingsPage"
+					alias="ImporterProjectMappingsPage">
+				<view name="input">/templates/admin/views/common/importerProjectMappingsPage.vm</view>
+				<view name="restartimporterneeded">/templates/admin/views/restartneeded.vm</view>
+				<view name="denied">/secure/views/securitybreach.jsp</view>
+			</action>
+
+			<action name="com.atlassian.jira.plugins.importer.web.ImporterCustomFieldsPage"
+					alias="ImporterCustomFieldsPage">
+				<view name="input">/templates/admin/views/common/importerCustomFieldsPage.vm</view>
+				<view name="restartimporterneeded">/templates/admin/views/restartneeded.vm</view>
+				<view name="denied">/secure/views/securitybreach.jsp</view>
+			</action>
+
+			<action name="com.atlassian.jira.plugins.importer.web.ImporterFieldMappingsPage"
+					alias="ImporterFieldMappingsPage">
+				<view name="input">/templates/admin/views/common/importerFieldMappingsPage.vm</view>
+				<view name="restartimporterneeded">/templates/admin/views/restartneeded.vm</view>
+				<view name="denied">/secure/views/securitybreach.jsp</view>
+			</action>
+
+			<action name="com.atlassian.jira.plugins.importer.web.ImporterValueMappingsPage"
+					alias="ImporterValueMappingsPage">
+				<view name="input">/templates/admin/views/common/importerValueMappingsPage.vm</view>
+				<view name="restartimporterneeded">/templates/admin/views/restartneeded.vm</view>
+				<view name="denied">/secure/views/securitybreach.jsp</view>
+			</action>
+
+			<action name="com.atlassian.jira.plugins.importer.web.ImporterLinksPage" alias="ImporterLinksPage">
+				<view name="input">/templates/admin/views/common/importerLinksPage.vm</view>
+				<view name="restartimporterneeded">/templates/admin/views/restartneeded.vm</view>
+				<view name="denied">/secure/views/securitybreach.jsp</view>
+			</action>
+
+			<action name="com.atlassian.jira.plugins.importer.web.ImporterLogsPage" alias="ImporterLogsPage">
+				<view name="denied">/secure/views/securitybreach.jsp</view>
+				<view name="logs">/templates/admin/views/common/viewlogs.vm</view>
+				<view name="restartimporterneeded">/templates/admin/views/restartneeded.vm</view>
+			</action>
+
+			<action name="com.atlassian.jira.plugins.importer.web.ImporterFinishedPage" alias="ImporterFinishedPage">
+				<view name="input">/templates/admin/views/common/finishedimport.vm</view>
+				<view name="restartimporterneeded">/templates/admin/views/restartneeded.vm</view>
+				<view name="denied">/secure/views/securitybreach.jsp</view>
+			</action>
+
+			<action name="com.atlassian.jira.plugins.importer.web.csv.CsvSetupPage" alias="CsvSetupPage">
+				<view name="input">/templates/admin/views/csv/csvSetupPage.vm</view>
+				<view name="denied">/secure/views/securitybreach.jsp</view>
+			</action>
+
+			<action name="com.atlassian.jira.plugins.importer.web.csv.CsvProjectMappingsPage"
+					alias="CsvProjectMappingsPage">
+				<view name="input">/templates/admin/views/csv/csvProjectMappingsPage.vm</view>
+				<view name="restartimporterneeded">/templates/admin/views/restartneeded.vm</view>
+				<view name="denied">/secure/views/securitybreach.jsp</view>
+			</action>
+
+			<action name="com.atlassian.jira.plugins.importer.web.csv.CsvFieldMappingsPage"
+					alias="CsvFieldMappingsPage">
+				<view name="input">/templates/admin/views/csv/csvFieldMappingsPage.vm</view>
+				<view name="restartimporterneeded">/templates/admin/views/restartneeded.vm</view>
+				<view name="denied">/secure/views/securitybreach.jsp</view>
+			</action>
+
+			<action name="com.atlassian.jira.plugins.importer.web.csv.CsvValueMappingsPage"
+					alias="CsvValueMappingsPage">
+				<view name="input">/templates/admin/views/csv/csvValueMappingsPage.vm</view>
+				<view name="restartimporterneeded">/templates/admin/views/restartneeded.vm</view>
+				<view name="denied">/secure/views/securitybreach.jsp</view>
+			</action>
+
+			<!-- FogBugz Hosted -->
+			<action name="com.atlassian.jira.plugins.importer.imports.fogbugz.web.FogBugzHostedSetupPage"
+					alias="FogBugzHostedSetupPage">
+				<view name="input">/templates/admin/views/common/remoteSetupPage.vm</view>
+				<view name="denied">/secure/views/securitybreach.jsp</view>
+			</action>
+
+			<!-- Pivotal Tracker -->
+			<action name="com.atlassian.jira.plugins.importer.imports.pivotal.web.PivotalSetupPage"
+					alias="PivotalSetupPage">
+				<view name="input">/templates/admin/views/common/remoteSetupPage.vm</view>
+				<view name="denied">/secure/views/securitybreach.jsp</view>
+			</action>
+
+			<action name="com.atlassian.jira.plugins.importer.imports.pivotal.web.PivotalProjectMappingsPage"
+					alias="PivotalProjectMappingsPage">
+				<view name="input">/templates/admin/views/common/importerProjectMappingsPage.vm</view>
+				<view name="restartimporterneeded">/templates/admin/views/restartneeded.vm</view>
+				<view name="denied">/secure/views/securitybreach.jsp</view>
+			</action>
+
+			<action name="com.atlassian.jira.plugins.importer.web.trac.TracSetupPage" alias="TracSetupPage">
+				<view name="input">/templates/admin/views/trac/tracSetupPage.vm</view>
+				<view name="denied">/secure/views/securitybreach.jsp</view>
+			</action>
+
+			<!-- Form Dialogs -->
+			<action name="com.atlassian.jira.plugins.importer.web.AddCustomFieldDialog" alias="AddCustomFieldDialog">
+				<view name="input">/templates/admin/views/addCustomFieldDialog.vm</view>
+			</action>
+
+		</actions>
+	</webwork1>
+
+	<web-section key="JIMMainSection" location="admin_system_menu" weight="10">
+		<label key="jira-importer-plugin.menu.item.external.system.import"/>
+		<condition class="com.atlassian.plugin.web.conditions.NeverDisplayCondition"/>
+	</web-section>
+
+	<web-section key="Pivotal" location="JIMMainSection" weight="10">
+		<label key="jira-importer-plugin.wizard.pageTitle">
+			<param name="param0">Pivotal Tracker</param>
+		</label>
+	</web-section>
+
+	<simple-link-factory key="pivotalTabsFactory"
+						 section="JIMMainSection/Pivotal"
+						 weight="20" lazy="false"
+						 class="com.atlassian.jira.plugins.importer.web.wizard.TabsSimpleLinkFactory"/>
+
+	<web-section key="CSV" location="JIMMainSection" weight="10">
+		<label key="jira-importer-plugin.wizard.pageTitle">
+			<param name="param0">CSV</param>
+		</label>
+	</web-section>
+
+	<simple-link-factory key="csvTabsFactory"
+						 section="JIMMainSection/CSV"
+						 weight="20" lazy="false"
+						 class="com.atlassian.jira.plugins.importer.web.wizard.TabsSimpleLinkFactory"/>
+
+	<web-section key="Bugzilla" location="JIMMainSection" weight="10">
+		<label key="jira-importer-plugin.wizard.pageTitle">
+			<param name="param0">Bugzilla</param>
+		</label>
+	</web-section>
+
+	<simple-link-factory key="bugzillaTabsFactory"
+						 section="JIMMainSection/Bugzilla"
+						 weight="20" lazy="false"
+						 class="com.atlassian.jira.plugins.importer.web.wizard.TabsSimpleLinkFactory"/>
+
+	<web-section key="FogBugz" location="JIMMainSection" weight="10">
+		<label key="jira-importer-plugin.wizard.pageTitle">
+			<param name="param0">FogBugz</param>
+		</label>
+	</web-section>
+
+	<simple-link-factory key="fogbugzTabsFactory"
+						 section="JIMMainSection/FogBugz"
+						 weight="20" lazy="false"
+						 class="com.atlassian.jira.plugins.importer.web.wizard.TabsSimpleLinkFactory"/>
+
+	<web-section key="Trac" location="JIMMainSection" weight="10">
+		<label key="jira-importer-plugin.wizard.pageTitle">
+			<param name="param0">Trac</param>
+		</label>
+	</web-section>
+
+	<simple-link-factory key="tracTabsFactory"
+						 section="JIMMainSection/Trac"
+						 weight="20" lazy="false"
+						 class="com.atlassian.jira.plugins.importer.web.wizard.TabsSimpleLinkFactory"/>
+
+	<web-section key="FogBugzHosted" location="JIMMainSection" weight="10">
+		<label key="jira-importer-plugin.wizard.pageTitle">
+			<param name="param0">FogBugz On Demand</param>
+		</label>
+	</web-section>
+
+	<simple-link-factory key="fogbugzHostedTabsFactory"
+						 section="JIMMainSection/FogBugzHosted"
+						 weight="20" lazy="false"
+						 class="com.atlassian.jira.plugins.importer.web.wizard.TabsSimpleLinkFactory"/>
+
+	<web-section key="Mantis" location="JIMMainSection" weight="10">
+		<label key="jira-importer-plugin.wizard.pageTitle">
+			<param name="param0">Mantis</param>
+		</label>
+	</web-section>
+
+	<simple-link-factory key="mantisTabsFactory"
+						 section="JIMMainSection/Mantis"
+						 weight="20" lazy="false"
+						 class="com.atlassian.jira.plugins.importer.web.wizard.TabsSimpleLinkFactory"/>
+</atlassian-plugin>

@@ -1,0 +1,37 @@
+body {
+    background-color:#ffffff;
+}
+/* ------- LICENSE TABLE ---------*/
+#brmpLicenseInfo .brmpLicenseTable {
+    border:1px solid #CCCCCC;
+    cellpadding:3px;
+    cellspacing:1px;
+    width: 100%;
+}
+
+#brmpLicenseInfo .brmpLicenseTable .brmpLicenseTableHeader {
+    background-color:#f0f0f0;
+    width:20%;
+    vertical-align:top;
+    text-align:right;
+    padding-right:8px;
+}
+
+#brmpLicenseInfo .brmpLicenseTable .brmpLicenseTableInfo {
+    background-color:#ffffff;
+}
+
+.brmpLicenseValid {
+    color:green;
+    font-weight:bold;
+}
+
+#tu_overlay {z-index:9999 !important;}
+.te_top_up {z-index:10000 !important;}
+
+.workflow-name .icon-edit-sml {margin-top:7px;}
+.workflow-description {margin:1em 0;}
+#jwd {bottom:30px;}
+#jwdFlex {float:left;width:100%;}
+h2.workflow-name span {vertical-align:bottom;margin-bottom:5px;}
+.msie-7 .operations-help {width:20px;}

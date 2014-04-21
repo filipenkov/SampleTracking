@@ -1,0 +1,15 @@
+#parse ( "/templates/includes/xsrf.vm" )
+#parse ( "/templates/includes/errors.vm" )
+#if (!$validationLog.hasErrors())
+	<div class="toolMessage">
+		$i18n.getText('stp.create.support.zip.success.message')
+		<div class="toolMessageIndented">$action.getSupportZipPath()</div>
+	</div>
+#end
+
+<form class="aui" action="$servletHomePath/support-zip/view">
+    #form_xsrfToken()
+    <input type="submit" class="button submit" value="$i18n.getText('stp.start-again')"/>
+</form>
+
+<div class="clearer"></div>

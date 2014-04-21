@@ -1,0 +1,78 @@
+#set ($otherSelected = true)
+<script language="JavaScript">
+<!--
+function changeSelectTextArea(fieldName)
+{
+    var selectList = document.getElementById(fieldName + "_select");
+    var textBox = document.getElementById(fieldName);
+
+    if ('OTHER_VALUE' == selectList.value)
+    {
+        textBox.style.display = '';
+        textBox.select();
+    }
+    else
+    {
+        textBox.style.display = 'none';
+        textBox.value = selectList.value;
+    }
+}
+//-->
+</script>
+<select name="$!textutils.htmlEncode(${auiparams.name})_select"
+    #if ($auiparams.id)
+        id="$!textutils.htmlEncode(${auiparams.id})_select"
+    #else
+        id="$!textutils.htmlEncode(${auiparams.name})_select"
+    #end
+    onchange="changeSelectTextArea('$!textutils.htmlEncode($auiparams.name)');"
+
+    #parse("/templates/common/select.attrs.vm")
+>
+    #if ($auiparams.headeroptgroup)
+        <optgroup label="$!textutils.htmlEncode($auiparams.headeroptgroup)">
+    #end
+
+    #if ($auiparams.headerrow)
+        <option value="$!textutils.htmlEncode($auiparams.headervalue)" #if ($auiparams.value && $auiparams.headervalue == $auiparams.value) SELECTED #set ($otherSelected = false) #end>$!textutils.htmlEncode($auiparams.headerrow)</option>
+    #end
+
+    #if ($auiparams.headerrow2)
+        <option value="$!textutils.htmlEncode($auiparams.headervalue2)" #if ($auiparams.value && $auiparams.headervalue2 == $auiparams.value) SELECTED #set ($otherSelected = false) #end>$!textutils.htmlEncode($auiparams.headerrow2)</option>
+    #end
+   #if ($auiparams.headeroptgroup)
+       </optgroup>
+   #end
+
+    #foreach ($entry in $auiparams.map.entrySet())
+        #if ($auiparams.optgroup && $auiparams.optgroup == true)
+            <optgroup label="$!entry.key">
+                #foreach($se in $entry.value.entrySet())
+                    <option value="$!textutils.htmlEncode($!se.key)" #if ($auiparams.value && $se.key == $auiparams.value) SELECTED #set ($otherSelected = false) #end>$!textutils.htmlEncode($!se.value)</option>
+                #end
+            </optgroup>
+        #else
+		    <option value="$!textutils.htmlEncode($!entry.key)" #if ($auiparams.value && $entry.key == $auiparams.value) SELECTED #set ($otherSelected = false) #end>$!textutils.htmlEncode($!entry.value)</option>
+        #end
+    #end
+
+    <option value="OTHER_VALUE" #if ($otherSelected == true && $textutils.stringSet($auiparams.value)) SELECTED #else #set($otherSelected = false) #end>
+        $i18n.getText('common.words.other')
+    </option>
+</select>
+<br/>
+<input name="$!textutils.htmlEncode($auiparams.name)" type="text" value="$!textutils.htmlEncode($!auiparams.value)"
+    #if ($auiparams.id)
+        id="$!textutils.htmlEncode($auiparams.id)"
+    #else
+        id="$!textutils.htmlEncode($auiparams.name)"
+    #end
+/>
+<script language="JavaScript">
+<!--
+    AJS.$(function() {
+        changeSelectTextArea("$!textutils.htmlEncode($auiparams.name)");
+    });
+
+//-->
+</script>

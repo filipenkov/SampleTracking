@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    $webResourcesHtml
+</head>
+<body id="atlScriptlet">
+<div class="aui-dialog">
+    <h2 class="dialog-title">$i18n.getText('collector.plugin.template.thanks')</h2>
+    <div class="content-body">
+        $thanksHtml
+    </div>
+    <div class="dialog-button-panel">
+        <a href="#" class="cancel">$i18n.getText('admin.common.words.close')</a>
+    </div>
+</div>
+</body>
+</html>

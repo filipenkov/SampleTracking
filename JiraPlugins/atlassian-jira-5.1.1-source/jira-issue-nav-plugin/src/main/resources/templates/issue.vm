@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Issue</title>
+    <meta name="decorator" content="atl.general">
+</head>
+<body class="ka page-type-navigator navigator-collapsed navigator-issue-only">
+
+<div class="content-container">
+    <div class="content-body">
+        <!-- issue header here -->
+        <!-- // issue header here -->
+        <div class="result-panel">
+            <!-- issue details here -->
+            <!-- //issue details here -->
+        </div>
+    </div>
+</div>
+</body>
+</html>

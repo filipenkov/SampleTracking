@@ -1,0 +1,80 @@
+##disable_html_escaping() TODO REENABLE
+<nav class="global" role="navigation">
+    <div class="primary">
+        <h1 id="logo"><a href="${baseurl}/secure/MyJiraHome.jspa"><img src="$jiraLogo" width="$jiraLogoWidth" height="$jiraLogoHeight" alt="$textutils.htmlEncode($jiraTitle)" /></a></h1>
+    </div>
+    <div class="secondary">
+        <ul>
+            #set ($adminLinks = $webInterfaceManager.getDisplayableItems("system.top.navigation.admin.link", $currentUser, $jiraHelperNoProject))
+            #if (!$adminLinks.empty)
+                #foreach($item in $adminLinks)
+                    <li#if($item.styleClass) class="$item.styleClass"#end><a #if($item.link.id)id="$item.link.id"#end#if($item.tooltip) title="$item.tooltip.getDisplayableLabel($currentUser, $jiraHelperNoProject)"#end href="$item.link.getDisplayableUrl($currentUser, $jiraHelperNoProject)">$item.label.getDisplayableLabel($currentUser, $jiraHelperNoProject)</a></li>
+                #end
+            #end
+            $utilTimerStack.push("Rendering User Navigation Bar")
+            $navWebFragment.getHtml("templates/plugins/webfragments/system-user-options.vm", "system.user.options", $jiraHelperNoProject, $userNavLayout)
+            $utilTimerStack.pop("Rendering User Navigation Bar")
+        </ul>
+    </div>
+</nav>
+<nav class="local" role="navigation">
+    <div class="primary">
+        #if ($inAdminMode)
+            $utilTimerStack.push("Rendering Admin Top Navigation Bar")
+            $navWebFragment.getHtml("templates/plugins/webfragments/system-admin-navigation-bar.vm", "system.admin.top.navigation.bar", $jiraHelperWithProject, $systemNavLayout)
+            $utilTimerStack.pop("Rendering Admin Top Navigation Bar")
+            <div class="hidden">
+                ## If we're in admin mode also render the normal header but have it hidden.  This is so that keyboard shortcuts will still work (JRADEV-6006)
+                $utilTimerStack.push("Rendering Top Navigation Bar")
+                $navWebFragment.getHtml("templates/plugins/webfragments/system-navigation-bar.vm", "system.top.navigation.bar", $jiraHelperWithProject, $systemNavLayout)
+                $utilTimerStack.pop("Rendering Top Navigation Bar")
+            </div>
+        #else
+            $utilTimerStack.push("Rendering Top Navigation Bar")
+            $navWebFragment.getHtml("templates/plugins/webfragments/system-navigation-bar.vm", "system.top.navigation.bar", $jiraHelperWithProject, $systemNavLayout)
+            $utilTimerStack.pop("Rendering Top Navigation Bar")
+        #end
+    </div>
+    <div class="secondary">
+        <ul>
+            #if ($inAdminMode)
+                <li><div id="admin-quicksearch"><div id="header-administration-suggestions" class="aui-list"></div></div></li>
+            #elseif ($hasAnyProjects)
+                <li>
+                    <form id="quicksearch" action="${baseurl}/secure/QuickSearch.jspa" method="post" class="dont-default-focus">
+                        <div>
+                            <input id="quickSearchInput" class="text" type="text" title="$i18n.getText('alt.text.quicksearch')" name="searchString" accessKey="$i18n.getText('alt.text.quicksearch.accessKey')" />
+                            <label for="quickSearchInput" class="overlabel">$i18n.getText('alt.text.quicksearch')</label>
+                            <input type="submit" class="hidden" value="$i18n.getText('common.concepts.search')" />
+                        </div>
+                    </form>
+                </li>
+            #end
+            #if ($canCreateIssue && !$inAdminMode)
+                <li>
+                    <div id="createItem">
+                        <a title="$i18n.getText('tooltip.createnewissue')" hidefocus="hidefocus" accesskey="$i18n.getText('alt.text.createnewissue.accessKey')" id="create_link" href="$baseurl/secure/CreateIssue!default.jspa" class="lnk aui-dd-parent create-issue">$i18n.getText('alt.text.createnewissue')</a>
+                    </div>
+                    <fieldset id="create_link_params" rel="createItem" class="hidden">
+                        <div>
+                            <input type="hidden" id="createItem_create" value="$i18n.getText('common.forms.create')">
+                            <input type="hidden" id="createItem_create_desc" value="$i18n.getText('createissue.title')">
+                            <input type="hidden" id="createItem_project" value="$i18n.getText('common.concepts.project')">
+                            <input type="hidden" id="createItem_select_project" value="$i18n.getText('createissue.select.project')">
+                            <input type="hidden" id="createItem_issuetype" value="$i18n.getText('issue.field.issuetype')">
+                            <input type="hidden" id="createItem_select_type" value="$i18n.getText('createissue.select.type')">
+                            <input type="hidden" id="createItem_cancel" value="$i18n.getText('common.forms.cancel')">
+                            <input type="hidden" id="createItem_log_in" value="$i18n.getText('login.click')">
+                            <input type="hidden" id="createItem_log_in_desc" value="$i18n.getText('createissue.not.logged.in')">
+                            <input type="hidden" id="createItem_no_permission" value="$i18n.getText('createissue.no.perm')">
+                            <input type="hidden" id="createItem_project_recent" value="$i18n.getText('menu.project.recent')">
+                            <input type="hidden" id="createItem_project_all" value="$i18n.getText('menu.project.all')">
+                            <input type="hidden" id="createItem_issuetype_invalid" value="$i18n.getText('editissue.error.issue.type.mismatch')">
+                            <input type="hidden" id="createItem_issuetype_select" value="$i18n.getText('common.words.pleaseselect')">
+                        </div>
+                    </fieldset>
+                </li>
+            #end
+        </ul>
+    </div>
+</nav>

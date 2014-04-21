@@ -1,0 +1,15 @@
+<memberships>
+ <membership group='parent-group'>
+  <users>
+   <user name='parent-group-user'/>
+  </users>
+  <groups>
+   <group name='child-group'/>
+  </groups>
+ </membership>
+ <membership group='child-group'>
+  <users>
+   <user name='child-group-user'/>
+  </users>
+ </membership>
+</memberships>

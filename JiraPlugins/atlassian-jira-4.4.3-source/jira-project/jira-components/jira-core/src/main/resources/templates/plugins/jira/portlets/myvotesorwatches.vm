@@ -1,0 +1,35 @@
+#if($user)
+    <table class="tableBorder maxWidth" border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr><td>
+            <table border="0" cellpadding="3" cellspacing="1" width="100%">
+                <tr class=rowHeader>
+                    <td class="colHeaderLink" colspan="7">
+                    <b><a href="${baseurl}/${linkToSearch}">$textutils.htmlEncode($searchName)</a></b>
+                    <small>&nbsp;
+                       ($i18n.getText("portlet.assignedissues.overflow", "$displayedIssueCount", "$fullIssueCount"))
+                    </small>
+                    </td>
+                </tr>
+
+            #if ($indexing)
+                #if ($issues)
+                    #foreach ($issue in $issues)
+                            #parse('templates/plugins/jira/portlets/issuevotedorwatched.vm')
+                    #end
+                #else
+                    <tr bgcolor="#FFFFFF">
+                        <td width="100%"  colspan="7">
+                            $noissues
+                        </td>
+                    </tr>
+                #end
+            #else
+                <tr><td bgcolor=#ffffff>
+                #configureIndexing(${baseurl})
+                </td></tr>
+            #end
+
+            </table>
+        </td></tr>
+    </table>
+#end

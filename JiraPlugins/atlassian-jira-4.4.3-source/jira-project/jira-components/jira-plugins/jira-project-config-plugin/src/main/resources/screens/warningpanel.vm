@@ -1,0 +1,4 @@
+<div id="project-config-dialog-warning" class="aui-message warning">
+    <span class="aui-icon icon-warning"></span>
+    <p>$message</p>
+</div>

@@ -1,0 +1,74 @@
+#parse('/templates/standard/jiraformfooter.vm')
+
+#if ($action.externalUserManagementEnabled)
+	#AUImessage("info" "" $i18n.getText('jira-importer-plugin.importer.external.user.management.warning', "$req.contextPath/secure/admin/jira/ViewApplicationProperties.jspa") "" "" "" "false")
+#else
+	#AUImessage("info" "" $i18n.getText('jira-importer-plugin.importer.passwords.will.be.cleared') "" "" "" "false")
+#end
+
+#if ($action.title == "Trac")
+	#AUImessage("info" "" $i18n.getText("jira-importer-plugin.trac.setup.page.how.to.prepare.zip") "" "" "" "false")
+#end
+
+#if ($action.title == "Bugzilla")
+	#AUImessage("warning" "" $i18n.getText('jira-importer-plugin.bugzilla.mapping.issue.types') "" "" "" "false")
+#end
+
+#if ($action.title == "Mantis")
+	#AUImessage("warning" "" $i18n.getText('jira-importer-plugin.mantis.mapping.issue.types') "" "" "" "false")
+#end
+
+#if($action.attachmentsEnabled == false)
+	#set ($body = "$i18n.getText('jira-importer-plugin.importer.attachments.disabled') $i18n.getText('jira-importer-plugin.importer.attachments.can.be.enabled', '$req.contextPath/secure/admin/jira/ViewAttachmentSettings.jspa')")
+	#AUImessage("warning" "" $body "" "" "" "false")
+#end
+
+#if($action.issueLinkingEnabled == false)
+	#AUImessage("warning" "" $i18n.getText('jira-importer-plugin.importer.issue.linking.disabled', "$req.contextPath/secure/admin/jira/ViewLinkTypes!default.jspa") "" "" "" "false")
+#end
+
+#if($action.timeTrackingEnabled == false)
+	#AUImessage("warning" "" $i18n.getText('jira-importer-plugin.importer.time.tracking.disabled', "$req.contextPath/secure/admin/jira/TimeTrackingAdmin!default.jspa") "" "" "" "false")
+#end
+
+#if ($action.title == "Pivotal Tracker")
+	#if (!$action.subtasksEnabled == true)
+		#AUImessage("info" "" $i18n.getText('jira-importer-plugin.importer.subtasks.disabled') "" "" "" "false")
+	#end
+#end
+
+#parse("/templates/admin/views/common/reportBug.vm")
+
+<script type="text/javascript">
+	AJS.$(window).load(function() {
+		function updateNext() {
+			var enable = true;
+			var requiredFields = AJS.${esc.d}.merge(
+				AJS.$("form[name='jiraform'] label:has(span.icon-required) + input:visible"),
+				AJS.$("form[name='jiraform'] label:has(span.icon-required) + div > input:visible"));
+
+			requiredFields.each(function() {
+				enable &= (AJS.$(this).val() != "");
+			});
+
+			if (enable) {
+				AJS.$("#nextButton").removeAttr('disabled');
+			} else {
+				AJS.$("#nextButton").attr('disabled', true);
+			}
+		}
+
+		var nextButton = AJS.$("#nextButton");
+		if (nextButton !== undefined && AJS.$("form[name='jiraform'] label span.icon-required").length > 0) {
+			updateNext();
+
+			AJS.$("form[name='jiraform'] label:has(span.icon-required) + input")
+					.bind('change blur input', updateNext);
+			AJS.$("form[name='jiraform'] label:has(span.icon-required) + div > input")
+					.bind('change blur input', updateNext);
+		}
+	});
+</script>
+
+</body>
+</html>

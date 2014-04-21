@@ -1,0 +1,60 @@
+#* @vtlvariable name="context" type="com.atlassian.applinks.ui.velocity.ListApplicationLinksContext" *#
+## This wizard page is used in:
+## * create-applink wizard
+## * upgrade existing TA or OAuth configs dialog.
+#if ($title)
+    #set ($dialogTitle = $title)
+#else
+    #set ($dialogTitle = 'applinks.list.add')
+#end
+<div class="step-1" title="${i18n.getText($dialogTitle)}">
+    #help('applinks.docs.adding.application.link', '', 'help-step')
+    #if ($steps == 2)
+     <ol class="progress-bar two-step step-one">
+        <li class="active">${i18n.getText('applinks.create.step1')}</li>
+        <li>${i18n.getText('applinks.create.step2')}</li>
+    </ol>
+    #else
+     <ol class="progress-bar step-one">
+        <li class="active">${i18n.getText('applinks.create.step1')}</li>
+        <li>${i18n.getText('applinks.create.step2')}</li>
+        <li>${i18n.getText('applinks.create.step3')}</li>
+    </ol>
+    #end
+
+    <h1 class="step-title">${i18n.getText('applinks.create.title.link')}</h1>
+    <form action="#" method="post" class="aui" onSubmit="return false;">
+        <div class="image-wrapper-solid">
+          <div class="app-image local-app-image" title="${i18n.getText('applinks.create.title.link')}"><div class="local-app-name">&nbsp;</div></div>
+            <div class="arrows">
+              <div class="left-to-right-arrow">&nbsp;</div>
+              <div class="right-to-left-arrow">&nbsp;</div>
+             </div>
+          <div id="remoteApp" class="app-image unknown-app-image" title="${i18n.getText('applinks.create.title.link')}">&nbsp;</div>
+        </div>
+        <div class="field-group upgrade-info">
+            <p></p>
+        </div>
+        #set($staticUrlTypes = $context.staticUrlApplicationTypes)
+        <div class="field-group server-url">
+            <label for="application-url">${i18n.getText("applinks.create.server.url")}#if ($staticUrlTypes.empty) <span class="aui-icon icon-required"></span>#end</label>
+            <input id="application-url" class="text" type="text" accesskey="a" title="${i18n.getText('applinks.url.label')}" autocomplete='off'>
+            <div class="description">$i18n.getText("applinks.create.server.url.description")</div>
+            <div class="error manifest-validation-errors"></div>
+        </div>
+        #if (!$staticUrlTypes.empty)
+            <div class="field-group">
+                <b>${i18n.getText("applinks.create.or")}</b>
+            </div>
+            <div class="field-group">
+                <label for="application-types">${i18n.getText("applinks.create.service")}</label>
+                <select class="select medium-field static-url-application-types" accessKey="t" id="application-types" name="application-types" title="${i18n.getText('applinks.details.application.type')}">
+                    <option value="">${i18n.getText("applinks.create.service.description")}</option>
+                    #foreach($staticUrlType in $staticUrlTypes)
+                        <option value="$staticUrlType.id">${i18n.getText($staticUrlType.i18nKey)}</option>
+                    #end
+                </select>
+            </div>
+        #end
+    </form>
+</div>

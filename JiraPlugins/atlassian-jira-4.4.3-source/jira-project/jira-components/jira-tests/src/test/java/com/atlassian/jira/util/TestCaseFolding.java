@@ -1,0 +1,30 @@
+package com.atlassian.jira.util;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
+import com.atlassian.jira.local.ListeningTestCase;
+
+import java.util.Locale;
+
+/**
+ * @since v4.0
+ */
+public class TestCaseFolding extends ListeningTestCase
+{
+    @Test
+    public void testFoldString() throws Exception
+    {
+        //This also checks that the capital I goes to i and not the Turkish lowercase i.
+        assertEquals("i am in english", CaseFolding.foldString("I am in ENGLISH"));
+        assertEquals("i live at strasse", CaseFolding.foldString("I live at Stra\u00dfe"));
+    }
+
+    @Test
+    public void testFoldStringLocale() throws Exception
+    {
+        final Locale turkishLocale = new Locale("tr", "TR");
+
+        assertEquals("\u0131 am eng", CaseFolding.foldString("I am ENG", turkishLocale));
+        assertEquals("\u0131 i at strasse", CaseFolding.foldString("I i at Stra\u00dfe", turkishLocale));
+    }
+}

@@ -1,0 +1,21 @@
+#parse ( "/templates/includes/xsrf.vm" )
+#parse ( "/templates/includes/errors.vm" )
+
+#if (!$validationLog.hasErrors())
+	<div class="toolMessage">
+		<p>$i18n.getText('stp.create.support.zip.success.message')</p>
+
+		<p>$action.getSupportZipPath()</p>
+		
+		<p>$i18n.getText('stp.create.support.zip.success.receipt')</p>
+
+	    <p>#parse("/templates/includes/support-zip-fields-receipt.vm")</p>
+	</div>
+#end
+
+<form class="aui" action="$servletHomePath/support-zip/view">
+    #form_xsrfToken()
+    <input type="submit" class="button submit" value="$i18n.getText('stp.start-again')"/>
+</form>
+
+<div class="clearer"></div>

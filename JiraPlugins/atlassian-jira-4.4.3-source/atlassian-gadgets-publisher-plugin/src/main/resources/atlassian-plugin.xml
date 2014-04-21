@@ -1,0 +1,176 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${pom.name}" pluginsVersion="2">
+    <plugin-info>
+        <description>${pom.description}</description>
+        <version>${pom.version}</version>
+        <vendor name="${pom.organization.name}" url="${pom.organization.url}"/>
+    </plugin-info>
+
+    <!-- Imported components -->
+    <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
+    <component-import key="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver"/>
+    <component-import key="localeResolver" interface="com.atlassian.sal.api.message.LocaleResolver"/>
+    <component-import key="pluginAccessor" interface="com.atlassian.plugin.PluginAccessor"/>
+    <component-import key="pluginEventManager" interface="com.atlassian.plugin.event.PluginEventManager"/>
+    <component-import key="webResourceManager" interface="com.atlassian.plugin.webresource.WebResourceManager"/>
+    <component-import key="threadLocalDelegateExecutorFactory" interface="com.atlassian.sal.api.executor.ThreadLocalDelegateExecutorFactory"/>
+
+    <!-- PluginGadgetFinder is defined in META-INF/spring/plugin-gadget-finder.xml -->
+    <!-- PluginGadgetSpecProviderPermission is defined in META-INF/spring/plugin-gadget-spec-provider-permission.xml -->
+
+    <!-- Public components -->
+    <component key="publishedGadgetSpecStore"
+            class="com.atlassian.gadgets.publisher.internal.impl.PublishedGadgetSpecStore"
+            public="true">
+        <interface>com.atlassian.gadgets.GadgetSpecProvider</interface>
+        <interface>com.atlassian.gadgets.LocalGadgetSpecProvider</interface>
+        <interface>com.atlassian.gadgets.plugins.PluginGadgetSpecEventListener</interface>
+        <interface>com.atlassian.sal.api.lifecycle.LifecycleAware</interface>
+    </component>
+    <component key="specSyndication"
+            class="com.atlassian.gadgets.publisher.internal.impl.GadgetSpecSyndicationImpl"
+            public="true">
+        <interface>com.atlassian.gadgets.plugins.PluginGadgetSpecEventListener</interface>
+    </component>
+
+    <!-- Internal components -->
+    <component key="gadgetProcessor" class="com.atlassian.gadgets.publisher.internal.impl.GadgetProcessorImpl" />
+    <component key="gadgetSpecUrlBuilder" class="com.atlassian.gadgets.util.GadgetSpecUrlBuilder" />
+    <component key="gadgetSpecValidator" class="com.atlassian.gadgets.publisher.internal.impl.GadgetSpecValidatorImpl" />
+    
+    <!-- Gadget module type -->
+    <module-type key="gadget"
+                 name="Gadget Plugin Module Type"
+                 class="com.atlassian.gadgets.publisher.internal.GadgetModuleDescriptor"/>
+
+    <!-- REST endpoint for publisher plugin resources. -->
+    <rest key="publisher-plugin-rest-endpoints" path="/gadgets" version="1.0">
+        <description>
+            Serves gadget specs to clients and converts localized message bundles
+            into the format used by gadgets.
+        </description>
+        <init-param>
+            <param-name>com.atlassian.plugins.rest.module.filter.ExtensionJerseyFilter#excludes</param-name>
+            <param-value>/g/.*</param-value>
+        </init-param>
+    </rest>
+
+    <resource type="i18n" name="i18n" location="i18n" />
+    
+    <resource type="download" name="images/" location="images/"/>
+
+    <web-resource-transformer key="gadget-templates" class="com.atlassian.gadgets.publisher.internal.transformer.TemplateTransformer" />
+
+    <web-resource-transformer key="gadget-debug" class="com.atlassian.gadgets.util.DebugTransformer" />
+
+    <web-resource key="ajax">
+
+        <!-- styling -->
+        <resource type="download" name="ajax.css" location="ajax/ajax.css">
+            <property key="content-type" value="text/css"/>
+        </resource>
+
+        <!-- templates (closure templates) -->
+        <resource type="download" name="soyutils.js" location="ajax/templates/soyutils.js"/>
+        <resource type="download" name="error.js" location="ajax/templates/messages/error.js"/>
+        <resource type="download" name="warning.js" location="ajax/templates/messages/warning.js"/>
+        <resource type="download" name="info.js" location="ajax/templates/messages/info.js"/>
+
+        <!-- utils -->
+        <resource type="download" name="namespace.js" location="ajs-gadgets/namespace.js"/>
+        <resource type="download" name="util.js" location="ajax/util/util.js"/>
+        <resource type="download" name="sysMsg.js" location="ajax/util/sysMsg.js"/>
+
+        <!-- core -->   
+        <resource type="download" name="mockXHR.js" location="ajax/util/mockXHR.js"/>
+        <resource type="download" name="makeRequestToJQueryAjaxCallbackTransformer.js" location="ajax/util/handleCallbacks.js"/>
+        <resource type="download" name="mapToMakeRequestOptions.js" location="ajax/util/mapToMakeRequestOptions.js"/>
+        <resource type="download" name="OAuth.js" location="ajax/OAuth.js"/>
+        <resource type="download" name="trustedApps.js" location="ajax/trustedApps.js"/>
+        <resource type="download" name="anonymous.js" location="ajax/anonymous.js"/>
+        <resource type="download" name="jQuery.js" location="ajax/jQuery.js"/>
+        <resource type="download" name="ajax.js" location="ajax/ajax.js"/>
+        <resource type="download" name="events.js" location="ajax/events.js"/>
+        
+    </web-resource>
+
+    <web-resource key="ajs-gadgets-lite">
+
+        <dependency>com.atlassian.auiplugin:ajs-gadgets</dependency>
+        <dependency>com.atlassian.gadgets.publisher:ajax</dependency>
+
+        <transformation extension="jst">
+            <transformer key="gadget-templates" />
+        </transformation>
+
+        <transformation extension="js">
+            <transformer key="gadget-debug" />
+        </transformation>
+
+        <!-- templater -->
+        <resource type="download" name="templater.namespace.js" location="ajs-gadgets/templater/namespace.js"/>
+        <resource type="download" name="ajs.gadgets.templater.base.js" location="ajs-gadgets/templater/ajs.gadgets.templater.base.js"/>
+        <resource type="download" name="ajs.gadgets.templater.custom.js" location="ajs-gadgets/templater/ajs.gadgets.templater.custom.js"/>
+        <resource type="download" name="ajs.gadgets.templater.form.js" location="ajs-gadgets/templater/ajs.gadgets.templater.form.js"/>
+        <resource type="download" name="ajs.gadgets.templater.table.js" location="ajs-gadgets/templater/ajs.gadgets.templater.table.js"/>
+
+        <resource type="download" name="form.js" location="ajs-gadgets/templater/templates/form.jst"/>
+        <resource type="download" name="table.js" location="ajs-gadgets/templater/templates/table.jst"/>
+
+        <!-- gadgets -->
+        <resource type="download" name="events.js" location="ajs-gadgets/events.js"/>
+        <resource type="download" name="gadgets.namespace.js" location="ajs-gadgets/gadgets/namespace.js"/>
+        <resource type="download" name="ajs.gadget.base.js" location="ajs-gadgets/gadgets/ajs.gadget.base.js"/>
+        <resource type="download" name="ajs.gadget.standard.js" location="ajs-gadgets/gadgets/ajs.gadget.standard.js"/>
+        <resource type="download" name="ajs.gadget.configured.js" location="ajs-gadgets/gadgets/ajs.gadget.configured.js"/>
+        <resource type="download" name="ajs.gadget.configurable.js" location="ajs-gadgets/gadgets/ajs.gadget.configurable.js"/>
+        <resource type="download" name="ajs.gadget.factory.js" location="ajs-gadgets/gadgets/ajs.gadget.factory.js"/>
+
+        <!-- fields -->
+        <resource type="download" name="gadget-common-fields.js" location="ajs-gadgets/gadget-common-fields.js"/>
+
+        <resource type="download" name="common.css" location="ajs-gadgets.css">
+            <property key="content-type" value="text/css"/>
+        </resource>
+    </web-resource>
+
+    <!-- This is for backwards compatibility for gadgets that may require full AJS. This may be removed in the future. -->
+    <web-resource key="ajs-gadgets">
+
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+
+        <dependency>com.atlassian.gadgets.publisher:ajax</dependency>
+        <transformation extension="jst">
+            <transformer key="gadget-templates" />
+        </transformation>
+        <transformation extension="js">
+            <transformer key="gadget-debug" />
+        </transformation>
+
+        <resource type="download" name="namespace.js" location="ajs-gadgets/namespace.js"/>
+
+        <!-- templater -->
+        <resource type="download" name="templater.namespace.js" location="ajs-gadgets/templater/namespace.js"/>
+        <resource type="download" name="ajs.gadgets.templater.base.js" location="ajs-gadgets/templater/ajs.gadgets.templater.base.js"/>
+        <resource type="download" name="ajs.gadgets.templater.custom.js" location="ajs-gadgets/templater/ajs.gadgets.templater.custom.js"/>
+        <resource type="download" name="ajs.gadgets.templater.form.js" location="ajs-gadgets/templater/ajs.gadgets.templater.form.js"/>
+        <resource type="download" name="ajs.gadgets.templater.table.js" location="ajs-gadgets/templater/ajs.gadgets.templater.table.js"/>
+
+        <resource type="download" name="form.js" location="ajs-gadgets/templater/templates/form.jst"/>
+        <resource type="download" name="table.js" location="ajs-gadgets/templater/templates/table.jst"/>
+
+        <!-- gadgets -->
+        <resource type="download" name="gadgets.namespace.js" location="ajs-gadgets/gadgets/namespace.js"/>
+        <resource type="download" name="ajs.gadget.base.js" location="ajs-gadgets/gadgets/ajs.gadget.base.js"/>
+        <resource type="download" name="ajs.gadget.standard.js" location="ajs-gadgets/gadgets/ajs.gadget.standard.js"/>
+        <resource type="download" name="ajs.gadget.configured.js" location="ajs-gadgets/gadgets/ajs.gadget.configured.js"/>
+        <resource type="download" name="ajs.gadget.configurable.js" location="ajs-gadgets/gadgets/ajs.gadget.configurable.js"/>
+        <resource type="download" name="ajs.gadget.factory.js" location="ajs-gadgets/gadgets/ajs.gadget.factory.js"/>
+
+        <!-- fields -->
+        <resource type="download" name="gadget-common-fields.js" location="ajs-gadgets/gadget-common-fields.js"/>
+
+        <resource type="download" name="common.css" location="ajs-gadgets.css">
+            <property key="content-type" value="text/css"/>
+        </resource>
+    </web-resource>
+</atlassian-plugin>

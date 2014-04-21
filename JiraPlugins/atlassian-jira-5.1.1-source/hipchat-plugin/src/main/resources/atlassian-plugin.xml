@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+    </plugin-info>
+    <resource type="i18n" name="i18n" location="atlassian-plugin"/>
+    <component-import key="template-renderer"
+                      interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRenderer"/>
+    <component-import key="application-properties" interface="com.atlassian.sal.api.ApplicationProperties"/>
+    <component-import key="pluginSettingsFactory"
+                      interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory"/>
+    <component name="Configuration Manager" key="configurationManager"
+               class="com.atlassian.labs.hipchat.components.ConfigurationManager">
+        <description>Stores the details of the configured HipChat settings in Bandana</description>
+    </component>
+    <component-import name="Request Factory" key="request-factory"
+                      interface="com.atlassian.sal.api.net.RequestFactory"/>
+    <component-import name="Thread Local Delegate Executor Factory" key="thread-local-delegate-executor-factory"
+                      interface="com.atlassian.sal.api.executor.ThreadLocalDelegateExecutorFactory"/>
+    <component name="HipChat API Client" key="api-client" class="com.atlassian.labs.hipchat.HipChatApiClient"/>
+
+    <web-resource name="Resources" key="resources">
+        <resource name="status.js" type="download" location="js/status.js"/>
+        <resource name="styles.css" type="download" location="css/styles.css"/>
+        <resource type="download" name="images/" location="images/"/>
+        <context>jira.general</context>
+    </web-resource>
+
+    <servlet name="HipChat API proxy" key="proxy" class="com.atlassian.labs.proxy.HipChatApiProxyServlet">
+        <url-pattern>/hipchatproxy/*</url-pattern>
+    </servlet>
+
+    <webwork1 key="hip-chat-actions" class="java.lang.Object">
+        <actions>
+            <action name="com.atlassian.labs.hipchat.action.Configuration"
+                    alias="HipChatConfiguration">
+                <view name="success">/templates/admin.vm</view>
+                <view name="input">/templates/admin.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+
+    <web-item name="HipChat Configuration" i18n-name-key="hipchat.config" key="hipchat-config"
+              section="top_system_section/mail_section" weight="150" application="jira">
+        <description key="hipchat.config">HipChat Configuration</description>
+        <label key="hipchat.config">HipChat Configuration</label>
+        <link linkId="hipchat.config.link">/secure/admin/HipChatConfiguration!default.jspa</link>
+    </web-item>
+    <workflow-function key="hip-chat-post-function" name="HipChat Post Function"
+                       i18n-name-key="hip-chat-post-function.name"
+                       class="com.atlassian.labs.jira.workflow.HipChatPostFunctionFactory">
+        <description key="hip-chat-post-function.description">The Hip Chat Post Function Plugin</description>
+        <function-class>com.atlassian.labs.jira.workflow.HipChatPostFunction</function-class>
+        <resource type="velocity" name="view" location="templates/postfunctions/hip-chat-post-function.vm"/>
+        <resource type="velocity" name="input-parameters"
+                  location="templates/postfunctions/hip-chat-post-function-input.vm"/>
+        <resource type="velocity" name="edit-parameters"
+                  location="templates/postfunctions/hip-chat-post-function-input.vm"/>
+    </workflow-function>
+</atlassian-plugin>

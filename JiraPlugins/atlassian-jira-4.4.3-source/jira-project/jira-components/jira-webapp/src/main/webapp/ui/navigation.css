@@ -1,0 +1,52 @@
+ul.operations {list-style-type:none;margin:0;}
+ul.operations li {float:left;margin: 0 0 0 4px;position:relative;}
+ul.operations li a.lnk {background-color:transparent;color:#333;float:left;font-size:1.1em;padding: 3px 7px 4px 25px;text-decoration: none;}
+ul.operations li a.lnk:hover,
+ul.operations li.active li a.lnk {background-color:#3c78b5;color:#fff;}
+ul.operations li a.lnk img {position:absolute;top:5px;left:5px;}
+ul.operations li a.lnk.no-icon {padding-left:5px;}
+ul.operations li ul {margin:0;}
+
+.operations-panel { float: right; }
+.operations-panel .operations-item { background-color: transparent; color: #333; float: left; font-size: 14px; padding: 4px 7px; text-decoration: none; }
+.operations-panel .operations-item:hover { background-color: #3c78b5; color: #fff; }
+.operations-panel .help-lnk { float: left; margin: 7px 0 0 0; }
+.operations-panel .help-lnk img { float: left; }
+
+ul.breadcrumbs {display:block;font-size:1.167em/*14px*/;line-height:1.429/*20px*/;list-style:none;margin:0;padding:0;}
+ul.breadcrumbs li {background:transparent url("../../../images/icons/sprites/icons_module.png") no-repeat 0 -748px;display:inline;margin:0;padding:0 0 0 12px;}
+ul.breadcrumbs li:first-child {background:0;padding:0;}
+
+ul.paging {border-bottom:1px solid #d7d7d7;margin:0 0 0.5em;padding:0 0 0.5em;}
+.msie-7 ul.paging {display:inline-block}
+ul.paging:after { content: ".";display: block; height: 0; clear: both; visibility: hidden;}
+ul.paging li {border-right: 1px solid #bbb;float:left;font-size:0.9em;list-style-type:none;margin: 0 0.5em 0 0;padding: 0 0.5em 0 0;width:auto;}
+ul.paging li.last {border:none;padding:0;}
+ul.paging .view-all {padding-left:1em;}
+
+/* Used only on viewissue */
+ul.page-navigation { float: right; font-size:1.167em; line-height:1.429; padding: 0 32px 0 0; position: relative; text-align: right; width: 13em; }
+.page-navigation li { float: none; margin: 0; padding: 0; }
+.page-navigation li .icon {vertical-align:baseline;}
+.page-navigation li.previous { position: absolute; right: 0; top: 2px; }
+.page-navigation li.next { position: absolute; right: 0; top: 22px; }
+.page-navigation li.next a,
+.page-navigation li.previous a { display: block; height: 16px; }
+.page-navigation li.showing {width:13em;}
+.page-navigation li.showing a {display:block;}
+.page-navigation li.showing a:hover {text-decoration:underline}
+
+/* Should be able to standardise the below */
+    div.operations-container {float:right} /* for .operations on the dashboard */
+
+    #create-issue {float:right;position:relative;z-index:1001;top:0;min-height:2.4em;height:2.4em;white-space:nowrap;*min-width:23em;} /* wraps .operations on browsecomponent.jsp, browseproject.jsp and browseversion.jsp */
+    #create-issue h2 { color:#666; font-size:1.1em; float:left; font-weight: normal; padding-top: 4px; }
+    #create-issue ul.operations {float:left;padding-left:2px;}
+
+    #quicklinks {position:absolute;right:8px;top:10px;z-index:1000;} /* for the .operations (Filters) on the user profile page */
+
+    #navigator-options {float:right;height:2.4em;min-height:2.4em;position:relative;top:0;z-index:1001;} /* Used on the issue nav AND in the user profile */
+
+.operations-list {list-style-type:none;margin:0;white-space:nowrap;}
+.operations-list li {border-left:1px solid #bbb;display:inline;padding-left:5px;}
+.operations-list li:first-child {border-left:none;padding-left:0;}

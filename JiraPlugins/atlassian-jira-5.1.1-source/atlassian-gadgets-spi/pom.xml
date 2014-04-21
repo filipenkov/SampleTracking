@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.atlassian.gadgets</groupId>
+        <artifactId>atlassian-gadgets</artifactId>
+        <version>3.2.0-m2</version>
+    </parent>
+    <artifactId>atlassian-gadgets-spi</artifactId>
+    <name>Atlassian Gadgets SPI</name>
+    <description>Service Provider Interfaces for Atlassian Gadgets</description>
+    <packaging>atlassian-plugin</packaging>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>maven-refapp-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Export-Package>
+                            com.atlassian.gadgets.spi.*,
+                            com.atlassian.gadgets.publisher.spi.*,
+                            com.atlassian.gadgets.opensocial.spi.*,
+                            com.atlassian.gadgets.dashboard.spi.*,
+                            com.atlassian.gadgets.directory.spi.*
+                        </Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>atlassian-gadgets-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.jcip</groupId>
+            <artifactId>jcip-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-plugins-webfragment</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-plugins-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Test-only dependencies -->
+        <dependency>
+            <groupId>com.atlassian.bundles</groupId>
+            <artifactId>google-collections</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- Gadgets does not nest its artifacts the way the maven-scm-plugin assumes, so we need to override that here -->
+    <scm>
+        <connection>scm:svn:https://studio.atlassian.com/svn/AG/tags/atlassian-gadgets-3.2.0-m2/spi</connection>
+        <developerConnection>scm:svn:https://studio.atlassian.com/svn/AG/tags/atlassian-gadgets-3.2.0-m2/spi</developerConnection>
+        <url>https://studio.atlassian.com/source/browse/AG/tags/atlassian-gadgets-3.2.0-m2/spi</url>
+    </scm>
+</project>

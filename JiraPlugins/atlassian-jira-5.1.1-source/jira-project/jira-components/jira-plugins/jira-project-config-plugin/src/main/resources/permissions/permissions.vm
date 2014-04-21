@@ -1,0 +1,80 @@
+#enable_html_escaping()
+#* @vtlvariable name="permissionGroups" type="java.util.List<com.atlassian.jira.projectconfig.contextproviders.ProjectPermissionContextProvider.SimplePermissionGroup>" *#
+<div id="project-config-panel-permissions" class="project-config-panel">
+    <div class="project-config-panel-header project-config-icon48-permissions">
+        #if ($isAdmin)
+            <ul class="operation-menu">
+                <li class="aui-dd-parent">
+                    <a class="operations-menu-link project-config-operations-trigger" id="project-config-tab-actions" href="#"><span class="project-config-icon project-config-icon-manage"></span>Actions <span class="project-config-icon project-config-icon-drop"></span></a>
+                    <div class="aui-list hidden" id="project-config-tab-actions-list">
+                        <ul class="aui-list-section aui-first aui-last">
+                            <li class="aui-list-item">
+                                <a id="project-config-permissions-scheme-edit" class="aui-list-item-link" data-id="${schemeId}" href="${baseurl}/secure/admin/EditPermissions!default.jspa?schemeId=${schemeId}">$i18n.getText('admin.project.permissions.edit')</a>
+                            </li>
+                            <li class="aui-list-item">
+                                <a id="project-config-permissions-scheme-change" class="aui-list-item-link" data-id="${project.id}" href="${baseurl}/secure/project/SelectProjectPermissionScheme!default.jspa?projectId=${project.id}">$i18n.getText('admin.project.config.change.scheme')</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        #end
+        <span>${i18n.getText("admin.permission.group.project.permissions")}</span>
+        <h2 class="project-config-scheme-heading">
+            #set ($hasSchemeDescription = ${schemeDescription} && ${schemeDescription} != "")
+            <span id="project-config-permissions-scheme-name" class="project-config-scheme-name"#if($hasSchemeDescription) title="${schemeDescription}"#end>${schemeName}</span>
+            #if ($sharedProjects && $sharedProjects.size() > 1)
+                <span class="shared-by"><em>$i18n.getText('admin.project.shared.by')</em> <a href="#project-config-permissions-${schemeId}-shared" class="shared-item-trigger">$i18n.getText('admin.project.shared.projects', ${sharedProjects.size()})</a></span>
+            #end
+        </h2>
+        <p>
+            ${i18n.getText("admin.project.config.summary.permissions.desc")}
+            <br/>
+            ${i18n.getText("admin.project.config.summary.permissions.desc.extended")}
+        </p>
+    </div>
+
+    #foreach ($permissionGroup in $permissionGroups)
+        <h3 id="project-config-permissions-group-name-${permissionGroup.id}">$permissionGroup.name</h3>
+        <table id="project-config-permissions-group-${permissionGroup.id}" data-id="${permissionGroup.id}" border="0" cellpadding="0" cellspacing="0" class="aui project-config-datatable project-config-permissions">
+            <thead>
+                <tr>
+                    <th>${i18n.getText("admin.common.words.permission")}</th>
+                    <th style="width: 240px;">${i18n.getText("admin.common.words.users.groups.roles")}</th>
+                </tr>
+            </thead>
+            <tbody>
+            #foreach($permission in $permissionGroup.permissions)
+                <tr id="project-config-permissions-${permission.shortName}" class="project-config-permission" data-id="${permission.shortName}">
+                    <td>
+                        <span class="project-config-permission-name">$permission.name</span><br />
+                        <span class="project-config-permission-description">$permission.description</span>
+                    </td>
+                    <td>
+                        #if ($permission.entities.size() > 0)
+                            <ul class="project-config-list">
+                            #foreach ($entity in $permission.entities)
+                                <li class="project-config-permission-entity">$entity</li>
+                            #end
+                            </ul>
+                        #end
+                    </td>
+                </tr>
+            #end
+            </tbody>
+        </table>
+    #end
+    #if ($sharedProjects && $sharedProjects.size() > 1)
+    <div id="project-config-permissions-${schemeId}-shared" class="shared-item-target">
+        <div class="shared-item-content">
+            <h3>$i18n.getText('admin.project.shared.list.heading.scheme'):</h3>
+            <ul class="shared-project-list">
+                #foreach ($project in $sharedProjects)
+                <li><a class="shared-project-name" href="${baseurl}/plugins/servlet/project-config/${project.key}"><img class="shared-project-icon" width="16" height="16" alt="" src="${baseurl}/secure/projectavatar?size=small&amp;pid=${project.id}&amp;avatarId=${project.avatar.id}" /> $project.name</a></li>
+                #end
+            </ul>
+        </div>
+    </div>
+    #end
+
+</div>

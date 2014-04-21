@@ -1,0 +1,30 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ImporterCustomFieldsPage" *#
+#parse('/templates/admin/views/common/import-header.vm')
+
+#if ($action.customFields && !$action.customFields.empty)
+	<table class="aui">
+		<thead>
+			<tr>
+				<th>$i18n.getText('jira-importer-plugin.config.mappings.field.import.field')</th>
+				<th>$i18n.getText('jira-importer-plugin.external.fogbugz.mappings.field.jira.field')</th>
+			</tr>
+		</thead>
+		<tbody>
+			#foreach($entry in $action.sorter.sort($action.customFields, 'name'))
+				#normalHeader($action $entry.id $entry.name false)
+				#set ($auiparams = $map.build('name', $entry.id, 'optgroup', true, 'map', $action.getAvailableFieldMappings($entry)))
+				#if ($action.getFieldMapping($entry.id))
+					#set ($auiparams.value = $action.getFieldMapping($entry.id))
+				#else
+					#set ($auiparams.value = $entry.name)
+				#end
+				#parse("/templates/common/selectWithTextArea.vm")
+				#normalFooter($action "")
+			#end
+		</tbody>
+	</table>
+#else
+	$i18n.getText('jira-importer-plugin.external.no.custom.fields')
+#end
+
+#parse('/templates/admin/views/common/import-footer.vm')

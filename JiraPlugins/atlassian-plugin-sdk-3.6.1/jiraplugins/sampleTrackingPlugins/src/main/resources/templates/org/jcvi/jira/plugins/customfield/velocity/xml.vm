@@ -1,0 +1,2 @@
+<customfieldvalue>#if ($reverse) <![CDATA[$xmlutils.escapeForCdata($reverse.insertTemplate("XML",$ctx)
+]]>#end</customfieldvalue>

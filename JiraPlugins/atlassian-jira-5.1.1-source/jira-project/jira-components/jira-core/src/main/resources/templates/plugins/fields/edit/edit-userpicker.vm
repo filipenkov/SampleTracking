@@ -1,0 +1,4 @@
+##disable_html_escaping() TODO REENABLE
+#customControlHeader ($action $customField.id $customField.name $fieldLayoutItem.required $displayParameters $auiparams)
+#userPicker ($action $customField.id $value false $null "" $canPerformAjaxSearch $ajaxLimit)
+#customControlFooter ($action $customField.id $fieldLayoutItem.fieldDescription $displayParameters $auiparams)

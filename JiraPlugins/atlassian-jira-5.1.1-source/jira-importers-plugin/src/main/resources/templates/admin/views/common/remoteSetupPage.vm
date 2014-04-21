@@ -1,0 +1,30 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.RemoteSiteImporterSetupPage" *#
+#parse('/templates/admin/views/common/import-header.vm')
+#if ($action.siteUrlRequired == true)
+	#set ($auiparams = $map.build('name', 'siteUrl', 'label', $i18n.getText('jira-importer-plugin.external.site.url', $action.title), 'size', 60, 'value', $action.siteUrl, 'required', true))
+#parse("/templates/standard/textfield.vm")
+#end
+
+#set ($auiparams = $map.build('name', 'siteUsername', 'label', $action.loginLabel, 'size', 60, 'required', true, 'value', $action.siteUsername))
+#parse("/templates/standard/textfield.vm")
+
+#set ($auiparams = $map.build('name', 'sitePassword', 'password', true, 'label', $action.passwordLabel, 'size', 60, 'required', true, 'value', $action.sitePassword, 'autocomplete', true))
+#parse("/templates/standard/textfield.vm")
+
+#if ($action.title == "Pivotal Tracker")
+<div class="module toggle-wrap collapsed" id="importerSetupPage-advanced">
+	<div id="advanced_heading" class="mod-header"><h3 class="toggle-title" style="border: none;">$action.getText("jira-importer-plugin.external.setup.page.advanced.header")</h3></div>
+	<div class="mod-content">
+		#set ($auiparams = $map.build('name', 'showUsernameMapping', 'label', $action.getText("jira-importer-plugin.wizard.connect.pivotal.usernameMapping.label"), "description", $action.getText("jira-importer-plugin.wizard.connect.pivotal.usernameMapping.description"), 'value', $action.showUsernameMapping))
+		#parse("/templates/standard/checkbox.vm")
+
+		#parse('/templates/admin/views/common/configFile.vm')
+	</div>
+</div>
+#end
+
+#if ($action.controller.usingConfiguration)
+    #parse('/templates/admin/views/common/configFile.vm')
+#end
+
+#parse("/templates/admin/views/common/standardSetupFooter.vm")

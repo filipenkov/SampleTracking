@@ -1,0 +1,122 @@
+{
+	"fogbugz.736" : {
+		"databaseType": "mssql",
+		"jdbcHostname": "192.168.157.105",
+		"jdbcUsername": "fogbugz",
+		"jdbcPassword": "fogbugz",
+		"jdbcDatabase": "fogbugz;instance=sqlexpress"
+	},
+	"fogbugz.8" : {
+		"databaseType": "mssql",
+		"jdbcHostname": "192.168.157.105",
+		"jdbcUsername": "fogbugz",
+		"jdbcPassword": "fogbugz",
+		"jdbcDatabase": "fogbugz1;instance=sqlexpress"
+	},
+    "fogbugz.8760" : {
+        "databaseType": "mssql",
+        "jdbcHostname": "192.168.157.105",
+        "jdbcUsername": "fogbugz",
+        "jdbcPassword": "fogbugz",
+        "jdbcDatabase": "fogbugz2;instance=sqlexpress"
+    },
+	"bugzilla.363": {
+		"siteUrl": "http://192.168.157.160/bugzilla3.6.2-small/",
+		"siteCredentials": "true",
+		"siteUsername": "pniewiadomski@atlassian.com",
+		"sitePassword": "d0n0tch@nge",
+		"jdbcHostname": "192.168.157.160",
+		"jdbcDatabase": "bz362small",
+		"databaseType": "mysql",
+		"jdbcUsername": "bugs",
+		"jdbcPassword": "bugs"
+	},
+	"bugzilla.40": {
+		"siteUrl": "http://192.168.157.160/bugzilla4.0-small/",
+		"siteCredentials": "true",
+		"siteUsername": "pniewiadomski@atlassian.com",
+		"sitePassword": "d0n0tch@nge",
+		"jdbcHostname": "192.168.157.160",
+		"jdbcDatabase": "bz40small",
+		"databaseType": "mysql",
+		"jdbcUsername": "bugs",
+		"jdbcPassword": "bugs"
+	},
+	"bugzilla.large": {
+  		"siteUrl": "http://192.168.157.160/bugzilla3.6.2/",
+		"siteUsername": "pniewiadomski@atlassian.com",
+		"sitePassword": "d0n0tch@nge",
+		"jdbcHostname": "192.168.157.160",
+  		"jdbcDatabase": "bz362",
+		"jdbcUsername": "bugs",
+		"jdbcPassword": "bugs"
+	},
+	"bugzilla.222": {
+		"databaseType": "mysql",
+		"siteUrl": "http://192.168.157.160/bugzilla2.20",
+		"siteCredentials": "true",
+		"siteUsername": "pniewiadomski@atlassian.com",
+		"sitePassword": "pniewiadomski",
+		"jdbcHostname": "192.168.157.160",
+		"jdbcDatabase": "bz220",
+		"jdbcUsername": "bugs",
+		"jdbcPassword": "bugs"
+	},
+	"bugzilla.364.pg": {
+		"databaseType": "postgres72",
+		"siteUrl": "http://192.168.157.160/bugzilla-3.6.4-pg/",
+		"siteCredentials": "true",
+		"siteUsername": "pniewiadomski@atlassian.com",
+		"sitePassword": "pniewiadomski",
+		"jdbcHostname": "192.168.157.160",
+		"jdbcPort": "5433",
+		"jdbcDatabase": "bz364",
+		"jdbcUsername": "bugs",
+		"jdbcPassword": "bugs"
+	},
+	"mantis.124": {
+		"databaseType": "mysql",
+		"siteUrl": "http://192.168.157.160/mantis-1.2.4",
+		"siteCredentials": "true",
+		"siteUsername": "administrator",
+		"sitePassword": "administrator",
+		"jdbcHostname": "192.168.157.160",
+		"jdbcDatabase": "mantis124",
+		"jdbcUsername": "mantis",
+		"jdbcPassword": "mantis"
+	},
+    "mantis.128": {
+        "databaseType": "mysql",
+        "siteUrl": "http://192.168.157.160/mantis-1.2.8",
+        "siteCredentials": "true",
+        "siteUsername": "administrator",
+        "sitePassword": "administrator",
+        "jdbcHostname": "192.168.157.160",
+        "jdbcDatabase": "mantis128",
+        "jdbcUsername": "mantis",
+        "jdbcPassword": "mantis"
+    },
+	"mantis.118": {
+		"databaseType": "mysql",
+		"siteUrl": "http://192.168.157.160/mantis",
+		"siteCredentials": "true",
+		"siteUsername": "administrator",
+		"sitePassword": "administrator",
+		"jdbcHostname": "192.168.157.160",
+		"jdbcDatabase": "mantis",
+		"jdbcUsername": "mantis",
+		"jdbcPassword": "mantis"
+	},
+    "mantis.1210": {
+        "databaseType": "postgres72",
+        "siteUrl": "http://192.168.157.160/mantisbt-1.2.10",
+        "siteCredentials": "true",
+        "siteUsername": "administrator",
+        "sitePassword": "administrator",
+        "jdbcHostname": "192.168.157.160",
+        "jdbcPort": "5433",
+        "jdbcDatabase": "mantis1210",
+        "jdbcUsername": "mantis",
+        "jdbcPassword": "mantis"
+    }
+}

@@ -1,0 +1,12 @@
+{
+	"field.Component" : "components",
+	"field.ProjectKey" : "project.key",
+	"date.import.format" : "yyyyMMddHHmmss",
+	"field.Affects Version" : "versions",
+	"field.Fix Version/s" : "fixVersions",
+	"field.Key" : "issuekey",
+	"mapfromcsv" : "true",
+	"user.email.suffix" : "@example.com",
+	"field.Project" : "project.name",
+	"field.Summary" : "summary"
+}

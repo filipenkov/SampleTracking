@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" wxmln-="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.atlassian.jira.welcome</groupId>
+    <artifactId>jira-ondemand-welcome-plugin</artifactId>
+    <name>JIRA OnDemand Welcome Plugin</name>
+    <packaging>atlassian-plugin</packaging>
+
+    <description>
+        Extends the JIRA Welcome Plugin for use in Atlassian OnDemand.
+    </description>
+
+    <parent>
+        <groupId>com.atlassian.jira.welcome</groupId>
+        <artifactId>jira-welcome-project</artifactId>
+        <version>1.1.10</version>
+    </parent>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>maven-jira-plugin</artifactId>
+                <version>3.6</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <skipManifestValidation>true</skipManifestValidation>
+                    <productVersion>${jira.version}</productVersion>
+                    <instructions>
+                        <Import-Package>
+                            org.slf4j.*,
+                            com.atlassian.jira.whatsnew.access.*,
+                            com.atlassian.jira.welcome.access.*,
+                            com.atlassian.jira.security.*,
+                            com.atlassian.studio.haup.api,
+                            com.atlassian.crowd.embedded.api
+                        </Import-Package>
+                        <Export-Package />
+                        <Private-Package>*</Private-Package>
+                        <Bundle-Description>${project.description}</Bundle-Description>
+                        <Spring-Context>*;timeout:=600</Spring-Context>
+                    </instructions>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.7</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <artifactId>jira-core</artifactId>
+            <groupId>com.atlassian.jira</groupId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.crowd</groupId>
+            <artifactId>embedded-crowd-api</artifactId>
+            <version>${crowd.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.jira.welcome</groupId>
+            <artifactId>jira-welcome-plugin</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.studio</groupId>
+            <artifactId>haup-api</artifactId>
+            <version>${haup.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <atlassian.plugin.key>com.atlassian.jira.welcome.jira-ondemand-welcome-plugin</atlassian.plugin.key>
+        <studio.pdk.apps>jira</studio.pdk.apps>
+        <crowd.version>2.3.6</crowd.version>
+        <haup.version>1.0-rc17</haup.version>
+    </properties>
+</project>

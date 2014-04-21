@@ -1,0 +1,12 @@
+<!-- common applinks header start -->
+<script type="text/javascript">
+    var appLinksI18n = $context.applinksI18n,
+        applinksDocs = $context.applinksDocs;
+</script>
+
+<fieldset class="hidden parameters">
+        <input type="hidden" id="contextPath" value="$context.contextPath" />
+        <input type="hidden" id="baseUrl" value="$context.baseUrl" />
+</fieldset>
+<div class="applinks-message-bar"></div>
+<!-- common applinks header end -->

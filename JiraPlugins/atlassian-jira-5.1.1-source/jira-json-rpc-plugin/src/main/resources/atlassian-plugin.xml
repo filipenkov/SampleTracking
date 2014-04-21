@@ -1,0 +1,20 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+    </plugin-info>
+
+    <component-import name="i18NResolver" key="i18NResolver" interface="com.atlassian.sal.api.message.I18nResolver"/>
+    <component-import name="pluginAccessor" key="pluginAccessor" interface="com.atlassian.plugin.PluginAccessor"/>
+    <component-import name="pluginEventManager" key="pluginEventManager" interface="com.atlassian.plugin.event.PluginEventManager"/>
+
+    <servlet-filter name="JIRA JSON-RPC Filter" key="jira-json-rpc-filter" class="com.atlassian.jira.rpc.jsonrpc.JiraJsonRpcFilter" location="before-decoration" weight="100">
+        <description>Serves JSON-RPC requests for great justice</description>
+        <url-pattern>/rpc/json-rpc/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </servlet-filter>
+
+    <resource type="i18n" name="i18n" location="com.atlassian.voorhees.Voorhees"/>
+</atlassian-plugin>

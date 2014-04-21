@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+	"http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+
+<taglib>
+	<tlibversion>1.0</tlibversion>
+	<jspversion>1.1</jspversion>
+	<shortname>jira</shortname>
+
+    <uri>jiratags</uri>
+    <tag>
+		<name>loginlink</name>
+		<tagclass>com.atlassian.jira.web.tags.LoginLink</tagclass>
+
+        <attribute>
+            <name>returnUrl</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+	</tag>
+
+	<tag>
+		<name>text2html</name>
+		<tagclass>com.atlassian.jira.web.tags.Text2Html</tagclass>
+	</tag>
+
+    <tag>
+        <name>formatuser</name>
+        <tagclass>com.atlassian.jira.web.tags.FormatUserTag</tagclass>
+        <info>Print out a formatted user string.</info>
+        <!-- User attribute supports both the username and user object. -->
+        <attribute>
+            <name>user</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>type</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>params</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+		<name>escape</name>
+		<tagclass>com.atlassian.jira.web.tags.Escape</tagclass>
+	</tag>
+
+	<tag>
+		<name>linkbugkeys</name>
+		<tagclass>com.atlassian.jira.web.tags.LinkBugKeys</tagclass>
+	</tag>
+</taglib>

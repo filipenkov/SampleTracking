@@ -1,0 +1,14 @@
+#parse("templates/email/html/includes/header.vm")
+
+<br/>
+<table cellpadding="1" cellspacing="0" border="0" bgcolor="#bbbbbb" width="100%" align="center"><tr><td>
+<table cellpadding="4" cellspacing="0" border="0" width="100%" bgcolor="#ffffff">
+
+<tr bgcolor="#ffffff"><td>
+    $content
+</td></tr>
+
+</table>
+</td></tr></table>
+
+#parse("templates/email/html/includes/footer.vm")

@@ -1,0 +1,5 @@
+$!{auiparams.put("controlHeaderClass", "aui-field-labels")}
+#searcherEditHeader ($searcherId ${i18n.getText('issue.field.labels')})
+    <input class="text" id="searcher-$searcherId" name="$searcherId" type="text" value="$textutils.htmlEncode($!labelString)" />
+#searcherEditFooter ($searcherId '')
+$!{auiparams.clear()}

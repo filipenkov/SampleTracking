@@ -1,0 +1,18 @@
+<div class="mod-content intform">
+    #if (${showQuickCreate})
+        <form enctype="multipart/form-data" class="dont-default-focus" id="stqcform" name="stqcform" action="${baseurl}/secure/CreateSubTaskIssueDetails.jspa" method="post" onsubmit="if (this.submitted) return false; this.submitted = true; return true">
+            <input type="hidden" value="${atl_token}" name="atl_token" id="atl_token"/>
+            ${quickCreateForm.html}
+        </form>
+    #end
+    #if (${selectedIssueId})
+        <style type="text/css">
+            #issuerow${selectedIssueId} {background-color: #f2f2f2;}
+        </style>
+    #end
+    #if (${hasSubTasks})
+        ${subTaskTable.html}
+    #else
+       ${i18n.getText("viewissue.subtasks.notasksforview")}
+    #end
+</div>

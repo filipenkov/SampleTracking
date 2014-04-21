@@ -1,0 +1,28 @@
+<!--
+  ~ Copyright (c) 2011. Atlassian
+  ~ All rights reserved
+  -->
+
+<JiraJelly xmlns="jelly:core">
+	<invokeStatic className="com.atlassian.jira.ComponentManager" method="getInstance" var="componentManager"/>
+	<invoke on="${componentManager}" method="getIssueManager" var="issueManager"/>
+
+	<invoke on="${issueManager}" method="getIssueObject" var="issue">
+		<arg type="java.lang.String" value="${issueKey}"/>
+	</invoke>
+
+	<invoke on="${issue}" method="setPriorityId">
+		<arg type="java.lang.String" value="1"/>
+	</invoke>
+
+	<invoke on="${issue}" method="getReporterUser" var="user"/>
+	<getStatic var="dispatchOption" className="com.atlassian.jira.event.type.EventDispatchOption" field="DO_NOT_DISPATCH"/>
+
+	<invoke on="${issueManager}" method="updateIssue">
+		<arg type="com.atlassian.crowd.embedded.api.User" value="${user}"/>
+		<arg type="com.atlassian.jira.issue.MutableIssue" value="${issue}"/>
+		<arg type="com.atlassian.jira.event.type.EventDispatchOption" value="${dispatchOption}"/>
+		<arg type="boolean" value="false"/>
+	</invoke>
+
+</JiraJelly>

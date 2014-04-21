@@ -1,0 +1,109 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" pluginsVersion="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+        <bundle-instructions>
+            <Export-Package>*</Export-Package>
+        </bundle-instructions>
+    </plugin-info>
+
+    <module-type key="cors-defaults" class="com.atlassian.plugins.rest.module.security.descriptor.CorsDefaultsModuleDescriptorImpl" />
+
+    <!-- host components -->
+    <component-import key="moduleFactory" interface="com.atlassian.plugin.module.ModuleFactory" />
+    <component-import key="pluginAccessor" interface="com.atlassian.plugin.PluginAccessor" />
+    <component-import key="servletModuleManager" interface="com.atlassian.plugin.servlet.ServletModuleManager" />
+    
+    <component-import key="requestFactory" interface="com.atlassian.sal.api.net.NonMarshallingRequestFactory"/>
+
+    <!-- imported here so that the generated spring config doesn't create a second entry -->
+    <component-import key="pluginEventManager" interface="com.atlassian.plugin.event.PluginEventManager"/>
+
+    <component key="activator" class="com.atlassian.plugins.rest.module.Activator" />
+
+    <component key="restRequestFactory"
+               class="com.atlassian.plugins.rest.module.jersey.JerseyRequestFactoryServiceFactory" public="true">
+        <interface>com.atlassian.sal.api.net.RequestFactory</interface>
+    </component>
+
+    <servlet-filter name="Rest Servlet Filter" key="rest-servlet-filter"
+                    class="com.atlassian.plugins.rest.module.servlet.RestServletUtilsUpdaterFilter"
+                    location="before-dispatch" weight="199">
+        <description>A simple filter to make some Servlet Context object available through Thread Locals</description>
+        <url-pattern>/rest/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </servlet-filter>
+
+    <servlet-filter name="Rest Container Servlet Filter - REQUEST" key="rest-container-servlet-filter-REQUEST"
+                    class="com.atlassian.plugins.rest.module.servlet.RestServletFilterModuleContainerServlet"
+                    location="before-dispatch" weight="200">
+        <description>The servlet module container for REST servlets created by each REST module.</description>
+        <url-pattern>/rest/*</url-pattern>
+        <init-param>
+            <param-name>location</param-name>
+            <param-value>before-dispatch</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dispatcher</param-name>
+            <param-value>REQUEST</param-value>
+        </init-param>
+        <dispatcher>REQUEST</dispatcher>
+    </servlet-filter>
+
+    <servlet-filter name="Rest Container Servlet Filter - FORWARD" key="rest-container-servlet-filter-FORWARD"
+                    class="com.atlassian.plugins.rest.module.servlet.RestServletFilterModuleContainerServlet"
+                    location="before-dispatch" weight="200">
+        <description>The servlet module container for REST servlets created by each REST module.</description>
+        <url-pattern>/rest/*</url-pattern>
+        <init-param>
+            <param-name>location</param-name>
+            <param-value>before-dispatch</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dispatcher</param-name>
+            <param-value>FORWARD</param-value>
+        </init-param>
+        <dispatcher>FORWARD</dispatcher>
+    </servlet-filter>
+
+    <servlet-filter name="Rest Container Servlet Filter - INCLUDE" key="rest-container-servlet-filter-INCLUDE"
+                    class="com.atlassian.plugins.rest.module.servlet.RestServletFilterModuleContainerServlet"
+                    location="before-dispatch" weight="200">
+        <description>The servlet module container for REST servlets created by each REST module.</description>
+        <url-pattern>/rest/*</url-pattern>
+        <init-param>
+            <param-name>location</param-name>
+            <param-value>before-dispatch</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dispatcher</param-name>
+            <param-value>INCLUDE</param-value>
+        </init-param>
+        <dispatcher>INCLUDE</dispatcher>
+    </servlet-filter>
+
+    <servlet-filter name="Rest Container Servlet Filter - ERROR" key="rest-container-servlet-filter-ERROR"
+                    class="com.atlassian.plugins.rest.module.servlet.RestServletFilterModuleContainerServlet"
+                    location="before-dispatch" weight="200">
+        <description>The servlet module container for REST servlets created by each REST module.</description>
+        <url-pattern>/rest/*</url-pattern>
+        <init-param>
+            <param-name>location</param-name>
+            <param-value>before-dispatch</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dispatcher</param-name>
+            <param-value>ERROR</param-value>
+        </init-param>
+        <dispatcher>ERROR</dispatcher>
+    </servlet-filter>
+
+    <servlet-filter name="Rest-Seraph integration" key="rest-seraph-filter" class="com.atlassian.plugins.rest.module.servlet.RestSeraphFilter"
+                    location="before-login" weight="1000">
+        <url-pattern>/rest/*</url-pattern>    
+    </servlet-filter>
+</atlassian-plugin>

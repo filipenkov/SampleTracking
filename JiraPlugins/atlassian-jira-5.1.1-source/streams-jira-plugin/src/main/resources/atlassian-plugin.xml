@@ -1,0 +1,624 @@
+<atlassian-plugin key="com.atlassian.streams.streams-jira-plugin" name="${project.name}" pluginsVersion="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <application-version min="4.1" />
+        <vendor name="Atlassian" url="http://www.atlassian.com/"/>
+    </plugin-info>
+
+    <!-- Streams components -->
+    <component-import key="streamsI18nResolver" interface="com.atlassian.streams.spi.StreamsI18nResolver" />
+    <component-import key="streamsEntryRendererFactory" interface="com.atlassian.streams.api.renderer.StreamsEntryRendererFactory" />
+
+    <!-- SAL components -->
+    <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties" />
+    <component-import key="timeZoneManager" interface="com.atlassian.sal.api.timezone.TimeZoneManager" />
+    <component-import key="userManager" interface="com.atlassian.sal.api.user.UserManager"/>
+
+    <component-import key="templateRendererFactory" interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRendererFactory" />
+    <component key="templateRenderer" class="com.atlassian.streams.spi.renderer.CachingTemplateRenderer" /> 
+
+    <!-- JIRA components -->
+    <component-import key="searchProvider" interface="com.atlassian.jira.issue.search.SearchProvider" />
+    <component-import key="jiraAuthContext" interface="com.atlassian.jira.security.JiraAuthenticationContext" />
+    <component-import key="projectService" interface="com.atlassian.jira.bc.project.ProjectService" />
+    <component-import key="projectManager" interface="com.atlassian.jira.project.ProjectManager" />
+    <component-import key="issueManager" interface="com.atlassian.jira.issue.IssueManager" />
+    <component-import key="changeHistoryManager" interface="com.atlassian.jira.issue.changehistory.ChangeHistoryManager" />
+    <component-import key="commentManager" interface="com.atlassian.jira.issue.comments.CommentManager" />
+    <component-import key="commentService" interface="com.atlassian.jira.bc.issue.comment.CommentService" />
+    <component-import key="permissionManager" interface="com.atlassian.jira.security.PermissionManager" />
+    <component-import key="userUtil" interface="com.atlassian.jira.user.util.UserUtil" />
+    <component-import key="rendererManager" interface="com.atlassian.jira.issue.RendererManager" />
+    <component-import key="constantsManager" interface="com.atlassian.jira.config.ConstantsManager" />
+    <component-import key="attachmentManager" interface="com.atlassian.jira.issue.AttachmentManager" />
+    <component-import key="remoteIssueLinkManager" interface="com.atlassian.jira.issue.link.RemoteIssueLinkManager" />
+    <component-import key="thumbnailManager" interface="com.atlassian.jira.issue.thumbnail.ThumbnailManager" />
+    <component-import key="jiraAppProperties" interface="com.atlassian.jira.config.properties.ApplicationProperties" />
+    <component-import key="emailFormatter" interface="com.atlassian.jira.util.EmailFormatter" />
+    <component-import key="propertySetFactory" interface="com.atlassian.jira.propertyset.JiraPropertySetFactory" />
+    <component-import key="issueTypeSchemeManager" interface="com.atlassian.jira.issue.fields.config.manager.IssueTypeSchemeManager" />
+    <component-import key="watcherManager" interface="com.atlassian.jira.issue.watchers.WatcherManager" />
+    <component-import key="voteManager" interface="com.atlassian.jira.issue.vote.VoteManager" />
+    <component-import key="outlookDateManager" interface="com.atlassian.jira.web.util.OutlookDateManager" />
+    <component-import key="avatarService" interface="com.atlassian.jira.avatar.AvatarService"/>
+    <component-import key="avatarManager" interface="com.atlassian.jira.avatar.AvatarManager"/>
+    <component-import key="fieldLayoutManager" interface="com.atlassian.jira.issue.fields.layout.field.FieldLayoutManager" />
+    <component-import key="versionService" interface="com.atlassian.jira.bc.project.version.VersionService" />
+    <component-import key="projectComponentManager" interface="com.atlassian.jira.bc.project.component.ProjectComponentManager" />
+    <component-import key="worklogManager" interface="com.atlassian.jira.issue.worklog.WorklogManager" />
+    <component-import key="dateTimeFormatterFactory" interface="com.atlassian.jira.datetime.DateTimeFormatterFactory" />
+
+    <!-- Gadgets components -->
+    <component-import key="gadgetViewFactory" interface="com.atlassian.gadgets.view.GadgetViewFactory" />
+    <component-import key="gadgetRequestContextFactory" interface="com.atlassian.gadgets.GadgetRequestContextFactory" />
+
+    <!-- Plugins components -->
+    <component-import key="webResourceManager" interface="com.atlassian.plugin.webresource.WebResourceManager" />
+
+    <activity-streams-provider key="issues" name="JIRA" i18n-name-key="streams.jira.provider.name"
+                       class="com.atlassian.streams.jira.JiraStreamsActivityProvider">
+        <filter-provider class="com.atlassian.streams.jira.JiraFilterOptionProvider" />
+        <validator class="com.atlassian.streams.jira.JiraStreamsValidator" />
+        <key-provider class="com.atlassian.streams.jira.JiraStreamsKeyProvider" />
+        <comment-handler class="com.atlassian.streams.jira.JiraStreamsCommentHandler" />
+        <entity-association-provider class="com.atlassian.streams.jira.JiraEntityAssociationProvider" />
+    </activity-streams-provider>
+
+    <component key="userProfileAccessor" name="User Profile Accessor"
+               class="com.atlassian.streams.jira.JiraUserProfileAccessor" public="true">
+        <interface>com.atlassian.streams.spi.UserProfileAccessor</interface>
+    </component>
+    
+    <component key="streamsLocaleProvider" name="Streams Locale Provider"
+               class="com.atlassian.streams.jira.JiraStreamsLocaleProvider" public="true">
+        <interface>com.atlassian.streams.spi.StreamsLocaleProvider</interface>
+    </component>
+
+    <component key="formatPreferenceProvider" name="Format Preference Provider"
+               class="com.atlassian.streams.jira.JiraFormatPreferenceProvider" public="true">
+        <interface>com.atlassian.streams.spi.FormatPreferenceProvider</interface>
+    </component>
+    
+    <component key="sessionManager" class="com.atlassian.streams.jira.JiraSessionManager" public="true">
+        <interface>com.atlassian.streams.spi.SessionManager</interface>
+    </component>
+
+    <component key="projectEntityResolver" class="com.atlassian.streams.jira.ProjectEntityResolver" public="true">
+        <interface>com.atlassian.streams.spi.EntityResolver</interface>
+    </component>
+
+    <component key="jiraEntryFactory" name="JIRA Entry Factory" class="com.atlassian.streams.jira.JiraEntryFactoryImpl" />
+    <component key="inlineActionHandler" class="com.atlassian.streams.jira.JiraInlineActionHandlerImpl" />
+    <component key="jiraActivityItemAggregator" name="Jira Activity Item Aggregator" class="com.atlassian.streams.jira.JiraActivityItemAggregatorImpl" />
+
+    <component key="projectKeys" class="com.atlassian.streams.jira.ProjectKeys" />
+    <component key="issueFinder" class="com.atlassian.streams.jira.search.IssueFinder" />
+    <component key="issueSearch" class="com.atlassian.streams.jira.search.IssueSearch" />
+    <component key="userHistory" class="com.atlassian.streams.jira.search.UserHistory" />
+    <component key="activityObjectBuilder" class="com.atlassian.streams.jira.builder.ActivityObjectBuilder" />
+    <component key="changeEntryBuilder" class="com.atlassian.streams.jira.builder.ChangeEntryBuilder" />
+    <component key="commentEntryBuilder" class="com.atlassian.streams.jira.builder.CommentEntryBuilder" />
+    <component key="createdEntryBuilder" class="com.atlassian.streams.jira.builder.CreatedEntryBuilder" />
+    <component key="generalUpdateEntryBuilder" class="com.atlassian.streams.jira.builder.GeneralUpdateEntryBuilder" />
+    <component key="issueUriBuilder" class="com.atlassian.streams.jira.UriProvider" />
+    <component key="jiraEntryBuilderFactory" class="com.atlassian.streams.jira.builder.JiraEntryBuilderFactory" />
+    <component key="jiraEntryBuilderHelper" class="com.atlassian.streams.jira.JiraHelper" />
+    <component key="statusChangeEntryBuilder" class="com.atlassian.streams.jira.builder.StatusChangeEntryBuilder" />
+    <component key="attachmentRendererFactory" class="com.atlassian.streams.jira.renderer.AttachmentRendererFactory" />
+    <component key="issueUpdateRendererFactory" class="com.atlassian.streams.jira.renderer.IssueUpdateRendererFactory" />
+    <component key="issueActivityObjectRendererFactory" class="com.atlassian.streams.jira.renderer.IssueActivityObjectRendererFactory" />
+    <component key="commentRendererFactory" class="com.atlassian.streams.jira.renderer.CommentRendererFactory" />
+    <component key="createdIssueRendererFactory" class="com.atlassian.streams.jira.renderer.CreatedIssueRendererFactory" />
+    <component key="issueTransitionRendererFactory" class="com.atlassian.streams.jira.renderer.IssueTransitionRendererFactory" />
+
+    <resource type="i18n" name="jira-i18n" location="com.atlassian.streams.jira.i18n"/>
+
+    <issue-tabpanel key="activity-stream-issue-tab"
+                    name="Activity Stream Issue Tab Panel"
+                    class="com.atlassian.streams.jira.portlet.ActivityStreamIssueTab">
+        <label key="stream.activity-stream-issue-tab.label"/>
+        <description key="stream.activity-stream-issue-tab.description"/>
+        <order>50</order>
+        <resource type="velocity"
+                  name="view"
+                  location="templates/portlets/activityfeed/activity-stream-issue-panel-view.vm"/>
+        <resource type="i18n" name="i18n" location="com.atlassian.streams.jira.i18n"/>
+        <supports-ajax-load>true</supports-ajax-load>
+    </issue-tabpanel>
+
+    <web-resource key="issue-tab-web-resources" name="Issue Tab Web Resources">
+        <context>jira.view.issue</context>
+        <dependency>com.atlassian.gadgets.embedded:gadget-standalone-resources</dependency>
+    </web-resource>
+
+    <web-resource key="date-js" name="Date JS">
+        <resource type="download" name="date-core.js" location="/js/datejs/core.js"/>
+    </web-resource>
+
+    <gadget key="activitystream-gadget" name="Activity Stream" location="gadgets/activitystream-gadget.xml">
+        <param name="roles-required">browse</param>
+    </gadget>
+
+    <resource type="download" name="images/" location="images/"/>
+
+    <web-resource key="date-af-ZA" name="Date JS: af-ZA">
+        <resource type="download" name="date.js" location="js/datejs/globalization/af-ZA.js"/>
+    </web-resource>
+    <web-resource key="date-ar-AE" name="Date JS: ar-AE">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ar-AE.js"/>
+    </web-resource>
+    <web-resource key="date-ar-BH" name="Date JS: ar-BH">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ar-BH.js"/>
+    </web-resource>
+    <web-resource key="date-ar-DZ" name="Date JS: ar-DZ">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ar-DZ.js"/>
+    </web-resource>
+    <web-resource key="date-ar-EG" name="Date JS: ar-EG">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ar-EG.js"/>
+    </web-resource>
+    <web-resource key="date-ar-IQ" name="Date JS: ar-IQ">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ar-IQ.js"/>
+    </web-resource>
+    <web-resource key="date-ar-JO" name="Date JS: ar-JO">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ar-JO.js"/>
+    </web-resource>
+    <web-resource key="date-ar-KW" name="Date JS: ar-KW">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ar-KW.js"/>
+    </web-resource>
+    <web-resource key="date-ar-LB" name="Date JS: ar-LB">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ar-LB.js"/>
+    </web-resource>
+    <web-resource key="date-ar-LY" name="Date JS: ar-LY">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ar-LY.js"/>
+    </web-resource>
+    <web-resource key="date-ar-MA" name="Date JS: ar-MA">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ar-MA.js"/>
+    </web-resource>
+    <web-resource key="date-ar-OM" name="Date JS: ar-OM">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ar-OM.js"/>
+    </web-resource>
+    <web-resource key="date-ar-QA" name="Date JS: ar-QA">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ar-QA.js"/>
+    </web-resource>
+    <web-resource key="date-ar-SA" name="Date JS: ar-SA">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ar-SA.js"/>
+    </web-resource>
+    <web-resource key="date-ar-SY" name="Date JS: ar-SY">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ar-SY.js"/>
+    </web-resource>
+    <web-resource key="date-ar-TN" name="Date JS: ar-TN">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ar-TN.js"/>
+    </web-resource>
+    <web-resource key="date-ar-YE" name="Date JS: ar-YE">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ar-YE.js"/>
+    </web-resource>
+    <web-resource key="date-az-Cyrl-AZ" name="Date JS: az-Cyrl-AZ">
+        <resource type="download" name="date.js" location="js/datejs/globalization/az-Cyrl-AZ.js"/>
+    </web-resource>
+    <web-resource key="date-az-Latn-AZ" name="Date JS: az-Latn-AZ">
+        <resource type="download" name="date.js" location="js/datejs/globalization/az-Latn-AZ.js"/>
+    </web-resource>
+    <web-resource key="date-be-BY" name="Date JS: be-BY">
+        <resource type="download" name="date.js" location="js/datejs/globalization/be-BY.js"/>
+    </web-resource>
+    <web-resource key="date-bg-BG" name="Date JS: bg-BG">
+        <resource type="download" name="date.js" location="js/datejs/globalization/bg-BG.js"/>
+    </web-resource>
+    <web-resource key="date-bs-Latn-BA" name="Date JS: bs-Latn-BA">
+        <resource type="download" name="date.js" location="js/datejs/globalization/bs-Latn-BA.js"/>
+    </web-resource>
+    <web-resource key="date-ca-ES" name="Date JS: ca-ES">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ca-ES.js"/>
+    </web-resource>
+    <web-resource key="date-cs-CZ" name="Date JS: cs-CZ">
+        <resource type="download" name="date.js" location="js/datejs/globalization/cs-CZ.js"/>
+    </web-resource>
+    <web-resource key="date-cy-GB" name="Date JS: cy-GB">
+        <resource type="download" name="date.js" location="js/datejs/globalization/cy-GB.js"/>
+    </web-resource>
+    <web-resource key="date-da-DK" name="Date JS: da-DK">
+        <resource type="download" name="date.js" location="js/datejs/globalization/da-DK.js"/>
+    </web-resource>
+    <web-resource key="date-de-AT" name="Date JS: de-AT">
+        <resource type="download" name="date.js" location="js/datejs/globalization/de-AT.js"/>
+    </web-resource>
+    <web-resource key="date-de-CH" name="Date JS: de-CH">
+        <resource type="download" name="date.js" location="js/datejs/globalization/de-CH.js"/>
+    </web-resource>
+    <web-resource key="date-de-DE" name="Date JS: de-DE">
+        <resource type="download" name="date.js" location="js/datejs/globalization/de-DE.js"/>
+    </web-resource>
+    <web-resource key="date-de-LI" name="Date JS: de-LI">
+        <resource type="download" name="date.js" location="js/datejs/globalization/de-LI.js"/>
+    </web-resource>
+    <web-resource key="date-de-LU" name="Date JS: de-LU">
+        <resource type="download" name="date.js" location="js/datejs/globalization/de-LU.js"/>
+    </web-resource>
+    <web-resource key="date-dv-MV" name="Date JS: dv-MV">
+        <resource type="download" name="date.js" location="js/datejs/globalization/dv-MV.js"/>
+    </web-resource>
+    <web-resource key="date-el-GR" name="Date JS: el-GR">
+        <resource type="download" name="date.js" location="js/datejs/globalization/el-GR.js"/>
+    </web-resource>
+    <web-resource key="date-en-029" name="Date JS: en-029">
+        <resource type="download" name="date.js" location="js/datejs/globalization/en-029.js"/>
+    </web-resource>
+    <web-resource key="date-en-AU" name="Date JS: en-AU">
+        <resource type="download" name="date.js" location="js/datejs/globalization/en-AU.js"/>
+    </web-resource>
+    <web-resource key="date-en-BZ" name="Date JS: en-BZ">
+        <resource type="download" name="date.js" location="js/datejs/globalization/en-BZ.js"/>
+    </web-resource>
+    <web-resource key="date-en-CA" name="Date JS: en-CA">
+        <resource type="download" name="date.js" location="js/datejs/globalization/en-CA.js"/>
+    </web-resource>
+    <web-resource key="date-en-UK" name="Date JS: en-UK">
+        <resource type="download" name="date.js" location="js/datejs/globalization/en-GB.js"/>
+    </web-resource>
+    <web-resource key="date-en-GB" name="Date JS: en-GB">
+        <resource type="download" name="date.js" location="js/datejs/globalization/en-GB.js"/>
+    </web-resource>
+    <web-resource key="date-en-IE" name="Date JS: en-IE">
+        <resource type="download" name="date.js" location="js/datejs/globalization/en-IE.js"/>
+    </web-resource>
+    <web-resource key="date-en-JM" name="Date JS: en-JM">
+        <resource type="download" name="date.js" location="js/datejs/globalization/en-JM.js"/>
+    </web-resource>
+    <web-resource key="date-en-NZ" name="Date JS: en-NZ">
+        <resource type="download" name="date.js" location="js/datejs/globalization/en-NZ.js"/>
+    </web-resource>
+    <web-resource key="date-en-PH" name="Date JS: en-PH">
+        <resource type="download" name="date.js" location="js/datejs/globalization/en-PH.js"/>
+    </web-resource>
+    <web-resource key="date-en-TT" name="Date JS: en-TT">
+        <resource type="download" name="date.js" location="js/datejs/globalization/en-TT.js"/>
+    </web-resource>
+    <web-resource key="date-en-US" name="Date JS: en-US">
+        <resource type="download" name="date.js" location="js/datejs/globalization/en-US.js"/>
+    </web-resource>
+    <web-resource key="date-en-ZA" name="Date JS: en-ZA">
+        <resource type="download" name="date.js" location="js/datejs/globalization/en-ZA.js"/>
+    </web-resource>
+    <web-resource key="date-en-ZW" name="Date JS: en-ZW">
+        <resource type="download" name="date.js" location="js/datejs/globalization/en-ZW.js"/>
+    </web-resource>
+    <web-resource key="date-es-AR" name="Date JS: es-AR">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-AR.js"/>
+    </web-resource>
+    <web-resource key="date-es-BO" name="Date JS: es-BO">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-BO.js"/>
+    </web-resource>
+    <web-resource key="date-es-CL" name="Date JS: es-CL">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-CL.js"/>
+    </web-resource>
+    <web-resource key="date-es-CO" name="Date JS: es-CO">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-CO.js"/>
+    </web-resource>
+    <web-resource key="date-es-CR" name="Date JS: es-CR">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-CR.js"/>
+    </web-resource>
+    <web-resource key="date-es-DO" name="Date JS: es-DO">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-DO.js"/>
+    </web-resource>
+    <web-resource key="date-es-EC" name="Date JS: es-EC">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-EC.js"/>
+    </web-resource>
+    <web-resource key="date-es-ES" name="Date JS: es-ES">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-ES.js"/>
+    </web-resource>
+    <web-resource key="date-es-GT" name="Date JS: es-GT">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-GT.js"/>
+    </web-resource>
+    <web-resource key="date-es-HN" name="Date JS: es-HN">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-HN.js"/>
+    </web-resource>
+    <web-resource key="date-es-MX" name="Date JS: es-MX">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-MX.js"/>
+    </web-resource>
+    <web-resource key="date-es-NI" name="Date JS: es-NI">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-NI.js"/>
+    </web-resource>
+    <web-resource key="date-es-PA" name="Date JS: es-PA">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-PA.js"/>
+    </web-resource>
+    <web-resource key="date-es-PE" name="Date JS: es-PE">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-PE.js"/>
+    </web-resource>
+    <web-resource key="date-es-PR" name="Date JS: es-PR">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-PR.js"/>
+    </web-resource>
+    <web-resource key="date-es-PY" name="Date JS: es-PY">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-PY.js"/>
+    </web-resource>
+    <web-resource key="date-es-SV" name="Date JS: es-SV">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-SV.js"/>
+    </web-resource>
+    <web-resource key="date-es-UY" name="Date JS: es-UY">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-UY.js"/>
+    </web-resource>
+    <web-resource key="date-es-VE" name="Date JS: es-VE">
+        <resource type="download" name="date.js" location="js/datejs/globalization/es-VE.js"/>
+    </web-resource>
+    <web-resource key="date-et-EE" name="Date JS: et-EE">
+        <resource type="download" name="date.js" location="js/datejs/globalization/et-EE.js"/>
+    </web-resource>
+    <web-resource key="date-eu-ES" name="Date JS: eu-ES">
+        <resource type="download" name="date.js" location="js/datejs/globalization/eu-ES.js"/>
+    </web-resource>
+    <web-resource key="date-fa-IR" name="Date JS: fa-IR">
+        <resource type="download" name="date.js" location="js/datejs/globalization/fa-IR.js"/>
+    </web-resource>
+    <web-resource key="date-fi-FI" name="Date JS: fi-FI">
+        <resource type="download" name="date.js" location="js/datejs/globalization/fi-FI.js"/>
+    </web-resource>
+    <web-resource key="date-fo-FO" name="Date JS: fo-FO">
+        <resource type="download" name="date.js" location="js/datejs/globalization/fo-FO.js"/>
+    </web-resource>
+    <web-resource key="date-fr-BE" name="Date JS: fr-BE">
+        <resource type="download" name="date.js" location="js/datejs/globalization/fr-BE.js"/>
+    </web-resource>
+    <web-resource key="date-fr-CA" name="Date JS: fr-CA">
+        <resource type="download" name="date.js" location="js/datejs/globalization/fr-CA.js"/>
+    </web-resource>
+    <web-resource key="date-fr-CH" name="Date JS: fr-CH">
+        <resource type="download" name="date.js" location="js/datejs/globalization/fr-CH.js"/>
+    </web-resource>
+    <web-resource key="date-fr-FR" name="Date JS: fr-FR">
+        <resource type="download" name="date.js" location="js/datejs/globalization/fr-FR.js"/>
+    </web-resource>
+    <web-resource key="date-fr-LU" name="Date JS: fr-LU">
+        <resource type="download" name="date.js" location="js/datejs/globalization/fr-LU.js"/>
+    </web-resource>
+    <web-resource key="date-fr-MC" name="Date JS: fr-MC">
+        <resource type="download" name="date.js" location="js/datejs/globalization/fr-MC.js"/>
+    </web-resource>
+    <web-resource key="date-gl-ES" name="Date JS: gl-ES">
+        <resource type="download" name="date.js" location="js/datejs/globalization/gl-ES.js"/>
+    </web-resource>
+    <web-resource key="date-gu-IN" name="Date JS: gu-IN">
+        <resource type="download" name="date.js" location="js/datejs/globalization/gu-IN.js"/>
+    </web-resource>
+    <web-resource key="date-he-IL" name="Date JS: he-IL">
+        <resource type="download" name="date.js" location="js/datejs/globalization/he-IL.js"/>
+    </web-resource>
+    <web-resource key="date-hi-IN" name="Date JS: hi-IN">
+        <resource type="download" name="date.js" location="js/datejs/globalization/hi-IN.js"/>
+    </web-resource>
+    <web-resource key="date-hr-BA" name="Date JS: hr-BA">
+        <resource type="download" name="date.js" location="js/datejs/globalization/hr-BA.js"/>
+    </web-resource>
+    <web-resource key="date-hr-HR" name="Date JS: hr-HR">
+        <resource type="download" name="date.js" location="js/datejs/globalization/hr-HR.js"/>
+    </web-resource>
+    <web-resource key="date-hu-HU" name="Date JS: hu-HU">
+        <resource type="download" name="date.js" location="js/datejs/globalization/hu-HU.js"/>
+    </web-resource>
+    <web-resource key="date-hy-AM" name="Date JS: hy-AM">
+        <resource type="download" name="date.js" location="js/datejs/globalization/hy-AM.js"/>
+    </web-resource>
+    <web-resource key="date-id-ID" name="Date JS: id-ID">
+        <resource type="download" name="date.js" location="js/datejs/globalization/id-ID.js"/>
+    </web-resource>
+    <web-resource key="date-is-IS" name="Date JS: is-IS">
+        <resource type="download" name="date.js" location="js/datejs/globalization/is-IS.js"/>
+    </web-resource>
+    <web-resource key="date-it-CH" name="Date JS: it-CH">
+        <resource type="download" name="date.js" location="js/datejs/globalization/it-CH.js"/>
+    </web-resource>
+    <web-resource key="date-it-IT" name="Date JS: it-IT">
+        <resource type="download" name="date.js" location="js/datejs/globalization/it-IT.js"/>
+    </web-resource>
+    <web-resource key="date-ja-JP" name="Date JS: ja-JP">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ja-JP.js"/>
+    </web-resource>
+    <web-resource key="date-ka-GE" name="Date JS: ka-GE">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ka-GE.js"/>
+    </web-resource>
+    <web-resource key="date-kk-KZ" name="Date JS: kk-KZ">
+        <resource type="download" name="date.js" location="js/datejs/globalization/kk-KZ.js"/>
+    </web-resource>
+    <web-resource key="date-kn-IN" name="Date JS: kn-IN">
+        <resource type="download" name="date.js" location="js/datejs/globalization/kn-IN.js"/>
+    </web-resource>
+    <web-resource key="date-ko-KR" name="Date JS: ko-KR">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ko-KR.js"/>
+    </web-resource>
+    <web-resource key="date-kok-IN" name="Date JS: kok-IN">
+        <resource type="download" name="date.js" location="js/datejs/globalization/kok-IN.js"/>
+    </web-resource>
+    <web-resource key="date-ky-KG" name="Date JS: ky-KG">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ky-KG.js"/>
+    </web-resource>
+    <web-resource key="date-lt-LT" name="Date JS: lt-LT">
+        <resource type="download" name="date.js" location="js/datejs/globalization/lt-LT.js"/>
+    </web-resource>
+    <web-resource key="date-lv-LV" name="Date JS: lv-LV">
+        <resource type="download" name="date.js" location="js/datejs/globalization/lv-LV.js"/>
+    </web-resource>
+    <web-resource key="date-mi-NZ" name="Date JS: mi-NZ">
+        <resource type="download" name="date.js" location="js/datejs/globalization/mi-NZ.js"/>
+    </web-resource>
+    <web-resource key="date-mk-MK" name="Date JS: mk-MK">
+        <resource type="download" name="date.js" location="js/datejs/globalization/mk-MK.js"/>
+    </web-resource>
+    <web-resource key="date-mn-MN" name="Date JS: mn-MN">
+        <resource type="download" name="date.js" location="js/datejs/globalization/mn-MN.js"/>
+    </web-resource>
+    <web-resource key="date-mr-IN" name="Date JS: mr-IN">
+        <resource type="download" name="date.js" location="js/datejs/globalization/mr-IN.js"/>
+    </web-resource>
+    <web-resource key="date-ms-BN" name="Date JS: ms-BN">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ms-BN.js"/>
+    </web-resource>
+    <web-resource key="date-ms-MY" name="Date JS: ms-MY">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ms-MY.js"/>
+    </web-resource>
+    <web-resource key="date-mt-MT" name="Date JS: mt-MT">
+        <resource type="download" name="date.js" location="js/datejs/globalization/mt-MT.js"/>
+    </web-resource>
+    <web-resource key="date-nb-NO" name="Date JS: nb-NO">
+        <resource type="download" name="date.js" location="js/datejs/globalization/nb-NO.js"/>
+    </web-resource>
+    <web-resource key="date-nl-BE" name="Date JS: nl-BE">
+        <resource type="download" name="date.js" location="js/datejs/globalization/nl-BE.js"/>
+    </web-resource>
+    <web-resource key="date-nl-NL" name="Date JS: nl-NL">
+        <resource type="download" name="date.js" location="js/datejs/globalization/nl-NL.js"/>
+    </web-resource>
+    <web-resource key="date-nn-NO" name="Date JS: nn-NO">
+        <resource type="download" name="date.js" location="js/datejs/globalization/nn-NO.js"/>
+    </web-resource>
+    <web-resource key="date-ns-ZA" name="Date JS: ns-ZA">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ns-ZA.js"/>
+    </web-resource>
+    <web-resource key="date-pa-IN" name="Date JS: pa-IN">
+        <resource type="download" name="date.js" location="js/datejs/globalization/pa-IN.js"/>
+    </web-resource>
+    <web-resource key="date-pl-PL" name="Date JS: pl-PL">
+        <resource type="download" name="date.js" location="js/datejs/globalization/pl-PL.js"/>
+    </web-resource>
+    <web-resource key="date-pt-BR" name="Date JS: pt-BR">
+        <resource type="download" name="date.js" location="js/datejs/globalization/pt-BR.js"/>
+    </web-resource>
+    <web-resource key="date-pt-PT" name="Date JS: pt-PT">
+        <resource type="download" name="date.js" location="js/datejs/globalization/pt-PT.js"/>
+    </web-resource>
+    <web-resource key="date-quz-BO" name="Date JS: quz-BO">
+        <resource type="download" name="date.js" location="js/datejs/globalization/quz-BO.js"/>
+    </web-resource>
+    <web-resource key="date-quz-EC" name="Date JS: quz-EC">
+        <resource type="download" name="date.js" location="js/datejs/globalization/quz-EC.js"/>
+    </web-resource>
+    <web-resource key="date-quz-PE" name="Date JS: quz-PE">
+        <resource type="download" name="date.js" location="js/datejs/globalization/quz-PE.js"/>
+    </web-resource>
+    <web-resource key="date-ro-RO" name="Date JS: ro-RO">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ro-RO.js"/>
+    </web-resource>
+    <web-resource key="date-ru-RU" name="Date JS: ru-RU">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ru-RU.js"/>
+    </web-resource>
+    <web-resource key="date-sa-IN" name="Date JS: sa-IN">
+        <resource type="download" name="date.js" location="js/datejs/globalization/sa-IN.js"/>
+    </web-resource>
+    <web-resource key="date-se-FI" name="Date JS: se-FI">
+        <resource type="download" name="date.js" location="js/datejs/globalization/se-FI.js"/>
+    </web-resource>
+    <web-resource key="date-se-NO" name="Date JS: se-NO">
+        <resource type="download" name="date.js" location="js/datejs/globalization/se-NO.js"/>
+    </web-resource>
+    <web-resource key="date-se-SE" name="Date JS: se-SE">
+        <resource type="download" name="date.js" location="js/datejs/globalization/se-SE.js"/>
+    </web-resource>
+    <web-resource key="date-sk-SK" name="Date JS: sk-SK">
+        <resource type="download" name="date.js" location="js/datejs/globalization/sk-SK.js"/>
+    </web-resource>
+    <web-resource key="date-sl-SI" name="Date JS: sl-SI">
+        <resource type="download" name="date.js" location="js/datejs/globalization/sl-SI.js"/>
+    </web-resource>
+    <web-resource key="date-sma-NO" name="Date JS: sma-NO">
+        <resource type="download" name="date.js" location="js/datejs/globalization/sma-NO.js"/>
+    </web-resource>
+    <web-resource key="date-sma-SE" name="Date JS: sma-SE">
+        <resource type="download" name="date.js" location="js/datejs/globalization/sma-SE.js"/>
+    </web-resource>
+    <web-resource key="date-smj-NO" name="Date JS: smj-NO">
+        <resource type="download" name="date.js" location="js/datejs/globalization/smj-NO.js"/>
+    </web-resource>
+    <web-resource key="date-smj-SE" name="Date JS: smj-SE">
+        <resource type="download" name="date.js" location="js/datejs/globalization/smj-SE.js"/>
+    </web-resource>
+    <web-resource key="date-smn-FI" name="Date JS: smn-FI">
+        <resource type="download" name="date.js" location="js/datejs/globalization/smn-FI.js"/>
+    </web-resource>
+    <web-resource key="date-sms-FI" name="Date JS: sms-FI">
+        <resource type="download" name="date.js" location="js/datejs/globalization/sms-FI.js"/>
+    </web-resource>
+    <web-resource key="date-sq-AL" name="Date JS: sq-AL">
+        <resource type="download" name="date.js" location="js/datejs/globalization/sq-AL.js"/>
+    </web-resource>
+    <web-resource key="date-sr-Cyrl-BA" name="Date JS: sr-Cyrl-BA">
+        <resource type="download" name="date.js" location="js/datejs/globalization/sr-Cyrl-BA.js"/>
+    </web-resource>
+    <web-resource key="date-sr-Cyrl-CS" name="Date JS: sr-Cyrl-CS">
+        <resource type="download" name="date.js" location="js/datejs/globalization/sr-Cyrl-CS.js"/>
+    </web-resource>
+    <web-resource key="date-sr-Latn-BA" name="Date JS: sr-Latn-BA">
+        <resource type="download" name="date.js" location="js/datejs/globalization/sr-Latn-BA.js"/>
+    </web-resource>
+    <web-resource key="date-sr-Latn-CS" name="Date JS: sr-Latn-CS">
+        <resource type="download" name="date.js" location="js/datejs/globalization/sr-Latn-CS.js"/>
+    </web-resource>
+    <web-resource key="date-sv-FI" name="Date JS: sv-FI">
+        <resource type="download" name="date.js" location="js/datejs/globalization/sv-FI.js"/>
+    </web-resource>
+    <web-resource key="date-sv-SE" name="Date JS: sv-SE">
+        <resource type="download" name="date.js" location="js/datejs/globalization/sv-SE.js"/>
+    </web-resource>
+    <web-resource key="date-sw-KE" name="Date JS: sw-KE">
+        <resource type="download" name="date.js" location="js/datejs/globalization/sw-KE.js"/>
+    </web-resource>
+    <web-resource key="date-syr-SY" name="Date JS: syr-SY">
+        <resource type="download" name="date.js" location="js/datejs/globalization/syr-SY.js"/>
+    </web-resource>
+    <web-resource key="date-ta-IN" name="Date JS: ta-IN">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ta-IN.js"/>
+    </web-resource>
+    <web-resource key="date-te-IN" name="Date JS: te-IN">
+        <resource type="download" name="date.js" location="js/datejs/globalization/te-IN.js"/>
+    </web-resource>
+    <web-resource key="date-th-TH" name="Date JS: th-TH">
+        <resource type="download" name="date.js" location="js/datejs/globalization/th-TH.js"/>
+    </web-resource>
+    <web-resource key="date-tn-ZA" name="Date JS: tn-ZA">
+        <resource type="download" name="date.js" location="js/datejs/globalization/tn-ZA.js"/>
+    </web-resource>
+    <web-resource key="date-tr-TR" name="Date JS: tr-TR">
+        <resource type="download" name="date.js" location="js/datejs/globalization/tr-TR.js"/>
+    </web-resource>
+    <web-resource key="date-tt-RU" name="Date JS: tt-RU">
+        <resource type="download" name="date.js" location="js/datejs/globalization/tt-RU.js"/>
+    </web-resource>
+    <web-resource key="date-uk-UA" name="Date JS: uk-UA">
+        <resource type="download" name="date.js" location="js/datejs/globalization/uk-UA.js"/>
+    </web-resource>
+    <web-resource key="date-ur-PK" name="Date JS: ur-PK">
+        <resource type="download" name="date.js" location="js/datejs/globalization/ur-PK.js"/>
+    </web-resource>
+    <web-resource key="date-uz-Cyrl-UZ" name="Date JS: uz-Cyrl-UZ">
+        <resource type="download" name="date.js" location="js/datejs/globalization/uz-Cyrl-UZ.js"/>
+    </web-resource>
+    <web-resource key="date-uz-Latn-UZ" name="Date JS: uz-Latn-UZ">
+        <resource type="download" name="date.js" location="js/datejs/globalization/uz-Latn-UZ.js"/>
+    </web-resource>
+    <web-resource key="date-vi-VN" name="Date JS: vi-VN">
+        <resource type="download" name="date.js" location="js/datejs/globalization/vi-VN.js"/>
+    </web-resource>
+    <web-resource key="date-xh-ZA" name="Date JS: xh-ZA">
+        <resource type="download" name="date.js" location="js/datejs/globalization/xh-ZA.js"/>
+    </web-resource>
+    <web-resource key="date-zh-CN" name="Date JS: zh-CN">
+        <resource type="download" name="date.js" location="js/datejs/globalization/zh-CN.js"/>
+    </web-resource>
+    <web-resource key="date-zh-HK" name="Date JS: zh-HK">
+        <resource type="download" name="date.js" location="js/datejs/globalization/zh-HK.js"/>
+    </web-resource>
+    <web-resource key="date-zh-MO" name="Date JS: zh-MO">
+        <resource type="download" name="date.js" location="js/datejs/globalization/zh-MO.js"/>
+    </web-resource>
+    <web-resource key="date-zh-SG" name="Date JS: zh-SG">
+        <resource type="download" name="date.js" location="js/datejs/globalization/zh-SG.js"/>
+    </web-resource>
+    <web-resource key="date-zh-TW" name="Date JS: zh-TW">
+        <resource type="download" name="date.js" location="js/datejs/globalization/zh-TW.js"/>
+    </web-resource>
+    <web-resource key="date-zu-ZA" name="Date JS: zu-ZA">
+        <resource type="download" name="date.js" location="js/datejs/globalization/zu-ZA.js"/>
+    </web-resource>
+    <web-resource key="date-default" name="Date JS: Default">
+        <resource type="download" name="date.js" location="js/datejs/globalization/en-US.js"/>
+    </web-resource>
+
+    <rest key="jira-rest" path="/jira-activity-stream" version="1.0" description="Provides REST API used for JIRA-specific tasks."/>
+</atlassian-plugin>

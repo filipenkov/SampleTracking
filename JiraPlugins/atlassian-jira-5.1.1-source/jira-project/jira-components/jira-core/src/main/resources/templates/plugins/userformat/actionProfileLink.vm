@@ -1,0 +1,22 @@
+#disable_html_escaping()
+#set ($quote = '"')
+#if ($username)
+    #if($user)
+        #set ($userHoverAttributes = "class=${quote}user-hover user-avatar${quote} rel=${quote}${textutils.htmlEncode($username)}${quote}")
+        #set($author = $textutils.htmlEncode($fullname))
+    #else
+        #set($author = $textutils.htmlEncode($username))
+    #end
+#else
+    #set($author = $i18n.getText('common.words.anonymous'))
+#end
+
+#if ($avatarURL)
+    #set ($avatarURL = $textutils.htmlEncode($avatarURL))
+#end
+
+#if($user)
+    <a $!{userHoverAttributes} style="background-image:url($!avatarURL);" id="$!{id}" href="${baseurl}/secure/ViewProfile.jspa?name=${velocityhelper.urlencode($username)}">${author}</a>
+#else
+    <span class="user-hover user-avatar" style="background-image:url($!avatarURL);">${author}</span>
+#end

@@ -1,0 +1,58 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ImporterProcessSupport" *#
+#*
+#
+# Configuration:
+# auiparams.description - form description
+# auiparams.instructions - form instructions
+# auiparams.steps - all wizard steps
+# auiparams.activeStep - current step
+# auiparams.onsubmit
+*#
+#foreach ($panel in $action.headerPanels)
+	<div>
+		$panel
+	</div>
+#end
+
+<form action="${action.actionName}.jspa?externalSystem=${action.externalSystem}"
+	  method="post" name="jiraform" class="aui long-label" #if ($action.getCurrentStep() == 1) enctype="multipart/form-data" #end
+    #if ($auiparams.onsubmit)
+        onsubmit="$auiparams.onsubmit"
+    #else
+        onsubmit="if (this.submitted) return false; this.submitted = true; return true"
+    #end
+    #if ($auiparams.jiraformId)
+        id="$auiparams.jiraformId"
+	#else
+		id="jimform"
+    #end
+    >
+    <input type="hidden" name="atl_token" value="$atl_token" />
+
+
+#if ($auiparams.title)
+	<h1>$i18n.getText($auiparams.title)</h1>
+#end
+
+#if ($textutils.stringSet($action.formDescription))
+<p>$action.formDescription</p>
+#end
+
+#if ($textutils.stringSet($auiparams.instructions))
+<p>$auiparams.instructions</p>
+#end
+
+#if ($auiparams.title || $textutils.stringSet($action.formDescription) || $textutils.stringSet($auiparams.instructions))
+<p>&nbsp;</p>
+#end
+
+#if ($action.getHasErrorMessages())
+	#foreach ($error in $action.getFlushedErrorMessages())
+		#if ($textutils.stringSet($!action.getHtmlHint(${error})))
+			#AUImessage("error" $textutils.htmlEncode(${error}) $!action.getHtmlHint(${error}) "" "" "" "false")
+		#else
+			#AUImessage("error" "" $textutils.htmlEncode(${error}) "" "" "" "false")
+		#end
+		#set ($varTitleText = "")
+	#end
+#end

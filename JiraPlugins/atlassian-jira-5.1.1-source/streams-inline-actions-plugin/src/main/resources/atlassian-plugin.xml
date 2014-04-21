@@ -1,0 +1,42 @@
+<atlassian-plugin key="com.atlassian.streams.actions" name="Streams Inline Actions Plugin" pluginsVersion="2">
+    <plugin-info>
+        <description>Streams Inline Actions Plugin</description>
+        <version>${project.version}</version>
+        <vendor name="Atlassian Software Systems Pty Ltd" url="http://www.atlassian.com/"/>
+    </plugin-info>
+    
+    <module-type key="action-handler-web-resource" class="com.atlassian.streams.action.modules.ActionHandlersWebResourceModuleDescriptor"/>
+    <module-type key="streams-action-handlers" class="com.atlassian.streams.action.modules.ActionHandlersModuleDescriptor"/>
+    
+    <component-import key="pluginAccessor" interface="com.atlassian.plugin.PluginAccessor" />
+    <component-import key="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver"/>
+    <component-import key="streamsLocaleProvider" interface="com.atlassian.streams.spi.StreamsLocaleProvider" />
+    
+    <component key="actionHandlerAccessor" class="com.atlassian.streams.action.ActionHandlerAccessorImpl" public="true">
+        <interface>com.atlassian.streams.action.ActionHandlerAccessor</interface>
+    </component>
+
+    <web-resource key="inlineActionsJs" name="Inline Actions JS">
+        <resource type="download" name="inline-actions.js" location="/js/inline-actions/inline-actions.js"/>
+        <resource type="download" name="action-i18n.js" location="/js/inline-actions/action-i18n.js"/>
+    </web-resource>
+    
+    <action-handler-web-resource key="actionHandlerWebResources" name="Action Handler Web Resources">
+        <!-- action handler resources will be dynamically located from other plugins enabled for this application -->
+    </action-handler-web-resource>
+
+    <streams-action-handlers key="commentActionHandlers">
+        <transformation extension="i18n.js">
+            <transformer key="action-i18n-transformer" />
+        </transformation>
+
+        <resource type="download" name="streams.comment.action.i18n.js" location="/js/inline-actions/streams.comment.action.i18n.js"/>
+        <resource type="download" name="comment.js" location="/js/inline-actions/comment.js"/>
+        <resource type="download" name="comment.css" location="/css/streams/comment.css"/>
+    </streams-action-handlers>
+
+    <web-resource-transformer key="action-i18n-transformer" class="com.atlassian.streams.action.ActionHandlerI18nTransformer" />
+
+    <resource type="i18n" name="inline-actions-i18n" location="com.atlassian.streams.inline-actions.i18n"/>
+
+</atlassian-plugin>

@@ -1,0 +1,100 @@
+#enable_html_escaping()
+#* @vtlvariable name="issuetypes" type="java.util.List<com.atlassian.jira.projectconfig.contextproviders.ProjectIssueTypeContextProvider.ProjectIssueType>" *#
+<div id="project-config-panel-issuetypes" class="project-config-panel">
+    <div class="project-config-panel-header project-config-icon48-issuetypes">
+        #if ($isAdmin)
+            <ul class="operation-menu">
+                <li class="aui-dd-parent">
+                    <a class="operations-menu-link project-config-operations-trigger" id="project-config-tab-actions" href="#"><span class="project-config-icon project-config-icon-manage"></span>Actions <span class="project-config-icon project-config-icon-drop"></span></a>
+                    <div class="aui-list hidden" id="project-config-tab-actions-list">
+                        <ul class="aui-list-section aui-first aui-last">
+                            <li class="aui-list-item">
+                                <a id="project-config-issuetype-scheme-edit" class="aui-list-item-link" data-id="${issueTypeScheme.id}" href="${baseurl}/secure/admin/ConfigureOptionSchemes!default.jspa?fieldId=issuetype&schemeId=${issueTypeScheme.id}&projectId=${project.id}">$i18n.getText('admin.project.issuetypes.edit')</a>
+                            </li>
+                            <li class="aui-list-item">
+                                <a id="project-config-issuetype-scheme-change" class="aui-list-item-link" data-id="${project.id}" href="${baseurl}/secure/admin/SelectIssueTypeSchemeForProject!default.jspa?projectId=${project.id}">$i18n.getText('admin.project.config.change.scheme')</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        #end
+        <span>$i18n.getText('admin.menu.issuesettings.issue.types')</span>
+        <h2 class="project-config-scheme-heading">
+            #set ($hasSchemeDescription = ${issueTypeScheme.description} && ${issueTypeScheme.description} != "")
+            <span id="project-config-issuetype-scheme-name" class="project-config-scheme-name"#if($hasSchemeDescription) title="${issueTypeScheme.description}"#end>${issueTypeScheme.name}</span>
+        </h2>
+        <p>
+            $i18n.getText('admin.project.config.summary.issuetypes.desc')
+            <br/>
+            $i18n.getText('admin.project.config.summary.issuetypes.desc.extended')
+        </p>
+    </div>
+
+    <table id="project-config-issuetypes-table" border="0" cellpadding="0" cellspacing="0" class="aui project-config-datatable project-config-issuetypes">
+        <thead>
+            <tr>
+                <th></th>
+                <th>$i18n.getText('common.concepts.issuetype')</th>
+                <th>$i18n.getText('common.concepts.description')</th>
+                <th>$i18n.getText('admin.project.config.summary.issue.type.workflow.heading')</th>
+                <th>$i18n.getText('admin.project.config.summary.issue.type.field.config.heading')</th>
+                <th>$i18n.getText('admin.project.config.summary.issue.type.screen.heading')</th>
+            </tr>
+        </thead>
+        <tbody>
+        #foreach($issueType in $issueTypes)
+            <tr class="project-config-issuetype">
+                <td>${issueConstantWebComponent.getHtml(${issueType.constant}, 'project-config-icon-issuetype')}</td>
+                <td class="project-config-issuetype-name nowrap">
+                    <span class="project-config-issuetype-name" title="$!{issueType.description}">${issueType.name}</span>
+                    #if(${issueType.subTask})
+                        <span class="project-config-issuetype-subtask">(${i18n.getText("admin.issue.constant.subtask")})</span>
+                    #end
+                    #if(${issueType.defaultIssueType})
+                        <span class="project-config-issuetype-default">(${i18n.getText("common.words.default")})</span>
+                    #end
+                </td>
+                <td class="project-config-issuetype-description">
+                    <span class="project-config-issuetype-description">$issueType.description</span>
+                </td>
+                <td class="project-config-issuetype-workflow">
+                    <span class="project-config-workflow">
+                        #if ($isAdmin)
+                            <a class="project-config-issuetype-workflow" href="${baseurl}/secure/admin/workflows/ViewWorkflowSteps.jspa?workflowMode=live&workflowName=$urlcodec.encode($issueType.workflowName)"><span class="project-config-icon project-config-icon-workflow"></span>$issueType.workflowName</a>
+                        #else
+                            <span class="project-config-issuetype-workflow"><span class="project-config-icon project-config-icon-workflow"></span>$issueType.workflowName</span>
+                        #end
+                    </span>
+                </td>
+                <td class="project-config-issuetype-field-layout nowrap">
+                    <span class="project-config-field">
+                        #if($issueType.fieldLayout.name)
+                            #if ($isAdmin)
+                                <a class="project-config-issuetype-field-layout" href="${baseurl}/secure/admin/ConfigureFieldLayout!default.jspa?id=$issueType.fieldLayout.id"><span class="project-config-icon project-config-icon-field"></span>$issueType.fieldLayout.name</a>
+                            #else
+                                <span class="project-config-issuetype-field-layout"><span class="project-config-icon project-config-icon-field"></span>$issueType.fieldLayout.name</span>
+                            #end
+                        #else
+                            #if ($isAdmin)
+                                <a class="project-config-issuetype-field-layout" href="${baseurl}/secure/admin/ConfigureFieldLayout!default.jspa"><span class="project-config-icon project-config-icon-field"></span>$i18n.getText('admin.projects.system.default.field.config')</a>
+                            #else
+                                <span class="project-config-issuetype-field-layout"><span class="project-config-icon project-config-icon-field"></span>$i18n.getText('admin.projects.system.default.field.config')</span>
+                            #end
+                        #end
+                    </span>
+                </td>
+                <td class="project-config-issuetype-screen nowrap">
+                    <span class="project-config-screen">
+                        #if ($isAdmin)
+                            <a class="project-config-issuetype-screen" href="${baseurl}/secure/admin/ConfigureFieldScreenScheme.jspa?id=$issueType.fieldScreenScheme.id"><span class="project-config-icon project-config-icon-screen"></span>$issueType.fieldScreenScheme.name</a>
+                        #else
+                            <span class="project-config-issuetype-screen"><span class="project-config-icon project-config-icon-screen"></span>$issueType.fieldScreenScheme.name</span>
+                        #end
+                    </span>
+                </td>
+            </tr>
+        #end
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,220 @@
+    #set ($hoursRange = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+    <label><input value="daily" name="${paramPrefix}dailyWeeklyMonthly" onclick="switchToDaily('${paramPrefix}');" type="radio" #if($cronEditorBean.isDailyMode())checked #end>
+    $i18n.getText('cron.editor.daily')</label>
+    <label><input value="daysOfWeek" name="${paramPrefix}dailyWeeklyMonthly" onclick="switchToDaysOfWeek('${paramPrefix}');" type="radio" #if($cronEditorBean.isDayPerWeekMode())checked #end>
+    $i18n.getText('cron.editor.days.per.week')</label>
+    <label><input value="daysOfMonth" name="${paramPrefix}dailyWeeklyMonthly" onclick="switchToDaysOfMonth('${paramPrefix}');" type="radio" #if($cronEditorBean.isDaysPerMonthMode())checked #end>
+    $i18n.getText('cron.editor.days.per.month')</label>
+    <label><input value="advanced" name="${paramPrefix}dailyWeeklyMonthly" onclick="switchToAdvanced('${paramPrefix}');" type="radio" #if($cronEditorBean.isAdvancedMode())checked #end>
+    $i18n.getText('cron.editor.advanced')</label>
+    <br/>
+    <div style="display: none;" id="${paramPrefix}daysOfWeek">
+        <table>
+        <tbody>
+            <tr>
+                <td><label><input name="${paramPrefix}weekday" value="2" type="checkbox" #if ($cronEditorBean.isDaySpecified("2")) checked #end>$i18n.getText("cron.editor.monday")</label><br/></td>
+                <td><label><input name="${paramPrefix}weekday" value="7" type="checkbox" #if ($cronEditorBean.isDaySpecified("7")) checked #end>$i18n.getText("cron.editor.saturday")</label><br/></td>
+            </tr>
+            <tr>
+                <td><label><input name="${paramPrefix}weekday" value="3" type="checkbox" #if ($cronEditorBean.isDaySpecified("3")) checked #end>$i18n.getText("cron.editor.tuesday")</label><br/></td>
+                <td><label><input name="${paramPrefix}weekday" value="1" type="checkbox" #if ($cronEditorBean.isDaySpecified("1")) checked #end>$i18n.getText("cron.editor.sunday")</label><br/></td>
+            </tr>
+            <tr>
+                <td><label><input name="${paramPrefix}weekday" value="4" type="checkbox" #if ($cronEditorBean.isDaySpecified("4")) checked #end>$i18n.getText("cron.editor.wednesday")</label><br/></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label><input name="${paramPrefix}weekday" value="5" type="checkbox" #if ($cronEditorBean.isDaySpecified("5")) checked #end>$i18n.getText("cron.editor.thursday")</label><br/></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label><input name="${paramPrefix}weekday" value="6" type="checkbox" #if ($cronEditorBean.isDaySpecified("6")) checked #end>$i18n.getText("cron.editor.friday")</label><br/></td>
+                <td></td>
+            </tr>
+        </tbody></table>
+    </div>
+    <div style="display: none;" id="${paramPrefix}daysOfMonth">
+        #set ($quote = '"')
+        <table>
+            <tbody>
+            <tr>
+                <td>
+                    <input value="dayOfMonth" name="${paramPrefix}daysOfMonthOpt" id="${paramPrefix}dayOfMonthRadio" type="radio" #if (!$cronEditorBean.dayOfWeekOfMonth) checked #end>
+                </td>
+                <td>
+                    ## This is not cool, so that we can i18n it correctly the select needs to be a velocity string and on the same line
+                    $i18n.getText("cron.editor.the.day.of.every.month", "<select id='${paramPrefix}monthDay' onchange=${quote}getElementById('${paramPrefix}dayOfMonthRadio').checked = true;${quote} name='${paramPrefix}monthDay'> <option value='1'>$i18n.getText('cron.editor.nth.1')</option> <option value='2'>$i18n.getText('cron.editor.nth.2')</option> <option value='3'>$i18n.getText('cron.editor.nth.3')</option> <option value='4'>$i18n.getText('cron.editor.nth.4')</option> <option value='5'>$i18n.getText('cron.editor.nth.5')</option> <option value='6'>$i18n.getText('cron.editor.nth.6')</option> <option value='7'>$i18n.getText('cron.editor.nth.7')</option> <option value='8'>$i18n.getText('cron.editor.nth.8')</option> <option value='9'>$i18n.getText('cron.editor.nth.9')</option> <option value='10'>$i18n.getText('cron.editor.nth.10')</option> <option value='11'>$i18n.getText('cron.editor.nth.11')</option> <option value='12'>$i18n.getText('cron.editor.nth.12')</option> <option value='13'>$i18n.getText('cron.editor.nth.13')</option> <option value='14'>$i18n.getText('cron.editor.nth.14')</option> <option value='15'>$i18n.getText('cron.editor.nth.15')</option> <option value='16'>$i18n.getText('cron.editor.nth.16')</option> <option value='17'>$i18n.getText('cron.editor.nth.17')</option> <option value='18'>$i18n.getText('cron.editor.nth.18')</option> <option value='19'>$i18n.getText('cron.editor.nth.19')</option> <option value='20'>$i18n.getText('cron.editor.nth.20')</option> <option value='21'>$i18n.getText('cron.editor.nth.21')</option> <option value='22'>$i18n.getText('cron.editor.nth.22')</option> <option value='23'>$i18n.getText('cron.editor.nth.23')</option> <option value='24'>$i18n.getText('cron.editor.nth.24')</option> <option value='25'>$i18n.getText('cron.editor.nth.25')</option> <option value='26'>$i18n.getText('cron.editor.nth.26')</option> <option value='27'>$i18n.getText('cron.editor.nth.27')</option> <option value='28'>$i18n.getText('cron.editor.nth.28')</option> <option value='29'>$i18n.getText('cron.editor.nth.29')</option> <option value='30'>$i18n.getText('cron.editor.nth.30')</option> <option value='31'>$i18n.getText('cron.editor.nth.31')</option> <option value='L'>$i18n.getText('cron.editor.nth.L')</option> </select>")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input value="dayOfWeekOfMonth" name="${paramPrefix}daysOfMonthOpt" id="${paramPrefix}dayOfWeekOfMonthRadio" type="radio" #if ($cronEditorBean.dayOfWeekOfMonth) checked #end>
+                </td>
+                <td>
+                    ## This is not cool, so that we can i18n it correctly the select needs to be a velocity string and on the same line
+                    $i18n.getText("cron.editor.the.of.every.month", " <select name='${paramPrefix}week' id='${paramPrefix}week' onchange=${quote}getElementById('${paramPrefix}dayOfWeekOfMonthRadio').checked = true;${quote}> <option value='1'>$i18n.getText('cron.editor.ordinal.1')</option> <option value='2'>$i18n.getText('cron.editor.ordinal.2')</option> <option value='3'>$i18n.getText('cron.editor.ordinal.3')</option> <option value='4'>$i18n.getText('cron.editor.ordinal.4')</option> <option value='L'>$i18n.getText('cron.editor.ordinal.L')</option> </select> <select name='${paramPrefix}day' id='${paramPrefix}day' onchange=${quote}getElementById('${paramPrefix}dayOfWeekOfMonthRadio').checked = true;${quote}> <option value='1'>$i18n.getText('cron.editor.sunday')</option> <option value='2'>$i18n.getText('cron.editor.monday')</option> <option value='3'>$i18n.getText('cron.editor.tuesday')</option> <option value='4'>$i18n.getText('cron.editor.wednesday')</option> <option value='5'>$i18n.getText('cron.editor.thursday')</option> <option value='6'>$i18n.getText('cron.editor.friday')</option> <option value='7'>$i18n.getText('cron.editor.saturday')</option> </select>").
+                </td>
+            </tr>
+        </tbody></table>
+    </div>
+    <div style="" id="${paramPrefix}freqDiv">
+        <div style="" id="${paramPrefix}innerFreqDiv">
+            <table>
+                <tbody><tr>
+                    <td>
+            $i18n.getText("cron.editor.interval"):
+            <select id="${paramPrefix}interval" name="${paramPrefix}interval" onChange="toggleFrequencyControl('${paramPrefix}', true);">
+                <option #if($cronEditorBean.incrementInMinutes.equals("0"))selected#end label="once" value="0">$i18n.getText("cron.editor.once.per.day")</option>
+                <option #if($cronEditorBean.incrementInMinutes.equals("180"))selected#end label="3hours" value="180">$i18n.getText("cron.editor.every.3.hours")</option>
+                <option #if($cronEditorBean.incrementInMinutes.equals("120"))selected#end label="2hours" value="120">$i18n.getText("cron.editor.every.2.hours")</option>
+                <option #if($cronEditorBean.incrementInMinutes.equals("60"))selected#end label="1hour" value="60">$i18n.getText("cron.editor.every.hour")</option>
+                <option #if($cronEditorBean.incrementInMinutes.equals("30"))selected#end label="30min" value="30">$i18n.getText("cron.editor.every.30.minutes")</option>
+                <option #if($cronEditorBean.incrementInMinutes.equals("15"))selected#end label="15min" value="15">$i18n.getText("cron.editor.every.15.minutes")</option>
+            </select>
+                    </td>
+                </tr>
+            </tbody></table>
+        </div>
+        <div id="${paramPrefix}runOnce">
+            <table>
+                <tbody><tr>
+                    <td>$i18n.getText("cron.editor.at"):</td>
+                    <td>
+                        <select name="${paramPrefix}runOnceHours">
+                            #foreach ($idx in $hoursRange)
+                                <option #if($cronEditorBean.hoursRunOnce.equals("$idx"))selected #end value="$idx">$i18n.getText("cron.editor.$idx")</option>
+                            #end
+                        </select>
+                    </td>
+                    <td class="noPaddingCron">:</td>
+                    <td>
+                        <select name="${paramPrefix}runOnceMins">
+                            <option #if($cronEditorBean.minutes.equals("0"))selected #end value="0">$i18n.getText("cron.editor.minutes.00")</option>
+                            <option #if($cronEditorBean.minutes.equals("5"))selected #end value="5">$i18n.getText("cron.editor.minutes.05")</option>
+                            <option #if($cronEditorBean.minutes.equals("10"))selected #end value="10">$i18n.getText("cron.editor.minutes.10")</option>
+                            <option #if($cronEditorBean.minutes.equals("15"))selected #end value="15">$i18n.getText("cron.editor.minutes.15")</option>
+                            <option #if($cronEditorBean.minutes.equals("20"))selected #end value="20">$i18n.getText("cron.editor.minutes.20")</option>
+                            <option #if($cronEditorBean.minutes.equals("25"))selected #end value="25">$i18n.getText("cron.editor.minutes.25")</option>
+                            <option #if($cronEditorBean.minutes.equals("30"))selected #end value="30">$i18n.getText("cron.editor.minutes.30")</option>
+                            <option #if($cronEditorBean.minutes.equals("35"))selected #end value="35">$i18n.getText("cron.editor.minutes.35")</option>
+                            <option #if($cronEditorBean.minutes.equals("40"))selected #end value="40">$i18n.getText("cron.editor.minutes.40")</option>
+                            <option #if($cronEditorBean.minutes.equals("45"))selected #end value="45">$i18n.getText("cron.editor.minutes.45")</option>
+                            <option #if($cronEditorBean.minutes.equals("50"))selected #end value="50">$i18n.getText("cron.editor.minutes.50")</option>
+                            <option #if($cronEditorBean.minutes.equals("55"))selected #end value="55">$i18n.getText("cron.editor.minutes.55")</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="${paramPrefix}runOnceMeridian">
+                            <option #if($cronEditorBean.hoursRunOnceMeridian && $cronEditorBean.hoursRunOnceMeridian.equals("am"))selected #end label="am" value="am">$i18n.getText("cron.editor.meridian.am")</option>
+                            <option #if($cronEditorBean.hoursRunOnceMeridian && $cronEditorBean.hoursRunOnceMeridian.equals("pm"))selected #end label="pm" value="pm">$i18n.getText("cron.editor.meridian.pm")</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody></table>
+        </div>
+        <div style="display: none;" id="${paramPrefix}runMany">
+            <table>
+                <tbody><tr>
+                    <td>$i18n.getText("cron.editor.from"):</td>
+                    <td>
+                        <select name="${paramPrefix}runFromHours">
+                            #foreach ($idx in $hoursRange)
+                                <option #if($cronEditorBean.hoursFrom.equals("$idx"))selected #end value="$idx">$i18n.getText("cron.editor.$idx")</option>
+                            #end
+                        </select>
+                    </td>
+                    <td class="noPaddingCron">:</td>
+                    <td><input name="${paramPrefix}runFromMins" size="2" maxlength="2" value="00" disabled="disabled"></td>
+                    <td>
+                        <select name="${paramPrefix}runFromMeridian">
+                            <option #if($cronEditorBean.hoursFromMeridian && $cronEditorBean.hoursFromMeridian.equals("am"))selected #end label="am" value="am">am</option>
+                            <option #if($cronEditorBean.hoursFromMeridian && $cronEditorBean.hoursFromMeridian.equals("pm"))selected #end label="pm" value="pm">pm</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>$i18n.getText("cron.editor.to"):</td>
+                    <td>
+                        <select name="${paramPrefix}runToHours">
+                            #foreach ($idx in $hoursRange)
+                                <option #if($cronEditorBean.hoursTo.equals("$idx"))selected #end value="$idx">$i18n.getText("cron.editor.$idx")</option>
+                            #end
+                        </select>
+                    </td>
+                    <td class="noPaddingCron">:</td>
+                    <td><input name="${paramPrefix}runToMins" size="2" maxlength="2" value="00" disabled="disabled"></td>
+                    <td>
+                        <select name="${paramPrefix}runToMeridian">
+                            <option #if($cronEditorBean.hoursToMeridian && $cronEditorBean.hoursToMeridian.equals("am"))selected #end label="am" value="am">$i18n.getText("cron.editor.meridian.am")</option>
+                            <option #if($cronEditorBean.hoursToMeridian && $cronEditorBean.hoursToMeridian.equals("pm"))selected #end label="pm" value="pm">$i18n.getText("cron.editor.meridian.pm")</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody></table>
+        </div>
+    </div>
+    <div style="display: none;" id="${paramPrefix}advanced">
+        <table>
+            <tbody><tr>
+                <td>$i18n.getText("cron.editor.cronstring"):</td>
+                <td>
+                    <input type="text" size="30" id="${paramPrefix}cronString" name="${paramPrefix}cronString" #if ($cronEditorBean.isAdvancedMode()) value="$cronEditorBean.cronString" #end/> #jiraHelpLink ('issue_filters_subscribing' '')
+                </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <span class="red-highlight-small">$i18n.getText("common.words.note"):</span><span class="small">$i18n.getText("cron.editor.current.server.time") $currentTime - $timezone</span>    
+    <script type="text/javascript" language="JavaScript">
+
+        if (! timesOnce)
+        {
+            var timesOnce = new Object();
+        }
+        timesOnce["${paramPrefix}"] = #if($cronEditorBean.getIncrementInMinutes().equals("0"))true #else false#end;
+
+        ## Sneaky way of setting the selected value since the select is defined in
+        day = "$cronEditorBean.dayOfMonth";
+        if (day != "*" && day != "?")
+        {
+            ## handle last day special case - cron uses L to indicate this
+            if (day == "L")
+            {
+                day = 32; ## one larger than last day of month 31
+            }
+            document.getElementById("${paramPrefix}monthDay").selectedIndex=day -1;
+        }
+
+        #if($cronEditorBean.isDaysPerMonthMode())
+            ## Sneaky way of setting the selected value for the day of week
+            weekDay = "$cronEditorBean.specifiedDaysPerWeek";
+            document.getElementById("${paramPrefix}day").selectedIndex = weekDay - 1;
+            ## Sneaky way of setting the selected value for the times per month
+            timesPerMonth = "$!cronEditorBean.dayInMonthOrdinal";
+            if (timesPerMonth)
+            {
+                ## handle last day special case - cron uses L to indicate this
+                if (timesPerMonth == "L")
+                {
+                    timesPerMonth = 5; ## one larger than last times per month available
+                }
+                document.getElementById("${paramPrefix}week").selectedIndex = timesPerMonth - 1;
+            }
+        #end
+
+        #if($cronEditorBean.isDailyMode())
+            switchToDaily('${paramPrefix}');
+        #elseif($cronEditorBean.isDayPerWeekMode())
+            switchToDaysOfWeek('${paramPrefix}');
+        #elseif($cronEditorBean.isDaysPerMonthMode())
+            switchToDaysOfMonth('${paramPrefix}');
+        #elseif($cronEditorBean.isAdvancedMode())
+            switchToAdvanced('${paramPrefix}');
+        #end
+
+        #if($cronEditorBean.getIncrementInMinutes().equals("0") || $cronEditorBean.isDaysPerMonthMode())
+            switchToOnce('${paramPrefix}', false);
+        #else
+            switchToMany('${paramPrefix}', false);
+        #end
+    </script>

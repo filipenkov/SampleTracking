@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MDIWindow xmlns="flexlib.mdi.containers.*"
+           xmlns:mx="http://www.adobe.com/2006/mxml"
+           resizable="true"
+           showCloseButton="true"
+           showControls="true"
+           doubleClickEnabled="false"
+           close="{doClose(event);}"
+           creationComplete="init();"
+           headerHeight="18"
+           minWidth="100"
+           minHeight="50">
+
+    <mx:Script><![CDATA[
+        import com.sysbliss.diagram.Diagram;
+        import com.sysbliss.diagram.data.Annotation;
+        import com.sysbliss.diagram.event.DiagramAnnotationEvent;
+        import com.sysbliss.diagram.event.DiagramEvent;
+        import com.sysbliss.diagram.util.ObjectChainUtil;
+        import com.sysbliss.jira.workflow.Il8n.INiceResourceManager;
+        import com.sysbliss.jira.workflow.Il8n.NiceResourceManager;
+
+        use namespace mx_internal;
+
+        [Bindable]
+        public var noteText:String;
+
+        private var _annotation:Annotation;
+
+        private var _diagram:Diagram;
+
+        private const niceResourceManager:INiceResourceManager = NiceResourceManager.getInstance();
+
+        private function init():void {
+            //if we have a non-blank annotation, default to view, otherwise we're creating a new one.
+            if(_annotation && annotation.data && annotation.data.description && annotation.data.description != "") {
+                noteText = annotation.data.description;
+                viewText.visible = true;
+                editText.visible = false;
+            } else {
+                stage.addEventListener(MouseEvent.MOUSE_UP, onStageClick);
+                editText.setFocus();
+                editText.text = niceResourceManager.getString('json', 'workflow.designer.annotation.enter.text');
+                editText.setSelection(0, editText.text.length);
+            }
+
+        }
+
+
+        public function get annotation():Annotation {
+            return _annotation;
+        }
+
+        public function set annotation(value:Annotation):void {
+            _annotation = value;
+            if (_annotation.data.description && _annotation.data.description != "") {
+                noteText = _annotation.data.description;
+            }
+        }
+
+
+        public function get diagram():Diagram {
+            return _diagram;
+        }
+
+        public function set diagram(value:Diagram):void {
+            _diagram = value;
+        }
+
+        public function doClose(e:Event):void {
+            e.stopImmediatePropagation();
+            e.stopPropagation();
+            diagram.dispatchEvent(new DiagramAnnotationEvent(DiagramEvent.ANNOTATION_DELETED, this));
+        }
+
+        public function onStageClick(e:MouseEvent):void {
+            if (!ObjectChainUtil.ancestorsContainInstance(e.target, editText)) {
+                showView();
+            }
+        }
+
+        public function showEdit():void {
+            viewText.visible = false;
+            editText.visible = true;
+            stage.addEventListener(MouseEvent.MOUSE_UP, onStageClick);
+
+        }
+
+        public function showView():void {
+            stage.removeEventListener(MouseEvent.MOUSE_UP, onStageClick);
+            viewText.visible = true;
+            editText.visible = false;
+            annotation.data.description = noteText;
+            diagram.dispatchEvent(new DiagramAnnotationEvent(DiagramEvent.ANNOTATION_UPDATED, this));
+        }
+        ]]></mx:Script>
+
+    <mx:Canvas width="100%" height="100%" x="0" y="0" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+        <mx:HBox width="100%" height="100%" x="0" y="0" paddingLeft="6" paddingTop="6" paddingRight="6" paddingBottom="6" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+            <mx:Canvas width="100%" height="100%" x="0" y="0" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+                <mx:Text styleName="stickyNoteTextStyle" width="100%" height="100%" x="0" y="0" id="viewText"
+                         text="{noteText}" click="{showEdit();}"
+                         visible="false"/>
+                <mx:TextArea width="100%" height="100%" x="0" y="0" id="editText" text="{noteText}" selectable="true"/>
+            </mx:Canvas>
+        </mx:HBox>
+
+        <mx:Image right="0" bottom="0" source="@Embed(source='/assets/shangle.png')"/>
+    </mx:Canvas>
+    <!-- flex doesn't do bi-directional binding by default so we have to force it -->
+    <mx:Binding destination="noteText" source="editText.text"/>
+
+</MDIWindow>

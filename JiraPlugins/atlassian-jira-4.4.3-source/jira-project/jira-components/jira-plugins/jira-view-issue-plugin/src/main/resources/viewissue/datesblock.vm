@@ -1,0 +1,18 @@
+#if (!$dates.empty)
+<ul class="item-details">
+    <li>
+    #foreach ($date in $dates)
+        <dl class="dates">
+            <dt>${date.label}:</dt>
+            <dd id="${date.id}" class="date $!{date.styleClass}" #if (${date.title}) title="${date.title}" #end>
+        #if (${date.iso8601Value})
+                <time datetime="${date.iso8601Value}">${date.displayHtml}</time></dd> ## date system fields
+        #else
+                ${date.displayHtml} ## date custom fields
+        #end
+            </dd>
+        </dl>
+    #end
+    </li>
+</ul>
+#end

@@ -1,0 +1,3 @@
+<mail-config>
+	<manager class="test.mock.mail.server.MockMailServerManager" />
+</mail-config>

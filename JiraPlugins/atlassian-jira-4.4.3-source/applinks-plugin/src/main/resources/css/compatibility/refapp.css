@@ -1,0 +1,8 @@
+body {
+    font-size: 12px;
+    padding: 0;
+}
+
+div .local-app-image {
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/logos/100atlassian.png);
+}

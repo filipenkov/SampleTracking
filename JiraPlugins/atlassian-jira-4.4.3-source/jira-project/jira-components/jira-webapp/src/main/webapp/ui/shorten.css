@@ -1,0 +1,8 @@
+.shorten .ellipsis {color:#444; padding-left:17px; padding-right:1px; margin-left:1px; background:url("../../../images/icons/ico_ellipses.png") no-repeat 0 0;}
+.shorten .ellipsis:hover, .icon-hide:hover {background-color:#eee; text-decoration:none;}
+.icon-hide {color:#444; padding-right:1px; margin:0 1px; background:url("../../../images/icons/ico_ellipses_back.png") no-repeat 0 0;}
+.concise .flooded {height: 1.429em;overflow: hidden;white-space:nowrap;text-overflow:ellipsis;-ms-text-overflow:ellipsis;width:100%;}
+.inverted-twixi-block.expanded .concise,
+.inverted-twixi-block.collapsed .verbose,
+.twixi-block.expanded .concise,
+.twixi-block.collapsed .verbose {display: none;}

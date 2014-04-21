@@ -1,0 +1,2 @@
+This folder contains XML exports from JIRA workflows which are used
+to store what transitions samples are allowed to make from which states.

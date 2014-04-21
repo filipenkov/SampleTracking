@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.atlassian.bundles</groupId>
+        <artifactId>parent-pom</artifactId>
+        <version>1</version>
+    </parent>
+    <artifactId>icu4j</artifactId>
+    <version>3.8-1</version>
+    <name>ICU4J</name>
+    <description>ICU4J as an OSGi bundle</description>
+    <packaging>bundle</packaging>
+    <properties>
+        <Export-Package>com.ibm.icu.*;version="3.8"</Export-Package>
+    </properties>
+    <licenses>
+        <license>
+            <name>ICU License</name>
+            <url>http://www-306.ibm.com/software/globalization/icu/license.jsp</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <dependencies>
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>3.8</version>
+        </dependency>
+    </dependencies>
+
+  <scm>
+    <connection>scm:svn:https://studio.atlassian.com/svn/BUNDLES/tags/icu4j-3.8-1</connection>
+    <developerConnection>scm:svn:https://studio.atlassian.com/svn/BUNDLES/tags/icu4j-3.8-1</developerConnection>
+    <url>https://svn.atlassian.com/svn/public/atlassian/pom/atlassian-public-pom/tags/icu4j-3.8-1</url>
+  </scm>
+</project>

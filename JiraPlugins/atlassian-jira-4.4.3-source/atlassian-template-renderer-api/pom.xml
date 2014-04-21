@@ -1,0 +1,75 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.atlassian.templaterenderer</groupId>
+        <artifactId>atlassian-template-renderer</artifactId>
+        <version>1.3.1</version>
+    </parent>
+    <artifactId>atlassian-template-renderer-api</artifactId>
+    <name>Atlassian Template Renderer API</name>
+    <packaging>atlassian-plugin</packaging>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>maven-amps-plugin</artifactId>
+                <version>${amps.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <productVersion>${refapp.version}</productVersion>
+                    <instructions>
+                        <Spring-Context>
+                            *;timeout:=60
+                        </Spring-Context>
+                        <Import-Package>
+                            com.atlassian.plugin.*;version="[2.2, 3.0)",
+                            org.apache.log4j;version="1.2",
+                            org.dom4j;version="[1.4, 2.0)",
+                            org.apache.commons.collections.*;version="[3.2, 4.0)",
+                            *
+                        </Import-Package>
+                        <Export-Package>
+                            !com.atlassian.templaterenderer.plugins,
+                            com.atlassian.templaterenderer.*;version="${project.version}"
+                        </Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-plugins-osgi</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-plugins-webresource</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring</artifactId>
+            <version>2.5.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-plugins-webfragment</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <atlassian.plugin.key>com.atlassian.templaterenderer.api</atlassian.plugin.key>
+    </properties>
+</project>

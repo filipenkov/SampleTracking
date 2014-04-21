@@ -1,0 +1,34 @@
+#* @vtlvariable name="i18n" type="com.atlassian.jira.util.I18nHelper" *#
+<div id="project-config-panel-components" class="project-config-panel">
+    <div class="project-config-panel-header project-config-icon48-components">
+        <h2>$i18n.getText('common.concepts.components')</h2>
+        <p>$i18n.getText('admin.project.config.summary.component.desc')</p>
+    </div>
+    <form id="project-config-components-add" class="aui" action="#">
+        <table id="project-config-components-table" class="aui">
+            <thead>
+                <tr>
+                    <th><!-- icon --></th>
+                    <th>$i18n.getText('common.words.name')</th>
+                    <th>$i18n.getText('common.words.description')</th>
+                    <th>$i18n.getText('admin.projects.component.lead')</th>
+                    <th>$i18n.getText('admin.projects.default.assignee')</th>
+                    <th><!-- buttons --></th>
+                    <th><!-- throbber --></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div class="jira-restfultable-init">
+            <span class="jira-restfultable-throbber"></span>
+            <span class="jira-restfultable-loading">$i18n.getText('admin.project.components.loading')</span>
+        </div>
+    </form>
+    <div id="project-config-error-console"></div>
+    <div class="hidden parameters">
+        <input type="hidden" value="$projectLeadAssignee" title="projectLeadAssignee" />
+        <input type="hidden" value="$isDefaultAssigneeProjectLead" title="isDefaultAssigneeProjectLead" />
+        <input type="hidden" value="$userAvatars" title="userHover">
+        <input type="hidden" value="$isUserPickerDisabled" title="leadPickerDisabled">
+    </div>
+</div>

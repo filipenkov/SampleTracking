@@ -1,0 +1,32 @@
+
+form.aui .aui-icon.icon-applinks-key, .aui-icon.icon-applinks-key {
+    background: url("images/icon_key.png") no-repeat scroll 0 0 transparent;
+    width: 16px;
+    height: 16px;
+}
+
+form.aui .aui-icon.icon-applinks-key-success, .aui-icon.icon-applinks-key-success {
+    background: url("images/icon_key_success.png") no-repeat scroll 0 0 transparent;
+    width: 16px;
+    height: 16px;
+}
+
+span.applinks-auth-request {
+    background: #fffff0;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px 3px 3px 3px;
+    display: inline-block;
+    margin: 1px 0;
+    padding: 2px 4px;
+}
+
+span.applinks-auth-request a:link, span.applinks-auth-request a:visited {
+    color: #00f;
+}
+
+span.applinks-auth-request .applinks-request-description {
+    background: url("images/icon_key.png") no-repeat 0 1px;
+    padding-left: 20px;
+}

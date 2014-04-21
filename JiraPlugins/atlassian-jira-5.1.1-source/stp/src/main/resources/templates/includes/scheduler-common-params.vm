@@ -1,0 +1,25 @@
+		
+		<div class="field-group">
+			<label for="start-time">$i18n.getText("stp.scheduler.start.time")</label>
+			<select name="start-time-hour">
+				#foreach ($i in [0..23])
+					<option value="$i" #if ($i == $settings.startTime.hours) selected="true" #end>$i</option>							
+				#end
+			</select>&nbsp;:&nbsp;<select name="start-time-minute">
+				#foreach ($i in [0..59])
+					<option value="$i" #if ($i == $settings.startTime.minutes) selected="true" #end>$i</option>							
+				#end
+			</select>
+			
+			<div class="description">$i18n.getText("stp.scheduler.start.time.description")</div>
+		</div>
+		
+		<div class="field-group">
+			<label for="frequency">$i18n.getText("stp.scheduler.frequency")</label>
+			<select name="frequency">
+				#foreach ($entry in $frequencyOptions.entrySet())
+					<option value="$entry.key" #if ($settings.frequencyName==$entry.key) selected="true" #end>$i18n.getText($entry.value)</option>
+				#end
+			</select>
+			<div class="description">$i18n.getText("stp.scheduler.frequency.description")</div>
+		</div>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<test-configuration>
+  <properties>
+    <property name="property2">Goodbye Updated</property>
+    <property name="property1">Hello Updated</property>
+  </properties>
+</test-configuration>

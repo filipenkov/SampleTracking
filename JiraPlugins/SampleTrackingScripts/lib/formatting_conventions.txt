@@ -1,0 +1,82 @@
+GLOBAL FUNCTION DEFINITION
+--------------------------
+###############################################################################
+# function name
+###############################################################################
+# function description
+###############################################################################
+#Produces: output files, changes to the environment
+#Requires: input files, environment variables, parameters
+#Optional: input files, environment variables, parameters
+###############################################################################
+Some of the definitions include a check for the required environment variables
+in the header e.g.
+
+#Requires:
+  test_environment \
+    db             $(: "The database to use (needed to filter the tuple file)")\
+    action_sql     $(: "The script specific sql file to use")\
+
+The definition may also be followed by a file format definition if a file is
+required or produced whose format hasn't already been defined
+
+
+LOCAL FUNCTION DEFINITION
+-------------------------
+  #============================================================================
+  # Internal function definition...
+  #============================================================================
+Identical to the global definition style but using equals signs to make the
+dividers.
+
+
+FILE DESCRIPTION
+----------------
+  #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  # Variable containing the file's location
+  #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  #Head:    
+  #Body:    The format, with variable values represented using <name>
+  #Example: An example with the variables instantiated by representative values
+  #
+  #Footer:  
+  #Example: 
+  #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+If the definition is for a file that is about to be produced the 'Head' 
+definition is often given setting a variable that will be used to write the
+actual file header.
+
+e.g.
+  #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  HEAD='The header to write to the file'
+  #Body:...    
+
+
+FUNCTION CALL
+-------------
+When a function is being called that takes a number of parameters / environment
+variables then a description is often provided before the call to explain what
+is being passed.
+
+#..............................................................................
+# CALL <function name> description...
+#..............................................................................
+#Requires: ...
+#Produces: ...
+#Param:    ...
+#Env:      ...
+#..............................................................................
+Where values have already been defined they are included as comments in the 
+block. Where they are being defined they are included in the block as 
+variable assignements.
+
+
+SECTION HEADER
+--------------
+To divide the functionality in a function of script headers in the form below 
+are used.
+
+#------------------------------------------------------------------------------
+# description of the following section
+#------------------------------------------------------------------------------

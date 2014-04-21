@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_sampletrackingimport" default="compile.module.sampletrackingimport">
+  <taskdef name="xmlbean" classname="org.apache.xmlbeans.impl.tool.XMLBean" classpath="lib/xmlbeans/xbean.jar"/>
+
+  <dirname property="module.sampletrackingimport.basedir" file="${ant.file.module_sampletrackingimport}"/>
+  
+  <property name="module.jdk.home.sampletrackingimport" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.sampletrackingimport" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.sampletrackingimport" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.sampletrackingimport" value="${compiler.args}"/>
+  
+  <property name="sampletrackingimport.output.dir" value="${module.sampletrackingimport.basedir}/out/production/SampleTrackingImport"/>
+  <property name="sampletrackingimport.testoutput.dir" value="${module.sampletrackingimport.basedir}/out/test/SampleTrackingImport"/>
+  
+  <path id="sampletrackingimport.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="sampletrackingimport.module.production.classpath">
+    <path refid="${module.jdk.classpath.sampletrackingimport}"/>
+    <fileset dir="${module.sampletrackingimport.basedir}/lib" includes="**/*.jar"/>
+    <fileset dir="${module.sampletrackingimport.basedir}/lib/xmlbeans" includes="**/*.jar"/>
+  </path>
+  
+  <path id="sampletrackingimport.runtime.production.module.classpath">
+    <pathelement location="${sampletrackingimport.output.dir}"/>
+  </path>
+  
+  <path id="sampletrackingimport.module.classpath">
+    <path refid="${module.jdk.classpath.sampletrackingimport}"/>
+    <pathelement location="${sampletrackingimport.output.dir}"/>
+  </path>
+  
+  <path id="sampletrackingimport.runtime.module.classpath">
+    <pathelement location="${sampletrackingimport.testoutput.dir}"/>
+    <pathelement location="${sampletrackingimport.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.sampletrackingimport">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.sampletrackingimport">
+    <patternset refid="excluded.from.module.sampletrackingimport"/>
+  </patternset>
+  
+  <path id="sampletrackingimport.module.sourcepath">
+    <dirset dir="${module.sampletrackingimport.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+
+  <target name="buildxmlbeans.module.sampletrackingimport" depends="" description="Create the xmlbeans jar from the schema">
+    <xmlbean schema="schemas/JiraBackup.xsd" destfile="lib/JiraBackupXMLBeans.jar"/>
+  </target>
+  
+  <target name="compile.module.sampletrackingimport" depends="compile.module.sampletrackingimport.production,compile.module.sampletrackingimport.tests" description="Compile module SampleTrackingImport"/>
+  
+  <target name="compile.module.sampletrackingimport.production" description="Compile module SampleTrackingImport; production classes">
+    <mkdir dir="${sampletrackingimport.output.dir}"/>
+    <javac destdir="${sampletrackingimport.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.sampletrackingimport}/javac">
+      <compilerarg line="${compiler.args.sampletrackingimport}"/>
+      <bootclasspath refid="sampletrackingimport.module.bootclasspath"/>
+      <classpath refid="sampletrackingimport.module.production.classpath" />
+      <src refid="sampletrackingimport.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.sampletrackingimport"/>
+    </javac>
+    
+    <copy todir="${sampletrackingimport.output.dir}">
+      <fileset dir="${module.sampletrackingimport.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.sampletrackingimport.tests" depends="compile.module.sampletrackingimport.production" description="compile module SampleTrackingImport; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.sampletrackingimport" description="cleanup module">
+    <delete dir="${sampletrackingimport.output.dir}"/>
+    <delete dir="${sampletrackingimport.testoutput.dir}"/>
+  </target>
+</project>

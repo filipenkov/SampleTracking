@@ -1,0 +1,1 @@
+#text('template.subscription.header.name'): ${searchRequest.getName()}

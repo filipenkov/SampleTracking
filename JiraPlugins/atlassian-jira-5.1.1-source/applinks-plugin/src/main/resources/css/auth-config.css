@@ -1,0 +1,114 @@
+body {
+    background: #fff;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+body.auth-config {
+    overflow: auto;
+}
+
+.auth-container-description {
+    color: #333333;
+    padding: 5px 0 5px 0;
+    line-height: 1.4;
+}
+
+.tabs-pane {
+    clear: both;
+    position: relative;
+}
+
+.auth-config-frame {
+    border: 0;
+    height: 320px;
+    width: 100%;
+}
+
+.loading {
+    background: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/wait.gif) no-repeat;
+    height: 16px;
+    width: 16px;
+}
+
+.loading-tabs {
+    position: absolute;
+    right: 2px;
+    top: -24px;
+}
+
+.auth-config-tab-link {
+    float: left;
+}
+
+.oauth-config-description {
+    padding-top: 5px;
+}
+
+.ual-help-link {
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/help.png);
+    display: inline-block;
+    height: 16px;
+    overflow: hidden;
+    text-indent: -9999px;
+    width: 16px;
+}
+
+
+form.aui span.status-configured {
+    color: #007700;
+    padding-left: 2px;
+	*line-height: 1.2;
+}
+
+form.aui span.status-not-configured {
+    color: #BB0000;
+    padding-left: 2px;
+	*line-height: 1.2;
+}
+
+.warning-icon {
+    background: url("../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/warning.png") no-repeat scroll transparent;
+    font-size: 11px;
+    height: 16px;
+    width:  16px;
+    float:  left;
+}
+
+.url-pattern-warning {
+    font-weight: bold;
+}
+
+.auth-container {overflow:hidden;}
+
+/**
+ * @aui-override APL-552 "Mandatory field" star wraps onto next line in UAL OAuth configuration / APL-613 Misc UI Fixes
+ *
+ * @date 2011-02-24
+ * @author shaffenden
+ * @see https://studio.atlassian.com/browse/APL-552 and https://studio.atlassian.com/browse/AJS-482
+ * https://studio.atlassian.com/browse/APL-613
+ *
+ * @note This override also exists within Jira. Should probably look to integrate this within AUI.
+ */
+
+#add-serviceprovider .field-group label,
+#auth-basic-access .field-group label {
+    padding-right: 13px;
+    position: relative;
+    width: 117px;
+}
+
+#add-serviceprovider .field-group label span.aui-icon,
+#auth-basic-access .field-group label span.aui-icon {
+    position: absolute;
+    right: 0;
+    top: 4px;
+}
+
+.auth-config form.aui .buttons {
+    padding-left: 150px;
+}
+/* @end */

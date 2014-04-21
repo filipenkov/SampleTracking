@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BaseDialog xmlns="com.sysbliss.jira.workflow.ui.dialog.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+            width="650" minWidth="650"
+            height="410" minHeight="410"
+            title="{niceResourceManager.getString('json','workflow.designer.edit.properties')}"
+        >
+
+    <mx:Script>
+		<![CDATA[
+        import com.sysbliss.jira.plugins.workflow.model.FlexJiraMetadataContainer;
+        import com.sysbliss.jira.plugins.workflow.model.FlexJiraWorkflow;
+        import com.sysbliss.jira.workflow.Il8n.INiceResourceManager;
+        import com.sysbliss.jira.workflow.Il8n.NiceResourceManager;
+        import com.sysbliss.jira.workflow.event.EventTypes;
+        import com.sysbliss.jira.workflow.event.GenericDataEvent;
+        import com.sysbliss.jira.workflow.manager.WorkflowDiagramManager;
+        import com.sysbliss.jira.workflow.utils.StringHelper;
+        import com.sysbliss.jira.workflow.utils.WorkflowConstants;
+
+        import mx.collections.ArrayCollection;
+        import mx.controls.TextInput;
+        import mx.core.UIComponent;
+        import mx.events.DataGridEvent;
+
+        import org.swizframework.Swiz;
+
+        private var ADD_PROP:String;
+
+        private var _workflow:FlexJiraWorkflow;
+        private var _wfObject:FlexJiraMetadataContainer;
+        private var _names:Array;
+
+        private const niceResourceManager:INiceResourceManager = NiceResourceManager.getInstance();
+
+        [Autowire]
+        public var workflowDiagramManager:WorkflowDiagramManager;
+
+
+        override protected function createChildren():void {
+            super.createChildren();
+            ADD_PROP = niceResourceManager.getString('json', 'workflow.designer.click.add.new.property');
+            propGrid.addEventListener("delete_prop_row", deleteProperty);
+        }
+
+        override protected function commitProperties():void {
+            super.commitProperties();
+            if (_wfObject) {
+                var dp:ArrayCollection = new ArrayCollection();
+                for (var prop:String in _wfObject.metaAttributes) {
+                    if (!WorkflowConstants.isReservedKey(prop)) {
+                        dp.addItem({Key:prop,Value:_wfObject.metaAttributes[prop],showDelete:true});
+                    }
+                }
+                dp.addItem({Key:ADD_PROP,Value:"",showDelete:false});
+                propGrid.dataProvider = dp;
+                buttons.saveButton.enabled = true;
+            }
+
+        }
+
+        private function checkEdit(e:DataGridEvent):void {
+            // Do not allow editing of Add Prop row except for
+            // "Click to Add" column
+            if (e.rowIndex == propGrid.dataProvider.length - 1 && e.columnIndex != 0) {
+                e.preventDefault();
+            }
+        }
+
+        private function editEnd(e:DataGridEvent):void {
+
+            var txtIn:TextInput = TextInput(e.currentTarget.itemEditorInstance);
+            var dt:Object = e.itemRenderer.data;
+
+            // Add new task
+            if (txtIn.text != ADD_PROP) {
+                /*
+                 e.preventDefault();
+                 if (e.rowIndex == propGrid.dataProvider.length - 1 && e.columnIndex == 0) {
+                 propGrid.dataProvider.addItemAt({Key:txtIn.text,Value:"",showDelete:true}, e.rowIndex);
+                 } else if(e.columnIndex == 0) {
+                 propGrid.dataProvider.getItemAt(e.rowIndex).Key = txtIn.text;
+                 } else if(e.columnIndex == 1) {
+                 propGrid.dataProvider.getItemAt(e.rowIndex).Value = txtIn.text;
+                 }
+                 */
+                if (WorkflowConstants.isReservedKey(txtIn.text)) {
+                    errorField.text = niceResourceManager.getString('json', 'workflow.designer.reserved.key', [txtIn.text]);
+                    UIComponent(propGrid.itemEditorInstance).setFocus();
+                    e.preventDefault();
+                } else if (StringHelper.isBlank(txtIn.text)) {
+                    errorField.text = niceResourceManager.getString('json', 'workflow.designer.property.blank');
+                    UIComponent(propGrid.itemEditorInstance).setFocus();
+                    e.preventDefault();
+                } else {
+                    errorField.text = "";
+                    if (e.rowIndex == propGrid.dataProvider.length - 1) {
+                        propGrid.dataProvider.addItemAt({Key:txtIn.text,Value:"",showDelete:true}, e.rowIndex);
+                        // Destroy item editor
+                        propGrid.destroyItemEditor();
+
+                        // Stop default behavior
+                        e.preventDefault();
+                        if (e.columnIndex < 1) {
+                            propGrid.editedItemPosition = {columnIndex:1, rowIndex:e.rowIndex};
+                        }
+                    }
+                }
+
+            }
+
+
+        }
+
+        private function deleteProperty(e:Event):void {
+            if (propGrid.selectedIndex > -1 && propGrid.selectedIndex != propGrid.dataProvider.length - 1) {
+                propGrid.dataProvider.removeItemAt(propGrid.selectedIndex);
+            }
+
+        }
+
+        override public function onEnterKey():void {
+            doSave(null);
+        }
+
+        override public function doSave(e:Event):void {
+            var meta:Object = new Object();
+            var i:int;
+            var prop:Object;
+            for (i = 0; i < propGrid.dataProvider.length; i++) {
+                prop = propGrid.dataProvider[i];
+                if (prop.Key != ADD_PROP) {
+                    meta[prop.Key] = prop.Value;
+                }
+            }
+
+            var gde:GenericDataEvent = new GenericDataEvent(EventTypes.DO_SAVE_METADATA, meta);
+            Swiz.dispatchEvent(gde);
+        }
+
+        override public function clear():void {
+            super.clear();
+            if (_childrenReady) {
+                propGrid.dataProvider = new ArrayCollection();
+                _wfObject = null;
+                _workflow = null;
+                errorField.text = "";
+            }
+        }
+
+        public function setWorkflow(wf:FlexJiraWorkflow):void {
+            _workflow = wf;
+            invalidateProperties();
+        }
+
+        public function setWorkflowObject(obj:FlexJiraMetadataContainer):void {
+            _wfObject = obj;
+            invalidateProperties();
+        }
+        ]]>
+	</mx:Script>
+
+    <mx:Label id="errorField" styleName="errorField" text=""/>
+    <mx:DataGrid id="propGrid"
+                 width="100%" height="100%"
+                 sortableColumns="false"
+                 allowMultipleSelection="false"
+                 editable="true"
+                 itemEditBeginning="checkEdit(event)"
+                 itemEditEnd="editEnd(event)">
+        <mx:columns>
+            <mx:DataGridColumn headerText="{niceResourceManager.getString('json','workflow.designer.property.key')}"
+                               dataField="Key" editable="true"/>
+            <mx:DataGridColumn headerText="{niceResourceManager.getString('json','workflow.designer.property.value')}"
+                               dataField="Value" editable="true"/>
+            <mx:DataGridColumn headerText="" editable="false" width="20">
+                <mx:itemRenderer>
+                    <mx:Component>
+                        <mx:HBox>
+                            <mx:Script>
+								<![CDATA[
+                                import com.sysbliss.jira.workflow.Il8n.INiceResourceManager;
+                                import com.sysbliss.jira.workflow.Il8n.NiceResourceManager;
+                                import com.sysbliss.jira.workflow.utils.WorkflowConstants;
+
+                                private function dispatchDelete():void {
+                                    var e:Event = new Event("delete_prop_row", true);
+                                    this.dispatchEvent(e);
+                                }
+
+                                private const niceResourceManager:INiceResourceManager = NiceResourceManager.getInstance();
+                                ]]>
+							</mx:Script>
+                            <mx:Button width="20" height="20"
+                                       toolTip="{niceResourceManager.getString('json','workflow.designer.delete.property')}"
+                                       styleName="panelButton" icon="{WorkflowConstants.ICON_DELETE}"
+                                       click="dispatchDelete();" visible="{data.showDelete}"/>
+                        </mx:HBox>
+                    </mx:Component>
+                </mx:itemRenderer>
+            </mx:DataGridColumn>
+        </mx:columns>
+    </mx:DataGrid>
+    <DialogButtonBar id="buttons" buttonFlags="{DialogButtonBar.SAVE|DialogButtonBar.CANCEL}"/>
+
+</BaseDialog>

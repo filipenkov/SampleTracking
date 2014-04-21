@@ -1,0 +1,243 @@
+<html>
+<head>
+    $webResourceManager.requireResource("com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:admin-resources")
+    $webResourceManager.requireResource("com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:view-collector-resources")
+    <title>$textutils.htmlEncode($action.collector.name)</title>
+    <meta name="decorator" content="atl.admin" />
+    <meta name="admin.active.section" content="atl.jira.proj.config"/>
+    <meta name="admin.active.tab" content="view_issue_collectors"/>
+    <meta name="projectKey" content="$textutils.htmlEncode($action.projectKey)"/>
+</head>
+<body>
+	<div class="admin-wrap">
+		<div id="main-content">
+        <a class="collectors-back-lnk" href="${baseurl}/secure/ViewCollectors!default.jspa?projectKey=$textutils.htmlEncode($action.projectKey)">$i18n.getText("collector.plugin.view.back")</a>
+		<div class="project-config-panel-header project-config-icon48-issue-collector">
+			<h2>$textutils.htmlEncode($collector.name)</h2>
+			<p>$textutils.htmlEncode($collector.description)</p>
+		</div>
+
+        <div id="activity-module" class="module">
+            <div class="mod-header">
+                <h3>$i18n.getText("collector.plugin.admin.collector.activity")</h3>
+            </div>
+            <div class="mod-content">
+                <div id="activity-chart" class="column-left">
+                    <p>$i18n.getText("collector.plugin.view.issues.created.last")</p>
+                    <div id="activity-holder"></div>
+					#set($collectorActivity = $action.getActivityForCollector($collector))
+					<table id="activity-data"> ## hidden data table
+						<tfoot>
+						<tr>
+							#foreach($day in $action.getActiviyDates($collector))
+								<th>$day</th>
+							#end
+						</tr>
+						</tfoot>
+						<tbody>
+						<tr>
+							#foreach($activity in $collectorActivity)
+								<td>$activity</td>
+							#end
+						</tr>
+						</tbody>
+					</table>
+				</div>
+                <div id="issues-list" class="column-right">
+                    <div>$i18n.getText("collector.plugin.view.recent.issues")</div>
+					<table id="issuetable">
+						<thead>
+						<tr class="rowHeader">
+							<th
+								class="headerrow-issuetype">
+								<span title="$i18n.getText("collector.plugin.view.table.title.issuetype")">$i18n.getText("issue.column.heading.issuetype")</span>
+							</th>
+							<th
+								 class="headerrow-issuekey">
+								<span title="$i18n.getText("collector.plugin.view.table.title.issuekey")">$i18n.getText("issue.column.heading.issuekey")</span>
+							</th>
+    						<th
+								 class="headerrow-summary">
+								<span title="$i18n.getText("collector.plugin.view.table.title.summary")">$i18n.getText("issue.column.heading.summary")</span>
+							</th>
+							<th
+								class="colHeaderLink headerrow-created">
+								<span title="$i18n.getText("collector.plugin.view.table.title.created")">$i18n.getText("issue.column.heading.created")</span>
+							</th>
+						</tr>
+						</thead>
+						<tbody>
+							#foreach ($issue in $action.recentIssues)
+							<tr>
+								<td class=" issuetype"><a href="${baseurl}/browse/${issue.key}"> <img height="16" border="0"
+																										   align="absmiddle"
+																										   width="16"
+																										   title="$i18n.getText("jira.translation.issuetype.bug.name") - $i18n.getText("jira.translation.issuetype.bug.desc")"
+																										   alt="$i18n.getText("jira.translation.issuetype.bug.name")"
+																										   src="${baseurl}/images/icons/bug.gif"></a>
+								</td>
+								<td class="nav issuekey">
+									<a href="${baseurl}/browse/${issue.key}">${issue.key}</a>
+								</td>
+								<td class="nav summary"><a href="${baseurl}/browse/${issue.key}">${issue.summary}</a>
+								</td>
+								<td class="nav created">$action.dateTimeFormatter.format($issue.created)
+								</td>
+							</tr>
+							#end
+						</tbody>
+					</table>
+					<div id="issue-collector-view-all">
+						#if ($action.recentIssues.size() > 1)
+							<a href="${baseurl}${action.getActivityUrl()}">$action.getText("collector.plugin.view.issue.navigator.link",$action.issuesCount)</a>
+						#end
+					</div>
+                </div>
+            </div>
+        </div>
+        <div id="details-module" class="module">
+            <div class="mod-header">
+                <h3>$i18n.getText("admin.common.words.details")</h3>
+            </div>
+            <div class="mod-content">
+                <ul id="collector-details" class="property-list">
+                    <li class="item">
+                        <div class="wrap">
+                            <strong class="name">$i18n.getText("common.concepts.issuetype"):</strong>
+                            <span id="type-val" class="value">
+                                #set($issueType = $action.getIssueType($collector.issueTypeId))
+                                <img style="margin-right:4px" alt="" width="16" height="16" src="${baseurl}${issueType.iconUrl}">$textutils.htmlEncode(${issueType.name})
+                            </span>
+                        </div>
+                    </li>
+					<li class="item" id="reporter-match">
+						<div class="wrap">
+							<strong class="name wide-label">$i18n.getText("collector.plugin.view.reporter.match.attempt"):</strong>
+							<span class="value">
+								#if($collector.useCredentials)
+                                    $i18n.getText("common.words.yes")
+                                #else
+									$i18n.getText("common.words.no")
+								#end
+							</span>
+						</div>
+					</li>
+					<li class="item">
+                        <div class="wrap">
+                            <strong class="name">$i18n.getText("issue.field.reporter"):</strong>
+                            <span id="reporter-val" class="value">
+                                $action.getFormattedUser($collector.reporter)
+                            </span>
+                        </div>
+                    </li>
+					<li class="item">
+						<div class="wrap">
+							<strong class="name">$i18n.getText("collector.plugin.admin.add.collector.collect.info"):</strong>
+                            <span id="browser-info-val" class="value">
+								#if($collector.recordWebInfo)
+                                    $i18n.getText("common.words.yes")
+                                #else
+									$i18n.getText("common.words.no")
+								#end
+							</span>
+						</div>
+					</li>
+					<li class="item" id="trigger-item">
+                        <div class="wrap">
+                            <strong class="name">#if(!$action.isCustomTrigger())$i18n.getText("collector.plugin.admin.collector.trigger")#else$i18n.getText("collector.plugin.admin.collector.custom.trigger")#end:</strong>
+                            <span id="trigger-val" class="value">
+                                #if(!$action.isCustomTrigger())
+                                    <div class="issue-collector-trigger-preview">
+                                        <div class="issue-collector-trigger $collector.trigger.position">$textutils.htmlEncode($!collector.trigger.text)</div>
+                                    </div>
+                                #else
+                                    <textarea class="textarea long-field" cols="60" id="custom-function" name="customFunction" rows="5" readonly="true" wrap="virtual">$textutils.htmlEncode($collector.trigger.customFunction)</textarea>
+                                #end
+                            </span>
+                        </div>
+                    </li>
+				</ul>
+				<ul id="collector-template-body-preview" class="property-list">
+					<li class="item" id="template-item">
+                        <div class="wrap">
+							<strong class="name">$i18n.getText("collector.plugin.admin.collector.template.preview"):</strong>
+							<div id="template-val" class="value ">
+								<div class="collector-template-bar"></div>
+								<iframe class="collector-preview" src="$baseurl/rest/collectors/1.0/template/form/$collector.id?preview=true"
+									frameborder="0"></iframe>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+        </div>
+		<div class="issue-collector-info-wrapper">
+			<div id="embed-module" class="module">
+				<div class="mod-header">
+					<h3>$i18n.getText("collector.plugin.view.embedding")</h3>
+				</div>
+				<div class="mod-content">
+					<ul id="embed-details" class="property-list">
+						<li class="item embed-type">
+							<div class="wrap">
+								<div class="matrix">
+									<div class="radio">
+										<input id="embed-html-type" class="radio embed-type" type="radio" name="embed-type" value="html" checked="checked"/>
+										<label for="embed-html-type">$i18n.getText("collector.plugin.embed.html")</label>
+									</div>
+									<div class="radio">
+										<input id="embed-script-type" class="radio embed-type" type="radio" name="embed-type" value="script"/>
+										<label for="embed-script-type">$i18n.getText("collector.plugin.embed.javascript")</label>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="item embed-html">
+							<div class="wrap">
+								<strong class="name">$i18n.getText("collector.plugin.view.code.to.insert"):</strong>
+						<span id="scriptlet-val" class="value">
+							<textarea class="script-source" id="script-source-html">$action.scriptSource</textarea>
+							<textarea class="script-source hidden" id="script-source-script">$action.scriptSourceJavascript</textarea>
+							<input type="hidden" id="collector-id" value="$action.collectorId"/>
+						</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div id="further-help-module" class="toggle-wrap twixi-block collapsed">
+					<h4 class="toggle-title twixi-trigger">$i18n.getText("collector.plugin.view.instructions.complete")</h4>
+
+					<div id="issue-collector-further-help-content" class="twixi-content">
+						<div class="aui-group">
+							<div class="aui-item">
+								<h3>$i18n.getText("collector.plugin.adding.html")</h3>
+
+								<p>$i18n.getText("collector.plugin.adding.assistance.desc")</p>
+								<h5>$i18n.getText("collector.plugin.adding.collector.1")</h5>
+
+								<div>
+									<p>$action.getText('collector.plugin.adding.collector.1.desc', '<span class="code">', '</span>')</p>
+									<pre class="issue-collector-snippet aui-panel">#include("templates/instruction-html.vm")</pre>
+								</div>
+								<h5>$i18n.getText("collector.plugin.adding.collector.2")</h5>
+
+								<div>
+									$action.getText('collector.plugin.adding.collector.2.desc', '<a href="http://www.google.com/analytics/">', '</a>')
+								</div>
+							</div>
+							<div class="aui-item">
+								<h3>$i18n.getText("collector.plugin.adding.javascript")</h3>
+
+								<p>$i18n.getText("collector.plugin.adding.javascript.desc")</p>
+
+								<p>$i18n.getText("collector.plugin.adding.javascript.desc.2")</p>
+								<pre class="issue-collector-snippet aui-panel">#include("templates/instruction-js.vm")</pre>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

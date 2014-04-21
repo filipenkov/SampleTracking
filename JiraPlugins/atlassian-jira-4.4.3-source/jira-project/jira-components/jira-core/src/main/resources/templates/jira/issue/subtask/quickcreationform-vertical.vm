@@ -1,0 +1,116 @@
+## We are instantiated inside a table, whose previous row is the previous subtask
+## We want a new table to vertically align our elements, so close off the parent table here,
+## and at the end, open it again so that the HTML is still well-formed.
+#set ($displayForm = ($requestContext.getRequestParameter("stqc") && $requestContext.getRequestParameter("stqc") == 'show'))
+#if($displayForm == true)
+    #set ($linkClass = "hidden")
+    #set ($formClass = "")
+#else
+    #set ($linkClass = "ops")
+    #set ($formClass = "hidden")
+#end
+
+<div id="subtask_container_vertical">
+
+    <div id="stqc_form_container" class="$formClass">
+        <h4 id="stqc_form_header">
+            $i18n.getText('viewissue.subtasks.quickcreate.addsubtask.label')
+            
+        </h4>
+        <table class="jiraform maxWidth">
+            #foreach ($fieldId in $displayFieldIds)
+                #if ($fieldId && $fieldId.length() > 0)
+                   $webComponent.getSubTaskFieldHtml($fieldId, true)
+                #end
+            #end
+            #set ($parentIssue = $webComponent.getParentIssue())
+            #set ($subTask = $webComponent.getSubTask())
+            <tr>
+                <td class="fullyCentered jiraformfooter">&nbsp;</td>
+                <td class="fullyCentered jiraformfooter">
+                    <input type="hidden" name="parentIssueId" value="$!parentIssue.getId()" />
+                    <input type="hidden" name="pid" value="$!subTask.getProject().getLong('id')" />
+                    <input type="hidden" name="viewIssueKey" value="$!parentIssue.getKey()" />
+                    <input type="hidden" name="quickCreate" value="true" />
+                ## preset fields
+                #foreach ($fieldId in $presetFieldIds)
+                    <input type="hidden" name="$fieldId" value="$webComponent.getSubTaskFieldPreset($fieldId)" />
+                #end
+                    <div id="stqcButtons">
+                        <input id="stqc_submit" accesskey="$i18n.getText('common.forms.submit.accesskey')" type="submit" value=" $i18n.getText('common.forms.create') " />
+                        <input id="stqc_cancel" accesskey="$i18n.getText('common.forms.cancel.accesskey')" type="button" value=" $i18n.getText('common.forms.cancel') " />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+({
+    COOKIE_NAME : "jira.conglomerate.cookie",
+    COOKIE_PARAM_NAME : "issue.stqc",
+    stqcLink : null,
+    stqcForm : null,
+    init: function()
+    {
+        if (!document.getElementById)
+        {
+            return;
+        }
+
+        this.stqcForm = document.getElementById("stqc_form_container");
+        this.stqcLink = document.getElementById("stqc_show");
+
+        var myself = this;
+
+        // hijack links
+        this.stqcLink.onclick = function()
+        {
+            myself.show();
+
+            AJS.$("#stqcform input:visible:first").focus();
+            return false;
+        };
+
+        document.getElementById("stqc_cancel").onclick = function()
+        {
+            myself.hide();
+            return false;
+        };
+
+        var isHide = '$!requestContext.getRequestParameter("stqc")' == "hide";
+        // show form if cookie says so
+        if (!isHide && readFromConglomerateCookie(this.COOKIE_NAME, this.COOKIE_PARAM_NAME))
+        {
+            this.show();
+        }
+    },
+    show: function()
+    {
+        this.stqcLink.className = "hidden";
+        this.stqcForm.className = "";
+
+        // If the subtask section is hidden, show it.
+        if (jQuery("#view-subtasks .mod-content:visible").length == 0){
+            jQuery("#view-subtasks .mod-header h3").click();   
+        }
+
+        this.save("1");
+
+
+    },
+    hide: function()
+    {
+        this.stqcLink.className = "icon icon-add16";
+        this.stqcForm.className = "hidden";
+        this.save("");
+    },
+    save: function(value)
+    {
+        saveToConglomerateCookie(this.COOKIE_NAME, this.COOKIE_PARAM_NAME, value);
+    }
+}).init();
+</script>
+

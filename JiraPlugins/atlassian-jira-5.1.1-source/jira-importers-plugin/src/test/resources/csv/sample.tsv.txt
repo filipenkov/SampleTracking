@@ -1,0 +1,6 @@
+Issue type	Issue ID	Assigned to	Priority	Resolution	Status	Summary
+Defect	TRQ1				Closed	one test issue
+Defect	TRQ2		Medium	Fixed	Closed	"TorqueSQLExec ignores lines starting with ""rem"""
+Defect	TRQ3	turbine@tigris.org, jmcnally			New	DB2 Primary Key autoincrement
+Defect	TRQ4	turbine@tigris.org, jmcnally		Fixed	Closed	Transaction
+Defect	TRQ5	stephenh, turbine@tigris.org, jmcnally		Fixed	Closed	Log4j Initialization

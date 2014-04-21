@@ -1,0 +1,2 @@
+ID,Issue Type,Visible to Customer,Summary,Description,Assignee,Reporter,Phase of Problem,Found In,Component,Date Created,Date Closed,Status,Resolution,Comment,Comment,Comment,Comment,Comment,Comment,Comment,Comment
+347,Improvement,Yes,Test capabilities,This is an improvement description,speed_gov_pm,kuhnjo,,8.0 Release,Comp1,2001-05-30 12:00,,Triaged,,2008-03-11 10:50; ; PCCB Status set to Forward to CCB,2008-03-11 10:51; kirkpsc; This may not be needed with C,2011-05-31 14:17; ; Imported from issue 347

@@ -1,0 +1,54 @@
+{namespace JIRA.Templates.Issues.Util}
+
+/**
+*/
+{template .throbber}
+    <div class="icon throbber" />
+{/template}
+
+/**
+* @param link
+* @param additionalStyleClass
+*/
+{template .simpleLink}
+    <a
+        {if $link.id} id="{$link.id}"{/if}
+        href="{if $link.href}{$link.href}{else}#{/if}"
+        {if $link.styleClass or $additionalStyleClass}
+            class="{$link.styleClass}{if $additionalStyleClass} {$additionalStyleClass}{/if}"
+        {/if}
+        {if $link.title}title="{$link.title}"{/if}
+        >
+        <span>{$link.label}</span>
+    </a>
+{/template}
+
+/**
+*/
+{template .exitPopup}
+    <form action="#" method="post" class="aui share-content-popup">
+        <fieldset>
+            <div><label for="note">Woah! Not so fast. Please tell use why you're leaving Kickass:</label></div>
+            <textarea class="textarea" id="note"/>
+        </fieldset>
+        <div class="button-panel">
+            <input class="button submit" type="submit"
+                   value="Submit"/>
+        </div>
+    </form>
+{/template}
+
+/**
+* @param issueAnchor
+*/
+{template .issueNotFound}
+{getText('search.selected.issue.nonexistent.html', $issueAnchor )|noAutoescape}
+{/template}
+
+/**
+* Returns the html for a link to a view issue page that
+* @param issueKey
+*/
+{template .issueAnchor}
+<a href="{contextPath()}/browse/{$issueKey}"> {$issueKey} </a>
+{/template}

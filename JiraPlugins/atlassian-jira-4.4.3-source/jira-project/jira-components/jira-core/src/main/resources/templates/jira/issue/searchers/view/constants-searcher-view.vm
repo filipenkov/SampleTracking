@@ -1,0 +1,5 @@
+#searcherHeaderNoField ($searcherId $i18n.getText($searcherNameKey))
+    #foreach ($constant in $selectedObjects)
+    $textutils.htmlEncode($constant.nameTranslation)#commaonly($selectedObjects)
+    #end
+#searcherFooter ($searcherId)

@@ -1,0 +1,24 @@
+#stepped-process {clear: both;padding: 14px 14px 14px 252px;position: relative;font-size: 13px;line-height: 16px;}
+.steps-wrap {min-width:100%;float:left;}
+.msie-7 .steps-wrap {width:100%;min-width:0;float:none;}
+
+.steps-container {position:absolute;left:14px;top:14px;width:238px;}
+.steps-container .aui-message {margin:12px 12px 12px 0;}
+
+.current-step {background-color:#fff;border:1px solid #bbb;min-height:600px;position:relative;-moz-border-radius:0.4em;-webkit-border-radius:0.4em;border-radius:0.4em;padding:14px;}
+.current-step div.buttons-container {border-top:none;}
+.formtitle img {vertical-align:baseline;}
+
+ul.bulk-details {margin-bottom:1em;}
+#stepped-process p.bulk-affects {background-color:#f0f0f0;padding-left:7px;}
+.use-for-all {padding-left:14px;}
+
+ul.steps { list-style: none;}
+.steps { margin: 14px 0 0 0; padding-left:0;list-style-position:inside; }
+.steps .steps { margin: 0; padding: 0; }
+.steps li { background-position: 5px 8px; background-repeat: no-repeat; padding:4px 3px 4px 21px; }
+.steps li.current { background-image: url( '../../../images/icons/bullet_inprogress.gif' ); font-weight: bold;background-color:#fff;border:1px solid #bbb;border-right:none;
+-moz-border-radius-topleft:7px;-moz-border-radius-bottomleft:7px;-webkit-border-top-left-radius:7px;-webkit-border-bottom-left-radius:7px;border-top-left-radius:7px;border-bottom-left-radius:7px;}
+.steps li.current li.current {border:none;}
+.steps li.todo { background-image: url( '../../../images/icons/bullet_notdone.gif' ); font-weight: normal !important;color:#505050; }
+.steps li.done { background-image: url( '../../../images/icons/bullet_done.gif' ); font-weight: normal !important; }

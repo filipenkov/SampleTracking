@@ -1,0 +1,2 @@
+http\://www.atlassian.com/schema/atlassian-spring/atlassian.xsd=com/atlassian/spring/extension/atlassian.xsd
+http\://atlassian.com/schema/spring/hosted.xsd=com/atlassian/spring/extension/hosted.xsd

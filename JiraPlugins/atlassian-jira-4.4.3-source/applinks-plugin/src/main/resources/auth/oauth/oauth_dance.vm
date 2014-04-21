@@ -1,0 +1,29 @@
+#* @vtlvariable name="error" type="java.lang.String" *#
+#* @vtlvariable name="webResources" type="com.atlassian.applinks.core.util.WebResources" *#
+#* @vtlvariable name="i18n" type="com.atlassian.sal.api.message.I18nResolver" *#
+<!DOCTYPE html>
+<html>
+<head>
+    $webResources.getIncludedResources()
+</head>
+<body class="auth-config">
+
+#if ($error)
+    <div class="aui-message error">
+        <p class="title">
+            <span class="aui-icon icon-error"></span>
+            <strong>$i18n.getText("auth.oauth.config.dance.error")</strong>
+        </p>
+        $error
+    </div>
+    <p>
+        $i18n.getText("auth.oauth.config.dance.click") <a href="$redirectUrl" id="continue-link">$i18n.getText("auth.oauth.config.dance.here")</a> $i18n.getText("auth.oauth.config.dance.to.continue")
+    </p>
+#else
+    <div class="aui-message success">
+        <span class="aui-icon icon-success"></span> $i18n.getText("auth.oauth.config.dance.success")
+    </div>
+#end
+
+</body>
+</html>

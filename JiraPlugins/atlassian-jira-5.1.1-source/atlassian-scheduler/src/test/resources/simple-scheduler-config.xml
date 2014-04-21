@@ -1,0 +1,30 @@
+<scheduler>
+
+    <jobs>
+        <job name="FooJob" class="mock.atlassian.scheduler.SimpleJob" />
+        <job name="BarJob" group="BarJobGroup" class="mock.atlassian.scheduler.SimpleJob" />
+    </jobs>
+
+    <triggers>
+        <!-- trigger type is 'simple' (default) or 'cron' -->
+        <trigger name="SimpleTrigger" job="FooJob">
+            <startDelay>1h</startDelay> <!-- start delay is a DateUtils duration! -->
+            <period>1h</period> <!-- amount of time between repeats -->
+        </trigger>
+
+        <trigger name="AnotherSimpleTrigger" group="ATriggerGroup" job="BarJob" jobgroup="BarJobGroup">
+            <period>1m</period>
+            <repeat>10</repeat> <!-- how many times to repeat, default = SimpleTrigger.REPEAT_INDEFINITELY -->
+        </trigger>
+
+        <trigger name="TestCronTrigger" type="cron" job="FooJob">
+            <expression>0 0/5 * * * ?</expression> <!-- the cron repeat expression -->
+        </trigger>
+
+        <trigger name="MidnightCronTrigger" type="cron" job="FooJob">
+            <expression>0 0 0 * * ?</expression> <!-- the cron repeat expression -->
+        </trigger>
+
+    </triggers>
+
+</scheduler>

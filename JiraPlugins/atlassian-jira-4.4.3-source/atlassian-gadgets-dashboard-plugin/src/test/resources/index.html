@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr" id="html">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Test Suite</title>
+</head>
+
+<body id="body">
+    <div id="dashboard"> </div>
+    <div id="main"> </div>
+
+    <script type="text/template" id="testTemplate">
+        <div>
+            <span id="${id}">${value}</span>
+        </div>
+    </script>
+
+    <script type="text/template" id="testTemplateIf">
+        <div>
+            <span id="test_id">
+                <?if render ?>${value}<?/if?>
+                <?else?>default value!<?/else?>
+            </span>
+        </div>
+    </script>
+
+    <script type="text/template" id="testTemplateFor">
+        <div>
+            <?for i in items?>
+                <span id="${items[i].id}">${items[i].value}</span>
+            <?/for?>
+        </div>
+    </script>
+
+    <script type="text/template" id="testTemplateWithMacro">
+        <?macro addItem(data)?>
+            <li id="${data.id}">${data.text}</li>
+        <?/macro?>
+        <div>
+            <ul>
+                <?for i in items?>${addItem(items[i])}<?/for?>
+            </ul>
+        </div>
+    </script>
+
+    <script type="text/template" id="dashboardMenu">
+        <div>${name}</div>
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+#parse('/templates/standard/jiraformfooter.vm')
+
+#set($warnings = $list.createList(0))
+#set($infos = $list.createList(0))
+#macro (info $msg)
+	#set($_ = $infos.add($msg))
+#end
+#macro (warning $msg)
+	#set($_ = $warnings.add($msg))
+#end
+
+#if ($action.externalUserManagementEnabled)
+	#info($i18n.getText('jira-importer-plugin.importer.external.user.management.warning', "$req.contextPath/secure/admin/jira/ViewApplicationProperties.jspa"))
+#else
+	#info($i18n.getText('jira-importer-plugin.importer.passwords.will.be.cleared'))
+#end
+
+#if ($action.title == "Trac")
+	#info($i18n.getText("jira-importer-plugin.trac.setup.page.how.to.prepare.zip"))
+#end
+
+#if ($action.title == "Bugzilla")
+	#warning($i18n.getText('jira-importer-plugin.bugzilla.mapping.issue.types'))
+#end
+
+#if ($action.title == "Mantis")
+	#warning($i18n.getText('jira-importer-plugin.mantis.mapping.issue.types'))
+#end
+
+#if ($action.title == "Pivotal Tracker")
+	#if (!$action.greenHopperInstalledAndEnabled)
+		#info($i18n.getText('jira-importer-plugin.pivotal.setup.page.greenhopper.not.enabled', "$req.contextPath/secure/SetupGreenHopper!default.jspa"))
+	#elseif (!$action.greenHooperFeaturesEnabled)
+		#info($i18n.getText('jira-importer-plugin.pivotal.setup.page.greenhopper.not.enabled', "$req.contextPath/secure/GHLicense.jspa?decorator=admin"))
+	#end
+#end
+
+#if($action.attachmentsEnabled == false)
+	#warning("$i18n.getText('jira-importer-plugin.importer.attachments.disabled') $i18n.getText('jira-importer-plugin.importer.attachments.can.be.enabled', '$req.contextPath/secure/admin/jira/ViewAttachmentSettings.jspa')")
+#end
+
+#if($action.issueLinkingEnabled == false)
+	#warning($i18n.getText('jira-importer-plugin.importer.issue.linking.disabled', "$req.contextPath/secure/admin/jira/ViewLinkTypes!default.jspa"))
+#end
+
+#if($action.timeTrackingEnabled == false)
+	#warning($i18n.getText('jira-importer-plugin.importer.time.tracking.disabled', "$req.contextPath/secure/admin/jira/TimeTrackingAdmin!default.jspa"))
+#end
+
+#if ($action.title == "Pivotal Tracker")
+	#if (!$action.subtasksEnabled == true)
+		#info($i18n.getText('jira-importer-plugin.importer.subtasks.disabled'))
+	#end
+#end
+
+#if (!$warnings.empty)
+	#AUImessage("warning" "" $jimTextUtils.convertToNiceHtmlString($warnings) "" "" "" "false")
+#end
+
+#if (!$infos.empty)
+	#AUImessage("info" "" $jimTextUtils.convertToNiceHtmlString($infos) "" "" "" "false")
+#end
+
+#parse("/templates/admin/views/common/reportBug.vm")
+
+<script type="text/javascript">
+	AJS.$(window).load(function() {
+		function updateNext() {
+			var enable = true;
+			var requiredFields = AJS.${esc.d}.merge(
+				AJS.$("form[name='jiraform'] label:has(span.icon-required) + input:visible"),
+				AJS.$("form[name='jiraform'] label:has(span.icon-required) + div > input:visible"));
+
+			requiredFields.each(function() {
+				enable &= (AJS.$(this).val() != "");
+			});
+
+			if (enable) {
+				AJS.$("#nextButton").removeAttr('disabled');
+			} else {
+				AJS.$("#nextButton").attr('disabled', true);
+			}
+		}
+
+		var nextButton = AJS.$("#nextButton");
+		if (nextButton !== undefined && AJS.$("form[name='jiraform'] label span.icon-required").length > 0) {
+			updateNext();
+
+			AJS.$("form[name='jiraform'] label:has(span.icon-required) + input")
+					.bind('change blur input', updateNext);
+			AJS.$("form[name='jiraform'] label:has(span.icon-required) + div > input")
+					.bind('change blur input', updateNext);
+		}
+	});
+</script>
+</div>
+</body>
+</html>

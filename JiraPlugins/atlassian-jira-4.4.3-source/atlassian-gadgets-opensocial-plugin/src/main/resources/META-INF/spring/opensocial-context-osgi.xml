@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/osgi"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="http://www.springframework.org/schema/osgi
+                                 http://www.springframework.org/schema/osgi/spring-osgi.xsd
+                                 http://www.springframework.org/schema/beans
+                                 http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        Set of rendering permissions.
+
+        Cardinality is 0..N because:
+        1) the full gadget plugin suite only provides one guaranteed implementation
+           in the directory, and some host applications will not offer a directory;
+        2) if cardinality were 1..N, the renderer plugin would have to start after
+           at least one plugin that provided a permission, and the renderer should
+           have no application dependencies;
+
+        This notwithstanding, at least one permission *must* be provided, as the
+        GadgetSpecUrlCheckerImpl below will deny all rendering if no
+        permission is provided. It is best, therefore, to regard the 0..N here as
+        a concession to the container instead of a license for the host application
+        to ignore permissions entirely.
+    -->
+    <set id="gadgetSpecUrlRenderPermissions" interface="com.atlassian.gadgets.opensocial.spi.GadgetSpecUrlRenderPermission"
+         cardinality="0..N"/>
+
+    <set id="localGadgetSpecProviders" interface="com.atlassian.gadgets.LocalGadgetSpecProvider" cardinality="0..N"/>
+
+    <set id="optionalWhitelists" interface="com.atlassian.gadgets.opensocial.spi.Whitelist" cardinality="0..N"/>
+
+    <reference id="personService" interface="com.atlassian.gadgets.opensocial.spi.PersonService" cardinality="0..1"/>
+    <reference id="activityService" interface="com.atlassian.gadgets.opensocial.spi.ActivityService" cardinality="0..1"/>
+    <reference id="appDataService" interface="com.atlassian.gadgets.opensocial.spi.AppDataService" cardinality="0..1"/>
+    <reference id="appLinksService" interface="com.atlassian.applinks.api.ApplicationLinkService" />
+
+    <service interface="com.atlassian.gadgets.GadgetSpecUrlChecker" ref="gadgetSpecUrlCheckerImpl"/>
+</beans:beans>

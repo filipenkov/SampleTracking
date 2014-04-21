@@ -1,0 +1,26 @@
+div .local-app-image {
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/logos/100confluence.png);
+}
+
+div .applinks-entity-header > ul {
+    right: 300px;
+}
+
+#ual .aui-dd-parent .aui-dropdown li {
+    height: auto;
+    line-height: normal;
+    padding: 0 .3em;
+}
+
+.ual-help-link {
+	top: 10px;
+    bottom: 0;
+}
+
+div.help-users-trust {
+    top: 70px;
+}
+
+.auth-container-description {
+	padding: 5px 0 10px 12px;
+}

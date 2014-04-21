@@ -1,0 +1,12 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.imports.json.web.JsonSetupPage" *#
+#parse('/templates/admin/views/common/import-header.vm')
+
+#set ($auiparams = $map.build('name', 'environmentFile', 'label', 'jira-importer-plugin.json.setup.page.file', 'required', true))
+#set ($auiparams.description = $i18n.getText('jira-importer-plugin.csv.file.size.limit', [$action.fileSize.format($action.attachmentSize), $req.contextPath]))
+
+#parse("/templates/standard/aui.vm")
+#parse("/templates/standard/normalHeader.vm")
+<input type="file" name="jsonFile">
+#parse("/templates/standard/normalFooter.vm")
+
+#parse("/templates/admin/views/common/standardSetupFooter.vm")

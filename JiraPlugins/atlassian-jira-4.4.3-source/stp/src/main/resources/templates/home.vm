@@ -1,0 +1,85 @@
+<html>
+   <head>
+    <title>$i18n.getText('stp.plugin.name')</title>
+    <meta name="decorator" content="atl.admin"/>
+<meta name="admin.active.section" content="admin_system_menu/top_system_section/support_tools_section"/>
+<meta name="admin.active.tab" content="support-tools-home"/>
+<meta name="application-base-url" content="$applicationProperties.getBaseUrl()">
+    $webResourceManager.requireResource("com.atlassian.support.stp:resources")
+   </head>
+   
+  <body>
+	<div id="stp-container">
+		<div class="stp-content">
+			<div class="stp-panel">
+				<h2><img src="$webResourceManager.getStaticPluginResource("com.atlassian.support.stp:resources", "images/supportLogoTiny.png")" class="stp-logo" height="31" width="31" alt=""/>$i18n.getText('stp.plugin.name')</h2>
+		
+				<p>$i18n.getText('stp.home.description')</p>
+				
+				<h3>$i18n.getText('stp.troubleshooting.category.title')</h3>
+
+				<div class="stp-module-list">
+					<a name="system-info-module" class="stp-module-placeholder"></a>
+					
+					<div class="stp-module expanded" id="system-info-module">
+						<!-- this will be displayed whether or not the detailed view is expanded -->
+		                <div class="stp-module-row">
+		                    <h4 class="stp-module-name">$i18n.getText('stp.system.info.tool.title')</h4>
+		                    <p class="stp-module-summary">$i18n.getText('stp.system.info.tool.description')</p>
+		                    <div class="clearer"></div>
+		                </div>
+		                <div id="system-info-module-details" class="stp-details loaded">
+							#parse ( "/templates/system-info.vm" )
+		    	        </div>
+	    	        </div>
+	    	        
+					<a name="hercules-module" class="stp-module-placeholder"></a>
+					
+					<div class="stp-module" id="hercules-module">
+						<!-- this will be displayed whether or not the detailed view is expanded -->
+		                <div class="stp-module-row">
+		                    <h4 class="stp-module-name">$i18n.getText('stp.hercules.tool.title')</h4>
+		                    <p class="stp-module-summary">$i18n.getText('stp.hercules.tool.description')</p>
+		                    <div class="clearer"></div>
+		                </div>
+		                <div id="hercules-module-details" class="stp-details loaded">
+							#parse ( "/templates/hercules-start.vm" )
+		    	        </div>
+	    	        </div>
+				</div>
+				
+	
+				<h3>$i18n.getText('stp.contact.category.title')</h3>
+				
+				<div class="stp-module-list">
+					<a name="create-support-request-module" class="stp-module-placeholder"></a>
+					<div class="stp-module" id="create-support-request-module">
+						<!-- this will be displayed whether or not the detailed view is expanded -->
+		                <div class="stp-module-row">
+		                    <h4 class="stp-module-name">$i18n.getText('stp.create.support.request.title')</h4>
+		                    <p class="stp-module-summary">$i18n.getText('stp.create.support.request.description')</p>
+		                    <div class="clearer"></div>
+		                </div>
+		                <div id="create-support-request-module-details" class="stp-details loaded">
+							#parse ( "/templates/create-support-request.vm" )
+		    	        </div>
+	    	        </div>
+	    	        
+					<a name="create-support-zip-module" class="stp-module-placeholder"></a>
+					<div class="stp-module" id="create-support-zip-module">
+						<!-- this will be displayed whether or not the detailed view is expanded -->
+		                <div class="stp-module-row">
+		                    <h4 class="stp-module-name">$i18n.getText('stp.create.support.zip.title')</h4>
+		                    <p class="stp-module-summary">$i18n.getText('stp.create.support.zip.description')</p>
+		                    <div class="clearer"></div>
+		                </div>
+		                <div id="create-support-zip-module-details" class="stp-details loaded">
+							#parse ( "/templates/support-zip-start.vm" )
+		    	        </div>
+	    	        </div>
+				</div>
+			</div>
+		</div>
+	</div>
+  </body>
+ </html>

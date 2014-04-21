@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns="com.sysbliss.jira.workflow.ui.component.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:arc90="com.arc90.flexlib.containers.*"
+	width="100%" height="100%"
+	title="{niceResourceManager.getString('json','workflow.designer.statuses')}">
+	
+	<mx:Script>
+		<![CDATA[
+        import com.sysbliss.jira.plugins.workflow.model.FlexJiraStatus;
+        import com.sysbliss.jira.plugins.workflow.model.FlexJiraWorkflow;
+            import com.sysbliss.jira.workflow.Il8n.INiceResourceManager;
+            import com.sysbliss.jira.workflow.Il8n.NiceResourceManager;
+            import com.sysbliss.jira.workflow.event.EventTypes;
+            import com.sysbliss.jira.workflow.event.GenericDataEvent;
+
+            import org.swizframework.Swiz;
+			import com.sysbliss.jira.workflow.controller.JiraStatusController;
+			import com.sysbliss.jira.workflow.utils.WorkflowConstants;
+			
+			[Bindable]
+			[Autowire]
+			public var jiraStatusController:JiraStatusController;
+
+            private const niceResourceManager:INiceResourceManager = NiceResourceManager.getInstance();
+
+			[Mediate(event="${eventTypes.CURRENT_WORKFLOW_CHANGED}", properties="workflow")]
+			public function updateStatusListEnabled(fjw:FlexJiraWorkflow):void {
+
+				if(fjw && fjw.isEditable){
+					statusList.enabled = true;
+				} else {
+					statusList.enabled = false;
+				}
+			}
+			
+			[Mediate(event="${eventTypes.ALL_WORKFLOWS_CLOSED}")]
+			public function disableStandardList():void {
+				statusList.enabled = false;
+			}
+			
+			private function enableButtons():void {
+				btnRefresh.enabled = true;
+				btnRefresh.useHandCursor = true;
+				btnRefresh.buttonMode = true;
+				
+				btnAddStatus.enabled = true;
+				btnAddStatus.useHandCursor = true;
+				btnAddStatus.buttonMode = true;
+				
+				btnStatusEditor.enabled = true;
+				btnStatusEditor.useHandCursor = true;
+				btnStatusEditor.buttonMode = true;
+			}
+			
+			private function disableButtons():void {
+				btnRefresh.enabled = false;
+				btnRefresh.useHandCursor = false;
+				btnRefresh.buttonMode = false;
+				
+				btnAddStatus.enabled = false;
+				btnAddStatus.useHandCursor = false;
+				btnAddStatus.buttonMode = false;
+				
+				btnStatusEditor.enabled = false;
+				btnStatusEditor.useHandCursor = false;
+				btnStatusEditor.buttonMode = false;
+			}
+			
+			private function onRefreshButton(e:MouseEvent):void {
+				Swiz.dispatch(EventTypes.REFRESH_STATUS_LIST);
+			}
+			
+			private function onAddButton(e:MouseEvent):void {
+				Swiz.dispatch(EventTypes.NEW_STATUS);
+			}
+			
+			private function onEditorButton(e:MouseEvent):void {
+                var status:FlexJiraStatus = null;
+                if(statusList && statusList.selectedItem) {
+                   status = statusList.selectedItem.data as FlexJiraStatus;
+                }
+
+                var event:GenericDataEvent = new GenericDataEvent(EventTypes.SHOW_STATUS_EDITOR, {status:status});
+                Swiz.dispatchEvent(event);
+			}
+		]]>
+	</mx:Script>
+	<mx:VBox width="100%" height="100%" verticalGap="0">
+		<mx:HBox id="buttonBar" width="100%" styleName="buttonBar" horizontalScrollPolicy="auto" verticalScrollPolicy="off">
+			<mx:Button id="btnRefresh" width="20" height="20"
+				styleName="panelButton" 
+				icon="{WorkflowConstants.ICON_REFRESH}"
+				toolTip="{niceResourceManager.getString('json','workflow.designer.refresh.list')}"
+				buttonMode="true"
+				useHandCursor="true"
+				click="onRefreshButton(event);"
+				enabled="true"/>
+				
+			<mx:Button id="btnAddStatus" width="20" height="20"
+				styleName="panelButton" 
+				icon="{WorkflowConstants.ICON_ADD}"
+				toolTip="{niceResourceManager.getString('json','workflow.designer.add.new.status')}"
+				buttonMode="true"
+				useHandCursor="true"
+				click="onAddButton(event);"
+				enabled="true"/>
+				
+			<mx:Button id="btnStatusEditor" width="20" height="20"
+				styleName="panelButton" 
+				icon="{WorkflowConstants.ICON_EDITOR}"
+				toolTip="{niceResourceManager.getString('json','workflow.designer.status.editor')}"
+				buttonMode="true"
+				useHandCursor="true"
+				click="onEditorButton(event);"
+				enabled="true"/>
+
+		</mx:HBox>
+		
+		<mx:List id="statusList" width="100%" height="100%"
+				enabled="false"
+				dragEnabled="true"
+				dragMoveEnabled="true"
+				dataProvider="{jiraStatusController.listProvider}"
+				iconFunction="{jiraStatusController.getListIcon}"/>
+	</mx:VBox>
+	
+</mx:Panel>

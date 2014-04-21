@@ -1,0 +1,34 @@
+<div style="display: none;" id="delete-link-dialog">
+    <div id="delete-applink" submit="true">
+        <form class="aui" action="#" method="post">
+            <p id="delete-applink-text"></p>
+            <div class="delete-applink-loading"><span class="delete-applink-spinner loading">&nbsp;</span><div class="delete-applink-loading-message">${i18n.getText('applinks.dialog.contacting.remote.application')}</div></div>
+            <div id="delete-dialog-error" class="delete-applink-error"></div>
+        </form>
+    </div>
+    <div id="delete-reciprocal-applink" submit="true" previous="false">
+        <form class="aui delete-reciprocal-applink-form" action="#" method="post">
+            <p id="delete-reciprocal-applink-text"></p>
+            <fieldset class="group">
+                <div class="radio">
+                    <input id="yes-delete-reciprocal-link" class="radio" type="radio" name="delete-reciprocal-applink-rbtn" checked="checked" />
+                    <label for="yes-delete-reciprocal-link" class="yes-delete-reciprocal-link"></label>
+                </div>
+                <div class="radio">
+                    <input id="no-delete-reciprocal-link" class="radio" type="radio" name="delete-reciprocal-applink-rbtn" />
+                    <label for="no-delete-reciprocal-link" class="no-delete-reciprocal-link"></label>
+                </div>
+            </fieldset>
+        </form>
+        <form class="aui no-reciprocal-applink-form" action="#" method="post">
+            <div class="no-link-message"></div>
+        </form>
+        <form class="aui authenticate-applink-form" action="#" method="post">
+            <div>
+                <div class="authenticate-message"></div>
+                <a href="#" id="authenticate-link">${i18n.getText('applinks.dialog.click.here.to.authenticate')}</a>
+            </div>
+        </form>
+        <div class="delete-reciprocal-applink-error"></div>
+    </div>
+</div>

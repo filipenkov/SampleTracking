@@ -1,0 +1,43 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ImporterProcessSupport" *#
+
+#set ($cancelKey = $i18n.getText('common.forms.cancel.accesskey'))
+#set ($cancelText = $i18n.getText('common.forms.cancel'))
+#set ($modifierKey = $action.browserUtils.getModifierKey())
+#set ($submitKey = $i18n.getText('common.forms.submit.accesskey'))
+#set ($submitTitle = $i18n.getText('common.forms.submit.tooltip', [$submitKey, $modifierKey]))
+
+#if (!$auiparams.hideButtons || $auiparams.hideButtons == false)
+	<div class="buttons-container">
+		#if ($action.currentStep == $action.totalSteps)
+			#set ($nextLabel = $i18n.getText('jira-importer-plugin.external.csv.begin.import'))
+		#else
+			#set ($nextLabel = $i18n.getText('jira-importer-plugin.jiraformfooter.next'))
+		#end
+
+		<div class="buttons">
+			#if (!$auiparams.submitName)
+				<input id="hiddennextButton"  type="submit" name="nextBtn" value="$nextLabel" accesskey="N" class="hiddenButton" />
+
+				<input id="previousButton" class="button submit" type="submit"
+					   name="previousBtn" value="$i18n.getText('jira-importer-plugin.jiraformfooter.back')" accesskey="P" />
+				<input id="nextButton"  class="button submit" type="submit"
+					   name="nextBtn" value="$nextLabel" accesskey="$submitKey" title="$submitTitle" />
+			#else
+				<input type="submit" class="button submit"
+					   name="$i18n.getText($auiparams.submitName)" value="$i18n.getText($auiparams.submitName)" id="submitButton"
+					   accesskey="$submitKey" title="$submitTitle" class="spaced ">
+			#end
+
+			#if ($auiparams.buttons)
+				$auiparams.buttons
+			#end
+		</div>
+	</div>
+#end
+</form>
+
+<script language="javascript" type="text/javascript">
+	AJS.$(window).load(function() {
+		AJS.$("form[name='jiraform'] :input:visible:first").focus();
+	});
+</script>

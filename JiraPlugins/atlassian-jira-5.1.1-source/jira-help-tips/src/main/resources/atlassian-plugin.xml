@@ -1,0 +1,49 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+    </plugin-info>
+
+    <web-resource key="common">
+        <dependency>jira.webresources:jira-global</dependency>
+        <dependency>com.atlassian.soy.soy-template-plugin:soy-deps</dependency>
+
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <transformation extension="soy">
+            <transformer key="soyTransformer"/>
+        </transformation>
+
+        <resource type="download" name="helptip.css" location="css/helptip.css"/>
+        <resource type="download" name="helptip.js" location="js/HelpTip.js"/>
+        <resource type="download" name="helptip-templates.js" location="templates/HelpTip.soy"/>
+    </web-resource>
+
+    <component key="helpTipManager"
+               name="Help Tip Manager for users"
+               class="com.atlassian.plugins.helptips.HelpTipManager"/>
+
+    <rest key="helptips" path="/helptips" version="1.0"
+          description="Resource to manage the help tips a user has seen already">
+        <package>com.atlassian.plugins.helptips.rest</package>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+    </rest>
+
+    <!-- TODO: download only during test -->
+    <web-resource key="sinon">
+        <resource type="download" name="sinon.js" location="lib/sinon/sinon-1.3.1.js"/>
+    </web-resource>
+
+    <!-- qunit tests -->
+    <resource type="qunit" name="js/HelpTip-test.js" location="js/HelpTip-test.js" />
+    <resource type="qunit" name="js/HelpTip-JIRA-Integration-test.js" location="js/HelpTip-JIRA-Integration-test.js" />
+
+    <!-- i18n -->
+    <resource type="i18n" name="i18n" location="i18n/i18n"/>
+
+</atlassian-plugin>

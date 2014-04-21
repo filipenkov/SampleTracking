@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+#* @vtlvariable name="i18n" type="com.atlassian.sal.api.message.I18nResolver" *#
+#parse("/common/_help_link.vm")
+#parse("/common/_configured_status.vm")
+#parse("/common/_xsrf_token_element.vm")
+<html>
+<head>
+    ${webResources.get()}
+</head>
+<body class="auth-config">
+    #if($errorMessages)
+        <div class="aui-message error shadowed auth-config-message">$errorMessages</div>
+    #end
+    #if($message)
+        <div class="aui-message success shadowed auth-config-message">$message</div>
+    #end
+    <form method="post" class="aui">
+        #xsrfTokenElement()
+        #status($enabled)
+        <fieldset>
+            <div>
+                <input type="hidden" id="outgoing-enabled" name="outgoing-enabled" value=#if($enabled)"false"#else"true"#end />
+                #if ($enabled)
+                    ${i18n.getText("auth.oauth.config.consumer.atlassian.serviceprovider.enabled", $localApplicationName, $localApplicationType, $remoteApplicationName, $remoteApplicationType)}
+                #else
+                    ${i18n.getText("auth.oauth.config.consumer.atlassian.serviceprovider.disabled", $localApplicationName, $localApplicationType, $remoteApplicationName, $remoteApplicationType)}
+                #end
+                #help('applinks.docs.configuring.auth.oauth')
+            </div>
+        </fieldset>
+        <div class="buttons-container">
+            <div class="buttons">
+                #if ($enabled)
+                    <input class="button submit" id="auth-oauth-action-disable" type="submit" value="${i18n.getText("auth.oauth.config.consumer.serviceprovider.disable")}" />
+                #else
+                    <input class="button submit" id="auth-oauth-action-enable" type="submit" value="${i18n.getText("auth.oauth.config.consumer.serviceprovider.enable")}" />
+                #end
+            </div>
+        </div>
+    </form>
+</body>
+</html>

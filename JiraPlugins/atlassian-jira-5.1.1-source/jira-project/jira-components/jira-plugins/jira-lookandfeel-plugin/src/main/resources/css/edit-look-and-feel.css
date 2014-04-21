@@ -1,0 +1,94 @@
+.options-container {
+    overflow: auto;
+}
+
+.logo-options-container {
+    float: left;
+    width: 300px;
+}
+
+.favicon-options-container {
+    float: left;
+    clear: right;
+    width: 300px;
+    padding-left: 15px;
+}
+
+.options ul {
+    list-style: none;
+    clear: both;
+    padding: 0;
+    margin: 0;
+    padding-top: 10px;
+}
+
+.options ul li {
+    display: inline;
+    float: left;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.options div.option {
+    background-color: #d4d4d4;
+    background-repeat: no-repeat;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 5px;
+    cursor:pointer;
+}
+
+.options ul li input {
+    display: none;
+}
+
+.options ul li div.selected {
+    background-color: #036;
+}
+
+.options ul li div.option-upload {
+    background-image: url('../images/upload.png');
+}
+
+.options ul li div.option-url {
+    background-image: url('../images/http.png');
+}
+
+.options ul li span {
+    font-weight: bold;
+}
+
+span.description {
+    font-size: 10px;
+}
+
+div.option-actions {
+    clear: both;
+    padding: 10px;
+}
+
+div.option-actions div.option-action {
+    display: none;
+}
+
+.customize-jira {
+  padding: 5px 0px;
+}
+
+#customize-toggle {
+
+}
+
+#customize-toggle-label {
+    font-weight: bold;
+    padding: 0 5px;
+}
+
+.form-buttons {
+    padding: 10px 0px;
+}
+
+.reset-defaults {
+    margin-top:1em;
+    padding-top:1em;
+}

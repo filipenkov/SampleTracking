@@ -1,0 +1,3 @@
+$info.getText("stp.health.email.body")
+
+$info.getText("stp.scheduler.optout", $info.applicationName)

@@ -1,0 +1,9 @@
+#if($reporterUsername)
+    #if ($displayParams && $displayParams.nolink)
+        $userformat.formatUser($reporterUsername, 'fullName', 'reporter')
+    #else
+        <span class="tinylink">$userformat.formatUser($reporterUsername, 'profileLink', 'reporter')</span>
+    #end
+#else
+    <em>$i18n.getText('common.words.anonymous')</em>
+#end

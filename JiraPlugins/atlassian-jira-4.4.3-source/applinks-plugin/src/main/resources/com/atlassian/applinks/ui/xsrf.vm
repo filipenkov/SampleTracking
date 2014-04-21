@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>${i18n.getText("applinks.xsrf.title")}</title>
+         ${webResources.get()}
+    </head>
+    <body>
+        #parse("/common/_xsrf_token_element.vm")
+        <div class="aui-message warning">
+            <p class="title">
+                <span class="aui-icon icon-warning"></span>
+                <strong>${i18n.getText("applinks.xsrf.token.missing")}</strong>
+            </p>
+            <p>${i18n.getText("applinks.xsrf.description.1")}</p>
+            <p>${i18n.getText("applinks.xsrf.description.2")}</p>
+        </div>
+        <form class="aui" action="$requestUrl" method="$requestMethod">
+              <p>${i18n.getText("applinks.xsrf.retry")}</p>
+              #foreach ($paramName in $parameterMap.keySet())
+                  #if ($paramName != $xsrftokenParamName)
+                      #foreach ($paramValue in $parameterMap.get($paramName))
+                          <input name="$paramName" type="hidden" value="$paramValue"/>
+                      #end
+                  #end
+              #end
+              #xsrfTokenElement($xsrftokenParamValue)
+              <input type="submit" value="${i18n.getText("applinks.xsrf.retry.button")}"/>
+        </form>
+    </body>
+</html>

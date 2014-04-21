@@ -1,0 +1,6 @@
+#if($withSummary && $summary.isDefined())
+  #set ( $labelHtml = $i18n.getText("streams.activity.object.with.summary", $title, $summary.get()) )
+#else
+  #set ( $labelHtml = $title )
+#end
+#if ($activityObject.alternateLinkUri.isDefined())<a href="$activityObject.alternateLinkUri.get().toASCIIString()">$labelHtml</a>#else$labelHtml#end

@@ -1,0 +1,295 @@
+
+.disabled {opacity:0.5;}
+.disabled .collector-name {text-decoration: line-through;}
+td.operations {opacity:1;}
+.scriptlet-container {padding:10px;}
+.scriptlet-area {width:100%;height:100%;}
+
+.collector-preview-wrapper,
+.collector-preview {width:700px;height:450px;}
+iframe.collector-preview {border: 1px solid #444;}
+form.aui div.reporter.checkbox {padding-left:0;}
+
+.code {font-family:monospace;}
+
+.issue-collector-trigger-preview { background:url(images/trigger-background.png) no-repeat 0 0;width:300px; height:196px;border:1px solid black;overflow:hidden;position:relative;}
+.issue-collector-trigger {
+    position: relative;
+    background: #013466;
+    padding: 5px;
+    border: 2px solid white;
+    font-weight: bold;
+    color: white;
+    display:inline-block;
+}
+
+.issue-collector-trigger.SUBTLE {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border: 1px solid white;
+    border-bottom: none;
+    border-right: none;        
+    background-color: #f5f5f5;
+    color: #444;
+    font-size: 11px;
+    padding: 6px;
+    box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.5);
+    border-radius: 2px 0 0 0;
+}
+
+.issue-collector-trigger.RIGHT {
+    top:28%;
+    left:100%;
+    border-top: none;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 0 0 5px 5px;
+    -webkit-transform-origin:top left;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -moz-transform-origin:top left;
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+.issue-collector-trigger.TOP {
+    left: 30%;
+    border-top: none;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 0 0 5px 5px;
+}
+
+#activity-data {display:none;}
+#activity-holder { height: 250px; width:100%; }
+#activity-chart {width:39%}
+#issues-list {width:59%}
+.column-right {float:right;}
+.column-left {float:left;}
+#template-item .wrap,
+#trigger-item .wrap {overflow:visible;padding-top:5px;}
+#template-val iframe.collector-preview {width:698px; border: 1px solid #CCCCCC;}
+.script-source {width:700px;height:170px;}
+.more-assistance-list {list-style:none;}
+.more-assistance-list li {padding-top:1em;}
+.more-assistance-list li div {padding-left:1em;}
+#public-project-warning {margin-top:1em;}
+.url-to-copy {
+    width:100%;
+    padding: 0;
+    border: 0;
+    outline: none;
+}
+#embed-details {overflow: hidden;}
+#reporter-group .suggestions {left:auto;}
+#custom-template-only-info { display:none;}
+
+.collector-preview .aui-dialog .dialog-button-panel {position:relative;}
+.collector-preview .aui-dialog .content-body {overflow-x: hidden;height:310px;}
+.collector-preview .drag-handle {position:relative;display:inline-block;background-image:url("images/grippy.png"); height: 23px; width: 8px;float:right; z-index:5; cursor: move;}
+.collector-preview #screenshot-group {clear:none;}
+.collector-preview .draggable,
+.collector-preview .draggable label,
+.collector-preview .draggable span,
+.collector-preview .draggable input {cursor: move;}
+.collector-preview .custom-label:hover {cursor: text;}
+.collector-preview .label-input.text {width:125px;top:-4px;position:relative;}
+.template-preview .aui-message ul {padding: 0;}
+.custom-info {display:none;}
+
+.collectors-project-avatar, .collectors-back-lnk {float:right;}
+
+.issue-collector-admin form.aui textarea.long-field {width:500px;}
+.issue-collector-admin .mod-header h3 a, form.aui .mod-header h3 a {color:#3C78B5;}
+.issue-collector-admin .aui-group{-moz-box-sizing:border-box;-ms-box-sizing:border-box;-o-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;border-spacing:0;width:100%;}
+.issue-collector-admin .aui-group>.aui-item{-moz-box-sizing:border-box;-ms-box-sizing:border-box;-o-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;display:table-cell;margin:0;vertical-align:top;}
+.issue-collector-admin .aui-group>.aui-item+.aui-item{padding-left:16px;}
+.collector-preview form.aui textarea.long-field, form.aui input#summary {width:90%;}
+
+h2.dialog-title input.title-input {font-size:21px;font-weight: bold;width:80%;}
+h1.beta-badge {line-height:32px;}
+h1.beta-badge span {width:32px;height:32px;display:inline-block;background:url("images/beta-badge-32.png") 0px 0px no-repeat}
+
+.custom-fields {display:none;margin-top:1em;width:650px;}
+.custom-fields-container {margin-bottom:1em;}
+.user-form-picker-fields {display:inline-block;}
+.user-form-picker-fields li.last {margin-bottom: 0.2em;}
+.user-form-picker-fields .user-form-picker-field {min-width: 155px;}
+
+.icon.icon-add12 { background:url("images/icon-add.png") 1px 2px no-repeat; }
+.icon.icon-tick { background:url("images/icon_tick_added.png") 0px 0px no-repeat; }
+.user-form-picker-fields li:hover .icon.icon-tick {background:url("images/icon_trash_active.png") 0px 0px no-repeat; }
+
+.embed-type div.radio {display:inline-block;margin-right:1em;}
+#embed-script-type {margin-left:0.1em;}
+
+.admin-wrap h1 { margin: 0}
+
+.collector-preview {
+    background-color: #f0f0f0;
+}
+
+.collector-dialog {
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+.issue-collector-info-wrapper {
+	padding-right: 8px;
+	margin-top: 16px;
+}
+
+.issue-collector-info-wrapper .module,
+.issue-collector-info-wrapper h3,
+.issue-collector-info-wrapper h4 {
+	background-color: #E0EFFF !important;
+}
+
+.issue-collector-info-wrapper > .module {
+	box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+	padding: 8px;
+}
+
+.issue-collector-snippet {
+	color:#b23993;
+	overflow-x: hidden;
+	padding: 8px !important
+}
+
+.issue-collector-snippet .snippet-standard-text {color:#000;}
+.issue-collector-snippet .snippet-insert-text {color:#22a9ff;}
+.issue-collector-snippet .snippet-string-text {color:#209726;}
+
+#issue-collector-further-help-content {
+	margin-top: 16px;
+	margin-left: 16px;
+}
+
+#issue-collector-further-help-content h3 {
+	font-weight: normal;
+}
+
+#collector-template-body, #collector-template-body-preview {
+    background-color: #f0f0f0;
+    overflow: auto;
+    border: 1px solid #cfcfcf;
+    padding-bottom: 15px;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+}
+
+#collector-template-body-preview {
+	position: relative;
+	left: -16px;
+	padding-left: 16px;
+	padding-top: 16px;
+	margin-top: 16px;
+}
+.collector-template-bar {
+    background:url("images/template-bar.png") -2px 0 no-repeat;
+    height: 25px;
+}
+
+.custom-info .title{
+    font-weight: bold;
+}
+
+.custom-info ol {
+    margin-left:20px;
+}
+
+.custom-fields-hint {
+    color: #aaa;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 25px 0 10px;
+    text-align: center;
+    background:url("images/arrow.png") 148px 0 no-repeat;
+}
+
+.contact-form-fields .field-group label {
+    padding:0;
+}
+
+.content-body .editable-field {
+    padding-top:5px;
+}
+
+#issue-type-desc {
+    padding-left:140px;
+    padding-bottom: 7px;
+    position:relative;
+    top:-6px;
+}
+
+.reporter-desc-list {
+    padding-left:35px;
+}
+
+.issue-collector-admin #description {
+    min-height: 5.4em;
+    max-height:5.4em;
+}
+
+.project-config-icon48-issue-collector { background: transparent url("images/icon48-issue-collector.png") no-repeat 0 0; }
+
+
+#feedback-rating .radio input {
+    vertical-align: top;
+    position:relative;
+    top: 3px;
+    left:2px;
+}
+
+form.aui div.matrix.rating .rating-label {
+    position: relative;
+    top: -5px;
+    left: 2px;
+}
+
+.event-shield-wrapper {
+    position: relative;
+}
+
+.event-shield {
+    height: 100%;
+    left: 135px;
+    position: absolute;
+    width: 520px;
+    z-index: 10000;
+}
+
+.fields-missing-warning {
+	margin-top: 15px;
+}
+
+#issue-collector-view-all a {margin-left:38px;}
+
+.project-link-header {
+	font-size:	19px;
+	font-weight: 400;
+	color:	#326CA6;
+	line-height	:23px;
+	background-color: #ffffff;
+	padding: 0 8px 0 0;
+	display: inline;
+}
+
+.custom-label {
+	margin-left: -1px;
+	padding-bottom: 1px;
+	padding-right: 2px;
+	padding-left: 2px;
+}
+
+.custom-label-wrapper {
+	padding-left: 18px;
+}
+
+.custom-label-wrapper:hover {
+    background: url("images/pencil_light.png") no-repeat scroll 3px 1px transparent;
+}
+
+form.aui .custom-label,
+form.aui .custom-label-wrapper { display: inline; position: static; }
+
+
+/*hide 'got feedback' trigger on collector pages */
+#atlwdg-trigger {display:none !important;}

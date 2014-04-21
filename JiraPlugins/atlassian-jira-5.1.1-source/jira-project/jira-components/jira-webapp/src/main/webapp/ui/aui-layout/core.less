@@ -1,0 +1,59 @@
+@import "dynamic:lookandfeel.less";
+@import "variables.less";
+
+html,body,img,li,dt,dd,pre,form,fieldset,textarea,input,select,option,button { margin: 0; padding: 0; }
+body {color: @basefontcolour; font-size: @basefontsize; line-height: @baselineheight; font-family: Arial, FreeSans, Helvetica, sans-serif; }
+
+article, aside, footer, header, hgroup, nav, section { display: block; }
+
+.aui-theme-default h1,
+.aui-theme-default h2,
+.aui-theme-default h3,
+.aui-theme-default h4,
+.aui-theme-default h5 {
+    color: @textHeadingColour;
+}
+
+.aui-theme-default a,
+.aui-theme-default a:link,
+.aui-theme-default a:visited { color: @textLinkColour; }
+.aui-theme-default a:hover,
+.aui-theme-default a:active { color: @textActiveLinkColour; }
+
+ul { padding: 0 0 0 (@grid * 3); }
+ol { list-style-type: decimal; list-style-position: outside; padding:0 0 0 (@grid * 3); }
+img, fieldset { border: 0; }
+
+strong, b { font-weight: bold; }
+pre { font-size: @basefontsize; line-height: @baselineheight; font-family: monospace; }
+small { font-size: 11px; line-height: @baselineheight; }
+blockquote { border-left: 2px solid @jirabrandcolour; margin: @gutter 0 0 0; padding: 0 0 0 @gutter; }
+blockquote:first-child {margin-top: 0; }
+
+textarea,select,optgroup,option,input.text { color: @basefontcolour; font-size: @basefontsize; font-family: Arial, FreeSans, Helvetica, sans-serif; }
+textarea, input.text {
+    .border-box;
+    max-width: 100%;
+    padding: 1px 2px;
+    width: 100%;
+}
+textarea {-webkit-appearance: textfield;}
+select { max-width: 100%; }
+
+/* Setting the colour of the placeholder text - these two rules can't be comma-separated as the second one is ignored */
+input.text::-webkit-input-placeholder {
+    color: @subtlefontcolour;
+    font-style: italic;
+}
+input.text:-moz-placeholder {
+    color: @subtlefontcolour;
+    font-style: italic;
+}
+/* End override for placeholder text */
+
+table, caption { font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; }
+td, th { text-align: left; vertical-align: top; }
+
+.nowrap { white-space: nowrap !important; }
+.hidden,
+#jira .hidden { display: none; }

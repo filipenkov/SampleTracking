@@ -1,0 +1,168 @@
+/* new table styling - see also #issuetable
+.typeA and a chunk of #issuetable can be removed when we convert over to AUI tables
+*/
+.typeA {border-collapse:collapse;width:100%;}
+.typeA th, .typeA td,
+.typeA img {vertical-align:top;}
+.typeA img.sortArrow {vertical-align:middle;}
+.typeA > thead > tr > th,
+.typeA > thead > tr > td {border-bottom:1px solid #bbb;color:#999;font-weight:400;padding-bottom:0.213em;}
+.typeA td {border-bottom:1px solid #eee;}
+.typeA .alt td {background-color:#fafafa;}
+/* Contextual Overrides */
+.module .typeA th, .module .typeA td { font-size: 1em; padding: 0.426em 0.426em 0.316em; text-align: left; vertical-align: top; }
+
+tr.totals {background-color:#fafafa;}
+tr.column-order {background-color:#f0f0f0;}
+tr.column-order td {white-space:nowrap;vertical-align:top;}
+
+/* AUI table overrides */
+table.aui {background-color:#fff;clear:both;margin-bottom:0.639em;min-width:1em;}
+table.aui > thead > tr,
+table.aui > tbody > tr,
+table.aui > tfoot > tr {background-color:transparent;color:inherit;}
+table.aui > thead > tr.zebra,
+table.aui > tbody > tr.zebra,
+table.aui > tfoot > tr.zebra {background-color:transparent;color:inherit;}
+table.aui > thead > tr.zebra > th,
+table.aui > tbody > tr.zebra > th {background-color:transparent;color:inherit;}
+table.aui > tbody > tr > th {background-color:transparent;color:inherit;}
+table.aui > thead > tr > th,
+table.aui > tbody > tr > th,
+table.aui > thead > tr > td,
+table.aui > tbody > tr > td,
+table.aui > tfoot > tr > td {font-size:1em;padding:0.426em 0.426em 0.316em;vertical-align:top;}
+table.aui > thead { border: none; }
+table.aui > thead > tr > td,
+table.aui > thead > tr > th {border-bottom:1px solid #bbb;}
+table.aui > thead > tr > th {background-color:transparent;color:#999;font-weight:normal;}
+table.aui > tbody > tr > th,
+table.aui > tbody > tr > td {border-bottom:1px solid #eee;}
+
+table.aui > tbody > tr.totals,
+table.aui > tbody > tr.zebra.totals {background-color:#fafafa;}
+
+/* row hover */
+table.aui.aui-table-rowhover > tbody tr.zebra:hover,
+table.aui.aui-table-rowhover > tbody tr:hover { background-color:#f0f0f0;}
+/* for IE */
+table.aui > tbody > tr:first-child > td,
+table.aui > tfoot > tr:first-child > td {border-top: 0;}
+table.aui th a {color:#999;}
+table.aui th a:hover {color:#333;text-decoration:none;}
+table.aui th.colHeaderOver,
+table.aui th.colHeaderOver a {color:#333;cursor:pointer;}
+table.aui,
+table.aui p,
+table.aui img {vertical-align:top;}
+table.aui img.sortArrow {vertical-align:middle;}
+/* //AUI table overrides */
+table#issuetable + div.buttons-container,
+table.aui + div.buttons-container {border-top:none;}
+
+table.blank { border: none !important; border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; vertical-align: top; }
+table.blank td, table.blank th { border: none !important; margin: 0; padding: 0 5px 5px 5px; vertical-align: top; }
+table.blank th { background-color: #f0f0f0; }
+table.noPadding, table.noPadding tr, .noPadding { border: none; border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0 !important; vertical-align: top; }
+td.noPaddingCron { margin: 0; padding: 0; }
+table.minColumns td, table.minColumns th { width: 1%; }
+td.normal, th.normal { width: auto !important; }
+
+#project-list thead th { white-space: nowrap; }
+/* Legacy Styles - try to remove these */
+.jiratable { margin: 0 auto 16px; }
+.tableBorder {background-color:#bbb;}
+.rowHeader {background-color:#e2e2e2;}
+.rowNormal {background-color:#fcfcfc;}
+.rowAlternate {background-color:#f2f2f2;}
+.rowAlternateLightGray {background-color:#fafafa;}
+.rowHover {background-color:#f0f0f0;cursor:pointer;}
+tr.rowSelectable:hover {background-color:#eeb;}
+.rowHighlighted {background-color:#eeb;}
+.cellHover {background-color:#fffff0;cursor:pointer;}
+tr.disabled td {color:#ccc !important;}
+.mod-content .rowNormal,
+.mod-content .rowAlternate {background-color:transparent;}
+
+/* Try to remove
+this makes a nicely 'gridded' table.  However, you will also need to following params:
+<table class="gridBox" cellpadding="3" cellspacing="1" width="90%" align="center">
+If you are just using a table to create a border around something - see the 'borderedBox' style
+*/
+.gridBox { border: 0; padding: 0; }
+
+/* Try to remove
+   - Only used by the "two-dimensional-stats-gadget.xml"
+*/
+.basic {border-collapse:collapse;width:100%;}
+.basic td, .basic th {border:1px solid #d2d2d2;padding:.333em;}
+.basic th {background-color:#e2e2e2;text-align:left;vertical-align:bottom;}
+.basic th small {font-weight:normal;}
+
+/* Try to remove
+    - Only used by the project list table on Browse Projects. */
+table.p-list {width:100%;overflow:auto;overflow-y:hidden;padding-bottom:1.5em;}
+tbody.projects-list td {white-space:nowrap;}
+
+/* Try to remove - can be updated to AUI tables
+    - Table layout for Project Popular Issues (popularissues-panel.vm */
+#popular_issues_table td.votes,
+#popular_issues_table td.issuetype,
+#popular_issues_table td.issuekey,
+#popular_issues_table td.version,
+#popular_issues_table td.priority,
+#popular_issues_table td.status  { white-space: nowrap; width: 1%; }
+#popular_issues_table td.votes { padding: 5px 15px; }
+#popular_issues_table td.issuekey { font-size: 0.9em; vertical-align: middle; }
+#popular_issues_table td.summary { width: 94%; }
+
+/* Try to remove - can be updated to AUI tables
+    - Table layout for Project Components (components-panel.vm) */
+#components_panel { width:100%; }
+#components_panel td.component-icon { width:16px; }
+#components_panel td.component-name { white-space:nowrap; width:20px; }
+.msie-7 #components_panel td.component-name {width:auto;}
+#components_panel td.component-lead { font-size: 0.8em; line-height: 1.5; padding-left: 20px; vertical-align: middle; white-space: nowrap; width: 15em; }
+
+/* Try to remove
+    - User picker table */
+/*.item-picker .chbx-wrap {width:18px;}*/
+/*.module .item-picker th .chbx-wrap,*/
+/*.module .item-picker td .chbx-wrap {padding-top:0.415em;text-align:center;white-space:nowrap;}*/
+/*.msie-7 .module .item-picker th .chbx-wrap,*/
+/*.msie-7 .module .item-picker td .chbx-wrap {padding-top:0.166em;}*/
+/*.module .item-picker .submit {padding-top:0.166em;}*/
+/*.item-picker .login-name {color:#666;}*/
+/*.item-picker .link-wrap th {border-bottom:none}*/
+/*.msie-7 .item-picker .watcher-list {padding-left:14px;}*/
+.item-picker {float:left;width:49%;}
+.link-wrap form.aui {margin-right:28px;}
+#main-content .link-wrap form.aui .long-field,
+.link-wrap form.aui .long-field {min-width:300px;width:90%;}
+
+/* Table descriptions font override */
+table .fieldDescription,
+form .fieldDescription,
+table div.description,
+.typeA div.description {font-size:11px;}
+
+/* JRADEV-6405 */
+table div.description,
+.typeA div.description {clear:left;}
+
+/* Misc - remove */
+form.lbaction + form.lbaction { margin:5px 10px 10px 20px; }
+
+/* admin */
+.field-name {font-weight:700;}
+.field-required {color:#900;}
+.field-renderer {color:#505050;display:block;}
+.field-description {margin-bottom:0;}
+
+.custom-field-types td {padding:0;width:49%;}
+.custom-field-types .field-group {border-bottom:1px solid #eee;margin-right:16px;padding:4px 0 4px 26px;position:relative;}
+.custom-field-types .field-group:hover {background-color:#f0f0f0;}
+.custom-field-types input {position:absolute;left:4px;top:8px;}
+.custom-field-types label {font-weight:700;}
+
+#license_table .item-label {color:#505050;}

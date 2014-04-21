@@ -1,0 +1,6 @@
+type,summary,status,priority,resolution
+bug,Womble,Closed,blocker,fixed
+New feature,Test,,major,
+Task,This is a task,resolved,Trivial,duplicate
+task,This is a second task,,Blocker,
+

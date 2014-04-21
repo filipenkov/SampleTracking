@@ -1,0 +1,1 @@
+${i18n.getText("portletSearchRequestView.notLoggedIn")} <a href="#" class="close lbAction" rel="deactivate">${i18n.getText("portletSearchRequestView.controlPanel.close")}</a>

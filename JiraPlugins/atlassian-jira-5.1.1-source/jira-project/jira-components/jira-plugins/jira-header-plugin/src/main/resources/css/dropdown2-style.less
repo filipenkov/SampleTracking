@@ -1,0 +1,140 @@
+.aui-dropdown2.aui-style-header {
+    background-color: #fff;
+    border: 1px solid #DFE1E3;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 1px;
+    max-width: 300px;
+    min-width: 160px;
+    z-index: 12000;
+
+    .aui-dropdown2-section {
+        border-top: 1px solid #bbb;
+        &:first-child {
+            border-top: none;
+        }
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 5px 0;
+    }
+    strong {
+        display: block;
+        margin-top: 5px;
+        padding: 2px 10px;
+        + ul {
+            margin-top: 0;
+        }
+    }
+    a,
+    a:link,
+    a:visited {
+        color: #000;
+        padding: 2px 10px;
+        text-decoration: none;
+    }
+    a:hover,
+    a:focus,
+    a.active {
+        color: #205081;
+        text-decoration: none;
+        background-color: #DFF0F8;
+    }
+    a.disabled {
+        color: #7F7F7F; /* equivalent of opacity: 0.5 without need for IE8 filter */
+        cursor: default;
+    }
+    .aui-icon-container,
+    .aui-dropdown2-radio,
+    .aui-dropdown2-checkbox {
+        background-position: 10px 4px;
+        background-repeat: no-repeat;
+        padding-left: 31px !important;
+        position: relative;
+    }
+    .aui-icon-container > img,
+    .aui-icon-container > span {
+        border-width: 0;
+        left: 10px;
+        position: absolute;
+        top: 4px;
+    }
+    .aui-icon-container > span {
+        display: block;
+        overflow: hidden;
+        text-indent: -99999px;
+    }
+    .checked {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnklEQVQ4EWP8//8/AyWAiRLNIL0jzQBGRkYrII5HCTdQLBCDgZqsgPgTEP8AYhmYHgzNQElmINaCKQDRQADT/AvIDkSRQ+ZAFS8EKvoMxNaENIPlsRgQANQMsglkSDoQg5yNYTNMH4YXoLaCDPkGxF/xacbqArjJDAyxUANQ/AyTh9GMYFOAKrEBYJSJAeVfYZODieE1AKYIHz3weQEAj0XgHBaJoWwAAAAASUVORK5CYII=");
+    }
+// White on the new light blue doesn't work so replacing it with the standard black one
+//    .checked.active {
+//        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAmUlEQVQ4EWP8//8/AyWAiRLNIL0j0AAroLfjUcINFAtEYiuguk9A/AOIZWB6sGlmBkpqwRRAaZjmX0B+ILIcNgMWAhV8BmJrqEKcmkHy2AwIAEqAbAIZkg7EIGdj2AwUA+vFZgBIDGTINyD+CsQ4NQPlsLoAZmgs1AAUP4M0IWNGsCko8YLCEQPyXqGIoHEIGYCmHJM78HkBAF5lPMWA9xtVAAAAAElFTkSuQmCC");
+//    }
+    .checked.active {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnklEQVQ4EWP8//8/AyWAiRLNIL0jzQBGRkYrII5HCTdQLBCDgZqsgPgTEP8AYhmYHgzNQElmINaCKQDRQADT/AvIDkSRQ+ZAFS8EKvoMxNaENIPlsRgQANQMsglkSDoQg5yNYTNMH4YXoLaCDPkGxF/xacbqArjJDAyxUANQ/AyTh9GMYFOAKrEBYJSJAeVfYZODieE1AKYIHz3weQEAj0XgHBaJoWwAAAAASUVORK5CYII=");
+    }
+    .checked.disabled {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwElEQVQ4EWP8//8/AyWAiRLNIL0jzYBJkyZZAXE8crgxEhsLIM1AtTuAmtmYmJhUcnNzn2ANxNWrVzNPnjxZC9kWJM0cjIyMkTDNWA149uzZvH///p2cMGGCNUgBmubwvLy89ciGY0Qj0JkgBexAm3ZMnDgxHepskM0YmkEGYQ0DoO0BQA3LgPKgZMqKSzPIAAwXgAQLCgo2ADWlg9j4NIPkGUCxgAt3d3eL4ZKDiWP1AthkIgmsXiBSL1gZxQYAAIRRewzaTG7XAAAAAElFTkSuQmCC");
+    }
+}
+
+.aui-dropdown2.aui-style-pointer {
+    margin-top: 5px;
+    &:before,
+    &:after {
+        bottom: 100%;
+        content: "";
+        display: block;
+        height: 0;
+        position: absolute;
+        width: 0;
+    }
+    &:before {
+        border: 11px solid transparent;
+        border-bottom-color: #cccccc;
+        left: 15px;
+    }
+    &:after {
+        border: 10px solid transparent;
+        border-bottom-color: #ffffff;
+        left: 16px;
+        margin-bottom: -1px;
+    }
+}
+
+.aui-dropdown2.aui-style-appswitch {
+    .appswitch-option,
+    .appswitch-option:link,
+    .appswitch-option:visited {
+        color: #747474;
+        > img {
+            display: block;
+        }
+    }
+}
+
+/* Util class for dropdown arrows */
+.aui-dropdown2-trigger-arrow {
+    padding-right: 25px !important;
+    position: relative;
+}
+.aui-dropdown2-trigger-arrow:after {
+    border: 4px solid transparent;
+    border-top-color: #000;
+    content: "";
+    display: block;
+    height: 0;
+    margin-top: -2px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    width: 0;
+}

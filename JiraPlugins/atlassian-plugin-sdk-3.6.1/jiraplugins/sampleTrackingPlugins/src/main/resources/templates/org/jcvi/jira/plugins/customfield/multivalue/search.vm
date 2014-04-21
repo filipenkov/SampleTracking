@@ -1,0 +1,357 @@
+#searcherEditHeader (${customField.id} ${customField.name})
+
+##The stupidly long name for the function is to ensure that the function
+##doesn't clash with anything else. We use Velocity though to make the
+##strings in this template easier to read
+#set( $package = "org_jcvi_jira_plugins_customfield")
+
+##Setup which areas to display
+#set( $displayTextArea = true)
+#if ($descriptor.getParams())
+    #set ($displayTextAreaParam = $descriptor.getParams().get("textarea.display"))
+    #if ($displayTextAreaParam && "false" == $displayTextAreaParam.toLowerCase())
+        #set ($displayTextArea = false)
+    #end
+#end
+#set( $displaySingleLineInput = true)
+#if ($descriptor.getParams())
+    #set ($displaySingleLineInputParam = $descriptor.getParams().get("singlelineinput.display"))
+    #if ($displaySingleLineInputParam && "false" == $displaySingleLineInputParam.toLowerCase())
+        #set ($displaySingleLineInput = false)
+    #end
+#end
+#set( $displayFileSelect = true)
+#if ($descriptor.getParams())
+    #set ($displayFileSelectParam = $descriptor.getParams().get("fileselect.display"))
+    #if ($displayFileSelectParam && "false" == $displayFileSelectParam.toLowerCase())
+        #set ($displayFileSelect = false)
+    #end
+#end
+
+##Hidden empty value to ensure that clear works. If there is no value then
+##JIRA sometimes reverts back to the previous values
+<input  type="hidden"
+       value=" "
+        name="${customField.id}:EMPTY"
+          id="empty-value-${customField.id}"/>
+
+<style type="text/css" >
+        /*The unique id of the wrapping div tag is used to ensure that
+these definitions don't interferer with any other page elements*/
+    multiSearch-${customField.id} .overlay-area-${customField.id} {
+    /*The area needs to float so that it will be the exact area of the button*/
+        float: right;
+        /*Overflow from the hidden button should be ignored, as the button is
+          enlarged to ensure that the click hits it*/
+        overflow: hidden;
+    }
+
+        /* Places the span over the top of the last 'positioned' object
+and makes it transparent.
+This is used to put the file button over the fake upload button.*/
+    .transparent-overlay-${customField.id} {
+        position: absolute;
+        right: 0;
+        top: 0;
+        opacity: 0.0;
+        cursor: pointer;
+    }
+
+    /* Used with the above class to mark the area to cover with the overlay*/
+    .reset-origin-for-absolute-${customField.id} {
+        position: relative;
+    }
+
+        /* remove the margins to ensure that the span is the same size as its
+        contents*/
+    .no-margin-${customField.id} {
+        margin: 0, 0, 0, 0;
+    }
+
+    .section-${customField.id} {
+        clear: both;
+        margin-top: 5px;
+    }
+
+        /* Adds a grey background bar to every other value to make selecting the
+     right remove button easier*/
+    div.option-${customField.id}:nth-child(odd) {
+        background: #DDDDDD;
+    }
+
+    div.block-${customField.id} {
+
+    }
+
+    input.rightAligned-${customField.id} {
+        float: right;
+    }
+</style>
+<script type="text/javascript">
+    //only add these methods once
+    if (typeof ${package}_scripts == 'undefined') {
+        var ${package}_scripts = new Array();
+        //bind is the variable name to assign the function defined in the
+        //script to. The script file must be in the format:
+        //function () {
+        //...
+        //}
+        function ${package}_addScriptToLoad(bind, name, path, callback) {
+            var scriptDefinition = ${package}_scripts[name];
+            if (typeof scriptDefinition == 'undefined') {
+                //first call only
+                scriptDefinition = new Object();
+                scriptDefinition.bind = bind;
+                scriptDefinition.name = name;
+                scriptDefinition.path = path;
+                scriptDefinition.callbacks = new Array();
+                ${package}_scripts[name] = scriptDefinition;
+            }
+            //later calls can still add callbacks
+            var callbacks = scriptDefinition.callbacks;
+            callbacks[callbacks.length] = callback;
+        }
+
+        function ${package}_loadScripts() {
+            //only load the support scripts once
+            if (typeof ${package}_ImportsDone == 'undefined') {
+                for(var scriptName in ${package}_scripts) {
+                    var scriptDefinition = ${package}_scripts[scriptName];
+                    //This is a function to generate a function.
+                    //e.g. a closure
+                    //The value of the parameter(scriptDef) is incorporated
+                    //into the function generated. This fixes the values of the
+                    //internal references.
+                    //See http://stackoverflow.com/questions/111102/how-do-javascript-closures-work
+                    function filterClosure(scriptDef) {
+                        return function(data,type) {
+                            newData =
+                                "if (typeof "+scriptDef.bind+" == 'undefined') {\n"+
+                                    "\t"+scriptDef.bind + "=\n"+
+                                    data+
+                                "}";
+                            //console.log(newData);
+                            return newData;
+                        };
+                    }
+                    function errorClosure(scriptDef) {
+                        return function(jqxhr, settings, exception) {
+                            console.log( "Failed loading "+scriptDef.name, exception );
+                        }
+                    }
+                    jQuery.ajax({
+                            dataType:"script",
+                            cache: true,
+                            url: scriptDefinition.path,
+                            success: scriptDefinition.callbacks,
+                            dataFilter: filterClosure(scriptDefinition),
+                            error: errorClosure(scriptDefinition)
+                    });
+                }
+            ${package}_ImportsDone = true;
+            }
+        }
+
+        jQuery(document).ready(function() {
+                    ${package}_loadScripts();
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    ##Includes plugin key to keep test and live versions independent
+    var downloadPath = "${req.contextPath}/download/resources/${descriptor.plugin.key}/scripts";
+
+    ${package}_addScriptToLoad(
+                    "${package}_multivalue_ValuesList",
+                    'Values List, used to display the selected options',
+                    downloadPath + "/multivalue/ValuesList.js",
+                    function() {
+                        //this only makes sense once the script has been loaded
+                        ${package}_multivalue_ValuesList.create("${customField.id}","${req.contextPath}");
+
+                        #if ($value && $value.getValuesForNullKey())
+                            #set ($values = $value.getValuesForNullKey())
+                            #foreach($valuePart in $values)
+                                #if ($valuePart)
+                                    ${package}_multivalue_ValuesList.get('${customField.id}').addValue("$textutils.htmlEncode($!valuePart)");
+                                #end
+                            #end ##end of for
+                        #end ##end of if
+                        document.getElementById("multiSearch-${customField.id}")
+                                .style.display = "block";
+                    });
+    #if ($displayFileSelect)
+    ${package}_addScriptToLoad(
+                    "${package}_shared_Reader",
+                    'Read File, used to read the tuple file',
+                    downloadPath + "/shared/ReadFile.js",
+                    function() {
+                        //this only makes sense once the script has been loaded
+                        ${package}_shared_Reader.reset('${customField.id}','${req.contextPath}');
+                        document.getElementById("fileSelect-section-${customField.id}")
+                                .style.display = "block";
+                    });
+    /*
+     * Takes a CSV file in the form of a string. Splits the string
+     * first by line and then into columns. The values from the last
+     * column are then loaded into the search.
+     *
+     * JCVI Specific: tests for their being 3 columns
+     */
+    function org_jcvi_jira_plugins_customfield_shared_ParseFile(fileContent, CustomFieldID) {
+        var lines = fileContent.split('\n');
+        //include the first line
+        for (var i = 0; i < lines.length; i++) {
+            //skip blank lines
+            if (lines[i].length > 0) {
+                //chop-up CSV file
+                var fields = lines[i].split(',');
+                //ignore it unless it has only 3 columns
+                if (fields.length == 3) {
+                    var valuesListObject = ${package}_multivalue_ValuesList.get(CustomFieldID);
+                    valuesListObject.addValue(fields[2]);
+                } else {
+                    alert('Only files in the format <bac id>,<collection code>,<db> can be used');
+                    return;
+                }
+            }
+        }
+    }
+    #end
+    #if ($displaySingleLineInput || $displayTextArea)
+    /**
+     * Returns the contents of a form input element. Use instead of .value as
+     * this carries out various null checks.
+     */
+    function ${package}_getSafeInputContents(inputName) {
+        if (document.getElementById(inputName) &&
+                document.getElementById(inputName).value) {
+            return document.getElementById(inputName).value
+        }
+        return "";
+    }
+    #end
+    #if ($displayTextArea)
+    /*
+     * Takes a string. The string is split into a series of values that are added
+     * to the search. The string is split on commas and line returns
+     */
+    function ${package}_stringToValues(inputString, customFieldID) {
+        if (inputString && inputString.trim().length > 0) {
+            var lines = inputString.split('\n');
+            //Start at 0, no header this time
+            for (var i = 0; i < lines.length; i++) {
+                //skip blank lines
+                if (lines[i].length > 0) {
+                    //chop-up on commas
+                    var fields = lines[i].split(',');
+                    //but this time add all of the values
+                    for (var j = 0; j < fields.length; j++) {
+                        var valuesListObject = ${package}_multivalue_ValuesList.get(customFieldID);
+                        valuesListObject.addValue(fields[j]);
+                    }
+                }
+            }
+        }
+    }
+
+    function handleEnterKey(event, customFieldID) {
+        var charCode = (event.which) ? event.which : event.keyCode;
+        if (charCode == 13) {
+            var fieldContents = ${package}_getSafeInputContents(event.target.id);
+            var valuesListObject = ${package}_multivalue_ValuesList.get(customFieldID);
+            valuesListObject.addValue(fieldContents);
+            return false; //don't process the event any further
+        }
+        return true; //pass the key on to the normal handler
+    }
+    #end
+
+</script>
+
+<!--initally hidden until the scripts needed to use it have loaded-->
+<div id="multiSearch-${customField.id}" style="width:90%;display:none">
+    <div id="values-section-${customField.id}"
+         class="section-${customField.id}">
+        <div id="display-values-${customField.id}"></div>
+        <div id="clear-values-${customField.id}"
+             style="display:none">
+            <input type="submit" id="clear-button-${customField.id}"
+                   name="clear"
+                   value="clear"
+                   onclick="${package}_multivalue_ValuesList.get('${customField.id}').clearAll(); return false"
+                   class="rightAligned-${customField.id}"
+                    />
+        </div>
+    </div>
+    #if ($displayTextArea)
+    <div id="textarea-input-section-${customField.id}"
+         class="section-${customField.id}">
+            <span>
+                <span style="float:left">
+                    <textArea id="textArea-${customField.id}" rows="2"
+                              cols="14"></textArea>
+                </span>
+                <span style="float:right">
+                    <input type="submit"
+                           id="add-all-button-${customField.id}"
+                           name="Add All" value="Add All"
+                           class="rightAligned-${customField.id}"
+                           onclick="${package}_stringToValues(${package}_getSafeInputContents('textArea-${customField.id}'),'${customField.id}'); return false"
+                            />
+                </span>
+            </span>
+    </div>
+    #end
+    #if ($displaySingleLineInput)
+    <div id="singleLine-input-section-${customField.id}"
+         class="section-${customField.id}">
+            <span>
+                <span style="float:left">
+                    <input id="singleLine-input-${customField.id}"
+                           size="15"
+                           onkeypress="return handleEnterKey(event,'${customField.id}')"/>
+                           <!--onkeydown="javascript:return true"-->
+                </span>
+                <span>
+                    <input type="submit"
+                           id="add-button-${customField.id}"
+                           name="Add" value="Add"
+                           class="rightAligned-${customField.id}"
+                           onclick="${package}_multivalue_ValuesList.get('${customField.id}').addValue(${package}_getSafeInputContents('singleLine-input-${customField.id}')); return false"
+                            />
+                </span>
+            </span>
+    </div>
+    #end
+    #if ($displayFileSelect)
+    <div id="fileSelect-section-${customField.id}"
+         class="section-${customField.id} overlay-area-${customField.id}"
+            style="display:none">
+
+        <div class="reset-origin-for-absolute-${customField.id}">
+            <!-- relative to the reset co-ordinate space-->
+                <span class="no-margin-${customField.id}">
+                    <input type="submit"
+                           value="Load From File"
+                           onclick="return false"/>
+                    <!-- onclick - ensure that this button doesn't actually do anything -->
+                </span>
+            <!-- absolute in the reset co-ordinate space to place this
+        over the previous span -->
+                <span class="transparent-overlay-${customField.id}">
+                    <input id="file-select-${customField.id}"
+                           type="file"
+                           name="fileLoader"
+                           onchange="${package}_shared_Reader.loadFile(event,'${customField.id}');"/>
+                </span>
+        </div>
+    </div>
+    #end
+</div>
+<!--
+  The properties file is accessed via the map from
+  $descriptor.getParams()
+-->
+#searcherEditFooter (${customField.id} ${customField.description})

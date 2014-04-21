@@ -1,0 +1,67 @@
+.tabwrap.filter-menu {margin:0 0 0.5em;padding:0;}
+#filterFormHeader li strong {padding: 2px 7px 1px 7px;}
+.msie-7 .filter-menu .horizontal {top:.083em;}
+.msie-7 .filter-menu {padding-bottom:1px;}
+.msie-7 #filterFormHeader li {display:inline;}
+.msie-7 #filterFormHeader li > a,
+.msie-7 #filterFormHeader li > strong {float:left;padding: 2px 7px 1px 7px;}
+.msie-7 #filterFormHeader li > a > strong {display:inline;padding:0;}
+
+.perm-link {float:right;width:auto;} /* Appears on the top right of the issue nav page */
+.perm-link a {background:transparent url('../../../images/icons/permalink_light_16.png') no-repeat 0 5px;display:block;height:20px;overflow:hidden;width:20px;text-indent:-9999px}
+.perm-link a:hover {background-image:url('../../../images/icons/permalink_dark_16.png');}
+
+#throbber-space {float:right;display:none;margin-right:10px; margin-top:4px; width:20px;} /* sits beside the permalink */
+#throbber-space.loading {display:block;background:transparent url( "../../../images/icons/wait.gif") 100% center no-repeat;}
+
+.iss-nav .item-header {min-height:24px;}
+.iss-nav #iss-wrap {padding-left:270px;}
+.msie-7 .iss-nav #iss-wrap {padding-left:282px;}
+.msie-7 .iss-nav #iss-wrap .results {min-width:100%;}
+.msie-7 .iss-nav #secondary.iss-nav-form {float: none;} /* Prevents the AUI Forms for issue nav filters from breaking in IE7 due to the min-height css properties */
+.msie-7 .iss-nav .fav-link {display:block;float:left;} /* Prevents the favourite star icon from vanishing */
+
+.iss-nav #iss-wrap.lhc-collapsed {padding-left:14px;}
+.msie-7 .iss-nav #iss-wrap.lhc-collapsed {padding-left:26px;}
+.toggle-lhc {background:#ccc url(../../../images/icons/icon_filtercollapse.png) no-repeat scroll 4px 0.5em;display:block;height:100%;left:0;position:absolute;text-indent:-9000px;top:0;width:14px;z-index:2;}
+.toggle-lhc:hover {background-color:#bbb;cursor:pointer;}
+.lhc-collapsed .toggle-lhc {background-image: url(../../../images/icons/icon_filterexpand.png);left:256px;}
+a.toggle-lhc:focus {outline:none;}
+
+.iss-nav #main-content {margin-bottom:2em;min-width:1%;}
+.iss-nav #main-content:after { content: ".";display: block; height: 0; clear: both; visibility: hidden;}
+.msie-7 .iss-nav #main-content {padding-left:0;}
+.iss-nav #primary {margin-left:-282px;position:relative;width:270px;z-index:5;}
+.iss-nav #primary .content {margin:0 0 0 14px;padding:9px;}
+.iss-nav #primary .rounded {-moz-border-radius-topleft:0;-moz-border-radius-bottomleft:0;-webkit-border-top-left-radius:0;-webkit-border-bottom-left-radius:0;border-top-left-radius:0;border-bottom-left-radius:0;border-left:none;}
+
+.iss-nav #secondary {min-width:100%;position:relative;}
+.iss-nav #secondary .content {margin-left:0;margin-right:0;padding:0.714em 12px;}
+.iss-nav #secondary .results-wrap {margin:0 -12px;}
+
+
+.iss-nav #primary .mod-header {background-position:0 14px;}
+.iss-nav #primary .mod-header h3 {font-size:1em;}
+.iss-nav #primary .mod-header .toggle-title {background-position:1px 6px;}
+.iss-nav #primary .collapsed .mod-header .toggle-title {background-position:3px 3px;}
+
+.searcherValue .fieldLabel {color:#666;}
+.searcherValue .old-value {background-color:#ffe7e7;font-weight:700;}
+.searcherValue .new-value {background-color:#ddfade;font-weight:700;}
+
+#filter-description.item-details dt,
+#filter-description.item-details dd {width:auto;}
+#filter-description .filter-detail {clear:left;float:none;}
+.favourite-me {float:right;width:16px;}
+ul.filter-description {width:90%;}
+.msie-7 .filter-description p {width:225px;}
+
+.filter-type li {margin-bottom:0.5em;}
+.filter-type a,
+.filter-description a,
+#filteroperations .item-details a {font-weight:400;}
+
+.msie-7 .iss-nav .results-wrap,
+.msie-7 .results-count,
+.msie-7 .pagination,
+.msie-7 .pagination .icon {zoom:1;}

@@ -1,0 +1,25 @@
+##<div class="aui-tabs aui-tabs-disabled vertical-tabs"
+###if ($auiparams.tabsId)
+##	id="$!textutils.htmlEncode($auiparams.tabsId)"
+###end
+##	 >
+	<ul class="tabs-menu admin-tabs">
+		#foreach($step in $auiparams.steps)
+			<li class="menu-item#if ($velocityCount == $auiparams.activeStep) active-tab#end#if ($velocityCount == 1) first#end" >
+				#if ($velocityCount == $auiparams.activeStep)
+					<strong>$step</strong>
+				#elseif($velocityCount < $auiparams.activeStep)
+					<strong>$step</strong>
+				#else
+					<font color="gray"><strong>$step</strong></font>
+				#end
+			</li>
+		#end
+	</ul>
+	<div class="admin-active-area" >
+	<script type="text/javascript">
+		AJS.$(function() {
+			AJS.$(".admin-active-wrap > .admin-active-area").removeClass("admin-active-area");
+			AJS.$("#admin-config-content.no-tabs").removeClass("no-tabs").addClass("aui-tabs vertical-tabs");
+		});
+	</script>

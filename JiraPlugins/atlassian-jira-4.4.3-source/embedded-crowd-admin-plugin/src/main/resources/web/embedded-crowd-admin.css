@@ -1,0 +1,203 @@
+/* Custom styles for Embedded Crowd administration */
+#embcwd {
+    padding: 0 1em;
+}
+#directory-list td,
+#directory-list th {
+    vertical-align: top;
+}
+#directory-list p {
+    margin: 0;
+    padding: 0;
+}
+
+#directory-list .id-header,
+#directory-list .id-column {
+    display: none;
+}
+
+#directory-list .operations-header,
+#directory-list .type-header,
+#directory-list .name-header {
+    width: 30%;
+}
+
+#directory-list .order-header {
+    width: 10%;
+}
+
+
+#embcwd .inactive-directory td,
+#embcwd .inactive-directory th {
+    color: #999;
+}
+#embcwd .highlight-directory td,
+#embcwd .highlight-directory th {
+    background-color: #e0efff; /* same as info box colour in Confluence */
+}
+#embcwd .operations {
+    overflow: hidden; /* contain floats */
+}
+#embcwd .directory-operation,
+#embcwd .sync-status {
+    border-left: 1px solid #aaa;
+    float: left;
+    margin-left: 8px;
+    padding-left: 8px;
+}
+#embcwd .directory-operation:first-child {
+    border-left: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+#embcwd .icon-container {
+    overflow: hidden; /* expand to fit floats */
+}
+#embcwd .icon {
+    display: block;
+    height: 20px;
+    width: 20px;
+    text-indent: -9999px;
+    float: left;
+}
+#embcwd .icon-move-up {
+    background: url(images/arrow_up_blue.gif) no-repeat left 50%; /* JIRA icon */
+}
+#embcwd .icon-move-down {
+    background: url(images/arrow_down_blue.gif) no-repeat left 50%; /* JIRA icon */
+}
+#embcwd .icon-move-up-disabled {
+    background: url(images/arrow_up_faded.gif) no-repeat left 50%; /* JIRA icon */
+    color: #aaa;
+}
+#embcwd .icon-move-down-disabled {
+    background: url(images/arrow_down_faded.gif) no-repeat left 50%; /* JIRA icon */
+    color: #aaa;
+}
+#embcwd .sync-info {
+    color: #666;
+}
+#embcwd .sync-status {
+    font-style: italic;
+}
+#embcwd .sync-state {
+    color: #666;
+}
+
+#embcwd .field-group,
+#embcwd form.aui .buttons {
+    padding-left: 240px;
+}
+
+#embcwd .field-group label {
+    left: -240px;
+    margin-right: -230px;
+    width: 230px;
+}
+
+#embcwd .field-group.disabled-group {
+    color: #999;
+}
+
+#embcwd .field-group > .field-group {
+    padding-left: 30px;
+    margin-top: 10px;
+}
+
+#embcwd .field-group > .field-group .description {
+    margin-left: 0;
+}
+
+#embcwd .field-group > .field-group.checkbox input {
+    margin-left: 0;
+}
+
+#embcwd legend span {
+    width: 230px;
+}
+
+#embcwd .group label {
+    left: 0px;
+    margin-right: 0px;
+}
+
+#embcwd .description {
+    max-width: 66em;
+}
+#embcwd.list-directories .description {
+    margin: 0 0 1em 0;
+}
+
+#embcwd.list-directories h3 {
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+    color: #222;
+    margin: 2em 0 1em;
+}
+
+
+#embcwd #add-directory {
+    margin: 1em 0 0 0;
+}
+
+form#new-directory-form,
+form#delete-user-directory {
+    margin: 10px 15px;
+}
+
+/* checkbox divs have labels on the right, no floating needed */
+#embcwd .checkbox > input,
+#embcwd .checkbox > label {
+    float: none;
+    position: static;
+}
+#embcwd .checkbox .description {
+    margin-left: 25px; /* 5 more pixels needed because checkbox is now in normal flow and its margin matters */
+}
+
+#embcwd .results-per-page label {
+    margin-right: 10px; /* separate the checkbox label and the textbox slightly */
+}
+
+#embcwd a.cancel {
+    background-image: none; /* override Confluence's default cancel icon */
+}
+#embcwd .error {
+    background-color: transparent; /* override Confluence style */
+}
+#embcwd .aui-message.error {
+    background-color: #ffe7e7;
+}
+
+#embcwd .success-icon,
+#embcwd .error-icon {
+    float: left;
+    height: 16px;
+    margin-left: -24px;
+    width: 16px;
+    background: transparent none no-repeat left 50%;
+}
+#embcwd .success-icon {
+    background-image: url(images/check.png);
+}
+#embcwd .error-icon {
+    background-image: url(images/error.png);
+}
+
+#embcwd .toggle-head {
+    padding-left: 16px;
+    margin-left: -16px;
+    background: url(images/toggle-down.png) no-repeat left 50%;
+    cursor: pointer;
+}
+#embcwd .collapsed .toggle-head {
+    background-image: url(images/toggle-right.png);
+}
+#embcwd .collapsed .toggle-body {
+    display: none;
+}
+
+#embcwd .new-value {
+    margin-left: .5em;
+}
+

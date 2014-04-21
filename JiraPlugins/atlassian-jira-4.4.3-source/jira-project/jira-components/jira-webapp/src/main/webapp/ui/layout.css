@@ -1,0 +1,128 @@
+#sidebar { float: left; padding: 0 15px 0 0; width: 170px; }
+#content { background-color:#f7f7f7; clear: both; overflow: auto; padding: 1em; position: relative; width: auto;}
+
+div.container { margin-left: auto; margin-right: auto; width: 99%; }
+.leftColumn { float: left; width: 49%; }
+.rightColumn { float: right; width: 49%; }
+
+/* modules styles - could do with a cleanup */
+.module {background-color:#fff;clear:both;margin-bottom:0.5em;word-wrap:break-word;}
+.module.mod-collapsed .mod-content,
+.collapsed .mod-content {display:none;}
+.msie-7 .module,
+.msie-8 .module,
+.msie-7 .module h3,
+.msie-8 .module h3 {zoom:1;}
+.module.focused {outline:2px dotted #3c78b5;}
+.mod-form {}
+.mod-header,
+.mod-content,
+.mod-footer {clear:both;display:block;height:1%;padding:5px 5px 5px 1em;position:relative;} /* IE7 overrides for collapsing the blocks */
+.mod-header {background:#fff url("../../../images/mod_header_bg.png") repeat-x 0 16px;padding:4px 0 0;}
+.mod-header.plain {background-image:none;}
+.mod-header h3,
+form.aui .mod-header h3 {background-color:#fff;color:@textHeadingColour;display:inline;font-weight:400;margin:0;padding-right:0.25em;}
+.mod-header h3 a,
+form.aui .mod-header h3 a {color:#a9a9a9;text-decoration:none;}
+.mod-header h3 a:hover,
+form.aui .mod-header h3 a:hover {outline:1px dotted #3c78b5}
+.mod-header .mod-header-panels {float:right; background-color:#fff}
+.mod-header .mod-header-panel {float:left}
+
+.mod-header .ops {background-color:#fff;float:right;margin-top:5px;xpadding-left:3px;}
+.mod-header .ops li {margin: 0 0 0 4px; }
+.mod-header .ops li .icon { display: block; margin: 0; }
+.module iframe {width:100%}
+.module table {border:0;width:100%;}
+.module table tr {vertical-align:middle;}
+.module td.first {padding-left:0;}
+.module td.last {padding-right:0;}
+.module table tr td.icon {background-image:none;display:table-cell;width:1.25em;}
+.module table tr td.count {text-align:right;}
+.module table tr td.graph {width:60%;}
+.module .component,
+.module .version {vertical-align:middle;padding:0.25em 0;}
+.module .component .stat,
+.module .version .stat {float:right;padding:0 0.5em;}
+.module .component a {background:transparent url( ../../../images/icons/component.gif ) no-repeat 3px 0;padding-left:27px;}
+.module .component a.none {background-image:none;}
+.module .version a.none {padding-left:27px;}
+.module .version img {margin-right:0.5em;padding:0;}
+.module .toggle {color:#666;padding:3px 6px;}
+.module .toggle:hover {cursor:pointer;}
+.reduced {margin-bottom:0;}/* for modules with no margin or padding on the bottom */
+.reduced .mod-content {padding-bottom:0;}
+.isolated {margin:1em;} /* Only used in roadmap-panel.vm */
+.module.message {padding:10px;margin:10px 5px; display:block;}
+.msie-7 .module.message {display:inline-block;}
+.module.message div {margin:0 10px 0 0!important;}
+.module.message.error.contactadmin button.tryagain {display:none;}
+.module.message.error.contactadmin p.retrycomplete {display:block;}
+.module.message.error.contactadmin p.retryprogress {display:none!important;}
+.module.message.error.retry p.retryprogress {display:block;}
+.module.message:after { content: ".";display: block; height: 0; clear: both; visibility: hidden;}
+.module.message p {margin-bottom:1em;}
+.module.message img {float:left; margin-right:10px; border:1px solid #000;}
+.module.message .retrycomplete {display:none;}
+.module.message .retry {display:none;}
+
+/* Should try and clean these up too */
+.msie-7 .active-area, .msie-8 .active-area {zoom:1;}
+.active-area {background-color:#f7f7f7;overflow-x:auto;border:none;min-height:350px;}
+.active-area h2 {font-size:1.6em;margin: 0.5em 0.5em 0;}
+.active-area .content h2 {margin: 0 0.5em 0.5em 0;}
+.active-area .content form.aui h2 {margin:10px 0;}
+
+body.nl,
+.command-bar,
+#main-content {min-width:990px;}
+#header,#footer,.layout {display:inline-block;vertical-align:top;width:100%;}
+#main-content {clear:both;}
+#main-content .column {float:left;margin:0;}
+#footer .footer {border-top:none;}
+
+.type-a #primary {width:99.8%;}
+.type-a #secondary {clear:left;width:99.8%}
+
+.type-aa #primary,
+.type-aa #secondary {width:49.9%;}
+
+.type-ab #primary {width:74.538%;}
+.type-ab #secondary {width:25.266%;}
+
+.type-ba #primary {width:25.266%;}
+.type-ba #secondary {width:74.538%;}
+
+#main-content .active-area .full {width:99.8%;}
+
+#main-content,
+#stalker .command-bar {font-size:1.167em;line-height:1.429;}
+
+.content {margin:0 0.714em 0.714em;position:relative} /* legacy - aim to remove so we can reuse .content */
+.msie-7 #main-content .content {zoom:1;}
+.msie-7 #primary > .content {min-width:0;}
+.rounded {background-color:#fff;border:1px solid #bbb;-moz-border-radius:0.4em;-webkit-border-radius:0.4em;border-radius:0.4em;} /* would be nice to refactor this out if possible */
+.release-notes {padding-top:0.714em;}
+
+.nl #primary-tabs {display:block;}
+.nl #main-content {min-width:966px;padding:12px;}
+.nl .active-area {background-color:#fff;border:1px solid #bbb;min-height:600px;position:relative;-moz-border-radius:0.4em;-webkit-border-radius:0.4em;border-radius:0.4em;}
+.nl .active-area .command-bar {min-width:900px;padding:0.832em 0.832em 1em}
+.nl #admin-config .active-area .command-bar {padding:0 0 1em;}
+
+.admin-active-wrap {float:left;min-width:100%;}
+.msie-7 .admin-active-wrap {min-width:0!important; float:none;}
+.admin-active-area {background-color:#fff;border:1px solid #bbb;min-height:600px;position:relative;-moz-border-radius:0.4em;-webkit-border-radius:0.4em;border-radius:0.4em;padding:14px;}
+
+.admin-wrap {padding:1em;}
+.admin-wrap .results-count {margin:14px 12px 0 0;}
+.admin-wrap .filter-form + .results-count {margin-top:0;}
+
+
+
+body.printable {background-color:#fff;}
+.printable-content {margin:1em;}
+
+/* ie9 has special needs */
+.msie-9 .sn .active-area {overflow:visible;}
+.msie-9 .sn .active-area:after{content:".";display:block;height:0;clear:both;visibility:hidden;}

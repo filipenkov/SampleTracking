@@ -1,0 +1,52 @@
+@import "dynamic:lookandfeel.less";
+@import "variables.less";
+
+#avatar-panel {display:none;}
+#avatar-dialog {width:750px;}
+#avatar-dialog, #avatar-dialog h2 {overflow:visible;}
+#avatar-dialog .panel-body ul {margin:0; padding:0; list-style-type:none;}
+#avatar-dialog .page-menu li.page-menu-item button.item-button::-moz-focus-inner {border: 0;}
+#avatar-dialog .page-menu li.page-menu-item button.item-button:hover {cursor:pointer;}
+#avatar-dialog ul.avatars { list-style: none; margin: 0; padding: 0; }
+#avatar-dialog ul.avatars li.avatar {float:left;padding:6px;}
+#avatar-dialog ul.avatars li.avatar:hover img {cursor:pointer;}
+#avatar-dialog ul.avatars li.avatar.upload {border: 1px dashed #bbb; margin:5px; padding:0;}
+#avatar-dialog ul.avatars li.avatar.upload a {display:block; text-decoration:none; margin:0; padding:10px 0 0 0;  width:48px; height:38px; text-align:center;  cursor:pointer; font-weight:bold; border:none;}
+#avatar-dialog ul.avatars li.avatar {width:48px; height:48px; position:relative; z-index:1;}
+#avatar-dialog ul.avatars li.avatar:hover {background:url( "../../../images/thumbnail-highlight.png") -1px -1px no-repeat;}
+#avatar-dialog ul.avatars li.avatar.del {background:none; }
+#avatar-dialog ul.avatars li.avatar.del img {.opacity(0.5);}
+#avatar-dialog ul.avatars li.avatar a.del {display:none; position:absolute; right:-4px; top:-4px; height:18px; width:18px; background:url("../../../images/icn-remove.png") 0 0 no-repeat; text-indent:-9999px; font-size:0;}
+#avatar-dialog ul.avatars li.avatar.active.del a.del {background-position:0 100%;}
+#avatar-dialog ul.avatars li.avatar a.del:hover {border-color:#000;color:#000}
+#avatar-dialog ul.avatars li.avatar.active a.del {display:block;}
+#avatar-dialog ul.avatars li.avatar.upload {position:relative;z-index:2;}
+#avatar-dialog ul.avatars li.avatar.upload:hover {background:#F0F0F0;}
+#avatar-dialog ul.avatars li.avatar.upload.active .tooltip {right:auto;left:0;display:block;z-index:3;}
+#avatar-dialog .close {position:absolute; font-size:0; top:-13px; right:-13px; width: 30px; height:30px; background: transparent url( "../../../images/button-close.png") 0 0 no-repeat; padding:0; border:none; cursor:pointer;}
+#avatar-dialog .pick_avatar_image {float:left;display:block;}
+#avatar-dialog .avataror {margin:0 auto;}
+.msie-7 .avataror {position:relative;}
+#avatar-dialog .panel-body {overflow:hidden;}
+#avatar-dialog li.upload form {width:48px; height:48px; position:absolute; top:0; right:0; overflow:hidden;}
+#avatar-dialog li.upload form input {height:48px; margin:0; padding:0; position:absolute; bottom:0; left:0;width:48px; font-size:30px;}
+#avatar-dialog div.upload {width:12em;position:relative;float:left;}
+#avatar-dialog div.upload form input {width:100%; position:absolute;bottom:0;right:0;}
+.msie-7 #avatar-dialog li.upload form input,
+.msie-7 #avatar-dialog div.upload form input {left:auto;}
+#avatar-dialog li.upload form input, #avatar-dialog div.upload form input {left:-250px;font-size:18px;top:-5px;}
+#avatar-dialog .page-menu {padding-bottom:20px;}
+#avatar-dialog .page-menu li.page-menu-item.selected.loading {background:#6699CC url( "../../../images/loading-6699CC.gif") 95% center no-repeat;}
+#avatar-dialog .dialog-button-panel { text-align: left; }
+#avatar-dialog .dialog-button-panel .upfile { float: left; margin: 0 0 0 1em; }
+#avatar-dialog button {font-size:1em;}
+#project_avatar_id {display:none;}
+
+/* avatar_link is used in add/edit project as well as on the User Profile page */
+.avatar_link {position:relative; padding-right: 20px; text-decoration:none; width:48px; display:block;}
+.avatar_link strong {display:none; left:33px; width:15px; height:15px;position: absolute; top:0; right:0; text-indent:-9999px;background-position:0 -699px }
+.avatar_link:hover strong {display:block;}
+.avatar_link:hover img {.opacity(0.5);}
+.avatar_link .module.message.updated {float:left; font-weight:bold; color:#333; padding:3px 5px;}
+.avatar_link img {margin-right:2px;}
+.avatar_link.loading {background:#fff url( "../../../images/icons/wait.gif") 100% center no-repeat;}

@@ -1,0 +1,66 @@
+#macro( actionTab $action $tabCount)
+	<li class="menu-item#if ($tabCount==0) active-tab #end">
+		<a href="#$action.getName()"><strong>$i18n.getText($action.getTitle())</strong></a>
+	</li>
+#end
+#macro( actionBody $action $panelCount)
+	<div class="stp-module tabs-pane #if ($panelCount==0) active-pane #end " id="$action.getName()">
+	    <h2>$i18n.getText($action.getTitle())</h2>
+	    <div class="home-page-wrapper loading">
+			  <!-- this is empty until it gets loaded via AJAX -->
+	    </div>
+	</div>
+
+	<script type="text/javascript">
+		AJS.$(document).ready(function()
+		{
+		getPageViaAjax('$action.getName()','$servletHomePath/$action.getName()/view')
+		});
+	</script>
+#end
+
+<html>
+   <head>
+	    <title>$i18n.getText('stp.plugin.name')</title>
+	    <meta name="decorator" content="atl.admin"/>
+	    <meta name="activeTab" content="admin-support-section">
+		<meta name="admin.active.section" content="admin_system_menu/top_system_section/support_tools_section"/>
+		<meta name="admin.active.tab" content="support-tools-home"/>
+		<meta name="application-base-url" content="$applicationProperties.getBaseUrl()">
+		    $webResourceManager.requireResource("com.atlassian.support.stp:resources")
+   </head>
+   
+  <body>
+	<div id="stp-container" class="aui-tabs vertical-tabs">
+	
+	    <ul class="tabs-menu">
+		  <li class="aui-tabs-group">
+		  	<ul class="aui-tabs-group-menu">
+		  		#actionTab($factory.getAction("home") 0)
+		  	</ul>
+		  </li>
+		  #set ($tabCount = 1)
+		  #foreach ($category in $factory.getActionCategories())
+			<li class="aui-tabs-group">
+		    	<strong>$i18n.getText($category)</strong>
+	            <ul class="aui-tabs-group-menu">
+				  	#foreach ($action in $factory.getActionsByCategory($category))
+						#actionTab($action $tabCount)
+				        #set ($tabCount = $tabCount + 1)
+			  		#end
+	            </ul>
+		    </li>
+		  #end
+		</ul>
+		
+		#actionBody($factory.getAction("home") 0)
+		#set ($panelCount = 1)
+		#foreach ($category in $factory.getActionCategories()) 
+			#foreach ($action in $factory.getActionsByCategory($category))
+				#actionBody($action $panelCount)
+		        #set ($panelCount = $panelCount + 1)
+			#end
+		#end
+	</div>
+  </body>
+ </html>

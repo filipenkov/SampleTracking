@@ -1,0 +1,19 @@
+#if ($worklog)
+    #if ($textutils.stringSet($worklog.getComment()))
+    <tr valign="top">
+        <td colspan="2" style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 16px 0;width:100%;">
+            <div class="comment-block" style="background-color:${commentBackground};border:1px solid #DDDDDD;color:${textColour};padding:12px;">$textutils.plainTextToHtml($worklog.getComment())</div>
+            <div style="color:$textSubtleColour;padding: 4px 0 0 0;">#visibility()</div>
+        </td>
+    </tr>
+    #end
+    <tr valign="top">
+        <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+            <strong style="font-weight:normal;color:${textSubtleColour};">#text("email.event.activity.worklog.entry.label"):</strong>
+        </td>
+        <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+            $i18n.getText("email.event.activity.worklog.worklogentry", $context.getCommentTimeLogged($i18n), "#authorlink2($worklog.getAuthor() $linkstyle)")
+            ($dateformatter.formatDMYHMS($worklog.getStartDate()))
+        </td>
+    </tr>
+#end

@@ -1,0 +1,68 @@
+package com.atlassian.jira.bc.project.component;
+
+import java.util.Comparator;
+
+/**
+ * Comparator for ProjectComponent objects, singleton, use static instance.
+ */
+public class ProjectComponentComparator implements Comparator<ProjectComponent>
+{
+
+    /**
+     * Compares two ProjectComponents, grouping them by project and then
+     * by case-insensitive component name.
+     */
+    public static final ProjectComponentComparator INSTANCE = new ProjectComponentComparator();
+
+    /**
+     * Don't create these, use INSTANCE.
+     */
+    private ProjectComponentComparator()
+    {
+        // no state
+    }
+
+    public int compare(ProjectComponent projectComponent1,ProjectComponent projectComponent2)
+    {
+        if (projectComponent1 == null && projectComponent2 == null)
+            return 0;
+
+        if (projectComponent1 == null)
+            return 1;
+
+        if (projectComponent2 == null)
+            return -1;
+
+        Long projectId1 = projectComponent1.getProjectId();
+        Long projectId2 = projectComponent2.getProjectId();
+
+        if (projectId1 == null && projectId2 == null)
+            return 0;
+
+        if (projectId1 == null)
+            return 1;
+
+        if (projectId2 == null)
+            return -1;
+
+        int projectComparison = projectId1.compareTo(projectId2);
+        if (projectComparison != 0)
+        {
+            return projectComparison;
+        }
+        else
+        {
+            String componentName1 = projectComponent1.getName();
+            String componentName2 = projectComponent2.getName();
+
+            if (componentName1 == null && componentName2 == null)
+                return 0;
+            else if (componentName2 == null)
+                return -1;
+            else if (componentName1 == null)
+                return 1;
+            else
+                return componentName1.compareToIgnoreCase(componentName2);
+        }
+    }
+}

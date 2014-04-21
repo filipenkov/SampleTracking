@@ -1,0 +1,31 @@
+@import "dynamic:lookandfeel.less";
+@import "variables.less";
+
+.status-lozenge {
+    background-color: #f0f0f0;
+    border: 1px solid #bbb;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    color: #505050;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 16px;
+    margin: 0;
+    padding: 0 8px;
+    vertical-align: top;
+    &.status-active {
+        background-color: #326ca6;
+        border-color: #265380;
+        color: #fff;
+    }
+    &.status-draft {
+        background-color: #505050;
+        border-color: #272727;
+        color: #fff;
+    }
+}
+

@@ -1,0 +1,8 @@
+<tr valign="top">
+    <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 10px 10px 0;white-space:nowrap;">
+        <strong style="font-weight:normal;color:${textSubtleColour};">#text("common.concepts.issue"):</strong>
+    </td>
+    <td style="color:${textColour};font-family:${textFontFamily};font-size:${textSize};padding:0 0 10px 0;width:100%;">
+        <a style="color:${textLinkColour};" href="${baseurl}/browse/${issue.getKey()}">($issue.getKey()) $textutils.htmlEncode($issue.getSummary())</a>
+    </td>
+</tr>

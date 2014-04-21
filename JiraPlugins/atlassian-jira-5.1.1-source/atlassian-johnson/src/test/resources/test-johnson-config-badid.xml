@@ -1,0 +1,51 @@
+<johnson-config>
+    <!-- provide any Johnson setup parameters like this -->
+    <parameters>
+        <init-param>
+            <param-name>foo</param-name>
+            <param-value>bar</param-value>
+        </init-param>
+        <init-param>
+            <param-name>baz</param-name>
+            <param-value>bat</param-value>
+        </init-param>
+    </parameters>
+
+    <setupconfig class="mock.MockSetupConfig"/>
+
+    <eventchecks>
+        <eventcheck id="1" class="mock.MockEventCheck"/>
+        <eventcheck id="abc" class="mock.MockEventCheck"/>
+    </eventchecks>
+
+    <setup>
+        <path>/the/setup/path.jsp</path>
+    </setup>
+
+    <error>
+        <path>/the/error/path.jsp</path>
+    </error>
+
+    <ignore>
+        <path>/ignore/path/1.jsp</path>
+        <path>/ignore/path/*.html</path>
+    </ignore>
+
+    <eventlevels>
+        <eventlevel key="warning">
+            <description>This is a warning buddy</description>
+        </eventlevel>
+        <eventlevel key="error">
+            <description>Error</description>
+        </eventlevel>
+    </eventlevels>
+
+    <eventtypes>
+        <eventtype key="database">
+            <description>Database</description>
+        </eventtype>
+        <eventtype key="upgrade">
+            <description>Upgrade</description>
+        </eventtype>
+    </eventtypes>
+</johnson-config>

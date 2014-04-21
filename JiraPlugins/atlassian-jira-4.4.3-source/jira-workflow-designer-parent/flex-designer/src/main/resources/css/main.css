@@ -1,0 +1,350 @@
+/* consult defaults.css in the flex.framework-3.6.*insert uber version string*.swc for things to override */
+
+@font-face {
+    src:url("/fonts/Arial.ttf");
+    fontFamily:VWDFont;
+    fontAntiAliasType: "normal";
+}
+
+global
+{
+	borderColor: #bbb;
+    horizontalGridLineColor: #bbb;
+    verticalGridLineColor: #bbb;
+	buttonColor: #000;
+	color: #000;
+    textRollOverColor: #000;
+	textSelectedColor: #000;
+	disabledColor: #ddd;
+	fontFamily: VWDFont;
+
+	themeColor: #fff;
+}
+
+.appContainer {
+    borderThickness:1px;
+    borderColor:#bbb;
+    borderStyle:solid;
+    cornerRadius:5px;
+
+}
+
+/* canvas area */
+Application {
+	backgroundColor:#fff;
+	fontSize: 13;
+	disabled-color: #999;
+	font-sharpness: 100;
+	font-thickness: -100;
+	modalTransparency:0.5;
+	modalTransparencyBlur:0;
+	modalTransparencyColor:#000;
+	fontFamily:"arial,FreeSans,Helvetica,sans-serif,_sans";
+}
+
+/* floating dock lists */
+List {
+	backgroundAlpha: 1;
+	alternatingItemColors:#fff,#fff;
+	backgroundColor:#f0f0f0;
+	borderThickness:1px;
+	selectionColor: #eaf1fd;
+	rollOverColor: #f0f0f0;
+	textRollOverColor: #535353;
+	textSelectedColor: #000;
+	textIndent: 5;
+    disabledColor:#bbb;
+    paddingTop:6px;
+    borderColor:#bbb;
+    borderSides:none;
+}
+
+.listItem {
+    borderColor:#bbb;
+    borderThicknessBottom:1px;
+}
+
+/* used in things like the image chooser */
+DataGrid
+{
+	headerColors: #fff, #fff;
+	alternatingItemColors: #fff,#fff;
+	verticalGridLineColor: #bbb;
+	color: #000;
+	headerStyleName: dataGridHeader;
+	rollOverColor:#f0f0f0;
+	textRollOverColor:#000;
+	selectionColor: #eaf1fd;
+	textSelectedColor:#000;
+	disabledColor:#bbb;
+}
+
+DataGridItemRenderer
+{
+	paddingLeft:7px;
+}
+
+.dataGridHeader {
+	color:#999;
+    fontSize: 14px;
+	font-weight:normal;
+    modalTransparency:1;
+
+}
+
+Form
+{
+	paddingBottom: 14;
+	paddingLeft: 14;
+	paddingRight: 14;
+	paddingTop: 14;
+	verticalGap: 7;
+}
+
+
+TextInput, TextArea {
+	color: #333333;
+}
+
+.errorField {
+	backgroundColor: #fff;
+	color: #c00;
+	fontWeight: bold;
+    letterSpacing:1;
+    paddingTop:7px;
+}
+
+/* wow, these actually ARE the form field labels */
+.fieldLabel {
+    color:#333;
+	fontSize: 13px;
+	fontWeight: normal;
+}
+
+.fieldMessage {
+    color:#333;
+	fontSize: 12px;
+	fontWeight: normal;
+}
+
+/* Status editor labels and descriptions */
+/*
+see also List (above) for:
+selectionColor: #eaf1fd;
+rollOverColor: #f0f0f0;
+*/
+.statusFieldLabel {
+    color:#333;
+	fontSize: 13px;
+	fontWeight: bold;
+	textRollOverColor: #f0f0f0;
+	textSelectedColor: #eaf1fd;
+
+}
+
+.statusFieldMessage {
+    color:#333;
+	fontSize: 11px;
+	fontWeight: normal;
+    textIndent: 22px;
+	textRollOverColor: #f0f0f0;
+	textSelectedColor: #eaf1fd;
+}
+/* end Status Editor */
+
+/* main toolbar at the top */
+.buttonBarContainer {
+	backgroundColor:#f0f0f0;
+	paddingBottom:3;
+	paddingLeft:3;
+	paddingTop:3;
+	paddingRight:3;
+	horizontalGap:14;
+    verticalAlign:middle;
+
+}
+/* labels in main toolbar */
+.label {
+    paddingTop:3px;
+}
+
+ToggleButtonBar, ButtonBar, .controlBarToogleBar /* a mix of the buttons top left, ButtonBar seems to only be the zoom controls */
+{
+	buttonStyleName: buttonStyle;
+	firstButtonStyleName: buttonStyle;
+	lastButtonStyleName: buttonStyle;
+	verticalGap: 0;
+	horizontalGap: 0;
+	buttonHeight: 22;
+    
+}
+
+Button
+{
+	cornerRadius: 3px;
+	fontWeight: "normal";
+	horizontalGap: 2;
+	paddingBottom: 2;
+	paddingLeft: 7;
+	paddingRight: 7;
+	paddingTop: 3;
+}
+
+.buttonStyle, .panelButton, .alertButtonStyle
+{
+    font-weight: normal;
+	textRollOverColor:#000;
+	color: #000;
+	font-size:13px;
+    borderColor:#ddd;
+    themeColor:#bbb;
+    cornerRadius:3px;
+}
+
+/* dialog header text :-
+called via title-style-name: headerStyle
+*/
+.headerStyle
+{
+    backgroundColor:#0f0;
+	backgroundAlpha:1;
+    font-size:16px;
+	font-weight:bold;
+	color:#666;
+    textIndent:14px;
+    modalTransparency:1;
+}
+
+Alert
+{
+	background-color: #ffffff;
+    header-height:45;
+    header-colors : #dddddd, #dddddd;
+    footer-colors : #dddddd, #dddddd;
+    backgroundAlpha:1;
+    color: #000;
+    paddingBottom:14px;
+	title-style-name: headerStyle;
+	borderAlpha: 1; /* controls the alpha of the panel top, bottom and sides. */
+	borderColor: #fff;
+}
+
+
+/* dialogs */
+Panel, MDIWindow
+{
+
+    dropShadowEnabled: false;
+    borderAlpha:1;/* the border actually refers to the background of the dialog headers */
+}
+
+Panel
+{
+	background-color: #fff;
+	corner-radius: 0;
+    borderThicknessLeft:0;
+    borderThicknessRight:0;
+	header-height:24;
+}
+
+MDIWindow {
+    header-height:43;
+	paddingLeft:6;
+	paddingRight:6;
+	paddingBottom:3;
+	styleNameFocus: mdiStyle;
+	styleNameNoFocus: mdiStyle;
+}
+
+/* main body of dialogs such as login */
+.mdiStyle {
+	background-color: #fff;
+	dropShadowEnabled: true;
+    shadowDirection:right;
+    shadowDistance:15;
+	title-style-name: headerStyle;
+}
+
+
+/* 'floating' boxes */
+.toolPanel {
+    borderColor:#e2e2e2;/* this border colour seems to change the bg col for the heading too :( */
+    borderThicknessLeft:1;
+    borderThicknessRight:1;
+}
+
+
+/* grey bar behind the toolbars */
+.buttonBar {
+	backgroundColor:#f0f0f0;
+    paddingTop:3px;
+    paddingRight:6px;
+    paddingBottom:3px;
+    paddingLeft:6px;
+}
+
+/* for hard coded line above dialog buttons */
+.hrule {color:#bbb;}
+
+HRule
+{
+	strokeColor: #bbb;
+	strokeWidth: 1;
+}
+
+/* this is the container around the buttons at the bottom of the dialogs */
+.buttonsContainer {paddingTop:5px;paddingBottom:5px;}
+
+
+/* pretty sure this can go when we ditch the tabs */
+SuperTabNavigator
+{
+	tabStyleName: tabStyle;
+	paddingTop:-1;
+	background-color:transparent;
+}
+
+TabNavigator
+{
+	/*borderColor: #fff;*/
+	borderStyle: none;/* have taken the border off for the moment and will try a grey bg on the main toolbar */
+}
+
+
+ProgressBar
+{
+	track-skin: Embed(source='/assets/controls/progressbar_bg_jira.png', scaleGridLeft=8, scaleGridRight=30, scaleGridTop=5,scaleGridBottom=6);
+	bar-skin: Embed(source='/assets/controls/progressbar_jira.png', scaleGridLeft=6, scaleGridRight=30, scaleGridTop=4,scaleGridBottom=5);
+	indeterminate-skin: ClassReference("assets.skins.ProgressIndeterminateSkin");
+	barColor: #999;
+	font-size: 12px;
+	font-thickness: -200;
+}
+
+.editorTitle {
+	font-size: 38;
+}
+
+.sliderRightButton {
+    upSkin: ClassReference("assets.skins.RightArrowSkin");
+    downSkin: ClassReference("assets.skins.RightArrowSkin");
+    overSkin: ClassReference("assets.skins.RightArrowSkin");
+}
+
+.sliderLeftButton {
+    upSkin: ClassReference("assets.skins.LeftArrowSkin");
+    downSkin: ClassReference("assets.skins.LeftArrowSkin");
+    overSkin: ClassReference("assets.skins.LeftArrowSkin");
+}
+
+/*
+Workflow diagram colours/styling :-
+line colour = _lineColor = 0xbbbbbb; in DefaultEdgeRenderer.as
+arrow colour = arrowColor:Number = 0xbbbbbb; in DirectedEdgeRenderer.as
+toggle label background colour = tf.backgroundColor = 0xeaf1fd; in AbstractDiagram.as
+toggle label other styles like font size = _uiLabel.setStyle("fontSize", 12); in AbstractUIEdge.as
+*/
+/*
+Workflow navigator panel :-
+orange colour see DiagramNavigator.as #E5B421
+*/

@@ -1,0 +1,38 @@
+{namespace JIRA.Templates.WhatsNew}
+
+/**
+* Renders the what's new dialog panel
+*
+* @param whatsNewHelpLink URL for the what's new help
+* @param whatsNewFullLink URL to report in the timeout message
+*/
+{template .whatsNewDialogPanel}
+<div class="whats-new-dialog-text">
+    <div class="whats-new-throbber hidden"></div>
+    <div class="whats-new-timeout hidden">
+        <div class="aui-message warning">
+            <p class="title">
+                <span class="aui-icon icon-warning"></span>
+                <strong>{getText('whats.new.dialog.timeout.heading')}</strong>
+            </p>
+            <p>{getText('whats.new.dialog.timeout.description', $whatsNewFullLink)|noAutoescape}</p>
+        </div>
+    </div>
+</div>
+<iframe id="whats-new-iframe" class="hidden" scrolling="no" frameborder="0" src="{$whatsNewHelpLink}"></iframe>
+{/template}
+
+/**
+* Renders Field Picker Chrome
+* @param isOnDemand whether or not this is JIRA OnDemand.  Used to suppress
+*       the message about the user's profile, which does not apply in OnDemand.
+*/
+{template .whatsNewDialogTipPanel}
+<div class="dialog-tip">
+    <input id="dont-show-whats-new" type="checkbox" name="dontshow">
+    <label for="dont-show-whats-new" type="checkbox">
+        <span class="checkbox-label">{getText('whats.new.dialog.dont.show.again.label')}</span>
+    </label>
+    {if not $isOnDemand}<span>{getText('whats.new.dialog.dont.show.again.desc')}</span>{/if}
+</div>
+{/template}

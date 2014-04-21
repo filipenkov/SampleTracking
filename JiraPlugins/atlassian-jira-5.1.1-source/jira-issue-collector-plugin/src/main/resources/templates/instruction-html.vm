@@ -1,0 +1,7 @@
+&lt;html&gt;
+    &lt;head&gt;<span class="snippet-standard-text">...</span>&lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;<span class="snippet-standard-text">Hello World!</span>&lt;/h1&gt;
+        <span class="snippet-insert-text">Insert collector source here</span>
+    &lt;/body&gt;
+&lt;/html&gt;

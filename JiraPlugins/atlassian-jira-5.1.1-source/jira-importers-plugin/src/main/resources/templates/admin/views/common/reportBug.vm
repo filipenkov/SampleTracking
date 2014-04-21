@@ -1,0 +1,13 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ImporterProcessSupport" *#
+<div id="reportBug2">
+
+</div>
+<div id="reportBug">
+	$i18n.getText('jira-importer-plugin.report.bugs', $action.pluginVersion)
+</div>
+
+#foreach ($panel in $action.footerPanels)
+	<div>
+		$panel
+	</div>
+#end

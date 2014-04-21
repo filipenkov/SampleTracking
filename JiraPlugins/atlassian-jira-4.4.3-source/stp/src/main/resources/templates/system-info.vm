@@ -1,0 +1,45 @@
+#foreach($warning in $info.getSystemWarnings())
+	<div class="aui-message error">$warning</div>	
+#end
+
+$info.loadProperties()
+#if ($info.getPropertyCategories().size() > 0)
+	#foreach ($category in $info.getPropertyCategories())
+		<div>
+			<table class="aui">
+				<thead>
+					#if ($category.endsWith("Plugins"))
+						<tr><th colspan="3">$category</th></tr>
+						<tr><th>Name</th><th>Version</th><th>Vendor</th></tr>
+					#else
+						<tr><th colspan="2">$category</th></tr>
+					#end
+				</thead>
+				<tbody>
+					#set ($properties = $info.getPropertiesByCategory($category))
+					#foreach ($key in $properties.keySet())
+							#if ($category.equals("Installed Languages"))
+								#foreach ($language in $properties.get($key))
+									<tr><td colspan="2">$language</td></tr>
+								#end
+							#elseif ($category.equals("Memory Pool Info"))
+								<tr><td colspan="2">$properties.get($key)</td></tr>
+							#elseif ($category.endsWith("Plugins"))
+								#if($key.startsWith("Plugin.Name."))
+									#set ($pluginName = $properties.get($key))
+									<tr>
+										<th>$pluginName</th>
+										<td>#if ($properties.get("${pluginName}.Version")) $properties.get("${pluginName}.Version") #end</td>
+										<td>#if ($properties.get("${pluginName}.Vendor")) $properties.get("${pluginName}.Vendor") #end</td>
+									</tr>
+								#end
+							#else
+								<tr><th>$key</th><td>#if ($properties.get($key)) $properties.get($key) #end </td></tr>
+							#end
+						</tr>
+					#end
+				</tbody>
+			</table>
+		</div>
+	#end
+#end	

@@ -1,0 +1,7 @@
+#if($fieldUri.isDefined())
+  #set ($valueHtml = "<a href='" + $fieldUri.get() + "'>" + $fieldValue + "</a>")
+#else
+  #set ($valueHtml = $fieldValue)
+#end
+#set ($fieldHtml = $i18n.getText($i18nKey, $fieldName, $valueHtml))
+$fieldHtml

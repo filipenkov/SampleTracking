@@ -1,0 +1,16 @@
+#enable_html_escaping()
+#* @vtlvariable name="i18n" type="com.atlassian.jira.util.I18nHelper" *#
+<div id="project-config-panel-components" class="project-config-panel">
+    <div class="project-config-panel-header project-config-icon48-components">
+        <h2>$i18n.getText('common.concepts.components')</h2>
+        <p>$i18n.getText('admin.project.config.summary.component.desc')</p>
+    </div>
+    <table id="project-config-components-table"></table>
+    <div id="project-config-error-console"></div>
+    <div class="hidden parameters">
+        <input type="hidden" value="$projectLeadAssignee" title="projectLeadAssignee" />
+        <input type="hidden" value="$isDefaultAssigneeProjectLead" title="isDefaultAssigneeProjectLead" />
+        <input type="hidden" value="$userAvatars" title="userHover">
+        <input type="hidden" value="$isUserPickerDisabled" title="leadPickerDisabled">
+    </div>
+</div>

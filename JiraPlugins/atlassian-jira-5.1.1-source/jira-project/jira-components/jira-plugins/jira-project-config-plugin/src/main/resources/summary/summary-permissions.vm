@@ -1,0 +1,34 @@
+#enable_html_escaping()
+#* @vtlvariable name="changeIssueSecuritySchemeUrl" type="java.lang.String" *#
+#* @vtlvariable name="i18n" type="com.atlassian.jira.util.I18nHelper" *#
+#* @vtlvariable name="issueSecuritySchemeUrl" type="java.lang.String" *#
+#* @vtlvariable name="projectPermissionsScheme" type="com.atlassian.jira.projectconfig.contextproviders.PermissionsSummaryPanelContextProvider.SimpleProjectPermissionsScheme" *#
+#* @vtlvariable name="issueSecurityScheme" type="com.atlassian.jira.projectconfig.contextproviders.PermissionsSummaryPanelContextProvider.SimpleIssueSecurityScheme" *#
+
+<div class="project-config-webpanel-content project-config-icon48-permissions">
+    <div class="project-config-webpanel-help">
+        <p>${i18n.getText("admin.project.config.summary.permissions.desc")}</p>
+    </div>
+    <ul class="project-config-list project-config-datalist">
+        <li>
+            <span class="project-config-list-label">${i18n.getText("common.concepts.scheme")}:</span>
+            <span class="project-config-list-value">
+                #if($projectPermissionsScheme)
+                    <a id="project-config-permissions" data-schemeid="${projectPermissionsScheme.id}" href="$projectPermissionUrl" title="$!{projectPermissionsScheme.description}">${projectPermissionsScheme.name}</a>
+                #else
+                    <a id="project-config-permissions" href="$projectPermissionUrl">${i18n.getText("common.words.none")}</a>
+                #end
+            </span>
+        </li>
+        <li>
+            <span class="project-config-list-label">${i18n.getText("common.concepts.issues")}:</span>
+            <span class="project-config-list-value">
+                #if($issueSecurityScheme)
+                    <a id="project-config-issue-sec" data-schemeid="${issueSecurityScheme.id}" href="${issueSecuritySchemeUrl}" title="$!{issueSecurityScheme.description}">${issueSecurityScheme.name}</a>
+                #else
+                    <a id="project-config-issue-sec" href="${issueSecuritySchemeUrl}">${i18n.getText("common.words.none")}</a>
+                #end
+            </span>
+        </li>
+    </ul>
+</div>

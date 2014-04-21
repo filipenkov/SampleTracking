@@ -1,0 +1,28 @@
+#macro (displayFieldErrors $fieldName)
+	#if ($validationLog.hasFieldWarnings($fieldName) || $validationLog.hasFieldErrors($fieldName)) 
+		<div class="error">
+			#if ($validationLog.hasFieldErrors($fieldName)) 
+				#foreach($error in $validationLog.getFieldErrors($fieldName))<p>$error.getBody()</p> #end
+			#end
+			#if ($validationLog.hasFieldWarnings($fieldName)) 
+				#foreach($warning in $validationLog.getFieldWarnings($fieldName)) <p>$warning.getBody()</p> #end
+			#end
+		</div>
+	#end
+#end
+
+#if ($validationLog.hasErrors()) 
+<div class="aui-message error">
+	<p class="title">$i18n.getText("stp.error.heading")</p>
+	<ul>
+		#foreach($error in $validationLog.getErrors()) <li>$error.getBody()</li> #end
+	</ul>
+</div>
+#end
+#if ($validationLog.hasWarnings()) 
+<div class="aui-message warning">
+	<ul>
+		#foreach($warning in $validationLog.getWarnings()) <li>$warning.getBody()</li> #end
+	</ul>
+</div> 
+#end

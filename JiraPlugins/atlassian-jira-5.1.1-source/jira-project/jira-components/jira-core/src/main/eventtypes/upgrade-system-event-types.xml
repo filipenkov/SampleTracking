@@ -1,0 +1,109 @@
+<eventtypes>
+    <!-- Any additional event types added to this template should start with the id 10000 -->
+    <!-- This file is only used in upgrades tasks 150 and 35 -->
+    <eventtype id="1">
+        <i18n-name-key>event.type.issuecreated.name</i18n-name-key>
+        <i18n-description-key>event.type.issuecreated.desc</i18n-description-key>
+        <name>Issue Created</name>
+        <description>This is the 'Issue Created' event type.</description>
+        <notificationName>ISSUE_CREATED</notificationName>
+        <eventName>created</eventName>
+    </eventtype>
+    <eventtype id="2">
+        <i18n-name-key>event.type.issueupdated.name</i18n-name-key>
+        <i18n-description-key>event.type.issueupdated.desc</i18n-description-key>
+        <name>Issue Updated</name>
+        <description>This is the 'Issue Updated' event type.</description>
+        <notificationName>ISSUE_UPDATED</notificationName>
+        <eventName>updated</eventName>
+    </eventtype>
+    <eventtype id="3">
+        <i18n-name-key>event.type.issueassigned.name</i18n-name-key>
+        <i18n-description-key>event.type.issueassigned.desc</i18n-description-key>
+        <name>Issue Assigned</name>
+        <description>This is the 'Issue Assigned' event type.</description>
+        <notificationName>ISSUE_ASSIGNED</notificationName>
+        <eventName>assigned</eventName>
+    </eventtype>
+    <eventtype id="4">
+        <i18n-name-key>event.type.issueresolved.name</i18n-name-key>
+        <i18n-description-key>event.type.issueresolved.desc</i18n-description-key>
+        <name>Issue Resolved</name>
+        <description>This is the 'Issue Resolved' event type.</description>
+        <notificationName>ISSUE_RESOLVED</notificationName>
+        <eventName>resolved</eventName>
+    </eventtype>
+    <eventtype id="5">
+        <i18n-name-key>event.type.issueclosed.name</i18n-name-key>
+        <i18n-description-key>event.type.issueclosed.desc</i18n-description-key>
+        <name>Issue Closed</name>
+        <description>This is the 'Issue Closed' event type.</description>
+        <notificationName>ISSUE_CLOSED</notificationName>
+        <eventName>closed</eventName>
+    </eventtype>
+    <eventtype id="6">
+        <i18n-name-key>event.type.issuecommented.name</i18n-name-key>
+        <i18n-description-key>event.type.issuecommented.desc</i18n-description-key>
+        <name>Issue Commented</name>
+        <description>This is the 'Issue Commented' event type.</description>
+        <notificationName>ISSUE_COMMENTED</notificationName>
+        <eventName>commented</eventName>
+    </eventtype>
+    <eventtype id="7">
+        <i18n-name-key>event.type.issuereopened.name</i18n-name-key>
+        <i18n-description-key>event.type.issuereopened.desc</i18n-description-key>
+        <name>Issue Reopened</name>
+        <description>This is the 'Issue Reopened' event type.</description>
+        <notificationName>ISSUE_REOPENED</notificationName>
+        <eventName>reopened</eventName>
+    </eventtype>
+    <eventtype id="8">
+        <i18n-name-key>event.type.issuedeleted.name</i18n-name-key>
+        <i18n-description-key>event.type.issuedeleted.desc</i18n-description-key>
+        <name>Issue Deleted</name>
+        <description>This is the 'Issue Deleted' event type.</description>
+        <notificationName>ISSUE_DELETED</notificationName>
+        <eventName>deleted</eventName>
+    </eventtype>
+    <eventtype id="9">
+        <i18n-name-key>event.type.issuemoved.name</i18n-name-key>
+        <i18n-description-key>event.type.issuemoved.desc</i18n-description-key>
+        <name>Issue Moved</name>
+        <description>This is the 'Issue Moved' event type.</description>
+        <notificationName>ISSUE_MOVED</notificationName>
+        <eventName>moved</eventName>
+    </eventtype>
+    <eventtype id="10">
+        <i18n-name-key>event.type.workloggedonissue.name</i18n-name-key>
+        <i18n-description-key>event.type.workloggedonissue.desc</i18n-description-key>
+        <name>Work Logged On Issue</name>
+        <description>This is the 'Work Logged On Issue' event type.</description>
+        <notificationName>ISSUE_WORKLOGGED</notificationName>
+        <eventName>worklogged</eventName>
+    </eventtype>
+    <eventtype id="11">
+        <i18n-name-key>event.type.workstartedonissue.name</i18n-name-key>
+        <i18n-description-key>event.type.workstartedonissue.desc</i18n-description-key>
+        <name>Work Started On Issue</name>
+        <description>This is the 'Work Started On Issue' event type.</description>
+        <notificationName>ISSUE_WORKSTARTED</notificationName>
+        <eventName>workstarted</eventName>
+    </eventtype>
+    <eventtype id="12">
+        <i18n-name-key>event.type.workstoppedonissue.name</i18n-name-key>
+        <i18n-description-key>event.type.workstoppedonissue.desc</i18n-description-key>
+        <name>Work Stopped On Issue</name>
+        <description>This is the 'Work Stopped On Issue' event type.</description>
+        <notificationName>ISSUE_WORKSTOPPED</notificationName>
+        <eventName>workstopped</eventName>
+    </eventtype>
+    <eventtype id="13">
+        <i18n-name-key>event.type.genericevent.name</i18n-name-key>
+        <i18n-description-key>event.type.genericevent.desc</i18n-description-key>
+        <name>Generic Event</name>
+        <description>This is the 'Generic Event' event type.</description>
+        <notificationName>ISSUE_GENERICEVENT</notificationName>
+        <eventName>genericevent</eventName>
+    </eventtype>
+    <!-- Any additional event types added to this template should start with the id 10000 -->
+</eventtypes>

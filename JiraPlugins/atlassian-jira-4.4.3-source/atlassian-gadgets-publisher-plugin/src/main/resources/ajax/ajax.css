@@ -1,0 +1,27 @@
+/* AG-1379 - Padding top throws off the height
+   calculations of the gadget iframe in IE */
+#ag-sys-msg {
+    padding: 10px;
+    display:none;
+}
+
+#ag-sys-msg p {
+    margin-top: 0;
+    margin-bottom:5px;
+}
+
+#ag-sys-msg :last-child {
+    margin-bottom: 0;
+}
+
+#ag-sys-msg .oauth-approve {
+    background-image: url("images/btn-locked.png");
+    background-position: 2px 0;
+    background-repeat: no-repeat;
+    padding: 2px 2px 2px 20px;
+}
+
+#ag-sys-msg .ag-requests {
+    display:none;
+    padding-bottom:5px;
+}

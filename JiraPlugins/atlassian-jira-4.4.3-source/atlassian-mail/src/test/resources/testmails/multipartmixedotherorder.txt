@@ -1,0 +1,56 @@
+Return-Path: <charles@atlassian.com>
+Received: from [192.168.0.68] ([210.23.144.50]) (authenticated) by
+        zeus.atlassian.com (8.11.6/8.11.6) with ESMTP id i04N2Sb11780 for
+        <charles@atlassian.com>; Sun, 4 Jan 2004 17:02:28 -0600
+Subject: I am a fish
+From: Charles Miller <charles@atlassian.com>
+To: charles@atlassian.com
+Content-Type: multipart/mixed; boundary="=-ea14qUbNe+RdoHBzNo+q"
+Organization:
+Message-Id: <1073257170.15188.0.camel@localhost.localdomain>
+Mime-Version: 1.0
+X-Mailer: Ximian Evolution 1.2.2 (1.2.2-4)
+Date: 05 Jan 2004 09:59:30 +1100
+X-Spam-Checker-Version: SpamAssassin 2.61 (1.212.2.1-2003-12-09-exp) on
+        zeus.atlassian.com
+X-Spam-Status: No, hits=0.0 required=5.0 tests=HTML_MESSAGE autolearn=ham
+        version=2.61
+X-Spam-Level:
+Status:  
+X-Evolution-Source: pop://cmiller@mail.atlassian.com/
+
+
+--=-ea14qUbNe+RdoHBzNo+q
+Content-Disposition: attachment; filename=bugger.jpg
+Content-Type: image/jpeg; name=bugger.jpg
+Content-Transfer-Encoding: 7bit
+
+Attachment 1
+--=-ea14qUbNe+RdoHBzNo+q
+Content-Type: multipart/alternative; boundary="=-ln6uk4wgz4qyENIGT478"
+
+--=-ln6uk4wgz4qyENIGT478
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment
+
+Dummy attachment hiding in alternative, which is dodgy but not impossible
+--=-ln6uk4wgz4qyENIGT478
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+
+Text alternative
+--=-ln6uk4wgz4qyENIGT478
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+Html alt<br>ernative
+--=-ln6uk4wgz4qyENIGT478--
+
+--=-ea14qUbNe+RdoHBzNo+q
+Content-Disposition: attachment; filename=foo.html
+Content-Type: text/html; name=lipsum2; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+html<br>attachment
+--=-ea14qUbNe+RdoHBzNo+q--

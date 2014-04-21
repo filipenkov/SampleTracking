@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:osgi="http://www.springframework.org/schema/osgi"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/osgi
+            http://www.springframework.org/schema/osgi/spring-osgi.xsd"
+       default-autowire="autodetect">
+
+    <bean id="queryUtil" class="com.atlassian.jira.extra.icalfeed.util.QueryUtil">
+        <constructor-arg ref="searchService"/>
+        <constructor-arg ref="projectManager"/>
+        <constructor-arg ref="permissionManager"/>
+    </bean>
+
+    <bean id="issueCreatedDateProvider" class="com.atlassian.jira.extra.icalfeed.dateprovider.CreatedDateProvider"/>
+    <bean id="issueDueDateProvider" class="com.atlassian.jira.extra.icalfeed.dateprovider.DueDateProvider"/>
+    <bean id="issueResolvedDateProvider" class="com.atlassian.jira.extra.icalfeed.dateprovider.ResolutionDateProvider"/>
+    <bean id="issueUpdatedDateProvider" class="com.atlassian.jira.extra.icalfeed.dateprovider.UpdatedDateProvider"/>
+
+    <bean id="customFieldDateProvider" class="com.atlassian.jira.extra.icalfeed.dateprovider.DefaultDateCustomFieldDateProvider">
+        <constructor-arg ref="customFieldManager"/>
+    </bean>
+
+    <bean id="entityAsEventService" class="com.atlassian.jira.extra.icalfeed.service.DefaultEntityAsEventService">
+        <constructor-arg ref="jiraAuthenticationContext"/>
+        <constructor-arg ref="fieldManager"/>
+        <constructor-arg>
+            <list>
+                <ref bean="issueCreatedDateProvider"/>
+                <ref bean="issueDueDateProvider"/>
+                <ref bean="issueResolvedDateProvider"/>
+                <ref bean="issueUpdatedDateProvider"/>
+            </list>
+        </constructor-arg>
+        <constructor-arg ref="customFieldDateProvider"/>
+        <constructor-arg ref="pluginAccessor"/>
+        <constructor-arg ref="searchService"/>
+        <constructor-arg ref="queryUtil"/>
+    </bean>
+
+</beans>

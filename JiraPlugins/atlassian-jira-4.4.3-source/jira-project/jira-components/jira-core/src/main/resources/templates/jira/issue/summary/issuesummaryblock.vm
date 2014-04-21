@@ -1,0 +1,139 @@
+<ul id="issuedetails" class="property-list two-cols">
+    <li class="item">
+        <div class="wrap">
+            <strong class="name">$i18n.getText("issue.field.type"):</strong>
+            <span id="type-val" class="value">
+                #set ($type = $issue.getIssueTypeObject())
+                #displayConstantIcon($type) $textutils.htmlEncode($type.nameTranslation, false)
+            </span>
+        </div>
+    </li>
+    <li class="item item-right">
+        <div class="wrap">
+            <strong class="name">$i18n.getText("issue.field.status"):</strong>
+            <span id="status-val" class="value">
+                #set ($status = $issue.getStatusObject())
+                #displayConstantIcon($status) $textutils.htmlEncode($status.nameTranslation, false)
+            </span>
+            #if($hasViewWorkflowPermission)
+                <span class="status-view">(<a href="${baseurl}/plugins/servlet/workflow/thumbnail/getThumbnail?workflowName=$textutils.htmlEncode($!{workflowName})&stepId=$!{currentWorkflowStep}&width=full&height=full" class="issueaction-viewworkflow" title="$textutils.htmlEncode($!{workflowName}): $textutils.htmlEncode($issue.key)">$i18n.getText("viewworkflow.view.title")</a>)</span>
+            #end
+        </div>
+    </li>
+    #if ($fieldVisibility.isFieldHidden($issue.project.getLong('id'), 'priority', $issue.issueTypeObject.id) == false && $issue.priority)
+        <li class="item">
+            <div class="wrap">
+                <strong class="name">$i18n.getText("issue.field.priority"):</strong>
+                <span id="priority-val" class="value">
+                    #set ($priority = $issue.getPriorityObject())
+                    #displayConstantIcon($priority) $textutils.htmlEncode($priority.nameTranslation, false)
+                </span>
+            </div>
+        </li>
+    #end
+    #if ($fieldVisibility.isFieldHidden($issue.project.getLong('id'), 'resolution', $issue.issueTypeObject.id) == false)
+        #if ($issue.getResolutionObject())
+            #set ($resolvedClass = "resolved")
+        #else
+            #set ($resolvedClass = "unresolved")
+        #end
+        <li class="item item-right">
+            <div class="wrap">
+                <strong class="name">$i18n.getText("issue.field.resolution"):</strong>
+                <span id="resolution-val" class="value ${resolvedClass}" >
+                #if ($issue.getResolutionObject())
+                    #set ($resolution = $issue.getResolutionObject())
+                    #displayConstantIcon($resolution) $textutils.htmlEncode($resolution.nameTranslation, false)
+                #else
+                    $i18n.getText('common.resolution.unresolved')
+                #end
+                </span>
+            </div>
+        </li>
+    #end
+    #if ($fieldVisibility.isFieldHidden('versions', $issue) == false)
+        <li class="item">
+            <div class="wrap">
+                <strong class="name">$i18n.getText("issue.field.version"):</strong>
+                <span id="versions-val" class="value">
+                    #if( $versions)
+                        <span class="shorten" id="versions-field">
+                            #foreach ($version in $versions)
+                                <span title="$textutils.htmlEncode($version.name) $!textutils.htmlEncode($!version.description)">$textutils.htmlEncode($version.name)</span>#if( $velocityCount < $versions.size() ),#end
+                            #end
+                        </span>
+                    #else
+                        $i18n.getText('common.words.none')
+                    #end
+                </span>
+            </div>
+        </li>
+    #end
+    #if ($fieldVisibility.isFieldHidden('fixVersions', $issue) == false)
+        <li class="item item-right">
+            <div class="wrap">
+                <strong class="name">$i18n.getText("issue.field.fixversions"):</strong>
+                <span id="fixfor-val" class="value">
+                    #if( $fixVersions)
+                        <span class="shorten" id="fixVersions-field">
+                            #foreach ($fixVersion in $fixVersions)
+                                <a href="${baseurl}/browse/${issue.projectObject.key}/fixforversion/${fixVersion.id}" title="$textutils.htmlEncode($fixVersion.name) $!textutils.htmlEncode($!fixVersion.description)">$textutils.htmlEncode($fixVersion.name)</a>#if( $velocityCount < $fixVersions.size() ),#end
+                            #end
+                        </span>
+                    #else
+                        $i18n.getText('common.words.none')
+                    #end
+                </span>
+            </div>
+        </li>
+    #end
+    #if ($fieldVisibility.isFieldHidden('components', $issue) == false)
+        <li class="item">
+            <div class="wrap">
+                <strong class="name">$i18n.getText("issue.field.components"):</strong>
+                <span id="components-val" class="value">
+                    #if ($components)
+                        <span class="shorten" id="components-field">
+                            #foreach ($component in $components)
+                                <a href="${baseurl}/browse/${issue.projectObject.key}/component/${component.id}" title="$textutils.htmlEncode($component.name) $!textutils.htmlEncode($!component.description)">$textutils.htmlEncode($component.name)</a>#if( $velocityCount < $components.size() ),#end
+                            #end
+                        </span>
+                    #else
+                        $i18n.getText('common.words.none')
+                    #end
+                </span>
+            </div>
+        </li>
+    #end
+    #if ($fieldVisibility.isFieldHidden('security', $issue) == false && $securitylevel)
+        <li class="item item-right">
+            <div class="wrap">
+                <strong class="name">$i18n.getText("issue.field.securitylevel"):</strong>
+                <span id="security-val" class="value">
+                    <span class="note">$textutils.htmlEncode($securitylevel.getString('name'))</span>
+                    #if($securitylevel.getString('description') && $securitylevel.getString('description').length() > 0)
+                        ($textutils.htmlEncode($securitylevel.getString('description')))
+                    #end
+                </span>
+            </div>
+        </li>
+    #end
+    #if ($fieldVisibility.isFieldHidden('labels', $issue) == false)
+        <li class="item full-width">
+            <div class="wrap" id="wrap-labels">
+                <strong class="name">$i18n.getText("issue.field.labels"):</strong>
+                #labelsLozenges($i18n $remoteUser $labelUtil $issue.id 'labels' false $labels $canEdit false false $baseurl '')
+            </div>
+        </li>
+    #end
+    #if ($environment)
+        <li class="item full-width">
+            <div class="wrap">
+                <strong class="name">$i18n.getText("issue.field.environment"):</strong>
+                <div id="environment-val" class="value">
+                    $renderedEnvironment
+                </div>
+            </div>
+        </li>
+    #end
+</ul>

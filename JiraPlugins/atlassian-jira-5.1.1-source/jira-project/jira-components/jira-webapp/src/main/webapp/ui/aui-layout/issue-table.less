@@ -1,0 +1,143 @@
+@import "dynamic:lookandfeel.less";
+@import "variables.less";
+
+.count-pagination {clear:both;padding:@grid 0;table-layout:auto;}
+.count-pagination .pagination {text-align:right;white-space:nowrap;}
+.count-pagination .pagination a.icon {margin:0;vertical-align:top;}
+#issuenav .count-pagination {padding:0 @gutter;}
+span .results-count-total {font-weight:normal;}
+
+#issuetable {background-color:#fff;border-collapse:collapse;margin: @grid 0;width:100%;}
+#issuetable thead th {background-color:transparent;border-bottom:1px solid #bbb;color:#999;font-weight:400;padding:3px 7px;white-space:nowrap;}
+#issuetable thead .sortable {cursor:pointer;}
+#issuetable thead .sortable {-moz-border-radius-topleft:2px;-moz-border-radius-topright:2px;-webkit-border-top-left-radius:2px;-webkit-border-top-right-radius:2px;border-top-left-radius:2px;border-top-right-radius:2px;}
+#issuetable thead .sortable:hover {background-color:#f7f7f7;}
+#issuetable thead .active {color:#fff;}
+#issuetable thead .active:hover {background-color:#bbb;}
+#issuetable thead .ascending {background:#bbb url(../../../images/icons/icon_ascending.png) no-repeat scroll 100% 50%;padding-right:20px;}
+#issuetable thead .descending {background:#bbb url(../../../images/icons/icon_descending.png) no-repeat scroll 100% 50%;padding-right:20px;}
+
+
+#issuetable .rowHeader,
+#issuetable .rowNormal,
+#issuetable .rowAlternate {background-color:transparent;}
+#issuetable th,
+#issuetable td {overflow:hidden;}
+#issuetable > td {color:#333;}
+#issuetable img { vertical-align: middle; }
+#issuetable td {line-height:1.286;padding:5px 7px;}
+#issuetable .nav {border-bottom:1px solid #eee;vertical-align:top;}
+#issuetable .parentIssue {background:transparent url(../../../images/icons/icon_separator.png) no-repeat scroll 100% 2px;color:#666;padding-right:10px;}
+.gadget #issuetable .parentIssue {background-position:100% 1px;}
+#issuetable td a,
+#issuetable td a.parentIssue {color:#000;}
+#issuetable td.issuekey a,
+#issuetable td.summary a,
+#issuetable td.stsummary a {color:@textLinkColour;}
+/* min-width */
+#issuetable .issuetype,
+#issuetable .issuekey,
+#issuetable .priority,
+#issuetable .status {white-space:nowrap;width:16px;}
+.msie #issuetable .issuekey,
+.msie #issuetable .status {width:1%;}
+.msie-8 #issuetable img {max-width:none;}
+
+/* tight-width */
+#issuetable .resolution,
+#issuetable .created,
+#issuetable .updated {max-width:25em;white-space:nowrap;}
+
+/* generous-width */
+#issuetable .assignee,
+#issuetable .reporter,
+#issuetable .versions,
+#issuetable .components,
+#issuetable .fixVersions {max-width:60em;min-width:80px;}
+
+#issuetable .versions .tinylink,
+#issuetable .components .tinylink,
+#issuetable .fixVersions .tinylink {white-space:nowrap;}
+
+/* wide (summary) */
+#issuetable td.summary > p,
+#issuetable td.description > p {min-width:200px;margin:0;max-width:1400px;white-space:normal;}
+.gadget #issuetable .summary > p,
+.gadget #issuetable .description > p {margin:0;min-width:100px;}
+
+#issuetable .issueCount {text-align:center;}
+#issuetable .stsequence {white-space:nowrap;}
+
+#issuetable td.progress,
+#issuetable td.aggregateprogress {min-width:150px;max-width:150px;text-align:right;width:150px}
+#issuetable td.progress > table,
+#issuetable td.aggregateprogress > table {font-size: 1em; margin-top: 2px; width:150px}
+#issuetable td.progress td,
+#issuetable td.aggregateprogress td { line-height: 1; padding: 0; vertical-align: top; }
+#issuetable td.progress td.tt_graph_percentage,
+#issuetable td.aggregateprogress td.tt_graph_percentage { color: #999; padding-right: 3px; min-width: 0; width: auto; }
+#issuetable td.progress td.tt_graph_percentage p,
+#issuetable td.aggregateprogress td.tt_graph_percentage p { width: 3em; }
+#issuetable td.progress table.tt_graph,
+#issuetable td.aggregateprogress table.tt_graph { height: 6px; }
+/* subtask reorder */
+#issuetable .streorder { width: 10px; }
+#issuetable .streorder div { visibility: hidden; }
+#issuetable .issuerow:hover,
+.gadget #issuetable .issuerow.hover,
+#issuetable.hide-carrot > tbody > tr.issuerow:hover { background-color: #f0f0f0; }
+
+#issuetable .issuerow.focused .streorder div,
+#issuetable .issuerow:hover .streorder div { visibility: visible; }
+
+/* actions 'cog' menus */
+#issuetable .issue_actions {width:18px;}
+#issuetable .issue_actions .aui-dd-parent { height: 18px; width: 32px; }
+#issuetable .issue_actions a.aui-dd-link { padding: 0 0 0 19px; position: absolute; left: -9000px; top:-9000px; }
+#issuetable .issue_actions a.active,
+#issuetable .issuerow.focused .issue_actions a.aui-dd-link,
+#issuetable .issuerow:hover .issue_actions a.aui-dd-link,
+.gadget #issuetable tr.hover .issue_actions a.aui-dd-link {left:0;top:0;}
+#issuetable .issue_actions a.aui-dd-link span {background-image:url(../../../images/menu_indicator_for_light_backgrounds.gif);display:block;width:15px;height:18px;background-position:2px 7px;text-indent:-9000px;overflow:hidden;}
+#issuetable .issue_actions a.aui-dd-link:hover span,
+#issuetable .issue_actions a.aui-dd-link.active span {background-image:url(../../../images/menu_indicator_for_dark_backgrounds.gif);}
+#issuetable .issue_actions a.aui-dd-link:hover,
+#issuetable .issue_actions a.aui-dd-link.active {background-color:#3c78b5;color:#fff;}
+
+
+.page-type-issuenav {
+    #issuetable {
+        > thead > tr > th:first-child,
+        > tbody > tr > th:first-child,
+        > tbody > tr > td:first-child {
+            padding-left: 12px;
+        }
+        tr.focused {
+            background-color: #eaf1fd;
+        }
+        > tbody > tr.focused > td:first-child {
+            background-image: url('../../../images/icons/ico_activeissue.png');
+            background-repeat: no-repeat;
+            background-position: 0 9px;
+        }
+        &.hide-carrot tr.focused {
+            background-color: transparent;
+        }
+        &.hide-carrot tr.focused td:first-child {
+            background-image: none;
+        }
+        tr.issueactioneddissapearing,
+        tr.issueactioned,
+        .hide-carrot tr.issueactioneddissapearing,
+        .hide-carrot tr.issueactioned {
+            background-color: #ffd;
+        }
+    }
+}
+
+/* used in issuecolumns.jsp */
+.reorder-columns {margin:1em 0 0.5em;}
+.reorder-columns h3 {color:#bbb;}
+
+a.hidden-link {outline:0 none white;display:block;width:1px;height:1px;font-size:0;line-height:0;} /* Used for J/K navigation of issue rows */
+a.hidden-link span {display:none}

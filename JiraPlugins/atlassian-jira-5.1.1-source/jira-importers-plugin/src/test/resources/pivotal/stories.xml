@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<stories type="array" count="10" total="10">
+  <story>
+    <id type="integer">9971857</id>
+    <project_id type="integer">232313</project_id>
+    <story_type>feature</story_type>
+    <url>http://www.pivotaltracker.com/story/show/9971857</url>
+    <estimate type="integer">2</estimate>
+    <current_state>accepted</current_state>
+    <description>Doing it for JIM</description>
+    <name>As an admin I want to import all pivotal tracker stories to my system</name>
+    <requested_by>wseliga</requested_by>
+    <owned_by>Pawel Niewiadomski</owned_by>
+    <created_at type="datetime">2011/02/14 14:17:59 UTC</created_at>
+    <updated_at type="datetime">2011/02/14 15:47:10 UTC</updated_at>
+    <accepted_at type="datetime">2011/02/14 15:47:10 UTC</accepted_at>
+  </story>
+  <story>
+    <id type="integer">9971915</id>
+    <project_id type="integer">232313</project_id>
+    <story_type>feature</story_type>
+    <url>http://www.pivotaltracker.com/story/show/9971915</url>
+    <estimate type="integer">2</estimate>
+    <current_state>started</current_state>
+    <description></description>
+    <name>As an admin I want to import all the comments</name>
+    <requested_by>Pawel Niewiadomski</requested_by>
+    <owned_by>wseliga</owned_by>
+    <created_at type="datetime">2011/02/14 14:19:47 UTC</created_at>
+    <updated_at type="datetime">2011/02/14 15:38:56 UTC</updated_at>
+  </story>
+  <story>
+    <id type="integer">9972595</id>
+    <project_id type="integer">232313</project_id>
+    <story_type>bug</story_type>
+    <url>http://www.pivotaltracker.com/story/show/9972595</url>
+    <current_state>finished</current_state>
+    <description>owned by no-one</description>
+    <name>This is my bug</name>
+    <requested_by>wseliga</requested_by>
+    <owned_by>wseliga</owned_by>
+    <created_at type="datetime">2011/02/14 14:35:30 UTC</created_at>
+    <updated_at type="datetime">2011/02/14 14:40:44 UTC</updated_at>
+  </story>
+  <story>
+    <id type="integer">9974265</id>
+    <project_id type="integer">232313</project_id>
+    <story_type>bug</story_type>
+    <url>http://www.pivotaltracker.com/story/show/9974265</url>
+    <current_state>rejected</current_state>
+    <description>see if we can import time tracking info</description>
+    <name>As admin I want to import my time-tracking information</name>
+    <requested_by>Pawel Niewiadomski</requested_by>
+    <owned_by>Wojciech Seliga</owned_by>
+    <created_at type="datetime">2011/02/14 15:05:49 UTC</created_at>
+    <updated_at type="datetime">2011/02/14 15:07:40 UTC</updated_at>
+    <labels>impossible</labels>
+    <notes type="array">
+      <note>
+        <id type="integer">4942885</id>
+        <text>a comment from Wojtek</text>
+        <author>wseliga</author>
+        <noted_at type="datetime">2011/02/14 15:07:08 UTC</noted_at>
+      </note>
+      <note>
+        <id type="integer">4942897</id>
+        <text>This cannot be imported - time tracking is not assigned to tasks</text>
+        <author>wseliga</author>
+        <noted_at type="datetime">2011/02/14 15:07:40 UTC</noted_at>
+      </note>
+    </notes>
+    <tasks type="array">
+      <task>
+        <id type="integer">1341325</id>
+        <description>my another task - also simple?</description>
+        <position>1</position>
+        <complete>true</complete>
+        <created_at type="datetime">2011/02/14 15:06:40 UTC</created_at>
+      </task>
+      <task>
+        <id type="integer">1341323</id>
+        <description>my first task - see how Pivotal works here</description>
+        <position>2</position>
+        <complete>false</complete>
+        <created_at type="datetime">2011/02/14 15:06:30 UTC</created_at>
+      </task>
+    </tasks>
+  </story>
+  <story>
+    <id type="integer">9972395</id>
+    <project_id type="integer">232313</project_id>
+    <story_type>chore</story_type>
+    <url>http://www.pivotaltracker.com/story/show/9972395</url>
+    <current_state>unstarted</current_state>
+    <description>This is a chore in PT</description>
+    <name>As an admin I want to import all issue types</name>
+    <requested_by>wseliga</requested_by>
+    <created_at type="datetime">2011/02/14 14:30:48 UTC</created_at>
+    <updated_at type="datetime">2011/02/14 14:30:50 UTC</updated_at>
+  </story>
+  <story>
+    <id type="integer">9976913</id>
+    <project_id type="integer">232313</project_id>
+    <story_type>release</story_type>
+    <url>http://www.pivotaltracker.com/story/show/9976913</url>
+    <current_state>unstarted</current_state>
+    <description>This is my release</description>
+    <name>My release 1.0</name>
+    <requested_by>wseliga</requested_by>
+    <created_at type="datetime">2011/02/14 15:52:32 UTC</created_at>
+    <updated_at type="datetime">2011/02/14 15:52:39 UTC</updated_at>
+    <deadline type="datetime">2011/02/23 20:00:00 UTC</deadline>
+  </story>
+  <story>
+    <id type="integer">9972441</id>
+    <project_id type="integer">232313</project_id>
+    <story_type>feature</story_type>
+    <url>http://www.pivotaltracker.com/story/show/9972441</url>
+    <estimate type="integer">1</estimate>
+    <current_state>unscheduled</current_state>
+    <description></description>
+    <name>As an admin I want to import my attachments</name>
+    <requested_by>wseliga</requested_by>
+    <created_at type="datetime">2011/02/14 14:31:46 UTC</created_at>
+    <updated_at type="datetime">2011/02/14 15:47:00 UTC</updated_at>
+    <notes type="array">
+      <note>
+        <id type="integer">4941991</id>
+        <text>a comment added while uploading a file</text>
+        <author>wseliga</author>
+        <noted_at type="datetime">2011/02/14 14:32:48 UTC</noted_at>
+      </note>
+      <note>
+        <id type="integer">4942009</id>
+        <text>another comment here</text>
+        <author>wseliga</author>
+        <noted_at type="datetime">2011/02/14 14:33:46 UTC</noted_at>
+      </note>
+    </notes>
+    <attachments type="array">
+      <attachment>
+        <id type="integer">1209615</id>
+        <filename>1.png</filename>
+        <description>a description of this attachment</description>
+        <uploaded_by>wseliga</uploaded_by>
+        <uploaded_at type="datetime">2011/02/14 14:32:37 UTC</uploaded_at>
+        <url>http://www.pivotaltracker.com/resource/download/1209615</url>
+      </attachment>
+    </attachments>
+  </story>
+  <story>
+    <id type="integer">9972369</id>
+    <project_id type="integer">232313</project_id>
+    <story_type>feature</story_type>
+    <url>http://www.pivotaltracker.com/story/show/9972369</url>
+    <estimate type="integer">2</estimate>
+    <current_state>unscheduled</current_state>
+    <description></description>
+    <name>As an admin I want all my users to be auto-imported</name>
+    <requested_by>wseliga</requested_by>
+    <created_at type="datetime">2011/02/14 14:29:32 UTC</created_at>
+    <updated_at type="datetime">2011/02/14 15:47:00 UTC</updated_at>
+  </story>
+  <story>
+    <id type="integer">9971879</id>
+    <project_id type="integer">232313</project_id>
+    <story_type>feature</story_type>
+    <url>http://www.pivotaltracker.com/story/show/9971879</url>
+    <estimate type="integer">1</estimate>
+    <current_state>unscheduled</current_state>
+    <description></description>
+    <name>As an admin I want to import labels</name>
+    <requested_by>wseliga</requested_by>
+    <created_at type="datetime">2011/02/14 14:18:33 UTC</created_at>
+    <updated_at type="datetime">2011/02/14 14:30:01 UTC</updated_at>
+	<labels>this is a long text,coma,xcs,impossible</labels>
+  </story>
+  <story>
+    <id type="integer">9972515</id>
+    <project_id type="integer">232313</project_id>
+    <story_type>chore</story_type>
+    <url>http://www.pivotaltracker.com/story/show/9972515</url>
+    <current_state>unscheduled</current_state>
+    <description></description>
+    <name>As an admin I want to import full history of all issues</name>
+    <requested_by>wseliga</requested_by>
+    <created_at type="datetime">2011/02/14 14:33:34 UTC</created_at>
+    <updated_at type="datetime">2011/02/14 15:33:48 UTC</updated_at>
+  </story>
+</stories>

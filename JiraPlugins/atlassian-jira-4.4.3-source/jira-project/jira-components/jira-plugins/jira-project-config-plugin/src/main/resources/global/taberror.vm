@@ -1,0 +1,23 @@
+#* @vtlvariable name="errorMessages" type="java.util.Collection<java.lang.String>" *#
+<html>
+    <head>
+        <meta name="decorator" content="admin"/>
+        <title>$title</title>
+    </head>
+    <body>
+        <div id="project-config-error" class="aui-message error">
+            <span class="aui-icon icon-error"></span>
+            <p class="title">
+                <strong>$title</strong>
+            </p>
+            <ul>
+                #foreach ($msg in $errorMessages)
+                <li>$msg</li>
+                #end
+            </ul>
+        </div>
+        ## Doing this to get around the XSS HtmlSafe checking.
+        #set($linkHtml = $i18n.getText("admin.project.servlet.more.project", "<a id='project-config-view-all' href='${baseurl}/secure/project/ViewProjects.jspa'>", '</a>'))
+        <p>$linkHtml</p>
+    </body>
+</html>

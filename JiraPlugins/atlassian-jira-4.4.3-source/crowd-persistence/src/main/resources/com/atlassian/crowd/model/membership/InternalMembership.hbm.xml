@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.atlassian.crowd.model.membership.InternalMembership" table="cwd_membership" lazy="true">
+
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="com.atlassian.crowd.util.persistence.hibernate.ResettableTableHiLoGenerator"/>
+        </id>
+
+        <!-- index exists across all 3 fields as it is the unique key -->
+        <property name="parentId" column="parent_id" type="long" unique-key="uk_mem_parent_child_type"/>
+
+        <property name="childId" column="child_id" type="long" unique-key="uk_mem_parent_child_type"/>
+
+        <property name="membershipType" column="membership_type" type="MembershipType" length="32" unique-key="uk_mem_parent_child_type"
+                index="idx_mem_dir_parent_child,idx_mem_dir_parent,idx_mem_dir_child"/>
+
+        <property name="groupType" column="group_type" type="GroupType" length="32" not-null="true"/>
+
+        <property name="parentName" column="parent_name" type="string" length="255" not-null="true"/>
+
+        <property name="lowerParentName" column="lower_parent_name" type="string" length="255" not-null="true"
+                  index="idx_mem_dir_parent,idx_mem_dir_parent_child"/>
+
+        <property name="childName" column="child_name" type="string" length="255" not-null="true"/>
+        
+        <property name="lowerChildName" column="lower_child_name" type="string" length="255" not-null="true"
+                  index="idx_mem_dir_child,idx_mem_dir_parent_child"/>
+
+        <many-to-one name="directory" column="directory_id" not-null="true"
+                     foreign-key="fk_membership_dir"
+                     index="idx_mem_dir_parent,idx_mem_dir_child,idx_mem_dir_parent_child"
+                     class="com.atlassian.crowd.model.directory.DirectoryImpl" />
+
+    </class>
+
+    <!-- hql queries -->
+
+    <query name="removeAllEntityMembers">
+        delete from InternalMembership m where m.lowerParentName = :entityName and m.directory.id = :directoryId
+    </query>
+
+    <query name="removeAllEntityMemberships">
+        delete from InternalMembership m where m.lowerChildName = :entityName and m.directory.id = :directoryId and m.membershipType = :membershipType
+    </query>
+
+    <query name="removeAllRelationships">
+        delete from InternalMembership m where m.directory.id = :directoryId
+    </query>
+
+    <query name="removeAllRelationshipsOfType">
+        delete from InternalMembership m where m.directory.id = :directoryId and m.membershipType = :membershipType
+    </query>
+
+    <query name="renameChild">
+        update InternalMembership set childName = :newName, lowerChildName = :lowerNewName where lowerChildName = :oldName and directory.id = :directoryId and membershipType = :membershipType
+    </query>
+
+    <query name="renameParent">
+        update InternalMembership set parentName = :newName, lowerParentName = :lowerNewName where lowerParentName = :oldName and directory.id = :directoryId and membershipType = :membershipType
+    </query>
+
+</hibernate-mapping>

@@ -1,0 +1,190 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+  <plugin-info>
+    <description>${project.description}</description>
+    <version>${project.version}</version>
+    <vendor name="${project.organization.name}" url="${project.organization.url}" />
+  </plugin-info>
+  
+  <component-import key="userManager" interface="com.atlassian.sal.api.user.UserManager" />
+  <component-import key="loginUriProvider" interface="com.atlassian.sal.api.auth.LoginUriProvider" />
+  <component-import key="renderer" interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRenderer" />
+  <component-import key="salWebSudoManager" interface="com.atlassian.sal.api.websudo.WebSudoManager" />
+  
+  <component key="action-factory" name="View Action Factory" class="com.atlassian.support.tools.action.impl.DefaultSupportActionFactory">
+    <interface>com.atlassian.supporty.tools.action.SupportActionFactory</interface>
+  </component>
+  
+  <!--  expose the I18n Resolver to servlets so that we can resolve i18n keys in code -->
+  <component-import key="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver" />
+  
+  <!--  export the application properties from SAL to the template renderer -->
+  <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties" />
+  <template-context-item key="applicationPropertiesContextItem" component-ref="applicationProperties" 
+			 context-key="applicationProperties" name="Application Properties Context Item"/>
+  
+  
+  <!--  export the webResourceManager so we can use our own context -->
+  <component-import key="webResourceManager" interface="com.atlassian.plugin.webresource.WebResourceManager" />
+  <template-context-item key="webResourceManagerContextItem" component-ref="webResourceManager" 
+			 context-key="webResourceManager" name="Application Properties Context Item"/>
+  
+  <!--  product-specific application info classes -->
+  <component application="jira" key="jira-application-info" name="JIRA Application Info" class="com.atlassian.support.tools.salext.JiraApplicationInfo" stateful="true">
+    <interface>com.atlassian.support.tools.salext.SupportApplicationInfo</interface>
+  </component>
+  
+  <component application="com.atlassian.confluence" key="confluence-application-info" name="Confluence Application Info" class="com.atlassian.support.tools.salext.ConfluenceApplicationInfo">
+    <interface>com.atlassian.support.tools.salext.SupportApplicationInfo</interface>
+  </component>
+
+  <component application="fecru" key="fisheye-application-info" name="Fisheye Application Info" class="com.atlassian.support.tools.salext.FisheyeApplicationInfo">
+    <interface>com.atlassian.support.tools.salext.SupportApplicationInfo</interface>
+  </component>
+  <component application="bamboo" key="bamboo-application-info" name="Bamboo Application Info" class="com.atlassian.support.tools.salext.BambooApplicationInfo">
+    <interface>com.atlassian.support.tools.salext.SupportApplicationInfo</interface>
+  </component>
+  
+  <component application="refapp" key="refapp-application-info" name="Reference App Application Info" class="com.atlassian.support.tools.salext.RefappApplicationInfo">
+    <interface>com.atlassian.support.tools.salext.SupportApplicationInfo</interface>
+  </component>
+  
+  <!--  product-specific mail handling classes -->
+  <component application="jira" key="jira-mail-utility" name="JIRA Mail Utility" class="com.atlassian.support.tools.salext.mail.JiraMailUtility">
+    <interface>com.atlassian.support.tools.salext.mail.MailUtility</interface>
+  </component>
+	
+  <component application="com.atlassian.confluence" key="confluence-mail-utility" name="Confluence Mail Utility" class="com.atlassian.support.tools.salext.mail.ConfluenceMailUtility">
+    <interface>com.atlassian.support.tools.salext.mail.MailUtility</interface>
+  </component>
+  
+  <component application="fecru" key="fisheye-mail-utility" name="Fisheye Mail Utility" class="com.atlassian.support.tools.salext.mail.FisheyeMailUtility">
+    <interface>com.atlassian.support.tools.salext.mail.MailUtility</interface>
+  </component>
+  <component application="bamboo" key="bamboo-mail-utility" name="Bamboo Mail Utility" class="com.atlassian.support.tools.salext.mail.BambooMailUtility">
+    <interface>com.atlassian.support.tools.salext.mail.MailUtility</interface>
+  </component>
+
+  <component application="refapp" key="refapp-mail-utility" name="Reference App Mail Utility" class="com.atlassian.support.tools.salext.mail.RefappMailUtility">
+    <interface>com.atlassian.support.tools.salext.mail.MailUtility</interface>
+  </component>
+  
+  <!--  product-specific permission handling -->
+  <component-import application="jira" key="jira-permission-manager">
+    <interface>com.atlassian.jira.security.PermissionManager</interface>
+  </component-import>
+  
+  <resource name="i18n" type="i18n" location="i18n/stp" />
+  <resource type="download" name="images/" location="images/"/>
+  
+  <web-resource name="Support Tools Resources" key="resources">
+    <description>Provide CSS layout and Javascript for Support Tools Plugin</description>
+    <dependency>com.atlassian.auiplugin:ajs</dependency> 
+    <resource type="download" name="stp.css" location="css/stp.css"/>
+    <resource type="download" name="stp.js" location="js/stp.js"/>
+    <resource type="download" name="hercules.js" location="js/hercules.js"/>
+  </web-resource>
+  
+  <servlet application="com.atlassian.confluence" name="Confluence Support Tools View Servlet" class="com.atlassian.support.tools.SupportToolsViewServlet" key="stp-view">
+    <url-pattern>/stp/view</url-pattern>
+    <url-pattern>/stp/view/*</url-pattern>
+  </servlet>
+  
+  <servlet application="jira" name="JIRA Support Tools View Servlet" class="com.atlassian.support.tools.SupportToolsViewServlet" key="stp-view">
+    <url-pattern>/stp/view</url-pattern>
+    <url-pattern>/stp/view/*</url-pattern>
+  </servlet>
+  
+  <servlet application="fecru" name="Fisheye Support Tools View Servlet" class="com.atlassian.support.tools.SupportToolsViewServlet" key="stp-view">
+    <url-pattern>/stp/view</url-pattern>
+    <url-pattern>/stp/view/*</url-pattern>
+  </servlet>
+
+  <servlet application="bamboo" name="Bamboo Support Tools View Servlet" class="com.atlassian.support.tools.SupportToolsViewServlet" key="stp-view">
+    <url-pattern>/stp/view</url-pattern>
+    <url-pattern>/stp/view/*</url-pattern>
+  </servlet>
+
+  <servlet application="refapp" name="Refapp Support Tools View Servlet" class="com.atlassian.support.tools.RefappSupportToolsViewServlet" key="stp-view">
+    <url-pattern>/stp/view</url-pattern>
+    <url-pattern>/stp/view/*</url-pattern>
+  </servlet>
+  
+  <servlet name="Support Tools RPC Servlet" class="com.atlassian.support.tools.SupportToolsRPCServlet" key="stp-rpc">
+    <url-pattern>/stp/rpc/*</url-pattern>
+  </servlet>
+  
+  <!-- All the product-specific stuff goes here -->
+  
+  <web-item key="stp-confluence-link" name="Support Tools" section="system.admin/administration" weight="666" application="com.atlassian.confluence">
+    <description key="stp.home.link.desc">Open the Support Tools.</description>
+    <label key="stp.plugin.name" />
+    <link>/plugins/servlet/stp/view/</link>
+    <condition class="com.atlassian.confluence.plugin.descriptor.web.conditions.SystemAdministratorOrSuperUserCondition">
+      <param name="permission">ADMINISTER</param>
+    </condition>
+  </web-item>
+  
+  <!--  Admin Panel Link. Prior to 4.4 -->
+  <web-item key="stp-jira-link-old" name="Support Tools" section="system.admin/system" weight="666" application="jira">
+    <description key="stp.home.link.desc">Open the Support Tools.</description>
+    <label key="stp.plugin.name" />
+    <link>/plugins/servlet/stp/view/</link>
+    <condition class="com.atlassian.jira.plugin.webfragment.conditions.JiraGlobalPermissionCondition">
+      <param name="permission">admin</param>
+    </condition>
+      <condition class="com.atlassian.support.tools.conditions.IsPriorToJiraVersion">
+              <param name="majorVersion">4</param>
+              <param name="minorVersion">4</param>
+      </condition>
+  </web-item>
+
+    <!-- Admin Panel section and link. 4.4 onwards -->
+    <web-section key="support_tools_section" name="Trouble shooting and Support Section" location="top_system_section"
+                 i18n-name-key="webfragments.admin.menu.section.support.name"  weight="15" application="jira">
+        <label key="stp.plugin.name" />
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.JiraGlobalPermissionCondition">
+          <param name="permission">admin</param>
+        </condition>
+    </web-section>
+
+
+    <web-item key="stp-jira-link" name="Support Tools" section="top_system_section/support_tools_section" weight="5" application="jira">
+      <description key="stp.home.link.desc">Open the Support Tools.</description>
+      <label key="stp.plugin.name" />
+      <link linkId="support-tools-home">/plugins/servlet/stp/view/</link>
+      <condition class="com.atlassian.jira.plugin.webfragment.conditions.JiraGlobalPermissionCondition">
+        <param name="permission">admin</param>
+      </condition>
+    </web-item>
+
+  <!-- Admin Menu Link -->
+  <web-item key="stp-jira-menu-link" name="Support Tools" section="admin_link/tasks" weight="666" application="jira">
+    <description key="stp.home.link.desc">Open the Support Tools.</description>
+    <label key="stp.plugin.name" />
+    <link>/plugins/servlet/stp/view/</link>
+    <condition class="com.atlassian.jira.plugin.webfragment.conditions.JiraGlobalPermissionCondition">
+      <param name="permission">admin</param>
+    </condition>
+  </web-item>
+  
+  
+  <web-item application="fecru" key="stp-fe-link" name="Support Tools" section="system.admin/global" weight="666">
+    <description key="stp.home.link.desc">Open the Support Tools start page.</description>
+	<!--  apparently the i18n key doesn't work for FeCRU 2.5.x -->
+    <label key="Atlassian Support Tools" />
+    <link>/plugins/servlet/stp/view/</link>
+  </web-item>
+  
+  <web-item id="stp.plugin.name" key="stp-bamboo-link" name="Support Tools" section="system.admin/plugins" weight="666" application="bamboo">
+    <description key="stp.home.link.desc">Open the Support Tools start page.</description>
+	<!--  apparently the i18n key doesn't work for Bamboo either -->
+    <label key="Atlassian Support Tools" id="stp.plugin.name"/>
+	<link linkId="stp.plugin.name">/plugins/servlet/stp/view/</link>
+  </web-item>
+  
+  <web-item key="stp-refapp-link" name="Support Tools" section="system.admin/general" weight="666" application="refapp">
+    <description key="stp.home.link.desc">Open the Support Tools start page.</description>
+    <label key="stp.plugin.name" />
+    <link>/plugins/servlet/stp/view/</link>
+  </web-item>
+</atlassian-plugin>

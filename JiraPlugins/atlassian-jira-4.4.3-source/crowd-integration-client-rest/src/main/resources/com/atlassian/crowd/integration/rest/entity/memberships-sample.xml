@@ -1,0 +1,10 @@
+<memberships>
+ <membership group='group-name'>
+  <users>
+   <user name='user'/>
+  </users>
+  <groups>
+   <group name='child-group'/>
+  </groups>
+ </membership>
+</memberships>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<test-configuration>
+  <nest1>
+    <property1>Hello Updated</property1>
+    <nest2>
+      <property2>GoodBye Updated</property2>
+    </nest2>
+  </nest1>
+</test-configuration>

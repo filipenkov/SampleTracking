@@ -1,0 +1,24 @@
+<html>
+<head>
+	$webResourceManager.requireResource("com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:admin-resources")
+    <title>$action.getText('collector.plugin.title')</title>
+	<meta name="decorator" content="atl.admin" />
+	<meta name="admin.active.section" content="atl.jira.proj.config"/>
+	<meta name="admin.active.tab" content="view_issue_collectors"/>
+	<meta name="projectKey" content="$textutils.htmlEncode($action.projectKey)"/>
+</head>
+<body>
+<div class="aui-message error">
+    <span class="aui-icon icon-error"></span>
+    <p class="title">$action.getText('common.words.errors')</p>
+    <ul>
+        #foreach ($error in $action.getErrorMessages())
+            <li>$textutils.htmlEncode(${error})</li>
+        #end
+        #foreach ($error in $action.errors)
+            <li>$textutils.htmlEncode(${error})</li>
+        #end
+    </ul>
+</div>
+</body>
+</html>

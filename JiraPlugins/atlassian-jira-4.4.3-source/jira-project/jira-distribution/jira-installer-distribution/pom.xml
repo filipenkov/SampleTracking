@@ -1,0 +1,254 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.atlassian.jira</groupId>
+        <artifactId>jira-distribution</artifactId>
+        <version>4.4.3</version>
+    </parent>
+
+    <artifactId>jira-installer-distribution</artifactId>
+    <packaging>pom</packaging>
+
+    <name>Atlassian JIRA - zDistribution - Windows Installer Distribution</name>
+
+    <profiles>
+      <profile>
+        <id>sign-installer</id>
+        <activation>
+            <property>
+                <name>jira.installer.signinstaller</name>
+                <value>true</value>
+            </property>
+        </activation>
+        <build>
+          <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                          <artifactItems>
+                            <artifactItem>
+                              <!-- For now this is a pseudo-artifact which isn't deployed in the maven repository, but exists because of the sandbox deployment -->
+                              <groupId>com.atlassian.keystore</groupId>
+                              <artifactId>atlassian-keystore</artifactId>
+                              <version>1.1</version>
+                              <outputDirectory>${project.build.directory}/atlassian-keystore</outputDirectory>
+                            </artifactItem>
+                          </artifactItems>
+                       </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+          </plugins>
+        </build>
+        <properties>
+          <signcode.keystore.location>${project.build.directory}/atlassian-keystore/keystore/secure</signcode.keystore.location>
+          <signcode.keystore.password>passwordsameaskeystore</signcode.keystore.password>
+        </properties>
+      </profile>
+    </profiles>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-standalone-distribution</artifactId>
+            <version>${project.version}</version>
+            <classifier>standalone</classifier>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.inception</groupId>
+            <artifactId>inception</artifactId>
+            <version>1.4.3</version>
+        </dependency>
+    </dependencies>
+     <build>
+        <finalName>atlassian-jira</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <includeArtifactIds>jira-standalone-distribution</includeArtifactIds>
+                            <outputDirectory>${project.build.directory}/standalone</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                          <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                          <artifactItems>
+                            <artifactItem>
+                              <groupId>com.atlassian.inception</groupId>
+                              <artifactId>inception</artifactId>
+                              <overWrite>true</overWrite>
+                              <outputDirectory>${project.build.directory}</outputDirectory>
+                              <destFileName>inception.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                              <groupId>commons-httpclient</groupId>
+                              <artifactId>commons-httpclient</artifactId>
+                              <version>3.0.1</version>
+                              <overWrite>true</overWrite>
+                              <outputDirectory>${project.build.directory}</outputDirectory>
+                              <destFileName>commons-httpclient.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                              <groupId>commons-io</groupId>
+                              <artifactId>commons-io</artifactId>
+                              <version>2.0.1</version>
+                              <overWrite>true</overWrite>
+                              <outputDirectory>${project.build.directory}</outputDirectory>
+                              <destFileName>commons-io.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                              <groupId>commons-codec</groupId>
+                              <artifactId>commons-codec</artifactId>
+                              <version>1.3</version>
+                              <overWrite>true</overWrite>
+                              <outputDirectory>${project.build.directory}</outputDirectory>
+                              <destFileName>commons-codec.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                              <artifactId>commons-logging</artifactId>
+                              <groupId>commons-logging</groupId>
+                              <version>1.0.4</version>
+                              <overWrite>true</overWrite>
+                              <outputDirectory>${project.build.directory}</outputDirectory>
+                              <destFileName>commons-logging.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                              <artifactId>dom4j</artifactId>
+                              <groupId>dom4j</groupId>
+                              <version>1.4</version>
+                              <overWrite>true</overWrite>
+                              <outputDirectory>${project.build.directory}</outputDirectory>
+                              <destFileName>dom4j.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                              <artifactId>modz-detector</artifactId>
+                              <groupId>com.atlassian.modzdetector</groupId>
+                              <version>0.12</version>
+                              <overWrite>true</overWrite>
+                              <outputDirectory>${project.build.directory}</outputDirectory>
+                              <destFileName>modzdetector.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                              <artifactId>slf4j-api</artifactId>
+                              <groupId>org.slf4j</groupId>
+                              <version>1.5.8</version>
+                              <overWrite>true</overWrite>
+                              <outputDirectory>${project.build.directory}</outputDirectory>
+                              <destFileName>slf4j-api.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                              <groupId>org.slf4j</groupId>
+                              <artifactId>slf4j-jdk14</artifactId>
+                              <version>1.5.8</version>
+                              <overWrite>true</overWrite>
+                              <outputDirectory>${project.build.directory}</outputDirectory>
+                              <destFileName>slf4j-jdk14.jar</destFileName>
+                            </artifactItem>
+                          </artifactItems>
+                          <!-- other configurations here -->
+                        </configuration>
+                      </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>install4j</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <tasks>
+                                <taskdef name="install4j" classname="com.install4j.Install4JTask" classpath="${install4j.home}/bin/ant.jar" />
+                                <copy file="jira-template.install4j" tofile="jira.install4j" overwrite="true"/>
+                                <!-- replace the edition and version number to point to the correct target directory for the standalone build. -->
+                                <replace file="jira.install4j" token="STANDALONE_TARGET_PATH"
+                                             value="${project.build.directory}/standalone/atlassian-jira-${project.version}-standalone"/>
+                                <install4j projectfile="jira.install4j" verbose="true" destination="target" mediatypes="${mediatypes}">
+                                    <variable name="app.version" value="${project.version}"/>
+                                    <variable name="docs.version" value="${jira.docs.version}" />
+                                    <variable name="keystore.home" value="${signcode.keystore.location}"/>
+                                    <variable name="keystore.password" value="${signcode.keystore.password}"/>
+                                    <variable name="install4j.home" value="${install4j.home}"/>
+                                    <variable name="app.edition" value="Enterprise"/>
+                                    <variable name="app.edition_filename" value="enterprise"/>
+                                </install4j>
+                               <copy file="${project.build.directory}/atlassian-jira-${project.version}-x32.sh"
+                                      tofile="${project.build.directory}/atlassian-jira-${project.version}-x32.bin" overwrite="true" />
+                               <copy file="${project.build.directory}/atlassian-jira-${project.version}-x64.sh"
+                                      tofile="${project.build.directory}/atlassian-jira-${project.version}-x64.bin" overwrite="true" />
+                               <chmod file="${project.build.directory}/atlassian-jira-${project.version}-x32.bin"
+                                    perm="u+x" />
+                               <chmod file="${project.build.directory}/atlassian-jira-${project.version}-x64.bin"
+                                    perm="u+x" />
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+			  <groupId>org.codehaus.mojo</groupId>
+			  <artifactId>build-helper-maven-plugin</artifactId>
+			  <version>1.5</version>
+			  <executions>
+				<execution>
+				  <id>attach-installer</id>
+				  <phase>package</phase>
+				  <goals>
+					<goal>attach-artifact</goal>
+				  </goals>
+				  <configuration>
+					<artifacts>
+					  <artifact>
+						<file>${project.build.directory}/atlassian-jira-${project.version}.exe</file>
+						<type>exe</type>
+					  </artifact>
+                      <artifact>
+                        <file>${project.build.directory}/atlassian-jira-${project.version}-x64.bin</file>
+                        <type>bin</type>
+                        <classifier>x64</classifier>
+                      </artifact>
+                      <artifact>
+                        <file>${project.build.directory}/atlassian-jira-${project.version}-x32.bin</file>
+                        <type>bin</type>
+                        <classifier>x32</classifier>
+                      </artifact>
+					</artifacts>
+				  </configuration>
+				</execution>
+			  </executions>
+			</plugin>
+         </plugins>
+    </build>
+
+    <properties>
+        <signcode.keystore.location>/Users/mtan/keystore/src/etc/keystore/secure</signcode.keystore.location>
+        <signcode.keystore.password>passwordsameaskeystore</signcode.keystore.password>
+        <install4j.home>/tools/install4j</install4j.home>
+        <jira.home>${basedir}/../jira</jira.home>
+        <mediatypes>windows,unixInstaller</mediatypes>
+    </properties>
+</project>

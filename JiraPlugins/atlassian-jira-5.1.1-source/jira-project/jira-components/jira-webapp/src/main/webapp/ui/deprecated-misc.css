@@ -1,0 +1,220 @@
+span.switch { cursor: pointer; }
+.alertHeader {border-bottom:1px solid #ddd;clear:both;color:#000;padding:.5em 1em; } /* Announcement Banner - appears below the header but above everything else */
+.loading a.icon-edit-sml {background:#fff url("../../../images/icons/wait.gif") 95% center no-repeat;}
+
+/* Aim to remove the below styles */
+.replaced {background-color:#3c6;} /* Used to locate non-i18n text by setting a VM parameter -Djira.i18n.texthighlight=true */
+.smallgrey {font-size:.85em;} /* Used all over the place */
+.inactive, .inactive td {color:#999;} /* Used all over the place */
+.warningText, .errLabel, .checkboxErrLabel, .warningBox h4,#modifiedMarker,a.loginFormErrorLink, .formErrors h4 {color:#c00;}
+.redText {color:#900;}
+.greenText {color:#006400;}
+.bluetext {color:@textHeadingColour;}
+.grey, .smallgrey {color:#666;}
+.lightgrey {color:#aaa;}
+.paramAdded, .paramAdded a, .green-highlight, .green-highlight-small {color:#006400;font-weight:bold;}
+.paramChanged, .paramChanged a {color:#00f;font-weight:bold;}
+.blue-highlight {color:#60f;font-weight:bold}
+.licensemessagehl, .note, .red-highlight, .red-highlight td, .red-highlight-small {color:#900;font-weight:bold;}
+.red-highlight-small, .green-highlight-small {font-size:9px;}
+.validHighlight {color:#090;font-weight:bold;}
+.bright-green-highlight {color:#3c0;font-weight:bold;}
+a.backToTop { background-image: url( ../../../images/icons/arrow_up_blue.gif ); background-position: 0 3px; background-repeat: no-repeat; display: block; float: right; font-size: 10px; margin: 0; padding: 5px 0 0 18px; text-decoration: none; }
+a.backToTop:hover { text-decoration: underline; }
+.actionLinks { float: right; padding: 2px; text-align: right; vertical-align: middle; }
+.subText { font-size: 10px; }
+.selectDescription { font-size: 10px; vertical-align: top; }
+.boldTop { font-weight: bold; vertical-align: top; } /* Only used on listworkflows.jsp */
+.nowrap { white-space: nowrap; }
+.spacer { line-height: 2px; }
+.halfWidth { width: 50%; } /* Only used for selectIssueTypeSchemeForProject.jsp */
+.lead { text-transform: capitalize; } /* Only used for view-searcher-number-range.vm */
+.borderedHeader { background-color: #f0f0f0; border: 1px solid #bbb; margin: 1em; padding: 0.5em; } /* Used for searchrequest-description-header.vm */
+.topBordered { border-top: 1px solid #bbbbbb; margin-top: 5px; padding-top: 5px; } /* Only used for chooseContext.jsp */
+.subtleButton { font-size: 80%; margin: 0; padding: 0 1px; } /* Only used on configurefieldscreen.jsp */
+.mf-hidden { display: none; }
+a.show-more { height:1.5em; float:right; margin-right:1em; margin-top:-2em; }
+#charts.loading { background: #FFFFFF url( "../../../images/icons/wait.gif" ) right no-repeat; padding-right:20px; }
+.report-chart {text-align:center;} /* used in templates.plugins.jira.portlets.charts and templates.plugins.jira.reports.charts simply to center an image of the chart */
+.sectionHeaderOption {background-color: #fff;border-top: 1px solid #ccc;padding: 0 2px;font-weight: normal;font-style: normal;} /* used for issue type and version <select> fields as pseudo optgroups */
+.sortArrow {vertical-align:middle;} /* used all over the place */
+.sortArrow9x9 {vertical-align:middle;width:9px;height:9px;} /* can't find usages but concerned about possible use in portlets */
+.sortArrow16x16 {vertical-align: middle;width: 16px;height: 16px;} /* used in portalpage-list.jsp */
+.dashboardLink {display:none;} /* can't find usages */
+.blender {position:absolute;top:0;left:auto;right:0;width:1.162em;height:100%;background:transparent url("../../../images/grad.png") 100% 0 repeat-y;} /* little fade for view_attachments.jsp */
+.msie-7 .blender {display:none;height:0;width:0;}
+#attachment_thumbnails .attachment-content:hover .blender {background-image:url("../../../images/grad_hover.png");}
+#attachment_thumbnails .attachment-content:hover .blender-delete {right: 10px;}
+.msie-7 .dashboard-contents .v-tabs .vertical li.active {left:0;margin-left:0;} /* Can't find usages of this */
+span.switch {color:@textLinkColour;}
+
+.padded {padding:1em;}
+a.icon.loading,
+span.icon.loading,
+form.aui span.icon.loading {background:url("../../../images/icons/wait.gif") 0 center no-repeat;}
+.filter-picker-cancel {margin:1em 0;text-align:center;}
+.active-area .content h2.resetpassword-title { font-size: 21px; }
+.aui-popup .buttons .throbber {margin-right:10px;}
+.picker-label-recent-active { color: #999;}
+
+#release-notes-lnk { background-color: #fff; color:@textLinkColour; padding: 3px 7px 4px 4px; }
+#release-notes-lnk:hover {color:@textActiveLinkColour; text-decoration: underline; }
+
+#plugins h2 { color: #000; font-size: 1.8em; margin: 7px 8px 5px 8px; } /* Couldn't find usages of this */
+#plugins h2 #project-lead { font-size: 75%; font-weight: normal; } /* Couldn't find usages of this */
+
+#usersummaryfilters ul { margin: 0; padding-left: 2.5em; } /* Couldn't find usages of this */
+#usersummaryassignedissues { padding-left: 1em; width: 90%; } /* Couldn't find usages of this */
+
+.borderedBox {border:1px solid #bbb;padding:2px;}
+.borderedTabBox {border:1px solid #bbb;width:100%;}
+.borderedTabBoxHidden {border:1px solid #bbb;display:none;width:100%;}
+
+.update-wflow {margin:0 auto;}
+
+.pagetitle {color:@textHeadingColour;font-size:24px;font-weight:bold;margin:0 0 0 0;}
+
+.hiddenField {color:#999;}
+
+/* Aim to remove
+    - Some of the below are used on divs, some on tables so they're left in misc.css instead of tables.css */
+/*.maxWidth, .grid {margin:0 auto;}*/
+/*.grid, .bordered {background-color:#fcfcfc;border-collapse:collapse;border:1px solid #d2d2d2;margin-top:.5em;margin-bottom:.5em;}*/
+/*.grid.twodimensionstats {margin-top:0;margin-bottom:0;}*/
+/*.grid th, .grid td {border:1px solid #d2d2d2;padding:4px;vertical-align:top;}*/
+/*.grid th {background-color:#e2e2e2;}*/
+/*.msie-7 .grid th, .msie-7 .grid td {text-align:left;}*/
+/*#viewLinks .grid {background-color:transparent;}*/
+/*#viewLinks .grid th,*/
+/*#viewLinks .grid td {border:none;padding-left:0;}*/
+/*.msie-7 #viewLinks .grid {width:99%;}*/
+/*.msie-7 .grid td {text-align:left;}*/
+
+.bordered th, .bordered td {border: none;}
+.p-correction {margin-top:1em;margin-bottom:1em;} /* use this when removing tables wrapped in a <p> - TODO: SEAN refactor this */
+.defaultWidth { width: 95%; }
+.maxWidth { width: 99%; }
+.minWidth { width: 1%; }
+.minNoWrap { width: 1%; white-space: nowrap; }
+.noWrap { white-space: nowrap; }
+.wrapping { white-space: normal; }
+.flooded {overflow:auto;overflow-y:hidden;}
+.msie-7 .flooded {padding-bottom:0;}
+
+/* Aim to remove
+    - List styles for dueissues.vm, dueversions.vm and recentissues.vm */
+ul.issues {display:inline-block;list-style-type:none;margin:0 0 0.25em;padding:0;vertical-align:top;width:100%;}
+ul.issues li {clear:both;display:block;margin: 0 0 0.25em;position:relative;padding:0.3em 0 0.3em 18px;}
+.msie-7 .module ul.issues li {display:inline-block;}
+ul.issues li:after { content: ".";display: block; height: 0; clear: both; visibility: hidden;}
+ul.issues li .label {color:#666;}
+ul.issues li .date {color:#333;float:right;padding:0 0.5em;}
+ul.issues li .issue,
+ul.issues li .version {display:block;float:left;padding:0 0.5em;position:relative;}
+ul.issues li .description {color:#333;clear:both;display:block;padding:0 0.5em;}
+ul.issues li img,
+ul#stream img {margin:0;position:absolute;left:0;top:0.4em;}
+ul.issues li abbr {border:none;}
+.msie-gt-6 .module ul.issues li {zoom:1;}
+
+.msie-7 .module ul.issues li,
+.msie-8 .module ul.issues li,
+.msie-7 #primary ul.issues li,
+.msie-8 #primary ul.issues li {zoom:1;}
+
+/* Aim to remove
+    - List styles for versiondescription.vm and componentdescription.vm */
+ul.details {list-style-type:none;margin:0 0 0.25em;padding:0;overflow:hidden;}
+ul.details li {clear:left;display:block;margin: 0 0 0.25em;padding:3px;}
+ul.details li .label {color:#666;display:block;float:left;font-weight:bold;width:8em;}
+ul.details li .description {float:left;margin:0;padding:0;}
+ul.details li a.description {display:inline;}
+ul.details li a.description:hover {display:inline;text-decoration:underline;background-color:transparent;}
+
+/* Aim to remove
+    - List styles for assigned-and-open.vm */
+.stat-list {list-style-type:none;margin:0;padding:0;}
+.stat-list li {margin-bottom:0.25em;}
+.stat-list .stat {float:right}
+.stat-list img {vertical-align:top;margin-right:0.25em;}
+
+/* Aim to remove
+    - List styles - predominantly used in the admin area */
+ul.square, ul.square_blue, ul.config, ul.imagebacked { list-style: none; margin: 0; padding: 0; }
+ul.square_blue li { background-image: url( ../../../images/icons/bullet_blue.gif ); background-position: 0 0.4em; background-repeat: no-repeat; padding-left: 13px; }
+ul.square_blue li ul { background-position: 0 0.4em; background-repeat: no-repeat; }
+ul.square_blue ul { list-style: none; margin: 0; padding-left: 0; }
+ul.square li { background-image: url( ../../../images/icons/bullet_creme.gif ); background-position: 0 0.4em; background-repeat: no-repeat; padding-left: 13px; }
+ul.square li a { font-weight: bold; }
+ul.normal li a { font-weight: normal; }
+ul.config li a, a.config { background-image: url( ../../../images/icons/confg_16.gif ); background-position: 0 2px; background-repeat: no-repeat; padding: 3px 0 3px 20px; }
+ul.imagebacked li { background-position: 0 2px; background-repeat: no-repeat; padding: 3px 0 3px 20px; }
+
+/* Aim to remove/refactor
+    - Used in the Manage Filters table */
+.shareList {list-style-type:none;margin:0;padding:0;}
+.shareList li {padding-left:20px;}
+.shareList li.public {background:transparent url("../../../images/icons/filter_public.gif") no-repeat 0 0;}
+.shareList li.private {background:transparent url("../../../images/icons/filter_private.gif") no-repeat 0 0;}
+
+/* Aim to remove.=
+    - Old portlets styles */
+.dialog.loading #portlet-search-view-control-panel { background:url("../../../images/icons/wait.gif") 0 center no-repeat; }
+#portlet-search-view-container { background: white; }
+#portlet-search-view-container .colHeaderLink { border-bottom:1px solid #BBBBBB; }
+#portlet-search-view-container .portlet-search-view-content { width:100%; }
+#portlet-search-view-control-panel { background: transparent; margin-top: 3px; padding: 0 5px 0 30px; position: absolute; right: 0; text-align:right; top: 0; }
+#portlet-search-view-picker { background: #F0F0F0; border-bottom:1px solid #BBBBBB; margin:1px; padding: 3px; }
+.configureContainer #portlet-search-view-footer { text-align:center; }
+#portlet-search-view-footer.module { margin:0; }
+#portlet-search-view-footer .module-header { background: #f0f0f0; border-bottom: 1px solid #bbb; padding: 4px; }
+#portlet-search-view-footer .module-header .heading { font-size:1em; margin-top:0; }
+#portlet-search-view-footer .module-content { margin:10px; }
+#portlet-search-view-footer .module-content form { margin:0; }
+#portlet-search-view-footer .module-content form li { float:left; margin-right:10px; }
+#portlet-search-view-footer .module-content ul { list-style-type:none; margin:0; padding:0; }
+#portlet-search-view-footer .module-content ul:after { clear: both; content: "."; display: block; height: 0; visibility: hidden; }
+#portlet-search-view-footer .errors li { margin-bottom:5px; }
+#portlet-search-view-configuration-form { background-color:white; }
+#portlet-search-view-configuration-form td { padding:4px; }
+#portlet-search-view-portlet-name { margin: 10px 0; }
+#portlet-search-view-container table { width:100%; }
+#portlet-search-view-container a { text-decoration:none; }
+.msie-7 #portlet-search-view-footer .module-content form ul {display:inline-block;}
+.portletLoginHeader {color:@menuTxtColour;background-color:@menuBackgroundColour;}
+
+
+/* legacy page overrides - these are a huge mess and really need refactoring out */
+.lp #main-content {min-width:250px;margin:0 auto;padding:1em;width:460px}
+.lp.errorpage #main-content {width:auto;}
+.lp .footer {border-top:none;margin:0 auto;width:460px;}
+.lp .active-area {background-color:#fff;border:1px solid #bbb;min-height:50px;position:relative;-moz-border-radius:0.4em;-webkit-border-radius:0.4em;border-radius:0.4em;padding:1em;}
+.lp h4 {background-color:#f0f0f0;border-top:1px solid #bbb;color:#3c78b5;font-size:1.3em;margin:1em 0 .5em;padding-left:.25em;}
+.lp h5 {margin-bottom:.25em;}
+.lp .section {margin-left:.25em;}
+.lp dt {font-weight:bold;}
+.lp dd {margin-bottom:.5em;margin-left:19px;}
+.lp .fieldLabelArea,
+.lp .fieldValueArea {background-color:#fff;}
+.lp input {margin-right:0.25em;}
+.lp form.aui div label,
+.lp form.aui .field-value {line-height:1.4;}
+.lp form.aui h2,
+.lp .active-area h2,
+.lp h2 {border-bottom:none;color:#333;font-size:1.6em;margin:0 0 1em;}
+.lp .lp-desc div.auidescription {padding-left:0;}
+.lp td .radio {margin-top:3px;}
+.lp .maxWidth {width:100%;}
+
+/* Setup screens - should be able to refactor these out */
+.setupwizard #main-content {width:auto;font-size:12px;}
+.setupwizard .footer {width:auto;}
+.setupwizard .fieldLabelArea {background-color:#fffff0;}
+
+/* Used on the OAuth Access Tokens page - very old looking page */
+#full_profile dl dt {width:39%;}
+#full_profile dl dd {width:59%;}
+
+/* Misc IE7 and IE8 fixes */
+.msie-7 body.dashboards .tab-panel-fragment h2,
+.msie-8 body.dashboards .tab-panel-fragment h2 {zoom:1;}

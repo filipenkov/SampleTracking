@@ -1,0 +1,8 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ImporterProcessSupport" *#
+#if ($action.wizardActiveSection)
+<meta name="admin.active.section" content="${action.wizardActiveSection}"/>
+#end
+#if ($action.wizardActiveTab)
+<meta name="admin.active.tab" content="${action.wizardActiveTab}"/>
+#end
+

@@ -1,0 +1,40 @@
+#disable_html_escaping()
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.mail.webwork.EditHandlerDetailsUsingParamsWebAction" *#
+<html>
+<head>
+    <meta name="admin.active.section" content="admin_system_menu/top_system_section/mail_section">
+    <meta name="admin.active.tab" content="incoming_mail">
+    <title>$action.handlerName</title>
+</head>
+<body>
+<form class="aui long-label" action="EditHandlerDetailsUsingParams.jspa" method="POST" name="mailHandlerForm" id="mailHandlerForm">
+    <div class="form-body">
+        <h2 class="formtitle">$action.handlerName</h2>
+
+        #parse("/secure/admin/views/printGlobalErrors.vm")
+
+        <input type="hidden" name="atl_token" value="$atl_token">
+
+        #set ($auiparams = $map.build("name", "params", "label", "jmp.editHandlerDetails.params", "value", $action.params))
+        #parse("/templates/formfields/textfield.vm")
+
+        #set ($auiparams = $map.build("name", "forwardEmail", "label", "admin.service.common.handler.forward.email", "value", $action.forwardEmail, 'required', true))
+        #parse("/templates/formfields/textfield.vm")
+    </div>
+
+    <div class="buttons-container form-footer">
+        <div class="buttons">
+            #parse("/secure/admin/views/accessKeys.vm")
+            #if ($action.editing)
+                #set ($addButtonLabel = $i18n.getText('common.words.save'))
+            #else
+                #set ($addButtonLabel = $i18n.getText('common.forms.add'))
+            #end
+            <input id="addButton" type="submit" class="button submit spaced" value="$!addButtonLabel" accesskey="$submitAccessKey" title="$submitTitle">
+            <a href="IncomingMailServers.jspa" id="cancelButton" class="aui-cancel-button" accesskey="$cancelAccessKey" title="$cancelTitle">$i18n.getText("AUI.form.cancel.link.text")</a>
+        </div>
+    </div>
+</form>
+</body>
+</html>
+

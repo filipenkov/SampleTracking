@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:osgi="http://www.springframework.org/schema/osgi"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                      http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
+
+
+    <bean name="applicationUsersController" class="com.atlassian.crowd.plugin.rest.service.controller.UsersController">
+        <constructor-arg index="0" ref="applicationService"/>
+        <constructor-arg index="1" ref="applicationManager"/>
+        <constructor-arg index="2" ref="forgottenLoginManager"/>
+    </bean>
+
+    <bean name="applicationGroupsController" class="com.atlassian.crowd.plugin.rest.service.controller.GroupsController">
+        <constructor-arg index="0" ref="applicationService"/>
+        <constructor-arg index="1" ref="applicationManager"/>
+    </bean>
+
+    <bean name="applicationSearchController" class="com.atlassian.crowd.plugin.rest.service.controller.SearchController">
+        <constructor-arg index="0" ref="applicationService"/>
+        <constructor-arg index="1" ref="applicationManager"/>
+        <constructor-arg index="2" ref="cqlQueryParser"/>
+    </bean>
+
+    <bean name="authenticationController" class="com.atlassian.crowd.plugin.rest.service.controller.AuthenticationController">
+        <constructor-arg index="0" ref="applicationService"/>
+        <constructor-arg index="1" ref="applicationManager"/>
+    </bean>
+
+    <bean name="tokenController" class="com.atlassian.crowd.plugin.rest.service.controller.TokenController">
+        <constructor-arg index="0" ref="tokenAuthenticationManager"/>
+    </bean>
+
+    <bean name="cookieConfigController" class="com.atlassian.crowd.plugin.rest.service.controller.CookieConfigController">
+        <constructor-arg index="0" ref="propertyManager"/>
+        <constructor-arg index="1" ref="clientProperties"/>
+    </bean>
+
+    <bean name="cqlQueryParser" class="com.atlassian.crowd.cql.parser.CqlQueryParserImpl"/>
+
+    <bean name="applicationMembershipsController" class="com.atlassian.crowd.plugin.rest.service.controller.MembershipsController">
+        <constructor-arg index="0" ref="applicationService"/>
+        <constructor-arg index="1" ref="applicationManager"/>
+    </bean>
+
+    <bean name="eventsController" class="com.atlassian.crowd.plugin.rest.service.controller.EventsController">
+        <constructor-arg index="0" ref="applicationService"/>
+        <constructor-arg index="1" ref="applicationManager"/>
+    </bean>
+
+</beans>

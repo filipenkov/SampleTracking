@@ -1,0 +1,103 @@
+@import "dynamic:lookandfeel.less";
+
+.user-hover-info { min-height: 48px; position: relative; padding: 7px; }
+.user-hover-avatar { float: left; margin: 0 10px 0 0; height:48px;width:48px; }
+.user-hover-avatar img{ width: 48px; height:  48px; }
+.user-hover-details { overflow: hidden; }
+.user-hover-info h4{ font-size: 1.2em; }
+.user-hover-info ul{ color: #000000; padding-top: 7px; font-size: 13px; }
+.user-hover-info h5 { font-weight: normal; }
+.user-hover-info h5 a{ padding-top: 7px; text-decoration: underline; color: #666; font-size: 12px; }
+.user-hover-info .time-zone-info {
+    .user-hover-margin(@size: 2px) {
+        margin-right: 2*@size;
+        margin-top: @size;
+    }
+
+    // time of day sprite properties
+    @spritePixels: 16px;
+    @spriteUrl: "../../../images/time_of_day_sprite.png";
+    .spriteElement(@hour) {
+        background-position: -1*@spritePixels*@hour 0;
+    }
+
+    // keep the text from wrapping if it's too long
+    overflow: hidden;
+    white-space: nowrap;
+
+    .user-time-text {
+        .user-hover-margin;
+        color: #666;
+        font-size: 12px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    // adds the background image to the div
+    .user-time-icon {
+        background: url(@spriteUrl) no-repeat;
+        background-color: transparent;
+        display: inline-block;
+        height: @spritePixels;
+        vertical-align: middle;
+        width: @spritePixels;
+    }
+
+    // one entry for each hour in the day
+    .hour-of-day-00 { .spriteElement(0); }
+    .hour-of-day-01 { .spriteElement(1); }
+    .hour-of-day-02 { .spriteElement(2); }
+    .hour-of-day-03 { .spriteElement(3); }
+    .hour-of-day-04 { .spriteElement(4); }
+    .hour-of-day-05 { .spriteElement(5); }
+    .hour-of-day-06 { .spriteElement(6); }
+    .hour-of-day-07 { .spriteElement(7); }
+    .hour-of-day-08 { .spriteElement(8); }
+    .hour-of-day-09 { .spriteElement(9); }
+    .hour-of-day-10 { .spriteElement(10); }
+    .hour-of-day-11 { .spriteElement(11); }
+    .hour-of-day-12 { .spriteElement(12); }
+    .hour-of-day-13 { .spriteElement(13); }
+    .hour-of-day-14 { .spriteElement(14); }
+    .hour-of-day-15 { .spriteElement(15); }
+    .hour-of-day-16 { .spriteElement(16); }
+    .hour-of-day-17 { .spriteElement(17); }
+    .hour-of-day-18 { .spriteElement(18); }
+    .hour-of-day-19 { .spriteElement(19); }
+    .hour-of-day-20 { .spriteElement(20); }
+    .hour-of-day-21 { .spriteElement(21); }
+    .hour-of-day-22 { .spriteElement(22); }
+    .hour-of-day-23 { .spriteElement(23); }
+
+    .weekend {
+        color: #ff0000;
+    }
+}
+
+.user-hover-buttons>ul {height:28px;list-style:none;margin:0; border-top: 1px solid #eee; background-color: #eee;}
+.user-hover-buttons>ul>li {float:left;}
+.user-hover-buttons>ul>li.empty { background-color: #F7F7F7; display: block; height: 28px; margin: 0; padding: 0; width: 149px; }
+.user-hover-buttons ul ul{ border-top: none; }
+a.user-hover.user-avatar,
+span.user-hover.user-avatar {background-repeat:no-repeat;background-position:center left;padding:2px 0 2px 19px;}
+.msie-7 .concise a.user-hover.user-avatar {padding:0 0 0 19px;zoom:1;}
+
+
+.user-hover-more { display: block; width: 150px; height: 28px; background-color: #F7F7F7; color: #333333; line-height: 28px; text-align: center; }
+.user-hover-more:first-child { border-right: 1px solid #eee; width: 149px; }
+.user-hover-buttons a.user-hover-more {color: #333;}
+.user-hover-buttons a:hover {background-color: #3C78B5; color:#fff;text-decoration:none;}
+
+.hoverpopup { z-index: 1000; max-width: 360px; }
+.hoverpopup .spinner-hover { margin: 32px 16px 48px; }
+.hoverpopup-throb { background-color: #fff; opacity: 0.9; padding: 6px; }
+.hoverpopup-data { position: relative; margin: 6px 6px 12px; }
+.hoverpopup dt { color: #666; float: left; margin-bottom: 4px; padding-right: 8px; width: 70px; text-align: right; }
+.hoverpopup dd { color: #000; margin-bottom: 4px; }
+.hoverpopup dd.block { padding-left: 74px; font-style: italic; }
+.hoverpopup-throbber-text { display: inline; left: 6px; position: relative; top: -2px; }
+#up-d-avatar .avatar_link:hover img {opacity:1; filter:alpha(opacity=100);}
+#up-d-avatar .avatar_link strong {display:block;left:50px;top:auto;bottom:5px; background-position:3px -699px;}
+#up-d-avatar .avatar_link:hover strong {background-position:-22px -699px;}
+
+.msie-7 .aui-inline-dialog .button-panel {width:250px;}

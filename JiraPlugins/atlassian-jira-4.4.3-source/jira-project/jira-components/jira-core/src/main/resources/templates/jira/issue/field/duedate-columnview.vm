@@ -1,0 +1,5 @@
+#if ($duedate)
+    $dueDateFormatter.format($duedate)
+#else
+    &nbsp;
+#end

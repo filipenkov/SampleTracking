@@ -1,0 +1,20 @@
+## Rendered by the Authentication Provider configuration servlets when an
+## AppLink is requested that doesn't exist.
+
+#* @vtlvariable name="i18n" type="com.atlassian.sal.api.message.I18nResolver" *#
+<!DOCTYPE html>
+<html>
+<head>
+    ${webResources.get()}
+</head>
+<body>
+    <div class="standalone-message">
+        <div class="aui-message error">
+            <p class="title">
+                <span class="aui-icon icon-error"></span>
+                <strong>$i18n.getText("auth.config.applink.missing")</strong>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+#set ($nolink = ($displayParams && $displayParams.get('nolink')))
+#if ($displayParams && $displayParams.get('navigator_view'))
+<p>
+#end
+#if ($nolink)
+    #if ($subTask && $parentIssueKey)
+        <span class="parentIssue">$parentIssueKey</span>
+    #end
+    #if (${displayParams.excel_view})
+        $textutils.htmlEncode($summary, false)
+    #else
+        $textutils.htmlEncode($summary)
+    #end
+#else
+    #if ($subTask && $parentIssueKey)
+        #if ($subTaskParentIssueLinkDisabled && $subTaskParentIssueLinkDisabled == true)
+            <span class="parentIssue">$parentIssueKey</span>
+        #else
+            <a href="${requestContext.baseUrl}/browse/$parentIssueKey" class="parentIssue" title="$textutils.htmlEncode($parentIssueSummary)">$parentIssueKey</a>
+        #end
+    #end
+    #if (${displayParams.excel_view})
+        <a href="${requestContext.baseUrl}/browse/${issue.getKey()}">$textutils.htmlEncode($summary, false)</a>
+    #else
+        <a href="${requestContext.baseUrl}/browse/${issue.getKey()}">$textutils.htmlEncode($summary)</a>
+    #end
+#end
+#if ($displayParams && $displayParams.get('navigator_view'))
+</p>
+## This is required because IE7 does not support min-width on table cells.
+<div class="ie7minWidth"></div>
+#end

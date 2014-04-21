@@ -1,0 +1,33 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.csv.CsvProjectMappingsPage" *#
+#parse('/templates/admin/views/common/import-header.vm')
+
+#set ($auiparams = $map.build("id", "project", "name", "project", "label", $i18n.getText('jira-importer-plugin.csv.select.how'), 'required', true))
+#parse("/templates/standard/normalHeader.vm")
+
+#set ($fieldId = "CSV")
+#set ($entry = "CSV")
+
+<input style="float: left; margin-top: 5px; margin-right: 10px;" id="${fieldId}_project_check" type="radio" name="readFromCsv" value="false" #if (!$action.configBean.readingProjectsFromCsv) checked="true" #end>
+
+#parse("/templates/admin/views/common/csvProjectMappingHtml.vm")
+
+<div class="clear"></div>
+
+<input id="${fieldId}_project_uncheck" type="radio" name="readFromCsv" value="true"
+		#if ($action.configBean.readingProjectsFromCsv) checked="true" #end
+		onchange="AJS.$('#CSV_project_check').trigger('change'); return true;">
+<label for="${fieldId}_project_uncheck">Defined in CSV</label>
+<div id="${fieldId}_project_description" class="description">To import multiple projects you must use the project defined in the CSV</div>
+
+#parse("/templates/standard/normalFooter.vm")
+
+#set ($auiparams = $map.build('name', 'userEmailSuffix', 'label', 'jira-importer-plugin.csv.email.suffix', 'description', 'jira-importer-plugin.csv.email.suffix.description', 'value', $action.userEmailSuffix))
+#parse("/templates/standard/textfield.vm")
+
+#set ($sunTitle = $i18n.getText('jira-importer-plugin.csv.sun.java.api'))
+#set ($sun = "<a href='http://java.sun.com/j2se/1.3/docs/api/java/text/SimpleDateFormat.html' title='$sunTitle' target='_new'>")
+#set ($auiparams = $map.build('name', 'dateImportFormat', 'label', 'jira-importer-plugin.csv.date.format.import.file', 'value', $action.dateImportFormat, 'description', $i18n.getText('jira-importer-plugin.csv.date.formats', ['<br/>', $sun, '</a>', 'dd/MM/yyyy'])))
+#parse("/templates/standard/textfield.vm")
+
+#parse("/templates/admin/views/common/csvProjectMappingJavascript.vm")
+#parse('/templates/admin/views/common/import-footer.vm')

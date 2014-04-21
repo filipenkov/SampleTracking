@@ -1,0 +1,15 @@
+<mail-servers>
+    <smtp-server name="defsmtp">
+        <hostname>mail.atlassian.com</hostname>
+        <defaultFrom>foo@atlassian.com</defaultFrom>
+        <timeout>15000</timeout>
+    </smtp-server>
+
+    <pop-server name="defpop">
+        <hostname>mail.atlassian.com</hostname>
+        <username>foo</username>
+        <password>bar</password>
+        <description>The default pop server.</description>
+        <timeout>20000</timeout>
+    </pop-server>
+</mail-servers>

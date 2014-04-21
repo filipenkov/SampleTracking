@@ -1,0 +1,17 @@
+<input
+#if ($auiparams.id)
+	id="$!textutils.htmlEncode($auiparams.id)"
+#else
+	id="$!textutils.htmlEncode($auiparams.name)"
+#end
+#parse("/templates/common/select.attrs.vm")
+type="checkbox" name="$!textutils.htmlEncode($!auiparams.name)" value="true" #if ($auiparams.value) CHECKED #end>
+#if ($auiparams.label)
+<label
+#if ($auiparams.id)
+	for="$!textutils.htmlEncode($auiparams.id)"
+#else
+	for="$!textutils.htmlEncode($auiparams.name)"
+#end
+>$i18n.getText($auiparams.label)</label>
+#end

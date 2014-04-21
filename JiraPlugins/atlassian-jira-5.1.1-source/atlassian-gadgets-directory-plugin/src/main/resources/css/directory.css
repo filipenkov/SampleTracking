@@ -1,0 +1,30 @@
+body { padding: 10px;}
+
+hr { background-color: #CCCCCC; border: 0; color: #CCCCCC; height: 1px; margin: 1em 0;}
+
+.mockalog h2 { background:#F0F0F0 none repeat scroll 0 0; -moz-border-radius-topleft:0.4em; -moz-border-radius-topright:0.4em; -webkit-border-top-left-radius:0.4em; -webkit-border-top-right-radius:0.4em; color:#666666; font-size:1.1em; height:43px; line-height:43px; margin:0; overflow:hidden; padding:0 1em; position:relative;}
+
+.info { margin:10px 10px; padding:10px; border:1px solid #999999; background-color:#efefef; text-align:left;}
+    .info p { margin:10px 0;}
+    .nobox { border:0 solid #999999; background-color:#fff;}
+
+.throbber { width:20px; height:25px}
+    .throbber.loading { background:transparent url( "../../resources/com.atlassian.gadgets.directory%3Adirectory-config/css/images/wait.gif") 0 5px no-repeat;}
+
+.centered-form { margin: 15px 0 15px 0; padding: 0 160px 0 160px; text-align: left;}
+    .centered-form span.description { font-size: .8em;}
+
+.mockalog { background-color:#fff; border: 1px solid #bbb; -moz-border-radius:.4em; -webkit-border-radius:.4em; border-radius:.4em; font-size:1.2em; position:relative; width: 860px;}
+    .mockalog ul { margin-left: 0;}
+    .mockalog ul li { list-style:none; padding: 5px 19px 5px 8px; position: relative; }
+    .mockalog ul li:hover { background: #F0F0F0;}
+    .mockalog a.remove { background: url("../../resources/com.atlassian.gadgets.directory%3Adirectory-config/css/images/icogrey_delete.gif") 3px 3px no-repeat; display: block; font-size: 90%; height: 11px; padding: 3px; position: absolute; right: 5px; text-indent: -9999px; top: 6px; width: 11px; }
+    .mockalog .app { margin-right: 7px;}
+    .mockalog img.app { margin-top: -1px; vertical-align: middle;}
+    .mockalog .info { position: relative;}
+
+#gadget-feed-subscriptions .throbber { left: 0; position: absolute; top: -7px;}
+
+.buttons { border-top:1px solid #F0F0F0; clear:both; height:23px; overflow:hidden; padding:10px 0; text-align:right; width:100%;}
+    .buttons button { font-size:0.75em; margin-right:10px; margin-top:2px;}
+    .buttons button.left { float:left; margin:2px 0 0 10px;}

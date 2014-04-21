@@ -1,0 +1,40 @@
+#if ($searchRequest)
+    <table class="tableBorder maxWidth" border="0" cellpadding="0" cellspacing="0" ><tr><td>
+        <table id="portlet_$portletConfig.id" border="0" cellpadding="3" cellspacing="1" width="100%">
+        <tr class=rowHeader>
+                <td class="colHeaderLink" colspan="2">
+                    #set ($statType = $portletConfig.getProperty('statistictype'))
+                    #set ($statsWrapper = $statsBean.getAllFilterBy($statType, $sortOrder, $sortDirection))
+                    <small><span style="float: right;">$i18n.getText("common.concepts.total.issues", $!statsWrapper.totalCount)</span></small>
+
+                    $i18n.getText("gadget.filterstats.statistics"):
+                    <b><a href="IssueNavigator.jspa?mode=hide&requestId=$portletConfig.getProperty('filterid')">$textutils.htmlEncode($searchRequest.name)</a></b>
+                    &nbsp;($i18n.getText("$portletConfig.getObjectConfiguration().getFieldValues('statistictype').get($portletConfig.getProperty('statistictype'))"))
+                </td>
+        </tr>
+        #parse('templates/plugins/jira/portlets/statsbody.vm')
+        </table>
+    </td></tr></table>
+#elseif ($user)
+    <table class="tableBorder maxWidth" border="0" cellpadding="0" cellspacing="0"><tr><td>
+        <table id="portlet_$portletConfig.id" border="0" cellpadding="3" cellspacing="1" width="100%">
+        <tr class=rowHeader>
+                <td class="colHeaderLink">
+                    $i18n.getText("gadget.filterstats.statistics"): <b>???</b>
+                </td>
+        </tr>
+        <tr bgcolor="#ffffff">
+            <td>
+                $descriptor.getText("portlet.filters.invalid")
+                ## A user can only edit/delete the portlets that belong to them.
+                #if ($editablePortletConfig)
+                <font size="1" color="#000000">&nbsp;
+                    (<a href="$req.contextPath/secure/SavePortlet!default.jspa?portletConfigId=$portletConfig.id" title="$i18n.getText('portlet.edit.title')">$i18n.getText('portlet.edit')</a> |
+                    <a href="$req.contextPath/secure/DeletePortlet!delete.jspa?portletConfigId=$portletConfig.id" title="$i18n.getText('portlet.delete.title')">$i18n.getText('portlet.delete')</a>)
+                </font>
+                #end
+            </td>
+        </tr>
+        </table>
+    </td></tr></table>
+#end

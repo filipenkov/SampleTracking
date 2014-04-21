@@ -1,0 +1,160 @@
+#* @vtlvariable name="directories" type="java.util.List<com.atlassian.crowd.embedded.admin.list.DirectoryListItem>" *#
+<html>
+<head>
+    <meta name="decorator" content="atl.admin">
+    <meta name="admin.active.section" content="admin_users_menu/users_groups_configuration/embedded_crowd_section"/>
+    <meta name="admin.active.tab" content="user_directories"/>
+
+	<title>$i18n.getText("embedded.crowd.directory.list.title")</title>
+    $webResourceManager.requireResource("com.atlassian.crowd.embedded.admin:web-resources")
+
+    <!-- selected item in Confluence admin menu -->
+    <content tag="selectedWebItem">confluence-user-directories-web-item</content>
+    <!-- Confluence breadcrumbs, TODO: invent a better way of doing this -->
+    <content tag="breadcrumbs">
+        <ol id="breadcrumbs">
+            <li class="first" ><span><a href="#springUrl("/dashboard.action")">$i18n.getText('dashboard.name')</a></span></li>
+            <li><span><a href="#springUrl("/admin/console.action")">$i18n.getText('administration.name')</a></span></li>
+            <li><span>$i18n.getText("embedded.crowd.directory.list.title")</span></li>
+        </ol>
+    </content>
+    
+    <script type="text/x-template" title="synchronisation-started">
+        <span class="sync-status directory-{id}">$i18n.getText("embedded.crowd.directory.synchronisation.started")</span>
+    </script>
+
+    <script type="text/x-template" title="synchronisation-in-progress">
+        <span class="sync-status directory-{id}">$i18n.getText("embedded.crowd.directory.synchronisation.in.progress", "{seconds}")</span>
+    </script>
+
+    <script type="text/x-template" title="synchronisation-link">
+        <a class="directory-operation sync directory-{id}"
+           data-id="{id}"
+           data-xsrf-token-value="{xsrfTokenValue}"
+           href="#springUrl("/plugins/servlet/embedded-crowd/directories/sync?directoryId={id}&$xsrfTokenName={xsrfTokenValue}")">
+            $i18n.getText("embedded.crowd.directory.synchronisation.synchronise")</a>
+    </script>
+
+    <script type="text/x-template" title="synchronisation-complete">
+        <p class="sync-info directory-{id}">
+            $i18n.getText("embedded.crowd.directory.synchronisation.last.run", "{lastStartTime}", "{lastDuration}")
+        </p>
+    </script>
+</head>
+<body>
+<div id="embcwd" class="list-directories">
+
+    <form class="aui">
+        #if ($req.getParameter("timeout") == "true")
+            <div class="aui-message error"><span class="error-icon"></span>$i18n.getText("embedded.crowd.session.expired")</div>
+        #end
+        <div class="page-header">
+            <h3>$i18n.getText("embedded.crowd.directory.list.title")#helpLink("embedded.crowd.directory.configure")</h3>
+            <p class="description">$i18n.getText("embedded.crowd.directory.list.description", $applicationProperties.displayName)</p>
+            <p class="description">$i18n.getText("embedded.crowd.directory.list.order", $applicationProperties.displayName)</p>
+        </div>
+        #foreach($error in $errors)<div class="aui-message error"><span class="error-icon"></span>$i18n.getText($error.key, $error.arguments)</div>#end
+        <table id="directory-list" class="aui">
+            <thead>
+                <tr>
+                    <th class="id-header">$i18n.getText("embedded.crowd.directory.list.heading.id")</th>
+                    <th class="name-header">$i18n.getText("embedded.crowd.directory.list.heading.name")</th>
+                    <th class="type-header">$i18n.getText("embedded.crowd.directory.list.heading.type")</th>
+                    <th class="order-header">$i18n.getText("embedded.crowd.directory.list.heading.order")</th>
+                    <th class="operations-header">$i18n.getText("embedded.crowd.directory.list.heading.operations")</th>
+                </tr>
+            </thead>
+            <tbody>
+            #foreach ($d in $directories)
+                <tr id="directory-$d.id" class="#if (!$d.active) inactive-directory #end
+                        #if ($highlightDirectoryId && $d.id == $highlightDirectoryId) highlight-directory #end ">
+                    <td class="id-column">$d.id</td>
+                    <td class="name-column">$htmlEncoder.encode($d.name) #if (!$d.active) <em>$i18n.getText("embedded.crowd.directory.inactive")</em> #end </td>
+                    <td class="type-column">$i18n.getText($d.type)</td>
+                    <td class="order-column icon-container">
+                        #if ($d.canMoveUp())
+                            <a class="directory-order move-up" href="#springUrl("/plugins/servlet/embedded-crowd/directories/moveUp?directoryId=$d.id&$xsrfTokenName=$xsrfTokenValue")"
+                                title="$i18n.getText("embedded.crowd.operation.MOVE_UP")">
+                                <span class="icon icon-move-up">$i18n.getText("embedded.crowd.operation.MOVE_UP")</span>
+                            </a>
+                        #else
+                            <span class="icon icon-move-up-disabled">$i18n.getText("embedded.crowd.operation.MOVE_UP")</span>
+                        #end
+                        #if ($d.canMoveDown())
+                            <a class="directory-order move-down" href="#springUrl("/plugins/servlet/embedded-crowd/directories/moveDown?directoryId=$d.id&$xsrfTokenName=$xsrfTokenValue")"
+                                title="$i18n.getText("embedded.crowd.operation.MOVE_DOWN")">
+                                <span class="icon icon-move-down">$i18n.getText("embedded.crowd.operation.MOVE_DOWN")</span>
+                            </a>
+                        #else
+                            <span class="icon icon-move-down-disabled">$i18n.getText("embedded.crowd.operation.MOVE_DOWN")</span>
+                        #end
+                    </td>
+                    <td class="operations-column">
+                        <p class="operations">
+                        #foreach ($label in $d.operations.keySet())
+                            <a class="directory-operation $d.operations.get($label).classAttribute" href="#springUrl("$d.operations.get($label).url&$xsrfTokenName=$xsrfTokenValue")">$i18n.getText($label)</a>
+                        #end
+                        #if ($d.isSynchronisable())
+                            #if ($d.isSynchronising())
+                                <span class="sync-status in-progress" data-id="$d.id">
+                                    $i18n.getText("embedded.crowd.directory.synchronisation.in.progress", $d.getSecondsSinceSyncStarted())
+                                </span>
+                            #else
+                                <a class="directory-operation sync"
+                                   data-id="$d.id" data-xsrf-token-value="$xsrfTokenValue"
+                                   href="#springUrl("/plugins/servlet/embedded-crowd/directories/sync?directoryId=$d.id&$xsrfTokenName=$xsrfTokenValue")">
+                                    $i18n.getText("embedded.crowd.directory.synchronisation.synchronise")</a>
+                            #end
+                        #end
+                        </p>
+                        #if ($d.isSynchronisable())
+                            <p class="sync-info directory-$d.id">
+                                #if ($d.getLastSyncTime())
+                                        $i18n.getText("embedded.crowd.directory.synchronisation.last.run", $d.getLastSyncTime(), $d.getLastSyncDuration())
+                                #else
+                                        $i18n.getText("embedded.crowd.directory.synchronisation.never.run")
+                                #end
+                            </p>
+                        #end
+                        #if ($d.isSynchronisable())
+                            <p class="sync-state directory-$d.id">
+                                #if ($d.getSyncStatusMessage())
+                                        $htmlEncoder.encode($i18n.getText($d.getSyncStatusMessage()))
+                                #end
+                            </p>
+                        #end
+                    </td>
+                </tr>
+            #end
+            </tbody>
+        </table>
+    </form>
+        
+    <button id="new-directory">$i18n.getText("embedded.crowd.directory.new.add.label")</button>
+    <form id="new-directory-form" class="hidden aui" method="POST" action="#springUrl("/plugins/servlet/embedded-crowd/configure/new/")">
+        <input type="hidden" name="$xsrfTokenName" value="$xsrfTokenValue"/>
+        <p>
+            <label for="new-directory-type">$i18n.getText("embedded.crowd.directory.new.directory.type.label")</label>
+            <select id="new-directory-type" name="newDirectoryType">
+                #foreach ($t in $newDirectoryTypes)
+                    <option value="$t.name()">$i18n.getText($t.label)</option>
+                #end
+            </select>
+        </p>
+        <p><input type="submit" name="next" value="$i18n.getText("embedded.crowd.directory.new.submit.label")"></p>
+    </form>
+
+    #set ($displayableItems = $webInterfaceManager.getDisplayableItems("embedded.crowd.additional", {}))
+    #if (!$displayableItems.isEmpty())
+        <h3>$i18n.getText("embedded.crowd.directory.additional.configuration")</h3>
+        <ul>
+            #foreach ($item in $displayableItems)
+                <li>
+                    <a href="$req.contextPath$item.link.getRenderedUrl($context)">$i18n.getText($item.webLabel.key)</a>
+                </li>
+            #end
+        </ul>
+    #end
+</div>
+</body>
+</html>

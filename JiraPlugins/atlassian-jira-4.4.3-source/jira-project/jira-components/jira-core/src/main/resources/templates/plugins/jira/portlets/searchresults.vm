@@ -1,0 +1,60 @@
+#if ($searchRequest)
+<style type="text/css">
+    #issuetable td.summary { width: 100%; }
+    #issuetable td.issuekey { width: 1%; }
+    #issuetable td.issuetype { width: 1%; }
+    #issuetable td.priority { width: 1%; }
+    table#issuetable  {margin-top:-1px}
+</style>
+
+<table class="tableBorder maxWidth grid" id="searchresults_portlet_$portletConfig.id" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 0px; margin-top: 0px">
+        <tr class=rowHeader>
+            <td class="colHeaderLink">
+            $searchTypeName: <b><a href="${baseurl}/${linkToSearch}">$textutils.htmlEncode($searchName)</a></b>
+            <small>&nbsp;
+                ($i18n.getText("portlet.assignedissues.overflow", "$displayedIssueCount", "$totalNumIssues"))
+            </small>
+            #if ($description) ## This is a hack, just for search filters, and not for 'assigned to me', or 'in progress'
+                <br>
+                <span class="small wrapping">$textutils.htmlEncode($description)</span>
+            #end
+            </td>
+        </tr>
+    </table>
+
+    #if ($indexing)
+        #if ($issues)
+            $table
+        #else
+            <table class="tableBorder maxWidth grid" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 0px; margin-top: 0px">
+            <tr><td bgcolor="#ffffff">
+                $noIssuesText
+            </td></tr></table>
+        #end
+    #else
+        <table class="tableBorder maxWidth grid" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 0px; margin-top: 0px">
+        <tr><td bgcolor="#ffffff">
+            #configureIndexing(${baseurl})
+        </td></tr></table>
+    #end
+
+
+#else
+    <table class="tableBorder maxWidth grid" id="searchresults_portlet_$portletConfig.id" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 0px; margin-top: 0px">
+        <tr class=rowHeader>
+            <td class="colHeaderLink">$searchTypeName: <b>???</b></td>
+        </tr>
+        <tr bgcolor="#FFFFFF">
+            <td>
+                $descriptor.getText("portlet.filters.invalid")
+                ## A user can only edit/delete the portlets that belong to them.
+                #if ($editablePortletConfig)
+                    <font size="1" color="#000000">&nbsp;
+                        (<a href="${baseurl}/secure/SavePortlet!default.jspa?portletConfigId=$portletConfig.id" title="$i18n.getText('portlet.edit.title')">$i18n.getText('portlet.edit')</a> |
+                        <a href="${baseurl}/secure/DeletePortlet!delete.jspa?portletConfigId=$portletConfig.id" title="$i18n.getText('portlet.delete.title')">$i18n.getText('portlet.delete')</a>)
+                    </font>
+                #end
+            </td>
+        </tr>
+    </table>
+#end

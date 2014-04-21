@@ -1,0 +1,58 @@
+@import "dynamic:lookandfeel.less";
+@import "jiralib.less";
+
+html,body,p,div,h1,h2,h3,h4,h5,h6,img,ul,ol,li,dl,dt,dd,pre,form,fieldset,textarea,input,select,option,button { margin: 0; padding: 0; }
+body {background-color:#f7f7f7;color:#000;font:12px/1.4 arial, FreeSans, Helvetica, sans-serif;}
+.msie-7 html,
+.msie-7 body {height:auto;}
+
+p {margin-bottom:1em;}
+h1 {font-size:1.8em;}
+h2 {font-size:1.8em;}
+h3 {font-size:1.3em;}
+h4 {font-size:1.2em;}
+h5 {font-size:1em;}
+h6 {font-size:.9em;}
+
+a, a:link, a:visited {color:@textLinkColour;cursor:pointer;text-decoration:none;}
+a:hover,a:active {color:@textActiveLinkColour;text-decoration:underline;}
+
+ul {margin:0 0 1em 2em;}
+ol {list-style-type:decimal;list-style-position:outside;margin:0 0 1em 0;padding-left:2.5em;}
+img, fieldset {border:0;}
+
+strong, b, .bolded {font-weight:bold;}
+pre {font-family:monospace;font-size:1.2em;}
+hr {color:#3c78b5;height:1px;}
+
+/* forms */
+textarea,select,optgroup,option,input.text,.textfield {color:#000;font-family:arial,tahoma,verdana,sans-serif;font-size:13px;}
+select {min-width:150px;padding:1px;}
+option {padding:0 1em;}
+textarea, .textfield, .text {padding:1px 2px;width:90%;}
+optgroup {background-color:#f8f8f8;color:#999;font-weight:normal;font-style:normal;}
+optgroup option {background-color:#fff;}
+
+
+small, .small {font-size:.9em;}
+.tinylink {text-decoration:none;}
+blockquote {border-left: 2px solid #3c78b5;font-size:1em;font-family:arial, FreeSans, Helvetica, sans-serif;margin-left:0;padding-left:1em;}
+
+
+/* Rule to fix quirks-mode inheritance behavior */
+table, caption {font-size:inherit;font-style:inherit;font-variant:inherit;font-weight:inherit;}
+th {text-align: left;}
+
+.hidden,
+#jira .hidden {border:none;display:none;padding:0;line-height:0;}
+.basicHide,
+.js-prefs {display:none;}
+
+.msie-7 a del,
+.msie-7 a strike {font-family : "Times New Roman", Georgia, serif;}
+
+.global-warning { background-color: #ffd; border: 1px solid #f7df92; color: #000; margin: 0; text-align: center; padding:5px; }
+.global-warning p { margin-bottom:0; }
+.previous-view {background-color:#fff;border-bottom:1px solid #3c78b5;font-weight:700;padding:5px 1em}
+
+.landf-topBackgroundColour {background-color:@topBackgroundColour}

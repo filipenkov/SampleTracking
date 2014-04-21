@@ -1,0 +1,10 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ImporterSetupPage" *#
+<html>
+<head>
+    <title>$action.getText("jira-importer-plugin.menu.item.external.system.import")</title>
+	#parse("/templates/admin/views/common/html-head-content.vm")
+	$webResourceManager.requireResource("jira.webresources:autocomplete")
+	$webResourceManager.requireResource("com.atlassian.jira.plugins.jira-importers-plugin:importerHeaderResources")
+</head>
+<body>
+<div class="jim-wrapper">

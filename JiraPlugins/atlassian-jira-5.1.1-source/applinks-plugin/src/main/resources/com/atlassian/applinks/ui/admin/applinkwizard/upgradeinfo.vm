@@ -1,0 +1,15 @@
+## This wizard page is used in:
+## * upgrade-applink wizard
+<div class="upgrade-info" title="${i18n.getText('applinks.list.add')}">
+    #help('applinks.docs.upgrade.application.link', '', 'help-step')
+    <ol class="progress-bar step-one">
+        <li class="active">${i18n.getText('applinks.create.step1')}</li>
+        <li>${i18n.getText('applinks.create.step2')}</li>
+        <li>${i18n.getText('applinks.create.step3')}</li>
+    </ol>
+    <h1 class="step-title">${i18n.getText('applinks.ual.upgrade.title')}</h1>
+    <form action="#" method="post" class="aui" onSubmit="return false;">
+        <div class="ual-upgrade-text"></div>
+        <div class="legacy-upgrade-error"></div>
+    </form>
+</div>

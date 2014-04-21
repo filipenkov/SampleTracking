@@ -1,0 +1,5 @@
+#macro (xsrfTokenElement)
+    #if ($xsrftokenParamValue)
+        <input type="hidden" name="$xsrftokenParamName" value="$xsrftokenParamValue"/>
+    #end
+#end

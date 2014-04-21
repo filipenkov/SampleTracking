@@ -1,0 +1,41 @@
+@import "../../global/css/lib.less";
+
+#project-config-panel-summary {
+    .toggle-wrap .mod-header h3 { font-size: 18px; line-height: 26px; }
+}
+
+#project-config-email-change {
+    float:right;
+    margin:0 0 0 5px;
+}
+
+#project-config-description-summary-container {
+    float:left;
+}
+
+.project-config-webpanel-help {
+    margin: 0 0 16px 0;
+}
+
+.project-config-webpanel-content {
+    padding-left: 64px;
+}
+.project-config-more-link {
+    float:right;
+    margin-top: 5px
+}
+.project-config-hide-help {
+    .project-config-webpanel-content {
+        background-image: none;
+    }
+    .project-config-webpanel-help { /* Can remove this if we instead just remove the help DOM nodes via JS instead of toggling the class */
+        display: none;
+    }
+    .project-config-webpanel-content {
+        padding-left: 0;
+    }
+}
+
+.project-config-list-value.project-config-version-overdue {
+    color: #c00;
+}

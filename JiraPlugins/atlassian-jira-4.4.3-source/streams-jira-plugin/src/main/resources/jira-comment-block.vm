@@ -1,0 +1,3 @@
+<blockquote>
+  $contentHtml #if($truncated)<a href="$contentUri" class='content-more'>$i18n.getText("streams.activity.summary.read.more")</a>#end
+</blockquote>

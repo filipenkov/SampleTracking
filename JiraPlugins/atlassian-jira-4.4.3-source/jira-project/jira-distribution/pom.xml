@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+
+  <groupId>com.atlassian.jira</groupId>
+  <artifactId>jira-distribution</artifactId>
+  <version>4.4.3</version>
+
+
+  <name>Atlassian JIRA - zDistribution</name>
+  <packaging>pom</packaging>
+  <modules>
+    
+    
+    
+    
+    <module>jira-webapp-dist</module>
+    
+    
+    
+      
+  </modules>
+  <profiles>
+    <profile>
+      <id>installer</id>
+      <activation>
+        <property>
+          <name>install4j.home</name>
+        </property>
+      </activation>
+      <modules>
+        
+      </modules>
+    </profile>
+    <profile>
+      <id>relase-func-tests</id>
+      <activation>
+        <property>
+          <name>release-func-tests</name>
+        </property>
+      </activation>
+      <modules>
+        
+      </modules>
+    </profile>
+    <profile>
+      <id>webapp-dist-runner</id>
+      <activation>
+        <property>
+          <name>run-webapp-dist</name>
+        </property>
+      </activation>
+      <modules>
+        
+      </modules>
+    </profile>
+      <profile>
+        <id>fork-compilation</id>
+        <build>
+            <pluginManagement>
+                <plugins>
+                    <plugin>
+                         <artifactId>maven-compiler-plugin</artifactId>
+                         <configuration>
+                             <fork>true</fork>
+                         </configuration>
+                     </plugin>
+                </plugins>
+            </pluginManagement>
+         </build>
+      </profile>
+  </profiles>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>2.1</version>
+          <configuration>
+            <preparationGoals>clean</preparationGoals>  
+            <suppressCommitBeforeTag>true</suppressCommitBeforeTag>  
+            <remoteTagging>false</remoteTagging>
+            <tagBase>https://svn.atlassian.com/svn/private/atlassian/jira/tags/distribution-tags</tagBase>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>2.2</version>
+          <configuration>
+            <finalName>${project.build.finalName}-${project.version}</finalName>
+            <tarLongFileMode>gnu</tarLongFileMode>
+            <archive>
+              <compress>true</compress>
+            </archive>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.cargo</groupId>
+          <artifactId>cargo-maven2-plugin</artifactId>
+          <version>1.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>1.0</version>
+        </plugin>
+
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>com.atlassian.maven.plugins</groupId>
+        <artifactId>sandbox-maven-plugin</artifactId>
+        <version>2.0</version>
+        <executions>
+          <execution>
+            <id>enable-sandbox</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>sandbox</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.atlassian.maven.plugins</groupId>
+        <artifactId>maven-clover2-plugin</artifactId>
+        <version>${clover.version}</version>
+        <configuration>
+          <jdk>${jdkLevel}</jdk>
+          <singleCloverDatabase>true</singleCloverDatabase>
+          <licenseLocation>${maven.clover.licenseLocation}</licenseLocation>
+          <generateJson>true</generateJson>
+          <generateHtml>true</generateHtml>
+          <generateXml>true</generateXml>
+          <generateHistorical>true</generateHistorical>
+          <outputDirectory>${project.build.directory}/site/clover</outputDirectory>
+          </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+  <properties>
+     <!--
+          These must be kept in synch with the base project pom and updated at release time
+     -->
+     <jira.build.number>663</jira.build.number>
+     <jira.docs.version>044</jira.docs.version>
+
+    <VERSION>${project.version}</VERSION>
+    <BUILD_NUMBER>${jira.build.number}</BUILD_NUMBER>
+    <BUILD_DATE>${maven.build.timestamp}</BUILD_DATE>
+    <tomcat6x.version>6.0.32</tomcat6x.version>
+    <TOMCAT_VERSION>${tomcat6x.version}</TOMCAT_VERSION>
+    <DOCS_VERSION>${jira.docs.version}</DOCS_VERSION>
+    <JIRAVERSION>${project.version}</JIRAVERSION>
+    <maven.build.timestamp.format>dd-MM-yyyy</maven.build.timestamp.format>
+    <atlassian.test.suite.batch>1</atlassian.test.suite.batch>
+    <atlassian.test.suite.numbatches>1</atlassian.test.suite.numbatches>
+    <atlassian.test.suite.parallel>false</atlassian.test.suite.parallel>
+    <jira.minimum.upgradable.build.number>72</jira.minimum.upgradable.build.number>
+    <jira.minimum.upgradable.version>3.0</jira.minimum.upgradable.version>
+    <jira.release.info>EAR/WAR</jira.release.info>
+    <maven.test.unit.skip>${maven.test.skip}</maven.test.unit.skip>
+    <maven.test.func.skip>${maven.test.skip}</maven.test.func.skip>
+    <maven.test.selenium.skip>${maven.test.skip}</maven.test.selenium.skip>
+    <clover.version>3.0.2</clover.version>
+    <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+    <atlassian.test.suite.batch>1</atlassian.test.suite.batch>
+    <atlassian.test.suite.numbatches>1</atlassian.test.suite.numbatches>
+    <jdkLevel>1.6</jdkLevel>
+    <rpc.version>4.4.1</rpc.version>
+
+    <!-- base JVM args for JIRA test runners -->
+    <jira.user.jvmargs>-Duser.language=en -Duser.region=AU -Duser.timezone=Australia/Sydney</jira.user.jvmargs>
+    <jira.test.runner.jvmargs>-Dfile.encoding=utf-8 ${jira.user.jvmargs}</jira.test.runner.jvmargs>
+  </properties>
+
+</project>

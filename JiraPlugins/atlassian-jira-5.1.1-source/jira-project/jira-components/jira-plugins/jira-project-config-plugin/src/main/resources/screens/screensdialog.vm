@@ -1,0 +1,9 @@
+#enable_html_escaping()
+#* @vtlvariable name="screens" type="java.util.List<com.atlassian.jira.issue.fields.screen.FieldScreen>" *#
+<div class="project-config-inlinedialog-content project-config">
+    <ul class="project-config-list project-config-screen-list">
+    #foreach ($screen in ${screens})
+        <li><a href="${baseurl}/secure/project/ConfigureFieldScreen.jspa?id=${screen.id}" class="project-config-list-label"><span class="project-config-icon project-config-icon-screen"></span>${screen.name}</a></li>
+    #end
+    </ul>
+</div>

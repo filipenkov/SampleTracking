@@ -1,0 +1,395 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.imports.csv.web.CsvFieldMappingsPage" *#
+#parse('/templates/admin/views/common/import-header.vm')
+
+#AUImessage("info" "" $i18n.getText('jira-importer-plugin.csv.note.on.validations', ['<strong>', '</strong>'])  "" "" "" "false")
+
+<p>$i18n.getText('jira-importer-plugin.csv.check.the.map.field.value.box')</p>
+
+
+<table class="aui" style="width: auto !important;" id="fieldMappings">
+	<thead>
+		<tr>
+			<th>Import</th>
+			<th style="min-width: 300px;">$i18n.getText('jira-importer-plugin.csv.csv.header.row')</th>
+			<th class="rightarrowcolumn"></th>
+			<th>$i18n.getText('jira-importer-plugin.csv.corresponding.jira.field')</th>
+			<th class="padded-column">$i18n.getText('jira-importer-plugin.external.map.field.value')</th>
+		</tr>
+	</thead>
+	<tbody>
+#foreach($entry in $sorter.sort($action.configBean.headerRow))
+	#set ($fieldName = $!textutils.htmlEncode($action.getFieldName($entry)))
+
+	<tr class="nobottomborder" id="${fieldName}">
+		<td>
+			#set ($auiparams = $map.build('class', 'checkbox field-mapping-checkbox', 'name', "${fieldName}-import-checkbox"))
+			#parse('/templates/common/checkbox.vm')
+		</td>
+		<td>
+			#if($action.configBean.isUsingMultipleColumns($entry))
+				<span class="duplicate-column-info">$entry <span class="svg-icon warning size-14"></span></span>
+			#else
+				$entry
+			#end
+	#if ($action.configBean.sampleData.get($entry))
+		<div class="description">(e.g. $!textutils.htmlEncode($!action.configBean.sampleData.get($entry)))</div>
+	#end
+		</td>
+		<td class="rightarrowcolumn">&rarr;</td>
+		<td>
+			#set ($auiparams.controlHeaderClass = $action.getExistingCfName($entry))
+			<span style="display: inline-block; position: relative; width: 250px;">
+				<span class="aui-icon icon-required field-mapping-warning" style="position: absolute; right: -8px;"></span>
+				<select id="${fieldName}-mapping" name="${fieldName}-mapping" class="importField select short-field">
+					#foreach($group in $action.configBean.getFieldMappings($entry).entrySet())
+						<optgroup label="$group.key">
+							## using name "$field" below causes NPE in Velocity. WTF?
+							#foreach ($field2 in $group.value.entrySet())
+								<option value="$!textutils.htmlEncode($field2.key)" #if ($action.configBean.isSelectedValue($action.configBean.getFieldName($entry), $field2.key)) selected="selected" #end>
+									$!textutils.htmlEncode($field2.value)
+								</option>
+							#end
+						</optgroup>
+					#end
+				</select>
+			</span>
+		</td>
+		<td class="padded-column">
+			<input type="checkbox" class="checkbox manual-mapping-checkbox" id="manual-mapping-$fieldName">
+		</td>
+	</tr>
+	<tr class="additional-hint-container" style="display: none;">
+		<td colspan="4">
+			<div class="jim-hints-section in-table-hint" ></div>
+		</td>
+		<td></td>
+	</tr>
+#end
+	</tbody>
+</table>
+
+#if ($action.configBean.unmappedFields && $action.configBean.unmappedFields.size() > 0)
+<div class="aui-message warning" id="unmappedFieldsWarning">
+	<span class="aui-icon icon-warning"></span>
+		$i18n.getText('jira-importer-plugin.csv.unmapped.field.warn.message')
+		<table class="aui" style="display:none; width: auto !important; background-color: transparent;" id="unmappedFields">
+			<thead>
+			<tr>
+				<th>$i18n.getText('jira-importer-plugin.csv.csv.header.row')</th>
+				<th class="rightarrowcolumn"></th>
+				<th>$i18n.getText('jira-importer-plugin.csv.corresponding.jira.field')</th>
+			</tr>
+			</thead>
+			<tbody>
+			#foreach($entry in $action.configBean.unmappedFields.entrySet())
+				<tr class="nobottomborder">
+					<td>$!textutils.htmlEncode($entry.key)</td>
+					<td class="rightarrowcolumn">&rarr;</td>
+					<td>$!textutils.htmlEncode($entry.value)</td>
+				</tr>
+			#end
+			</tbody>
+		</table>
+</div>
+<script type="text/javascript">
+	AJS.$("#unmappedFieldsWarning a.showMore").click(function(event) {
+		event.preventDefault();
+		AJS.$("#unmappedFieldsWarning table").toggle();
+	});
+</script>
+#end
+
+<div id="importer-info-box" style="display:none;" class="jim-hints-section"></div>
+<div id="duplicate-column-message" style="display:none;">
+	<div class="notify warn" style="border: none">$i18n.getText('jira-importer-plugin.csv.field.mappings.page.duplicate.columns.warning')</div>
+</div>
+
+
+<script type="text/javascript">
+
+(function () {
+
+	var Models = Backbone.Collection.extend({
+	});
+
+	var models = new Models;
+
+	var FieldMappingRow = Backbone.View.extend({
+		events: {
+			"click .field-mapping-checkbox": "tickImport"
+		  },
+//
+		initialize: function() {
+			_.bindAll(this, "render", "manualMappingTicked", "customFieldsChanged", "renderSelectionDropdown", "submitCleanup", "selectField", "unselectField");
+			this.fieldSelect = new importer.NextButtonAwareSingleSelect({
+				element: this.$(".importField"),
+				overlabel: "Select a Field",
+				itemAttrDisplayed: "label",
+				mappingModel: this.model
+			});
+			this.$(".importField").bind("selected", this.selectField).bind("unselect", this.unselectField); // bind later to avoid premature trigger in new above
+			this.checkbox = this.$(".field-mapping-checkbox");
+			this.manualMappingCheckbox = this.$(".manual-mapping-checkbox");
+			this.manualMappingCheckbox.bind("click", this.manualMappingTicked);
+			this.additionalHintContainer = AJS.$(this.el).next(".additional-hint-container");
+			this.additionalHintSection = AJS.$(this.el).next().find(".jim-hints-section");
+//			this.manualMappingSection = AJS.$(this.el).next().find(".manual-mapping-section");
+//			this.manualMappingSectionContainer = AJS.$(this.el).next(".manual-mapping-section-container");
+			this.fieldMappingWarning = this.$(".field-mapping-warning");
+
+			this.model.bind('change', this.render);
+			this.options.customFieldsModel.bind('change', this.customFieldsChanged);
+			this.options.customFieldsModel.bind('add', this.customFieldsChanged);
+
+			this.customFieldsChanged(); // initialize select contents
+
+			AJS.$(this.el).parents("form").bind("submit", this.submitCleanup);
+		},
+
+		manualMappingTicked: function() {
+			this.model.set({"manualMapping": !this.model.get("manualMapping")});
+		},
+
+		render: function() {
+			var isImported = this.model.get("imported");
+			setChecked(this.checkbox, isImported);
+			isImported ? this.fieldSelect.enable() : this.fieldSelect.disable();
+			var targetField = this.model.get("targetField");
+			this.renderSelectionDropdown(targetField);
+
+			if (targetField == "comment" && isImported) {
+				this.additionalHintSection.html("$esc.javascript($i18n.getText('jira-importer-plugin.csv.field.mappings.page.comment.date.author'))");
+				this.additionalHintContainer.toggle(true);
+			} else {
+				this.additionalHintContainer.toggle(false);
+			}
+
+			setChecked(this.manualMappingCheckbox, this.model.get("manualMapping"));
+//			this.manualMappingSection.toggle(this.model.get("manualMapping"));
+			setEnablement(this.manualMappingCheckbox, isImported && targetField);
+			this.fieldMappingWarning.toggle(isImported);
+		},
+
+		renderSelectionDropdown: function (targetField) {
+			// targetField can be null, standard field name, custom field id or custom field model cid
+			if (targetField == "newCustomField") {
+				// handle the case when we get the initial data from a config file and it contains a mapping to a new custom field
+				// done here because we don't have any id for the field to reference it by
+				var data = this.model.get("customFieldModel");
+				var newField = new Backbone.Model({name: data.name, type: data.type});
+				this.options.customFieldsModel.add(newField);
+				this.model.set({targetField: newField.cid, customFieldModel: newField}, {silent: true});
+				this.fieldSelect.selectByKey(newField.cid);
+			} else {
+				var byId = this.options.customFieldsModel.get(targetField);
+				var actualKey = byId ? byId.cid : targetField;
+				var selectedDescriptor = this.fieldSelect.getSelectedDescriptor();
+				var selectedKey = selectedDescriptor ? selectedDescriptor.value() : null;
+				if (actualKey != selectedKey) {
+					this.fieldSelect.selectByKey(actualKey);
+				}
+			}
+			this.fieldSelect.updateOverlabel();
+		},
+
+		customFieldsChanged: function() {
+			var groupCustomFields = new AJS.GroupDescriptor({
+				label: "$action.configBean.customFieldsOptgroupTitle",
+				type: "optgroup",
+				weight: 1,
+				items: this.options.customFieldsModel.map(function (model) {
+					return new AJS.ItemDescriptor({
+						value: model.cid,
+						label: model.get("name"),
+						projectModel: model
+					});
+				})
+			});
+
+			this.fieldSelect.model.appendOptionsFromJSON([groupCustomFields]);
+		},
+
+		submitCleanup: function () {
+			if (!this.fieldSelect.getSelectedDescriptor()) {
+				this.model.unset("projectModel", {silent: true});
+			}
+		},
+
+
+		tickImport: function() {
+			this.model.set({"imported": !this.model.get("imported")});
+		},
+
+		unselectField: function () {
+			this.model.set({targetField: null, customFieldModel: null});
+		},
+
+		selectField: function(evt) {
+			var selectedDescriptor = this.fieldSelect.getSelectedDescriptor();
+			var newTargetField = selectedDescriptor && selectedDescriptor.value();
+			if (newTargetField == "newCustomField") {
+				var model = this.model, customFieldsModel = this.options.customFieldsModel;
+				function setNewCustomFieldData(name, type) {
+					var newCustomField = new Backbone.Model({
+						name: name,
+						type: type
+					});
+					customFieldsModel.add(newCustomField);
+					model.set({targetField: newCustomField.cid, customFieldModel: newCustomField});
+				}
+				var byModel = this.model.get("customFieldModel");
+				this.fieldSelect.selectByKey(byModel ? byModel.cid : this.model.get("targetField"));
+				new JIRA.FormDialog({
+					url: contextPath + "/secure/admin/views/AddCustomFieldDialog.jspa",
+					ajaxOptions: { url: contextPath + "/secure/admin/views/AddCustomFieldDialog!default.jspa"},
+					submitAjaxOptions: { url: contextPath + "/secure/admin/views/AddCustomFieldDialog.jspa"},
+					onDialogFinished: function() {},
+					onSuccessfulSubmit: function () {
+						setNewCustomFieldData(
+								this.${esc.d}form.find("input[name=customFieldName]").val(),
+								this.${esc.d}form.find("select[name=customFieldType]").val()
+						);
+					},
+					autoClose: true
+				}).show();
+			} else {
+				var customField = customFields.getByCid(newTargetField); // null for standard fields
+				var id = customField ? (customField.id || customField.cid) : newTargetField;
+				this.model.set({targetField: id, customFieldModel: customField});
+			}
+		}
+
+	});
+
+
+	var NextButtonHintView = Backbone.View.extend({
+		id: "nextButtonHints",
+
+		initialize: function() {
+			_.bindAll(this, "render");
+      		this.model.bind('change', this.render);
+			AJS.$("#nextButton").after('<span class="nextButtonHints jim-hints-section" style="display:none;"></span>');
+			this.hintSection = AJS.$("#nextButton").next();
+		},
+
+		render: function() {
+			var summaryMapped = this.model.find(function(entry) {
+				return entry.get("targetField") == "summary" && entry.get("imported");
+			});
+
+			var fieldImportedButNotMapped = this.model.find(function(entry) {
+				return (!entry.get("targetField")) && entry.get("imported");
+			});
+
+			var messages = [];
+
+			if (!summaryMapped) {
+				messages.push("$esc.javascript($i18n.getText('jira-importer-plugin.csv.field.mappings.page.summaryNotMapped'))");
+			}
+//			if (fieldImportedButNotMapped) {
+//				messages.push("<p>Please select a JIRA field for imported CSV fields.</p>");
+//			}
+
+			if (messages.length == 0) {
+				this.hintSection.hide();
+			} else if (!summaryMapped) {
+				this.hintSection.html(messages.join("\n"));
+				this.hintSection.show();
+			}
+			setEnablement(AJS.$("#nextButton"), summaryMapped != null && !fieldImportedButNotMapped);
+		}
+
+	});
+
+	var InfoBoxesView = Backbone.View.extend({
+		initialize: function() {
+			_.bindAll(this, "render", "hasCommentsMapped");
+      		this.model.bind('change', this.render);
+			this.infoSection = AJS.$(this.el);
+		},
+
+		render: function() {
+			var messages = ["$esc.javascript($i18n.getText('jira-importer-plugin.csv.field.mappings.page.hints'))",
+				"$esc.javascript($i18n.getText('jira-importer-plugin.csv.field.mappings.page.multiple.fields'))",
+					"$esc.javascript($i18n.getText('jira-import-plugin.csv.field.mappings.page.existing.custom.fields.warning'))"
+					];
+
+			#if ($action.subtasksEnabled)
+				messages.push("$esc.javascript($i18n.getText('jira-importer-plugin.csv.mappings.subtasks.info', $i18n.getText('jira-importer-plugin.csv.mappings.subtasks.issueid'), $i18n.getText('jira-importer-plugin.csv.mappings.subtasks.parentid'), $i18n.getText('issue.field.issuetype')))");
+			#end
+
+			#if ($action.configBean.hasEmptyHeaders())
+				messages.push("$esc.javascript($i18n.getText('jira-importer-plugin.csv.field.mappings.page.empty.header'))");
+			#end
+
+			if (messages.length > 0) {
+				var message = "";
+				_.forEach(messages, function(entry) {
+					message += ("<p>" + entry + "</p>");
+				});
+				this.infoSection.html(message);
+			}
+			this.infoSection.toggle(messages.length != 0);
+		},
+
+		hasCommentsMapped: function() {
+			var commentMapped = this.model.find(function(entry) {
+				return entry.get("targetField") == "comment" && entry.get("imported");
+			});
+			return commentMapped != null;
+		}
+
+	});
+
+
+	function setChecked(checkbox, state)  {
+		if (state) {
+			checkbox.attr('checked', 'checked');
+		} else {
+			checkbox.removeAttr('checked');
+		}
+	}
+
+	function setEnablement(jqueryObject, state) {
+		if (state) {
+			jqueryObject.removeAttr("disabled");
+		} else {
+			jqueryObject.attr("disabled", "disabled");
+		}
+	}
+
+	var customFields = (new Backbone.Collection).reset($action.customFieldsModel.replace('</', '<\u002f'));
+
+	models.reset($action.model.replace('</', '<\u002f'));
+	models.each(function(mappingRow) {
+		new FieldMappingRow({ id: mappingRow.id, model: mappingRow, el: "#" + mappingRow.id, customFieldsModel: customFields}).render();
+	});
+
+
+	AJS.$("#jimform").submit(function () {
+		AJS.$("#model").val(JSON.stringify(models));
+	});
+
+	AJS.$(function() {
+		var nextButtonHintsView = new NextButtonHintView({model: models, el: "#nextButtonHints"});
+		nextButtonHintsView.render();
+		new InfoBoxesView({model: models, el: "#importer-info-box"}).render();
+	});
+
+	var fillToolTip = function (contents, trigger, showPopup) {
+		contents.html(AJS.$("#duplicate-column-message").html());
+		contents.css("background", "#FFFFDD");
+		contents.parent().find("#arrow-duplicate-column-info path").attr("fill", "#FFFFDD");
+		showPopup();
+	};
+	AJS.InlineDialog(AJS.$(".duplicate-column-info"), "duplicate-column-info", fillToolTip, {width: 450, onHover: true, onTop: true, hideDelay: 0});
+	AJS.$("option[value='newCustomField']").css("font-style", "italic");
+
+})();
+
+</script>
+
+<input type="hidden" name="model" id="model">
+
+#parse('/templates/admin/views/common/import-footer.vm')
+

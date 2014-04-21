@@ -1,0 +1,41 @@
+#upm-progress-popup {
+    font-size: 1.2em;
+}
+
+#upm-progress {
+    padding: 0.5em 1.2em;
+    text-align: center;
+}
+
+#upm-progress img {
+    margin: 1.5em 0 1.5em 0;
+}
+
+.upm-progress-text {
+    color: #777;
+    text-align: center;
+}
+
+.upm-no-description-text {
+    color: #777;
+}
+
+.upm-progress-bar-container {
+    margin-top: 1em;
+    text-align: center;
+}
+
+.upm-progress-bar {
+    background: #f6f6f6;
+    border: 1px solid #ccc;
+    height: 20px;
+    margin: 0 auto;
+    text-align: left;
+    width: 250px;
+}
+
+.upm-progress-amount {
+    background: #69c;
+    height: 20px;
+    width: 0;
+}

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BaseDialog xmlns="com.sysbliss.jira.workflow.ui.dialog.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+	width="650" minWidth="650"
+	height="465" minHeight="465"
+	title="{niceResourceManager.getString('json','workflow.designer.image.chooser')}">
+	<mx:Script>
+		<![CDATA[
+        import com.sysbliss.jira.workflow.Il8n.INiceResourceManager;
+
+        import com.sysbliss.jira.workflow.Il8n.NiceResourceManager;
+
+        import mx.events.ListEvent;
+			import com.sysbliss.jira.workflow.event.EventTypes;
+			import com.sysbliss.jira.workflow.event.GenericDataEvent;
+			import org.swizframework.Swiz;
+			import mx.events.ItemClickEvent;
+			import com.sysbliss.jira.workflow.utils.StatusUtils;
+			import flash.sampler.getInvocationCount;
+			import com.sysbliss.jira.plugins.workflow.model.FlexJiraStatus;
+			import mx.collections.ArrayCollection;
+
+            private const niceResourceManager:INiceResourceManager = NiceResourceManager.getInstance();
+
+			[Autowire]
+			public var statusUtils:StatusUtils;
+			
+			[Bindable]
+			public var sortedDP:ArrayCollection;
+			
+			override public function onEnterKey():void {
+				doCancel(null);
+			}
+			
+			override public function clear():void {
+                super.clear();
+				var sortArray:Array = statusUtils.getAllIcons().toArray();
+				sortArray.sortOn("iconUrl");
+				
+				sortedDP = new ArrayCollection(sortArray);
+			}
+			
+			private function onItemClick(e:ListEvent):void {
+				Swiz.dispatchEvent(new GenericDataEvent(EventTypes.STATUS_ICON_SELECTED,iconGrid.selectedItem));
+				doCancel(e);
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:DataGrid id="iconGrid" width="100%" height="100%" dataProvider="{sortedDP}" sortableColumns="true" itemClick="onItemClick(event);" allowMultipleSelection="false">
+		<mx:columns>
+			<mx:DataGridColumn headerText="icon" width="45" resizable="false">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:Image source="{data.icon}"/>
+					</mx:Component>                                         
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
+			<mx:DataGridColumn headerText="file name" dataField="iconUrl"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<DialogButtonBar id="buttons" buttonFlags="{DialogButtonBar.CANCEL}"/>
+</BaseDialog>

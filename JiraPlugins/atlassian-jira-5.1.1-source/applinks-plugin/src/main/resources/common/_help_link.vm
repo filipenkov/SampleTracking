@@ -1,0 +1,12 @@
+#* @vtlvariable name="docLinker" type="com.atlassian.applinks.core.docs.DocumentationLinker" *#
+## NOTE: This template duplicates the dynamically generated links provided by
+## velocimacro for rendering help links.
+## @param key the key for a help page, as listed in ual-help-path.properties
+## Requires an implementation of DocumentationLinker to be in the template's context under the key 'docLinker'
+#macro(help $key $section $class)
+<a title="${i18n.getText('applinks.help')}" href="#helpLink($key $section)" target="_blank" class="ual-help-link $!class">${i18n.getText("applinks.help")}</a>
+#end
+
+#macro(helpLink $key $section)
+    #if($section)${context.docLinker.getLink($key, $section)}#else${context.docLinker.getLink($key)}#end
+#end

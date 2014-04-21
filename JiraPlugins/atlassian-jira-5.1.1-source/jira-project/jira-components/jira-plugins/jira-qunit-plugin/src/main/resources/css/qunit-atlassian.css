@@ -1,0 +1,16 @@
+/* Our customizations to the default QUnit CSS styles */
+#qunit-header {
+    font-size: 1.2em;
+}
+#qunit-tests {
+    max-height: 200px;
+    overflow: auto;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+#qunit-atlassian-toolbar {
+	padding: 2px 0 2px 2em;
+	color: #5E740B;
+	background-color: #eee;
+}

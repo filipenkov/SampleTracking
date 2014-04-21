@@ -1,0 +1,41 @@
+<table class="tableBorder maxWidth" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td>
+<table id="ff_portlet_main_table_$configId" border="0" cellpadding="3" cellspacing="1" width="100%">
+    <tr class=rowHeader>
+        <td class="colHeaderLink" colspan="2">
+            #if($loading)
+                 <img src="${req.ContextPath}/images/icons/wait.gif" style="float: right;" height="16" width="16" />
+            #end
+
+        $i18n.getText('portlet.savedfilters.display.name') &nbsp;
+        <font size=1>
+        (<a href="$req.contextPath/secure/IssueNavigator.jspa?createNew=true&mode=show">$i18n.getText('portlet.savedfilters.create')</a>
+        |
+        <a href="$req.contextPath/secure/ManageFilters.jspa">$i18n.getText('portlet.savedfilters.manage')</a>)</font>
+        </td>
+    </tr>
+    #if ($savedFilters && $savedFilters.size() > 0)
+        #foreach ($filter in $savedFilters)
+            #set ($filterURL = "$req.contextPath/secure/IssueNavigator.jspa?mode=hide&requestId=$filter.id")
+            <tr #if ($velocityCount % 2 == 1) class="rowNormal" #else class="rowAlternate" #end >
+                <td><table id="ff_portlet_row_${configId}_${filter.id}" border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
+                <td width="100%" >
+                    <a title="$textutils.htmlEncode($filter.name)#if($filter.description && $filter.description != '') - $textutils.htmlEncode($filter.description)#end" href="$filterURL">$textutils.htmlEncode($filter.name)</a>
+                </td>
+                <td>
+                #if ($indexing)
+                    <a href="$filterURL">$portlet.getCountsForFilter($filter)</a>
+                #end
+                </td>
+                </tr></table></td>
+            </tr>
+        #end
+    #else
+         <tr bgcolor="#FFFFFF">
+            <td width="100%" colspan="2">
+                $i18n.getText('portlet.savedfilters.nofilters'). <a href="$req.contextPath/secure/ManageFilters.jspa">$i18n.getText('portlet.savedfilters.manage')</a>.
+            </td>
+        </tr>
+    #end
+
+</table>
+</table>

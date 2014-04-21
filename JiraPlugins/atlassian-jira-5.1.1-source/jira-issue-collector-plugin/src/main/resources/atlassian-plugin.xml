@@ -1,0 +1,206 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+	<plugin-info>
+		<description>${project.description}</description>
+		<version>${project.version}</version>
+		<vendor name="${project.organization.name}" url="${project.organization.url}"/>
+	</plugin-info>
+
+	<component-import key="pluginSettings" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory"/>
+	<component-import key="templateRenderer" interface="com.atlassian.templaterenderer.TemplateRenderer"/>
+	<component-import key="gadgetViewFactory" interface="com.atlassian.gadgets.view.GadgetViewFactory"/>
+	<component-import key="gadgetRequestContextFactory" interface="com.atlassian.gadgets.GadgetRequestContextFactory"/>
+
+	<component key="errorLog" name="Error Log" class="com.atlassian.jira.collector.plugin.components.ErrorLogImpl"
+			   interface="com.atlassian.jira.collector.plugin.components.ErrorLog"/>
+
+	<component key="collectorStore" name="Collector Store"
+			   class="com.atlassian.jira.collector.plugin.components.CollectorStoreImpl"
+			   interface="com.atlassian.jira.collector.plugin.components.CollectorStore"/>
+
+	<component key="collectorService" name="Collector Service"
+			   class="com.atlassian.jira.collector.plugin.components.CollectorServiceImpl"
+			   interface="com.atlassian.jira.collector.plugin.components.CollectorService" public="true"/>
+
+	<component key="collectorActivityHelper" name="Collector Activity Helper"
+			   class="com.atlassian.jira.collector.plugin.components.CollectorActivityHelperImpl"
+			   interface="com.atlassian.jira.collector.plugin.components.CollectorActivityHelper" public="true"/>
+
+	<component key="templateStore" name="Template Manager"
+			   class="com.atlassian.jira.collector.plugin.components.TemplateStoreImpl"
+			   interface="com.atlassian.jira.collector.plugin.components.TemplateStore" />
+
+	<component key="scriptletRenderer" name="Scriptlet Renderer"
+			   class="com.atlassian.jira.collector.plugin.components.ScriptletRendererImpl"
+			   interface="com.atlassian.jira.collector.plugin.components.ScriptletRenderer" />
+
+	<component key="missingFieldsChecker"
+			   class="com.atlassian.jira.collector.plugin.components.fieldchecker.MissingFieldsChecker" />
+
+	<component key="environmentFieldConfiguration"
+			   class="com.atlassian.jira.collector.plugin.components.fieldchecker.EnvironmentFieldConfiguration" />
+
+	<component key="descriptionFieldConfiguration"
+			   class="com.atlassian.jira.collector.plugin.components.fieldchecker.DescriptionFieldConfiguration" />
+
+	<component key="issueCollectorEventDispatcher" name="Issue Collector Event Dispatcher"
+			   class="com.atlassian.jira.collector.plugin.components.IssueCollectorEventDispatcher" />
+
+    <component key="collectorFieldValidator" name="Collector Field Validator"
+               class="com.atlassian.jira.collector.plugin.components.CollectorFieldValidatorImpl"
+               interface="com.atlassian.jira.collector.plugin.components.CollectorFieldValidator" />
+
+	<servlet-filter name="collectorResourceFilter" key="collectorResourceFilter"
+					class="com.atlassian.jira.collector.plugin.transformer.WebResourceFixererUpper"
+					location="after-encoding" weight="500">
+		<url-pattern>/s/collector-resource-*.js</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</servlet-filter>
+
+	<!-- Project Admin resources -->
+	<web-section key="issuecollectorgroup" name="Issue Collector Project Config goup" location="atl.jira.proj.config" i18n-name-key="collector.plugin.admin.project.section" weight="100"/>
+	<web-section-alias key="project_issue_collector_alias" section="atl.jira.proj.config/issuecollectorgroup" alias="issues.admin/projects_section" weight="50" name="Issue Collector Admin Section alias for OnDemand">
+		<description>Not used on Behind the Firewall JIRAs</description>
+	</web-section-alias>
+
+	<web-item key="view_issue_collectors" name="Issue Collectors Tab" section="atl.jira.proj.config/issuecollectorgroup" i18n-name-key="collector.plugin.admin.project.tab.name"  weight="10">
+		<label key="collector.plugin.admin.project.tab.name" />
+		<link linkId="view_issue_collectors">/secure/ViewCollectors!default.jspa?projectKey=$projectKeyEncoded</link>
+	</web-item>
+
+	<webwork1 key="collectorAdminActions" name="Collector Admin Actions" class="java.lang.Object">
+		<actions>
+			<action name="com.atlassian.jira.collector.plugin.web.admin.ViewCollectors" alias="ViewCollectors">
+				<view name="error">/templates/error.vm</view>
+				<view name="success">/templates/view-collectors.vm</view>
+			</action>
+			<action name="com.atlassian.jira.collector.plugin.web.admin.ViewCollector" alias="ViewCollector">
+				<view name="error">/templates/error.vm</view>
+				<view name="success">/templates/view-collector.vm</view>
+			</action>
+			<action name="com.atlassian.jira.collector.plugin.web.admin.AddCollector" alias="AddCollector">
+				<view name="error">/templates/error.vm</view>
+				<view name="input">/templates/add-collector.vm</view>
+				<view name="noaddpermission">/templates/no-add-permission.vm</view>
+			</action>
+			<action name="com.atlassian.jira.collector.plugin.web.admin.InsertCollectorHelp" alias="InsertCollectorHelp">
+				<view name="error">/templates/error.vm</view>
+				<view name="success">/templates/insert-collector.vm</view>
+			</action>
+			<action name="com.atlassian.jira.collector.plugin.web.admin.CreateFields" alias="CreateFields">
+				<view name="error">/templates/error-json.vm</view>
+				<view name="success">/templates/json.vm</view>
+			</action>
+			<action name="com.atlassian.jira.collector.plugin.web.admin.ViewGlobalCollectors" alias="ViewGlobalCollectors">
+				<view name="success">/templates/view-global-collectors.vm</view>
+			</action>
+		</actions>
+	</webwork1>
+
+	<web-section key="issue_collectors" name="Issue Collectors Admin Section" location="admin_plugins_menu"  weight="100">
+		<label key="collector.plugin.title" />
+		<condition class="com.atlassian.jira.plugin.webfragment.conditions.UserIsAdminCondition" />
+	</web-section>
+	<web-section-alias key="issuecollector_admin_section_alias" section="issue_collectors" alias="issues.admin/issue_collectors" weight="100"  name="Issue Collectors Admin Section alias for OnDemand">
+		<description>Not used on Behind the Firewall JIRAs</description>
+	</web-section-alias>
+
+	<web-item key="collectorsAdminLink" name="Collectors Link" section="admin_plugins_menu/issue_collectors" weight="1">
+		<label key="collector.plugin.title"/>
+		<link linkId="collectors">/secure/admin/ViewGlobalCollectors!default.jspa</link>
+		<condition class="com.atlassian.jira.plugin.webfragment.conditions.UserIsAdminCondition"/>
+	</web-item>
+
+	<web-resource-transformer key="javascriptSubstitution"
+							  class="com.atlassian.jira.collector.plugin.transformer.ScriptletTransformer"/>
+	<web-resource-transformer key="collectorSubstitution"
+							  class="com.atlassian.jira.collector.plugin.transformer.CollectorTransformer"/>
+
+	<web-resource key="admin-resources" name="Admin Resources">
+        <dependency>jira.webresources:autocomplete</dependency>
+        <dependency>jira.webresources:jira-fields</dependency>
+
+		<dependency>com.atlassian.jira.jira-project-config-plugin:project-config-global</dependency>
+		<dependency>com.atlassian.gadgets.embedded:gadget-standalone-resources</dependency>
+		<transformation extension="js">
+			<transformer key="jsI18n"/>
+		</transformation>
+		<transformation extension="soy">
+			<transformer key="jiraSoyTransformer"/>
+		</transformation>
+		<dependency>com.atlassian.jira.jira-soy-plugin:soy-deps</dependency>
+
+		<resource type="download" name="jquery.sparkline.js" location="/js/jquery/jquery.sparkline.js" />
+		<resource type="download" name="base.css" location="/css/web/base.css"/>
+		<resource type="download" name="base-ie.css" location="/css/web/base-ie.css">
+			<param name="conditionalComment" value="IE"/>
+		</resource>
+
+		<resource type="download" name="reporterPicker.js" location="/js/web/reporterPicker.js"/>
+		<resource type="download" name="fields.js" location="/templates/soy/fields.soy" />
+		<resource type="download" name="viewCollectors.js" location="/js/web/viewCollectors.js"/>
+		<resource type="download" name="backbone.js" location="/js/web/backbone-0.5.1.js"/>
+	</web-resource>
+
+	<web-resource key="view-collector-resources" name="View Collector Resources">
+		<dependency>com.atlassian.gadgets.embedded:gadget-standalone-resources</dependency>
+		<transformation extension="js">
+			<transformer key="jsI18n"/>
+			<transformer key="javascriptSubstitution"/>
+		</transformation>
+
+		<!-- need latest version of raphael because the one from AUI has a bug! -->
+		<resource type="download" name="raphael.js" location="/js/web/activity-chart/raphael-1.5.2.js"/>
+		<resource type="download" name="popup.js" location="/js/web/activity-chart/popup.js"/>
+		<resource type="download" name="activity.js" location="/js/web/activity-chart/activity.js"/>
+		<resource type="download" name="previewTemplate.js" location="/js/web/previewTemplate.js"/>
+	</web-resource>
+
+	<web-resource key="issuecollector-embededjs" name="Issue Collector">
+		<transformation extension="js">
+			<transformer key="javascriptSubstitution"/>
+			<transformer key="collectorSubstitution"/>
+			<transformer key="jsI18n"/>
+		</transformation>
+
+		<resource type="download" name="bootstrap.js" location="/js/collector/bootstrap.js"/>
+	</web-resource>
+
+	<web-resource key="issuecollector" name="Issue Collector">
+		<transformation extension="js">
+			<transformer key="javascriptSubstitution"/>
+			<transformer key="collectorSubstitution"/>
+			<transformer key="jsI18n"/>
+		</transformation>
+
+		<resource type="download" name="jquery.js" location="/js/jquery/jquery-1.7.1.js"/>
+		<resource type="download" name="bootstrap.js" location="/js/collector/bootstrap.js"/>
+	</web-resource>
+
+	<web-resource key="form-collector" name="Form Collector Resources">
+		<transformation extension="js">
+			<transformer key="javascriptSubstitution"/>
+			<transformer key="jsI18n"/>
+		</transformation>
+
+		<dependency>jira.webresources:global-static</dependency>
+		<dependency>jira.webresources:jira-global</dependency>
+		<dependency>jira.webresources:jira-fields</dependency>
+		<dependency>jira.webresources:dialogs</dependency>
+
+		<resource type="download" name="base.css" location="/css/collector/base.css"/>
+		<resource type="download" name="collector.js" location="/js/collector/collector.js"/>
+	</web-resource>
+
+	<web-resource key="add-collector-resources" name="Add Collector Resources">
+		<resource type="download" name="addCollectorForm.js" location="/js/web/addCollectorForm.js"/>
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+	</web-resource>
+
+	<rest key="collectorRest" path="/collectors" version="1.0"
+		  description="Provides REST resources used for the collectors"/>
+
+	<resource type="i18n" name="i18n" location="i18n/i18n"/>
+	<resource type="download" name="images/" location="images/"/>
+</atlassian-plugin>

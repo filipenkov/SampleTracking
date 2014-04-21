@@ -1,0 +1,61 @@
+{namespace JIRA.Templates.People}
+
+
+/**
+* @param role
+*/
+{template .users}
+    {if $role.users and $role.users.length}
+        <ul class="project-config-list">
+            {foreach $user in $role.users}
+                <li><span class="project-config-list-label" style="background-image:url('{$user.avatarUrl}')">{$user.displayName}</span></li>
+            {/foreach}
+        </ul>
+    {/if}
+{/template}
+        
+/**
+* @param role
+*/
+{template .groups}
+    {if $role.groups and $role.groups.length}
+        <ul class="project-config-list">
+            {foreach $group in $role.groups}
+                <li><span class="project-config-list-label"><span class="project-config-icon project-config-icon-projectlead"></span>{$group.displayName}</span></li>
+            {/foreach}
+        </ul>
+    {/if}
+{/template}
+
+
+/**
+* @param role
+*/
+{template .editUsers}
+<select id="project-config-people-users-select" class="hidden js-default-multi-user-picker" name="users" multiple="multiple">
+{if $role.actors}
+    {foreach $actor in $role.actors}
+        {if $actor.type == 'atlassian-user-role-actor'}
+            <option value="{$actor.name}" selected="selected">{$actor.displayName}</option>
+        {/if}
+    {/foreach}
+{/if}
+</select>
+<div class="description">{getText('admin.project.people.find.users')}</div>
+{/template}
+
+/**
+* @param role
+*/
+{template .editGroups}
+    <select id="project-config-people-groups-select" class="hidden js-default-multi-group-picker" name="groups" multiple="multiple">
+    {if $role.actors}
+        {foreach $actor in $role.actors}
+            {if $actor.type == 'atlassian-group-role-actor'}
+                <option value="{$actor.name}" selected="selected">{$actor.displayName}</option>
+            {/if}
+        {/foreach}
+    {/if}
+    </select>
+    <div class="description">{getText('admin.project.people.find.groups')}</div>
+{/template}

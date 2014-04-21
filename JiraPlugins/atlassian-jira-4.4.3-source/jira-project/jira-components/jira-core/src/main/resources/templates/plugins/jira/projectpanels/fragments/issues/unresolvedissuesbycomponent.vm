@@ -1,0 +1,70 @@
+#if ($components)
+#set ($LIMIT = 10)
+#set ($componentKeys = $components.keySet())
+#set ($irrelevantCount = $components.irrelevantCount)
+<div class="mod-header">
+    #if ($componentKeys.isEmpty() == false || $irrelevantCount > 0)
+    <ul class="ops">
+        <li><a id="frag${fragid}_more" class="icon icon-view" href="${urlUtil.getAllUrl()}" title="$i18n.getText('browseproject.issues.by.component.more')"><span>$i18n.getText('common.concepts.more')</span></a></li>
+    </ul>
+    #end
+    <h3>
+        $i18n.getText('common.concepts.unresolved'): $i18n.getText('common.concepts.bycomponent')
+    </h3>
+</div>
+<div class="mod-content">
+    #if ($componentKeys.isEmpty() && $irrelevantCount == 0)
+    <p>$i18n.getText('common.concepts.noissues')</p>
+    #else
+        #foreach ($component in $componentKeys)
+            #if($velocityCount % 2 == 0) #set ($cssClass = "rowAlternateLightGray") #else #set ($cssClass = "") #end
+            #if ($component)
+                #if ($component.getString('description') && $component.getString('description') != '')
+                    #set ($title = "$textutils.htmlEncode($component.getString('name')) - $textutils.htmlEncode($component.getString('description'))")
+                #else
+                    #set ($title = "$textutils.htmlEncode($component.getString('name'))")
+                #end
+                <div class="component ${cssClass}">
+                    <span class="stat">${components.get($component)}</span>
+                    <a id="component_$component.getLong('id')" href="${urlUtil.getUrl($component)}" title="${title}">$textutils.htmlEncode($component.getString("name"))</a>
+                </div>
+            #else
+                <div class="component ${cssClass}">
+                    <span class="stat">${components.get($component)}</span>
+                    <a href="${urlUtil.getUrl($component)}" class="none">$i18n.getText("common.concepts.nocomponent")</a>
+                </div>
+            #end
+        #end
+
+        #if ($irrelevantCount > 0)
+            <div class="component">
+                <span class="stat">$components.irrelevantCount</span>
+                <span class="irrelevant" style="padding-left: 20px;" title="$i18n.getText("common.concepts.irrelevant.desc")">$i18n.getText("common.concepts.irrelevant")</span>
+            </div>
+        #end
+
+        #if ($components.size() > $LIMIT)
+            #set ($CSS_LIMIT = $LIMIT - 1)
+            #set ($remaining = ($components.size() - $LIMIT))
+    <dl id="data_${fragid}">
+        <dt>andMore</dt><dd>$i18n.getText('browseproject.and.x.more', $remaining)</dd>
+        <dt>showFirst</dt><dd>$i18n.getText('browseproject.show.first.x', 10)</dd>
+    </dl>
+    <script type="text/javascript">
+    jQuery(document).ready(function(){
+        var data=jQuery.readData("#data_${fragid}");
+        var more=jQuery("div#frag${fragid} .component:gt($CSS_LIMIT)");
+        if (!more || !more.length) return;
+        jQuery('<div id="frag${fragid}_toggle" class="toggle">'+data.andMore+'</div>')
+            .insertAfter("#frag${fragid} .component:last")
+            .toggle(
+                function() { jQuery(this).text(data.showFirst); more.show(); },
+                function() { jQuery(this).text(data.andMore); more.hide(); }
+            );
+        more.hide();
+    });
+    </script>
+        #end
+    #end
+</div>
+#end

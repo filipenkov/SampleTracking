@@ -1,0 +1,31 @@
+#searcherEditHeader (${customField.id} ${customField.name})
+
+#set ($inputFieldUID = 0) ##used to keep the ids unique
+#macro (inputField $inputFieldValue)
+#set ($inputFieldUID = $inputFieldUID + 1)
+<input class="text"
+       id="searcher-${customField.id}-$inputFieldUID"
+       name="$customField.id"
+       #if ($configs.styles.style)
+           style="$configs.styles.style"
+       #end
+       type="text"
+       value="$inputFieldValue" />
+#end
+
+##despite its name value contains all values for all sections
+#if ($value && $value.getValuesForNullKey())
+  #set ($values = $value.getValuesForNullKey()) ##only one section and so uses the null key
+
+  #if ($values)
+    #foreach ($valuePart in $values)
+      #inputField($valuePart)
+    #end ##end of foreach
+  #end ##end of if/else $values
+#end ##end of if $value
+
+#if ($inputFieldUID <= 0)
+    #inputField('')
+#end
+
+#searcherEditFooter (${customField.id} ${customField.description})

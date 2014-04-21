@@ -1,0 +1,38 @@
+@import "dynamic:lookandfeel.less";
+@import "variables.less";
+
+.macro-title { font-size: 15px; line-height: 1.2667; }
+
+.dash-reorder {white-space:nowrap;}
+.dashboardList tr.first-row a.portal_pos_first,
+.dashboardList tr.first-row a.portal_pos_up,
+.dashboardList tr.last-row a.portal_pos_down,
+.dashboardList tr.last-row a.portal_pos_last {visibility: hidden;}
+
+.dashboard #throbber.loading {background-position:0 5px;}
+.dashboard #throbber {width:20px;height:25px}
+#dashboard .layout {padding:1em 0 1.2em;}
+
+#jira .dashboard ul.column li.gadget {margin-bottom:1.2em;}
+#jira .dashboard ul.column {margin:0 0 -1.2em 1%;}
+#jira li.gadget {list-style-position:outside;}
+
+#jira .layout-a ul.column,
+#jira .layout-a div.gadget  {width: 98%;}
+
+#jira .layout-aa ul.column,
+#jira .layout-aa div.gadget {width: 48.5%;}
+
+#jira .layout-ba ul.column,
+#jira .layout-ba div.gadget {width: 65%;}
+#jira .layout-ba ul.first,
+#jira .layout-ba div.gadget.first {width: 32%;}
+
+#jira .layout-ab ul.column,
+#jira .layout-ab div.gadget {width: 32%;}
+#jira .layout-ab ul.first,
+#jira .layout-ab div.gadget.first {width: 65%;}
+
+#jira .layout-aaa ul.column,
+#jira .layout-aaa div.gadget {width: 32%;}
+#jira .layout.maximized .column.maximized {width:98%;}

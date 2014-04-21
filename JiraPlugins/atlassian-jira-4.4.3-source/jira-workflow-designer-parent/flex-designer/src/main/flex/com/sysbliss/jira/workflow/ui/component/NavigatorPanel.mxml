@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns="com.sysbliss.jira.workflow.ui.component.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:arc90="com.arc90.flexlib.containers.*"
+	width="100%" height="100%"
+	title="{niceResourceManager.getString('json','workflow.designer.navigator')}">
+	
+	<mx:Script>
+		<![CDATA[
+        import com.sysbliss.diagram.ToolTypes;
+        import com.sysbliss.diagram.extras.DiagramNavigator;
+			import com.sysbliss.diagram.Diagram;
+            import com.sysbliss.jira.workflow.Il8n.INiceResourceManager;
+            import com.sysbliss.jira.workflow.Il8n.NiceResourceManager;
+        import com.sysbliss.jira.workflow.controller.ZoomToolbarController;
+        import com.sysbliss.jira.workflow.ui.AssetEmbedder;
+
+        private const niceResourceManager:INiceResourceManager = NiceResourceManager.getInstance();
+
+	    private var _diagramNavigator:DiagramNavigator;
+
+        [Autowire]
+        public var zoomController:ZoomToolbarController;
+
+			override protected function createChildren():void {
+				super.createChildren();
+
+                ToolTypes.TOOL_ZOOM_IN.icon = AssetEmbedder.zoomInIcon;
+                ToolTypes.TOOL_ZOOM_IN.cursor = AssetEmbedder.zoomInCursor;
+                ToolTypes.TOOL_ZOOM_OUT.icon = AssetEmbedder.zoomOutIcon;
+                ToolTypes.TOOL_ZOOM_OUT.cursor = AssetEmbedder.zoomOutCursor;
+
+				
+				if(!_diagramNavigator){
+					this._diagramNavigator = new DiagramNavigator();
+					mainBox.addChild(_diagramNavigator);
+				}
+                var zoomDP:Array = [ToolTypes.TOOL_ZOOM_IN,ToolTypes.TOOL_ZOOM_OUT];
+                zoomTools.dataProvider = zoomDP;
+                zoomController.toolbar = zoomTools;
+
+			}
+			
+
+			[Mediate(event="${eventTypes.CURRENT_DIAGRAM_CHANGED}", properties="diagram")]
+			[Mediate(event="${eventTypes.CURRENT_DIAGRAM_UPDATED}", properties="diagram")]
+			public function updateDiagram(d:Diagram):void {
+				_diagramNavigator.setDiagram(d);
+				_diagramNavigator.updateSnapshot();
+			}
+
+		]]>
+	</mx:Script>
+
+    <mx:VBox id="mainBox" width="100%" height="100%">
+        <mx:HBox styleName="buttonBar" id="buttonBar" width="100%" >
+            <mx:ButtonBar id="zoomTools" buttonWidth="25" enabled="true"/>
+        </mx:HBox>
+    </mx:VBox>
+
+</mx:Panel>

@@ -1,0 +1,117 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${pom.name}" pluginsVersion="2">
+    <plugin-info>
+        <description>${pom.description}</description>
+        <version>${pom.version}</version>
+        <application-version min="4.0" max="4.0"/>
+        <vendor name="Atlassian" url="http://www.atlassian.com/"/>
+    </plugin-info>
+
+    <rest key="functest-rest-service-resources" path="/func-test" version="1.0">
+        <description>Provides the REST resource for the func test plugin.</description>
+    </rest>
+
+    <servlet name="TimeZone Servlet" key="timezone-servlet" class="com.atlassian.jira.dev.backdoor.sal.TimeZoneServlet">
+        <description>A servlet that uses the sal TimeZoneManager</description>
+        <url-pattern>/timezone-servlet</url-pattern>
+    </servlet>
+
+    <servlet-filter name="Slow Motion Filter" key="slomo-filter" class="com.atlassian.jira.dev.backdoor.SlowMotionFilter" location="after-encoding" weight="200">
+        <description>Slows down responses to simulate slower response server deployments for the purpose of locating overly timing-dependent tests.</description>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </servlet-filter>
+
+    <web-resource key="slomo-ui">
+
+        <context>atl.general</context>
+        <context>atl.admin</context>
+
+        <dependency>com.atlassian.soy.soy-template-plugin:soy-deps</dependency>
+        <dependency>jira.webresources:jira-global</dependency>
+
+        <transformation extension="soy">
+            <transformer key="soyTransformer"/>
+        </transformation>
+
+        <resource type="download" name="snail.png" location="images/snail.png">
+            <property key="content-type" value="image/png"/>
+        </resource>
+
+        <resource type="download" name="slomo-styles.css" location="css/styles.css" />
+
+        <resource type="download" name="slomo.soy.js" location="js/slomo.soy" />
+
+        <resource type="download" name="slomo.js" location="js/slomo.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+    </web-resource>
+
+    <web-resource key="func-test-tracer">
+
+        <context>atl.general</context>
+        <context>atl.admin</context>
+
+        <dependency>jira.webresources:jira-global</dependency>
+
+        <resource type="download" name="trace.js" location="js/trace.js" />
+
+    </web-resource>
+
+    <web-resource key="js-logger">
+
+        <context>atl.general</context>
+        <context>atl.admin</context>
+
+        <resource type="download" name="jserror-logger.js" location="js/js-logger.js"/>
+    </web-resource>
+
+    <web-resource key="sinon">
+        <resource type="download" name="sinon.js" location="js/sinon-1.3.2.js"/>
+    </web-resource>
+
+    <keyboard-shortcut key="slomo.activate" i18n-name-key="keyboard.shortcut.slomo.activate" name="Slo-mo" state='enabled'>
+        <order>99</order>
+        <description key="Activate Slomo">Activate Slow Motion</description>
+        <shortcut>@</shortcut>
+        <operation type="execute">
+            <![CDATA[
+                JIRA.Slomo.activate();
+            ]]>
+        </operation>
+    </keyboard-shortcut>
+
+    <component-import key="lifeCycleManager" interface="com.atlassian.sal.api.lifecycle.LifecycleManager"/>
+
+    <component-import key="pluginTimeZoneManager" interface="com.atlassian.sal.api.timezone.TimeZoneManager"/>
+
+    <component interface="com.atlassian.jira.dev.backdoor.PlaintextEncoderLoaderInterface" key="plaintextEncoderLoader"
+               name="Plaintext Encoder Loader" class="com.atlassian.jira.dev.backdoor.PlaintextEncoderLoader"
+               public="true" system="true"/>
+
+    <component interface="com.atlassian.jira.dev.backdoor.InitialiseSystemProperties" key="initSystemProperties"
+               name="Init System Properties" class="com.atlassian.jira.dev.backdoor.InitialiseSystemPropertiesImpl"
+               public="true" system="true"/>
+
+    <component interface="com.atlassian.jira.dev.backdoor.Log4JHackery" key="log4jHackery"
+               name="Log4J modifications for func testing" class="com.atlassian.jira.dev.backdoor.Log4JHackeryImpl"/>
+
+    <component-import key="eventPublisher" interface="com.atlassian.event.api.EventPublisher" />
+    <component interface="com.atlassian.jira.dev.backdoor.EventWatcherImpl" key="eventWatcher"
+               name="atlassian-event listing" class="com.atlassian.jira.dev.backdoor.EventWatcherImpl"/>
+
+    <ao key="ao-module" name="Active Objects module">
+        <entity>com.atlassian.jira.dev.functest.ao.BlogAO</entity>
+        <entity>com.atlassian.jira.dev.functest.ao.CommentAO</entity>
+    </ao>
+
+    <component-import key="ao" name="Active Objects service" interface="com.atlassian.activeobjects.external.ActiveObjects">
+        <description>Component to access Active Objects functionality from the plugin</description>
+    </component-import>
+
+    <renderer-component-factory key="func-test-renderer-component-factory" name="Plugin Renderer Component Factory"
+                                class="com.atlassian.jira.dev.functest.renderer.FuncTestRendererComponentFactory">
+        <order>1000</order>
+    </renderer-component-factory>
+
+
+</atlassian-plugin>

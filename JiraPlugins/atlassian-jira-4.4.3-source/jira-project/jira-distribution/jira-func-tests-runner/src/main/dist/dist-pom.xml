@@ -1,0 +1,65 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.atlassian.jira</groupId>
+    <artifactId>jira-func-tests-runner-dist</artifactId>
+    <version></version>
+    <name>JIRA Func Test Runner Distribution</name>
+
+    <properties><!--PLACEHOLDER--></properties>
+
+    <dependencies><!--PLACEHOLDER--></dependencies>
+
+    <build>
+        <defaultGoal>test</defaultGoal>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-Xmx512m -XX:+HeapDumpOnOutOfMemoryError ${jira.test.runner.jvmargs}</argLine>
+                    <includes>
+                        <include>com/atlassian/jira/webtests/cargo/CargoTestHarness.java</include>
+                    </includes>
+                    <systemProperties>
+                        <property>
+                            <name>jira.functest.containerproperties</name>
+                            <value>${project.build.testOutputDirectory}/containers.properties</value>
+                        </property>
+                        <property>
+                            <name>jira.xml.data.location</name>
+                            <value>${basedir}/jira-func-tests-classes/xml</value>
+                        </property>
+                        <property>
+                            <name>jira.functest.warlocation</name>
+                            <value>${basedir}/atlassian-jira</value>
+                        </property>
+                        <property>
+                            <name>atlassian.test.suite.numbatches</name>
+                            <value>${atlassian.test.suite.numbatches}</value>
+                        </property>
+                        <property>
+                            <name>atlassian.test.suite.batch</name>
+                            <value>${atlassian.test.suite.batch}</value>
+                        </property>
+                        <property>
+                            <name>atlassian.test.suite.parallel</name>
+                            <value>${atlassian.test.suite.parallel}</value>
+                        </property>
+                        <property>
+                            <name>jira.functest.single.testclass</name>
+                            <value>${jira.functest.single.testclass}</value>
+                        </property>
+                        <property>
+                            <name>jira.tenant</name>
+                            <value>${jira.tenant}</value>
+                        </property>
+                        <property>
+                            <name>jira.create.dummy.tenant</name>
+                            <value>${jira.create.dummy.tenant}</value>
+                        </property>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

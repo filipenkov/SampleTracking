@@ -1,0 +1,19 @@
+#shortcutsmenu {position:relative;font-size:12px;}
+#shortcutsmenu .module {clear:none;float:left;margin:0 1% 1em;width:48%;}
+#shortcutsmenu ul.item-details li {margin-bottom:0.5em;}
+#shortcutsmenu dl dt {width:38%;padding-top:4px;}
+#shortcutsmenu dl dd {width:60%;}
+#shortcutsmenu .mod-content { padding: 5px 0 0; }
+#shortcutsmenu .module.module-alternate { clear: left; }
+#shortcutsmenu h3 { border-bottom: none;font-size:18px; }
+#shortcutsmenu form.aui,
+#shortcutsmenu form.aui legend span { color: #666; }
+#shortcutsmenu .preferences { margin-bottom: 0; width: 98% }
+#shortcutsmenu .preferences .content-footer {}
+#shortcutsmenu kbd {line-height:22px;background:#fff url(../../../images/button_bg.png) repeat-x scroll 0 100%;display:inline-block;text-align:center;border:1px solid #ddd;padding:0 6px;min-width:16px;font-family:arial, FreeSans, Helvetica, sans-serif;-moz-border-radius:0.166em;-webkit-border-radius:0.166em;border-radius:0.166em;}
+#shortcut-dialog, #shortcut-dialog h2 {overflow:visible;}
+#shortcut-dialog .close { position:absolute; font-size:0; top:-13px; right:-13px; width: 30px; height:30px; background: transparent url( "../../../images/button-close.png") 0 0 no-repeat; padding:0; border:none; cursor:pointer;}
+
+.msie-7 #shortcutsmenu .module { height:1%;width: 46% }
+.msie-7 #shortcutsmenu .preferences { width: 94% }
+.msie-gt-7 #shortcutsmenu dl dt {padding-top:3px;}

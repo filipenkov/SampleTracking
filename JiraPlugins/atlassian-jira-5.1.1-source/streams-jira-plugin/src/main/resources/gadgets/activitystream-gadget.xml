@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+    <ModulePrefs title="__MSG_gadget.activity.stream.title__" directory_title="__MSG_gadget.activity.stream.title__" description="__MSG_gadget.activity.stream.description__"
+                 author="Atlassian" author_affiliation="Atlassian"
+                 author_location="Sydney, Australia" height="100"
+                 screenshot='#staticResourceUrl("com.atlassian.streams.streams-jira-plugin:activitystream-gadget", "images/activity-streams-screenshot.png")'
+                 thumbnail='#staticResourceUrl("com.atlassian.streams.streams-jira-plugin:activitystream-gadget", "images/activity-streams-thumb.png")'>
+        <Optional feature="gadget-directory">
+            <Param name="categories">
+                JIRA
+                Wallboard
+            </Param>
+        </Optional>
+        <Optional feature="atlassian.util" />
+        <Optional feature="auth-refresh" />
+        <Require feature="views" />
+        <Require feature="setprefs" />
+        <Require feature="settitle"/>
+        <Require feature="dynamic-height"/>
+        <Require feature="oauthpopup" />
+        #oauth
+        #supportedLocales("gadget.common,gadget.activity.stream")
+    </ModulePrefs>
+    <!-- isConfigured is used by gadget to determine if standard config screen should be shown, which we don't want to happen -->
+    <UserPref name="isConfigured" datatype="hidden" default_value="true" />
+    <!-- isReallyConfigured is used by streams js to determine if gadget has actually been configured or not -->
+    <UserPref name="isReallyConfigured" datatype="hidden" default_value="false" />
+    <UserPref name="title" datatype="hidden" default_value="__MSG_gadget.activity.stream.title__" />
+    <UserPref name="titleRequired" datatype="hidden" default_value="true" />
+    <UserPref name="numofentries" datatype="hidden" default_value="10" />
+    <UserPref name="refresh" datatype="hidden" default_value="false" />
+    <UserPref name="maxProviderLabelCharacters" datatype="hidden" default_value="50" />
+    <UserPref name="rules" datatype="hidden" />
+    <!-- Used to denote that the stream is being rendered in a specific context, like the JIRA view issue screen -->
+    <UserPref name="renderingContext" datatype="hidden" />
+    <!-- legacy prefs, only for backwards compatibility -->
+    <UserPref name="keys" datatype="hidden" />
+    <UserPref name="itemKeys" datatype="hidden" />
+    <UserPref name="username" datatype="hidden" />
+    <Content type="html" view="canvas,default,projectTab,profileTab,issueTab">
+        <![CDATA[
+
+        <script type="text/javascript">
+            var ActivityStreamsGadgetBaseUrl = "__ATLASSIAN_BASE_URL__";
+        </script>
+
+        #requireResource("com.atlassian.jira.gadgets:common")
+        #requireResource("com.atlassian.gadgets.publisher:ajs-gadgets")
+        #requireResource("com.atlassian.streams:streamsGadgetResources")
+        #includeResources()
+
+        <script type="text/javascript">
+            AJS.Gadget({
+			    baseUrl: "__ATLASSIAN_BASE_URL__",
+			    useOauth: "/rest/gadget/1.0/currentUser",
+			    config: {
+			        descriptor: function (args) {
+						return ActivityStreams.gadget.descriptor(this, args, "__ATLASSIAN_BASE_URL__");
+			        }
+			    },
+			    view: {
+			        enableReload: true,
+			        onResizeAdjustHeight: true,
+			        template: function (args) {
+                        args = args || {};
+                        args.dateLocaleUrl = args.dateLocaleUrl || '#staticResourceUrl("com.atlassian.streams.streams-jira-plugin:date-default", "date.js")';
+			    		return ActivityStreams.gadget.template(this, args, "__ATLASSIAN_BASE_URL__");
+			        }
+			    }
+			});
+        </script>
+        
+        ]]>
+    </Content>
+    <Content type="html" view="wallboard">
+        <![CDATA[
+
+        <script type="text/javascript">
+            var ActivityStreamsGadgetBaseUrl = "__ATLASSIAN_BASE_URL__";
+        </script>
+
+        #requireResource("com.atlassian.jira.gadgets:common")
+        #requireResource("com.atlassian.gadgets.publisher:ajs-gadgets")
+        #requireResource("com.atlassian.streams:streamsWallboardWebResources")
+        #includeResources()
+
+        <script type="text/javascript">
+            AJS.$('body').addClass('wallboard');
+            
+            AJS.Gadget({
+			    baseUrl: "__ATLASSIAN_BASE_URL__",
+			    useOauth: "/rest/gadget/1.0/currentUser",
+			    config: {
+			        descriptor: function (args) {
+						return ActivityStreams.gadget.descriptor(this, args, "__ATLASSIAN_BASE_URL__");
+			        }
+			    },
+			    view: {
+			        enableReload: true,
+			        onResizeAdjustHeight: true,
+			        template: function (args) {
+                        args = args || {};
+                        args.dateLocaleUrl = args.dateLocaleUrl || '#staticResourceUrl("com.atlassian.streams.streams-jira-plugin:date-default", "date.js")';
+			    		return ActivityStreams.gadget.template(this, args, "__ATLASSIAN_BASE_URL__");
+			        }
+			    }
+			});
+        </script>
+
+        ]]>
+    </Content>
+</Module>

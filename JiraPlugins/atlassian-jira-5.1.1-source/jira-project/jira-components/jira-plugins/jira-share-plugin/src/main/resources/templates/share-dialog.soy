@@ -1,0 +1,31 @@
+{namespace JIRA.Templates.Dialogs.Share}
+
+/**
+ * @param modifierKey
+ */
+{template .contentPopup}
+    <form action="#" method="post" class="aui recipients-form share-content-popup">
+        <fieldset>
+            <label for="sharenames-multi-select">{getText('jira-share-plugin.dialog.form.who')}</label>
+            <div class="autocomplete-user-target">
+                <select id="sharenames" name="sharenames" class="share-user-picker hidden" multiple="multiple"></select>
+            </div>
+            <ol class="recipients">
+            </ol>
+            <div><label for="note">{getText('jira-share-plugin.dialog.form.note')}</label></div>
+            <textarea class="textarea" id="note" placeholder="{getText('jira-share-plugin.dialog.form.note.placeholder')}"/>
+        </fieldset>
+        <div class="button-panel">
+            <div class="icon"></div>
+            <div class="progress-messages">
+            </div>
+            <input accesskey="{getText('AUI.form.submit.button.accesskey')}"
+                   title="{getText('AUI.form.submit.button.tooltip', getText('AUI.form.submit.button.accesskey'), $modifierKey)}"
+                   class="button submit" type="submit"
+                   value="{getText('jira-share-plugin.dialog.form.share')}" disabled/>
+            {sp}<a accesskey="{getText('AUI.form.cancel.link.accesskey')}"
+                   title="{getText('AUI.form.cancel.link.tooltip', getText('AUI.form.cancel.link.accesskey'), $modifierKey)}"
+                   class="close-dialog" href="javascript:">{getText('jira-share-plugin.dialog.form.cancel')}</a>
+        </div>
+    </form>
+{/template}

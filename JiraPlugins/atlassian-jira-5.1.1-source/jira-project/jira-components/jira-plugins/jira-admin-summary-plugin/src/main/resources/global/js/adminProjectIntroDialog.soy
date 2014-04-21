@@ -1,0 +1,15 @@
+{namespace JIRA.Templates}
+
+/**
+* Render the add project dialog contents (a video from WAC).
+* @param iframeUrl The URL to use for the iframe.
+*/
+{template .adminProjectIntroDialog}
+<h2 class="aui-popup-heading">{getText('admin.summary.intro.what.is.project')}</h2>
+<div class="aui-popup-content">
+    <iframe class="admin-project-intro-frame" src="{$iframeUrl}" frameBorder="0"></iframe>
+    <div class="buttons-container form-footer">
+        <div class="buttons"><a href="#" class="cancel" id="aui-dialog-close">{getText('common.words.close')}</a></div>
+    </div>
+</div>
+{/template}

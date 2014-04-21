@@ -1,0 +1,85 @@
+bamboo --action getProjectList      --file "target/output/bamboocli/deleteProjects.txt"   --attribute "key"  
+bamboo --action clonePlan   --build "ZTEMPLATE-checkout1"     --file "target/output/bamboocli/clonePlancheckout1.txt"   --toPlan "ZBAMBOOCLI0307868-checkout1"  --name "ZBAMBOOCLI0307868-checkout1"  --description "Created based on ZTEMPLATE-checkout1"  
+bamboo --action disablePlan   --build "ZBAMBOOCLI0307868-checkout1"      
+bamboo --action disablePlan   --build "ZBAMBOOCLI0307868-checkout1"      
+bamboo --action enablePlan   --build "ZBAMBOOCLI0307868-checkout1"      
+bamboo --action enablePlan   --build "ZBAMBOOCLI0307868-checkout1"      
+bamboo --action queueBuild   --build "ZBAMBOOCLI0307868-checkout1"      --wait  
+bamboo --action clonePlan   --build "ZTEMPLATE-notask"     --file "target/output/bamboocli/clonePlannotask.txt"   --toPlan "ZBAMBOOCLI0307868-notask"  --name "ZBAMBOOCLI0307868-notask"  --description "Created based on ZTEMPLATE-notask"  
+bamboo --action disablePlan   --build "ZBAMBOOCLI0307868-notask"      
+bamboo --action disablePlan   --build "ZBAMBOOCLI0307868-notask"      
+bamboo --action enablePlan   --build "ZBAMBOOCLI0307868-notask"      
+bamboo --action enablePlan   --build "ZBAMBOOCLI0307868-notask"      
+bamboo --action queueBuild   --build "ZBAMBOOCLI0307868-notask"      --wait  
+bamboo --action disableProject  --project "ZBAMBOOCLI0307868"       
+bamboo --action enableProject  --project "ZBAMBOOCLI0307868"       
+bamboo --action addTask   --build "ZBAMBOOCLI0307868-checkout1"   --job "JOB1"     --taskKey "com.atlassian.bamboo.plugins.scripttask:task.builder.script"  --description "initial description before update"  --fields "argument:aaaaa,environmentVariables:eeeee=vvvvv"  --field1 "scriptLocation"  --value1 "INLINE"  --field2 "scriptBody"  --value2 "echo 'exitCode: \${bamboo.exitCode}' 
+ exit \${bamboo.exitCode} "  
+bamboo --action updateTask   --build "ZBAMBOOCLI0307868-checkout1"   --job "JOB1"     --id "2"  --description "task description"  --fields "argument:aaaaa,environmentVariables:eeeee=vvvvv"  --field1 "scriptLocation"  --value1 "INLINE"  --field2 "scriptBody"  --value2 "echo 'exitCode: \${bamboo.exitCode}' 
+ exit \${bamboo.exitCode} "  
+bamboo --action addTask   --build "ZBAMBOOCLI0307868-checkout1"   --job "JOB1"     --taskKey "com.atlassian.bamboo.plugins.scripttask:task.builder.script"  --description "task description"  --fields "argument:aaaaa,environmentVariables:eeeee=vvvvv"  --field1 "scriptLocation"  --value1 "INLINE"  --field2 "scriptBody"  --value2 "echo 'exitCode: \${bamboo.exitCode}' 
+ exit \${bamboo.exitCode} "  
+bamboo --action queueBuild   --build "ZBAMBOOCLI0307868-checkout1"      --wait  --timeout 90  --fields "exitCode: 0"  --verbose  
+bamboo --action verifyBuild   --build "ZBAMBOOCLI0307868-checkout1"      
+bamboo --action renderRequest   --build "ZBAMBOOCLI0307868-checkout1"   --job "JOB1"    --file "target/output/bamboocli/renderRequestBuildResultcheckout1.txt"   --request "-2/log"  
+bamboo --action removeTask   --build "ZBAMBOOCLI0307868-checkout1"   --job "JOB1"     --id "2"  
+bamboo --action cloneProject  --project "ZTEMPLATE"       --toProject "ZBAMBOOCLI0307868CLONE"  
+bamboo --action cloneProject  --project "ZTEMPLATE"       --toProject "ZBAMBOOCLI0307868CLONE"  
+bamboo --action getPlan       --plan "ZBAMBOOCLI0307868CLONE-checkout1"  
+bamboo --action getServerInfo       
+bamboo --action getBuild      --file "target/output/bamboocli/getBuild.txt"   --build "XXX-DEF"  
+bamboo --action queueBuild       --build "XXX-DEF"  --wait  
+bamboo --action getLatestBuildNumber       --build "XXX-DEF"  
+bamboo --action getBuild      --file "target/output/bamboocli/getBuildWithResultName.txt"   --build "XXX-DEF-392"  
+bamboo --action verifyBuild       --build "XXX-DEF-392"  
+bamboo --action getProjectList      --file "target/output/bamboocli/getProjectList.txt"   
+bamboo --action getProjectList      --file "target/output/bamboocli/getProjectListAttributeName.txt"   --attribute "name"  
+bamboo --action getProjectList      --file "target/output/bamboocli/getProjectListAttributeKey.txt"   --attribute "key"  
+bamboo --action getProjectList      --file "target/output/bamboocli/getProjectListAttributeHref.txt"   --attribute "href"  
+bamboo --action getPlanList      --file "target/output/bamboocli/getPlanList.txt"   
+bamboo --action getPlanList  --project "ZTEMPLATE"      --file "target/output/bamboocli/getPlanListByProject.txt"   
+bamboo --action getPlanList       --favourite  
+bamboo --action getPlanList      --file "target/output/bamboocli/getPlanListAttributeHref.txt"   --attribute "href"  
+bamboo --action getBuildList      --file "target/output/bamboocli/getBuildList.txt"   
+bamboo --action getBuildList      --file "target/output/bamboocli/getBuildListByProject.txt"   --project "ZBAMBOOCLI0307868"  
+bamboo --action getBuildList       --favourite  
+bamboo --action addLabels       --build "XXX-DEF"  --number -1  --labels "testlabel1 testlabel2"  
+bamboo --action getBuildList       --attribute "key"  --labels "testlabel1,testlabel2"  
+bamboo --action getBuildList       --attribute "href"  --labels "testlabel1,testlabel2"  
+bamboo --action getBuildList      --file "target/output/bamboocli/getBuildListSearchDetail.txt"   --labels "testlabel1,testlabel2"  
+bamboo --action getBuildList       --build "XXX-DEF"  --attribute "key"  --labels "testlabel1,testlabel2"  
+bamboo --action getBuildList       --build "YYY-DEF"  --attribute "key"  --labels "testlabel1,testlabel2"  
+bamboo --action getBuildList       --project "XXX"  --attribute "href"  --labels "testlabel1,testlabel2"  
+bamboo --action getBuildQueueList       
+bamboo --action getBuildQueueList  --project "ZBAMBOOCLI0307868"       
+bamboo --action getBuildQueueList   --build "XXX-DEF"      
+bamboo --action addComment   --build "XXX-DEF"      --comment "This is a comment added by automation"  
+bamboo --action addComment   --build "XXX-DEF"    --number "392"   --file "src/itest/resources/data.txt"   --findReplace "xxx:yyy"  
+bamboo --action getCommentList   --build "XXX-DEF"      --number "392"  
+bamboo --action removeLabels       --build "XXX-DEF"  --number -1  --labels "notfound"  
+bamboo --action getLabelList       --build "XXX-DEF"  --number -1  
+bamboo --action removeLabels       --build "XXX-DEF"  --number -1  --labels ".*"  
+bamboo --action removeLabels       --build "XXX-DEF"  --number -1  --labels "testlabel1, testlabel2, notfound"  
+bamboo --action removeLabels       --build "XXX-DEF"  --number -1  --labels ".*"  
+bamboo --action addLabels       --build "XXX-DEF"  --number -1  --labels "testlabel1 testlabel2"  
+bamboo --action addLabels       --labels "morelabel1"  --searchLabels "testlabel1 testlabel2"  
+bamboo --action removeLabels       --labels "morelabel1"  --searchLabels "testlabel1,testlabel2"  
+bamboo --action addLabels       --build "XXX-DEF"  --labels "testlabel1, testlabel2"  
+bamboo --action removeLabels       --build "XXX-DEF"  --labels "test.*"  
+bamboo --action run       --file "src/itest/resources/run.txt"  
+bamboo --action run      < src/itest/resources/run.txt 
+bamboo --action run       
+bamboo --action runFromSql       --file "src/itest/resources/run.sql"  --host "imac.local"  --driver "postgresql"  --database "test"  
+bamboo --action getProjectList      --file "target/output/bamboocli/getProjectListLegacy.txt"   --api -1  
+bamboo --action getBuildList      --file "target/output/bamboocli/getBuildListLegacy.txt"   --api -1  
+bamboo --action getProject      --file "target/output/bamboocli/getProject.txt"   --project "ZBAMBOOCLI0307868"  
+bamboo --action getLatestBuildResults      --file "target/output/bamboocli/getLatestBuildResultsByProject.txt"   --project "ZBAMBOOCLI0307868"  
+bamboo --action getLatestBuildResults      --file "target/output/bamboocli/getLatestBuildResults.txt"   --build "XXX-DEF"  
+bamboo --action queueBuild       --build "XXX-DEF"  
+bamboo --action renderRequest   --build "XXX-DEF"     --file "target/output/bamboocli/renderRequestBuild.txt"   
+bamboo --action renderRequest   --build "XXX-DEF"   --job "JOB1"    --file "target/output/bamboocli/renderRequestJob.txt"   
+bamboo --action renderRequest   --build "XXX-DEF"   --job "JOB1"    --file "target/output/bamboocli/renderRequestConfig.txt"   --request "/config"  
+bamboo --action renderRequest      --file "target/output/bamboocli/renderRequestConfig2.txt"   --request "/browse/XXX-DEF-JOB1/config"  
+bamboo --action login      > target/output/bamboocli/login.txt 
+bamboo --action logout      -l < target/output/bamboocli/login.txt 
+bamboo --action deletePlan   --build "ZBAMBOOCLI0307868-notask"      

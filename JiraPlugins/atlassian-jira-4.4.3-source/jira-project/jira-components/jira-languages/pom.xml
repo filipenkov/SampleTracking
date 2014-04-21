@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.atlassian.jira</groupId>
+    <artifactId>jira-components</artifactId>
+    <version>4.4.3</version>
+  </parent>
+  <artifactId>jira-languages</artifactId>
+  <packaging>pom</packaging>
+  <name>Atlassian JIRA - Language Packs</name>
+  <modules>
+    <module>ca_ES</module>
+    <module>cs_CZ</module>
+    <module>da_DK</module>
+    <module>de_CH</module>
+    <module>de_DE</module>
+    <module>default</module>
+    <module>en_UK</module>
+    <module>en_US</module>
+    <module>es_ES</module>
+    <module>fr_FR</module>
+    <module>hu_HU</module>
+    <module>it_IT</module>
+    <module>ja_JP</module>
+    <module>nl_BE</module>
+    <module>no_NO</module>
+    <module>pl_PL</module>
+    <module>pt_BR</module>
+    <module>ru_RU</module>
+    <module>sk_SK</module>
+    <module>tr_TR</module>
+    <module>zh_CN</module>
+    <module>zh_TW</module>
+  </modules>
+  <profiles>
+    <profile>
+      <id>pseudo-loc</id>
+      <modules>
+        <module>en_AQ</module>
+        <module>en_UD</module>
+      </modules>
+    </profile>
+  </profiles>
+</project>

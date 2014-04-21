@@ -1,0 +1,78 @@
+<html>
+<head>
+    <meta name="decorator" content="atl.admin">
+    <meta name="admin.active.section" content="admin_users_menu/users_groups_configuration/embedded_crowd_section"/>
+    <meta name="admin.active.tab" content="user_directories"/>
+	<title>$i18n.getText("embedded.crowd.support.troubleshoot.title")</title>
+    $webResourceManager.requireResource("com.atlassian.crowd.embedded.admin:web-resources")
+
+    <!-- selected item in Confluence admin menu -->
+    <content tag="selectedWebItem">confluence-user-directories-web-item</content>
+    <!-- Confluence breadcrumbs, TODO: invent a better way of doing this -->
+    <content tag="breadcrumbs">
+        <ol id="breadcrumbs">
+            <li class="first" ><span><a href="#springUrl("/dashboard.action")">$i18n.getText('dashboard.name')</a></span></li>
+            <li><span><a href="#springUrl("/admin/console.action")">$i18n.getText('administration.name')</a></span></li>
+            <li><span>$i18n.getText("embedded.crowd.directory.troubleshoot.title")</span></li>
+        </ol>
+    </content>
+
+</head>
+<body>
+<div id="embcwd">
+    #springBindEscaped("credential" false)
+    #set($formPrefix = "troubleshoot-directory-form")
+    #set($i18nPrefix = "embedded.crowd.support.troubleshoot.extended.test")
+    <form id="$formPrefix" class="aui" action="#springUrl("/plugins/servlet/embedded-crowd/directories/troubleshoot/")" method="POST">
+        <div class="page-header">
+            <h3>$i18n.getText("embedded.crowd.support.troubleshoot.title") #helpLink("embedded.crowd.directory.extended.test")</h3>
+            #if ($directoryName)
+            <p class="description">$i18n.getText("embedded.crowd.support.troubleshoot.description", $directoryType, $directoryName)</p>
+            #end
+        </div>
+        #foreach($error in $errors)<div class="aui-message error"><span class="error-icon"></span>$error</div>#end
+
+        <div class="page-header">
+            <p class="description">$i18n.getText("embedded.crowd.support.troubleshoot.extended.test.description")</p>
+        </div>
+
+        <input type="hidden" name="$xsrfTokenName" value="$xsrfTokenValue"/>
+        #auiFormHiddenInput("credential.directoryId")
+
+        <div class="field-group">
+            #auiFormInput("credential.username" { "required": false, "showDescription": false })
+        </div>
+        <div class="field-group">
+            #auiFormPassword("credential.password" { "required": false, "disableAutocomplete": true, "showDescription": false })
+        </div>
+
+        #foreach($testResult in $testResults)
+            #if ($testResult.performed)
+                #if ($testResult.result)
+                    <div class="aui-message success"><span class="success-icon"></span> $testResult.test : $i18n.getText("embedded.crowd.directory.test.success")</div>
+                #else
+                    <div class="aui-message error">
+                        <span class="error-icon"></span> $testResult.test : $i18n.getText("embedded.crowd.directory.test.fail")
+                        #foreach($error in $testResult.errors)<div>$error</div>
+                            #if ($testResult.addErrorCodeLink)
+                                #set ($errorCodeHelpPath = $helpPathResolver.getHelpPath("embedded.crowd.support.troubleshoot"))
+                                $i18n.getText("embedded.crowd.connection.error.code.help", $errorCodeHelpPath.url)
+                            #end
+                        #end
+                    </div>
+                #end
+            #else
+                <div class="aui-message warning"> $testResult.test : $i18n.getText("embedded.crowd.directory.test.not.performed")</div>
+            #end
+        #end
+
+        <div class="buttons">
+            <input accesskey="t" class="button" id="${formPrefix}-test" name="test"
+                   title="$i18n.getText("embedded.crowd.directory.edit.test.title")" type="submit" value="$i18n.getText("embedded.crowd.directory.edit.test.label")">
+            <a class="cancel" accesskey="`" href="#springUrl("/plugins/servlet/embedded-crowd/directories/list")"
+               id="configure-crowd-form-cancel" title="$i18n.getText("embedded.crowd.directory.edit.cancel.title")">$i18n.getText("embedded.crowd.directory.edit.cancel.label")</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

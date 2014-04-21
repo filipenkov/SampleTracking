@@ -1,0 +1,10 @@
+<preferences>
+	<preference type="Long">
+		<name>test.long.preferences</name>
+		<value>20</value>
+	</preference>
+	<preference type="String">
+		<name>test.string.preferences</name>
+		<value>aString</value>
+	</preference>
+</preferences>

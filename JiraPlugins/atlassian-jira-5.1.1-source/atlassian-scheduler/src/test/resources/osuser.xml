@@ -1,0 +1,11 @@
+<opensymphony-user>
+
+	<authenticator class="com.opensymphony.module.user.authenticator.SmartAuthenticator" />
+
+	<provider class="com.opensymphony.module.user.provider.memory.MemoryCredentialsProvider" />
+
+	<provider class="com.opensymphony.module.user.provider.memory.MemoryAccessProvider" />
+
+	<provider class="com.opensymphony.module.user.provider.memory.MemoryProfileProvider" />
+
+</opensymphony-user>

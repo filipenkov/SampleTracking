@@ -1,0 +1,15 @@
+.feedback-link { background-repeat: no-repeat; background-position: 0 2px; float: right; padding-left: 23px; top: 3px; }
+
+/**** Speech Bubble Icons (from: http://desandro.com/resources/css-speech-bubble-icon/ ) *****/
+.spch-bub-inside { position: relative; }
+a.spch-bub-inside { color: #00F; text-decoration: none; }
+.spch-bub-inside em { font-style: normal; color: @topTxtColour; border: 1px solid #bbb; padding: 0 4px; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; position: relative; font-size:11px;  }
+.spch-bub-inside .point { width: 0; height: 0; position: relative; top: 9px; left: -3px; display: block; border-right: 3px solid #bbb;border-bottom: 3px solid rgba(0,0,0,0); }
+a.spch-bub-inside:hover { text-decoration: none; }
+a.spch-bub-inside:hover em { cursor: pointer; border-color: @topTxtColour;}
+a.spch-bub-inside:hover .point { border-right: 3px solid @topTxtColour; }
+
+/* ie fixes */
+.msie-7 .spch-bub-inside .point,
+.msie-8 .spch-bub-inside .point {border-bottom: 3px solid @topBackgroundColour; overflow: hidden;}
+.msie-7 .spch-bub-inside em { line-height: 18px; }

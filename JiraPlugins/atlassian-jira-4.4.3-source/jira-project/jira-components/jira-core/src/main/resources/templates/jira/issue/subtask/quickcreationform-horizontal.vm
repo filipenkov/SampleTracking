@@ -1,0 +1,28 @@
+<table width="100%" id="subtask_container" cellspacing="0" cellpadding="0">
+    <tr class="rowHeader">
+    <td class="bolded minNoWrap" style="padding-right:4px; padding-left:2px;">$i18n.getText('viewissue.subtasks.quickcreate.new.label')</td>
+
+    #foreach ($fieldId in $displayFieldIds)
+        #if ($fieldId && $fieldId.length() > 0)
+            $webComponent.getSubTaskFieldHtml($fieldId, false)
+        #else
+            <td>&nbsp;</td>
+        #end
+    #end
+
+    <td style="text-align: right; padding-right:2px;">
+        #set ($parentIssue = $webComponent.getParentIssue())
+        #set ($subTask = $webComponent.getSubTask())
+
+        <input type="hidden" name="parentIssueId" value="$!parentIssue.getId()" />
+        <input type="hidden" name="pid" value="$!subTask.getProject().getLong('id')" />
+        <input type="hidden" name="viewIssueKey" value="$!parentIssue.getKey()" />
+        <input type="hidden" name="quickCreate" value="true" />
+        <!-- preset fields -->
+        #foreach ($fieldId in $presetFieldIds)
+          <input type="hidden" name="$fieldId" value="$webComponent.getSubTaskFieldPreset($fieldId)" />
+        #end
+        <input type="submit" value=" $i18n.getText('common.forms.add') ">
+    </td>
+    </tr>
+</table>

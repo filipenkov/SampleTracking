@@ -1,0 +1,220 @@
+<html>
+<head>
+    $webResourceManager.requireResource("com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:admin-resources")
+    $webResourceManager.requireResource("com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:form-collector")
+	$webResourceManager.requireResource("com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:add-collector-resources")
+    <title>$action.getText('collector.plugin.admin.add.collector')</title>
+    <meta name="decorator" content="atl.admin" />
+    <meta name="admin.active.section" content="atl.jira.proj.config"/>
+    <meta name="admin.active.tab" content="view_issue_collectors"/>
+    <meta name="projectKey" content="$textutils.htmlEncode($action.projectKey)"/>
+</head>
+<body>
+<div class="admin-wrap issue-collector-admin">
+    <form action="$baseurl/secure/AddCollector.jspa?projectKey=$textutils.htmlEncode($action.projectKey)" class="aui" id="add-collector-form" method="post">
+        <div class="content-body">
+            <div class="hidden">
+                <input name="atl_token" type="hidden" value="$action.xsrfToken"/>
+				<input id="missingFields" type="hidden" value="$textutils.htmlEncode($action.missingFieldPerIssueType)"/>
+				<input id="requiredInvalidFields" type="hidden" value="$textutils.htmlEncode($action.requiredInvalidFields)"/>
+            </div>
+
+            #if($action.isPublicProject())
+                <div id="public-project-warning" class="aui-message warning"><span class="aui-icon icon-warning"></span>
+                    <p>$i18n.getText("collector.plugin.admin.project.perm.warn.1")</p>
+                    <p>$i18n.getText("collector.plugin.admin.project.perm.warn.2")</p>
+                </div>
+            #end
+
+            <h2 class="dialog-title">$action.getText('collector.plugin.admin.add.collector')</h2>
+
+            <div class="ajax-msg-container"></div>
+            #if($action.getErrorMessages().size() > 0)
+                <div class="aui-message error">
+                    <span class="aui-icon icon-error"></span>
+                    <p class="title">$action.getText('common.words.errors')</p>
+                    <ul>
+                        #foreach ($error in $action.getErrorMessages())
+                            <li>$textutils.htmlEncode(${error})</li>
+                        #end
+                    </ul>
+                </div>
+            #end
+
+            <div id="collector-name-container" class="field-group">
+                <label for="name">$action.getText('collector.plugin.admin.collector.name')
+                    <span class="aui-icon icon-required"></span><span class="content">$action.getText('admin.common.words.required')</span>
+                </label>
+                <input class="text long-field" id="name" name="name" type="text" value="$textutils.htmlEncode($!action.name)">
+                #if ($action.errors.collectorName)
+                    <div class="error">$action.errors.collectorName</div>
+                #end
+            </div>
+
+            <div class="field-group">
+                <label for="description">$action.getText('collector.plugin.admin.collector.description')</label>
+                <textarea class="textarea long-field" cols="60" id="description" name="description" rows="4" wrap="virtual">$textutils.htmlEncode($!action.description)</textarea>
+            </div>
+
+            <fieldset class="hidden parameters">
+                <input id="project" class="project-field" type="hidden" value="$action.pid"/>
+                <input title="projectKey" type="hidden" value="$textutils.htmlEncode($action.projectKey)" />
+            </fieldset>
+			${action.issueTypeHtml}
+
+			<div id="issue-type-desc" class="description">$action.getText("collector.plugin.admin.collector.issue.type.desc")</div>
+
+			<div class="field-group" id="reporter-container">
+				<label for="reporter">$action.getText('collector.plugin.admin.collector.reporter')
+					<span class="aui-icon icon-required"></span><span
+							class="content">$action.getText('admin.common.words.required')</span>
+				</label>
+				<select id="reporter" name="reporter" class="single-user-picker js-reporter-picker"
+						data-show-dropdown-button="true" data-user-type="reporter" data-container-class="text">
+					#if ($action.reporterUser)
+						<option value="$textutils.htmlEncode($action.reporterUser.name)">$textutils.htmlEncode($action.reporterUser.displayName)</option>
+					#end
+				</select>
+				<div class="description">$action.getText("collector.plugin.admin.collector.reporter.desc")</div>
+				<fieldset class="hidden parameters"><input type="hidden" title="projectKeys" value="$textutils.htmlEncode($action.projectKey)"/></fieldset>
+				#if ($action.errors.reporter)
+					<div class="error">$textutils.htmlEncode($action.errors.reporter)</div>
+				#end
+			</div>
+
+
+			<fieldset class="group">
+                <legend><span>$action.getText("collector.plugin.admin.collector.remote.user")</span></legend>
+                <div class="radio">
+                    <input id="collector-default-reporter" class="radio" type="radio" name="useCredentials" value="false"
+                           checked="checked"/>
+                    <label for="collector-default-reporter">$action.getText("collector.plugin.admin.add.use.credentials.default.reporter")</label>
+                </div>
+                <div class="radio">
+                    <input id="collector-match-reporter" class="radio" type="radio" name="useCredentials" value="true"/>
+                    <label for="collector-match-reporter">$action.getText("collector.plugin.admin.add.use.credentials.match.reporter")</label>
+                </div>
+			</fieldset>
+
+
+            <fieldset class="group">
+				<legend><span>$action.getText('collector.plugin.admin.add.collector.collect.info')</span></legend>
+                <div class="checkbox">
+                    <input class="checkbox" type="checkbox" id="recordWebInfo" name="recordWebInfo" value="true" #if($!action.recordWebInfo)checked="checked"#end />
+                    <label for="recordWebInfo">$action.getText("collector.plugin.admin.add.collector.collect.record")</label>
+                </div>
+			</fieldset>
+
+            <h2>$action.getText("collector.plugin.trigger")</h2>
+            <div class="field-group">
+                <label for="trigger-text">$action.getText('collector.plugin.trigger.text')
+                    <span class="aui-icon icon-required"></span><span class="content">$action.getText('admin.common.words.required')</span>
+                </label>
+                <input class="text long-field" id="trigger-text" name="triggerText" type="text" value="$textutils.htmlEncode($!action.triggerText)">
+            </div>
+
+            <fieldset class="group">
+                <legend><span>$action.getText('collector.plugin.trigger.position')</span></legend>
+                <div class="matrix">
+                    <div class="radio">
+                        <input class="radio triggerPosition" type="radio" id="position-top" name="triggerPosition" value="TOP" #if($!action.triggerPosition == "TOP")checked="checked"#end />
+                        <label for="position-top">$action.getText("collector.plugin.trigger.position.TOP")</label>
+                    </div>
+                    <div class="radio">
+                        <input class="radio triggerPosition" type="radio" id="position-subtle" name="triggerPosition" value="SUBTLE" #if($!action.triggerPosition == "SUBTLE")checked="checked"#end/>
+                        <label for="position-subtle">$action.getText("collector.plugin.trigger.position.SUBTLE")</label>
+                    </div>
+                    <div class="radio">
+                        <input class="radio triggerPosition" type="radio" id="position-right" name="triggerPosition" value="RIGHT" #if($!action.triggerPosition == "RIGHT")checked="checked"#end/>
+                        <label for="position-right">$action.getText("collector.plugin.trigger.position.RIGHT")</label>
+                    </div>
+                    <div class="radio">
+                        <input class="radio triggerPosition" type="radio" id="position-custom" name="triggerPosition" value="CUSTOM" #if($!action.triggerPosition == "CUSTOM")checked="checked"#end/>
+                        <label for="position-custom">$action.getText("collector.plugin.trigger.position.CUSTOM")</label>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="field-group" id="triggerPreview">
+                <label>$action.getText("collector.plugin.admin.collector.trigger.preview")</label>
+                <div class="issue-collector-trigger-preview">
+                    <div class="issue-collector-trigger top">$textutils.htmlEncode($!action.triggerText)</div>
+                </div>
+            </div>
+            <div class="field-group hidden" id="customTrigger">
+                <label for="custom-function">$action.getText("collector.plugin.trigger.position.CUSTOM")</label>
+                <div class="aui-message info"><span class="aui-icon icon-info"></span>
+                    <p>$action.getText('collector.plugin.trigger.custom.desc')</p>
+                    <p>$action.getText('collector.plugin.trigger.custom.desc2')</p>
+                </div>
+                <textarea class="textarea long-field" cols="60" id="custom-function" name="customFunction" rows="10" >$textutils.htmlEncode($!action.customFunction)</textarea>
+            </div>
+
+
+            <h2>$action.getText('collector.plugin.admin.collector')</h2>
+            <div id="custom-template-only-info" class="aui-message info"><span class="aui-icon icon-info"></span>
+                <p>$i18n.getText("collector.plugin.admin.required.fields.info")</p>
+            </div>
+            <fieldset class="group">
+                <legend><span>$action.getText('collector.plugin.admin.collector.template.title')</span></legend>
+                <div class="matrix">
+                #foreach($template in $action.collectorTemplates)
+                    <div class="radio">
+                        <input class="radio" type="radio" name="templateId" id="template-$template.id" value="$template.id" #if($action.templateId == $template.id)checked="checked"#end/>
+                        <label for="template-$template.id">$action.getText($template.nameKey)</label>
+                    </div>
+                #end
+                </div>
+			</fieldset>
+
+			<div class="field-group">
+                <label for="customMessage">$action.getText('collector.plugin.admin.collector.custom.message')</label>
+                <textarea class="textarea long-field" cols="60" id="customMessage" name="customMessage" rows="4"  >$textutils.htmlEncode($action.customMessage)</textarea>
+                <span class="icon throbber"></span>
+            </div>
+
+            <div id="collector-template-body">
+                <div class="field-group template-preview">
+                    <label>$action.getText('collector.plugin.admin.collector.template.preview')</label>
+                    <div class="aui-group">
+                        <div class="aui-item collector-preview-wrapper">
+                            <div class="collector-preview"></div>
+                            <div class="custom-fields-hint">Click on fields to add and remove them on the form</div>
+                            <div class="custom-fields aui-message info">
+                                <h5>$action.getText("collector.plugin.admin.fields")</h5>
+                                <p class="field-container"></p>
+                            </div>
+                        </div>
+                        <div class="aui-item">
+                            <div class="custom-info">
+                                <p class="title">$action.getText('collector.plugin.admin.custom.help.title')</p>
+                                <ol>
+                                    <li>$action.getText("collector.plugin.admin.custom.help.line1")</li>
+                                    <li>$action.getText("collector.plugin.admin.custom.help.line2")</li>
+                                    <li>$action.getText("collector.plugin.admin.custom.help.line3")</li>
+                                    <li>$action.getText("collector.plugin.admin.custom.help.line4")</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <input id="custom-template-fields" name="customTemplateFields" type="hidden" value="$textutils.htmlEncode($!action.customTemplateFields)"/>
+                <input id="custom-template-labels" name="customTemplateLabels" type="hidden" value="$textutils.htmlEncode($!action.customTemplateLabels)"/>
+                <input id="custom-template-title" name="customTemplateTitle" type="hidden" value="$textutils.htmlEncode($!action.customTemplateTitle)"/>
+            </div>
+			<div class="aui-message warning fields-missing-warning">
+				<span class="aui-icon icon-warning"></span>
+				<p>$action.getText("collector.plugin.adding.fields.missing")</p>
+				<p>$action.getText("collector.plugin.adding.fields.configuration") <a href="$baseurl/plugins/servlet/project-config/$textutils.htmlEncode($action.projectKey)/fields">$action.getText("common.words.fields")</a> $action.getText("collector.plugin.adding.fields.configuration.page")</p>
+			</div>
+
+			<div class="buttons-container content-footer">
+                <div class="buttons"><span class="icon throbber"></span>
+                    <input accesskey="s" class="button" id="add-collector-submit" name="Submit" type="submit" value="$action.getText('admin.common.words.submit')">
+                    <a accesskey="`" class="cancel" href="$baseurl/secure/ViewCollectors!default.jspa?projectKey=$textutils.htmlEncode($action.projectKey)" id="add-collector-cancel">$action.getText('common.words.cancel')</a>
+                </div>
+            </div>
+    </form>
+</div>
+</body>
+</html>

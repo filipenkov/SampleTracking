@@ -1,0 +1,147 @@
+#enable_html_escaping()
+#* @vtlvariable name="fieldConfigs" type="java.util.List<com.atlassian.jira.projectconfig.contextproviders.ProjectFieldsContextProvider.SimpleFieldConfig>" *#
+<div id="project-config-panel-fields" class="project-config-panel">
+    <div class="project-config-panel-header project-config-icon48-fields">
+        #if ($isAdmin)
+            <ul class="operation-menu">
+                <li class="aui-dd-parent">
+                    <a class="operations-menu-link project-config-operations-trigger" id="project-config-tab-actions" href="#"><span class="project-config-icon project-config-icon-manage"></span>Actions <span class="project-config-icon project-config-icon-drop"></span></a>
+                    <div class="aui-list hidden" id="project-config-tab-actions-list">
+                        <ul class="aui-list-section aui-first aui-last">
+                            <li class="aui-list-item">
+                                <a id="project-config-fields-scheme-edit" class="aui-list-item-link" href="${fieldsScheme.editUrl}">$i18n.getText('admin.project.fields.edit')</a>
+                            </li>
+                            <li class="aui-list-item">
+                                <a id="project-config-fields-scheme-change" class="aui-list-item-link" data-id="${project.id}" href="${fieldsScheme.changeUrl}">$i18n.getText('admin.project.config.change.scheme')</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        #end
+        <span>$i18n.getText('common.words.fields')</span>
+        <h2 class="project-config-scheme-heading">
+            #set ($hasSchemeDescription = ${fieldsScheme.description} && ${fieldsScheme.description} != "")
+            <span id="project-config-fields-scheme-name" class="project-config-scheme-name"#if($hasSchemeDescription) title="${fieldsScheme.description}"#end>${fieldsScheme.name}</span>
+        </h2>
+        <p>$i18n.getText('admin.project.fields.scheme.usage', $fieldConfigs.size())</p>
+        <p>
+            $i18n.getText('admin.project.config.summary.fields.desc')
+            <br/>
+            $i18n.getText('admin.project.config.summary.fields.desc.extended')
+        </p>
+    </div>
+    #foreach ($fieldConfig in $fieldConfigs)
+    ## If there is more than one we want them to be all collapsed
+    #if ($fieldConfigs.size() > 1)
+        #set ($collapsed = " collapsed")
+    #else
+        #set ($collapsed = "")
+    #end
+    #if($fieldConfig.id)
+        #set($fieldConfigId = $fieldConfig.id)
+    #else
+        #set($fieldConfigId = "system-default")
+    #end
+    #set($issueTypes = $fieldConfig.issueTypes)
+    #set($sharedProjects = $fieldConfig.sharedProjects)
+    <div id="project-config-fields-${fieldConfigId}" class="project-config-scheme-item project-config-webpanel${collapsed}">
+        <div class="project-config-scheme-item-header">
+            <span class="project-config-icon project-config-icon-twixi"></span>
+            #if($isAdmin)
+            <ul class="ops">
+                <li><a href="${fieldConfig.url}" class="project-config-icon project-config-icon-edit">$i18n.getText('common.words.edit')</a></li>
+            </ul>
+            #end
+            <h3>
+                <span class="project-config-icon24-field project-config-toggle"></span>
+                <span class="project-config-fields-name project-config-scheme-item-name project-config-toggle" title="$!{fieldConfig.description}">${fieldConfig.name}</span>
+                #if(${fieldConfig.defaultFieldConfig})
+                    <span class="status-lozenge status-default">$i18n.getText('common.words.default')</span>
+                #end
+            </h3>
+            #if ($sharedProjects.size() > 1)
+                <span class="shared-by"><em>$i18n.getText('admin.project.shared.by')</em> <a href="#project-config-fields-${fieldConfigId}-shared" class="shared-item-trigger">$i18n.getText('admin.project.shared.projects', ${sharedProjects.size()})</a></span>
+            #end
+        </div>
+        <div class="project-config-scheme-item-content project-config-fields-association project-config-split-panel">
+            <div class="project-config-split-panel-nav project-config-fields-issuetypes">
+                <h3>$i18n.getText('admin.project.fields.issuetypes.heading', $issueTypes.size())&hellip;</h3>
+                <ul class="project-config-list project-config-itemlist">
+                    #foreach ($issueType in $issueTypes)
+                    <li>
+                        <span class="project-config-list-label">
+                            ${issueConstantWebComponent.getHtml(${issueType.constant}, 'project-config-icon-issuetype')}
+                            <span class="project-config-issuetype-name" title="$!{issueType.description}">$issueType.name</span>
+                            #if(${issueType.defaultIssueType})
+                                <span class="project-config-list-default">(${i18n.getText("common.words.default")})</span>
+                            #end
+                        </span>
+                    </li>
+                    #end
+                    </ul>
+                </div>
+                <div class="project-config-split-panel-content project-config-fields-definition">
+                    <h3>&hellip;$i18n.getText('admin.project.fields.definition.heading', $issueTypes.size())</h3>
+                    #if($fieldConfig.fieldLayoutItems.size() > 0)
+                        <table border="0" cellpadding="0" cellspacing="0" class="aui project-config-datatable">
+                            <thead>
+                                <tr>
+                                    <th>${i18n.getText('common.words.name')}</th>
+                                    <th>${i18n.getText('admin.common.words.required')}</th>
+                                    <th>${i18n.getText('admin.issuefields.renderers')}</th>
+                                    <th>${i18n.getText('admin.issuefields.screens')}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                #foreach($fieldLayoutItem in $fieldConfig.fieldLayoutItems)
+                                <tr class="project-config-fieldconfig-row">
+                                    <td>
+                                        <span class="project-config-fieldconfig-name">${fieldLayoutItem.name}</span><br />
+                                        #if(${fieldLayoutItem.descriptionHtml})
+                                            <span class="project-config-fieldconfig-description">${fieldLayoutItem.descriptionHtml}</span>
+                                        #end
+                                    </td>
+                                    <td>
+                                        #if($fieldLayoutItem.required)
+                                            <span class="project-config-fieldconfig-required">${i18n.getText('common.words.yes')}</span>
+                                        #end
+                                    </td>
+                                    <td class="nowrap">
+                                        #if($fieldLayoutItem.renderable)
+                                            <span class="project-config-fieldconfig-renderer">${fieldLayoutItem.rendererType}</span>
+                                        #end
+                                    </td>
+                                    <td class="nowrap">
+                                        #if (${fieldLayoutItem.screenCount} > 0)
+                                            <span class="project-config-associated-screens project-config-screens">
+                                                <a href="${baseurl}/plugins/servlet/dialog-project-config?fieldId=${fieldLayoutItem.id}&projectKey=${project.key}" class="project-config-inlinedialog-trigger"><span class="project-config-icon project-config-icon-screens"></span>${i18n.getText('admin.project.fields.screens', $fieldLayoutItem.screenCount)}</a>
+                                            </span>
+                                        #else
+                                            <span class="project-config-associated-screens project-config-no-screen">${i18n.getText('admin.project.fields.screens', $fieldLayoutItem.screenCount)}</span>
+                                        #end
+                                    </td>
+                                </tr>
+                            #end
+                        </tbody>
+                        </table>
+                    #else
+                        $i18n.getText('admin.project.fields.no.fields')
+                    #end
+            </div>
+        </div>
+        #if ($sharedProjects.size() > 1)
+        <div id="project-config-fields-${fieldConfigId}-shared" class="shared-item-target">
+            <div class="shared-item-content">
+                <h3>$i18n.getText('admin.project.shared.list.heading.fields'):</h3>
+                <ul class="shared-project-list">
+                    #foreach ($project in $sharedProjects)
+                    <li><a class="shared-project-name" href="${baseurl}/plugins/servlet/project-config/${project.key}"><img class="shared-project-icon" width="16" height="16" alt="" src="${baseurl}/secure/projectavatar?size=small&amp;pid=${project.id}&amp;avatarId=${project.avatar.id}" /> $project.name</a></li>
+                    #end
+                </ul>
+            </div>
+        </div>
+        #end
+    </div>
+    #end
+</div>

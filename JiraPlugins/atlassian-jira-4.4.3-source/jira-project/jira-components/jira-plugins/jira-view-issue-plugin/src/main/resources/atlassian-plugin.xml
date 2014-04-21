@@ -1,0 +1,210 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <application-version min="4.4" max="4.4"/>
+    </plugin-info>
+
+
+    <!-- Links panel -->
+    <web-panel key="linkingmodule" location="atl.jira.view.issue.left.context" weight="400">
+        <context-provider class="com.atlassian.jira.plugin.viewissue.ViewIssueMultiContextProvider">
+            <param name="ctxProvider-1">com.atlassian.jira.plugin.webfragment.contextproviders.I18nContextProvider</param>
+            <param name="ctxProvider-2">com.atlassian.jira.plugin.webfragment.contextproviders.BaseUrlContextProvider</param>
+            <param name="ctxProvider-3">com.atlassian.jira.plugin.viewissue.LinkBlockContextProvider</param>
+            <param name="ctxProvider-4">com.atlassian.jira.plugin.webfragment.contextproviders.XsrfTokenContextProvider</param>
+        </context-provider>
+        <resource name="view" type="velocity" location="viewissue/linkblock.vm"/>
+
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.LinkingEnabledCondition"/>
+        <label key="common.concepts.issuelinks"/>
+    </web-panel>
+
+    <!--  Create link link -->
+    <web-item key="create-issue-link" i18n-name-key="webfragments.view.issue.linking.add" name="Create Link" section="com.atlassian.jira.jira-view-issue-plugin:linkingmodule/header" weight="1">
+        <label key="viewissue.links.addlink"/>
+        <tooltip key="viewissue.links.addlink"/>
+        <styleClass>issueaction-link-issue icon icon-add16</styleClass>
+        <link linkId="add-links-link">
+            /secure/LinkExistingIssue!default.jspa?id=${issue.id}
+        </link>
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.HasIssuePermissionCondition">
+            <param name="permission">link</param>
+        </condition>
+    </web-item>
+
+    <!-- Trackback panel -->
+    <web-panel key="trackbacksmodule" location="atl.jira.view.issue.left.context" weight="500">
+        <context-provider class="com.atlassian.jira.plugin.viewissue.TrackBackContextProvider"/>
+        <resource name="view" type="velocity" location="trackbacks/trackbacks.vm"/>
+
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.IsTrackBackReceivingEnabled"/>
+        <label key="common.concepts.trackbacks"/>
+    </web-panel>
+
+    <!--  Manage Trackbacks link -->
+    <web-item key="manage-trackbacks" i18n-name-key="webfragments.view.issue.trackbacks.manage" name="Manage Trackbacks" section="com.atlassian.jira.jira-view-issue-plugin:trackbacksmodule/header" weight="1">
+        <label key="trackback.manage.title"/>
+        <tooltip key="trackback.manage.title"/>
+        <styleClass>icon icon-edit-sml</styleClass>
+        <link linkId="manage-trackbacks-link">
+            /secure/ManageTrackbacks.jspa?id=${issue.id}
+        </link>
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.HasIssuePermissionCondition">
+            <param name="permission">delete</param>
+        </condition>
+    </web-item>
+
+
+    <!-- Subtask panel -->
+    <web-panel key="view-subtasks" location="atl.jira.view.issue.left.context" weight="700">
+        <context-provider class="com.atlassian.jira.plugin.viewissue.ViewIssueMultiContextProvider">
+            <param name="ctxProvider-1">com.atlassian.jira.plugin.webfragment.contextproviders.I18nContextProvider</param>
+            <param name="ctxProvider-2">com.atlassian.jira.plugin.webfragment.contextproviders.BaseUrlContextProvider</param>
+            <param name="ctxProvider-3">com.atlassian.jira.plugin.viewissue.SubTasksContxtProvider</param>
+            <param name="ctxProvider-4">com.atlassian.jira.plugin.webfragment.contextproviders.XsrfTokenContextProvider</param>
+        </context-provider>
+        <resource name="view" type="velocity" location="viewissue/subtasks.vm"/>
+
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.SubTasksEnabledCondition"/>
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.IsSubTaskCondition" invert="true"/>
+        <conditions type="OR">
+            <condition class="com.atlassian.jira.plugin.viewissue.HasSubTaskCondition"/>
+            <condition class="com.atlassian.jira.plugin.webfragment.conditions.IsApplicationPropertySetCondition">
+                <param name="property">jira.view.issue.show.quicksubtask.when.no.subtasks</param>
+            </condition>
+        </conditions>
+
+        <label key="issue.field.subtasks"/>
+    </web-panel>
+
+    <!-- Add Subtask link -->
+    <web-item key="quick-add-subtask" i18n-name-key="webfragments.view.issue.subtask.quick.add" name="Quick Add Subtask" section="com.atlassian.jira.jira-view-issue-plugin:view-subtasks/header" weight="1">
+        <label key="viewissue.subtasks.quickcreate.addsubtask.label"/>
+        <tooltip key="viewissue.subtasks.quickcreate.addsubtask.label"/>
+        <styleClass>icon icon-add16</styleClass>
+        <link linkId="stqc_show">
+            /browse/${issue.key}?stqc=show
+        </link>
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.IsIssueEditableCondition"/>
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.HasIssuePermissionCondition">
+            <param name="permission">create</param>
+        </condition>
+    </web-item>
+
+    <web-section key="subtask-view-options" name="Subtask View Options Section" location="com.atlassian.jira.jira-view-issue-plugin:view-subtasks/drop" i18n-name-key="webfragments.view.issue.subtask.view.options.section" weight="10"/>
+
+    <simple-link-factory key="subtask-view-options-factory" name="View SubTask View Options Factory"
+                         section="com.atlassian.jira.jira-view-issue-plugin:view-subtasks/drop/subtask-view-options"
+                         i18n-name-key="webfragments.view.issue.subtask.view.options.factory" weight="10"
+                         lazy="false"
+                         class="com.atlassian.jira.plugin.viewissue.SubTaskViewOptionsFactory"/>
+
+    <web-panel key="subtask-view-progress" location="com.atlassian.jira.jira-view-issue-plugin:view-subtasks/panels" weight="10">
+        <context-provider class="com.atlassian.jira.plugin.viewissue.ViewIssueMultiContextProvider">
+            <param name="ctxProvider-1">com.atlassian.jira.plugin.webfragment.contextproviders.I18nContextProvider</param>
+            <param name="ctxProvider-2">com.atlassian.jira.plugin.webfragment.contextproviders.BaseUrlContextProvider</param>
+            <param name="ctxProvider-3">com.atlassian.jira.plugin.viewissue.SubTasksProgressContextProvider</param>
+        </context-provider>
+        <resource name="view" type="velocity" location="viewissue/subtasks-progress.vm"/>
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.TimeTrackingEnabledCondition" invert="true"/>
+    </web-panel>
+
+
+    <!-- Trackback rdf panel -->
+    <web-panel key="trackbackRdfmodule" location="atl.jira.view.issue.left.context" weight="800">
+        <context-provider class="com.atlassian.jira.plugin.viewissue.TrackBackRdfContextProvider"/>
+        <resource name="view" type="velocity" location="trackbacks/trackback-rdf.vm"/>
+
+        <param name="headless">true</param>
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.IsTrackBackReceivingEnabled"/>
+
+    </web-panel>
+
+    <!-- Activity panel -->
+    <web-panel key="activitymodule" location="atl.jira.view.issue.left.context" weight="900">
+        <context-provider class="com.atlassian.jira.plugin.viewissue.ViewIssueMultiContextProvider">
+            <param name="ctxProvider-1">com.atlassian.jira.plugin.webfragment.contextproviders.I18nContextProvider</param>
+            <param name="ctxProvider-2">com.atlassian.jira.plugin.webfragment.contextproviders.BaseUrlContextProvider</param>
+            <param name="ctxProvider-3">com.atlassian.jira.plugin.viewissue.ActivityBlockViewIssueContextProvider</param>
+        </context-provider>
+
+        <resource name="view" type="velocity" location="viewissue/activityblock.vm"/>
+
+        <label key="common.concepts.activity" />
+
+    </web-panel>
+
+    <!-- Add Comment panel -->
+    <web-panel key="addcommentmodule" location="atl.jira.view.issue.left.context" weight="999">
+        <context-provider class="com.atlassian.jira.plugin.viewissue.ViewIssueMultiContextProvider">
+            <param name="ctxProvider-1">com.atlassian.jira.plugin.webfragment.contextproviders.I18nContextProvider</param>
+            <param name="ctxProvider-2">com.atlassian.jira.plugin.viewissue.AddCommentViewIssueContextProvider</param>
+            <param name="ctxProvider-3">com.atlassian.jira.plugin.webfragment.contextproviders.BaseUrlContextProvider</param>
+            <param name="ctxProvider-4">com.atlassian.jira.plugin.webfragment.contextproviders.XsrfTokenContextProvider</param>
+            <param name="ctxProvider-5">com.atlassian.jira.plugin.webfragment.contextproviders.ModifierKeyContextProvider</param>
+        </context-provider>
+
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.HasIssuePermissionCondition">
+            <param name="permission">comment</param>
+        </condition>
+
+        <param name="headless">true</param>
+
+        <resource name="view" type="velocity" location="viewissue/addcomment.vm"/>
+    </web-panel>
+
+
+    <!-- Peopleweb panel -->
+    <web-panel key="peoplemodule" location="atl.jira.view.issue.right.context" weight="10">
+        <context-provider class="com.atlassian.jira.plugin.viewissue.ViewIssueMultiContextProvider">
+            <param name="ctxProvider-1">com.atlassian.jira.plugin.webfragment.contextproviders.I18nContextProvider</param>
+            <param name="ctxProvider-2">com.atlassian.jira.plugin.viewissue.PeopleBlockContextProvider</param>
+            <param name="ctxProvider-3">com.atlassian.jira.plugin.webfragment.contextproviders.DefaultVelocityContextProvider</param>
+        </context-provider>
+        <resource name="view" type="velocity" location="viewissue/peopleblock.vm"/>
+
+        <label key="common.concepts.people" />
+    </web-panel>
+
+    <!-- Dates web panel -->
+    <web-panel key="datesmodule" location="atl.jira.view.issue.right.context" weight="40">
+        <context-provider class="com.atlassian.jira.plugin.viewissue.DateBlockContextProvider"/>
+        <resource name="view" type="velocity" location="viewissue/datesblock.vm"/>
+
+        <label key="common.concepts.dates" />
+    </web-panel>
+
+    <!-- Time tracking web panel -->
+    <web-panel key="timetrackingmodule" location="atl.jira.view.issue.right.context" weight="60">
+        <context-provider class="com.atlassian.jira.plugin.viewissue.TimeTrackingViewIssueContextProvider"/>
+        <resource name="view" type="velocity" location="timetracking/timetracking.vm"/>
+
+        <label key="timetracking.title" />
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.IsFieldHiddenCondition" invert="true">
+            <param name="field">timetracking</param>
+        </condition>
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.TimeTrackingEnabledCondition"/>
+    </web-panel>
+
+    <!--  Create worklog link -->
+    <web-item key="create-worklog" i18n-name-key="webfragments.view.issue.timetracking.create.worklog" name="Create Worklog" section="com.atlassian.jira.jira-view-issue-plugin:timetrackingmodule/header" weight="1">
+        <label key="logwork.title"/>
+        <tooltip key="logwork.title.desc"/>
+        <styleClass>icon icon-add16 issueaction-log-work</styleClass>
+        <link linkId="log-work-link">
+            /secure/CreateWorklog!default.jspa?id=${issue.id}
+        </link>
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.UserLoggedInCondition"/>
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.IsIssueEditableCondition"/>
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.HasIssuePermissionCondition">
+            <param name="permission">work</param>
+        </condition>
+    </web-item>
+
+
+
+
+
+</atlassian-plugin>

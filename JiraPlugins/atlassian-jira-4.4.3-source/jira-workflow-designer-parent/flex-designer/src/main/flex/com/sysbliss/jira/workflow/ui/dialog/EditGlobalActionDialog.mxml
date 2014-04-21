@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BaseDialog xmlns="com.sysbliss.jira.workflow.ui.dialog.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+            width="650" minWidth="650"
+            height="360" minHeight="360"
+            title="{niceResourceManager.getString('json','workflow.designer.edit.global.transition')}"
+        creationComplete="initMe();">
+
+    <mx:Script>
+		<![CDATA[
+        import com.sysbliss.jira.plugins.workflow.model.FlexJiraAction;
+        import com.sysbliss.jira.plugins.workflow.model.FlexJiraFieldScreen;
+        import com.sysbliss.jira.plugins.workflow.model.FlexJiraStep;
+        import com.sysbliss.jira.plugins.workflow.model.FlexJiraStepImpl;
+        import com.sysbliss.jira.plugins.workflow.model.FlexJiraWorkflow;
+        import com.sysbliss.jira.workflow.Il8n.INiceResourceManager;
+        import com.sysbliss.jira.workflow.Il8n.NiceResourceManager;
+        import com.sysbliss.jira.workflow.controller.JiraFieldScreenController;
+        import com.sysbliss.jira.workflow.event.EventTypes;
+        import com.sysbliss.jira.workflow.event.GenericDataEvent;
+
+        import mx.collections.ArrayCollection;
+        import mx.events.DropdownEvent;
+        import mx.managers.PopUpManager;
+        import mx.utils.StringUtil;
+
+        import org.swizframework.Swiz;
+
+        private const niceResourceManager:INiceResourceManager = NiceResourceManager.getInstance();
+
+        [Bindable]
+        public var _workflow:FlexJiraWorkflow;
+        private var _action:FlexJiraAction;
+        private var _names:Array;
+
+        [Autowire]
+        [Bindable]
+        public var fieldScreenController:JiraFieldScreenController;
+
+        private function initMe():void {
+            transitionView.dropdown.iconFunction = getScreenIcon;
+        }
+
+        private function getScreenIcon(item:Object):Class {
+            return ScreenListIcon;
+        }
+
+        override protected function commitProperties():void
+        {
+            super.commitProperties();
+            if (_action)
+            {
+                transitionName.text = _action.name;
+                transitionDesc.text = _action.description;
+                setTransitionViewIndex(_action.fieldScreenId);
+
+                if (_childrenReady)
+                {
+                    validateName();
+                }
+            }
+            if (_workflow)
+            {
+                transitionStep.dataProvider = createStepDataprovider();
+                //log.debug("setting step dp: " + _workflow.allSteps.length);
+            }
+
+            if (_workflow && _action && _action.unconditionalResult && _action.unconditionalResult.stepId > 0)
+            {
+                setTransitionStepIndex(_action.unconditionalResult.stepId);
+            }
+        }
+
+        private function setTransitionViewIndex(id:String):void
+        {
+            var screens:ArrayCollection = transitionView.dataProvider as ArrayCollection;
+            //log.debug("setting view combo index");
+            var i:int;
+            var screen:FlexJiraFieldScreen;
+            for (i = 0; i < screens.length; i++)
+            {
+                screen = screens.getItemAt(i) as FlexJiraFieldScreen;
+                //log.debug("comparing screen [" + screen.name + "(" + screen.id + ")] to " + id);
+                if (screen.id == id)
+                {
+                    transitionView.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+
+        private function setTransitionStepIndex(id:int):void
+        {
+            var steps:ArrayCollection = transitionStep.dataProvider as ArrayCollection;
+            //log.debug("setting step combo index");
+            var i:int;
+            var step:FlexJiraStep;
+            for (i = 0; i < steps.length; i++)
+            {
+                step = steps.getItemAt(i) as FlexJiraStep;
+                //log.debug("comparing step [" + step.name + "(" + step.id + ")] to " + id);
+                if (step.id == id)
+                {
+                    transitionStep.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+
+        private function createStepDataprovider():ArrayCollection
+        {
+            var dp:ArrayCollection = new ArrayCollection();
+            var none:FlexJiraStep = new FlexJiraStepImpl();
+            none.name = niceResourceManager.getString('json','workflow.designer.no.result.step');
+            none.id = 0;
+
+            dp.addItem(none);
+            dp.addAll(_workflow.allSteps);
+            return dp;
+        }
+
+        private function onTextChange(e:Event):void
+        {
+            validateName();
+        }
+
+        override public function doOk(e:Event):void
+        {
+            if(!buttons.okButton.enabled) {
+                return;
+            }
+
+            var viewId:String = "";
+            var screen:FlexJiraFieldScreen = transitionView.selectedItem as FlexJiraFieldScreen;
+            if (screen)
+            {
+                viewId = screen.id;
+            }
+
+            var step:int = transitionStep.selectedItem.id;
+            var event:GenericDataEvent = new GenericDataEvent(EventTypes.DO_EDIT_GLOBAL_ACTION, {name:transitionName.text,desc:transitionDesc.text,dest:step,view:viewId});
+            Swiz.dispatchEvent(event);
+            clear();
+        }
+
+        override public function clear():void
+        {
+            super.clear();
+            if (_childrenReady)
+            {
+
+                transitionName.text = "";
+                transitionDesc.text = "";
+                transitionStep.selectedIndex = 0;
+                transitionView.selectedIndex = 0;
+                _names = null;
+                _action = null;
+                _workflow = null;
+                buttons.okButton.enabled = false;
+            }
+        }
+
+        public function setWorkflow(wf:FlexJiraWorkflow):void
+        {
+            _workflow = wf;
+            invalidateProperties();
+        }
+
+        public function setAction(action:FlexJiraAction):void
+        {
+            _action = action;
+            _names = null;
+            invalidateProperties();
+        }
+
+        private function validateName():void
+        {
+            if (!_names)
+            {
+                createNamesArray();
+            }
+            var textToCheck:String = StringUtil.trim(transitionName.text.toLowerCase());
+            //log.debug("name to check " + textToCheck);
+            if (transitionName.text == "")
+            {
+                errorField.text = niceResourceManager.getString('json','workflow.designer.transition.name.required');
+                buttons.okButton.enabled = false;
+            } else if (_names.indexOf(textToCheck) > -1)
+            {
+                errorField.text = niceResourceManager.getString('json','workflow.designer.transition.name.exists');
+                buttons.okButton.enabled = false;
+            } else
+            {
+                errorField.text = "";
+                buttons.okButton.enabled = true;
+            }
+        }
+
+       private function createNamesArray():void
+        {
+            var stepActions:ArrayCollection = _workflow.allActions;
+            var globalActions:ArrayCollection = _workflow.globalActions;
+
+            _names = new Array();
+            for each(var stepAction:FlexJiraAction in stepActions)
+            {
+                if(stepAction.id != _action.id && stepAction.name.toLocaleLowerCase() != _action.name.toLocaleLowerCase()) {
+                    _names.push(stepAction.name.toLowerCase());
+                }
+            }
+
+            for each(var globalAction:FlexJiraAction in globalActions)
+            {
+                if(globalAction.id != _action.id) {
+                    _names.push(globalAction.name.toLowerCase());
+                }
+            }
+        }
+
+        private function forceDropDownToFront(e:MouseEvent):void
+        {
+            var combo:ComboBox = e.currentTarget as ComboBox;
+            if (combo && combo.dropdown)
+            {
+                PopUpManager.bringToFront(combo.dropdown);
+            }
+        }
+
+        private function forceDropdownOnOpen(e:DropdownEvent):void {
+            var combo:ComboBox = e.currentTarget as ComboBox;
+            if (combo && combo.dropdown) {
+                PopUpManager.bringToFront(combo.dropdown);
+            }
+        }
+
+        private function getStepLabel(item:Object):String
+        {
+
+            return "(" + item.id + ") " + item.name;
+        }
+
+        override public function onShowDialog():void {
+            super.onShowDialog();
+            transitionName.setFocus();
+        }
+
+		]]>
+	</mx:Script>
+
+    <mx:Text text="{niceResourceManager.getString('json','workflow.designer.global.transition.dialog.text')}" maxWidth="580" />
+    
+    <mx:Label id="errorField" styleName="errorField" text=""/>
+    <mx:Form verticalGap="10" width="100%" paddingTop="5" paddingLeft="5" paddingRight="5">
+        <mx:FormItem width="100%" label="{niceResourceManager.getString('json','workflow.designer.transition.name')}" labelStyleName="fieldLabel" required="true">
+            <mx:TextInput id="transitionName" width="100%" change="onTextChange(event);"/>
+        </mx:FormItem>
+        <mx:FormItem width="100%" label="{niceResourceManager.getString('json','workflow.designer.description')}" labelStyleName="fieldLabel" required="false">
+            <mx:TextArea id="transitionDesc" width="100%" height="60"/>
+        </mx:FormItem>
+        <mx:FormItem width="100%" label="{niceResourceManager.getString('json','workflow.designer.destination.step')}" labelStyleName="fieldLabel">
+            <mx:ComboBox id="transitionStep" dataProvider="{createStepDataprovider()}" labelFunction="getStepLabel" click="forceDropDownToFront(event);" open="forceDropdownOnOpen(event);"/>
+        </mx:FormItem>
+        <mx:FormItem width="100%" label="{niceResourceManager.getString('json','workflow.designer.transition.view')}" labelStyleName="fieldLabel">
+            <mx:ComboBox id="transitionView" dataProvider="{fieldScreenController.listProvider}" labelField="name" click="forceDropDownToFront(event);" open="forceDropdownOnOpen(event);"/>
+        </mx:FormItem>
+    </mx:Form>
+    <mx:StringValidator/>
+
+    <DialogButtonBar id="buttons" buttonFlags="{DialogButtonBar.OK|DialogButtonBar.CANCEL}"/>
+</BaseDialog>

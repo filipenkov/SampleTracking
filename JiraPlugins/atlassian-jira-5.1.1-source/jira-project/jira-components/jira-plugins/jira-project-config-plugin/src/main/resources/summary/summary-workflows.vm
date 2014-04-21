@@ -1,0 +1,46 @@
+#enable_html_escaping()
+#* @vtlvariable name="schemeDefault" type="java.lang.Boolean" *#
+#* @vtlvariable name="project" type="com.atlassian.jira.project.Project" *#
+#* @vtlvariable name="urlcodec" type="com.atlassian.jira.util.URLCodec" *#
+#* @vtlvariable name="isAdmin" type="java.lang.Boolean" *#
+#* @vtlvariable name="schemeName" type="java.lang.String" *#
+#* @vtlvariable name="workflows" type="java.util.List<com.atlassian.jira.projectconfig.contextproviders.WorkflowSummaryPanelContextProvider.SimpleWorkflow>" *#
+#* @vtlvariable name="i18n" type="com.atlassian.jira.util.I18nHelper" *#
+
+<div class="project-config-webpanel-content project-config-icon48-workflows">
+    <div class="project-config-webpanel-help">
+        <p>$i18n.getText("admin.project.config.summary.workflow.desc")</p>
+    </div>
+    #if($error)
+        <div class="aui-message error">
+            <p>$i18n.getText("admin.project.config.summary.workflow.error")</p>
+        </div>
+    #else
+        <p class="project-config-summary-scheme">
+            <strong>${i18n.getText("common.concepts.scheme")}:</strong>
+            <a href="$schemeLink" title="$!{schemeDescription}">${schemeName}</a>
+        </p>
+        <ul class="project-config-list project-config-itemlist">
+            #foreach($workflow in $workflows)
+                <li>
+                    <span class="project-config-list-label">
+                        <span class="project-config-icon project-config-icon-workflow"></span>
+                        #if ($isAdmin)
+                            <a class="project-config-workflow-name" href="$workflow.url" title="$!{workflow.description}">$workflow.name</a>
+                        #else
+                            <span class="project-config-workflow-name" title="$!{workflow.description}">$workflow.name</span>
+                        #end
+                        #if($workflow.default)
+                            <span class="project-config-list-default">($i18n.getText("common.words.default"))</span>
+                        #end
+                        #if($isAdmin && $schemeDefault)
+                            <a id="project-config-summary-workflow-create" class="project-config-icon project-config-icon-edit project-config-workflow-edit project-config-workflow-default" href="${baseurl}/secure/admin/workflows/EditWorkflowDispatcher.jspa?atl_token=$urlcodec.encode($atl_token)&wfName=$urlcodec.encode($workflow.name)" title="$i18n.getText('admin.workflows.edit')">$i18n.getText('admin.workflows.edit')</a>
+                        #end
+                    </span>
+                </li>
+            #end
+        </ul>
+    #end
+    <a class="project-config-more-link" href="${schemeLink}" title="${i18n.getText("admin.project.config.summary.workflow.manage")}">${i18n.getText("common.concepts.more")}</a>
+
+</div>

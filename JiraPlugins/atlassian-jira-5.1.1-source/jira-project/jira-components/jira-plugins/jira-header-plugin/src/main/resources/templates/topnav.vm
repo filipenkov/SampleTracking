@@ -1,0 +1,335 @@
+##disable_html_escaping() TODO REENABLE
+#* @vtlvariable name="jiraHelperNoProject" type="com.atlassian.jira.plugin.webfragment.model.JiraHelper" *#
+#* @vtlvariable name="layout" type="com.atlassian.jira.web.component.webfragment.ContextLayoutBean" *#
+#* @vtlvariable name="systemNavLayout" type="com.atlassian.jira.web.component.webfragment.SystemNavContextLayoutBean" *#
+#* @vtlvariable name="userNavLayout" type="com.atlassian.jira.web.component.webfragment.UserNavContextLayoutBean" *#
+#* @vtlvariable name="authcontext" type="com.atlassian.jira.security.JiraAuthenticationContext" *#
+#* @vtlvariable name="webInterfaceManager" type="com.atlassian.jira.plugin.webfragment.JiraWebInterfaceManager" *#
+#* @vtlvariable name="linkManager" type="com.atlassian.jira.plugin.webfragment.SimpleLinkManager" *#
+#* @vtlvariable name="avatars" type="com.atlassian.jira.plugin.headernav.ModernPluggableTopNavigation.Avatars" *#
+<nav class="aui-navbar aui-style-header aui-dropdown2-trigger-group">
+    <div class="aui-navbar-inner">
+        <ul id="appswitcher" class="aui-nav aui-style-blocks" role="menu">
+            <li>
+                <a href="#" class="aui-nav-imagelink aui-dropdown2-trigger aui-dropdown2-trigger-arrow" aria-haspopup="true" aria-owns="appswitch-menu">
+                    <img width="63" height="24" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAAYCAYAAABN9iVRAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNS4xIE1hY2ludG9zaCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozQUJDMDMyODZENkMxMUUxODgzRDlDRDQxRTEzRTU1RiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozQUJDMDMyOTZENkMxMUUxODgzRDlDRDQxRTEzRTU1RiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjNBQkMwMzI2NkQ2QzExRTE4ODNEOUNENDFFMTNFNTVGIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjNBQkMwMzI3NkQ2QzExRTE4ODNEOUNENDFFMTNFNTVGIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+XRVYTAAAAp9JREFUeNrkWLFu20AMvQrZa6Bbl+oP7H5AUXnoVARxviDqltH5A+UP9AexvyBnZMsSZw0QQEGnZommrla+wCFTCmAYHmUHiuo4BB4s3ZHSkXy8o+yWy6UzcLj8J4cNem8STY5y2bqAuBc4qultZea3uhQ+PEbgnQo6n8FvCTgH/F3T/gfgJ2AOuHqB/f8VVr8VYALoES3wN2EYMMqMSb+WM8BnNj8Qe0PC5uZs3Bs2mpSAnK1RQ6bY5aGa90Ixo8lYjE9YUCoxtyucT1Z0fm7YWFKJZHCUgaA9040g+RNBhjEgplKY0lgFyOga9T8yfaT8n44pj+/PlXFc9xdlHMcGchCd94BCPBjHehQInDuiYKSAPfGMY8DtKziI7xwy7ANu2Px3xWZkPC/Vaj5Ub17QZLRqLbVE+2SFepY6BZs7JQSpH1EM6uxy2WMlMVDKo2ClsAmClO+z+ykrW5X6O+w6J2NOjwMyiEWdV0TDaoOcl5SfK+sb8RKPxOQvJcN9xfEh7QFdCu5BieKgVtOXzPFZKECR8hItANLxogNnL3BLYliITe7GoLwPBKhPukHn6wBoDk47cnwVSQ3K+8D1E93IeLiW4VQ7LzsWzPhXsTZeDiXBE2PuQkGLAhGtiB5DpQfIO3JySj3EsTJXir2A9x4zZcyp1Dfaw5JaWewBFuJ8TRs+F9s+57NAq+1oLdJu1NAej+X3vPagCfuQaeyVjYaojSanCCSAf5ssjDXxBBa8ybHOyroHKEXDEBvNRqacEm1scPfs/gTwTdD70rCfCer3IqWr4/I7YOyUM7cO0p04dsqWTgitozw1dnln9ASPiY6MDKGz14ZxL7BAp3SCzugb1mFHLrL7aQ3nvXhH0vbfWDE7Wjzt1JvSFzyTBwEGACclyax7D17EAAAAAElFTkSuQmCC" />
+                    <span class="app-description"></span>
+                </a>
+                <nav id="appswitch-menu" class="aui-dropdown2 aui-style-header aui-style-pointer aui-style-appswitch">
+                    <div class="aui-dropdown2-section">
+                        <ul>
+                            <li>
+                                <a href="#" class="appswitch-option">
+                                    <img width="130" height="26" title="" alt="Confluence" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIIAAAAaCAYAAAB7NoTTAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzcyMjU2QjM4N0UxMTFFMTk1NERGRDYxODFBQkZFMjYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzcyMjU2QjQ4N0UxMTFFMTk1NERGRDYxODFBQkZFMjYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDNzIyNTZCMTg3RTExMUUxOTU0REZENjE4MUFCRkUyNiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDNzIyNTZCMjg3RTExMUUxOTU0REZENjE4MUFCRkUyNiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1w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" />
+                                    EAC &mdash; internal wiki
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="appswitch-option">
+                                    <img width="130" height="26" title="" alt="JIRA" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIIAAAAaCAYAAAB7NoTTAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzcyMjU2QUY4N0UxMTFFMTk1NERGRDYxODFBQkZFMjYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzcyMjU2QjA4N0UxMTFFMTk1NERGRDYxODFBQkZFMjYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDNzIyNTZBRDg3RTExMUUxOTU0REZENjE4MUFCRkUyNiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDNzIyNTZBRTg3RTExMUUxOTU0REZENjE4MUFCRkUyNiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Piq+uAwAAAPuSURBVHja7FnRcdpAEL3zpACVoBI0poCgCiIqAD7wr3EFtiqA/IYP6MBQATSAow6iEqggl7d7e+IksL8iJuPsas6+O50kRu/d7tuVdc4ZNbU7fQVqSgQ1JYKaEkHtitmmM3hIMTj9Pv443Q0e9pgaoo0w3tr7WWqt5XP/wo9WgduTR7CD2RAk+IXuT3nRiTP8slOQYAgSNOfU/oPQIOAbAJ9bY3N4gCX6zbzaJw4NCANDAH7A/wyA1+64unD/8AoZCFGjm9AY62sNDZ/LvgD8PUhA4B/gBab0iokc5AUwJl1QoUMkWWMqQ7/Ekhfj171ivmBwjisiVUYhRDzIE+aWINErSFTEXgf39WBas0W/5GecSUehaN+sM26D+0wVqv5Dw5Z2OgEKcOYC5l7aAmPyAguAQl6BkIy9QWKNP8LYK1A+EpGjSSvsGAk1lvsFERHgJ5F8/eaidbRGYboBEfCid5EGeEafSLER8EqQY02gyprava02591tLvRDGAf3HQFKQ/ImJXkBtErOJ/hTnHkA4HEtXS/XJBCzSoa+QwPc8ga7fszpot/Yr2g52nfA8UhuPQLyqZt7ug4JGuBZZLbjOkj0EoWAGkvXAn7qfAqbYV3KnscYIkom58lLbBWunrMGQDRCOzmG0CUSFp4xmIRdDdtQTeHjokRr9589g+NMpL2WxKeLQoUn1ji6tCTxKp5HPcJNiOAzBUoZT8EdoxUReESCC8HWEn4R6N2S1bUUFGsfA+j0XJkuhBgnId3B39slol3U+goNDTDHVQXXnJN4YyK4BsDte6o97PwQBuJdfyEOfeHKxd4i0hKUvqZUwJJrDkKbHe45EU81lnChdoOCUg0QRuicml3sPDjv5vQdD9HN8WNCXKtL4TkltEOF64qIHDsQY45rvkb30/BwKyIAFsrfF+jEHiCDsJtfJ4Hr7O8rWkBWcBYA0NFdNpmFPw6ydMyC0gtN0gYL9OeSsjIhNTzcgAh4yRNLKt0ZqhdQAankaoDl9vxRaOiKxSj1axEEcf8F7QlLyqAvcKwZYMvPNZJWcoGLNYJxVdAZRBaFrGci4IVzIYc9OO3MI6d6tbjmhCp+DaiDGY3nODds1Q4CuF1x6NplYUkjK7kmlZQ12I4qjWg5fgMJ2FFDMP9FVK3n0JDYsMutCQWlrQ/tnOcN46IPwF5EgC+7gqHlEawxFzHEmSnIEbKUNBKOrRSVvmtgtpL6ZSaiUq2vrEGKRVxBxE6sBUyK6Ts5X7uz96BvBKEYtGR373f6wdzP8qZO4G1KBaMLYflGWcosp0/eMWHi7w7R9CiQRcKG2l82q1/y1K5kDWpKBDUlgpraHwEGAAU7+JLrtHEoAAAAAElFTkSuQmCC" />
+                                    EACJ &mdash; internal issue tracker
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="appswitch-option">
+                                    <img width="130" height="26" title="" alt="JIRA" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIIAAAAaCAYAAAB7NoTTAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzcyMjU2QUY4N0UxMTFFMTk1NERGRDYxODFBQkZFMjYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzcyMjU2QjA4N0UxMTFFMTk1NERGRDYxODFBQkZFMjYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDNzIyNTZBRDg3RTExMUUxOTU0REZENjE4MUFCRkUyNiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDNzIyNTZBRTg3RTExMUUxOTU0REZENjE4MUFCRkUyNiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Piq+uAwAAAPuSURBVHja7FnRcdpAEL3zpACVoBI0poCgCiIqAD7wr3EFtiqA/IYP6MBQATSAow6iEqggl7d7e+IksL8iJuPsas6+O50kRu/d7tuVdc4ZNbU7fQVqSgQ1JYKaEkHtitmmM3hIMTj9Pv443Q0e9pgaoo0w3tr7WWqt5XP/wo9WgduTR7CD2RAk+IXuT3nRiTP8slOQYAgSNOfU/oPQIOAbAJ9bY3N4gCX6zbzaJw4NCANDAH7A/wyA1+64unD/8AoZCFGjm9AY62sNDZ/LvgD8PUhA4B/gBab0iokc5AUwJl1QoUMkWWMqQ7/Ekhfj171ivmBwjisiVUYhRDzIE+aWINErSFTEXgf39WBas0W/5GecSUehaN+sM26D+0wVqv5Dw5Z2OgEKcOYC5l7aAmPyAguAQl6BkIy9QWKNP8LYK1A+EpGjSSvsGAk1lvsFERHgJ5F8/eaidbRGYboBEfCid5EGeEafSLER8EqQY02gyprava02591tLvRDGAf3HQFKQ/ImJXkBtErOJ/hTnHkA4HEtXS/XJBCzSoa+QwPc8ga7fszpot/Yr2g52nfA8UhuPQLyqZt7ug4JGuBZZLbjOkj0EoWAGkvXAn7qfAqbYV3KnscYIkom58lLbBWunrMGQDRCOzmG0CUSFp4xmIRdDdtQTeHjokRr9589g+NMpL2WxKeLQoUn1ji6tCTxKp5HPcJNiOAzBUoZT8EdoxUReESCC8HWEn4R6N2S1bUUFGsfA+j0XJkuhBgnId3B39slol3U+goNDTDHVQXXnJN4YyK4BsDte6o97PwQBuJdfyEOfeHKxd4i0hKUvqZUwJJrDkKbHe45EU81lnChdoOCUg0QRuicml3sPDjv5vQdD9HN8WNCXKtL4TkltEOF64qIHDsQY45rvkb30/BwKyIAFsrfF+jEHiCDsJtfJ4Hr7O8rWkBWcBYA0NFdNpmFPw6ydMyC0gtN0gYL9OeSsjIhNTzcgAh4yRNLKt0ZqhdQAankaoDl9vxRaOiKxSj1axEEcf8F7QlLyqAvcKwZYMvPNZJWcoGLNYJxVdAZRBaFrGci4IVzIYc9OO3MI6d6tbjmhCp+DaiDGY3nODds1Q4CuF1x6NplYUkjK7kmlZQ12I4qjWg5fgMJ2FFDMP9FVK3n0JDYsMutCQWlrQ/tnOcN46IPwF5EgC+7gqHlEawxFzHEmSnIEbKUNBKOrRSVvmtgtpL6ZSaiUq2vrEGKRVxBxE6sBUyK6Ts5X7uz96BvBKEYtGR373f6wdzP8qZO4G1KBaMLYflGWcosp0/eMWHi7w7R9CiQRcKG2l82q1/y1K5kDWpKBDUlgpraHwEGAAU7+JLrtHEoAAAAAElFTkSuQmCC" />
+                                    JAC &mdash; public issue tracker
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://jdog.atlassian.net" class="appswitch-option">
+                                    <img width="130" height="26" title="" alt="JIRA" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIIAAAAaCAYAAAB7NoTTAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzcyMjU2QUY4N0UxMTFFMTk1NERGRDYxODFBQkZFMjYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzcyMjU2QjA4N0UxMTFFMTk1NERGRDYxODFBQkZFMjYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDNzIyNTZBRDg3RTExMUUxOTU0REZENjE4MUFCRkUyNiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDNzIyNTZBRTg3RTExMUUxOTU0REZENjE4MUFCRkUyNiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Piq+uAwAAAPuSURBVHja7FnRcdpAEL3zpACVoBI0poCgCiIqAD7wr3EFtiqA/IYP6MBQATSAow6iEqggl7d7e+IksL8iJuPsas6+O50kRu/d7tuVdc4ZNbU7fQVqSgQ1JYKaEkHtitmmM3hIMTj9Pv443Q0e9pgaoo0w3tr7WWqt5XP/wo9WgduTR7CD2RAk+IXuT3nRiTP8slOQYAgSNOfU/oPQIOAbAJ9bY3N4gCX6zbzaJw4NCANDAH7A/wyA1+64unD/8AoZCFGjm9AY62sNDZ/LvgD8PUhA4B/gBab0iokc5AUwJl1QoUMkWWMqQ7/Ekhfj171ivmBwjisiVUYhRDzIE+aWINErSFTEXgf39WBas0W/5GecSUehaN+sM26D+0wVqv5Dw5Z2OgEKcOYC5l7aAmPyAguAQl6BkIy9QWKNP8LYK1A+EpGjSSvsGAk1lvsFERHgJ5F8/eaidbRGYboBEfCid5EGeEafSLER8EqQY02gyprava02591tLvRDGAf3HQFKQ/ImJXkBtErOJ/hTnHkA4HEtXS/XJBCzSoa+QwPc8ga7fszpot/Yr2g52nfA8UhuPQLyqZt7ug4JGuBZZLbjOkj0EoWAGkvXAn7qfAqbYV3KnscYIkom58lLbBWunrMGQDRCOzmG0CUSFp4xmIRdDdtQTeHjokRr9589g+NMpL2WxKeLQoUn1ji6tCTxKp5HPcJNiOAzBUoZT8EdoxUReESCC8HWEn4R6N2S1bUUFGsfA+j0XJkuhBgnId3B39slol3U+goNDTDHVQXXnJN4YyK4BsDte6o97PwQBuJdfyEOfeHKxd4i0hKUvqZUwJJrDkKbHe45EU81lnChdoOCUg0QRuicml3sPDjv5vQdD9HN8WNCXKtL4TkltEOF64qIHDsQY45rvkb30/BwKyIAFsrfF+jEHiCDsJtfJ4Hr7O8rWkBWcBYA0NFdNpmFPw6ydMyC0gtN0gYL9OeSsjIhNTzcgAh4yRNLKt0ZqhdQAankaoDl9vxRaOiKxSj1axEEcf8F7QlLyqAvcKwZYMvPNZJWcoGLNYJxVdAZRBaFrGci4IVzIYc9OO3MI6d6tbjmhCp+DaiDGY3nODds1Q4CuF1x6NplYUkjK7kmlZQ12I4qjWg5fgMJ2FFDMP9FVK3n0JDYsMutCQWlrQ/tnOcN46IPwF5EgC+7gqHlEawxFzHEmSnIEbKUNBKOrRSVvmtgtpL6ZSaiUq2vrEGKRVxBxE6sBUyK6Ts5X7uz96BvBKEYtGR373f6wdzP8qZO4G1KBaMLYflGWcosp0/eMWHi7w7R9CiQRcKG2l82q1/y1K5kDWpKBDUlgpraHwEGAAU7+JLrtHEoAAAAAElFTkSuQmCC" />
+                                    JDOG &mdash; development and dogfooding
+                                </a>
+                            </li>
+##                            <li>
+##                                <a href="#" class="appswitch-option">
+##                                    <img width="130" height="26" title="" alt="Confluence" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIIAAAAaCAYAAAB7NoTTAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzcyMjU2QjM4N0UxMTFFMTk1NERGRDYxODFBQkZFMjYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzcyMjU2QjQ4N0UxMTFFMTk1NERGRDYxODFBQkZFMjYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDNzIyNTZCMTg3RTExMUUxOTU0REZENjE4MUFCRkUyNiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDNzIyNTZCMjg3RTExMUUxOTU0REZENjE4MUFCRkUyNiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1w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" />
+##                                    Wiki pages, blogs and team calendars
+##                                </a>
+##                            </li>
+##                            <li>
+##                                <a href="#" class="appswitch-option">
+##                                    <img width="130" height="26" title="" alt="Stash" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIIAAAAaCAYAAAB7NoTTAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6REYyNjE4M0I4N0UzMTFFMTk1NERGRDYxODFBQkZFMjYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6REYyNjE4M0M4N0UzMTFFMTk1NERGRDYxODFBQkZFMjYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpERjI2MTgzOTg3RTMxMUUxOTU0REZENjE4MUFCRkUyNiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpERjI2MTgzQTg3RTMxMUUxOTU0REZENjE4MUFCRkUyNiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PibnKhsAAASOSURBVHja7Jp7aJV1GMffNZ3XozlXXroxs3sipalZ1jR1poFRmiloERJkooNKxEsm3aA/gq6oCGIkUjg1FcGm5SCc6YKmgizt7iVHCcfNXNOz0/fJz2s/3piws/Xf88CH95y97/m9Z+f5PrffOXnZbDZyc7vCPwI3F4KbC8HNheDmQnBryfKiIc+Gz68VT4nnxDyxWewRJ8X7Ytdl1rpdFIkCkYZTHNvbrhcDxA/il+TJbPVK92wbMsL9Yrd4TRwU+0Sz2CjGiJ3idZGfWKOHeEd8ISpFhaji8RKu6SXGiZJ/xNd2Wyq+DNZ3aychDBKf4bD7xAxRKO4V68UNYrVYJJYn1niG7NFH/CGOcuwtOnFNmdgqXmonIfRKHN3aaB1EZ/E2j0eInohisGgIzs8RGbEYp37NGvdwtAwyW/wkrhLXiV9xfD9EYWtdLU6LJl5XLFLijPjZMnviPfal5FiJOcF7uMC5Ro7dg/s1uFtzywjDxFjxpjgsnhAHqPl3iafFBKLvBXFMLLzUY1zsCcyOU1Lqqd2VHE1U07lmpNgvPhRDRA2C+opyYs8fD/qAcgRmfUo161sfc55rbhUfiW8oFVbabnO35iaEEiJrlRgv3hVzxWRKwSExCidaf7CDzJEiek+z1gPUbDt2De7RRXQM7tcN8dg9byETnSGLDEIkRTSsj+H4uqCZ/StYe6iYKW6mNJm4prlbcxOCdd/f4ZC3iKhS8YGYL97DcS8jiBocW8waW8kC1hO8SrNokbkMp9sU8inX7kV4L5J9RpB17iZrnKN0mCBuDNYfRakaRv/RgXNphDuJLBbx/7jlIIRM0DQ24uQw6ho4nyUl51MS4lq+DeGsIM2fp294BSedYPyMEMwBItwmkm9Zux91P8N1HYNMY5logbiDUtMcNJw7EOt2+oMoyD5urRTC9/QD9dTpeUT0DFL98+Jh0nUVGSOTmN+rSOUljIkV/H0c94iFlh9MEn2J9n0IYiNNX0QjaSXiCPctY3z9nMwTN4uZ4D3EY61/nZqjEDaJJ0nLb9CkrSfabN9golhLM1lP+ZjbwkZRI6LYzvOCxL5DJpgWrLY/Qq9RQWaJz3Ujc1iJeJSG0zLBg2J00CzmuQvbb3w8DBOI8rGk+YWIZAHpdw2N2K6g5ke87iYi25q+K9mAMvszUXqKqOG/iWuCvmE8G1pjEE8TexdF3M8mhofIGCmP+v9HCHEEWjYYSEmYTgQ2EIWdcP5UMYWxLq7HS9iEOofjuwRTQyXr/M7z4YyKnzCNRLz2KMLoHKy7iNG1jsiPy8ZBhBMFo2sUlJwCd2vuQjjLh76Kur2XubyJCJ7G4zJqeRTU43KcPZD63cgUUh3sQq5DUCPZsLL7bqH3KCXydyOgYjKLbUz9yEaRObdWfMy61hieonmMrZb+5Yi7tfWW/NIpRdTPovPvijM24MyaFtbpTuffA8Gko/9+GZSihDSzZhoH30k2qeWaPjSwVlL6R/9+kVUXrFnI/U4G00UhDejxbPXKtLu2lULw3yy6RZH/HsHNheDmQnBzIbi5ENwuY38LMABHtRx9LxSUOQAAAABJRU5ErkJggg==" />
+##                                    Git repository management
+##                                </a>
+##                            </li>
+##                            <li>
+##                                <a href="#" class="appswitch-option">
+##                                    <img width="130" height="26" title="" alt="Fisheye" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIIAAAAaCAYAAAB7NoTTAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUNBMTczOUM4N0UzMTFFMTk1NERGRDYxODFBQkZFMjYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUNBMTczOUQ4N0UzMTFFMTk1NERGRDYxODFBQkZFMjYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5Q0ExNzM5QTg3RTMxMUUxOTU0REZENjE4MUFCRkUyNiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5Q0ExNzM5Qjg3RTMxMUUxOTU0REZENjE4MUFCRkUyNiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuTUT6AAAAUwSURBVHja7FrffRo5ENbwSwF7HawryNoUEKjAuILAw+Y1UAF2BeDHCw/gCkIqCCmARKnAXAW318DpvpFGQrvs+uLXrIRhhXb0Z2e+mW8kTMYYlUoqlICQSgJCKgkIqSQgpJKAkEoCQiovA6HZMBh+GBll3qOau9sGn6RRefz3+OnUF8X0zUECEGhY5jD4FiAY1W5DIURkFYPrGmBYXAwy/PAVAiOWqynTgYj7XuPeD/6Ov4X5vll3LQhAnENuxaLoem2OG305XznHuCtvsHhea8COfgkI3WUgyi+g2B+ojsgaX1kDUgQVCwal5gM2+qXWguFb0UaUeVBw/X/WlNmZXTDqkrXj2TEFBKY+e6ZSeVV5I9etKK+COh+h3D08X8PoObQ7glGW8JBcrDpC+z3u30eGDt6P8lCLBspU+NC23WLM7H/JG+mlMEax3A7Vv0KbxRDplPm8khpg1CmMs5U84K4rD0A4Zplp5Hd/IPxWgRqEUtDWlnfkPIcY8RH1A4d2jDSlM2gqGPZBIsZSDL3HDaasQoay1MRAxL2l2H6MOQ+N+Zg2ChmXn0nWWa54LBs9jpsxvjOYPzonsDSoMf8C8oe+UcMbqOSWjcAK9Qpr9dLjZgaDs1FG4vFTNoynhnOIbvXw3NKOixzfMMY7fJ9yP/FgRwmXtDGRqOJl5jDekwUj+RigCnVTeuriNn6GfzzNYe4J6juAg+lkLmDUyoFlrkL0sc9QQP4zZK/RcOoVEMSw7AWVpQIoH2/NXtEiP8P72Smc3pqIGkLkuClNAIVT8hqyXxphvYj63SlnPPbUQ2x8ARxHDzZi4fpSRiEfsf1XgUYcsFh+htpScpJbSO7wfeK74PJEPuqQqlge1XcCFAYj62TXq2QRxuIH34vSP7Nicf0Kz/ubs/NYWGhDi97zeHeg2kBBZ6NHho2SO/u65TXguuNMP4DAid1xCGegBv9vCdmhj8wt65RnUpOBi2S3YfeDe5DPZCFVAKZNUqn2bP1JFkldRdGgiIya2S3asHzLtBAZXQtnX4RO6fsQe7RL3MSw5I3GHkl+mzpFE9NMBeqZNRLQqmUHUksYGSTGcbuPEpUs5smQ8dGFrxPhfY52J4Dc7zr4uZchJ6DW45Ue5AjHzUmMmIuCFxImJxLapwBJFc4PjMqhYJb72ZFL3JsaOOSQikwk82kHo/O874WKMrslNIYTt2/xLsS07esdN/jzDW2+bw7NOIG2PWiqgmzmElPjgfhk6jTFwNGKauDS/YsILSGW5OWNx/wcieXStm9u5zoTzZpRjQ/fnA/wewaDPbNn1milMWZ8XlCLOEjwAKravZDfkM0N5nQ+FVGeMqJnPUF+7FeGteQAEUD6Z2+BUIliVhe8r+hBPHsqQFg3t5ldh0lNgLFjY5yt3XUYxSG9quUbjZPClrU0c5Hzej393JRjjhKyVZ1H4+po3RryTIUF1vMsVOfoalhe9W3XMIhCuibPr8qfLBJn1LytPIBTM3v0q+RwqMVQL0WGOKFzNGRjMUeaURT2H0NO2AGsuD1KOAUEdZBYoxsbdXzbl2iohYAwbG+j5+hhsljf7y/4FJG9QbZ8u3AYo2jrQ3nLeQNn9Znw7UVhIMHrxgIGHnvtMnWXMIpBDnyaCcBpmUdFW1huG/u6jHEIp4nxUbN4foRAbc6/g+wba7pCO+couacJTobd7xT9oobfPj3msG89ntQJBr761X69O1n8rVE+LJl6fBK6T78/9BUI598vVN9OCl+tq/QfSqkkIKQSyn8CDABOsegSyJUEigAAAABJRU5ErkJggg==" />
+##                                    Source indexing and code traceability
+##                                </a>
+##                            </li>
+##                            <li>
+##                                <a href="#" class="appswitch-option">
+##                                    <img width="130" height="26" title="" alt="Bamboo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIIAAAAaCAYAAAB7NoTTAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUNBMTczQTA4N0UzMTFFMTk1NERGRDYxODFBQkZFMjYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6REYyNjE4MzQ4N0UzMTFFMTk1NERGRDYxODFBQkZFMjYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5Q0ExNzM5RTg3RTMxMUUxOTU0REZENjE4MUFCRkUyNiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5Q0ExNzM5Rjg3RTMxMUUxOTU0REZENjE4MUFCRkUyNiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pt/ceRoAAAVfSURBVHja7FnNeds4EAX2yz3qwNwKws8qwFQFliuQfZCvliuwVUGkq3OwXIGVCiQX4ETugKkg3AYW+x4wIIeilP1298seGMBxQIAgfmbevJmBrXPOpJKKTUBIJQEhlQSEVBIQUjkEBN34bXidOeMq9/qpSqLplj4bTQsI9nQ6NtY+o7PEkXc4+htAce8B4gCQL782QPoMhHcKBAOA4JzIACtk1liwgxmY0N5Yi57h9cWfrw+7PRa5RDXBGKDKcqxCmX1BtcA3PxVA2MN3E/a6xVqjxF3/EggAQQZFb4D4zAUkeK6AIudQfs5+tqHkrxh7C2ZY1FYC0KAqPAjEYggaKQV+T/B79ZPPMeDaat1U/qkxielSYZUon3UFwa5gXVv2Q8Bbb+nOLDgGFlgoq28YwNoVmnOMXXA8lYOf4n/xcdaaFPj+B0aAhedQ5iMUNkf9GcJciyWvOABgKFGNoPyxs+4OY3J5t22cJ/5ZD5QnsMVW6HombiKT9hjtm+g+Qm1KwGhJd2OH08zvA7EIlPqEMefePVG51uz83kJfLkyEb+0t3U6cD99lZjhFjGOjSyvx322MbejG0DdRe2D/UgAfADWc3qP/LM6JUsqYXb+BYO1EFHaH+gpC44E7h8Y7CutRmGEc6d63rbLKIPBB03alTEElFppF5LMxhP97iElq9hjXc4fxBZ5nGkQyxxtjENWfocpM10NcYY2PqGf1vOL+8Mz1LxAUr2EUG1mriXec7PF0Ojoklz65hrFpBLs+GjGHlHJJJoCCd7TwqNT4Q8Gh/xn1d6XEJ4m4adErMg/ezClUcR0ETa6s2lO8t1bXFjxT2z1lnGkXJaDkGeieKht83ViGzKSuPHjgxpQruQEYcvRFoFbCkGuZnIH0Ta8ZgQemcByV8Tf3BxDMToTP9LKM1qXjBAh3ILFGfHfi+798WreAdjot8fKxUWKtbFZzUPG9xCIbCQTpjrwrQADr6rVUWsdYBu8vhJXOJIgdYK2iYSHL2OdWxjAQ9gDgXHRvMm7JtNmFQNpJX9b3rGFSU/bweiUxwbEyoXBFWctaia7lHpZov0Co3p/j+RICXwoo7hRQBjrV9BBw9RxbpyhcsoFvnTTUNrXOWkwbVK1sAmP+UEMqcV/tMaY7jzX9zkjeCXUXcmDeCdz/KE2LzHAseEK/t3xQLefL43f4hj46PypcV8cUjYULq7j9m6+WO1DsY9vM0mKq2LZdoOgFNKh1NuKD4T6njxIE+mCQvpFRc0vYw+lXxgNyabOjn9cZQ8zf9y0G7ffR58v8uQiWABox4u+kf3uWHgNRu2elXjHOHVW6dA6Usiv1/kSNyQQElWYZ7r2+ZJO99Z4R4AtLpFwjCOQGQvsoadYH+lqAYCZW/CxGM4s+tpO/Bzlt8O2hdSqVYjKqn8QMQUfnYa4GCMeEr8C1p3uTY/2NMFdkn11IT6+hbB9TXDJV9WMkw8A625jdyJozptV4jOlrjI/6faEEMDATePPID4otfQrozJ1O9cgaElx2FGNDLlbTurpQWnlFhGAvupdLpnrRr0fK3vfV9TymS8ttFoi14w1jEbMQUWzc761SdOHvI+IFGrMMGASeF2qJwu8x7Kc8dO5e/q1BovQ1DvzMgM+nW9YMFP2vIayLA3Os92i1sWakciqWoCIItnOs8SKuiBE7g8adMMNc2CEGrPx2LmyxVq4Ac4XvxFdcGV4mGfMe0+Ri3d948RWDX/f6sAITMGUdY64Pkka+YU6cK4wh00EGnz2YbMyOHO8qViGjeugtEH7o+JheSSBJwQ3oLn7la9he/xk63c+nkoCQSgJCKgkIqSQgpHKs/CXAADnEEo4o1zksAAAAAElFTkSuQmCC" />
+##                                    Build plans
+##                                </a>
+##                            </li>
+##                            <li>
+##                                <a href="#" class="appswitch-option">
+##                                    <img width="130" height="26" title="" alt="HipChat" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIIAAAAaCAYAAAB7NoTTAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6REYyNjE4Mzc4N0UzMTFFMTk1NERGRDYxODFBQkZFMjYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6REYyNjE4Mzg4N0UzMTFFMTk1NERGRDYxODFBQkZFMjYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpERjI2MTgzNTg3RTMxMUUxOTU0REZENjE4MUFCRkUyNiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpERjI2MTgzNjg3RTMxMUUxOTU0REZENjE4MUFCRkUyNiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1w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" />
+##                                    Chat services
+##                                </a>
+##                            </li>
+                        </ul>
+                    </div>
+                    #set ($adminLinks = $webInterfaceManager.getDisplayableItems("system.top.navigation.admin.link", $currentUser, $jiraHelperNoProject))
+                    #if (!$adminLinks.empty)
+                        <div class="aui-dropdown2-section">
+                            <strong>Administration</strong>
+                            <ul class="aui-list-truncate">
+                                #foreach($item in $adminLinks)
+                                    <li#if($item.styleClass) class="$item.styleClass"#end><a #if($item.link.id)id="$item.link.id"#end#if($item.tooltip) title="$item.tooltip.getDisplayableLabel($currentUser, $jiraHelperNoProject)"#end href="$item.link.getDisplayableUrl($currentUser, $jiraHelperNoProject)">$item.label.getDisplayableLabel($currentUser, $jiraHelperNoProject)</a></li>
+                                #end
+                            </ul>
+                        </div>
+                    #end
+                </nav>
+            </li>
+        </ul>
+
+        ## NEW
+        ## This template requires the com.atlassian.jira.web.component.webfragment.SystemNavContextLayoutBean to be passed
+        $utilTimerStack.push("Rendering Top Navigation Bar")
+        #set ($user = $authcontext.getLoggedInUser())
+        #set ($helper = $jiraHelperWithProject)
+        #set ($location = "system.top.navigation.bar")
+
+        #set ($mainHeaderLinks = $linkManager.getLinksForSection($location, $user, $helper))
+        #if (!$mainHeaderLinks.isEmpty())
+            #if ($inAdminMode)
+                #set ($hidden = " hidden")
+            #else
+                #set ($hidden = "")
+            #end
+            <ul class="aui-nav aui-style-blocks${hidden}" role="menu">
+                #foreach ($headerLink in $mainHeaderLinks)
+                    #set ($shouldBeLazy = $linkManager.shouldLocationBeLazy($headerLink.id, $user, $helper))
+                    #if($systemNavLayout.selectedSection && $systemNavLayout.selectedSection == $headerLink.id)
+                        #set ($selected = " current")
+                    #else
+                        #set ($selected = "")
+                    #end
+                    <li>
+                        #if ($shouldBeLazy)
+                            <a class="aui-nav-link aui-dropdown2-trigger aui-dropdown2-trigger-arrow aui-dropdown2-ajax$selected"
+                                href="$headerLink.url"
+                                aria-haspopup="true"
+                                aria-owns="${headerLink.id}-content"
+                                id="$headerLink.id"
+                                #if ($headerLink.accessKey) accessKey="$headerLink.accessKey"#end
+                                #if ($headerLink.title) title="$headerLink.title"#end>$headerLink.label</a>
+                            <nav id="${headerLink.id}-content" class="aui-dropdown2 aui-style-header" data-aui-dropdown2-ajax-key="${headerLink.id}"></nav>
+                        #else
+                            #set ($dropdownSections = $linkManager.getSectionsForLocation($headerLink.id, $user, $helper))
+                            #if ($dropdownSections.isEmpty())
+                                <a class="aui-nav-link$selected"
+                                   href="$headerLink.url"
+                                    #if ($headerLink.id) id="$headerLink.id"#end
+                                    #if ($headerLink.accessKey) accessKey="$headerLink.accessKey"#end
+                                    #if ($headerLink.title) title="$headerLink.title"#end>$headerLink.label</a>
+                            #else
+                                <a class="aui-nav-link aui-dropdown2-trigger aui-dropdown2-trigger-arrow$selected"
+                                   href="$headerLink.url"
+                                   aria-haspopup="true"
+                                   aria-owns="${headerLink.id}-content"
+                                   id="$headerLink.id"
+                                    #if ($headerLink.accessKey) accessKey="$headerLink.accessKey"#end
+                                    #if ($headerLink.title) title="$headerLink.title"#end>$headerLink.label</a>
+                                <nav id="${headerLink.id}-content" class="aui-dropdown2">
+                                    #foreach ($section in $dropdownSections)
+                                        <div class="aui-dropdown2-section">
+                                            #set ($sectionKey = "$headerLink.id/$section.id")
+                                            #set ($dropdownLinks = $linkManager.getLinksForSection($sectionKey, $user, $helper))
+                                            #if ($section.label) <strong>$section.label</strong> #end
+                                            <ul id="$section.id" class="aui-list-truncate #if($section.styleClass)$section.styleClass#end">
+                                                #foreach ($dropdownLink in $dropdownLinks)
+                                                    <li>
+                                                        <a #if ($dropdownLink.id) id="$dropdownLink.id" #end
+                                                                                  class="#if ($dropdownLink.styleClass) $dropdownLink.styleClass #end #if ($dropdownLink.iconUrl) aui-icon-container #end"
+                                                            #if ($dropdownLink.iconUrl) style="background-image:url('$dropdownLink.iconUrl')" #end
+                                                                                  #if ($dropdownLink.title)title="$dropdownLink.title"#end
+                                                                                  href="$dropdownLink.url">$dropdownLink.label asdww</a>
+                                                    </li>
+                                                #end
+                                            </ul>
+                                        </div>
+                                    #end
+                                </nav>
+                            #end
+                        #end
+                    </li>
+                #end
+            </ul>
+        #end
+        $utilTimerStack.pop("Rendering Top Navigation Bar")
+
+        #if ($inAdminMode)
+            $utilTimerStack.push("Rendering Admin Top Navigation Bar")
+            ## This template requires the com.atlassian.jira.web.component.webfragment.SystemNavContextLayoutBean to be passed
+            #set ($user = $authcontext.getLoggedInUser())
+            #set ($helper = $jiraHelperWithProject)
+            #set ($location = "system.admin.top.navigation.bar")
+
+            #set ($adminHeaderSections = $linkManager.getNotEmptySectionsForLocation($location, $user, $helper))
+            #set ($adminHeaderLinks = $linkManager.getLinksForSection($location, $user, $helper))
+            #if (!$adminHeaderLinks.isEmpty() || $adminHeaderLinks.isEmpty())
+                ## Default to the summary if no matching top menu can be found.
+                #set($selectedLayoutSection = "admin_summary")
+                #foreach($headerSection in $adminHeaderSections)
+                    #if($systemNavLayout.selectedSection && $systemNavLayout.selectedSection == $headerSection.id)
+                        #set($selectedLayoutSection = $headerSection.id)
+                    #end
+                #end
+                <ul class="aui-nav aui-style-blocks" role="menu">
+                    #foreach ($headerLink in $adminHeaderLinks)
+                        #if($selectedLayoutSection == $headerLink.id)
+                            #set ($selectedAdminLink = " current")
+                        #else
+                            #set ($selectedAdminLink = "")
+                        #end
+                        <li>
+                            <a #if ($headerLink.id) id="$headerLink.id" #end
+                                class="aui-nav-link${selectedAdminLink} #if ($headerLink.styleClass) $headerLink.styleClass #end #if ($headerLink.iconUrl) aui-icon-container #end"
+                                #if ($headerLink.iconUrl) style="background-image:url('$headerLink.iconUrl')" #end
+                                #if ($headerLink.title)title="$textutils.htmlEncode($headerLink.title)" #end
+                                href="$headerLink.url">$textutils.htmlEncode($headerLink.label)</a>
+                        </li>
+                    #end
+                    #foreach ($headerSection in $adminHeaderSections)
+                        #if($selectedLayoutSection == $headerSection.id)
+                            #set ($selectedAdminLink = " current")
+                        #else
+                            #set ($selectedAdminLink = "")
+                        #end
+                        <li>
+                            #set ($dropdownSections = $linkManager.getNotEmptySectionsForLocation($headerSection.id, $user, $helper))
+                            #if ($dropdownSections.isEmpty())
+                                <a class="aui-nav-link"
+                                    href="#"
+                                    #if ($headerSection.id) id="$headerSection.id"#end
+                                    #if ($headerSection.title) title="$headerSection.title"#end>$headerSection.label</a>
+                            #else
+                                <a class="aui-nav-link aui-dropdown2-trigger aui-dropdown2-trigger-arrow$selectedAdminLink"
+                                    href="#"
+                                    aria-haspopup="true"
+                                    aria-owns="${headerSection.id}-content"
+                                    id="$headerSection.id"
+                                    #if ($headerSection.title) title="$headerSection.title"#end>$headerSection.label</a>
+                                <nav id="${headerSection.id}-content" class="aui-dropdown2 aui-style-header">
+                                    #foreach ($section in $dropdownSections)
+                                        #set ($sectionKey = "$headerSection.id/$section.id")
+                                        #set ($dropdownLinks = $linkManager.getLinksForSection($sectionKey, $user, $helper))
+                                        #set ($innerDropdownSections = $linkManager.getSectionsForLocation($section.id, $user, $helper))
+
+                                        <div class="aui-dropdown2-section">
+                                        #if ($section.label) <strong>$section.label</strong> #end
+                                            <ul id="$section.id" class="aui-list-truncate #if($section.styleClass)$section.styleClass#end">
+                                                #foreach ($dropdownLink in $dropdownLinks)
+                                                    <li>
+                                                        <a #if ($dropdownLink.id) id="$dropdownLink.id" #end
+                                                            class="#if($dropdownLink.styleClass) $dropdownLink.styleClass #end #if($dropdownLink.iconUrl) aui-icon-container #end"
+                                                            #if ($dropdownLink.iconUrl) style="background-image:url('$dropdownLink.iconUrl')" #end
+                                                            #if ($dropdownLink.title) title="$textutils.htmlEncode($dropdownLink.title)"#end
+                                                            href="$dropdownLink.url">$textutils.htmlEncode($dropdownLink.label)</a>
+                                                    </li>
+                                                #end
+                                                #foreach ($innerSection in $innerDropdownSections)
+                                                    #set ($sectionKeyInner = "$section.id/$innerSection.id")
+                                                    #set ($dropdownLinksInner = $linkManager.getLinksForSection($sectionKeyInner, $user, $helper))
+                                                    #foreach ($dropdownLinkInner in $dropdownLinksInner)
+                                                        <li#if($velocityCount != 1) class="hidden"#end>
+                                                            <a #if ($dropdownLinkInner.id) id="$dropdownLinkInner.id" #end
+                                                                class="#if($dropdownLinkInner.styleClass) $dropdownLinkInner.styleClass #end #if($dropdownLinkInner.iconUrl) aui-icon-container #end"
+                                                                #if ($dropdownLinkInner.iconUrl) style="background-image:url('$dropdownLinkInner.iconUrl')" #end
+                                                                #if ($dropdownLinkInner.title) title="$textutils.htmlEncode($dropdownLinkInner.title)"#end
+                                                                href="$dropdownLinkInner.url">
+                                                                #if($velocityCount == 1)
+                                                                    $textutils.htmlEncode($innerSection.label)
+                                                                #else
+                                                                    $textutils.htmlEncode($dropdownLinkInner.label)
+                                                                #end
+                                                            </a>
+                                                        </li>
+                                                    #end
+                                                #end
+                                            </ul>
+                                        </div>
+                                    #end
+                                </nav>
+                            #end
+                        </li>
+                    #end
+                </ul>
+            #end
+            $utilTimerStack.pop("Rendering Admin Top Navigation Bar")
+        #end
+
+
+        #if (!$inAdminMode && $canCreateIssue)
+            <ul class="aui-nav aui-style-blocks" role="menu">
+                <li>
+                    <a href="$baseurl/secure/CreateIssue!default.jspa" class="aui-button2 aui-style-hero" title="$i18n.getText('tooltip.createnewissue')" accesskey="$i18n.getText('alt.text.createnewissue.accessKey')">$i18n.getText('alt.text.createnewissue')</a>
+                </li>
+            </ul>
+        #end
+
+        $utilTimerStack.push("Rendering User Navigation Bar")
+        #set ($user = $authcontext.getLoggedInUser())
+        #set ($helper = $jiraHelperNoProject)
+        #set ($location = "system.user.options")
+        #set ($displayableSections = $webInterfaceManager.getDisplayableSections($location, $user, $jiraHelperNoProject))
+        <ul class="aui-nav aui-style-blocks aui-align-right" role="menu">
+##            #if ($inAdminMode)
+##                <li><div id="admin-quicksearch"><div id="header-administration-suggestions" class="aui-list"></div></div></li>
+##            #elseif ($hasAnyProjects)
+                <li>
+                    <form action="${baseurl}/secure/QuickSearch.jspa" method="post" class="dont-default-focus">
+                        <input id="quickSearchInput" class="text app-search" type="text" title="$i18n.getText('alt.text.quicksearch')" placeholder="$i18n.getText('alt.text.quicksearch')" name="searchString" accessKey="$i18n.getText('alt.text.quicksearch.accessKey')" />
+##                            <label for="quickSearchInput" class="overlabel">$i18n.getText('alt.text.quicksearch')</label>
+##                            <input type="submit" class="hidden" value="$i18n.getText('common.concepts.search')" />
+                    </form>
+                </li>
+##            #end
+            <li>
+                #if ($user)
+                    #set ($avatarsize = "LARGE")
+                    #set ($name = "#if($user.displayName)$user.displayName#else$user.name#end")
+                    <a class="aui-nav-imagelink aui-dropdown2-trigger aui-dropdown2-trigger-arrow" aria-haspopup="true" aria-owns="user-options-content" data-username="$textutils.htmlEncode($user.name)" href="$baseurl/secure/ViewProfile.jspa"><img src="$avatars.getUrl($user, $avatarsize)" alt="$textutils.htmlEncode($name)"  height="24" width="24" class="aui-rounded" alt="$textutils.htmlEncode($user.name)" /></a>
+                #else
+                    <a class="aui-nav-link" href="$userNavLayout.getLoginLink()">$i18n.getText('common.concepts.login')</a>
+                #end
+                <nav id="user-options-content" class="aui-dropdown2 aui-style-header">
+                    #foreach ($section in $displayableSections)
+                        <div class="aui-dropdown2-section">
+                            #if ($section.label)
+                                <strong>$section.label.getDisplayableLabel($user, $helper)</strong>
+                            #end
+                            #set ($sectionKey = "$location/$section.key")
+                            #set ($displayableItems = $webInterfaceManager.getDisplayableItems($sectionKey, $user, $helper))
+                            #if (!$displayableItems.empty)
+                                <ul id="$section.key" class="aui-list-truncate">
+                                #foreach ($item in $displayableItems)
+                                    #if ($section.key == "set_my_jira_home")
+                                        #set ($sectionContextProvider = $section.getContextProvider())
+                                        #set ($sectionContextMap = $sectionContextProvider.getContextMap({"user": $user, "helper": $helper}))
+                                        #set ($currentMyJiraHome = $sectionContextMap.get("currentMyJiraHome"))
+                                        #set ($isSelected = $item.completeKey == $currentMyJiraHome)
+
+                                        #set ($targetUrl = "$baseurl/secure/UpdateMyJiraHome.jspa?target=$velocityhelper.urlencode($item.completeKey)&atl_token=${atl_token}")
+                                        <li><a #if ($item.link.id) id="$item.link.id" #end class="aui-dropdown2-radio interactive #if($isSelected)checked #end #if($item.styleClass) $item.styleClass #end" #if ($item.tooltip)title="$item.tooltip.getDisplayableLabel($user, $helper)"#end href="$targetUrl">$item.label.getDisplayableLabel($user, $helper)</a></li>
+                                    #else
+                                        <li><a #if ($item.link.id) id="$item.link.id" #end #if ($item.styleClass) class="$item.styleClass" #end #if ($item.tooltip)title="$item.tooltip.getDisplayableLabel($user, $helper)"#end href="$item.link.getDisplayableUrl($user, $helper)">$item.label.getDisplayableLabel($user, $helper)</a></li>
+                                    #end
+                                #end
+                                </ul>
+                            #end
+                        </div>
+                    #end
+                </nav>
+            </li>
+        </ul>
+        $utilTimerStack.pop("Rendering User Navigation Bar")
+    </div>
+</nav>

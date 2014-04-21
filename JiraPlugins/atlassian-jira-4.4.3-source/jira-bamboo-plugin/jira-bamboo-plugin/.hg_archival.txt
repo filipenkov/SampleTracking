@@ -1,0 +1,4 @@
+repo: f8d447c8934e0adcd5df6972d47c868a60373608
+node: 2bb92e67441ee4a96809a0db97d96d4302289403
+branch: default
+tag: jira-bamboo-plugin-4.3.2

@@ -1,0 +1,19 @@
+#parse("templates/email/html/includes/emailconstants.vm")
+#parse("templates/email/html/includes/header.vm")
+<tr valign="top">
+    <td id="email-banner" style="padding:32px 32px 0 32px;">
+
+        #if ($changelogauthor)
+            #set ($changelogauthorLink = "#authorlink2($changelogauthor.name $linkstyle)")
+        #else
+            #set ($changelogauthorLink = "#authorlink2($remoteUser.name $linkstyle)")
+        #end
+
+        #set ($issueType = $issue.getIssueTypeObject())
+
+        #set ($issueKey = "#renderIcon(${issueType.iconUrlHtml} ${issueType.getNameTranslation($i18n)}) $issue.getKey()")
+
+        #emailbanner($remoteUser "email.event.activity.deleted" $changelogauthorLink $issueKey "")
+    </td>
+</tr>
+#parse("templates/email/html/includes/footer.vm")

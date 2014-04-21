@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+#* @vtlvariable name="configured" type="java.lang.Boolean" *#
+#* @vtlvariable name="conflicted" type="java.lang.Boolean" *#
+#* @vtlvariable name="conflicts" type="java.util.List<com.atlassian.applinks.api.ApplicationLink>" *#
+#macro (listConflicts $textKey)
+    #if ($conflicted)
+    <div class="aui-message warning">
+        <p class="title">
+            <span class="aui-icon icon-warning"></span>
+            <strong>${i18n.getText("auth.cors.config.mismatch")}</strong>
+        </p>
+        <p>${i18n.getText($textKey)}</p>
+        <ul>
+            #foreach ($conflict in $conflicts)
+            <li><p>$conflict.name ($conflict.type)</p></li>
+            #end
+        </ul>
+    </div>
+    #end
+#end
+#parse("/common/_help_link.vm")
+#parse("/common/_configured_status.vm")
+#parse("/common/_xsrf_token_element.vm")
+<html>
+<head>
+    ${webResources.get()}
+    ## The pane made visible on page load:
+    <meta name="view" content="#if($configured)enabled#{else}disabled#end">
+    ## The pane that will be activated by the Cancel button:
+    <meta name="cancel" content="#if($configured)enabled#{else}disabled#end">
+</head>
+<body class="auth-config">
+## The pane that is rendered when auth is disabled.
+    <div class="auth-cors-view">
+    <form id="auth-cors-access" class="aui" method="POST">
+        #status($configured)
+        #xsrfTokenElement()
+        #if ($configured)
+        <div>
+            #listConflicts('auth.cors.config.blocked')
+            ${i18n.getText("auth.cors.config.enabled", $remoteApplicationName, $remoteApplicationType)}
+            #help('applinks.docs.configuring.auth.cors')
+        </div>
+        <div class="buttons-container">
+            <div class="buttons">
+                <input type="hidden" name="method" value="DELETE" />## forms don't support DELETE
+                <input type="submit" id="auth-cors-disable" value="${i18n.getText("auth.cors.config.button.disable")}" class="button" />
+            </div>
+        </div>
+        #else
+        <div>
+            #listConflicts('auth.cors.config.blocking')
+            ${i18n.getText("auth.cors.config.disabled", $remoteApplicationName, $remoteApplicationType)}
+            #help('applinks.docs.configuring.auth.cors')
+        </div>
+        <div class="buttons-container">
+            <div class="buttons">
+                <input type="hidden" name="method" value="PUT">## PUT doesn't support www-form-encoded content
+                <input type="submit" id="auth-cors-enable" value="${i18n.getText("auth.cors.config.button.enable")}" class="button" />
+            </div>
+        </div>
+        #end
+    </form>
+</div>
+</body>
+</html>

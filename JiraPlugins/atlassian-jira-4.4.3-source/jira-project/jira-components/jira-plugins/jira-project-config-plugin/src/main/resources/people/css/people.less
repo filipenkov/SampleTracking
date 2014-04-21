@@ -1,0 +1,61 @@
+#project-config-people-table {
+    
+    .project-config-list {
+        overflow: hidden;
+        li {
+            border: 0;
+            padding-top:0;
+            padding-bottom:0;
+            margin-bottom: 4px;
+
+            float: left;
+            > span {
+                white-space: nowrap;
+            }
+        }
+    }
+
+    .project-config-role-name {
+        width:1%;
+        padding-right:20px;
+        white-space:nowrap;
+    }
+
+    .project-config-role-users {
+        min-width: 280px;
+    }
+
+    .project-config-role-groups {
+        width: 280px;
+    }
+
+    .project-config-avatar {
+        margin-right:5px;
+    }
+
+
+    /* override multiselect widths to be the size of cells */
+    .multi-select {
+        width: 280px;
+        min-width: 280px;
+    }
+
+}
+
+.msie-7 {
+    #project-config-people-table {
+        .project-config-list {
+            li {
+                > span {
+                    position: relative;
+                    > span {
+                        left: 0;
+                        margin: 0;
+                        position: absolute;
+                        top: 0;
+                    }
+                }
+            }
+        }
+    }
+}

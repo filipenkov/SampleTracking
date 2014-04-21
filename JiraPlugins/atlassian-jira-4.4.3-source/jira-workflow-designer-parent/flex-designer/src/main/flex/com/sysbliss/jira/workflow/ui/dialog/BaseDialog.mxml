@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MDIWindow xmlns="flexlib.mdi.containers.*"
+		xmlns:mx="http://www.adobe.com/2006/mxml"
+		resizable="false"
+        showCloseButton="false"
+        showControls="false"
+		close="{doCancel(event);}"
+		creationComplete="init();">
+	<mx:Script>
+		<![CDATA[
+        import com.sysbliss.diagram.util.CursorUtil;
+
+        import mx.resources.ResourceManager;
+			import mx.resources.IResourceManager;
+			import mx.logging.ILogger;
+			import com.sysbliss.jira.workflow.utils.MDIDialogUtils;
+			
+			protected var _childrenReady:Boolean = false;
+			protected var _cursorLinkFlag:Boolean = false;
+
+			private function init():void {
+
+			}
+
+			protected function enterKeyHandler(event:KeyboardEvent):void {
+				super.keyDownHandler(event);
+				if(event.keyCode == Keyboard.ENTER){
+					onEnterKey();
+				} else if(event.keyCode == Keyboard.ESCAPE) {
+                    doCancel(null);
+                }
+			}
+			
+			override public function updateContextMenu():void {
+				contextMenu = new ContextMenu();
+			}
+			
+			public function onEnterKey():void {
+				doOk(null);
+			}
+			
+			public function doCancel(e:Event):void {
+				clear();
+				removeMe();
+			}
+			
+			public function doOk(e:Event):void {
+				//do nothing, should be overridden
+			}
+			
+			public function doSave(e:Event):void {
+				//do nothing, should be overridden
+			}
+			
+			public function doDelete(e:Event):void {
+				//do nothing, should be overridden
+			}
+			
+			public function clear():void {
+				//do nothing
+			}
+
+            public function onShowDialog():void {
+                if(stage) {
+                    stage.addEventListener(KeyboardEvent.KEY_DOWN,enterKeyHandler);
+                }
+
+                _cursorLinkFlag = CursorUtil.linkAsPointer;
+                CursorUtil.linkAsPointer = false;
+                CursorUtil.forcePointer();
+            }
+
+			protected function removeMe():void {
+                if(stage) {
+                    stage.removeEventListener(KeyboardEvent.KEY_DOWN,enterKeyHandler);
+                }
+                CursorUtil.linkAsPointer = _cursorLinkFlag;
+                CursorUtil.showPointer();
+                MDIDialogUtils.removeModalDialog(this);
+	        }
+	        
+	        override protected function childrenCreated():void {
+	        	_childrenReady = true;
+	        }
+		]]>
+	</mx:Script>
+	
+</MDIWindow>

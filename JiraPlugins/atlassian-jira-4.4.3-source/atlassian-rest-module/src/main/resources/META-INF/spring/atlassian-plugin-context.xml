@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/osgi"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd
+                                 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <service interface="com.atlassian.plugin.osgi.external.ListableModuleDescriptorFactory">
+        <beans:bean class="com.atlassian.plugins.rest.module.RestModuleDescriptorFactory">
+            <beans:constructor-arg>
+                <beans:bean class="com.atlassian.plugin.osgi.bridge.external.SpringHostContainer"/>
+            </beans:constructor-arg>
+            <beans:constructor-arg>
+                <reference interface="com.atlassian.plugin.module.ModuleFactory"/>
+            </beans:constructor-arg>
+            <beans:constructor-arg ref="restServletModuleManager"/>
+            <beans:constructor-arg value="/rest"/>
+        </beans:bean>
+    </service>
+
+    <beans:bean id="restUriBuilder"
+                class="com.atlassian.plugins.rest.module.util.RestUrlBuilderImpl">
+    </beans:bean>
+
+    <beans:bean id="restServletModuleManager"
+                class="com.atlassian.plugins.rest.module.servlet.DefaultRestServletModuleManager">
+        <beans:constructor-arg ref="pluginEventManager"/>
+        <!-- imported in atlassian-plugin.xml -->
+        <beans:constructor-arg value="/rest"/>
+    </beans:bean>
+
+    <service interface="com.sun.jersey.spi.container.ResourceFilterFactory">
+        <service-properties>
+            <beans:entry key="plugin" value="com.atlassian.plugins.rest"/>
+        </service-properties>
+        <beans:bean class="com.atlassian.plugins.rest.common.security.jersey.AuthenticatedResourceFilterFactory">
+            <beans:constructor-arg ref="authenticationContext"/>
+        </beans:bean>
+    </service>
+
+    <service interface="com.sun.jersey.spi.container.ResourceFilterFactory">
+        <service-properties>
+            <beans:entry key="plugin" value="com.atlassian.plugins.rest"/>
+        </service-properties>
+        <beans:bean class="com.atlassian.plugins.rest.common.sal.websudo.WebSudoResourceFilterFactory">
+            <beans:constructor-arg ref="webSudoResourceContext"/>
+        </beans:bean>
+    </service>
+
+    <service interface="com.sun.jersey.spi.container.ResourceFilterFactory">
+        <service-properties>
+            <beans:entry key="plugin" value="com.atlassian.plugins.rest"/>
+        </service-properties>
+        <beans:bean class="com.atlassian.plugins.rest.common.security.jersey.XsrfResourceFilterFactory"/>
+    </service>
+
+    <service interface="com.atlassian.plugins.rest.common.util.RestUrlBuilder"
+             ref="restUriBuilder"
+             context-class-loader="service-provider">
+    </service>
+
+    <service interface="com.sun.jersey.spi.inject.InjectableProvider">
+        <service-properties>
+            <beans:entry key="plugin" value="com.atlassian.plugins.rest"/>
+        </service-properties>
+        <beans:bean class="com.atlassian.plugins.rest.common.security.jersey.AuthenticationContextInjectableProvider">
+            <beans:constructor-arg ref="authenticationContext"/>
+        </beans:bean>
+    </service>
+
+    <service interface="com.sun.jersey.spi.inject.InjectableProvider">
+        <service-properties>
+            <beans:entry key="plugin" value="com.atlassian.plugins.rest"/>
+        </service-properties>
+        <beans:bean class="com.atlassian.plugins.rest.common.multipart.jersey.MultipartHandlerInjectableProvider">
+            <beans:constructor-arg>
+                <beans:bean
+                        class="com.atlassian.plugins.rest.common.multipart.fileupload.CommonsFileUploadMultipartHandler">
+                    <beans:constructor-arg value="-1"/>
+                    <beans:constructor-arg value="-1"/>
+                </beans:bean>
+            </beans:constructor-arg>
+        </beans:bean>
+    </service>
+
+    <service interface="com.sun.jersey.spi.template.TemplateProcessor">
+        <service-properties>
+            <beans:entry key="plugin" value="com.atlassian.plugins.rest"/>
+        </service-properties>
+        <beans:bean class="com.atlassian.plugins.rest.module.template.VelocityTemplateProcessorServiceFactory"/>
+    </service>
+
+    <service interface="javax.ws.rs.ext.MessageBodyReader">
+        <service-properties>
+            <beans:entry key="plugin" value="com.atlassian.plugins.rest"/>
+        </service-properties>
+        <beans:bean class="com.atlassian.plugins.rest.common.multipart.jersey.MultipartFormMessageBodyReader"/>
+    </service>
+
+    <beans:bean id="authenticationContext" class="com.atlassian.plugins.rest.module.security.SalAuthenticationContext">
+        <beans:constructor-arg>
+            <reference interface="com.atlassian.sal.api.user.UserManager"/>
+        </beans:constructor-arg>
+    </beans:bean>
+
+    <beans:bean id="webSudoResourceContext" class="com.atlassian.plugins.rest.module.sal.websudo.SalWebSudoResourceContext">
+        <beans:constructor-arg>
+            <reference interface="com.atlassian.sal.api.websudo.WebSudoManager"/>
+        </beans:constructor-arg>
+    </beans:bean>
+
+    <!-- Need to use the service-provider class loader here since it knows about the jaxb classes. -->
+    <service interface="com.atlassian.plugins.rest.common.json.JaxbJsonMarshaller"
+             context-class-loader="service-provider">
+        <beans:bean class="com.atlassian.plugins.rest.common.json.DefaultJaxbJsonMarshaller"/>
+    </service>
+
+</beans:beans>

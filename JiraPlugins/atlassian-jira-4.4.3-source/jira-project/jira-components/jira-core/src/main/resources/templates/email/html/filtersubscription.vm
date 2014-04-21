@@ -1,0 +1,56 @@
+<html>
+<head>
+    $webResourceManager.requireResource('jira.webresources:global-static')
+    $webResourceManager.getRequiredResources($urlModeAbsolute)
+## We need the baseUrl, as SRUtils.getDescription (below) only produces relative URLs
+<base href="${baseHREF}">
+</head>
+<body style="color:#333;font-family: Arial, sans-serif;font-size: 14px;margin:0">
+#set ($navigatorUrl = "${baseurl}/secure/IssueNavigator.jspa?mode=hide&requestId=${subscription.getString('filterID')}")
+<div style="font-family: Arial, sans-serif;font-size: 14px;color:#333">
+<style type="text/css">
+	a, a:link, a:visited, a:hover, a:active {background:transparent;text-decoration:none;}
+	a:link,
+	a:visited {color:#3C78B5;}
+	a:hover, a:active {color:#036;}
+	a:hover {text-decoration:underline;}
+	th {border-bottom:1px solid #bbb;color:#999;font-weight:normal;text-align:left;}
+</style>
+<font size="2" color="black" face="Arial, Helvetica, sans-serif" style="font-family: Arial, sans-serif;font-size: 14px;color:#333">
+<table width="100%" cellspacing="0" cellpadding="4" border="0" style="font-family: Arial, sans-serif;font-size: 14px;color:#333">
+    <tr>
+        <td style="vertical-align:top">
+            <h1 style="border-bottom:1px solid #bbb;font-family: Arial, sans-serif;font-size: 22px;color:#333;margin-top:0">$i18n.getText("template.subscription.issue.sub")</h1>
+
+            <p style="font-family: Arial, sans-serif;font-size: 14px;color:#333;margin-top:0">
+
+                <b>#text("template.subscription.filter")</b>: <a href="${navigatorUrl}">$textutils.htmlEncode($searchRequest.getName(), false)</a>
+                #if (${actualIssueCount} == ${totalIssueCount})
+                    ($i18n.getText("template.subscription.filter.count", ${totalIssueCount}))<br/>
+                #else
+                    ($i18n.getText("template.subscription.filter.subcount", "${actualIssueCount}", "${totalIssueCount}"))<br/>
+                #end
+                #if (${searchRequest.getDescription()})
+                    $textutils.htmlEncode($searchRequest.getDescription(), false)<br/>
+                #end
+                <b>#text("template.subscription.subscriber")</b>: $textutils.htmlEncode($subscription.getString("username"), false)<br/>
+            </p>
+
+            $issueTableHtml
+
+        </td>
+	</tr>
+</table>
+
+#if (${actualIssueCount} != ${totalIssueCount})
+    <p style="font-family: Arial, sans-serif;font-size: 14px;color:#333;">$i18n.getText("template.subscription.filter.html.subset", "${actualIssueCount}", "${totalIssueCount}", "<a href='${navigatorUrl}'>", "</a>")</p>
+#end
+
+#if (${recipientIsAuthor})
+    #set ($subscriptionUrl = "${baseurl}/secure/FilterSubscription!default.jspa?subId=${subscription.getString('id')}&filterId=${subscription.getString('filterID')}")
+    <p style="font-family: Arial, sans-serif;font-size: 14px;color:#333;">$i18n.getText("template.subscription.filter.html.edit", "<a href='${subscriptionUrl}'>", "</a>")</p>
+#end
+
+#parse("templates/email/html/includes/footer.vm")
+</font>
+</div>

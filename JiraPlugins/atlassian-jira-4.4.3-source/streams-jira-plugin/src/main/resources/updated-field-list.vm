@@ -1,0 +1,14 @@
+#foreach ($commentHtml in $comment.iterator())
+<blockquote>$commentHtml</blockquote>
+#end
+<ul class="updates activity-list">
+#foreach ($fieldChangeHtml in $fieldChanges.iterator())
+  <li>$fieldChangeHtml</li>
+#end
+#if (!$attachments.isEmpty())
+  #set ( $attachmentsHtml = $attachmentsRenderer.apply($attachments) ) 
+  <li>$i18n.getText("streams.item.jira.attached.list", $attachments.size())
+  $attachmentsHtml
+  </li>
+#end
+</ul>

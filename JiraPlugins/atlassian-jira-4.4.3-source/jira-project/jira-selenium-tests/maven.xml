@@ -1,0 +1,80 @@
+<project default="java:jar" xmlns:j="jelly:core" xmlns:deploy="deploy" xmlns:ant="jelly:ant" xmlns:util="jelly:util" xmlns:m="jelly:maven">
+  <preGoal name="test:test">
+    <j:if test="${systemScope.getProperty('test.server.properties') != null}">
+        <j:set var="maven.junit.sysproperties">test.server.properties</j:set>
+    </j:if>
+  </preGoal>
+
+
+  <preGoal name="jira:ui-func-tests">
+      <j:if test="${systemScope.getProperty('jira.functest.containerproperties') != null}">
+          <j:set var="maven.junit.sysproperties" value="jira.functest.containerproperties"/>
+      </j:if>
+      <j:if test="${systemScope.getProperty('jira.functest.warlocation') != null}">
+          <j:set var="maven.junit.sysproperties" value="${maven.junit.sysproperties} jira.functest.warlocation"/>
+      </j:if>
+      <j:if test="${systemScope.getProperty('test.server.properties') != null}">
+          <j:set var="maven.junit.sysproperties" value="${maven.junit.sysproperties} test.server.properties"/>
+      </j:if>
+      <j:if test="${systemScope.getProperty('jira.functest.seleniumproperties') != null}">
+          <j:set var="maven.junit.sysproperties" value="${maven.junit.sysproperties} jira.functest.seleniumproperties"/>
+      </j:if>
+      <j:if test="${systemScope.getProperty('atlassian.test.suite.numbatches') != null}">
+          <j:set var="maven.junit.sysproperties" value="${maven.junit.sysproperties} atlassian.test.suite.numbatches"/>
+      </j:if>
+      <j:if test="${systemScope.getProperty('atlassian.test.suite.batch') != null}">
+          <j:set var="maven.junit.sysproperties" value="${maven.junit.sysproperties} atlassian.test.suite.batch"/>
+      </j:if>
+      <j:if test="${systemScope.getProperty('atlassian.test.run.only.quarantined') != null}">
+          <j:set var="maven.junit.sysproperties" value="${maven.junit.sysproperties} atlassian.test.run.only.quarantined"/>
+      </j:if>
+
+      <j:if test="${context.getVariable('http.port') != null &amp;&amp;
+                  context.getVariable('rmi.port') != null &amp;&amp;
+                  context.getVariable('selenium.port') != null &amp;&amp;
+                  context.getVariable('selenium.browser') != null }">
+          <j:choose>
+              <j:when test="${context.getVariable('selenium.browserpath') == null }">
+                 <j:set var="selenium.browserpath" value=""/>
+              </j:when>
+              <j:otherwise>
+                 <j:set var="selenium.browserpath" value="${context.getVariable('selenium.browserpath')}"/>
+              </j:otherwise>
+          </j:choose>
+          <copy todir="${maven.build.dir}/filtered-properties">
+              <fileset dir="${basedir}/src/etc/java/bamboo-config/head/parameterised-properties"/>
+              <filterset>
+                  <filter token="HTTP_PORT" value="${context.getVariable('http.port')}"/>
+                  <filter token="RMI_PORT" value="${context.getVariable('rmi.port')}"/>
+                  <filter token="SELENIUM_PORT" value="${context.getVariable('selenium.port')}"/>
+                  <filter token="BROWSER" value="${context.getVariable('selenium.browser')}"/>
+                  <filter token="BROWSER_PATH" value="${selenium.browserpath}"/>
+              </filterset>
+          </copy>
+
+      </j:if>
+  </preGoal>
+
+  <goal name="jira:ui-func-tests">
+      <j:set var="testcase" value="com.atlassian.jira.webtest.selenium.harness.SeleniumTestHarness" />
+      <attainGoal name="test:single" />
+  </goal>
+ 
+  <goal name="prepare-selenium-server-jars">
+      <mkdir dir="${basedir}/target/seleniumServerJars"/>
+      <j:forEach var="lib" items="${pom.dependencies}">
+          <j:if test="${lib.getProperty('required.selenium.server').equals('true')}">
+              <j:set var="dependent.projectId" value="${lib.projectId}"/>
+              <j:set var="temp" value="${lib.getGroupId()}"/>
+              <j:if test="${!empty(temp)}">
+                  <j:set var="dependent.projectId" value="${lib.getGroupId()}"/>
+              </j:if>
+              <copy preservelastmodified="true" todir="${basedir}/target/seleniumServerJars">
+                  <fileset dir="${maven.repo.local}/${dependent.projectId}/jars">
+                      <include name="${lib.artifact}"/>
+                  </fileset>
+              </copy>
+          </j:if>
+      </j:forEach>
+  </goal>
+</project>

@@ -1,0 +1,11 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ImporterSetupPage" *#
+#* @vtlvariable name="connectionBean" type="com.atlassian.jira.plugins.importer.web.JdbcConnection" *#
+
+#parse("/templates/admin/views/common/html-header.vm")
+
+#set ($auiparams = $map.build())
+#set ($auiparams.title = $action.formTitle)
+#set ($cancelURI = "ExternalImport1.jspa")
+#set ($auiparams.jiraformId = "jimform")
+
+#parse('/templates/standard/jiraformheader.vm')

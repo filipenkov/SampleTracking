@@ -1,0 +1,23 @@
+{namespace AG.templates.messages}
+
+/**
+ * @param message message text
+ */
+{template .info autoescape="false"}
+<div class="aui-message info">
+    <span class="aui-icon icon-info"></span> <p>{$message}</p>
+</div>
+{/template}
+
+/**
+* @param description
+* @param errors
+*/
+{template .invalidConfig}
+{$description}
+<ul>
+{foreach $error in $errors}
+    <li><strong>{$error|noAutoescape}</strong>
+{/foreach}
+</ul>
+{/template}

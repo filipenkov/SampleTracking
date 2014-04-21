@@ -1,0 +1,402 @@
+find conflicting sequence definitions
+-------------------------------------
+//add ctm_task_id below to find the tasks that define the names and sequences,
+//it's left out for now though as distinct acts on the whole output and so 
+//including task id's includes some sequences multiple times when 
+//more than one task id defines them
+SELECT distinct left(C.name,20), left(C.seq,40), ctm_task_id FROM
+(SELECT A.value AS name, B.value AS seq, A.ctm_task_id
+FROM (SELECT value, ctm_task_id FROM ctm_task_attribute WHERE ctm_attribute_type_id = 1) AS A 
+ LEFT JOIN (SELECT value, ctm_task_id FROM ctm_task_attribute WHERE ctm_attribute_type_id = 3) AS B 
+ ON A.ctm_task_id = B.ctm_task_id) C
+GROUP BY C.name
+HAVING count(distinct C.seq) > 1; > tmp.primerlist
+
+94 clashing name seq pairs
+ H11_1BF	AGCAAAAGCAGGGGA
+ H11_1BF	AGCAAAAGCAGGGGATCAATC
+ H11_1F	AGCAAAAGCAGGGGA
+ H11_1F	AGCAAAAGCAGGGGATCTATC
+ HA_10F	AAATGGAGAAAATAGTGC
+ HA_10F	AACACTGTATCAAGCTTCCAGG
+ HA_530F	AACTCAGCAAATCGTACACG
+ HA_530F	TCATACAACAACACAAGTGG
+ HA_560F	AAGACTTTACATATGGGGG
+ HA_560F	AAGTGCTTGTGCTCTGGGG
+ HA_560F	AATGCTGGTAATCTGGGGG
+ HA_560F	AATCGATTCCAAATACAGGG
+ HA_600F	ACACAGAACAAACCAACC
+ HA_600F	ACTGACACAGAACAAACCG
+ HA_650F	AAAAACGGTTTCTACTCAAACC
+ HA_650F	TTTGCTTGTAGCACTGCTTTTGG
+ HA_660F	AATCAACAGAATCTTCAGACC
+ HA_660F	TAGTCAAACAAGTGTAATACC
+ N1_500F	TTGAGTCTGTTGCTTGGTCG
+ N1_500F	AGAACCTTGATGAGTTGTCCC
+ N3_500F	GGGACAGCTCCAGTACTGGG
+ N3_500F	ATGTGTTGCTTGGTCAAGTAGC
+ N6_1000F	ATGCACCGATAACAGGAGGG
+ N6_1000F	ACG TAT GGA TGG GAA GGA CC
+ N7_1BF	GGCATACACATTCTGATTCC
+ N7_1BF	AGCAAAAGCAGGGTGATCGAG
+ N7_1F	AGCAAAAGCAGGGTGAAAATG
+ N7_1F	AGCAAAAGCAGGGTGATTGAG
+ N8_1F	NULL
+ N8_1F	AGCAAAAGCAGGAGTTCAAAATG
+ N8_1F	AGCAAAAGCAGGAGTTTAAAATG
+ NA_1F	ATGAATCCAAATCAAAAG
+ NA_1F	ATGAATCCGAACCAAAAGATC
+ NA_450F	AAGACAGAACACCATATAGG
+ NA_450F	AAGGAGATATGTGTTGCTTGG
+ NA_450F	ATAGGTCTCAATATCGTGCCC
+ NA_490F	ATGGAAAGGAATGGATGC
+ NA_490F	ATAGGAACAGCTCCAGTACTAGG
+ NA_510F	GTACTAGGAAATTACAAGGAG
+ NA_510F	ACAGCAGAGTGGAATGCATTGG
+ NA_520F	ATGCATTGCTTGGTCGAGC
+ NA_520F	AATGCATAGGATGGTCAAGC
+ NA_540F	AACTTGCCATGATGGGATTGG
+ NA_540F	AGGATGGTCAAGCACATCATGC
+ NA_550F	TTTGACGGGAAAGAGTGG
+ NA_550F	ATGATGGGATTGGCAGGATG
+ NA_5F	ATGAATCCAAATCAGAAG
+ NA_5F	ATTGGGTCGGTATCCTTAGG
+ NA_5F	ATCCAAATCAAAAGATAATAAC
+ NA_620F	TGACTGTTGGTGTGACCGGGCC
+ NA_620F	ATGCAGGGAGAATGACAGACTCC
+ NP_400F	AACCCACCTGATGATATGGC
+ NP_400F	GATCCTGTATGACAAAGAGG
+ NP_500F	ATTCCAATCTGAATGATGCC
+ NP_500F	CAC TTG TAC GTA CTG GGA TGG
+ NP_580F	CAAGAAGATCTGGAGCTGC
+ NP_580F	CAG TTG AGG GAG TAG GGA CG
+ PA_1000F	TCCTGGCTTGGAAGC
+ PA_1000F	AGAAAGGTATAAACCC
+ PA_1000F	AAAATGAGGAGAGGATCCC
+ PA_1000F	AATTACCTCCTGGCTTGGAAGC
+ PA_1300F	GAGAAGATGTTGCTCC
+ PA_1300F	GAACACATTGCAAGCATGAGG
+ PA_900F	ACCGCTATACGATGC
+ PA_900F	CAATTACCTCCTGGCTTGG
+ PA_950F	TTCGGCTGGAAAGAGCCC
+ PA_950F	TTTTCGGCTGGAAAGAGCCC
+ PB1_1050F	TACATGTTTGAGAGTAAAAGC
+ PB1_1050F	AGCATTGCACCTATAATGTTCTC
+ PB1_1800F	TGGTTTCAGATGGAGGACC
+ PB1_1800F	TTAGCGAGGAGCATCTGTGAG
+ PB1_620F	AACAATAGGAAAGAAGAAGC
+ PB1_620F	TTCTGCTGGTATTTGTGTTCGG
+ PB2_1300F	CATCAACTCCTGAGGC
+ PB2_1300F	CAACTCTTGAGACACTTCC
+ PB2_1F	NULL
+ PB2_1F	AGCRAAAGCAGGTCA
+ PB2_1F	AGCGAAAGCAGGTCAAATATATTC
+ PB2_500F	NULL
+ PB2_500F	GCACAGGATGTAATCATGG
+ PB2_500F	CAGTGGCTGGTGGAACAAGC
+ PB2_500F	GTCACGCAGACCTCAGTGCC
+ PB2_500F	AAAGAGGAACTCCAGGACTGC
+ PB2_550F	AAATGAAGTGGGAGCCAGG
+ PB2_550F	TTAACAGCGGAATCACAGC
+ PB2_550F	GGCACAGGATGTAATCATGG
+ PB2_600F	GACTGTAAGATTGCTCC
+ PB2_600F	TTAACAGCGGAATCACAGC
+ PB2_600F	ATTAACAGCGGAATCACAGC
+ PB2_600F	CCTTAATGGTAGCATACATGC
+ PB2_610F	AATGGTAGCATACATGTTGG
+ PB2_610F	CCT TGA TGG TAG CAT ACA TGC
+ PB2_700F	TTGAAGTATTGCATTTGAC
+ PB2_700F	AACCCAGGGGACATGCTGGGAGC
+
+SELECT distinct left(C.name,20), left(C.seq,40) FROM
+(SELECT A.value AS name, B.value AS seq, A.ctm_task_id
+FROM (SELECT value, ctm_task_id FROM ctm_task_attribute WHERE ctm_attribute_type_id = 2) AS A 
+ LEFT JOIN (SELECT value, ctm_task_id FROM ctm_task_attribute WHERE ctm_attribute_type_id = 4) AS B 
+ ON A.ctm_task_id = B.ctm_task_id) C
+GROUP BY C.name
+HAVING count(distinct C.seq) > 1; > tmp.primerlist
+
+ H11_610R	CAGGGTGGTGAATTCC
+ H11_610R	ATACCATTAATACATCTCTTCC
+ HA_1100R	TCGGACATAGTTCCGGG
+ HA_1100R	ATACCAACCATCAATCAGACC
+ HA_1100R	TATGAACCCAGCAATTGCACC
+ HA_1160R	TGCTGCGTATCCTGATCC
+ HA_1160R	ATCTGCAGCTGTTCCTGTTCC
+ HA_600R	ATGATGAATCCCCCACAGCACC
+ HA_600R	TTTGCTCTGTGTCTGTTGAGGG
+ HA_910R	AATGTTGTATTTATTGCCC
+ HA_910R	AGCCCCATGAGGGGTTTGGC
+ N1_900R	GACCGCAACTGCCTGTTCC
+ N1_900R	GGACCGCAACTGCCTGTTCC
+ N1_900R	CGA GCC ATG CCA GTT ATC CC
+ N2_400R	CTGCAATCTGACATTGTGG
+ N2_400R	TTAAAAGGGTTCGATGTGGG
+ N7_650R	CATTACAACTGCACATGTGCC
+ N7_650R	TATTCCCCTGTATACAAATGG
+ N7_700R	TACACATTCTGATTCCTGGG
+ N7_700R	GATCCGTCAGTCATTACAACTGC
+ N7_750R	CTGCACACACAGGTTACCC
+ N7_750R	AGGTTACCCTCTGATTGTGTCC
+ N7_750R	TTGTGAAAGTACATTACTTTCG
+ N8_1000R	GCTAATGGTTCTTCCC
+ N8_1000R	TGCACATAAGTATCCGACTCTG
+ N8_1100R	ATCTTGATGTTCTGC
+ N8_1100R	GGGCTAGTGCATGATCC
+ N8_500R	TGCATGATGATTCCGG
+ N8_500R	GACACTCATGAGAGTCC
+ N9_550R	TCATGGCAACTAGTACTTGACC
+ N9_550R	CCA ACT CAC TAG GGC ACG
+ N9_600R	AGTTCCAGTCAGAGATTCCC
+ N9_600R	TGT GCT GGA CCA TCC AAT GC
+ N9_950R	TATGTATTGACTGGTGTGCG
+ N9_950R	GAACAGGGCTACATATATACTGAC
+ NA_1050R	ACCCTTTCACTCCTGGG
+ NA_1050R	ACTTCCAGTTATTGGGTTGG
+ NA_1100R	AACCATACATCATTACCC
+ NA_1100R	TCTACCACTAGTTGACACTG
+ NA_1100R	CCATCTAAATATGAGAATCCT
+ NA_1100R	AACTCCATCCAGATATGAAAACCC
+ NA_1140R	AACCTTTAGCACCTCATACC
+ NA_1140R	ATTTCAAAGCCCGATCTTCC
+ NA_1150R	TTTGATAATTTCAAAGCCC
+ NA_1150R	AACCATTTCTAACTTTAAGG
+ NA_1150R	ATGGTTAGGAGAGTTGATCC
+ NA_1150R	AGAGGTTCGACTAATTGTTCGC
+ NA_1180R	TTAGGAGAGTTGATCCACC
+ NA_1180R	TTCCGAGCCATGAGTTCTCTCCG
+ NA_1210R	TTTAAATTATCAACAACTACC
+ NA_1210R	ATTGTTATTGTCGACAATTTCC
+ NA_180R	AGGGATTGTTACTGTTTCC
+ NA_180R	TTTTGATTAATGGTCGTGC
+ NA_180R	TAGTGTTGTTTTGAGTAATGG
+ NA_210R	AAATGGTGTTGTTAACAGGG
+ NA_210R	TGTTGTATTGTTCACATATGTG
+ NP_1200R	CTCTGTACTGAGAAAGTAGGC
+ NP_1200R	TCT CTG TTG GTT GGT GTT TCC
+ NP_800R	ACCAGCTGACTTTTATGTGC
+ NP_800R	TTCCGACTAGGGAGTATCCC
+ NP_930R	TGCTGGATTCTCATTAGG
+ NP_930R	TACTCCAACTAGGGAGTATCCC
+ PA_1550R	CAATTGCAGTCCGTAGGAGC
+ PA_1550R	TCACAAAGTTTACCACATCGG
+ PA_1550R	ATCGGTATCATTCCTCAAATGG
+ PA_1600R	CAGGAGCATGTCTCC
+ PA_1600R	CATTTATGTGGCTCC
+ PA_1600R	GGTCTTGATATTTGTCC
+ PA_1650R	TAATCTTGGAGGTCCC
+ PA_1650R	TTTTCCCATTTGTGTGGTTCC
+ PA_1900R	ACTCCTTTGGGTGACTCTCC
+ PA_1900R	CTCAATCATGCTCTCAATCTGC
+ PB1_1130R	AACAATAGGAAAGAAGAAGC
+ PB1_1130R	TTCTGCTGGTATTTGTGTTCGG
+ PB1_1500R	TATCACTGTAACTCCAATGC
+ PB1_1500R	GGC TAC AAA TCC ATA GCG ATA G
+ PB2_1000R	CCTTTCTGAGGATAGCC
+ PB2_1000R	GCCAAAGCTGAAAGATGAGC
+ PB2_1000R	TTCAAATCACCTCGTACTGC
+ PB2_1150R	TTGACTGCTCATCTCTCCC
+ PB2_1150R	TACTCCCATCTTACTGACCC
+ PB2_1200R	NULL
+ PB2_1200R	GTGAGAATACCATTGCC
+ PB2_1200R	GCTTCAGCAATTGACTGC
+ PB2_1200R	AATTGATTGCTCATCTCGTCC
+ PB2_1200R	CTCTTGTGAAAATACCATAGC
+ PB2_1200R	TGGATCAATCTTCTGGTTGCC
+ PB2_1200R	AAGGTTACGATTATTGCTTCAGC
+ PB2_1200R	CTATTGACAAAGTTCAGATCACC
+ PB2_1800R	TTCCTAGCACATCACGC
+ PB2_1800R	TAGCTGAATCAATCTCCTGG
+ PB2_1800R	CACAAATCCACTGTACTGACC
+ PB2_1800R	GGAACAGTGTCCTTACGAATCC
+ PB2_2000R	ACAGTGTCCTCACGAATCC
+ PB2_2000R	GCTGTATTGACCTCTGACTGC
+
+
+giv3 ctm_task_attribute type = 1 (Primer_F_Name)
+intially selected all and then ran
+>cat tmp.primerlist | grep -ve "^\s*[A-Z]\+[0-9]\?[0-9]\?_[0-9]\+F"
+Query devised to select all the primers returned by grep
+giv3 ctm_task_attribute type = 2 (Primer_R_Name)
+select left(value,50) as value, ctm_task_id from ctm_task_attribute where ctm_attribute_type_id = 1 and (value not like '%[0-9]F' or value like '%[_]%[_]%' or value not like '%_%') group by value order by value;
+ value                                                                                                ctm_task_id
+ ---------------------------------------------------------------------------------------------------- -----------
+ B1A03                                                                                                       1091
+ B1A04                                                                                                       1092
+ B1G07                                                                                                       1093
+ B1H07                                                                                                       1095
+ B1H08                                                                                                       1096
+ B3D12                                                                                                       1094
+ H11_1BF                                                                                                     2319
+ H11_1BF                                                                                                      823
+ H11_1BF                                                                                                      959
+ H11_1CF                                                                                                      960
+ H11_1f                                                                                                       694
+ H1_1BF                                                                                                      1860
+ H1_1CF                                                                                                      1861
+ H3_1400R                                                                                                     725
+ H4_1BF                                                                                                      2256
+ JBUY_N8_525F                                                                                                 687
+ JBUY_N8_710F                                                                                                 688
+ JBVX_NA_1F                                                                                                   541
+ JBVY_HA_400F                                                                                                 585
+ JBVY_PA_1000F                                                                                                586
+ JBWF_NA_1BF                                                                                                  584
+ JBWF_NA_1BF                                                                                                  588
+ JBWF_NA_1F                                                                                                   583
+ JBWF_NA_1F                                                                                                   587
+ JBXI_N8_1F                                                                                                   684
+ JBXI_N8_500F                                                                                                 686
+ JBXI_PB1_1950F                                                                                               602
+ JBXI_PB1_2000BF                                                                                              603
+ N2_1BF                                                                                                       719
+ N2_1BF                                                                                                       732
+ N5_1BF                                                                                                       919
+ N6_1BF                                                                                                       966
+ N6_1FB                                                                                                       967
+ N7_1BF                                                                                                      1851
+ N7_1BF                                                                                                      1961
+ N7_1BF                                                                                                      1228
+ N7_1F2                                                                                                      1855
+ N8_1BF                                                                                                      2317
+ N8_1BF                                                                                                       792
+ N9_1BF                                                                                                      2351
+ N9_1BF                                                                                                       916
+ N9_1BF                                                                                                       708
+ NA_630R                                                                                                     9325
+ PA_1485BF                                                                                                    923
+ PA_1BF                                                                                                       818
+ PB2_1BF                                                                                                      987
+ PB2_550R                                                                                                    2335
+ PB2_550R                                                                                                     810
+ PB2_550R                                                                                                     986
+
+
+
+>cat tmp.primerlist | grep -ve "^\s*[A-Z]\+[0-9]\?[0-9]\?_[0-9]\+R"
+select left(value,50) as value, ctm_task_id from ctm_task_attribute where ctm_attribute_type_id = 2 and (value not like '%[0-9]R' or value like '%[_]%[_]%' or value not like '%_%') group by value order by ctm_task_id;
+ value                                                                                                ctm_task_id
+ ---------------------------------------------------------------------------------------------------- -----------
+ JBVX_NA_480R                                                                                                 541
+ JBWF_NA_500R                                                                                                 583
+ JBWF_NA_400BR                                                                                                584
+ JBVY_HA_950R                                                                                                 585
+ JBVY_PA_1500R                                                                                                586
+ JBWF_NA_500R                                                                                                 587
+ JBWF_NA_400BR                                                                                                588
+ JBXI_PB1_2341R                                                                                               602
+ JBXI_PB1_2325BR                                                                                              603
+ JBXI_N8_500R                                                                                                 684
+ JBXI_N8_1100R                                                                                                686
+ JBUY_N8_1000R                                                                                                687
+ JBUY_N8_975R                                                                                                 688
+ PA_2233BR                                                                                                    923
+ B1A08                                                                                                       1091
+ B1A08                                                                                                       1092
+ B2A02                                                                                                       1093
+ B3B10                                                                                                       1094
+ B2B02                                                                                                       1095
+ B2B03                                                                                                       1096
+ N7_1464BR                                                                                                   1246
+ PB2_1430F                                                                                                   9340
+
+(22 rows affected)
+
+
+giv3 ctm_task_attribute type = 3 (Primer_F_Sequence)
+select left(value,50) as value, ctm_task_id from ctm_task_attribute where ctm_attribute_type_id = 3 and value like '%[^ACGT]%' group by value order by ctm_task_id;s value, ctm_task_id from ctm_task_attribute where ctm_attribute_type_id = 4 and value like '%[^ACGT]%' group by value
+ value                                                                                                ctm_task_id
+ ---------------------------------------------------------------------------------------------------- -----------
+ JBVX_NA_1BF                                                                                                  541
+ GGG ATT TGG ATT CAG GCA AGG                                                                                  685
+ GGG ATT TGG ATT CAG GCA AGG                                                                                  688
+ GTG AAT GTT ATT GGG TAA TGA CGG                                                                              688
+ GAA GGG AGT ATA CAT AAA CAC AGC                                                                              690
+ CAC TTG TAC GTA CTG GGA TGG                                                                                  705
+ CCT TGA TGG TAG CAT ACA TGC                                                                                  707
+ AGCRAAAGCAGGTCA                                                                                              755
+ GGA TGT TTC TGG CAA TGA TAA C                                                                                757
+ ACA CAC AAA TTC AGA CGA GG                                                                                   763
+ GGC GAA GAG ACA ATT GAA GAA AG                                                                               764
+ CAG GAT GTG TTC TCT GAT GC                                                                                   774
+ CAA AAG GCA AGT TGT GAT CG                                                                                   790
+ ATC TCC ATG ATT CTA ACG TTC G                                                                                821
+ CAA GTC TAC AGG AAC ACC G                                                                                    824
+ CAA AGA GGA GAT CAG AAG G                                                                                    831
+ ACA CGA TAG ATC CCA GTA TCG                                                                                  846
+ GAA AGC AGT ATA TCA TCA CCC                                                                                  920
+ CAA ATG CAG AAC CAA AGA AGG G                                                                                921
+ GAA GGG AGT ATA CAT AAA CAC AGC                                                                              922
+ GGC GAA GAG ACA ATT GAA GAA AG                                                                               930
+ ACG TAT GGA TGG GAA GGA CC                                                                                   971
+ GAA AGT AAG AGC ATG AAG C                                                                                   1075
+ CAG TTG AGG GAG TAG GGA CG                                                                                  1131
+ AMPLICON FROM PLATE                                                                                         9269
+ AMPLICON FROM PLATE                                                                                         9270
+ AMPLICON FROM PLATE                                                                                         9271
+ AMPLICON FROM PLATE                                                                                         9272
+ AMPLICON FROM PLATE                                                                                         9273
+ AMPLICON FROM PLATE                                                                                         9274
+ AMPLICON FROM PLATE                                                                                         9277
+ AMPLICON FROM PLATE                                                                                         9278
+ AMPLICON FROM PLATE                                                                                         9279
+ AMPLICON FROM PLATE                                                                                         9280
+ AMPLICON FROM PLATE                                                                                         9281
+ AMPLICON FROM PLATE                                                                                         9282
+ AMPLICON FROM PLATE                                                                                         9287
+ AMPLICON FROM PLATE                                                                                         9288
+ AMPLICON FROM PLATE                                                                                         9289
+ AMPLICON FROM PLATE                                                                                         9290
+
+(40 rows affected)
+
+
+
+giv3 ctm_task_attribute type = 4 (Primer_R_Sequence)
+SYBPROD.giv3:1> select left(value,50) as value, ctm_task_id from ctm_task_attribute where ctm_attribute_type_id = 4 and value like '%[^ACGT]%' group by value order by ctm_task_id;
+ value                                                                                                ctm_task_id
+ ---------------------------------------------------------------------------------------------------- -----------
+ JBVX_NA_470R                                                                                                 541
+ GGG ATT TGG ATT CAG GCA AGG                                                                                  685
+ GGG ATT TGG ATT CAG GCA AGG                                                                                  688
+ ACG CCT CAT CTC CAT ACC C                                                                                    690
+ GGC TAC AAA TCC ATA GCG ATA G                                                                                757
+ CAC TCC CTT CAT TAT GTA CTC AG                                                                               764
+ GAA CAG GGC TAC ATA TAT ACT GAC                                                                              846
+ AGTAGAWACAAGGGTSTTTTT                                                                                        849
+ AGTAGAWACAAGGGTSTTTTT                                                                                        850
+ TCT CTG TTG GTT GGT GTT TCC                                                                                  912
+ TGT GCT GGA CCA TCC AAT GC                                                                                   915
+ CCA ACT CAC TAG GGC ACG                                                                                      916
+ TGT ACC AAA TCA CTG CTG ATG C                                                                                917
+ CAC CAC ATC TGT TGG CAT CCC                                                                                  918
+ ACG CCT CAT CTC CAT ACC C                                                                                    922
+ ACT TAA ATC GCT GCA TCT GC                                                                                   929
+ CAC TCC CTT CAT TAT GTA CTC AG                                                                               930
+ CGA GCC ATG CCA GTT ATC CC                                                                                   990
+ TCC TTG TCT GCA GCG TAT CC                                                                                  1134
+ CTG CAG CGT ATC CAC TCC C                                                                                   1136
+ ATC ATG CCT GTC CAT CCT CCC                                                                                 1860
+ GTA TAC AAA TGG TCA TTC TGC C                                                                               1961
+ TCT GCC AAT TCC ATC GTG GC                                                                                  1962
+
+(23 rows affected)
+
+
+giv3 ctm_task_attribute type = 5 (PCR_size)
+select left(value,40) as value, ctm_task_id from ctm_task_attribute where ctm_attribute_type_id = 5 group by value order by value; > tmp.primerlist
+
+ value                                                                            ctm_task_id
+ -------------------------------------------------------------------------------- -----------
+ 180                                                                                      603
+ 200                                                                                      583
+ 200                                                                                      587
+ 250                                                                                      602
+ 400                                                                                      585
+ 400                                                                                      586
+ 430                                                                                      541
+ 450                                                                                      588
+ 450                                                                                      684
+ 480                                                                                      584
+
+(10 rows affected)

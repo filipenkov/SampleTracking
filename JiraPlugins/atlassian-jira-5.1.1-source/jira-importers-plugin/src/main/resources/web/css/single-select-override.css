@@ -1,0 +1,13 @@
+form.aui .aui-ss input.aui-ss-field[disabled] {
+	color: #ccc;
+	background-color: transparent;
+}
+
+form.aui select.importField[disabled] {
+	color: #aaaaaa;
+}
+
+form.aui .aui-ss input.aui-ss-field[disabled] ~ span.drop-menu {
+	background-position: 0 -199px;
+}
+

@@ -1,0 +1,24 @@
+<HTML>
+	<HEAD>
+	</HEAD>
+	<BODY>
+		<DIV CLASS="message_box" style='border: solid 1px #DEDEDE;background: #EAFFEF;color: #222222;padding: 4px;padding-left: 1em;'>
+            $info.getText("stp.scheduler.hercules.mail.intro", $info.applicationName).
+            
+            #if ($scanException)
+            		<p>$info.getText("stp.hercules.scheduled.exception", $fileName)</p>
+            #elseif ($results && $results.size() > 0)
+                <p>$info.getText("stp.scheduler.hercules.mail.results.header", $results.size(), $fileName)</p>
+    			<UL>
+    				#foreach ($result in $results)
+    					<LI><A HREF="$result.getPattern().getURL()">$result.getPattern().getPageName()</A></LI>
+    				#end
+    			</UL>
+            #else
+				<p>$info.getText("stp.hercules.no.results", $fileName)</p>
+            #end
+            
+            <p>$info.getText("stp.scheduler.optout", $info.applicationName)</p>
+		</DIV>
+	</BODY>
+</HTML>

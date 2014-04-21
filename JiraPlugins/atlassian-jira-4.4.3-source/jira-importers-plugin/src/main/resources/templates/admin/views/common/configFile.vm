@@ -1,0 +1,26 @@
+<div class="aui-message" id="configFileSection">
+	<input type="checkbox" id="useConfigFile" name="useConfigFile"
+			#if ($action.useConfigFile) checked="true" #end
+			value="true">
+	<script type="text/javascript">
+		AJS.$('#useConfigFile').change(function () { AJS.$('#configFilePanel').toggle(AJS.$(this).is(':checked'));}).change();
+	</script>
+	<div id="configFileSectionInfo">
+		<label for="useConfigFile">Use an existing configuration file</label>
+		<div class="fieldDescription">If you have used this importer before, you may have saved
+	a previous configuration file.<br>You can use that here to save time.</div>
+	</div>
+	<div class="clear"></div>
+
+	<div id="configFilePanel" class="field-group" #if($action.useConfigFile != true) style="display: none;" #end>
+		<label for="configFile">
+			$i18n.getText('jira-importer-plugin.external.existing.configuration.file')
+		</label>
+		<input id="configFile" type="file" class="file" name="configFile">
+		#if ($action.getErrors().get("configFile"))
+			<div class="error">$textutils.htmlEncode($action.getErrors().get("configFile"))</div>
+		#end
+		<div class="description">$i18n.getText('jira-importer-plugin.importer.existing.configuration.file.description3') $i18n.getText('jira-importer-plugin.importer.max.size.above')</div>
+	</div>
+</div>
+

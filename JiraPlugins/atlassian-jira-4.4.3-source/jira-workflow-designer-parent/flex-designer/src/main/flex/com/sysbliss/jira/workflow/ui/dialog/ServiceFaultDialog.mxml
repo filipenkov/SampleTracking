@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BaseDialog xmlns="com.sysbliss.jira.workflow.ui.dialog.*" 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:flexlib="flexlib.containers.*"
+	width="650" minWidth="650"
+	height="295" minHeight="295"
+	title="{niceResourceManager.getString('json','workflow.designer.service.fault')}"
+	resizable="true">
+	
+	<mx:Script>
+		<![CDATA[
+        import com.sysbliss.jira.workflow.Il8n.INiceResourceManager;
+        import com.sysbliss.jira.workflow.Il8n.NiceResourceManager;
+
+        private var infoObject:Object;
+
+            private const niceResourceManager:INiceResourceManager = NiceResourceManager.getInstance();
+
+			override protected function commitProperties():void {
+				super.commitProperties();
+				if(infoObject){
+					errorField.text = niceResourceManager.getString('json','workflow.designer.jira.service.error', [infoObject.message]) + "\n";
+					errorDetails.text = infoObject.detail;
+				}
+				buttons.okButton.enabled = true;
+				invalidateDisplayList();	
+			}
+			
+			override public function doOk(e:Event):void {
+				doCancel(e);
+			}
+			
+			public function set info(obj:Object):void {
+				infoObject = obj;
+				invalidateProperties();
+			}
+		]]>
+	</mx:Script>
+	<mx:VBox width="100%" height="100%" paddingLeft="0" paddingTop="0" paddingRight="0" paddingBottom="0">
+		<mx:Text id="errorField" styleName="errorField" width="100%" height="30%" />
+		<mx:TextArea id="errorDetails" width="100%" height="100%" minHeight="125" color="#333333"/>
+	</mx:VBox>
+    <DialogButtonBar id="buttons" buttonFlags="{DialogButtonBar.OK}"/>
+</BaseDialog>

@@ -1,0 +1,40 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.AddCustomFieldDialog" *#
+<h2 class="dialog-title">$action.getText("admin.issuefields.customfields.create.type")</h2>
+<form class="aui" action="${action.actionName}.jspa" method="post">
+    <div class="content-body">
+        <div class="field-group">
+            <label>$action.getText("admin.issuefields.field.name"): <span class="aui-icon icon-required"></span></label>
+            <input name="customFieldName" type="text" class="text" value="${action.htmlEncode($!action.customFieldName)}"/>
+			#if ($action.errors.customFieldName)
+				<div class="error">$action.errors.customFieldName</div>
+			#end
+        </div>
+        <div class="field-group">
+            <label>$action.getText("admin.issuefields.customfields.field.type"): <span class="aui-icon icon-required"></span></label>
+			#set ($customFieldTypes = $action.customFieldTypes)
+			<select name="customFieldType" class="select" #if ($customFieldTypes.isEmpty())DISABLED="disabled"#end>
+				<option>$action.getText("common.words.pleaseselect")</option>
+				#foreach ($entry in $customFieldTypes.entrySet())
+            		<option value="$entry.key"
+            			#if ($!action.customFieldType.equals($entry.key))
+                		SELECTED
+            			#end
+            		>$entry.value</option>
+        		#end
+			</select>
+			#if ($customFieldTypes.isEmpty())
+				<div class="error">$action.getText("admin.issuefields.customfields.you.have.no.custom.field.types.available")</div>
+			#end
+			#if ($action.errors.customFieldType)
+				<div class="error">$action.errors.customFieldType</div>
+			#end
+        </div>
+    </div>
+    <div class="content-footer buttons-container form-footer">
+        <div class="buttons">
+            <input class="button" type="submit" value="Submit" />
+			<a href="#" class="cancel">Cancel</a>
+        </div>
+    </div>
+</form>
+

@@ -1,0 +1,85 @@
+@import "jiralib.less";
+
+.item-header { padding:12px 12px 0 12px; min-height: 48px; position:relative;}
+.msie-7 .item-header {z-index:100;}
+.item-header .avatar { height: 48px; left: 12px; overflow: hidden; position: absolute; top: 12px; width: 48px; }
+.item-header .avatar span { display: none; }
+.item-header .avatar + .item-summary {padding-top:10px;}
+.item-header .avatar + ul.breadcrumbs,
+.item-header .avatar + ul.breadcrumbs + .item-summary,
+.item-header .avatar + .item-summary { margin-left: 60px; }
+.item-header .item-summary {color:@textHeadingColour;font-size:2em ;line-height:1.167;margin:0;}
+.item-header .item-summary a {color:@textHeadingColour;}
+.item-header .item-summary a:hover {text-decoration:none;}
+.detached .item-header { background-color: #f7f7f7; } /* for the stalker */
+
+ul.item-details {display:inline-block;vertical-align:top;width:100%;list-style-type:none;margin:0;padding:0;}
+ul.item-details.section,
+ul.item-details li.section {border-top:1px solid #ddd;margin-top:0.75em;padding-top:1.25em;}
+ul.item-details dl {display:inline-block;vertical-align:top;width:100%;margin-bottom:2px;}
+ul.item-details dl:after {content: ".";display:block;height:0;clear:both;visibility:hidden;}
+ul.item-details dl dt,
+ul.item-details dl dd {display:block;float:left;overflow:hidden;width:81%;}
+ul.item-details dl dt {color:#666;margin-right:1%;position:relative;width:18%;}
+ul.item-details dl dd img {margin-right:0.25em;vertical-align:top;}
+ul.item-details dl .extra-details {width:55%;}
+.msie-7 ul.item-details dl {height:1%;}
+.msie-7 ul.item-details dl dd {width:80%;}
+
+/* generic spacing for item lists within tables (like on viewschemes.jsp */
+table.aui ul.item-details li {margin-top:3px;}
+table.aui ul.item-details li:first-child {margin-top:0;}
+
+/* used by view_customfields.jsp and issuesummaryblock.vm */
+.property-list { list-style:none; margin: 0; padding: 0; width: 100%; }
+.property-list .item, .property-list .item-right { clear: left; float: left; margin: 0; padding: 0; width: 100%; }
+.property-list .wrap { overflow: hidden; padding: 0 1em 2px 12em; }
+.property-list .name { background: transparent; color: #666; float: left; font-weight: normal; margin: 0 0 0 -12em; width: 11em; }
+.property-list .value img {vertical-align:text-top;}
+.two-cols .item { width: 50%; } /* mutator for .property-list */
+.two-cols .item-right { clear: right; float: right; }
+.two-cols .item-right .wrap { border-left: 1px solid #ddd; padding: 0 0 2px 13em; }
+.two-cols .item.full-width{ clear:both; float:none; width:100%; }
+    /* Below values pulled from the Application Property value
+       - should try and refactor how we do this so we can remove these styles
+       NB: These values will always be in em */
+    .property-list .name {margin-left:0em - (@fieldLabelWidth + 1.0em);width:@fieldLabelWidth + 0.5em;}
+    .property-list .item-right .name {margin-left:0em - (@fieldLabelWidth + 1.5em);}
+    .property-list .wrap {padding-left:@fieldLabelWidth + 1.0em;}
+    .two-cols .item-right .wrap {padding-left:@fieldLabelWidth + 2.0em;}
+
+/* used only by view_customfields.jsp */
+#customfieldmodule {clear:both;padding-top:3px;}
+#customfieldmodule .tabwrap {margin-bottom:6px;padding-top:3px;}
+#customfieldmodule .property-list .item {border-top:1px solid #ddd;}
+#customfieldmodule .pl-tab .item:first-child {border-top:none;}
+#customfieldmodule .property-list .wrap {padding-top:5px;padding-bottom:5px;}
+
+/* used only by issuesummaryblock.vm */
+#environment-val.mod-content {padding-bottom:0;}
+#environment-val ul.item-details dl dd {clear:both;float:none;margin-left:1.25em;width:auto;}
+#environment-val ul.item-details dl dd.twixified {margin-left:0;width:100%;}
+
+/* used only by peopleblock.vm */
+#peoplemodule:after { content: ".";display: block; height: 0; clear: both; visibility: hidden;}
+ul#peopledetails dl {overflow:hidden;text-align:right;}
+ul#peopledetails dl dt {margin-right:0.166em;text-align:left;width:auto;}
+ul#peopledetails dl dd {display:inline;float:none;width:auto;}
+
+/* Used on the user profile */
+#preferences-profile-fragment ul.item-details dl dt,
+#details-profile-fragment ul.item-details dl dt {width:32%;}
+#preferences-profile-fragment ul.item-details dl dd,
+#details-profile-fragment ul.item-details dl dd {width:66%;}
+
+/* used only by viewschemes.jsp */
+#workflow_schemes_table ul.item-details dl dt,
+#workflow_schemes_table ul.item-details dl dd {width:39%}
+#workflow_schemes_table ul.item-details dl dd.rarr {text-align:center;width:10%}
+
+/* used on edituserprojectroles.jsp */
+#projectselect {padding:6px;}
+
+/* used on admin viewuser.jsp */
+#viewUserDetails .item-details li {margin-bottom:1em;}
+#viewUserDetails .item-details li dl {margin-bottom:7px;}

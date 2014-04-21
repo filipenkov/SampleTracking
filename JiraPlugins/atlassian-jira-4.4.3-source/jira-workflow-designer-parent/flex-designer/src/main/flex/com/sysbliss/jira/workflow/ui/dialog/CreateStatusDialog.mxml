@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BaseDialog xmlns="com.sysbliss.jira.workflow.ui.dialog.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+            width="650" minWidth="650"
+            height="310" minHeight="310"
+            title="{niceResourceManager.getString('json','workflow.designer.create.new.status')}">
+
+    <mx:Script>
+		<![CDATA[
+        import com.sysbliss.jira.plugins.workflow.model.FlexJiraStatus;
+        import com.sysbliss.jira.workflow.Il8n.INiceResourceManager;
+        import com.sysbliss.jira.workflow.Il8n.NiceResourceManager;
+        import com.sysbliss.jira.workflow.controller.JiraStatusController;
+        import com.sysbliss.jira.workflow.event.EventTypes;
+        import com.sysbliss.jira.workflow.event.GenericDataEvent;
+        import com.sysbliss.jira.workflow.utils.MDIDialogUtils;
+        import com.sysbliss.jira.workflow.utils.StatusIcon;
+
+        import mx.collections.ArrayCollection;
+        import mx.utils.StringUtil;
+
+        import org.swizframework.Swiz;
+
+        private var _names:Array;
+
+        private const niceResourceManager:INiceResourceManager = NiceResourceManager.getInstance();
+
+        [Autowire]
+        public var statusController:JiraStatusController;
+
+        [Autowire]
+        public var statusImageDialog:StatusImageDialog;
+
+        override public function doOk(e:Event):void {
+            if (!buttons.okButton.enabled) {
+                return;
+            }
+            var event:GenericDataEvent = new GenericDataEvent(EventTypes.DO_STATUS_NEW, {newName:StringUtil.trim(statusName.text),newDesc:statusDesc.text,iconUrl:statusIconUrl.text});
+            Swiz.dispatchEvent(event);
+            clear();
+        }
+
+        override public function clear():void {
+            super.clear();
+            if (_childrenReady) {
+
+                statusName.text = "";
+                statusDesc.text = "";
+                errorField.text = "";
+                buttons.okButton.enabled = false;
+                statusIconUrl.text = "/images/icons/status_generic.gif";
+                _names = null;
+                buttons.okButton.enabled = false;
+            }
+        }
+
+        private function onNameChange(e:Event):void {
+            validate();
+        }
+
+        private function onURLChange(e:Event):void {
+            validate();
+        }
+
+        private function validate():void {
+            if (!_names) {
+                createNamesArray();
+            }
+            var textToCheck:String = StringUtil.trim(statusName.text.toLowerCase());
+            if (statusName.text == "") {
+                errorField.text = niceResourceManager.getString('json', 'workflow.designer.status.name.required');
+                buttons.okButton.enabled = false;
+            } else if (_names.indexOf(textToCheck) > -1) {
+                errorField.text = niceResourceManager.getString('json', 'workflow.designer.status.name.exists');
+                buttons.okButton.enabled = false;
+            } else if (statusIconUrl.text == "") {
+                errorField.text = niceResourceManager.getString('json', 'workflow.designer.icon.url.required');
+                buttons.okButton.enabled = false;
+            } else {
+                errorField.text = "";
+                buttons.okButton.enabled = true;
+            }
+        }
+
+        private function createNamesArray():void {
+            var statuses:ArrayCollection = statusController.getAllStatuses();
+
+            _names = new Array();
+            for each(var status:FlexJiraStatus in statuses) {
+                _names.push(StringUtil.trim(status.name.toLowerCase()));
+            }
+        }
+
+        private function popImageSelector():void {
+            MDIDialogUtils.popModalDialog(statusImageDialog);
+            statusImageDialog.clear();
+        }
+
+        [Mediate(event="${eventTypes.STATUS_ICON_SELECTED}", properties="data")]
+        public function setStatusIcon(si:StatusIcon):void {
+            if (_childrenReady && statusIconUrl) {
+                statusIconUrl.text = si.iconUrl;
+            }
+        }
+
+        override public function onShowDialog():void {
+            super.onShowDialog();
+            statusName.setFocus();
+        }
+        ]]>
+	</mx:Script>
+    <mx:Label id="errorField" styleName="errorField" text=""/>
+    <mx:Form verticalGap="10" width="100%" paddingTop="5" paddingLeft="5" paddingRight="5">
+        <mx:FormItem width="100%" label="{niceResourceManager.getString('json','workflow.designer.status.name')}"
+                     labelStyleName="fieldLabel" required="true">
+            <mx:TextInput id="statusName" width="100%" change="onNameChange(event);"/>
+        </mx:FormItem>
+        <mx:FormItem width="100%" label="{niceResourceManager.getString('json','workflow.designer.description')}"
+                     labelStyleName="fieldLabel" required="false">
+            <mx:TextArea id="statusDesc" width="100%" height="60"/>
+        </mx:FormItem>
+        <mx:FormItem width="100%" label="{niceResourceManager.getString('json','workflow.designer.icon.url')}"
+                     labelStyleName="fieldLabel" required="true">
+            <mx:HBox width="100%">
+                <mx:TextInput id="statusIconUrl" width="100%" text="/images/icons/status_generic.gif"
+                              change="onURLChange(event);"/>
+                <mx:Button id="imageButton"
+                           label="{niceResourceManager.getString('json','workflow.designer.select.image')}"
+                           click="popImageSelector();"/>
+            </mx:HBox>
+            <mx:Label id="draftMessage" styleName="fieldMessage"
+                      text="{niceResourceManager.getString('json','workflow.designer.draft.message.relative')}"/>
+        </mx:FormItem>
+
+    </mx:Form>
+    <mx:StringValidator/>
+    <mx:HRule styleName="hrule" width="100%" height="1"/>
+    <DialogButtonBar id="buttons" buttonFlags="{DialogButtonBar.OK|DialogButtonBar.CANCEL}"/>
+</BaseDialog>

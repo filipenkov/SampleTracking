@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+#* @vtlvariable name="i18n" type="com.atlassian.sal.api.message.I18nResolver" *#
+#* @vtlvariable name="username" type="java.lang.String" *#
+#parse("/common/_help_link.vm")
+#parse("/common/_configured_status.vm")
+#parse("/common/_xsrf_token_element.vm")
+<html>
+<head>
+    ${webResources.get()}
+    ## The pane made visible on page load:
+    <meta name="view" content="$view">
+    ## The pane that will be activated by the Cancel button:
+    <meta name="cancel" content="#if($username)enabled#{else}disabled#end">
+</head>
+<body class="auth-config">
+    ## The pane that is rendered when auth is disabled.
+    <div class="auth-basic-view">
+        <form id="auth-basic-access" class="aui" method="POST">
+            #status($configured)
+            #xsrfTokenElement()
+            #if ($configured)
+                <div>
+                    ${i18n.getText("auth.basic.config.configured", $remoteApplicationName, $remoteApplicationType)}
+                    #help('applinks.docs.configuring.auth.basic')
+                </div>
+                <fieldset>
+                    <div class="field-group">
+                        <label>${i18n.getText("auth.basic.config.label.username")}</label>
+                        <span class="field-value">$!username</span>
+                    </div>
+                </fieldset>
+                ## TODO: add a test button: https://studio.atlassian.com/browse/APL-200
+                <div class="buttons-container">
+                <div class="buttons">
+                    <input type="hidden" name="method" value="DELETE" />## forms don't support DELETE
+                    <input type="submit" value="${i18n.getText("auth.basic.config.button.disable")}" class="button" />
+                </div>
+            </div>
+            #else
+                <div>
+                    ${i18n.getText("auth.basic.config.label.edit", $localApplicationName, $localApplicationType, $remoteApplicationName, $remoteApplicationType)} #help('applinks.docs.configuring.auth.basic')
+                </div>
+                <fieldset>
+                <input type="hidden" name="method" value="PUT">## PUT doesn't support www-form-encoded content
+                <div class="field-group">
+                    <label for="basicUsername">${i18n.getText("auth.basic.config.label.username")} <span class="aui-icon icon-required"></span></label>
+                    <input id="basicUsername" type="text" name="username" class="text medium-field" value="#if($usernameInput)$!usernameInput#{else}$!username#end" />
+                </div>
+                <div class="field-group">
+                    <label>${i18n.getText("auth.basic.config.label.password.new")} <span class="aui-icon icon-required"></span></label>
+                    <input type="password" class="password medium-field" name="password1" />
+                </div>
+                <div class="field-group">
+                    <label>${i18n.getText("auth.basic.config.label.password.confirm")} <span class="aui-icon icon-required"></span></label>
+                    <input type="password" class="password medium-field" name="password2" />
+                </div>
+                <div class="field-group">
+                    <div class="error">$!error</div>
+                </div>
+            </fieldset>
+                <div class="buttons-container">
+                    <div class="buttons">
+                        <input type="submit" value="${i18n.getText("auth.basic.config.button.enable")}" class="button" />
+                    </div>
+                </div>
+            #end
+        </form>
+    </div>
+</body>
+</html>

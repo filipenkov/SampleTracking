@@ -1,0 +1,45 @@
+#* @vtlvariable name="dateConfig" type="com.atlassian.jira.issue.search.searchers.util.DateSearcherConfig" *#
+## Date after
+$!{auiparams.put("controlHeaderClass", "aui-field-datepicker")}
+#searcherEditHeader (${afterField} ${afterFieldLabel})
+    <input class="text datepicker-input" id="searcher-${afterField}" name="${afterField}" title="${i18n.getText('navigator.filter.date.tooltip', $afterFieldLabel.toLowerCase())}" type="text" value="$!fieldValuesHolder.getEscaped($afterField)" />
+    <div class="datepicker-icon">
+        <a href="#" id="searcher-${afterField}-trigger" title="$i18n.getText('date.picker.select.date')">
+            <span class="aui-icon icon-date">$i18n.getText('date.picker.select.date')</span>
+        </a>
+    </div>
+    #datePopup("searcher-${afterField}" "searcher-${afterField}-trigger" $dateTimeFormat $dateFormat $timeFormat $dateTimePicker $currentMillis $currentCalendar)
+#searcherEditFooter (${afterField} '')
+$!{auiparams.clear()}
+
+## Date before
+$!{auiparams.put("controlHeaderClass", "aui-field-datepicker")}
+#searcherEditHeader (${beforeField} ${beforeFieldLabel})
+    <input class="text datepicker-input" id="searcher-${beforeField}" name="${beforeField}" title="${i18n.getText('navigator.filter.date.tooltip', $beforeFieldLabel.toLowerCase())}" type="text" value="$!fieldValuesHolder.getEscaped($beforeField)" />
+    <div class="datepicker-icon">
+        <a href="#" id="searcher-${beforeField}-trigger" title="$i18n.getText('date.picker.select.date')">
+            <span class="aui-icon icon-date">$i18n.getText('date.picker.select.date')</span>
+        </a>
+    </div>
+    #datePopup("searcher-${beforeField}" "searcher-${beforeField}-trigger" $dateTimeFormat $dateFormat $timeFormat $dateTimePicker $currentMillis $currentCalendar)
+#searcherEditFooter (${beforeField} '')
+$!{auiparams.clear()}
+
+## Date between
+$!{auiparams.put("controlHeaderClass", "aui-field-daterange")}
+#searcherEditHeader ("" ${periodLabel})
+    <div class="daterange-from">
+        <label for="searcher-${previousField}">${i18n.getText('navigator.filter.constants.duedate.from')}</label>
+        <input class="text daterange-input" id="searcher-${previousField}" name="${previousField}" type="text" value="$!fieldValuesHolder.getEscaped($previousField)" />
+    </div>
+    <div class="daterange-to">
+        <label for="searcher-${nextField}">${i18n.getText('navigator.filter.constants.duedate.to')}</label>
+        <input class="text daterange-input" id="searcher-${nextField}" name="${nextField}" type="text" value="$!fieldValuesHolder.getEscaped($nextField)" />
+    </div>
+    <div class="daterange-icon">
+        <a href="#" id="searcher-${beforeField}-trigger" title="$i18n.getText('date.picker.select.date.range')" onclick="openDateRangePicker('issue-filter', 'searcher-${previousField}', 'searcher-${nextField}', '${id}');return false;">
+            <span class="aui-icon icon-range">$i18n.getText('date.picker.select.date.range')</span>
+        </a>
+    </div>
+#searcherEditFooter (${previousField} ${description})
+$!{auiparams.clear()}

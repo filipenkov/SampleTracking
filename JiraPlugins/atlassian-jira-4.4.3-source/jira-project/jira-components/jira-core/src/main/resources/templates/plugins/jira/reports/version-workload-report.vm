@@ -1,0 +1,240 @@
+<style type="text/css">
+    table.versionReportHeader
+    {
+        width:100%;
+        border-width:0;
+    }
+    table.versionReportHeader h3, table.versionReportHeader h4
+    {
+        margin-top:0;
+        margin-left: 6px;
+        padding:5px;
+    }
+    table.versionReportHeader td
+    {
+        padding:0px;
+    }
+    table.versionReport
+    {
+        width:100%;
+        margin:0;
+        border-color: lightgray;
+        border-width: 1px;
+        border-style: solid;
+    }
+    table.versionReport thead
+    {
+        background-color:#f0f0f0;
+        vertical-align:bottom;
+    }
+    table.versionReport thead td
+    {
+        border-left:none;
+        padding-left:12px;
+        padding-top:0px;
+        padding-bottom:10px;
+        background-color:#ffffff;
+    }
+    table.versionReport tfoot
+    {
+        background-color:#f0f0f0;
+        vertical-align:bottom;
+    }
+    table.versionReport th
+    {
+        padding:5px;
+    }
+    table.versionReport td
+    {
+        padding:5px;
+    }
+    table.versionReport thead tr th
+    {
+        font-weight:bold;
+        border-bottom-color: lightgray;
+        border-bottom-width: 1px;
+        border-bottom-style:solid;
+    }
+    table.versionReport tfoot tr th
+    {
+        font-weight:bold;
+        border-top-color: #666;
+        border-top-width: 1px;
+        border-top-style:solid;
+        white-space:nowrap;
+    }
+    table.versionReport .left-bordered
+    {
+        border-left-color: #666;
+        border-left-width: 1px;
+        border-left-style: solid;
+    }
+    table.versionReport .figures
+    {
+        text-align:right;
+        vertical-align:bottom;
+    }
+    table.versionReport td
+    {
+        border-left-color: lightgray;
+        border-left-width: 1px;
+        border-left-style: solid;
+        border-bottom-color: lightgray;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+    }
+</style>
+
+<table width="100%" class="report">
+<tr><td>
+    <div style="padding: 5px">
+        <img src="$req.contextPath/images/icons/bullet_creme.gif" height="8" width="8" border="0" align="absmiddle">
+        $descriptor.getText("workload.version.report.title"):
+        <b>$textutils.htmlEncode($version.getProject().name) ($version.getProject().key) - $textutils.htmlEncode($version.name)</b>
+        &nbsp;(<a href="$req.contextPath/secure/ConfigureReport!default.jspa?reportKey=$descriptor.completeKey">$descriptor.getText("workload.developer.report.change")</a>)
+        #if ($subtasksEnabled)
+        <h4 class="grey">$textutils.htmlEncode($subtaskDescription)</h4>
+        #end
+    </div>
+    <table class="versionReportHeader" cellspacing="0">
+         <tr><th><h2 id="toc" class="bluetext">$descriptor.getText("workload.version.report.summary.header")</h2></th></tr>
+        <tbody>
+            <table id="report_summary" class="versionReport" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="colHeaderLink" width="16%" nowrap><b>$descriptor.getText("workload.version.report.user")</b></th>
+                        #foreach ($issueTypeObject in $issueTypes)
+                        <th class="colHeaderLink left-bordered" width="16%" nowrap>
+                            <b>
+                            #if (${issueTypeObject.iconUrl.startsWith("http://")})
+                                <img src="${issueTypeObject.iconUrlHtml}" height="16" width="16" border="0" align="absmiddle" alt="$textutils.htmlEncode(${issueTypeObject.nameTranslation}, false)">
+                            #else
+                                <img src="${baseurl}${issueTypeObject.iconUrlHtml}" height="16" width="16" border="0" align="absmiddle" alt="$textutils.htmlEncode(${issueTypeObject.nameTranslation}, false)">
+                            #end
+                            $textUtils.htmlEncode($issueTypeObject.nameTranslation)
+                            </b>
+                        </th>
+                        #end
+                        <th class="colHeaderLink left-bordered" width="17%" nowrap><b>$descriptor.getText("workload.version.report.totaltime.remaining")</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    #foreach ($assigneeName in $assigneeUserNames)
+                      #if ($report.getRemainingTime($assigneeName).equals($descriptor.getText("report.versionworkload.no.estimate")) && $displayUnknown.equals("no"))
+                      #else
+                        <tr>
+                            <td> <a href="#$assigneeName">$textutils.htmlEncode($report.getAssigneeFullName($assigneeName))</a> </td>
+                            #foreach ($issueTypeObject in $issueTypes)
+                                <td class="figures left-bordered">
+                                    #set ($timeEstimate = $report.getTotalTimeForUserByIssueType($assigneeName, $issueTypeObject.id))
+                                    #if (${timeEstimate.equals($descriptor.getText("report.versionworkload.no.estimate"))})
+                                        -
+                                    #else
+                                        $timeEstimate
+                                    #end
+                                </td>
+                            #end
+                            <td class="figures left-bordered"><b>$report.getRemainingTime($assigneeName)</b></td>
+                        </tr>
+                      #end
+                    #end
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th class="figures">$descriptor.getText("report.versionworkload.totals"):</th>
+                        #foreach ($issueTypeObject in $issueTypes)
+                            #set ($timeEstimate = $report.getIssueTypeTotal($issueTypeObject.id))
+                            <th class="figures left-bordered">$timeEstimate</th>
+                        #end
+                        <th class="figures left-bordered">$report.getGrandTotal()</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </tbody>
+    </table>
+    <br>
+</td></tr>
+<tr><td>
+    <table class="versionReportHeader" cellspacing="0">
+        <tr><th><h2 class="bluetext">$descriptor.getText("workload.version.report.individual.estimates")</h2></th></tr>
+        <tbody>
+            #foreach ($assigneeName in $assigneeUserNames)
+                #if ($report.getRemainingTime($assigneeName).equals($descriptor.getText("report.versionworkload.no.estimate")) && $displayUnknown.equals("no"))
+                #else
+                    <table id="report_$assigneeName" class="versionReport" cellspacing="0" style="border-bottom:none">
+                        <thead>
+                            <tr>
+                                <th colspan="5"> <h3 class="bluetext" id="$assigneeName" style="margin-top:0"> $textutils.htmlEncode($report.getAssigneeFullName($assigneeName)): $report.getRemainingTime($assigneeName)</h3> </th>
+                            </tr>
+                        </thead>
+                        #foreach ($issueTypeObject in $issueTypes)
+                            #set ($timeEstimate = $report.getTotalTimeForUserByIssueType($assigneeName, $issueTypeObject.id))
+                            #if ($report.getIssuesByType($assigneeName, $issueTypeObject.id).isEmpty())
+                            #else
+                                <tr>
+                                    <td colspan="5" bgcolor="#f0f0f0" style="border-left: none"> <b>$textutils.htmlEncode($issueTypeObject.nameTranslation, false)</b>:
+                                        #if (${timeEstimate.equals($descriptor.getText("report.versionworkload.no.estimate"))})
+                                            <b>$descriptor.getText("report.versionworkload.no.estimate")</b>
+                                        #else
+                                            <b>$timeEstimate</b>
+                                        #end
+                                    </td>
+                                </tr>
+                                <tr bgcolor="#f0f0f0">
+                                    <td class="colHeaderLink" style="border-left: none" width="5%" nowrap ><b>$descriptor.getText("workload.version.report.key")</b></td>
+                                    <td class="colHeaderLink" width="5%" nowrap><b>$descriptor.getText("workload.version.report.type")</b></td>
+                                    <td class="colHeaderLink" width="5%" nowrap><b>$descriptor.getText("workload.version.report.priority")</b></td>
+                                    <td class="colHeaderLink" nowrap><b>$descriptor.getText("workload.version.report.summary")</b></td>
+                                    <td class="colHeaderLink" width="5%" nowrap><b>$descriptor.getText("workload.version.report.estimatedtime.remaining")</b></td>
+                                </tr>
+                                #foreach ($issueObject in $report.getIssuesByType($assigneeName, $issueTypeObject.id))
+                                    #if ($report.getNiceTimeEstimateDuration($issueObject).equals($descriptor.getText("report.versionworkload.no.estimate")) && $displayUnknown.equals("no"))
+                                    #else
+                                        <tr bgcolor="#ffffff">
+                                            <td style="border-left: none" nowrap>
+                                                #if ($issueObject.isSubTask())
+                                                    #set ($parentIssue = $issueObject.getParentObject())
+                                                    #if ($permissionCheck && $permissionCheck.isIssueVisible($parentIssue) == true)
+                                                        <span class="small"><a href="$req.contextPath/browse/$parentIssue.key" style="text-decoration: none;" title="$parentIssue.summary">$parentIssue.key</a></span><br/>
+                                                    #else
+                                                        <span class="smallgrey">$parentIssue.key</span><br/>
+                                                    #end
+                                                    <img src="$req.contextPath/images/icons/link_out_bot.gif" width="16" height="16" border="0" align="absmiddle">
+                                                #end
+                                                <a href="${baseurl}/browse/${issueObject.key}">$issueObject.key</a>
+                                            </td>
+                                            <td align="center">
+                                                #if (${issueTypeObject.iconUrl.startsWith("http://")})
+                                                    <img src="${issueTypeObject.iconUrlHtml}" height="16" width="16" border="0" align="absmiddle" alt="$textutils.htmlEncode(${issueTypeObject.nameTranslation}, false)">
+                                                #else
+                                                    <img src="${baseurl}${issueTypeObject.iconUrlHtml}" height="16" width="16" border="0" align="absmiddle" alt="$textutils.htmlEncode(${issueTypeObject.nameTranslation}, false)">
+                                                #end
+                                            </td>
+                                            <td align="center">
+                                                #if ($issueObject.priorityObject)
+                                                    #set ($priorityObject = $issueObject.priorityObject)
+                                                    #if (${priorityObject.iconUrl.startsWith("http://")})
+                                                        <img src="${priorityObject.iconUrlHtml}" height="16" width="16" border="0" align="absmiddle" alt="$textutils.htmlEncode(${priorityObject.nameTranslation}, false)">
+                                                    #else
+                                                        <img src="${baseurl}${priorityObject.iconUrlHtml}" height="16" width="16" border="0" align="absmiddle" alt="$textutils.htmlEncode(${priorityObject.nameTranslation}, false)">
+                                                    #end
+                                                #end
+                                            </td>
+                                            <td><a href="${baseurl}/browse/${issueObject.key}">$textutils.htmlEncode($issueObject.summary)</a></td>
+                                            <td>
+                                                $report.getNiceTimeEstimateDuration($issueObject)
+                                            </td>
+                                        </tr>
+                                    #end
+                                #end
+                            #end
+                        #end
+                        <tr> <td colspan="5"> <span class="small"><a href="#toc">$descriptor.getText("workload.version.report.return.summary")</a> </span> </td></tr>
+                    </table>
+                    <br>
+                #end
+            #end
+        </tbody>
+    </table>
+</td></tr>
+</table>

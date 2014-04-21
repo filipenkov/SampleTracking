@@ -1,0 +1,64 @@
+{namespace JIRA.Templates.QuickForm}
+
+/**
+* Renders field
+*
+* @param editHtml - HTML for field
+*/
+{template .field}
+    {$editHtml|noAutoescape}
+{/template}
+
+/**
+*
+* Quick Form field picker
+* @param isConfigurable
+*/
+{template .fieldPicker}
+<div class="qf-picker">
+    <div class="qf-picker-header">
+        <dl>
+            <dt>Show Fields: </dt>
+            {if $isConfigurable}
+                <dd><a class="qf-unconfigurable" href="#">All</a></dd>
+                <dd>Custom</dd>
+            {else}
+                <dd>All</dd>
+                <dd><a class="qf-configurable" href="#">Custom</a></dd>
+            {/if}
+        </dl>
+    </div>
+    <div class="qf-picker-content {if not $isConfigurable}qf-picker-unconfigurable{/if}"></div>
+    <div class="qf-picker-footer"></div>
+</div>
+{/template}
+
+/**
+* Renders Field Picker Button
+*
+* @param isActive
+* @param label
+*/
+{template .configurablePickerButton}
+<a title="{$label}" class="qf-picker-button{if $isActive} qf-active{/if}" href="#">{$label}</a>
+{/template}
+
+/**
+* Renders Field Picker Button
+*
+* @param isActive
+* @param label
+*/
+{template .unconfigurablePickerButton}
+<span title="{$label}" class="qf-picker-button{if $isActive} qf-active{/if}" href="#">{$label}</span>
+{/template}
+
+/**
+* @param message
+*/
+{template .errorMessage}
+<div class="aui-message error">
+    <span class="aui-icon icon-error"></span>
+    {$message}
+</div>
+{/template}

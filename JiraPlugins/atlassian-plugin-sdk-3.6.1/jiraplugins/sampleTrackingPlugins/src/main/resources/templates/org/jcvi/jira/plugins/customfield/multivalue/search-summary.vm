@@ -1,0 +1,12 @@
+#searcherHeader ($customField)
+#if ($value && $value.getValuesForNullKey())
+    <div>
+        <ul>
+  #set ($values = $value.getValuesForNullKey())
+  #foreach ($valuePart in $values)
+            <li>$textutils.htmlEncode($!valuePart)</li>
+  #end
+        </ul>
+    </div>
+#end
+#searcherFooter ($customField)

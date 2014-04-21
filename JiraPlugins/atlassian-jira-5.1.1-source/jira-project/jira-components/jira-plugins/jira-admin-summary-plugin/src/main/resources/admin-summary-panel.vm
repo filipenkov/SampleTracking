@@ -1,0 +1,37 @@
+#enable_html_escaping()
+#* @vtlvariable name="components" type="java.util.List<com.atlassian.jira.admin.contextproviders.ProjectPanelContextProvider.SimpleProject>" *#
+## This section is pretty much hard coded
+#macro (drawadminsummarysection $section $sectionKey) ##LOCAL_MACRO_EXCEPTION
+    #set ($dropdownLinks = $linkManager.getLinksForSection($sectionKey, $user, $helper))
+    #set ($innerDropdownSections = $linkManager.getNotEmptySectionsForLocation($section.id, $user, $helper))
+
+    #if (! $dropdownLinks.empty || !$innerDropdownSections.isEmpty())
+        #if (!$dropdownLinks.empty)
+            #if ($section.label)
+                <h5 class="as-label">$section.label</h5>
+            #end
+            <ul id="$section.id" class="as-list">
+                #foreach ($dropdownLink in $dropdownLinks)
+                    <li><a href="$dropdownLink.url">$textutils.htmlEncode($dropdownLink.label)</a></li>
+                #end
+            </ul>
+        #end
+        #foreach ($innerSection in $innerDropdownSections)
+            #set ($sectionKey = "$section.id/$innerSection.id")
+            #drawadminsummarysection($innerSection $sectionKey)
+        #end
+    #end
+#end
+
+#if ($childSections.size() > 0)
+    <div class="mod-header">
+        <h3 class="toggle-title">$panelName</h3>
+    </div>
+    <div id="admin-summary-section-$outerSectionId" class="mod-content">
+        #foreach ($section in $childSections)
+            #set ($sectionKey = "$outerSectionId/$section.id")
+            #drawadminsummarysection($section $sectionKey)
+        #end
+    </div>
+#end
+

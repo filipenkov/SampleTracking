@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BaseDialog xmlns="com.sysbliss.jira.workflow.ui.dialog.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+	width="650" minWidth="650"
+	height="100" minHeight="100"
+	title="{niceResourceManager.getString('json','workflow.designer.invalid.license')}"
+	showCloseButton="false"
+	showControls="false">
+	<mx:Script>
+		<![CDATA[
+        import com.sysbliss.jira.workflow.Il8n.INiceResourceManager;
+        import com.sysbliss.jira.workflow.Il8n.NiceResourceManager;
+
+        override public function onEnterKey():void {
+				//do nothing
+			}
+
+            private const niceResourceManager:INiceResourceManager = NiceResourceManager.getInstance();
+		]]>
+	</mx:Script>
+	<mx:Label id="errorField" styleName="errorField" text="{niceResourceManager.getString('json','workflow.designer.invalid.license.message')}" />
+</BaseDialog>
+

@@ -1,0 +1,129 @@
+#set ($quote = '"')
+#if($admin)
+<table id="admin_portlet_$configId" class="tableBorder maxWidth" border="0" cellpadding="3" cellspacing="1" width="100%">
+    <tr class="rowHeader">
+        <td class="colHeaderLink" colspan="2">
+            $i18n.getText("portlet.admin.tasks"): <b><a href="${baseurl}/secure/admin/">$i18n.getText("portlet.admin.administration")</a></b>
+        </td>
+    </tr>
+
+<tr>
+    <td class="rowAlternate"><b>$i18n.getText("portlet.admin.projects")</b></td>
+    <td class="rowNormal">
+        <a href="${baseurl}/secure/admin/">$i18n.getText("portlet.admin.projects.viewall")</a> $i18n.getText("common.words.or")
+        <a href="${baseurl}/secure/admin/AddProject!default.jspa">$i18n.getText("portlet.admin.projects.createnew")</a>.<br>
+    </td>
+</tr>
+#if (!$externaUserManagement)
+    <tr>
+        <td class="rowAlternate"><b>$i18n.getText("portlet.admin.users")</b></td>
+        <td class="rowNormal">
+            #set ($param0 = "<a href=${quote}${baseurl}/secure/admin/user/UserBrowser.jspa${quote}>")
+            #set ($param1 = "<a href=${quote}${baseurl}/secure/admin/user/GroupBrowser.jspa${quote}>")
+            #set ($param2 = "<a href=${quote}${baseurl}/secure/admin/user/AddUser!default.jspa${quote}>")
+            #set ($param3 = "</a>")
+            $i18n.getText("portlet.admin.users.groups.browse", [$param0, $param1, $param2, $param3])<br>
+        </td>
+    </tr>
+#end
+
+#if($isSystemAdministrator)
+    <tr>
+        <td class="rowAlternate"><b>$i18n.getText("portlet.admin.data")</b></td>
+        <td class="rowNormal">
+            #if ($i18n.hasKey("portlet.admin.restore.or.backup.data.as.xml"))
+                $i18n.getText("portlet.admin.restore.or.backup.data.as.xml", "<a href=${quote}${baseurl}/secure/admin/XmlRestore!default.jspa${quote}>", "</a>", "<a href=${quote}${baseurl}/secure/admin/XmlBackup!default.jspa${quote}>", "</a>").<br>
+            #else
+                <a href="${baseurl}/secure/admin/XmlRestore!default.jspa">$i18n.getText("portlet.admin.data.restore")</a> $i18n.getText("common.words.or")
+                <a href="${baseurl}/secure/admin/XmlBackup!default.jspa">$i18n.getText("portlet.admin.data.backup")</a> JIRA $i18n.getText("portlet.admin.data.dataasxml").<br>
+            #end
+        </td>
+    </tr>
+#end
+
+<tr>
+    <td class="rowAlternate"><b>$i18n.getText("portlet.admin.setup")</b></td>
+    <td class="rowNormal">
+        <a href="${baseurl}/secure/admin/jira/ViewApplicationProperties.jspa">$i18n.getText("portlet.admin.setup.configure")</a> JIRA
+        $i18n.getText("common.words.or") <a href="${baseurl}/secure/admin/jira/GlobalPermissions!default.jspa">$i18n.getText("portlet.admin.setup.modify")</a>.<br>
+    </td>
+</tr>
+
+<tr>
+    <td valign="top" bgcolor="#if ($nearExpiry)#cc0000 #else#f2f2f2#end">
+        <b>$i18n.getText("portlet.admin.license")</b>
+    </td>
+    <td bgcolor="#if ($nearExpiry)#cc0000 #else#ffffff#end">
+        $!licenseDescription $i18n.getText("portlet.admin.license")
+        #if($isSystemAdministrator)
+            (${i18n.getText("portlet.admin.license.details", "<a href=${quote}${baseurl}/secure/admin/ViewLicense.jspa${quote}>", "</a>")})
+        #end
+
+        #if ($licensePartnerName && $licensePartnerName != '')
+            <br>$i18n.getText("portlet.admin.license.partner", $licensePartnerName)
+        #end
+        $!licenseExpiryStatusMessage
+    </td>
+</tr>
+
+#if ($hasReachedUserLimit)
+    <tr>
+        <td style="color: #if (!$hasExceededUserLimit && (!$userLicenseLimit || $userLicenseLimit != 0))#000 #else #b00 #end; background-color: #fff" colspan="2">
+            #if ($userLicenseLimit && $userLicenseLimit == 0)
+                ${i18n.getText("portlet.admin.license.zero.user.limit", "<a href=${quote}$externalLinkUtil.getProperty('external.link.atlassian.my.account')${quote}>", "</a>")}
+            #else
+                #if($hasExceededUserLimit)
+                    $i18n.getText("admin.globalpermissions.user.limit.warning", "<a href=${quote}${baseurl}/secure/admin/ViewLicense.jspa${quote}>", "</a>")
+                #else
+                    $i18n.getText("portlet.admin.reached.user.limit", "<a href=${quote}${baseurl}/secure/admin/ViewLicense.jspa${quote}>", "</a>")
+                #end
+                <br/>${i18n.getText("portlet.admin.purchase.full.license", "<a href=${quote}$externalLinkUtil.getProperty('external.link.jira.personal.site')${quote}>", "</a>")}
+            #end
+        </td>
+    </tr>
+#end
+
+#if ($isUsingHsql)
+    <tr>
+        <td class="rowAlternate" valign="top">
+            <b>$i18n.getText("portlet.admin.database")</b>
+        </td>
+        <td class="rowNormal">
+            $i18n.getText("portlet.admin.administration.hsqlwarning", "<span class=red-highlight>", "</span>", "<a href=${quote}${dbConfigDocs.url}${quote}>", "</a>")
+            #if (!$hasBackupService)
+            <p />
+            #if ($isSystemAdministrator)
+                $i18n.getText("portlet.admin.administration.backupwarning", '<span class="red-highlight">', '</span>', "<a href=${quote}${baseurl}/secure/admin/jira/ViewServices!default.jspa?name=BackupService&clazz=com.atlassian.jira.service.services.export.ExportService&delay=720${quote}>", '</a>')
+            #else
+##Disabled until http://jdog.atlassian.com/browse/JRADEV-1422 has been resolved
+##                $i18n.getText("portlet.admin.administration.backupwarning.not.sysadmin", '<span class="red-highlight">', '</span>', "<a href=${quote}${baseurl}/secure/Administrators.jspa#sysadmins${quote}>", '</a>')
+                $i18n.getText("portlet.admin.administration.backupwarning.not.sysadmin", '<span class="red-highlight">', '</span>', " ", ' ')
+            #end
+            #end
+        </td>
+    </tr>
+#end
+
+#if ($licenseStatusMessage)
+    <tr>
+        <td style="color: #bb0000; background-color: #ffffff" colspan="2">
+            $licenseStatusMessage
+        </td>
+    </tr>
+#end
+
+
+#if($warningMessages.size() > 0)
+<tr>
+    <td class="rowAlternate" valign="top"><b>$i18n.getText("admin.systeminfo.environment.warnings")</b></td>
+    <td class="rowNormal" style="color: #bb0000;">
+        #foreach ($message in $warningMessages)
+        $message<br>
+        #end
+    </td>
+</tr>
+#end
+
+
+</table>
+#end

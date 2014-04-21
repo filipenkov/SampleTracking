@@ -1,0 +1,18 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Error: Gadget Removed</title>
+    $webResourceManager.requireResource("com.atlassian.gadgets.opensocial:gadget-removed-error-page-resources")
+    $unescaper.html($webResourceManager.getRequiredResources())
+</head>
+<body>
+    <div class="renderer-error-message">$message</div>
+    <div class="renderer-error-details">
+        <div class="renderer-error-toggle">Error Details</div>
+        <div class="renderer-error-reason">
+            <div>$reason</div>
+            <div class="renderer-error-gadget-url">$gadgetUrl</div>
+        </div>
+    </div>
+</body>
+</html>

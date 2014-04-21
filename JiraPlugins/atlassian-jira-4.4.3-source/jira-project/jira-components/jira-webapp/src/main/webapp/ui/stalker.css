@@ -1,0 +1,27 @@
+#stalker {clear:both; z-index:100; width:100%;}
+#stalker.detached {position:fixed;}
+#stalker.action .btm  {background:#fff url('../../../images/stalker-ext-grad.png') repeat-x scroll 0 100%;height:9px;}
+#stalker.detached .btm {height:9px;}
+#stalker.detached.action .btm {background-color:transparent;}
+#stalker.detached .item-header .avatar img {display:none;} /* hiding for screen, revealed in print. Causing flickering in FF on win */
+#stalker .btm {border:1px solid #bbb; border-width:0 1px;background:transparent url('../../../images/stalker-std-grad.png') repeat-x scroll 0 100%;height:0;margin:0 12px;min-width:964px;}
+
+.stalker #main-content {padding-top:0;}
+.stalker .item-header {padding-bottom:1em;}
+.stalker .command-bar {background-color:#f7f7f7;}
+.stalker .ops-cont {background-color:#fff;border:1px solid #bbb;border-bottom:none;-moz-border-radius-topleft:0.4em;-moz-border-radius-topright:0.4em;-webkit-border-top-left-radius:0.4em;-webkit-border-top-right-radius:0.4em;border-top-left-radius:0.4em;border-top-right-radius:0.4em;margin:0 12px;padding:12px;}
+.stalker .active-area {border-top:none;-moz-border-radius-topleft:0;-moz-border-radius-topright:0;-webkit-border-top-left-radius:0;-webkit-border-top-right-radius:0;border-top-left-radius:0;border-top-right-radius:0;}
+
+/* comment form in stalker */
+#stalker #issue-comment-add {padding:10px 8px 0 0; clear:both;}
+#stalker #issue-comment-add textarea {height:45px;max-height:90px;}
+#stalker .comment {display:none;}
+
+/* Fix for Firefox 3.5 */
+#stalker.fix-ff35-flicker {overflow:auto;}
+#stalker.fix-ff35-flicker .command-bar {min-width:0;}
+#stalker.fix-ff35-flicker div, #stalker.fix-ff35-flicker form {overflow:visible;}
+
+/* Fixes for IE */
+.msie-7 #stalker textarea#comment,
+.msie-8 #stalker textarea#comment {width:99%;}

@@ -1,0 +1,5 @@
+<div style="display: none;" id="authenticate-dialog">
+    <div id="authPanel" title="$i18n.getText('applinks.authenticate.long')">
+        <iframe id="authenticate-iframe" frameborder="0"></iframe>
+    </div>
+</div>

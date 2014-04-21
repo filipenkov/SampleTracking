@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+    <!-- Writes tokens to the database -->
+    <bean id="tokenDAOHibernate" class="com.atlassian.crowd.dao.token.TokenDAOHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="hqlQueryTranslater" ref="hqlQueryTranslater"/>
+    </bean>
+
+    <!-- Writes tokens to an in-memory cache -->
+    <bean id="tokenDAOMemory" class="com.atlassian.crowd.dao.token.TokenDAOMemory">
+        <property name="cacheManager" ref="cacheManager"/>
+    </bean>
+
+    <bean id="resetPasswordTokenDAOMemory" class="com.atlassian.crowd.dao.token.ResetPasswordTokenDaoMemory">
+        <constructor-arg ref="cacheManager"/>
+    </bean>
+
+    <bean id="propertyDao" class="com.atlassian.crowd.dao.property.PropertyDAOHibernate" autowire="byType"/>
+
+    <bean id="aliasDao" class="com.atlassian.crowd.dao.alias.AliasDAOHibernate" autowire="byType"/>
+
+    <bean id="batchProcessor" class="com.atlassian.crowd.util.persistence.hibernate.batch.hibernate3.Hibernate3BatchProcessor">
+        <constructor-arg ref="sessionFactory"/>
+        <property name="batchSize" value="20"/>
+    </bean>
+
+    <bean id="batchFinder" class="com.atlassian.crowd.util.persistence.hibernate.batch.hibernate3.Hibernate3BatchFinder">
+        <constructor-arg ref="sessionFactory"/>
+        <property name="batchSize" value="50"/>
+    </bean>
+
+    <bean id="userDao" class="com.atlassian.crowd.dao.user.UserDAOHibernate" autowire="byType"/>
+
+    <bean id="groupDao" class="com.atlassian.crowd.dao.group.GroupDAOHibernate" autowire="byType"/>
+
+    <bean id="membershipDao" class="com.atlassian.crowd.dao.membership.MembershipDAOHibernate" autowire="byType"/>
+
+    <bean id="directoryDao" class="com.atlassian.crowd.dao.directory.DirectoryDAOHibernate" autowire="byType"/>
+
+    <bean id="applicationDao" class="com.atlassian.crowd.dao.application.ApplicationDAOHibernate" autowire="byType"/>
+
+    <bean id="resetPasswordTokenDao" class="com.atlassian.crowd.dao.token.ResetPasswordTokenDaoMemory">
+        <constructor-arg ref="cacheManager"/>
+    </bean>
+
+    <bean id="hqlQueryTranslater" class="com.atlassian.crowd.search.hibernate.HQLQueryTranslater" autowire="byType"/>
+
+    <bean id="internalAttributesHelper" class="com.atlassian.crowd.model.InternalAttributesHelper" autowire="byType"/>
+
+</beans>

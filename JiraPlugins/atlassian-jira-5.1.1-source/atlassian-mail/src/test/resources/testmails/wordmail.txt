@@ -1,0 +1,454 @@
+X-File-Comment: Added by Charles
+    There are no tests that directly look at this file, but to look at what happens to this mail
+    after making any edits to the HtmlToTextConverter, as it contains the most pathological HTML
+    you're likely to ever find in the wild.
+X: .
+X: .
+X: .
+Return-Path: <charles@atlassian.com>
+Received: from [192.168.0.69] ([210.23.144.50]) (authenticated) by
+        zeus.atlassian.com (8.11.6/8.11.6) with ESMTP id hBV4OCb12771 for
+        <charles@atlassian.com>; Tue, 30 Dec 2003 22:24:12 -0600
+Mime-Version: 1.0 (Apple Message framework v609)
+Content-Transfer-Encoding: 7bit
+Message-Id: <37D88578-3B49-11D8-B31E-000393452562@atlassian.com>
+Content-Type: text/html; charset=WINDOWS-1252
+To: Charles Miller <charles@atlassian.com>
+From: Charles Miller <charles@atlassian.com>
+Subject: Simple Test Mail 1
+Date: Wed, 31 Dec 2003 15:24:26 +1100
+X-Mailer: Apple Mail (2.609)
+X-Spam-Checker-Version: SpamAssassin 2.61 (1.212.2.1-2003-12-09-exp) on
+        zeus.atlassian.com
+X-Spam-Status: No, hits=0.0 required=5.0 tests=none autolearn=ham
+        version=2.61
+X-Spam-Level:
+Status:  
+X-Evolution-Source: pop://cmiller@mail.atlassian.com/
+
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:st1="urn:schemas-microsoft-com:office:smarttags"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 10">
+<meta name=Originator content="Microsoft Word 10">
+<link rel=File-List href="wordhtml_files/filelist.xml">
+<link rel=Edit-Time-Data href="wordhtml_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Eric S</title>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="date"/>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="stockticker"/>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author> </o:Author>
+  <o:LastAuthor> </o:LastAuthor>
+  <o:Revision>1</o:Revision>
+  <o:TotalTime>1</o:TotalTime>
+  <o:Created>2004-01-05T00:07:00Z</o:Created>
+  <o:LastSaved>2004-01-05T00:08:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>670</o:Words>
+  <o:Characters>3821</o:Characters>
+  <o:Company> </o:Company>
+  <o:Lines>31</o:Lines>
+  <o:Paragraphs>8</o:Paragraphs>
+  <o:CharactersWithSpaces>4483</o:CharactersWithSpaces>
+  <o:Version>10.2625</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:Compatibility>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if !mso]><object
+ classid="clsid:38481807-CA0E-42D2-BF39-B33AF135CC4D" id=ieooui></object>
+<style>
+st1\:*{behavior:url(#ieooui) }
+</style>
+<![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+        {font-family:Helvetica;
+        panose-1:2 11 6 4 2 2 2 2 2 4;
+        mso-font-charset:0;
+        mso-generic-font-family:swiss;
+        mso-font-pitch:variable;
+        mso-font-signature:536902279 -2147483648 8 0 511 0;}
+@font-face
+        {font-family:SimSun;
+        panose-1:2 1 6 0 3 1 1 1 1 1;
+        mso-font-alt:\5B8B\4F53;
+        mso-font-charset:134;
+        mso-generic-font-family:auto;
+        mso-font-pitch:variable;
+        mso-font-signature:3 135135232 16 0 262145 0;}
+@font-face
+        {font-family:Verdana;
+        panose-1:2 11 6 4 3 5 4 4 2 4;
+        mso-font-charset:0;
+        mso-generic-font-family:swiss;
+        mso-font-pitch:variable;
+        mso-font-signature:536871559 0 0 0 415 0;}
+@font-face
+        {font-family:"\@SimSun";
+        panose-1:2 1 6 0 3 1 1 1 1 1;
+        mso-font-charset:134;
+        mso-generic-font-family:auto;
+        mso-font-pitch:variable;
+        mso-font-signature:3 135135232 16 0 262145 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+        {mso-style-parent:"";
+        margin:0cm;
+        margin-bottom:.0001pt;
+        mso-pagination:widow-orphan;
+        font-size:12.0pt;
+        font-family:"Times New Roman";
+        mso-fareast-font-family:SimSun;}
+h1
+        {mso-margin-top-alt:auto;
+        margin-right:0cm;
+        margin-bottom:1.5pt;
+        margin-left:0cm;
+        mso-pagination:widow-orphan;
+        mso-outline-level:1;
+        font-size:24.0pt;
+        font-family:"Times New Roman";
+        font-weight:bold;}
+a:link, span.MsoHyperlink
+        {font-family:Verdana;
+        mso-ascii-font-family:Verdana;
+        mso-hansi-font-family:Verdana;
+        color:blue;
+        mso-text-animation:none;
+        text-decoration:none;
+        text-underline:none;
+        text-decoration:none;
+        text-line-through:none;}
+a:visited, span.MsoHyperlinkFollowed
+        {color:purple;
+        text-decoration:underline;
+        text-underline:single;}
+p
+        {margin-top:0cm;
+        margin-right:0cm;
+        margin-bottom:12.0pt;
+        margin-left:0cm;
+        mso-pagination:widow-orphan;
+        font-size:12.0pt;
+        font-family:Helvetica;
+        mso-fareast-font-family:SimSun;}
+span.GramE
+        {mso-style-name:"";
+        mso-gram-e:yes;}
+@page Section1
+        {size:612.0pt 792.0pt;
+        margin:72.0pt 90.0pt 72.0pt 90.0pt;
+        mso-header-margin:35.4pt;
+        mso-footer-margin:35.4pt;
+        mso-paper-source:0;}
+div.Section1
+        {page:Section1;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+        {mso-style-name:"Table Normal";
+        mso-tstyle-rowband-size:0;
+        mso-tstyle-colband-size:0;
+        mso-style-noshow:yes;
+        mso-style-parent:"";
+        mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+        mso-para-margin:0cm;
+        mso-para-margin-bottom:.0001pt;
+        mso-pagination:widow-orphan;
+        font-size:10.0pt;
+        font-family:"Times New Roman";}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="2050"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=EN-US link=blue vlink=purple style='tab-interval:36.0pt'>
+
+<div class=Section1>
+
+<table class=MsoNormalTable border=0 cellpadding=0 width="100%"
+ style='width:100.0%;mso-cellspacing:1.5pt;mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-lastrow:yes'>
+  <td width="80%" style='width:80.0%;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='font-family:Helvetica;color:#333333'>Eric S.
+  Raymond's Home Page <o:p></o:p></span></p>
+  </td>
+  <td width="20%" style='width:20.0%;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-family:Helvetica;color:#333333'><script language="JavaScript"  src="/~esr/datestamp.js">
+  </script></span><st1:date Year="2003" Day="13" Month="12"><span
+   style='font-family:Helvetica;color:#333333'>13 Dec 2003</span></st1:date><span
+  style='font-family:Helvetica;color:#333333'> <o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<div class=MsoNormal align=center style='text-align:center;background:#EEEEEE'><span
+style='font-family:Helvetica;color:#333333'>
+
+<hr size=2 width="100%" align=center>
+
+</span></div>
+
+<p class=MsoNormal style='background:#EEEEEE'><span style='font-family:Helvetica;
+color:#333333'>Home page<br>
+<a href="http://www.catb.org/~esr/sitemap.html" title="Map of the site"><span
+style='font-family:Verdana'>Site Map</span></a><br>
+<a href="http://www.catb.org/~esr/whatsnew.html" title=What site?? this on new s><span
+style='font-family:Verdana'>What's New</span></a><br>
+<a href="http://www.catb.org/~esr/software.html" title="Software I maintain"><span
+style='font-family:Verdana'>Software</span></a><br>
+<a href="http://www.catb.org/~esr/projects.html" title="My projects"><span
+style='font-family:Verdana'>Projects</span></a><br>
+<a href="http://www.catb.org/~esr/faqs/" title="My FAQ documents"><span
+style='font-family:Verdana'>HOWTOs</span></a><br>
+<a href="http://www.catb.org/~esr/writings/" title="Essays and ruminations"><span
+style='font-family:Verdana'>Essays</span></a><br>
+<a href="http://www.catb.org/~esr/personal.html" title="Portrait of the author"><span
+style='font-family:Verdana'>Personal</span></a><br>
+<a href="http://www.ibiblio.org/esrblog/"><span style='font-family:Verdana'>Weblog</span></a><br>
+<a href="http://www.catb.org/~esr/press.html" title="Tips for reporters"><span
+style='font-family:Verdana'>For Journalists</span></a><br>
+<a href="http://www.catb.org/~esr/netfreedom/"><span style='font-family:Verdana'>Freedom!</span></a><br>
+<a href="http://www.catb.org/~esr/guns/"><span style='font-family:Verdana'>Firearms!</span></a><br>
+<a href="http://www.catb.org/~esr/who-is-ESR.html"><span style='font-family:
+Verdana'>Who Is ESR?</span></a><o:p></o:p></span></p>
+
+<div class=MsoNormal align=center style='text-align:center;background:#EEEEEE'><span
+style='font-family:Helvetica;color:#333333'>
+
+<hr size=2 width="100%" align=center>
+
+</span></div>
+
+<p class=MsoNormal style='background:#EEEEEE'><span style='font-family:Helvetica;
+color:#333333'><a href="http://www.catb.org/~esr/jargon/"
+title="The Jargon File, aka The New Hacker's Dictionary"><span
+style='font-family:Verdana'><!--[if gte vml 1]><v:shapetype id="_x0000_t75"
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"
+ filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1028" type="#_x0000_t75" alt=""
+ href="http://www.catb.org/~esr/jargon/" title="&quot;The Jargon File, aka The New Hacker's Dictionary&quot;"
+ style='width:90pt;height:130.5pt' o:button="t">
+ <v:imagedata src="wordhtml_files/image001.jpg" o:href="http://www.catb.org/~esr/graphics/nhd3-small.jpg"/>
+</v:shape><![endif]--><![if !vml]><span style='mso-ignore:vglayout'><img
+border=0 width=120 height=174 src="wordhtml_files/image001.jpg" align=center
+v:shapes="_x0000_i1028"></span><![endif]></span></a><br clear=left>
+<a href="http://www.oreilly.com/catalog/cathbazpaper/"
+title="The Cathedral and the Bazaar"><span style='font-family:Verdana'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1029" type="#_x0000_t75" alt=""
+ href="http://www.oreilly.com/catalog/cathbazpaper/" title="&quot;The Cathedral
+and the Bazaar&quot;"
+ style='width:92.25pt;height:142.5pt' o:button="t">
+ <v:imagedata src="wordhtml_files/image002.gif" o:href="http://www.catb.org/~esr/graphics/cb.s.png"/>
+</v:shape><![endif]--><![if !vml]><span style='mso-ignore:vglayout'><img
+border=0 width=123 height=190 src="wordhtml_files/image002.gif" align=center
+v:shapes="_x0000_i1029"></span><![endif]></span></a><br clear=left>
+<a href="http://www.catb.org/~esr/writings/taoup/"
+title="The Art of Unix Programming"><span style='font-family:Verdana'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1030" type="#_x0000_t75" alt=""
+ href="http://www.catb.org/~esr/writings/taoup/" title="&quot;The Art of Unix Programming&quot;"
+ style='width:90pt;height:120.75pt' o:button="t">
+ <v:imagedata src="wordhtml_files/image003.png" o:href="http://www.catb.org/~esr/graphics/taoup.s.png"/>
+</v:shape><![endif]--><![if !vml]><span style='mso-ignore:vglayout'><img
+border=0 width=120 height=161 src="wordhtml_files/image004.jpg" align=center
+v:shapes="_x0000_i1030"></span><![endif]></span></a><o:p></o:p></span></p>
+
+<div class=MsoNormal align=center style='text-align:center;background:#EEEEEE'><span
+style='font-family:Helvetica;color:#333333'>
+
+<hr size=2 width="100%" align=center>
+
+</span></div>
+
+<p class=MsoNormal style='background:#EEEEEE'><span style='font-family:Helvetica;
+color:#333333'><a href="mailto:esr@thyrsus.com" title="esr@thyrsus.com"><span
+style='font-family:Verdana'>Email me</span></a> <o:p></o:p></span></p>
+
+<div class=MsoNormal align=center style='text-align:center;background:#EEEEEE'><span
+style='font-family:Helvetica;color:#333333'>
+
+<hr size=2 width="100%" align=center>
+
+</span></div>
+
+<p class=MsoNormal><span style='font-family:Helvetica;color:#333333'><a
+href="http://www.catb.org/~esr/graphics/esr001.jpg"
+title="Chase this to see the People Magazine picture from the October 1996 interview"></a></span><!--[if gte vml 1]><v:shape
+ id="_x0000_s1026" type="#_x0000_t75" alt=""
+ href="http://www.catb.org/~esr/graphics/esr001.jpg" title="&quot;Chase this to
+see the People Magazine picture from the October 1996 interview&quot;"
+ style='position:absolute;margin-left:0;margin-top:-100.4pt;width:96pt;
+ height:98.25pt;z-index:1;mso-wrap-distance-left:0;mso-wrap-distance-right:0;
+ mso-position-horizontal:left;mso-position-horizontal-relative:text;
+ mso-position-vertical-relative:line' o:allowoverlap="f" o:button="t">
+ <v:imagedata src="wordhtml_files/image005.gif" o:title="esr002"/>
+ <w:wrap type="square"/>
+</v:shape><![endif]--><![if !vml]><a
+href="http://www.catb.org/~esr/graphics/esr001.jpg"><img border=0 width=128
+height=131 src="wordhtml_files/image005.gif" align=left
+title="&quot;Chase this to see the People Magazine picture from the October 1996 interview&quot;"
+v:shapes="_x0000_s1026"></a><![endif]><span style='font-family:Helvetica;
+color:#333333;mso-no-proof:yes'><a
+href="http://www.catb.org/~esr/graphics/esr001.jpg"
+title="Chase this to see the People Magazine picture from the October 1996 interview"></a></span><span
+style='font-family:Helvetica;color:#333333'><o:p></o:p></span></p>
+
+<p><span style='color:#333333'>Welcome to my piece of the Web. I maintain quite
+a lot of <a href="http://www.opensource.org"><span style='font-family:Verdana'>open-source</span></a>
+software, FAQs, and HTML documents, so this site is rather complex. It's mostly
+validated HTML and light on the graphics, though. You won't have to wait an eon
+for any of the pages to load. If you're a regular visitor, check out the <a
+href="http://www.catb.org/~esr/whatsnew.html"><span class=GramE><span
+style='font-family:Verdana'>What's</span></span><span style='font-family:Verdana'>
+New</span></a> page.<o:p></o:p></span></p>
+
+<h1><span style='font-family:Helvetica;color:#333333'>Using this site<o:p></o:p></span></h1>
+
+<p><span style='color:#333333'>If you want to link to, copy, mirror, or
+translate portions of this site, please read my <a
+href="http://www.catb.org/~esr/copying.html"><span style='font-family:Verdana'>copying
+policy</span></a>.<o:p></o:p></span></p>
+
+<p><span style='color:#333333'><a href="http://www.anybrowser.org/campaign/"></a></span><!--[if gte vml 1]><v:shape
+ id="_x0000_s1027" type="#_x0000_t75" alt="viewable with any&#10;browser"
+ href="http://www.anybrowser.org/campaign/" style='position:absolute;
+ margin-left:0;margin-top:-254.5pt;width:66pt;height:23.25pt;z-index:2;
+ mso-wrap-distance-left:0;mso-wrap-distance-right:0;mso-position-horizontal:left;
+ mso-position-horizontal-relative:text;mso-position-vertical-relative:line'
+ o:allowoverlap="f" o:button="t">
+ <v:imagedata src="wordhtml_files/image006.gif" o:title="w3c_ab"/>
+ <w:wrap type="square"/>
+</v:shape><![endif]--><![if !vml]><a href="http://www.anybrowser.org/campaign/"><img
+border=0 width=88 height=31 src="wordhtml_files/image006.gif" align=left
+alt="viewable with any&#10;browser" v:shapes="_x0000_s1027"></a><![endif]><span
+style='color:#333333;mso-no-proof:yes'><a
+href="http://www.anybrowser.org/campaign/"></a></span><span style='color:#333333'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:Helvetica;color:#333333'>If the
+HTML or images on this site seem to be confusing your browser, see the <a
+href="http://www.catb.org/~esr/site-design.html"><span style='font-family:Verdana'>site
+design notes</span></a>. <o:p></o:p></span></p>
+
+<h1><span style='font-family:Helvetica;color:#333333'>Frequently-Asked
+Questions<o:p></o:p></span></h1>
+
+<p><span style='color:#333333'>If you're with the press, or want me to give a
+talk, here are answers to the <a href="http://www.catb.org/~esr/press.html"><span
+style='font-family:Verdana'>usual questions</span></a>. You can see a list of
+my upcoming <a href="http://www.catb.org/~esr/speaking.html"><span
+style='font-family:Verdana'>speaking engagements</span></a>.<o:p></o:p></span></p>
+
+<h1><span style='font-family:Helvetica;color:#333333'>It's all about freedom...<o:p></o:p></span></h1>
+
+<p><span style='color:#333333'>You can help fight the </span><st1:stockticker><span
+ style='color:#333333'>SCO</span></st1:stockticker><span style='color:#333333'>
+attack on the Linux community. See my <a
+href="http://www.catb.org/~esr/nosecrets/"><span style='font-family:Verdana'>No
+Secrets</span></a> page to learn how you can refute </span><st1:stockticker><span
+ style='color:#333333'>SCO</span></st1:stockticker><span style='color:#333333'>'s
+claims of trade secrets in the <span class=GramE>Unix</span> code.<o:p></o:p></span></p>
+
+<p><!--[if gte vml 1]><v:shape id="_x0000_s1028" type="#_x0000_t75" alt="PGP NOW! image"
+ style='position:absolute;margin-left:0;margin-top:-464.5pt;width:66pt;
+ height:23.25pt;z-index:3;mso-wrap-distance-left:0;mso-wrap-distance-right:0;
+ mso-position-horizontal:left;mso-position-vertical-relative:line'
+ o:allowoverlap="f">
+ <v:imagedata src="wordhtml_files/image007.gif" o:title="pgp-now"/>
+ <w:wrap type="square"/>
+</v:shape><![endif]--><![if !vml]><img width=88 height=31
+src="wordhtml_files/image007.gif" align=left alt="PGP NOW! image" v:shapes="_x0000_s1028"><![endif]><span
+style='color:#333333'>You can fetch my <a
+href="http://www.catb.org/~esr/gpg-public-key.asc"><span style='font-family:
+Verdana'>GPG public key</span></a> here. I support widespread use of strong
+cryptography for privacy, and encourage you to use GPG encryption with this key
+when sending me messages. If your mailer makes this difficult, consider
+switching to <a href="http://www.mutt.org"><span style='font-family:Verdana'>Mutt</span></a>.<o:p></o:p></span></p>
+
+<p><span style='color:#333333'>As a public service and act of civil
+disobedience, we are proud to offer the <a
+href="http://www.catb.org/~esr/css-auth.tar.gz"><span style='font-family:Verdana'>DeCSS</span></a>
+code that will allow you to circumvent the encryption on the DVDs you own. <spanclass=GramE>Your</span> </span><st1:stockticker><span style='color:#333333'>DVD</span></st1:stockticker><span
+style='color:#333333'>, your hardware, your choice! (Please do not ask me
+technical questions about this code; I have never used it.)<o:p></o:p></span></p>
+
+<h1><span style='font-family:Helvetica;color:#333333'>...and it's all about me.<o:p></o:p></span></h1>
+
+<p><span style='color:#333333'>You can read all about my <a
+href="http://www.catb.org/~esr/projects.html"><span style='font-family:Verdana'>projects</span></a>,
+past present and future, including the software and FAQs and Web resources I
+maintain.<o:p></o:p></span></p>
+
+<p><span style='color:#333333'>I do consulting under the <strong><span
+style='font-family:Helvetica'>Thyrsus Enterprises</span></strong> service mark.
+You can surf to my <a href="http://www.catb.org/~esr/resume.html"><span
+style='font-family:Verdana'>resume</span></a> from here, if you're interested
+in my career or qualifications. I'm not in the market for a job just now,
+though, unless you can offer a project that really fascinates me.<o:p></o:p></span></p>
+
+<p><span style='color:#333333'>You can read <a
+href="http://www.catb.org/~esr/personal.html"><span style='font-family:Verdana'>personal
+stuff</span></a> about my life and politics and hobbies and friends. You may
+also find my <a href="http://www.catb.org/~esr/writings/"><span
+style='font-family:Verdana'>writings</span></a> of interest.<o:p></o:p></span></p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<!--
+Local Variables:
+compile-command: "(cd ~/WWW; upload index.html)"
+End:
+--></div>
+
+</body>
+
+</html>

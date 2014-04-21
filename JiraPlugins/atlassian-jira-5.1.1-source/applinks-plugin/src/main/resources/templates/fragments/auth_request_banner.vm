@@ -1,0 +1,13 @@
+<div id="applink-request-$applinkId" class="aui-message warning closeable shadowed applinks-auth-request">
+    <p><span class="aui-icon icon-applinks-key"></span>
+    $messageHtml
+    </p>
+    #if( $contentHtml != '' )
+    <p>$contentHtml</p>
+    #end
+    <input type="hidden" class="applinkId" value="$applinkId">
+    <input type="hidden" class="appName" value="$appName">
+    <input type="hidden" class="appUri" value="$appUri">
+    <input type="hidden" class="authUri" value="$authUri">
+</div>
+

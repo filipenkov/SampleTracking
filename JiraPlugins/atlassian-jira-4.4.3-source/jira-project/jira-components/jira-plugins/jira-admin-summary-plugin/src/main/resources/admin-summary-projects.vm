@@ -1,0 +1,109 @@
+#* @vtlvariable name="components" type="java.util.List<com.atlassian.jira.admin.contextproviders.ProjectPanelContextProvider.SimpleProject>" *#
+## This section is pretty much hard coded
+#macro (drawadminsummarysection $section $sectionKey)
+    #set ($dropdownLinks = $linkManager.getLinksForSection($sectionKey, $user, $helper))
+    #set ($innerDropdownSections = $linkManager.getSectionsForLocation($section.id, $user, $helper))
+
+    #if (! $dropdownLinks.empty || !$innerDropdownSections.isEmpty())
+        #if ($section.label)
+            <h5 class="as-label">$section.label</h5>
+        #end
+        #if (!$dropdownLinks.empty)
+        <ul id="$section.id" class="as-list">
+            #foreach ($dropdownLink in $dropdownLinks)
+                <li><a href="$dropdownLink.url">$textutils.htmlEncode($dropdownLink.label)</a></li>
+            #end
+        </ul>
+        #end
+        #foreach ($innerSection in $innerDropdownSections)
+            #set ($sectionKey = "$section.id/$innerSection.id")
+            #drawadminsummarysection($innerSection $sectionKey)
+        #end
+    #end
+#end
+<fieldset class="hidden parameters">
+    <input type="hidden" title="projectIntroUrl" value="${projectIntroUrl}"/>
+</fieldset>
+
+<div class="mod-header">
+    #if ($isAdmin)
+        <ul class="ops">
+            <li>
+                <a id="add_project" class="operations-item add-project-trigger" href="${baseUrl}/secure/admin/AddProject!default.jspa">
+                    <span class="icon icon-add16"></span>##$i18n.getText('admin.projects.add.project')
+                </a>
+            </li>
+        </ul>
+    #end
+    <h3 class="toggle-title">$i18n.getText('common.concepts.projects.with.count', ${projectCount})</h3>
+</div>
+<div id="admin-summary-section-$outerSectionId" class="mod-content">
+
+#if(${projectCount} > 0)
+    #if(${recentProjects.size()} > 0)
+        <h5 class="as-label">$i18n.getText('menu.project.recent'):</h5>
+        <ul class="as-recent-projects-list">
+            #foreach ($project in $recentProjects)
+            <li class="as-recent-projects" id="as-recent-projects-key-$project.key">
+                <a class="as-recent-project-name" id="admin-summary-recent-projects-image-$project.key" href="$project.url"><img class="as-recent-project-icon" src="$project.iconUrl"/></a>
+                <a class="as-recent-project-name" id="admin-summary-recent-projects-$project.key" href="$project.url">$project.name</a>
+                <strong class="as-recent-key">$project.key</strong>
+                <span class="as-recent-count">$i18n.getText('common.concepts.issues.with.count', $project.issueCount)</span>
+            </li>
+            #end
+        </ul>
+    #end
+#elseif ($isAdmin)
+    <div class="as-welcome">
+        <div class="asw-message info">
+            <div class="asw asw-type-small">
+                <div class="asw-image">
+                    <img src="${webResourceManager.getStaticPluginResource("com.atlassian.jira.jira-admin-summary-plugin:admin-summary", "images/")}projectavatar.png">
+                </div>
+                <h4>$i18n.getText("admin.summary.intro.create.project")</h4>
+                <ul>
+                    <li><a class="add-project-trigger" id="add_first_project" href="${baseUrl}/secure/admin/AddProject!default.jspa">$i18n.getText("admin.summary.intro.create.project.first")</a></li>
+                    <li><a href="${baseUrl}/secure/admin/views/ExternalImport1.jspa">$i18n.getText("admin.summary.intro.create.project.external.import")</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="asw-message info">
+            <div class="asw asw-type-medium">
+                <div class="asw-image">
+                    <a class='add-project-intro-trigger' href='#'><img src="${webResourceManager.getStaticPluginResource("com.atlassian.jira.jira-admin-summary-plugin:admin-summary", "images/")}jiramovie.png"></a>
+                </div>
+                <h4>$i18n.getText("admin.summary.intro.what.is.project")</h4>
+                #set($moreUsersHtml = $i18n.getText("admin.summary.intro.add.project.video", "<a class='add-project-intro-trigger' href='#'>", "</a>"))
+                <p>$moreUsersHtml</p>
+            </div>
+        </div>
+        <div class="asw-message info">
+            <div class="asw asw-type-small">
+                <div class="asw-image">
+                    <img src="${webResourceManager.getStaticPluginResource("com.atlassian.jira.jira-admin-summary-plugin:admin-summary", "images/")}jira48.png">
+                </div>
+                <h4>$i18n.getText("admin.summary.intro.learn.more")</h4>
+                #set($learnMoreHtml = $i18n.getText("admin.summary.intro.learn.more.desc", $gettingStartedUrl, "</a>"))
+                <p>$learnMoreHtml</p>
+            </div>
+        </div>
+    </div>
+#else
+    <div class="aui-message info">
+        <span class="aui-icon icon-info"></span>
+        <p>$i18n.getText('admin.projects.nopermission')</p>
+    </div>
+#end
+    <ul class="as-list">
+        #if(${projectCount} > 0)
+            <li><a id="admin.summary.project.link.allprojects" class="admin.summary.link" href="${baseUrl}/secure/project/ViewProjects.jspa">$i18n.getText('common.concepts.allprojects.with.count', ${projectCount})</a></li>
+        #end
+        #if ($isAdmin)
+            <li><a id="admin.summary.project.link.projectcategories" class="admin.summary.link" href="${baseUrl}/secure/admin/projectcategories/ViewProjectCategories!default.jspa">$i18n.getText('admin.menu.projects.project.categories')</a></li>
+        #end
+    </ul>
+#foreach ($section in $childSections)
+    #set ($sectionKey = "$outerSectionId/$section.id")
+    #drawadminsummarysection($section $sectionKey)
+#end
+</div>

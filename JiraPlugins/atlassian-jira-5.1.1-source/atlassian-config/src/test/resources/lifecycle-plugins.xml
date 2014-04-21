@@ -1,0 +1,10 @@
+<atlassian-plugin name="Sample Library"
+    key="test.confluence.sample.lifecycle">
+    <plugin-info>
+        <description>Testing lifecycle config.</description>
+    </plugin-info>
+
+    <lifecycle key="lifecycle1" class="com.atlassian.config.lifecycle.DummyLifecycleItem" sequence="50"/>
+    <lifecycle key="lifecycle2" class="com.atlassian.config.lifecycle.DummyServletContextListener" sequence="30"/>
+    <lifecycle key="lifecycle3" class="java.lang.String" sequence="90"/>
+</atlassian-plugin>

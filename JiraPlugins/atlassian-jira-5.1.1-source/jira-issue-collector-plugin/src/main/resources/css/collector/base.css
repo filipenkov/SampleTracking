@@ -1,0 +1,36 @@
+html, body, p, div, h1, h2, h3, h4, h5, h6, img, ul, ol, li, dl, dt, dd, pre, form, fieldset, textarea, input, select, option, button { margin: 0; padding: 0; }
+body#atlScriptlet{background-color:#fff; min-width: inherit;}
+
+.collector-dialog a { color: #326ca6; text-decoration: none; }
+.collector-dialog a:focus, .collector-dialog a:hover, .collector-dialog a:active { text-decoration: underline; }
+
+.aui-dialog h2.dialog-title { background: #F0F0F0; color: #666; font-size: 1.5em;  margin: 0; overflow: hidden; padding: 0 1em; position: relative;}
+
+/* max-height = #atlwdg-container.height - .dialog-title.height - form.margin-top - 2 * .content-body.padding - .dialog-button-panel.height - 2 * .dialog-button-panel.padding */
+.aui-dialog .content-body {padding:0 10px 10px;overflow:auto;max-height:328px;}
+.aui-dialog .dialog-button-panel {position:fixed;bottom:0;background: white; border-top: 1px solid #F0F0F0; clear: both; overflow: hidden; text-align: right; width: 100%; }
+.aui-dialog .dialog-button-panel .cancel {padding-right:1em;}
+img.center {margin-left:auto;margin-right:auto;display:block;}
+img#sorry-mate {padding-bottom: 1em;}
+p.center {text-align:center;}
+#atlScriptlet form.aui .dialog-button-panel input.button,
+#atlScriptlet .aui-dialog {border:none;overflow:auto;}
+.login-msg {clear:both;}
+
+form.aui div.matrix.rating div.radio {width:auto;padding:0;padding-right:15px;}
+form.aui div.matrix.rating div.radio.first {padding:0 15px 5px 140px;}
+form.aui div.matrix.rating label {vertical-align:top;}
+form.aui.disabled .content-body {opacity:0.2;filter: alpha(opacity=20);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";}
+form.aui .msg-container {margin: 1em; position: absolute; width: 80%; margin-left: 10%; margin-right: 10%; z-index: 1000000;}
+#atlScriptlet form.aui div.matrix {width:auto;}
+.custom-fields-container {margin-bottom:1em;}
+
+#feedback-rating .radio input {vertical-align: top;position:relative;top: 3px;left:2px;}
+
+form.aui div.matrix.rating .rating-label {position: relative;top: -5px;left: 2px;}
+
+/*hide 'got feedback' trigger on collector pages */
+#atlwdg-trigger {display:none !important;}
+
+form.aui fieldset.group .error { margin-left: 140px !important;}
+

@@ -1,0 +1,11 @@
+#oauth-plugin form.aui fieldset div {margin-top:1em;}
+#oauth-plugin form.aui label {display:block;font-weight:700;}
+#oauth-plugin form.aui .description {display:block;font-size:11px;}
+#oauth-plugin form.aui label .form-icon {display:inline-block;width:16px;}
+#oauth-plugin form.aui label .icon-required {background:url( "../../../images/required.png") no-repeat 0 0;position:relative;right:0;}
+#oauth-plugin form.aui label .form-icon span {display:none;}
+#oauth-plugin form.aui .field-value {margin-bottom:6px;}
+#oauth-plugin div.content .content {margin:0;}
+
+#embcwd.list-directories h3 {font-size:16px;margin:10px 0;}
+#embcwd.list-directories .description {padding:0;}

@@ -1,0 +1,94 @@
+##disable_html_escaping() TODO REENABLE
+## This template requires the com.atlassian.jira.web.component.webfragment.SystemNavContextLayoutBean to be passed
+#set ($mainHeaderSections = $linkManager.getNotEmptySectionsForLocation($location, $user, $helper))
+#set ($mainHeaderLinks = $linkManager.getLinksForSection($location, $user, $helper))
+#if (!$mainHeaderSections.isEmpty() || $mainHeaderLinks.isEmpty())
+## Default to the summary if no matching top menu can be found.
+    #set($selectedLayoutSection = "admin_summary")
+    #foreach($headerSection in $mainHeaderSections)
+        #if($layout.selectedSection && $layout.selectedSection == $headerSection.id)
+            #set($selectedLayoutSection = $headerSection.id)
+        #end
+    #end
+<ul id="main-nav" class="admin-menu-bar">
+    #foreach ($headerLink in $mainHeaderLinks)
+        <li class="aui-dd-parent#if($selectedLayoutSection == $headerLink.id) selected#end"><a
+            #if ($headerLink.id) id="$headerLink.id" #end
+                                   class="lnk#if ($headerLink.styleClass) $headerLink.styleClass #end #if ($headerLink.iconUrl) aui-iconised-link #end"
+            #if ($headerLink.iconUrl) style="background-image:url('$headerLink.iconUrl')" #end
+                                   #if ($headerLink.title)title="$textutils.htmlEncode($headerLink.title)"#end
+                                   href="$headerLink.url">$textutils.htmlEncode($headerLink.label)</a></li>
+    #end
+    #foreach ($headerSection in $mainHeaderSections)
+        <li class="aui-dd-parent nonlazy admin-menu-link#if($selectedLayoutSection == $headerSection.id) selected#end">
+            <a class="lnk"
+               href="#"
+                #if ($headerSection.id) id="$headerSection.id"#end
+                #if ($headerSection.title) title="$headerSection.title"#end
+                    >$headerSection.label</a>
+            #set ($dropdownSections = $linkManager.getNotEmptySectionsForLocation($headerSection.id, $user, $helper))
+            #if (!$dropdownSections.isEmpty())
+                #set ($firstSection = true)
+                #foreach ($section in $dropdownSections)
+                    #set ($sectionKey = "$headerSection.id/$section.id")
+                    #set ($dropdownLinks = $linkManager.getLinksForSection($sectionKey, $user, $helper))
+                    #set ($innerDropdownSections = $linkManager.getSectionsForLocation($section.id, $user, $helper))
+                        #if( $firstSection )
+                            <span class="drop-wrap">
+                            <a class="drop aui-dd-link"
+                                #if ($headerSection.id)
+                               id="${headerSection.id}_drop"
+                               rel="$headerSection.id"
+                                #end
+                               href="#"><span>$i18n.getText('menu.access.more.options')</span></a></span>
+                        <div class="aui-list hidden">
+                        #end
+                        #if ($section.label) <h5>$section.label</h5> #end
+
+                        <ul id="$section.id" class="aui-list-section #if($firstSection) aui-first #set ($firstSection = false)#end #if($velocityCount == $dropdownSections.size()) aui-last #end #if($section.styleClass) $section.styleClass #end">
+                            #foreach ($dropdownLink in $dropdownLinks)
+                                <li class="aui-list-item"><a
+                                    #if ($dropdownLink.id) id="$dropdownLink.id" #end
+                                                           class="aui-list-item-link#if ($dropdownLink.styleClass) $dropdownLink.styleClass #end #if ($dropdownLink.iconUrl) aui-iconised-link #end"
+                                    #if ($dropdownLink.iconUrl) style="background-image:url('$dropdownLink.iconUrl')" #end
+                                                           #if ($dropdownLink.title)title="$textutils.htmlEncode($dropdownLink.title)"#end
+                                                           href="$dropdownLink.url">$textutils.htmlEncode($dropdownLink.label)</a></li>
+                            #end
+                            #foreach ($innerSection in $innerDropdownSections)
+                                <li class="aui-list-item">
+                                    #set ($firstLink = true)
+                                    #set ($sectionKeyInner = "$section.id/$innerSection.id")
+                                    #set ($dropdownLinksInner = $linkManager.getLinksForSection($sectionKeyInner, $user, $helper))
+
+                                    <ul id="${innerSection.id}-group" class="#if($firstSection)aui-list-section aui-first #set ($firstSection = false)#end #if($velocityCount == $dropdownSections.size()) aui-last #end #if($innerSection.styleClass) $innerSection.styleClass #end">
+                                        #foreach ($dropdownLinkInner in $dropdownLinksInner)
+                                            #if( $firstLink )
+                                                #set ($firstLink = false)
+                                                #if ($innerSection.label)
+                                                    <li class="aui-list-item"><a
+                                                        #if ($dropdownLinkInner.id) id="$innerSection.id" #end
+                                                                                    class="aui-list-item-link#if ($dropdownLinkInner.styleClass) $dropdownLinkInner.styleClass #end #if ($dropdownLinkInner.iconUrl) aui-iconised-link #end"
+                                                        #if ($dropdownLinkInner.iconUrl) style="background-image:url('$dropdownLinkInner.iconUrl')" #end
+                                                                                    #if ($dropdownLinkInner.title)title="$textutils.htmlEncode($dropdownLinkInner.title)"#end
+                                                                                    href="$dropdownLinkInner.url">$textutils.htmlEncode($innerSection.label)</a></li>
+                                                 #end
+                                            #end
+                                            <li class="aui-list-item hidden"><a
+                                                #if ($dropdownLinkInner.id) id="$dropdownLinkInner.id" #end
+                                                                            class="aui-list-item-link#if ($dropdownLinkInner.styleClass) $dropdownLinkInner.styleClass #end #if ($dropdownLinkInner.iconUrl) aui-iconised-link #end"
+                                                #if ($dropdownLinkInner.iconUrl) style="background-image:url('$dropdownLinkInner.iconUrl')" #end
+                                                                            #if ($dropdownLinkInner.title)title="$textutils.htmlEncode($dropdownLinkInner.title)"#end
+                                                                            href="$dropdownLinkInner.url">$textutils.htmlEncode($dropdownLinkInner.label)</a></li>
+                                        #end
+
+                                    </ul>
+                                </li>
+                            #end
+                        </ul>
+                #end
+            </div>
+            #end
+        </li>
+    #end
+</ul>
+#end

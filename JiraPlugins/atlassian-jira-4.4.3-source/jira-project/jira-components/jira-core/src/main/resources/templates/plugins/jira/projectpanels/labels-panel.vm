@@ -1,0 +1,60 @@
+#set($projectUrlPrefix = "${requestContext.baseUrl}/browse/$textutils.htmlEncode(${projectKey})?selectedTab=com.atlassian.jira.plugin.system.project:labels-heatmap-panel")
+<div id="primary" class="column full">
+    <div class="content">
+        <div class="module">
+            <div class="mod-header">
+                <h3>$i18n.getText("labels.project-tab.header")</h3>
+            </div>
+            <div class="mod-content">
+                <p class="label-options">$i18n.getText("labels.project-tab.view"): <strong>$i18n.getText("labels.project-tab.popular.name")</strong> |
+                <a href="$projectUrlPrefix&labels.view=all&selected.field=$!field.id">$i18n.getText("labels.project-tab.all-labels.name")</a>
+                </p>
+                    #if ($labelFields.size() > 1)
+                        <p class="label-options">$i18n.getText("labels.project-tab.field"):
+                        #foreach ($labelField in $labelFields)
+                            #if ($labelField.id.equals($field.id))
+                                <strong>$textutils.htmlEncode($field.name)</strong>
+                            #else
+                                <a href="$projectUrlPrefix&labels.view=$textutils.htmlEncode($!{currentView})&selected.field=${labelField.id}&labels.order=$textutils.htmlEncode($!{labelOrder})">$textutils.htmlEncode($labelField.name)</a>
+                            #end
+                            #if ($labelFields.indexOf($labelField) != $labelFields.size() - 1)
+                                |
+                            #end
+                        #end
+                        </p>
+                #end
+
+                #if ($labelsHeatMap.size() > 0)
+                  #set ( $labelCount = $labelsHeatMap.size())
+                  <p class="label-options">
+                    $i18n.getText("labels.project-tab.order"):
+                    #if(!$labelOrder || $labelOrder == "alpha")
+                      <strong>$i18n.getText("labels.project-tab.alphabetically")</strong> | <a href="$projectUrlPrefix&labels.order=pop&selected.field=$!field.id">$i18n.getText("labels.project-tab.popularity")</a>
+                    #else
+                       <a href="$projectUrlPrefix&labels.order=alpha&selected.field=$!field.id">$i18n.getText("labels.project-tab.alphabetically")</a> | <strong>$i18n.getText("labels.project-tab.popularity")</strong>
+                    #end
+                  </p>
+
+                    <p>$i18n.getText("labels.project-tab.popular.description", [ $labelCount ])</p>
+                    <div>
+                    #foreach ($entry in $labelsHeatMap.entrySet())
+                      #if($entry.key.label)
+                          #set ($size = 12 + $entry.value * 2)
+                          <span style="font-size:${size}px; line-height:${size}px;margin-right:14px;">
+                              #if($isCustomField)
+                                  #set($labelJql = $labelUtils.getLabelJqlForProject($remoteUser, $projectId, $field.idAsLong, $entry.key.label ))
+                              #else
+                                  #set($labelJql = $labelUtils.getLabelJqlForProject($remoteUser, $projectId, $entry.key.label ))
+                              #end
+                              <a href="$requestContext.baseUrl/secure/IssueNavigator.jspa?reset=true$labelJql">$textutils.htmlEncode( $entry.key.label )</a>
+                          </span>
+                      #end
+                    #end
+                    </div>
+                #else
+                  #AUImessage("info" "" "$i18n.getText('labels.project-tab.nolabels')" "" "" "" "false")
+                #end
+            </div>
+        </div>
+    </div>
+</div>

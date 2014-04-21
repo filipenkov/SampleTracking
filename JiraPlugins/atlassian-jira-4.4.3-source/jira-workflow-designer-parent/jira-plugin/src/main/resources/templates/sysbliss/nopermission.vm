@@ -1,0 +1,15 @@
+<html>
+	<head>
+        <meta name="decorator" content="atl.admin"/>
+        <meta name="admin.active.section" content="admin_issues_menu/element_options_section/workflows_section"/>
+        <meta name="admin.active.tab" content="workflows"/>
+		<title>$action.getText("workflow.designer.title")</title>
+	</head>
+	<body>
+	<br><br><br>
+	<div id="jwd" align="center">
+		$action.getText("workflow.designer.must.be.admin")
+    </div>
+    <br><br><br>
+    </body>
+</html>

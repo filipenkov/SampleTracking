@@ -1,0 +1,11 @@
+div .local-app-image {
+    background-image: url(../../download/resources/com.atlassian.applinks.applinks-plugin:applinks-images/images/config/logos/100bamboo.png);
+}
+
+.applinks-header > ul > li {
+    margin: 0px;
+}
+
+.applinks-entity-header > ul {
+    top: -10px;
+}

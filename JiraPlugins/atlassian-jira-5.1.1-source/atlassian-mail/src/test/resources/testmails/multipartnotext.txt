@@ -1,0 +1,42 @@
+Return-Path: <charles@atlassian.com>
+Received: from [192.168.0.69] ([210.23.144.50]) (authenticated) by
+        zeus.atlassian.com (8.11.6/8.11.6) with ESMTP id hBV4QTb13204 for
+        <charles@atlassian.com>; Tue, 30 Dec 2003 22:26:29 -0600
+Mime-Version: 1.0 (Apple Message framework v609)
+To: Charles Miller <charles@atlassian.com>
+Message-Id: <88A5746E-3B49-11D8-B31E-000393452562@atlassian.com>
+Content-Type: multipart/alternative; boundary=Apple-Mail-1-48321394
+From: Charles Miller <charles@atlassian.com>
+Subject: HTML Mail
+Date: Wed, 31 Dec 2003 15:26:41 +1100
+X-Mailer: Apple Mail (2.609)
+X-Spam-Checker-Version: SpamAssassin 2.61 (1.212.2.1-2003-12-09-exp) on
+        zeus.atlassian.com
+X-Spam-Status: No, hits=0.0 required=5.0 tests=HTML_MESSAGE autolearn=ham
+        version=2.61
+X-Spam-Level:
+Status:  
+X-Evolution-Source: pop://cmiller@mail.atlassian.com/
+
+
+--Apple-Mail-1-48321394
+Content-Transfer-Encoding: 7bit
+Content-Type: text/html; charset=US-ASCII
+
+This is<br>the HTML part of the mail
+--Apple-Mail-1-48321394
+Content-Transfer-Encoding: 7bit
+Content-Type: image/gif; charset=US-ASCII; format=flowed
+
+This is attachment one.
+--Apple-Mail-1-48321394
+Content-Transfer-Encoding: 7bit
+Content-Type: text/html; charset=US-ASCII
+
+This is<br>the second HTML part of the mail
+--Apple-Mail-1-48321394
+Content-Transfer-Encoding: 7bit
+Content-Type: image/jpeg; charset=US-ASCII; format=flowed
+
+This is attachment two
+--Apple-Mail-1-48321394--

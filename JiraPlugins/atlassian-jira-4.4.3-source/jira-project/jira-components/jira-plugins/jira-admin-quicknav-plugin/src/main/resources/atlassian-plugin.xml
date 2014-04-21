@@ -1,0 +1,52 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="Atlassian" url="http://www.atlassian.com/"/>
+        <application-version min="4.4" max="4.4"/>
+    </plugin-info>
+
+    <rest key="jira-webfragments" path="/webfragments" version="1.0">
+        <description>
+            REST resource delivering web fragments information
+        </description>
+        <package>com.atlassian.jira.admin.quicknav</package>
+    </rest>
+
+    <component key="keywords-provider" name="Web item keywords provider"
+               class="com.atlassian.jira.admin.quicknav.CompositeFragmentAliasProvider"
+               interface="com.atlassian.jira.admin.quicknav.WebFragmentKeywordsProvider" />
+
+    <resource name="keywords" type="i18n" location="i18n/quicknav" />
+
+    <web-resource key="admin-quicksearch">
+
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <context>atl.general</context>
+        <context>atl.admin</context>
+
+        <dependency>com.atlassian.jira.jira-soy-plugin:soy-deps</dependency>
+        <dependency>jira.webresources:jira-global</dependency>
+
+        <transformation extension="less">
+            <transformer key="lessTransformer"/>
+        </transformation>
+        <transformation extension="soy">
+            <transformer key="jiraSoyTransformer"/>
+        </transformation>
+
+        <resource type="download" name="adminQuickNav.css" location="js/adminQuickNav.less">
+            <property key="content-type" value="text/css"/>
+        </resource>
+
+        <resource type="download" name="adminQuickNavDialogHTML.js" location="js/adminQuickNavDialog.soy" />
+
+        <resource type="download" name="adminQuickNav.js" location="js/adminQuickNav.js">
+            <property key="content-type" value="text/javascript"/>
+        </resource>
+    </web-resource>
+
+</atlassian-plugin>

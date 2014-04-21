@@ -1,0 +1,41 @@
+/* labels list */
+ul.labels { display: block; font-size: 11px;list-style-type: none; padding:2px 0 0; margin: 0;}
+ul.labels li {display:block; float: left;margin-right:3px;margin-bottom:3px;}
+ul.labels li .lozenge {display:block;padding-right:5px; height:16px; color:#036; background:transparent url(../../../images/frother_bg_sml.png) 100% 0 no-repeat;}
+ul.labels li .lozenge span {display:block;padding:8px 1px 7px 6px;height:1px;white-space:nowrap;line-height:0;background:transparent url(../../../images/frother_bg_sml.png) 0 -16px no-repeat;}
+ul.labels li .lozenge:hover {background-position:100% -32px;text-decoration:none;}
+ul.labels li .lozenge:hover span {background-position:0 -48px;}
+ul.labels li .edit-labels {vertical-align:top;}
+.labels-wrap .icon-edit-sml {background-position:3px -700px;}
+
+/*no link lozengers*/
+ul.labels li .lozenge.nolink {text-decoration:none;cursor:default}
+ul.labels li .lozenge.nolink:hover {background-position:100% 0;text-decoration:none;}
+ul.labels li .lozenge.nolink:hover span {background-position:0 -16px;}
+
+/* labels split into subsets */
+.labels-subset {border-top:1px solid #ddd;clear:both;margin-top:5px;overflow:hidden;padding:5px 0 0 30px;}
+.labels-subset h5 {float:left;margin:0 0 0 -30px;}
+
+/* labels in tables */
+#issuetable td .labels-wrap {max-width:60em;min-width:150px;}
+#issuetable td ul.labels {padding-top:0;}/* see IE7 */
+#issuetable td ul.labels li .lozenge {color:#036;}
+#issuetable td ul.labels li .edit-labels {vertical-align:top;}
+
+.msie-7 #issuetable td .labels-wrap,
+.msie-8 #issuetable td .labels-wrap {height:1%;}
+.msie-7 #issuetable td ul.labels {width:150px;}
+.msie-7 .gadget #issuetable td ul.labels li,
+.msie-8 .gadget #issuetable td ul.labels li {width:1%;}
+.msie-7 .gadget #issuetable td ul.labels li a,
+.msie-7 .gadget #issuetable td ul.labels li a span,
+.msie-8 .gadget #issuetable td ul.labels li a,
+.msie-8 .gadget #issuetable td ul.labels li a span {line-height:16px;padding-top:0;padding-bottom:0;}
+
+.msie-7 .gadget .labels-subset ul.labels li,
+.msie-8 .gadget .labels-subset ul.labels li {width:1%;}
+.msie-7 .gadget .labels-subset ul.labels li a,
+.msie-7 .gadget .labels-subset ul.labels li a span,
+.msie-8 .gadget .labels-subset ul.labels li a,
+.msie-8 .gadget .labels-subset ul.labels li a span {line-height:16px;padding-top:0;padding-bottom:0;}

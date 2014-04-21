@@ -1,0 +1,36 @@
+.ajax_autocomplete { width: 95%; }
+.msie-7 .manage-watchers .ajax_autocomplete,
+.msie-8 .manage-watchers .ajax_autocomplete {width:100%;}
+form.aui .ajax_autocomplete { width: auto; }
+form#issue-filter .atlassian-autocomplete .suggestions { width: 320px; }
+.ajax_input { width: 100%; }
+.ajax_waiticon { display: none; }
+.atlassian-autocomplete { display: block!important; font-family: Arial, Sans-Serif; font-size: 12px; margin: 0; padding: 0; position:relative; }
+.msie-7 .atlassian-autocomplete {z-index:9060;}
+.atlassian-autocomplete .suggestions { background: #fff; border: 1px solid #bbb; height: auto; left:0; margin: 0; overflow : hidden; padding: 0; position:absolute; width: 100%; z-index: 9050; }
+.atlassian-autocomplete .yui-ac-hd { background-color: #FFCCCC; margin: 0; padding: 3px 3px 3px 6px; }
+.atlassian-autocomplete .yui-ac-ft { display: none; margin: 0; padding:6px 0 6px 6px; }
+.atlassian-autocomplete .yui-ac-shadow { background: #F0F0F0; margin: .1em; position: absolute; width: 100%; z-index: 9049; }
+.atlassian-autocomplete ul { list-style:none; margin:0; padding:0; width: 100%; }
+.atlassian-autocomplete li { background-color: #FFFFFF; cursor: default; list-style:none; margin:0; padding:0; white-space: normal; }
+.atlassian-autocomplete li.yui-ac-highlight,
+.atlassian-autocomplete li.active,
+.atlassian-autocomplete li.active td,
+li.yui-ac-highlight td {background-color:#3C78B5;color:#fff;}
+.atlassian-autocomplete td { margin:0; padding:0 2px 0 0; text-align: left; vertical-align: top; }
+.atlassian-autocomplete div.yui-ac-unavailable { color:  #C0C0C0; padding-bottom:1px; padding-top:1px; text-decoration:line-through; }
+div.yui-ac-unavailable td { color:  #C0C0C0; padding-bottom:1px; padding-top:1px; text-align: left; text-decoration:line-through; vertical-align: top; }
+.atlassian-autocomplete div.yad, .atlassian-autocomplete .labels li { margin:0; overflow:hidden; padding:1px 0 1px 6px; text-overflow: ellipsis; white-space:nowrap; }
+.atlassian-autocomplete table.yate { margin:0; padding:0; text-align: left; vertical-align: top; width: 100%; }
+.atlassian-autocomplete div.yak { padding-left:2px; width: 100px; }
+.atlassian-autocomplete div.yag { color: #000; background-color : #F0F0F0; font-size:16px; padding:4px 0 4px 4px; }
+.atlassian-autocomplete span.yagt { background-color : #F0F0F0; color: #000; font-size:9px; padding-left:10px; }
+.atlassian-autocomplete span.yui-ac-bolded { font-weight:700; }
+.autocomplete-desc {font-size:11px;}
+
+/* specific width for create/edit reporter JRADEV-3042 */
+form.aui .atlassian-autocomplete .suggestions {width:508px;-moz-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);-webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);}
+
+#searchOwnerUserName_container .suggestions {width:160px;}
+#search-filters-form #searchOwnerUserName_container .suggestions {width:420px;}
+#search-dashboards-form #searchOwnerUserName_container .suggestions {width:420px;}

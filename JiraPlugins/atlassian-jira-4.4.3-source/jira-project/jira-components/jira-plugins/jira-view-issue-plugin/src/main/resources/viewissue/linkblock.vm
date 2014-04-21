@@ -1,0 +1,49 @@
+#if ($hasLinks)
+#macro (renderConstantIcon $constant)
+    #if (${constant.iconurl.startsWith("http://")} || ${constant.iconUrl.startsWith("https://")})
+        <img src="${constant.iconUrl}" height="16" width="16" border="0" align="absmiddle" alt="${constant.nameTranslation}" title="${constant.nameTranslation} - ${constant.descTranslation}">
+    #else
+        <img src="${baseurl}${constant.iconUrl}" height="16" width="16" border="0" align="absmiddle" alt="${constant.nameTranslation}" title="${constant.nameTranslation} - ${constant.descTranslation}">
+    #end
+#end
+#macro (renderLinkBlock $linkType $linkTypeDirectionDesc $linkTypeDirectionStyle $linkedIssues $deleteTypeName)
+    #if($linkedIssues && !${linkedIssues.empty})
+    <table class="aui issue-links ${linkTypeDirectionStyle} aui-table-rowhover">
+        <thead>
+            <tr>
+                <td colspan="5">
+                    $linkTypeDirectionDesc:
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+        #foreach (${linkIssue} in ${linkedIssues})
+        <tr>
+            <td class="issuekey">
+                <a href="${baseurl}/browse/${linkIssue.key}" title="${linkIssue.summary}" #if(${linkIssue.resolution}) class="resolution" #end>${linkIssue.key}</a>
+            </td>
+            <td class="summary"> ${linkIssue.summary} </td>
+            <td class="priority">
+                #if (${linkIssue.priority})
+                    #renderConstantIcon(${linkIssue.priority})
+                #end
+            </td>
+            <td class="status">
+                #renderConstantIcon(${linkIssue.status})
+            </td>
+            <td class="actions">
+                #if ($canLink)
+                    <a class="icon icon-delete" title="${i18n.getText("managelinks.delete.this.link")}" id="del_${linkIssue.id}_${linkType.id}" href="${baseurl}/secure/DeleteLink.jspa?id=${issue.id}&${deleteTypeName}=${linkIssue.id}&linkType=${linkType.id}&atl_token=${atl_token}"><span>${i18n.getText("managelinks.delete.this.link")}</span></a>
+                #end
+            </td>
+        </tr>
+        #end
+        </tbody>
+    </table>
+    #end
+#end
+#foreach (${linkType} in ${linkTypes})
+    #renderLinkBlock(${linkType} ${linkType.outwardDescriptionHtml} "links-outward" ${linkType.outwardLinks}, "destId")
+    #renderLinkBlock(${linkType} ${linkType.inwardDescriptionHtml} "links-inward" ${linkType.inwardLinks} "sourceId")
+#end
+#end

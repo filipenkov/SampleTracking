@@ -1,0 +1,32 @@
+$!{auiparams.put("controlHeaderClass", "aui-field-userlist")}
+#searcherEditHeader (${userSelect} ${name})
+    <select id="searcher-${userSelect}" name="${userSelect}">
+        #foreach ($option in $selectListOptions)
+            <option value="$!option.key" rel="$option.related" #if ($option.key && $fieldValuesHolder.get($userSelect) && $option.key == $fieldValuesHolder.get($userSelect)) selected="selected" #end >$option.value</option>
+        #end
+    </select>
+#searcherEditFooter (${userSelect} "")
+$!{auiparams.clear()}
+
+$!{auiparams.put("controlHeaderClass", "aui-field-usersearch")}
+$!{auiparams.put("noLabel", "true")}
+#searcherEditHeader ("" "")
+    <div class="ajax_autocomplete" id="searcher-${userField}_container">
+        <fieldset rel="${userField}" class="hidden user-searcher-params">
+            <input title="formName" type="hidden" value="issue-filter" />
+            <input title="fieldName" type="hidden" value="${userField}" />
+            <input title="fieldId" type="hidden" value="searcher-${userField}" />
+            <input title="userSelect" type="hidden" value="searcher-${userSelect}" />
+            <input title="multiSelect" type="hidden" value="false" />
+            #if ($canPerformAjaxSearch)<input title="userPickerEnabled" type="hidden"value="true" />#end
+        </fieldset>
+        <input class="text" id="searcher-${userField}" name="${userField}" type="text" value="$!fieldValuesHolder.getEscaped($userField)" />
+        #if ($hasPermissionToPickUsers)
+            ## Need to keep thee "a" tags on one line so that they appear correctly in IE. Otherwise when teh user switches between 'Specify User' and 'Specify Group' the image "moves".
+            <a class="user-popup-trigger" href="#" id="searcher-${userField}Image"><img title="${i18n.getText('navigator.filter.userpicker.imagetitle1')}" name="${userField}Image"  src="${baseurl}/images/icons/filter_public.gif" hspace="0" height="16" width="16" border="0" align="absmiddle" /></a><a id="searcher-${userField}GroupImage" class="group-popup-trigger"
+               href="#"><img title="${i18n.getText('navigator.filter.grouppicker.imagetitle')}" name="${userField}GroupImage"  src="${baseurl}/images/icons/filter_public.gif" hspace="0" height="16" width="16" border="0" align="absmiddle" /></a>
+        #end
+        <div class="description" id="searcher-${userField}_desc" style="display:none;">${i18n.getText('user.picker.ajax.desc')}</div>
+    </div>
+#searcherEditFooter (${userField} "")
+$!{auiparams.clear()}

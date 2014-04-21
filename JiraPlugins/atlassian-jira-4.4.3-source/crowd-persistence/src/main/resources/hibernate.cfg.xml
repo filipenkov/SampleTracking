@@ -1,0 +1,16 @@
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <mapping resource="com/atlassian/crowd/model/token/Token.hbm.xml"/>
+        <mapping resource="com/atlassian/crowd/model/CustomTypes.hbm.xml"/>
+        <mapping resource="com/atlassian/crowd/model/user/InternalUser.hbm.xml"/>
+        <mapping resource="com/atlassian/crowd/model/group/InternalGroup.hbm.xml"/>
+        <mapping resource="com/atlassian/crowd/model/membership/InternalMembership.hbm.xml"/>
+        <mapping resource="com/atlassian/crowd/model/directory/Directory.hbm.xml"/>
+        <mapping resource="com/atlassian/crowd/model/application/Application.hbm.xml"/>
+        <mapping resource="com/atlassian/crowd/model/property/Property.hbm.xml"/>
+        <mapping resource="com/atlassian/crowd/model/alias/Alias.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>

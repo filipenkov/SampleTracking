@@ -1,0 +1,64 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ImporterFieldMappingsPage" *#
+#* @vtlvariable name="entry" type="com.atlassian.jira.plugins.importer.imports.config.ValueMappingDefinition" *#
+
+#* WARNING: this file still uses $action.configBean which may result in unhandled exceptions if the
+   per-importer config bean misbehaves *#
+
+#parse('/templates/admin/views/common/import-header.vm')
+
+<table class="aui" width="100%">
+	<thead>
+		<tr>
+			<th>$i18n.getText('jira-importer-plugin.config.mappings.field.import.field')</th>
+			<th class="fullyCentered">$i18n.getText('jira-importer-plugin.config.mappings.value.distinct.count')</th>
+			<th class="fullyCentered">$i18n.getText('jira-importer-plugin.external.map.field.value')</th>
+		</tr>
+	</thead>
+	<tbody>
+#foreach($entry in $action.sorter.sort($action.configBean.valueMappingHelper.availableFields, 'externalFieldId'))
+<tr class="mappingrow">
+	<td class="formLabel">
+		<span class="mappingname">$!textutils.htmlEncode($entry.externalFieldId)</span>
+		<br/>
+		<span class="subText">$!textutils.htmlEncode($!entry.description)</span>
+	</td>
+	<td class="fullyCentered">
+		#if ($action.configBean.valueMappingHelper.getValueCountForField($entry.externalFieldId))
+			$action.configBean.valueMappingHelper.getValueCountForField($entry.externalFieldId)
+		#else
+			$i18n.getText('common.words.unknown')
+		#end
+	</td>
+	<td class="fullyCentered">
+		#if ($entry.mandatory)
+			$i18n.getText('jira-importer-plugin.external.map.field.mandatory')
+		#else
+			#set ($auiparams = $map.build('label', '', 'name', $entry.externalFieldId, 'value', $action.configBean.valueMappingHelper.isMapValueForField($entry.externalFieldId)))
+			#parse("/templates/common/checkbox.vm")
+		#end
+	</td>
+</tr>
+#end
+	</tbody>
+</table>
+
+## workflow scheme selection
+<div class="module toggle-wrap expanded">
+	<div class="mod-header">
+		<h3 style="border: none;">$i18n.getText('admin.menu.schemes.schemes')</h3>
+	</div>
+	<div class="mod-content">
+		#set ($auiparams = $map.build('label', $i18n.getText('admin.projects.workflow.scheme'), 'name', 'workflowScheme'))
+		#set ($workflowSchemeNames = $map.build())
+		#foreach($workflowSchemeName in $action.configBean.valueMappingHelper.availableWorkflowSchemes)
+			$!{workflowSchemeNames.put($workflowSchemeName, $workflowSchemeName)}
+		#end
+		$!{workflowSchemeNames.put($action.configBean.valueMappingHelper.defaultWorkflowName, $i18n.getText('jira-importer-plugin.config.mappings.default.workflow.name'))}
+		#set ($auiparams.map = $workflowSchemeNames)
+		#set ($auiparams.description = $i18n.getText('jira-importer-plugin.config.mappings.scheme.description'))
+		#set ($auiparams.value = $action.configBean.valueMappingHelper.workflowSchemeName)
+		#parse("/templates/standard/select.vm")
+	</div>
+</div>
+
+#parse('/templates/admin/views/common/import-footer.vm')

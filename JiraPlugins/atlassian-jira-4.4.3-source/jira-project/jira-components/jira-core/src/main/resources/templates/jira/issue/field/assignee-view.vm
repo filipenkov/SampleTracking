@@ -1,0 +1,12 @@
+#if ($assignee)
+    #if ($assignee == '-1')
+        $i18n.getText('common.concepts.automatic')        
+    #else
+        #set ($user = $userutils.getUser($assignee))
+        #if ($user)
+            $textutils.htmlEncode($user.fullName)
+        #end
+    #end
+#else
+    $i18n.getText('common.concepts.unassigned')
+#end

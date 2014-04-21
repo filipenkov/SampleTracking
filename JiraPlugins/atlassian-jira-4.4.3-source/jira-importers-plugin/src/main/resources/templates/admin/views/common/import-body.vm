@@ -1,0 +1,75 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ImporterSetupPage" *#
+
+<script type="text/javascript">
+
+	// Used to prefill fields on the page depending on the databaseType option selected
+	var dbPrefills = { ports: {}, schemas: {}, advanced: {} };
+
+	dbPrefills.ports['postgres72'] = '5432';
+	dbPrefills.schemas['postgres72'] = 'public';
+
+	dbPrefills.ports['mysql'] = '3306';
+	dbPrefills.schemas['mysql'] = '';
+	dbPrefills.advanced['mysql'] = 'autoReconnect=true&useUnicode=true&zeroDateTimeBehavior=convertToNull&useCursorFetch=true&defaultFetchSize=100';
+
+	dbPrefills.ports['mssql'] = '1433';
+	dbPrefills.schemas['mssql'] = 'dbo';
+</script>
+
+#set ($auiparams = $map.build('name', 'databaseType', 'label', 'setupdb.databasetype.label', 'value', $action.databaseType, 'required', true, 'map', $action.databaseTypes))
+#parse("/templates/standard/select.vm")
+
+#set ($auiparams = $map.build('name', 'jdbcHostname', 'label', 'setupdb.jdbcHostname', 'description', 'setupdb.jdbcHostname.desc', 'value', $action.jdbcHostname, 'required', true))
+#parse("/templates/standard/textfield.vm")
+
+#set ($auiparams = $map.build('name', 'jdbcPort', 'label', 'setupdb.jdbcPort', 'description', 'setupdb.jdbcPort.desc', 'value', $action.jdbcPort, 'required', true))
+#parse("/templates/standard/textfield.vm")
+
+#set ($auiparams = $map.build('name', 'jdbcDatabase', 'label', 'setupdb.jdbcDatabase', 'description', 'setupdb.jdbcDatabase.desc', 'value', $action.jdbcDatabase, 'required', true))
+#set ($auiparams.extrahtml = "<div class='description setup-fields db-option-mssql hidden'>To connect to a named instance append ;instance=instancename to the database name</div>")
+#parse("/templates/standard/textfield.vm")
+
+#set ($auiparams = $map.build('name', 'jdbcUsername', 'label', 'setupdb.jdbcUsername', 'description', 'setupdb.jdbcUsername.desc', 'value', $action.jdbcUsername, 'required', true))
+#parse("/templates/standard/textfield.vm")
+
+#set ($auiparams = $map.build('name', 'jdbcPassword', 'password', true, 'label', 'setupdb.jdbcPassword', 'description', 'setupdb.jdbcPassword.desc', 'value', $action.jdbcPassword))
+#parse("/templates/standard/textfield.vm")
+
+#parse('/templates/admin/views/common/configFile.vm')
+
+<div class="module toggle-wrap collapsed" id="importerSetupPage-advanced">
+	<div id="advanced_heading" class="mod-header"><h3 class="toggle-title" style="border: none;">$action.getText("jira-importer-plugin.external.setup.page.advanced.header")</h3></div>
+	<div class="mod-content">
+		#set ($auiparams = $map.build('name', 'jdbcAdvanced', 'label', $action.getText("jira-importer-plugin.external.setup.page.advanced.label"), "description", $action.getText("jira-importer-plugin.external.setup.page.advanced.description"), 'value', $action.jdbcAdvanced))
+		#parse("/templates/standard/textfield.vm")
+	</div>
+</div>
+
+<script type="text/javascript">
+AJS.$(function(){
+	if (AJS.$("#importerSetupPage-advanced .error").length > 0) {
+		importer.toggle.expand("#importerSetupPage-advanced");
+	}
+
+   function showDbFields(){
+		var db = AJS.$('select[name=databaseType]').val();
+		if (db !== ""){
+			AJS.$('.setup-fields').addClass('hidden');
+			AJS.$('.db-option-'+db).removeClass('hidden');
+		}
+	}
+	showDbFields();
+
+	// Database Type toggle
+	AJS.$('select[name=databaseType]').change(function() {
+		var selectedDatabase = AJS.$(this).val(),
+			jdbcField = AJS.$("input[name='jdbcPort']"),
+			advancedField = AJS.$("input[name='jdbcAdvanced']");
+
+		jdbcField.val(dbPrefills.ports[selectedDatabase]);
+		advancedField.val(dbPrefills.advanced[selectedDatabase]);
+
+		showDbFields();
+	});
+});
+</script>

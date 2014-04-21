@@ -1,0 +1,97 @@
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ImporterProjectMappingsPage" *#
+$webResourceManager.requireResource("com.atlassian.jira.plugins.jira-importers-plugin:importerProjectMappingResources")
+
+<script type="text/javascript">
+(function () {
+	var SingleMappingView = Backbone.View.extend({
+		events: {
+			"change   .project_checkbox": "projectImportToggle"
+		},
+
+		initialize: function () {
+			_.bindAll(this, "render");
+
+			this.projectMappingView = new importer.ProjectMappingView(this.options).render();
+
+			this.projectCheckbox = this.$(".project_checkbox");
+
+			this.model.bind("change", this.render);
+		},
+
+		projectImportToggle: function () {
+			this.model.set({selected: this.projectCheckbox.is(":checked")});
+		},
+
+		render: function () {
+			var selected = this.model.get("selected");
+			if (selected) {
+				this.projectCheckbox.attr("checked", "checked");
+			} else {
+				this.projectCheckbox.removeAttr("checked");
+			}
+			this.projectMappingView.render();
+			return this;
+		}
+	});
+
+	var projectsModel = new (Backbone.Collection.extend({
+		model: importer.ProjectModel
+	}));
+
+	var mappingModel = new (Backbone.Collection.extend({
+		model: importer.MappingModel
+	}));
+
+	projectsModel.reset($action.projectSuggestionsModel.replace('</', '<\u002f'));
+	mappingModel.reset($action.projectMappingModel.replace('</', '<\u002f'));
+
+	// cross-ref
+	mappingModel.forEach(function (mapping) {
+		var key = mapping.get("key");
+		var projectModel = key && projectsModel.find(function(val) {
+			return val.get("key") == key;
+		});
+		if (projectModel) {
+			mapping.set({projectModel: projectModel});
+		}
+	});
+
+	mappingModel.forEach(function (mappingModel) {
+		new SingleMappingView({
+			model: mappingModel,
+			projectsModel: projectsModel,
+            canCreate: $action.createProjectsEnabled,
+			el: "tr#" + mappingModel.id
+		}).render();
+	});
+
+	AJS.$("#jimform").submit(function () {
+		AJS.$("#projectMapping").val(JSON.stringify(mappingModel));
+	});
+
+	var updateNextButton = function() {
+		var grayOut = !mappingModel.any(function (mapping) { return mapping.get("selected"); })
+			|| mappingModel.any(function (mapping) { return mapping.get("selected") && !mapping.get("projectModel"); });
+
+		if (grayOut) {
+			AJS.$("#nextButton").attr("disabled", "disabled");
+		} else {
+			AJS.$("#nextButton").removeAttr("disabled");
+		}
+	};
+
+	mappingModel.bind("change:selected", updateNextButton);
+	mappingModel.bind("change:projectModel", updateNextButton);
+	AJS.$(updateNextButton);
+
+	var updateAllProjectsCheckbox = function() {
+		AJS.$(".all_projects_checkbox").attr("checked", AJS.$(".project_checkbox:checked").length == AJS.$(".project_checkbox").length);
+	};
+	updateAllProjectsCheckbox();
+	AJS.$(".project_checkbox").click(updateAllProjectsCheckbox);
+	AJS.$(".all_projects_checkbox").click(function() {
+        var checked = AJS.$(this).attr("checked");
+		AJS.$(".project_checkbox").attr("checked", checked == undefined ? false : checked).trigger("change");
+	});
+})();
+</script>

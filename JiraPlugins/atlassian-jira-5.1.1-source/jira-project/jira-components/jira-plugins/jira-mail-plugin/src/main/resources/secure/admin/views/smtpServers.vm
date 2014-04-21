@@ -1,0 +1,102 @@
+#disable_html_escaping()
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.mail.webwork.ViewMailServers" *#
+<div id="smtp-mail-servers-panel">
+    <h3 class="formtitle">$action.getText('admin.mailservers.smtp.mail.servers')</h3>
+    #if(!$action.smtpMailServers.empty)
+    <p>$action.getText('admin.mailservers.the.table.below.smtp')</p>
+    #end
+
+    #if($action.smtpMailServers.empty)
+        #AUImessage("info" "" $action.getText('admin.mailservers.no.smtp.servers.configured') "" "" "" "")
+
+        <div class="buttons-container aui-toolbar form-buttons noprint">
+            <div class="toolbar-group">
+            <span class="toolbar-item">
+                <a class="toolbar-trigger" id="add-new-smtp-server" href="AddSmtpMailServer!default.jspa">$action.getText('admin.mailservers.configure.new.smtp.mail.server')</a>
+            </span>
+            </div>
+        </div>
+    #else
+        <table class="aui aui-table-rowhover">
+            <thead>
+            <tr>
+                <th width="30%">
+                    $action.getText('common.words.name')
+                </th>
+                <th>
+                    $action.getText('admin.common.words.details')
+                </th>
+                <th width="10%">
+                    $action.getText('common.words.operations')
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+                #foreach ($server in $action.smtpMailServers)
+                <tr>
+                    <td>
+                        <strong>$esc.html($server.name)</strong>
+                        #if ($server.description)
+                            <div class="description">$esc.html($server.description)</div>
+                        #end
+                    </td>
+                    <td>
+                        <ul class="item-details">
+                            <li>
+                                <dl>
+                                    <dt>$action.getText('admin.mailservers.from'):</dt>
+                                    <dd>$esc.html($server.defaultFrom)</dd>
+                                </dl>
+                                <dl>
+                                    <dt>$action.getText('admin.mailservers.prefix'):</dt>
+                                    <dd>$esc.html($server.prefix)</dd>
+                                </dl>
+                            </li>
+                            #if ($server.sessionServer)
+                                <li>
+                                    <dl>
+                                        <dt>$action.getText('admin.mailservers.jndi.location'):</dt>
+                                        <dd>$esc.html($server.jndiLocation)</dd>
+                                    </dl>
+                                </li>
+                            #else
+                                <li>
+                                    <dl>
+                                        <dt>$action.getText('admin.mailservers.host'):</dt>
+                                        <dd>$esc.html($server.hostname)</dd>
+                                    </dl>
+                                    #if ($server.port)
+                                        <dl>
+                                            <dt>$action.getText('admin.mailservers.smtp.port'):</dt>
+                                            <dd>$esc.html($server.port)</dd>
+                                        </dl>
+                                    #end
+                                    #if ($server.username)
+                                        <dl>
+                                            <dt>$action.getText('common.words.username'):</dt>
+                                            <dd>$esc.html($server.username)</dd>
+                                        </dl>
+                                    #end
+                                </li>
+                            #end
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="operations-list">
+                            <li>
+                                <a id="edit_${server.id}" href="UpdateSmtpMailServer!default.jspa?id=${server.id}">$action.getText('common.words.edit')</a>
+                            </li>
+                            <li>
+                                <a id="deleteSMTP" href="DeleteMailServer!default.jspa?id=${server.id}">$action.getText('common.words.delete')</a>
+                            </li>
+                            <li>
+                                <a href="SendTestMail!default.jspa">$action.getText('admin.mailservers.send.a.test.email')</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                #end
+            </tbody>
+        </table>
+    #end
+</div>

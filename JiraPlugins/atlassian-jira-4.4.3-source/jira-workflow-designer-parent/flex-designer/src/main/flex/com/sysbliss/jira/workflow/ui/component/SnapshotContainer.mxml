@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+           backgroundColor="#FFFFFF">
+
+    <mx:Script><![CDATA[
+        import com.sysbliss.jira.workflow.Il8n.INiceResourceManager;
+        import com.sysbliss.jira.workflow.Il8n.NiceResourceManager;
+        import com.sysbliss.jira.workflow.controller.GlobalActionController;
+
+        private const niceResourceManager:INiceResourceManager = NiceResourceManager.getInstance();
+
+        [Bindable]
+        public var workflowTitle:String = niceResourceManager.getString('json','workflow.designer.workflow');
+
+        [Bindable]
+        public var snapshotImage:Bitmap;
+
+        private var _globalActionController:GlobalActionController;
+
+        public function checkGlobalActions():void {
+            if(_globalActionController.listProvider.length < 1 && mainBox.contains(actionsBox)) {
+                    mainBox.removeChild(actionsBox);
+            } else if(_globalActionController.listProvider.length > 0 && !mainBox.contains(actionsBox)) {
+                mainBox.addChild(actionsBox);
+            }
+        }
+
+        public function get globalActionController():GlobalActionController
+        {
+            return _globalActionController;
+        }
+
+        public function set globalActionController(value:GlobalActionController):void
+        {
+            _globalActionController = value;
+        }
+
+        ]]></mx:Script>
+    <mx:VBox horizontalAlign="center" paddingBottom="20" paddingLeft="20" paddingRight="20" paddingTop="20" verticalGap="25">
+        <mx:Label id="titleLabel" text="{workflowTitle}" color="#000000" fontSize="20" fontWeight="bold"/>
+        <mx:HBox id="mainBox" verticalAlign="middle" horizontalGap="40">
+            <mx:Image id="snapshot" source="{snapshotImage}"/>
+            <mx:VBox id="actionsBox" verticalGap="10" horizontalAlign="center">
+                <mx:Label text="{niceResourceManager.getString('json','workflow.designer.global.actions')}" color="#000000" fontSize="14" fontWeight="bold"/>
+                <mx:List id="actionList" rowCount="{globalActionController.listProvider.length + 1}" width="100%" height="100%"
+				enabled="true"
+				dataProvider="{globalActionController.listProvider}"
+				iconFunction="{globalActionController.getListIcon}"/>
+            </mx:VBox>
+        </mx:HBox>
+    </mx:VBox>
+</mx:Canvas>

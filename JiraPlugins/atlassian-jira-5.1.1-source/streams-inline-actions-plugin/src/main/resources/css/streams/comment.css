@@ -1,0 +1,32 @@
+/*******************************************************************/
+/*  COMMENT FORM                                                   */
+/*******************************************************************/
+
+.activity-item-comment-form * {
+    color: black;
+}
+
+.activity-item-comment-form {
+    /* margin-top has to specified in px rather than em to avoid resizing bug (STRM-711) */
+    margin: 5px 1em 0 0;
+}
+
+.activity-item-comment-form textarea {
+    overflow: auto;
+    resize: none;
+    width: 100%;
+}
+
+.activity-item-comment-form .submit {
+    margin-top: 0.6em;
+}
+
+.activity-item-comment-form button {
+    margin-bottom: -0.1em;
+    margin-right: 0.6em;
+    vertical-align: bottom;
+}
+
+.activity-item-comment-form a.streams-cancel {
+    font-weight: normal;
+}

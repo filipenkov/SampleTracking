@@ -1,0 +1,11 @@
+<span id="applink-request-$applinkId" class="applinks-auth-request"><span class="applinks-request-description">
+#if( $contentHtml != '' )
+$!contentHtml -
+#end
+$messageHtml
+</span>
+<input type="hidden" class="applinkId" value="$applinkId">
+<input type="hidden" class="appName" value="$appName">
+<input type="hidden" class="appUri" value="$appUri">
+<input type="hidden" class="authUri" value="$authUri">
+</span>

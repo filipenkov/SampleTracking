@@ -1,0 +1,28 @@
+$!{auiparams.put("controlHeaderClass", "aui-field-componentspicker $!fieldLayoutItem.rendererType")}
+#customControlHeader ($action $field.id $i18n.getText($field.nameKey) $fieldLayoutItem.required $displayParameters $auiparams)
+#if ($components && !$components.empty)
+    <div class="ajs-multi-select-placeholder textarea long-field"></div>
+    #if (!$fieldLayoutItem.required)
+        <select class="select #if ($!isFrotherControl)hidden#end" id="$field.id" multiple="multiple" name="$field.id" size="#minSelectSize($components 1 5)"
+                data-remove-null-options="true">
+    #else
+        <select class="select #if ($!isFrotherControl)hidden#end" id="$field.id" multiple="multiple" name="$field.id" size="#minSelectSize($components 0 5)"
+                data-remove-null-options="true">
+    #end
+        #if (!$fieldLayoutItem.required)
+            <option#if ($currentComponents && $unknownComponentId && $currentComponents.contains($unknownComponentId)) selected="selected"#end value="-1">
+                $i18n.getText('common.words.unknown')
+            </option>
+        #end
+        #foreach ($component in $components)
+            <option#if ($currentComponents && $component && $currentComponents.contains($component.getLong('id'))) selected="selected"#end title="$textutils.htmlEncode($component.getString("name")) #if($component.getString("description")) - $textutils.htmlEncode($component.getString("description"))#end" value="$!component.getLong('id')">
+                $textutils.htmlEncode($component.getString('name'))
+            </option>
+        #end
+    </select>
+    <div class="description">${i18n.getText('generic.picker.static.desc')}</div>
+#else
+    $i18n.getText('common.words.none')
+#end
+#customControlFooter ($action $field.id $fieldLayoutItem.getFieldDescription() $displayParameters $auiparams)
+$!{auiparams.clear()}

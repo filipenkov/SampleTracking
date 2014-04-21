@@ -1,0 +1,124 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" pluginsVersion="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${pom.organization.name}" url="${pom.organization.url}"/>
+        <application-version min="4"/>
+    </plugin-info>
+
+    <component key="workflowDesignerPropertySet"
+        name="Workflow Designer PropertySet"
+        class="com.sysbliss.jira.plugins.workflow.util.WorfklowDesignerPropertySetImpl"
+        public="true">
+        <interface>com.sysbliss.jira.plugins.workflow.util.WorkflowDesignerPropertySet</interface>
+    </component>
+
+    <component key="workflowDesignerService"
+        name="Workflow Designer Service"
+        class="com.sysbliss.jira.plugins.workflow.service.WorkflowDesignerServiceImpl"
+        public="true">
+        <interface>com.sysbliss.jira.plugins.workflow.service.WorkflowDesignerService</interface>
+    </component>
+
+
+    <component key="workflowLayoutManager"
+        name="Workflow Layout Manager"
+        class="com.sysbliss.jira.plugins.workflow.manager.WorkflowLayoutManagerImpl"
+        public="true">
+        <interface>com.sysbliss.jira.plugins.workflow.manager.WorkflowLayoutManager</interface>
+    </component>
+
+    <component key="workflowAnnotationManager"
+        name="Workflow Annotation Manager"
+        class="com.sysbliss.jira.plugins.workflow.manager.WorkflowAnnotationManagerImpl"
+        public="true">
+        <interface>com.sysbliss.jira.plugins.workflow.manager.WorkflowAnnotationManager</interface>
+    </component>
+
+    <component key="workflowLayoutHousekeeper"
+        name="Workflow Layout Housekeeper Event Listener"
+        class="com.sysbliss.jira.plugins.workflow.event.WorkflowLayoutHousekeeperImpl"
+        public="true">
+        <interface>com.sysbliss.jira.plugins.workflow.event.WorkflowLayoutHousekeeper</interface>
+        <interface>com.atlassian.sal.api.lifecycle.LifecycleAware</interface>
+    </component>
+
+    <component key="workflowDesignerPluginDisabler"
+        name="Old Workflow Designer Plugin Disabler"
+        class="com.sysbliss.jira.plugins.workflow.WorkflowDesignerPluginDisablerImpl"
+        public="true">
+        <interface>com.sysbliss.jira.plugins.workflow.WorkflowDesignerPluginDisabler</interface>
+        <interface>com.atlassian.sal.api.lifecycle.LifecycleAware</interface>
+    </component>
+
+    <component-import key="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver" />
+
+
+    <servlet-filter
+            name="Edit Transition Redirect Filter"
+            key="jwdSendRedirectFilter"
+            class="com.sysbliss.jira.plugins.workflow.servlet.JWDSendRedirectFilter"
+            location="after-encoding"
+            weight="1">
+        <url-pattern>*</url-pattern>
+    </servlet-filter>
+
+    <servlet name="JWD AMF Servlet" key="com.atlassian.jwd.amf.servlet" class="com.sysbliss.jira.plugins.workflow.amf.JWDAMFServlet">
+        <url-pattern>/jwd/amf/*</url-pattern>
+    </servlet>
+
+    <servlet name="Workflow Thumbnail Servlet" key="com.atlassian.workflow.thumbnail.servlet" class="com.sysbliss.jira.plugins.workflow.servlet.WorkflowThumbnailServlet">
+        <url-pattern>/workflow/thumbnail/*</url-pattern>
+    </servlet>
+
+    <web-resource key="workflowdesignerflex" name="Workflow Designer Flex Resources" >
+        <resource type="download" name="flex/" location="templates/flex" />
+    </web-resource>
+
+    <web-resource key="jwd-topup" name="Workflow Designer TopUp Resources" >
+        <resource type="download" name="top_up-min.js" location="templates/topup/top_up.js" />
+        <resource type="download" name="sysbliss-topup.js" location="templates/topup/sysbliss-topup.js" />
+        <resource type="download" name="jquery/fxc-clip.uic-resizable.js" location="templates/topup/jquery/fxc-clip.uic-resizable.js" />
+    </web-resource>
+
+    <web-resource key="transition-link-rewriter" name="Transition View Link Rewriter" >
+        <dependency>jira.webresources:global-static</dependency>
+        <context>jira.inline.dialog</context>
+        
+        <resource type="download" name="transitionViewLinkRewrite.js" location="templates/topup/transitionViewLinkRewrite.js" />
+    </web-resource>
+
+    <web-resource key="topupImages" name="Workflow Designer TopUp Images" >
+        <resource type="download" name="images/" location="templates/topup/images" />
+    </web-resource>
+
+    <web-resource key="jwdresources" name="Workflow Designer Core Resources" >
+        <resource type="download" name="swfobject.js" location="templates/flex/swfobject.js" />
+        <resource type="download" name="jwd.js" location="templates/flex/jwd.js" />
+        <resource type="download" name="webbrowser.js" location="templates/flex/webbrowser.js" />
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+    </web-resource>
+
+    <web-resource key="jwdcss" name="Workflow Designer CSS" >
+        <dependency>com.atlassian.jira.jira-project-config-plugin:project-config-global</dependency>
+        <resource type="download" name="jwd.css" location="templates/css/jwd.css" />
+
+    </web-resource>
+
+    <webwork1 key="workflowDesignerApp" name="Jira Workflow Designer">
+        <description>A visual workflow designer by sysbliss.</description>
+        <actions>
+            <action name="sysbliss.WorkflowDesignerAction" alias="WorkflowDesigner">
+                <view name="success">/templates/sysbliss/workflowDesigner.vm</view>
+                <view name="notloggedin">/templates/sysbliss/notloggedin.vm</view>
+                <view name="nopermission">/templates/sysbliss/nopermission.vm</view>
+                <view name="invalidworkflowname">/templates/sysbliss/invalidworkflowname.vm</view>
+            </action>
+
+        </actions>
+    </webwork1>
+
+    <resource type="i18n" name="workflow.designer.i18n" location="i18n.i18n"/>
+
+    <resource type="download" name="images/" location="images/"/>
+</atlassian-plugin>

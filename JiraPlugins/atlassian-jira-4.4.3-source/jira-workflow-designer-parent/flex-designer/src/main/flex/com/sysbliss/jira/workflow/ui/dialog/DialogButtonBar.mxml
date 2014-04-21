@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	width="100%"
+	horizontalAlign="right">
+	<mx:Script>
+		<![CDATA[
+        import com.sysbliss.jira.workflow.Il8n.INiceResourceManager;
+        import com.sysbliss.jira.workflow.Il8n.NiceResourceManager;
+
+        public static const OK:uint = 0x0001;
+			public static const CANCEL:uint= 0x0002;
+			public static const SAVE:uint= 0x0004;
+			public static const DELETE:uint= 0x0008;
+			
+			private var _buttonFlags:uint = OK | CANCEL;
+
+            private const niceResourceManager:INiceResourceManager = NiceResourceManager.getInstance();
+
+			override protected function commitProperties():void {
+				if(_buttonFlags & OK){
+					okButton.visible = true;
+					okButton.includeInLayout = true;
+				} else {
+					okButton.visible = false;
+					okButton.includeInLayout = false;
+				}
+				
+				if(_buttonFlags & CANCEL){
+					cancelButton.visible = true;
+					cancelButton.includeInLayout = true;
+				} else {
+					cancelButton.visible = false;
+					cancelButton.includeInLayout = false;
+				}
+				
+				if(_buttonFlags & SAVE){
+					saveButton.visible = true;
+					saveButton.includeInLayout = true;
+				} else {
+					saveButton.visible = false;
+					saveButton.includeInLayout = false;
+				}
+				
+				if(_buttonFlags & DELETE){
+					deleteButton.visible = true;
+					deleteButton.includeInLayout = true;
+				} else {
+					deleteButton.visible = false;
+					deleteButton.includeInLayout = false;
+				}
+				
+				invalidateDisplayList();
+			}
+			
+			protected function doOk(e:MouseEvent):void {
+				var d:BaseDialog = parent as BaseDialog;
+				d.doOk(e);
+			}
+			
+			protected function doCancel(e:Event):void {
+				var d:BaseDialog = parent as BaseDialog;
+				d.doCancel(e);
+			}
+
+			protected function doSave(e:Event):void {
+				var d:BaseDialog = parent as BaseDialog;
+				d.doSave(e);
+			}
+			
+			protected function doDelete(e:Event):void {
+				var d:BaseDialog = parent as BaseDialog;
+				d.doDelete(e);
+			}
+			
+			public function set buttonFlags(flags:uint):void {
+				this._buttonFlags = flags;
+				invalidateProperties();
+			}
+		]]>
+	</mx:Script>
+	<mx:Button id="okButton" label="{niceResourceManager.getString('json','workflow.designer.ok')}" enabled="false" click="doOk(event);"/>
+	<mx:Button id="saveButton" label="{niceResourceManager.getString('json','workflow.designer.save')}" enabled="false" click="doSave(event);" visible="false" includeInLayout="false"/>
+	<mx:Button id="deleteButton" label="{niceResourceManager.getString('json','workflow.designer.delete')}" enabled="false" click="doDelete(event);" visible="false" includeInLayout="false"/>
+	<mx:Button id="cancelButton" label="{niceResourceManager.getString('json','workflow.designer.cancel')}" enabled="true" click="doCancel(event);"/>
+	
+</mx:HBox>

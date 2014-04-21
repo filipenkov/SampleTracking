@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <typedef name="BooleanString" class="com.atlassian.crowd.util.persistence.hibernate.BooleanStringUserType"/>
+
+    <typedef name="EmptyString" class="com.atlassian.crowd.util.persistence.hibernate.EmptyStringUserType"/>
+
+    <typedef name="PermissionType" class="com.atlassian.crowd.util.persistence.hibernate.GenericEnumUserType">
+        <param name="enumClass">com.atlassian.crowd.model.permission.OldPermissionType</param>
+        <param name="identifierMethod">getName</param>
+        <param name="valueOfMethod">fromName</param>
+    </typedef>
+
+    <typedef name="ApplicationType" class="com.atlassian.crowd.util.persistence.hibernate.GenericEnumUserType">
+        <param name="enumClass">com.atlassian.crowd.model.application.ApplicationType</param>
+    </typedef>
+
+    <typedef name="DirectoryType" class="com.atlassian.crowd.util.persistence.hibernate.GenericEnumUserType">
+        <param name="enumClass">com.atlassian.crowd.embedded.api.DirectoryType</param>
+    </typedef>
+
+    <typedef name="OperationType" class="com.atlassian.crowd.util.persistence.hibernate.GenericEnumUserType">
+        <param name="enumClass">com.atlassian.crowd.embedded.api.OperationType</param>
+    </typedef>
+
+    <typedef name="GroupType" class="com.atlassian.crowd.util.persistence.hibernate.GenericEnumUserType">
+        <param name="enumClass">com.atlassian.crowd.model.group.GroupType</param>
+    </typedef>
+
+    <typedef name="MembershipType" class="com.atlassian.crowd.util.persistence.hibernate.GenericEnumUserType">
+        <param name="enumClass">com.atlassian.crowd.model.membership.MembershipType</param>
+    </typedef>
+
+</hibernate-mapping>

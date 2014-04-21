@@ -1,0 +1,11 @@
+#if ($loggedin == true)
+<div class="fullyCentered">
+    <a href="$baseurl/secure/IssueNavigator.jspa?reset=true&reporterSelect=issue_current_user&resolution=-1">$i18n.getText('portlet.userissues.reported')</a>
+    #if ($watching == true)
+    | <a href="$baseurl/secure/UserWatches!default.jspa">$i18n.getText('portlet.userissues.watches')</a>
+    #end
+    #if ($voting == true)
+    | <a href="$baseurl/secure/UserVotes!default.jspa">$i18n.getText('portlet.userissues.votes')</a>
+    #end
+</div>
+#end

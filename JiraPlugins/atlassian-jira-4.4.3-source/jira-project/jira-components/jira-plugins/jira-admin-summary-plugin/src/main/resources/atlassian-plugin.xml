@@ -1,0 +1,49 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="Atlassian" url="http://www.atlassian.com/"/>
+        <application-version min="4.4" max="4.4"/>
+    </plugin-info>
+
+    <resource name="jira-admin-summary-plugin" type="i18n" location="i18n/jira-admin-summary-plugin" />
+
+    <web-resource key="admin-summary">
+        <transformation extension="soy">
+            <transformer key="jiraSoyTransformer"/>
+        </transformation>
+
+        <dependency>jira.webresources:jira-global</dependency>
+
+        <resource type="download" name="adminProjectIntroDialogHTML.js" location="global/js/adminProjectIntroDialog.soy" />
+        <resource type="download" name="adminsummary.js" location="global/js/adminsummary.js" />
+        <resource type="download" name="adminsummary.css" location="global/css/adminsummary.css" />
+        <resource type="download" name="images/" location="global/images/" />
+    </web-resource>
+
+    <web-panel key="adminsummary-projects" location="webpanels.admin.summary.top-panels" i18n-name-key="admin.summary.project.panel.name" weight="10">
+        <resource name="view" type="velocity" location="admin-summary-projects.vm"/>
+        <context-provider class="com.atlassian.jira.admin.contextproviders.ProjectPanelContextProvider"/>
+    </web-panel>
+
+    <web-panel key="adminsummary-plugins" location="webpanels.admin.summary.top-panels" weight="20">
+        <resource name="view" type="velocity" location="admin-summary-panel.vm"/>
+        <context-provider class="com.atlassian.jira.admin.contextproviders.PluginPanelContextProvider"/>
+    </web-panel>
+
+    <web-panel key="adminsummary-users" location="webpanels.admin.summary.left-column" weight="10">
+        <resource name="view" type="velocity" location="admin-summary-users.vm"/>
+        <context-provider class="com.atlassian.jira.admin.contextproviders.UserPanelContextProvider"/>
+    </web-panel>
+
+    <web-panel key="adminsummary-options" location="webpanels.admin.summary.left-column" weight="20">
+        <resource name="view" type="velocity" location="admin-summary-panel.vm"/>
+        <context-provider class="com.atlassian.jira.admin.contextproviders.OptionPanelContextProvider"/>
+    </web-panel>
+
+    <web-panel key="adminsummary-system" location="webpanels.admin.summary.right-column" weight="10">
+        <resource name="view" type="velocity" location="admin-summary-panel.vm"/>
+        <context-provider class="com.atlassian.jira.admin.contextproviders.SystemPanelContextProvider"/>
+    </web-panel>
+
+</atlassian-plugin>

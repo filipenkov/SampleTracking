@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BaseDialog xmlns="com.sysbliss.jira.workflow.ui.dialog.*" 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="400" minWidth="400"
+	height="250" minHeight="250"
+	title="{niceResourceManager.getString('json','workflow.designer.copy.workflow')}">
+	
+	<mx:Script>
+		<![CDATA[
+        import com.sysbliss.jira.workflow.Il8n.INiceResourceManager;
+        import com.sysbliss.jira.workflow.Il8n.NiceResourceManager;
+        import com.sysbliss.jira.workflow.event.GenericDataEvent;
+			import org.swizframework.Swiz;
+			import com.sysbliss.jira.workflow.event.EventTypes;
+			import mx.controls.Button;
+			import mx.utils.StringUtil;
+			import com.sysbliss.jira.workflow.manager.WorkflowDiagramManager;
+			import mx.collections.ArrayCollection;
+			import com.sysbliss.jira.plugins.workflow.model.FlexJiraWorkflow;
+
+			
+			private var _workflow:FlexJiraWorkflow;
+			private var _names:Array;
+			
+			[Autowire]
+			public var workflowDiagramManager:WorkflowDiagramManager;
+
+            private const niceResourceManager:INiceResourceManager = NiceResourceManager.getInstance();
+
+			override protected function commitProperties():void {
+				super.commitProperties();
+				if(_workflow){
+	        		workflowName.text = niceResourceManager.getString('json','workflow.designer.copy.of',[_workflow.name]);
+		        	validateName();
+	        		workflowDesc.text = _workflow.description;
+		  		}	
+			}
+			
+			override public function clear():void {
+				if(_childrenReady){
+					workflowName.text = "";
+					workflowDesc.text = "";
+					validateName();
+					_names = null;
+				}
+			}
+			
+			override public function doOk(e:Event):void {
+				_names = null;
+				var event:GenericDataEvent = new GenericDataEvent(EventTypes.DO_WORKFLOW_COPY,{newName:workflowName.text,newDesc:workflowDesc.text});
+				Swiz.dispatchEvent(event);
+			}
+		
+			public function setWorkflow(wf:FlexJiraWorkflow):void {
+	        	_workflow = wf;
+	        	invalidateProperties();
+	        }
+	        
+	        private function onTextChange(e:Event):void {
+				validateName();	
+			}
+			
+			private function validateName():void {
+				if(!_names){
+					var wfNames:ArrayCollection = workflowDiagramManager.getAllWorkflowNames();
+					_names = new Array();
+					for each(var name:String in wfNames){
+						_names.push(name.toLowerCase());
+						//log.debug("adding name: " + name.toLowerCase());
+					}
+				}
+				var textToCheck:String = StringUtil.trim(workflowName.text.toLowerCase());
+				//log.debug("name to check " + textToCheck);
+				if(workflowName.text == ""){
+					errorField.text = niceResourceManager.getString('json','workflow.designer.workflow.name.required');
+					buttons.okButton.enabled = false;
+				} else if(_names.indexOf(textToCheck) > -1){
+					errorField.text = niceResourceManager.getString('json','workflow.designer.workflow.name.exists');
+					buttons.okButton.enabled = false;
+				} else {
+					errorField.text = "";
+					buttons.okButton.enabled = true;
+				}
+			}
+		]]>
+	</mx:Script>
+	<mx:Label id="errorField" styleName="errorField" text="{niceResourceManager.getString('json','workflow.designer.workflow.name.required')}" />
+	<mx:Form verticalGap="10" width="100%" paddingTop="5" paddingLeft="5" paddingRight="5">
+		<mx:FormItem width="100%" label="{niceResourceManager.getString('json','workflow.designer.workflow.name')}" labelStyleName="fieldLabel" required="true">
+			<mx:TextInput id="workflowName" width="100%" change="onTextChange(event);"/>
+		</mx:FormItem>
+		<mx:FormItem width="100%" label="{niceResourceManager.getString('json','workflow.designer.description')}" labelStyleName="fieldLabel" required="true">
+			<mx:TextArea id="workflowDesc" width="100%" height="60"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:StringValidator/>
+    <mx:HRule styleName="hrule" width="100%" height="1"/>
+	<DialogButtonBar id="buttons" buttonFlags="{DialogButtonBar.OK|DialogButtonBar.CANCEL}"/>
+</BaseDialog>

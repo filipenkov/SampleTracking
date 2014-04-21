@@ -1,0 +1,11 @@
+/* Time tracking bars legacy - some still used */
+td.tt_values { font-weight: normal; padding-right: 10px; padding-left: 10px; text-align: right; white-space: nowrap; width: 10%; }
+td.tt_text { padding-right: 10px; white-space: nowrap; width: 10%; }
+td.tt_graph { width: 100%; }
+table.tt_graph { border-width: 0; height: 4px; vertical-align: middle; width: 100%; }
+table.tt_graph td, tr.tt_graph td { border: 0; font-size: 0; height: 4px; }
+table.tt_graph td img { border: 0; height: 4px; width: 100%; }
+tr.tt_graph { height: 4px; }
+td.tt_graph_percentage { min-width: 3em; text-align: right; padding-right: 3px; width: 3em; }
+td.tt_spacer { font-size: 0; max-width: 1px; width: 1px; }
+table.tt_graph td.tt_spacer img { width: 1px; }

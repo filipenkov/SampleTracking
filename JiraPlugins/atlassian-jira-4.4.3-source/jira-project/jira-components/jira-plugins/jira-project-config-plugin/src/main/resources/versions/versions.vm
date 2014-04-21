@@ -1,0 +1,28 @@
+<div id="project-config-panel-versions" class="project-config-panel">
+    <ul class="operation-menu"></ul>
+    <div class="project-config-panel-header project-config-icon48-versions">
+        <h2>$i18n.getText('common.concepts.versions')</h2>
+        <p>$i18n.getText('admin.project.config.summary.version.desc')</p>
+    </div>
+    <form id="project-config-versions-add" class="aui" action="#">
+        <table id="project-config-versions-table" class="aui">
+            <thead>
+                <tr>
+                    <th class="jira-restfultable-order"><!-- order --></th>
+                    <th><!-- release status --></th>
+                    <th>$i18n.getText('common.words.name')</th>
+                    <th>$i18n.getText('common.words.description')</th>
+                    <th>$i18n.getText('version.releasedate')</th>
+                    <th><!-- Operations --></th>
+                    <th><!-- throbber --></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div class="jira-restfultable-init">
+            <span class="jira-restfultable-throbber"></span>
+            <span class="jira-restfultable-loading">$i18n.getText('admin.project.versions.loading')</span>
+        </div>
+    </form>
+    <div id="project-config-error-console"></div>
+</div>

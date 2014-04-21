@@ -1,0 +1,481 @@
+
+#* @vtlvariable name="i18n" type="com.atlassian.sal.api.message.I18nResolver" *#
+#* @vtlvariable name="webResourceManager" type="com.atlassian.plugin.webresource.WebResourceManager" *#
+#* @vtlvariable name="webItemFinder" type="com.atlassian.gadgets.dashboard.internal.DashboardWebItemFinder" *#
+#* @vtlvariable name="urlBuilder" type="com.atlassian.gadgets.dashboard.internal.DashboardUrlBuilder" *#
+#* @vtlvariable name="writer" type="java.io.Writer" *#
+#* @vtlvariable name="dashboard" type="com.atlassian.gadgets.dashboard.internal.Dashboard" *#
+#* @vtlvariable name="writable" type="boolean" *#
+#* @vtlvariable name="locale" type="java.util.Locale" *#
+#* @vtlvariable name="maxGadgets" type="int" *#
+#* @vtlvariable name="gadgetRequestContext" type="com.atlassian.gadgets.GadgetRequestContext" *#
+
+$webResourceManager.requireResource("com.atlassian.gadgets.dashboard:dashboard")
+$webResourceManager.requireResource("com.atlassian.gadgets.dashboard:gadget-dashboard-resources")
+
+<script type="text/javascript" charset="utf-8">
+        AG.DashboardManager.setup({
+            params: {
+                "pipeDelimitedHelp" : "$js.escape($i18n.getText("pipe.delimited.help"))",
+                "editLayout" : "$js.escape($i18n.getText("dashboard.layout.choose"))",
+                "move" : "move",
+                "layoutAction" : "$js.escape($urlBuilder.buildDashboardLayoutUrl($dashboard.id))",
+                "staticResourceUrlPrefix" : "$js.escape($staticResourceUrlPrefix)",
+                "blankSearchText" : "$js.escape($i18n.getText('search.name'))",
+                "previewButtonLabel" : "$js.escape($i18n.getText('preview.name'))",
+                "nextButtonLabel" : "$js.escape($i18n.getText('macro.browser.next.button'))",
+                "backButtonLabel" : "$js.escape($i18n.getText('macro.browser.back.button'))",
+                "finishButtonLabel" : "$js.escape($i18n.getText('finish.name'))",
+                "insertButtonLabel" : "$js.escape($i18n.getText('insert.name'))",
+                "addByUrlButtonLabel" : "$js.escape($i18n.getText('add.by.url.name'))",
+                "addGadgetFeedSubscriptionButtonLabel" : "$js.escape($i18n.getText('add.gadget.feed.subscription.name'))",
+                "subscribedGadgetFeedsButtonLabel" : "$js.escape($i18n.getText('subscribed.gadget.feeds.name'))",
+                "gadgetFeedSubscriptions" : "$js.escape($i18n.getText('gadget.feed.subscriptions'))",
+                "defaultErrorMessage" : "$js.escape($i18n.getText('default.error.message'))",
+                "dashboardErrorDashboardPermissions" : "$js.escape($i18n.getText('dashboard.error.dashboard.permissions'))",
+                "dashboardErrorDirectoryPermissions" : "$js.escape($i18n.getText('dashboard.error.directory.permissions'))",
+                "dashboardErrorFailedToAddGadget" : "$js.escape($i18n.getText('dashboard.error.failed.to.add.gadget'))",
+                "dashboardErrorFailedToAddGadgetSubscription" : "$js.escape($i18n.getText('dashboard.error.failed.to.add.gadget.subscription'))",
+                "dashboardErrorFailedToGetGadgetSubscriptions" : "$js.escape($i18n.getText('dashboard.error.failed.to.get.gadget.subscriptions'))",
+                "dashboardErrorLoadingFeed" : "$js.escape($i18n.getText('dashboard.error.loading.feed'))",
+                "dashboardErrorFailedToRemoveGadgetSubscription" : "$js.escape($i18n.getText('dashboard.error.failed.to.remove.gadget.subscription'))",
+                "directoryGadgetFeedSubscriptionExplanation" : "$js.escape($i18n.getText('directory.gadget.feed.subscriptions.explanation', $applicationProperties.displayName))",
+                "directoryGadgetFeedSubscriptionEmptyExplanation" : "$js.escape($i18n.getText('directory.gadget.feed.subscriptions.empty.explanation', $applicationProperties.displayName))",
+                "confirmRemoveSubscriptionToGadgetFeed" : "$js.escape($i18n.getText('dashboard.confirm.remove.subscription.to.gadget.feed.1'))\n\n$js.escape($i18n.getText('dashboard.confirm.remove.subscription.to.gadget.feed.2'))",
+                "gadgetAddedSuccess" : "$js.escape($i18n.getText('gadget.added.success'))",
+                "descriptionNotAvailable" : "$js.escape($i18n.getText('description.not.available'))",
+                "authorUnknown" : "$js.escape($i18n.getText('author.unknown'))",
+                "gadgetAuthor" : "$js.escape($i18n.getText('gadget.author'))",
+                "urlNotAvailable" : "$js.escape($i18n.getText('url.not.available'))",
+                "addGadgetByUrl" : "$js.escape($i18n.getText('add.gadget.by.url'))",
+                "addGadgetFeedSubscription" : "$js.escape($i18n.getText('add.gadget.feed.subscription'))",
+                "failedToLoadError" : "$js.escape($i18n.getText('failed.to.load.error'))",
+                "preferences" : "$js.escape($i18n.getText('preferences'))",
+                "all" : "$js.escape($i18n.getText('all'))",
+                "edit" : "$js.escape($i18n.getText("edit"))",
+                "remove" : "$js.escape($i18n.getText('delete'))",
+                "removing" : "$js.escape($i18n.getText('removing'))",
+                "adding" : "$js.escape($i18n.getText('adding'))",
+                "addItNow" : "$js.escape($i18n.getText('add.it.now'))",
+                "gadgetDirectory" : "$js.escape($i18n.getText('gadget.directory'))",
+                "changeColumns" : "$js.escape($i18n.getText('change.columns'))",
+                "dragHere" : "$js.escape($i18n.getText('drag.here'))",
+                "areYouSure" : "$js.escape($i18n.getText('are.you.sure'))",
+                "gadget" : "$js.escape($i18n.getText('gadget'))",
+                "add" : "$js.escape($i18n.getText('add'))",
+                "save" : "$js.escape($i18n.getText('save'))",
+                "cancel" : "$js.escape($i18n.getText('cancel'))",
+                "maximize" : "$js.escape($i18n.getText('maximize'))",
+                "unmaximize" : "$js.escape($i18n.getText('unmaximize'))",
+                "gadgetRemovedSuccess" : "$js.escape($i18n.getText('gadget.removed.success'))",
+                "dashboardErrorFailedToInsertGadget" : "$js.escape($i18n.getText('dashboard.error.failed.to.insert.gadget'))",
+                "dashboardErrorTooManyGadgets" : "$js.escape($i18n.getText('dashboard.error.too.many.gadgets'))",
+                "dashboardErrorCouldNotSave" : "$js.escape($i18n.getText('dashboard.error.could.not.save'))",
+                "removeGadget" : "$js.escape($i18n.getText('dashboard.remove.gadget'))",
+                "removeFromDirectory" : "$js.escape($i18n.getText('remove.from.directory'))",
+                "close" : "$js.escape($i18n.getText('close.dialog'))",
+                "expand" : "$js.escape($i18n.getText('expand'))",
+                "minimize" : "$js.escape($i18n.getText('minimize'))",
+                "removeFromList" : "$js.escape($i18n.getText('remove.from.list'))",
+                "dragYourGadgetHere" : "$js.escape($i18n.getText('drag.your.gadget.here'))",
+                "canAddExternalGadgetsToDirectory" : "$canAddExternalGadgetsToDirectory",
+                "writable" : $writable,
+                "maxGadgets" : "$maxGadgets",
+                "dashboardUrl" : "$js.escape($urlBuilder.buildDashboardUrl($dashboard.id))",
+                "dashboardDirectoryResourceUrl" : "$js.escape($urlBuilder.buildDashboardDirectoryResourceUrl())",
+                "dashboardSubscribedGadgetFeedsUrl" : "$js.escape($urlBuilder.buildSubscribedGadgetFeedsUrl())",
+                "dashboardResourceUrl" : "$js.escape($urlBuilder.buildDashboardResourceUrl($dashboard.id))",
+                "dashboardDirectoryUrl" : "$js.escape($urlBuilder.buildDashboardDirectoryUrl($dashboard.id))",
+                "dashboardDirectoryBaseUrl" : "$js.escape($urlBuilder.buildDashboardDirectoryBaseUrl())",
+                "dashboardDiagnosticsUrl" : "$js.escape($urlBuilder.buildDashboardDiagnosticsRelativeUrl())",
+                "color1" : "$js.escape($i18n.getText('color.1'))",
+                "color2" : "$js.escape($i18n.getText('color.2'))",
+                "color3" : "$js.escape($i18n.getText('color.3'))",
+                "color4" : "$js.escape($i18n.getText('color.4'))",
+                "color5" : "$js.escape($i18n.getText('color.5'))",
+                "color6" : "$js.escape($i18n.getText('color.6'))",
+                "color7" : "$js.escape($i18n.getText('color.7'))",
+                "color8" : "$js.escape($i18n.getText('color.8'))",
+                "errorGadgetUrl" : "$js.escape($webResourceManager.getStaticPluginResource("com.atlassian.gadgets.dashboard:error-gadget", "errorGadget.html"))",
+                "errorGadgetTitle" : "$js.escape($i18n.getText('gadget.error.title'))",
+                "errorGadgetMessage" : "$js.escape($i18n.getText('gadget.error.message'))",
+                "restoreFromCanvasMode" : "$js.escape($i18n.getText('dashboard.disabled.canvas.mode'))",
+                "helpLinkLearnMoreAboutGadgets" : "$js.escape($i18n.getText('directory.help.link.learn.more.about.gadgets'))",
+                "helpLinkCreateYourOwnGadget" : "$js.escape($i18n.getText('directory.help.link.create.your.own.gadget'))",
+                "helpLinkLearnMoreAboutGadgetsUrl" : "$js.escape($linkLearnMoreAboutGadgets)",
+                "helpLinkPluginHintGadgets" : "$js.escape($i18n.getText('get.plugin.hint.gadget'))",
+                "helpLinkPluginHintGadgetsUrl" : "$js.escape($linkPluginHintGadgets)",
+                "showMarketingPluginHints" : $showMarketingPluginHints,
+                "helpLinkCreateYourOwnGadgetUrl" : "$js.escape($linkLearnHow)",
+                "addGadget" : "$js.escape($i18n.getText('add.gadget'))",
+                "subscribedFeedDescription" : "$js.escape($i18n.getText('gadgets.subscribed.feed.description'))",
+                "unsubscribeFromFeed" : "$js.escape($i18n.getText('gadgets.unsubscribe.from.gadget.feed'))",
+                "securityTokensUrl" : "$js.escape($urlBuilder.buildSecurityTokensUrl())"
+            },
+            menu: {items: [
+                #set($webItems = $webItemFinder.findDashboardMenuItems($dashboard.id, $username))
+                #foreach ($webItem in $webItems.iterator())
+                    {
+                        link: {
+                            #if ($webItem.link.id)
+                            id: "$js.escape($webItem.link.id)",
+                            #end
+                            #if ($webItem.styleClass)
+                            styleClass: "$js.escape($webItem.styleClass)",
+                            #end
+                            href: "$js.escape($webItem.link.displayableUrl)",
+                            text: "$js.escape($webItem.label.displayableLabel)"
+                        }
+                    },
+                #end
+                #set($toolsItems = $webItemFinder.findDashboardToolsMenuItems($dashboard.id, $username))
+                #if($toolsItems.iterator().hasNext())
+                    {
+                        id: "dashboard-tools-dropdown",
+                        trigger: {
+                            text: "$js.escape($i18n.getText("dashboard.menu.tools"))",
+                            styleClass: "aui-dd-link lnk icon-tools"
+                        },
+                        useTemplate: "dropdown",
+                        list: {
+                            items: [
+                                #foreach($webItem in $toolsItems.iterator())
+                                    #if($velocityCount != 1),#end
+                                    {
+                                        #if($!webItem.styleClass && $webItem.styleClass.contains('groupmarker'))
+                                        styleClass: "dropdown-item groupmarker",
+                                        #else
+                                        styleClass: "dropdown-item",
+                                        #end
+                                        link: {
+                                            #if ($webItem.link.id)
+                                            id: "$js.escape($webItem.link.id)",
+                                            #end
+                                            #if ($webItem.styleClass)
+                                            styleClass: "item-link $js.escape($webItem.styleClass)",
+                                            #end
+                                            href: "$js.escape($webItem.link.displayableUrl)",
+                                            text: "$js.escape($webItem.label.displayableLabel)"
+                                        }
+                                    }
+                                #end
+                            ]
+                        }
+                    },
+                #end
+                {
+                    styleClass: "hidden",
+                    link: {
+                        id: "disabled-menu-link",
+                        styleClass: "lnk icon-restore minimize",
+                        href: "#",
+                        text: "$js.escape($i18n.getText('dashboard.disabled.canvas.mode'))"
+                    }
+                }
+            ]},
+            layouts: [
+                #if($tabs.iterator().hasNext())
+                    #foreach($tab in $tabs.iterator())
+                        #if($velocityCount != 1),#end
+                        ## if this is the selected tab, just print out the whole dashboard state, otherwise just print tab info
+                        #if($tab.dashboardId.equals($dashboard.id))
+                            $embed.json($dashboard, $gadgetRequestContext, $writable)
+                        #else
+                            {id:"$tab.dashboardId",title:"$js.escape($tab.title)",resourceUrl:"$js.escape($urlBuilder.buildDashboardResourceUrl($tab.dashboardId))",uri:"$js.escape($tab.tabUri.toASCIIString())",writable:$tab.writable,active:false}
+                        #end
+                    #end
+                #else
+                    $embed.json($dashboard, $gadgetRequestContext, $writable)
+                #end
+            ]
+        });
+</script>
+
+## TODO: This should probably be externalized in an iframe (so it can be cached), however htmlunit can't deal with this at the moment.
+#set( $D = '$')
+<script type="text/template" id="attr">
+    <?if top.id ?> id="${D}{id}"<?/if?>
+    <?if top.styleClass ?> class="${D}{styleClass}"<?/if?>
+    <?if top.href ?> href="${D}{href}"<?/if?>
+    <?if top.value ?> value="${D}{value}"<?/if?>
+    <?if top.name ?> name="up_${D}{name}"<?/if?>
+    <?if top.selected ?> selected="selected"<?/if?>
+</script>
+
+<script type="text/template" id="dropdown">
+    <% top.styleClass =  top.styleClass ? "aui-dd-parent " + top.styleClass : "aui-dd-parent"; %>
+    <li ${D}{attr(top)}>
+    <a id="${D}{trigger.id}" class="${D}{trigger.styleClass || 'aui-dd-trigger'} standard " href="#"><span>${D}{trigger.text}</span></a>
+    <ul class="aui-dropdown standard hidden">
+        <?foreach item in list.items?>
+        ${D}{menuItem(item)}
+        <?/foreach?>
+    </ul>
+    </li>
+</script>
+
+<script type="text/template" id="menuItem">
+    <?if (top.useTemplate === "dropdown")?>${D}{dropdown(top)}<?/if?>
+    <?else?>
+    <li ${D}{attr(top)}>
+    <?if (top.items) ?>
+    <ul>
+        <?foreach subItem in items ?>
+        ${D}{menuItem(subItem)}
+        <?/foreach?>
+    </ul>
+    <?/if?>
+    <?else?>
+    <a ${D}{attr(link)}>${D}{link.text}</a>
+    <?/else?>
+    </li>
+    <?/else?>
+</script>
+
+<script type="text/template" id="dashboardMenu">
+    <div id="dash-options">
+        <ul class="operations enabled">
+            <li><div class="throbber" id="dash-throbber"> </div></li>
+            <?foreach item in items?>${D}{menuItem(item)}<?/foreach?>
+        </ul>
+    </div>
+</script>
+
+<script type="text/template" id="layoutDialog">
+    <div class="dialog-components">
+        <h2 class="dialog-title">${D}{AG.param.get("changeColumns")}</h2>
+ 	    <div class="dialog-panel-body">
+            <p><strong>${D}{AG.param.get("editLayout")}</strong></p>
+            <ul>
+                <?foreach layout in AG.LayoutManager.layouts?>
+                <li><a href="#" id="${D}{AG.LayoutManager.getLayoutAttrName(layout)}"><strong>${D}{layout}</strong></a></li>
+                <?/foreach?>
+            </ul>
+        </div>
+        <div class="dialog-button-panel">
+            <a id="${D}{closeId}" href="#">${D}{AG.param.get("close")}</a>
+        </div>
+    </div>
+</script>
+
+
+
+<!-- Gadget Chrome -->
+<script type="text/template" id="gadget">
+    <div class="gadget <?if color ?>${D}{color}<?/if?>" id="gadget-${D}{id}-renderbox">
+        <div class="dashboard-item-frame gadget-container" id="gadget-${D}{id}-chrome">
+            <div class="shadow"><div class="tl"></div><div class="tr"></div><div class="l"></div><div class="r"></div><div class="bl"></div><div class="br"></div><div class="b"></div></div>
+            <div class="dashboard-item-header">
+                <h3 id="gadget-${D}{id}-title" class="dashboard-item-title"><?if top.titleUrl ?><a href="${D}{titleUrl}">${D}{title}</a><?/if?><?else?>${D}{title}<?/else?></h3>
+                <div class="gadget-menu">
+                    <ul>
+                        <?if layout.writable ?>
+                        <li class="aui-icon i-move">${D}{AG.param.get("move")}</li>
+                        <?/if?>
+
+                        <?if top.isMaximizable ?>
+                        <li>
+                            <a href="#" id="gadget-${D}{id}-maximize" class="aui-icon maximize" title="${D}{AG.param.get('maximize')}">${D}{AG.param.get('maximize')}</a>
+                        </li>
+                        <?/if?>
+                        ${D}{dropdown(menu)}
+                    </ul>
+                </div>
+            </div>
+            <div class="dashboard-item-content  <?if top.minimized ?> minimization<?/if?>">
+                <?if top.userPrefs ?>
+                <form action="${D}{userPrefs.action}" class="aui userpref-form hidden" method="post" id="gadget-${D}{id}-edit">
+                    <fieldset>
+                        <legend><span class="dashboard-item-title">${D}{title}</span> ${D}{AG.param.get("preferences")}</legend>
+                        <?foreach field in userPrefs.fields?>
+                        <?if field.type === "hidden" ?>
+                        <input id="gadget-${D}{id}-form-${D}{field.name}-pref" type="hidden" class="hidden" ${D}{attr(field)} />
+                        <?/if?>
+
+                        <?elseif field.type === "list" ?>
+                        <div id="up_${D}{field.name}-container" class="list-container field-group">
+                            <label for="gadget-${D}{id}-form-${D}{field.name}-pref">${D}{field.displayName}</label>
+                            <input id="gadget-${D}{id}-form-${D}{field.name}-pref" type="text" class="list text med" ${D}{attr(field)} />
+                            <?if field.required ?>field.required<?/if?>
+                            <div class="description">${D}{AG.param.get("pipeDelimitedHelp")}</div>
+                        </div>
+                        <?/elseif?>
+
+                        <?elseif field.type === "bool" ?>
+                        <div class="checkbox field-group">
+                            <input type="checkbox" value="true" class="bool" id="gadget-${D}{id}-form-${D}{field.name}-pref" <?if field.value === "true" ?>checked<?/if?> ${D}{attr(field)} />
+                            <label for="gadget-${D}{id}-form-${D}{field.name}-pref">${D}{field.displayName} <?if field.required ?>field.required<?/if?></label><br/>
+                        </div>
+                        <?/elseif?>
+
+                        <?elseif field.type === "enum" ?>
+                        <div class="field-group">
+                            <label for="gadget-${D}{id}-form-${D}{field.name}-pref">${D}{field.displayName} <?if field.required ?>field.required<?/if?></label>
+                            <select id="gadget-${D}{id}-form-${D}{field.name}-pref" class="enum" ${D}{attr(field)}>
+                            <?foreach option in field.options?>
+                            <option class="enum" ${D}{attr(option)}>${D}{option.label}</option>
+                            <?/foreach?>
+                            </select>
+                        </div>
+                        <?/elseif?>
+
+                        <?elseif field.type === "string" ?>
+                        <div class="field-group">
+                            <label for="gadget-${D}{id}-form-${D}{field.name}-pref">${D}{field.displayName}</label>
+                            <input id="gadget-${D}{id}-form-${D}{field.name}-pref" type="text" ${D}{attr(field)} class="string text">
+                            <?if field.required ?>field.required<?/if?><br/>
+                        </div>
+                        <?/elseif?>
+
+                        <?/foreach?>
+                    </fieldset>
+                    <div class="buttons-container submit">
+                        <input type="submit" class="submit" value="${D}{AG.param.get('save')}" name="save" id="gadget-${D}{id}-save"/>
+                        <input type="reset" class="cancel" value="${D}{AG.param.get('cancel')}" name="reset" id="gadget-${D}{id}-cancel" class="userpref-form-cancel"/>
+                    </div>
+                </form>
+                <?/if?>
+                <iframe id="gadget-${D}{id}" class="gadget-iframe" name="gadget-${D}{id}" src="${D}{renderedGadgetUrl}" height="${D}{top.height || 300}" width="100%" scrolling="no" frameborder="no"></iframe>
+            </div>
+        </div>
+    </div>
+</script>
+
+<noscript><h1>$i18n.getText("warning.javascript.off")</h1></noscript>
+<div id="diagnostic-warning" class="hidden"></div>
+<div id="dashboard" class="dashboard #if($viewSettings.writable)draggable#end initializing"></div>
+
+<div id="i18n-settings">
+    <input class="locale-lang" type="hidden" value="$gadgetRequestContext.getLocale().getLanguage()">
+    <input class="locale-country" type="hidden" value="$gadgetRequestContext.getLocale().getCountry()">
+</div>
+
+## templates for the macro browser
+<div id="macro-browser-templates" class="hidden">
+    ## browse macros page
+    <ol id="macro-summaries-template" class="macro-list"></ol>
+    <ul>
+        <li id="macro-summary-template" class="macro-list-item">
+            <div class="add-button">
+                <input class="macro-button-add" type="button" value="$i18n.getText('add.it.now')"><br/>
+                <input class="macro-button-remove" type="button" value="$i18n.getText('remove.from.directory')">
+                <input class="macro-hidden-uri" type="hidden" value="">
+            </div>
+            <!-- // .add-button -->
+
+            <div class="macro-details">
+                <h3 class="macro-title"></h3>
+
+                <div class="macro-uri-wrapper"><a href="" class="macro-uri" target="_blank"></a></div>
+                <div class="macro-title-uri"><a href="" class="macro-title-uri-link" target="_blank">$i18n.getText("macro.browser.gadget.url")</a></div>
+
+                <p class="macro-author"></p>
+
+                <p class="macro-desc"></p>
+            </div>
+        </li>
+    </ul>
+    ## insert macro page
+    <div id="macro-insert-template">
+        <input class="macro-name" type="hidden"/>
+
+        <div class="macro-preview-container dialog-panel">
+            <div class="macro-preview"></div>
+        </div>
+        <div class="macro-input-fields dialog-panel"></div>
+    </div>
+    <span id="macro-doco-link-template">
+        <a href="#" class="macro-doco-link">$i18n.getText("macro.browser.documentation.link")</a>
+    </span>
+
+    <div id="macro-freeform-template" class="macro-freeform-div">
+        <div class="macro-desc">$i18n.getText('macro.browser.freeform.desc')</div>
+        <div class="macro-freeform-input">
+            {<span class="macro-name-display"></span><input type="text" class="macro-text"/>}
+        </div>
+        <div class="macro-example hidden">
+            <h3>$i18n.getText("macro.browser.freeform.example.title")</h3>
+        </div>
+        <div class="macro-help hidden">
+            <h3>$i18n.getText("macro.browser.freeform.desc.title")</h3>
+        </div>
+    </div>
+    <div id="macro-param-template" class="macro-param-div">
+        <label></label>
+        <input type="text" class="text"/>
+    </div>
+    <div id="macro-param-checkbox-template" class="macro-param-div boolean-param">
+        <label></label>
+        <input type="checkbox" value="true"/>
+    </div>
+    <div id="macro-param-select-template" class="macro-param-div">
+        <label></label>
+        <select></select>
+    </div>
+    <div id="macro-param-desc-template" class="macro-param-desc"></div>
+    <div id="macro-body-template" class="macro-body-div">
+        <label>$i18n.getText("macro.browser.body.label")</label>
+        <textarea class="monospaceInput textarea" type="text" rows="10"></textarea>
+    </div>
+
+    <div id="add-by-url-template">
+        <div class="aui" id="add-gadget-by-url">
+            <div class="info">
+                <fieldset class="inline">
+                    <div class="centered-form">
+                        <label for="add-gadget-url">$i18n.getText("directory.add.gadget.label")</label><br/>
+                        <div id="dir-throbber" class="throbber">&nbsp;</div>
+                        <input class="text" id="add-gadget-url" type="text" name="url" style="width:325px;">
+                        <input class="button" id="add-gadget-submit" name="add" type="submit" value="$i18n.getText('add.gadget')"><br/>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="info nobox">
+                <p>$i18n.getText("directory.add.gadget.explanation")</p>
+                <p><b>$i18n.getText("directory.add.gadget.warning")</b></p>
+                <p>$i18n.getText("directory.add.gadget.sources")</p>
+                <p>$i18n.getText("directory.add.gadget.url") <em>http://example.com/my-gadget-location/my-gadget.xml</em></p>
+            </div>
+            <br>
+            <p>
+                <a href="$linkFindMore" target="_blank">$i18n.getText("directory.add.gadget.more.gadgets")</a> <span style="color:#999;">|</span> $i18n.getText("directory.add.gadget.create") <a href="$linkLearnHow" target="_blank">$i18n.getText("directory.add.gadget.learn")</a>
+            </p>
+        </div>
+        <!-- // .aui #add-gadget-by-url -->
+    </div>
+    
+    <div id="add-gadget-feed-subscription-template">
+        <div class="aui" id="add-gadget-feed-subscription">
+            <div class="info">
+                <fieldset class="inline">
+                    <div class="centered-form">
+                        <label for="add-gadget-feed-subscription-url">$i18n.getText("directory.add.gadget.feed.subscription.label")</label><br/>
+                        <div id="add-subscription-throbber" class="throbber">&nbsp;</div>
+                        <input class="text" id="add-gadget-feed-subscription-url" type="text" name="url" style="width:325px;">
+                        <input class="button" id="add-subscription-submit" name="add" type="submit" value="$i18n.getText('add.gadget.feed.subscription')"><br/>
+                        #set ($msgHtml = $i18n.getText("directory.gadget.feed.applinks.explanation", $whitelistExternalGadgets))
+                        <p>$msgHtml</p>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="info nobox">
+                <p>$i18n.getText("directory.add.gadget.feed.subscription.explanation")</p>
+                <p><b>$i18n.getText("directory.add.gadget.feed.subscription.warning")</b></p>
+                <p>$i18n.getText("directory.add.gadget.feed.subscription.sources")</p>
+                <p>$i18n.getText("directory.add.gadget.feed.subscription.url") <em>http://example.com/jira</em></p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="gadget-feed-subscriptions-template">
+        <div class="aui" id="gadget-feed-subscriptions">
+            <div class="info" id="gadget-subscriptions-header">
+                $i18n.getText("directory.gadget.feed.subscriptions.empty.explanation", $applicationProperties.displayName)
+            </div>
+            <div class="info nobox">
+                <div id="gadget-subscriptions-throbber" class="throbber">&nbsp;</div>
+                <ul></ul>
+            </div>
+        </div>
+    </div>
+</div>

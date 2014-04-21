@@ -1,0 +1,16 @@
+#* @vtlvariable name="tabGroups" type="java.util.List<com.atlassian.jira.web.component.webfragment.AdminTabsWebComponent.TabGroup>" *#
+#if($numberOfTabs > 1)
+<ul class="tabs-menu admin-tabs">
+#foreach ($tabGroup in $tabGroups)
+    <li class="aui-tabs-group">
+        <ul class="aui-tabs-group-menu">
+        #foreach ($tab in $tabGroup.tabs)
+            <li class="menu-item#if($tab.selected) active-tab#end" title="$tab.label">
+                <a #if($tab.id)id="${tab.id}_tab"#end #if($tab.title) title="$tab.title"#end href="$tab.url"><strong>$tab.label</strong></a>
+            </li>
+        #end
+        </ul>
+    </li>
+#end
+</ul>
+#end

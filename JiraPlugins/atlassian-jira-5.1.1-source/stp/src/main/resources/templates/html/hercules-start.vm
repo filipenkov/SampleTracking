@@ -1,0 +1,52 @@
+#parse ( "/templates/includes/xsrf.vm" )
+
+<!--start box-model-->
+<div class="stp-module-container-block">
+	<div class="stp-module-main-block logo-neighbor">
+		#parse ( "/templates/includes/errors.vm" )
+		#set ($selectedPosition = 0)
+		
+		<form class="aui" action="$servletHomePath/hercules/execute" method="POST">
+		    #form_xsrfToken()
+			<input type="hidden" name="startAgain" value="true"/>
+			<div id="hercules-form-inner-div">
+				<div id="defaultLogControl" class="toolMessage">
+					
+	        		<select id="herculesLogToggle" onChange="herculesToggleLogOptions()">
+						#foreach($item in $info.getApplicationLogFilePaths())
+		        			<option value="$item.getPath()" #if(($logFilePath && $item.getPath() == $logFilePath) || (!$logFilePath && $velocityCount == 1)) selected="selected" $selectedPosition = $velocityCount  #end>
+								$i18n.getText('stp.hercules.select.standard.log', $i18n.getText($item.getKey()))
+							</option>
+						#end
+						
+						<option value="Custom Log" #if($logFilePath && $selectedPosition == 0) selected="selected"  #end>$i18n.getText('stp.hercules.select.different.log')</option>
+		    		</select>
+
+					<script type="text/javascript">
+						AJS.$(document).ready(function()
+						{
+							herculesToggleLogOptions();
+							
+							<!-- These two variables are stored here as a bridge between Javascript and Velocity -->
+							AJS.$("#logFilePath").data("logFilePath","");
+							AJS.$("#hercules").data("servletHomePath","$servletHomePath");
+						});
+					</script>
+			        <input type="submit" class="stp-hercules-scan" value="$i18n.getText('stp.hercules.scan.button')"/>
+				</div>
+				<div id="logFilePathControl">
+					<input class="text long-field" id="logFilePath" type="text" name="logFilePath" value="#if($logFilePath)$logFilePath#end"/>
+				</div>
+			</div>
+	    </form>
+	</div>
+</div>
+<div class="stp-module-logo-block">
+	<img src="$webResourceManager.getStaticPluginResource("com.atlassian.support.stp:resources", "images/hercules.png")" class="stp-module-logo" alt="$i18n.getText("stp.hercules.tool.title")"/>
+	<p class="stp-module-logo-caption">$i18n.getText('stp.hercules.tool.description')</p>
+
+	#parse ( "/templates/includes/hercules-scheduler-blurb.vm")	
+</div>
+<!--end box-model-->
+
+<div class="clearer"></div>

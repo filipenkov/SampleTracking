@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+#* @vtlvariable name="i18n" type="com.atlassian.sal.api.message.I18nResolver" *#
+#* @vtlvariable name="stringUtils" type="org.apache.commons.lang.StringUtils" *#
+#parse("/common/_help_link.vm")
+#parse("/common/_configured_status.vm")
+#parse("/common/_xsrf_token_element.vm")
+<html>
+<head>
+    ${webResources.get()}
+</head>
+<body class="auth-config">
+
+    <fieldset class="hidden parameters">
+        <input type="hidden" title="ignoreFrame" value="true" />
+    </fieldset>
+
+    <div class="auth-trusted-view">
+        <form class="aui" method="POST" action="${formLocation}">
+            #xsrfTokenElement()
+
+            <input type="hidden" name="action" value="DISABLE" />
+            <input type="hidden" name="hostUrl" value="$!hostUrl"/>
+            #status($enabled)
+            #if($enabled)
+            <p>${i18n.getText("auth.trusted.config.label.enabled", $consumer, $consumerAppType, $provider, $providerAppType)} #help('applinks.docs.configuring.auth.trusted.apps')</p>
+            #else
+            <p>${i18n.getText("auth.trusted.config.label.disabled", $consumer, $consumerAppType, $provider, $providerAppType)} #help('applinks.docs.configuring.auth.trusted.apps')</p>
+            #end
+
+            #if($enabled)
+            <div class="buttons-container">
+                <div class="buttons">
+                    <input type="submit" id="auth-trusted-action-configure" value="${i18n.getText("auth.trusted.config.button.disable")}" class="button" />
+                </div>
+            </div>
+            #end
+            <div class="error">$!error</div>
+        </form>
+    </div>
+
+    ## Edit screen for entering trusted request conditions.
+    <div class="auth-trusted-view edit">
+        <form class="aui" method="POST" action="${formLocation}">
+            #xsrfTokenElement()
+            <input type="hidden" name="action" value="ENABLE" />
+            <input type="hidden" name="hostUrl" value="$!hostUrl"/>
+            #if($role == "provider" || ($role == "consumer" && !$nonUAL))
+                <div>${i18n.getText("auth.trusted.config.details")} #help('applinks.docs.configuring.auth.trusted.apps')</div>
+                <fieldset>
+                    <div class="field-group">
+                        <label for="ipPatternsInput">${i18n.getText("auth.trusted.config.label.ip.patterns")}:</label>
+                        <textarea id="ipPatternsInput" class="textarea" rows="5" name="ipPatternsInput">$!{stringUtils.defaultIfEmpty($ipPatternsInput, $ipPatterns)}</textarea>
+                        #set ($pattern = ${stringUtils.defaultIfEmpty($ipPatternsInput, $ipPatterns)})
+                        <div class="url-pattern-warning"><div class="warning-icon">&nbsp;</div> ${i18n.getText("auth.trusted.ip.pattern.warning")} <a target="_blank" href="#helpLink('applinks.docs.configuring.auth.trusted.apps')">${i18n.getText("auth.trusted.ip.pattern.warning.learn.why")}</a></div>
+                        <div class="error">$!ipPatternsInputErrorHtml</div>
+                        <div class="description">${i18n.getText("auth.trusted.config.label.ip.patterns.description", $provider, $providerAppType, $consumer, $consumerAppType)}</div>
+                    </div>
+                    <div class="field-group">
+                        <label for="urlPatternsInput">${i18n.getText("auth.trusted.config.label.url.patterns")}:</label>
+                        <textarea id="urlPatternsInput" name="urlPatternsInput" class="textarea" rows="5">$!{stringUtils.defaultIfEmpty($urlPatternsInput, $urlPatterns)}</textarea>
+                        <div class="error">$!urlPatternsInputError</div>
+                        <div class="description">${i18n.getText("auth.trusted.config.label.url.patterns.description", $provider, $providerAppType, $consumer, $consumerAppType)}</div>
+                    </div>
+                    <div class="field-group">
+                        <label for="timeoutInput">${i18n.getText("auth.trusted.config.label.timeout")}:</label>
+                        <input id="timeoutInput" type="text" name="timeoutInput" value="$!{stringUtils.defaultIfEmpty($timeoutInput, $timeout)}" />
+                        <div class="error">$!timeoutInputError</div>
+                        <div class="description">${i18n.getText("auth.trusted.config.label.timeout.description")}</div>
+                    </div>
+                </fieldset>
+            #else
+                <fieldset>
+                    <div>${i18n.getText("auth.trusted.config.nonual")}</div>
+                </fieldset>
+            #end
+            <div class="error">$!error</div>
+            <div class="buttons-container">
+                <div class="buttons">
+                    #if($enabled)
+                    <input type="submit" id="auth-trusted-action-update" value="${i18n.getText("auth.trusted.config.button.update")}" class="button" />
+                    #else
+                    <input type="submit" id="auth-trusted-action-enable" value="${i18n.getText("auth.trusted.config.button.enable")}" class="button" />
+                    #end
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

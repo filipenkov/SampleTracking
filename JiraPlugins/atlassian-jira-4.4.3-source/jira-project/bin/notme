@@ -1,0 +1,17 @@
+#!/bin/sh
+
+function randomgrep() {
+    for i in $(grep "$1" /usr/share/dict/words); do echo "$RANDOM $i"; done | sort | sed -E 's/^[0-9]+ //' | head -1
+}
+
+NOT=$(randomgrep "not$")
+ME=$(randomgrep "^me")
+
+clipboardcmd="pbcopy"
+uname | grep "Linux" > /dev/null
+if [ $? -eq 0 ]; then
+            clipboardcmd="xsel --clipboard --input"
+fi
+
+printf "%s %s" $NOT $ME | $clipboardcmd
+

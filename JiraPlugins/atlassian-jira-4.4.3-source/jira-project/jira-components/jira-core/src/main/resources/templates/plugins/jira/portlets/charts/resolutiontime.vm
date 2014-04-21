@@ -1,0 +1,60 @@
+#if ($loggedin)
+<table border="0" cellpadding="0" cellspacing="0" width="99%"><tr><td>
+<table border="0" cellpadding="3" cellspacing="1" width="100%">
+    <tr class="rowHeader">
+        <td class="colHeaderLink">
+        #if (($project || $searchRequest) && $reportKey && $showReportLink && $indexing)
+            <div class="small" style="float:right;">
+                #set ($reportUrl = "${baseurl}/secure/ConfigureReport.jspa?projectOrFilterId=${urlcodec.encode($projectOrFilterId)}&periodName=${urlcodec.encode($period)}&daysprevious=$daysPrevious&reportKey=${reportKey}&Next=Next")
+                <a href="$reportUrl">more detail &gt;&gt;</a>
+            </div>
+        #end
+        $i18n.getText("${i18nPrefix}.name"):
+        #if ($project)
+            <b><a href="$baseurl/browse/$project.key">$textutils.htmlEncode($project.name)</a></b>
+        #elseif (($searchRequest) && ($searchRequest.id))
+            <b><a href="$baseurl/secure/IssueNavigator.jspa?requestId=${searchRequest.id}&mode=hide">$textutils.htmlEncode($searchRequest.name)</a></b>
+        #else
+            <b>$i18n.getText("${i18nPrefix}.anonymousFilter")</b>
+        #end
+        </td>
+    </tr>
+
+#if ($indexing)
+    #if ($numIssues == 0)
+        <tr bgcolor="#FFFFFF"><td>$i18n.getText("portlet.chart.noissues")</td></tr>
+    #else
+        <tr bgcolor="#FFFFFF">
+            <td width="100%" align="center">
+                #if ($chart)
+                    #if ($imagemap)
+                        $imagemap
+                    #end
+                    <p class="report-chart">
+                        <img src='$baseurl/charts?filename=$chart' border='0' #if ($imagemap) usemap="\#$imagemapName" #end width="$imageWidth" height="$imageHeight" /><br />
+                    </p>
+
+                    $i18n.getText("${i18nPrefix}.inlinedescription", "$daysPrevious")<br />
+                    #if ($reportKey && $displayReportLink)
+                        <a href="$reportUrl#dataTable">$i18n.getText("portlet.chart.datatable") &gt;&gt;</a>
+                    #end
+                #else
+                    $i18n.getText("portlet.chart.nochart")
+                #end
+            </td>
+        </tr>
+    #end
+#else
+    <tr><td bgcolor="#FFFFFF">
+        $i18n.getText("portlet.chart.indexing")<br>&nbsp;<br>
+        #if ($admin)
+            $i18n.getText("portlet.chart.indexing.configure", "<a href='$baseurl/secure/admin/jira/IndexAdmin.jspa'>", "</a>")
+        #else
+            $i18n.getText("portlet.chart.indexing.admin")
+        #end
+    </td></tr>
+#end
+
+</table>
+</td></tr></table>
+#end

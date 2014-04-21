@@ -1,0 +1,20 @@
+<atlassian-plugin key="com.atlassian.streams.jira.inlineactions" name="JIRA Streams Inline Actions Plugin" pluginsVersion="2">
+    <plugin-info>
+        <description>JIRA Streams Inline Actions Plugin</description>
+        <version>${project.version}</version>
+        <vendor name="Atlassian Software Systems Pty Ltd" url="http://www.atlassian.com/"/>
+    </plugin-info>
+
+    <streams-action-handlers key="actionHandlers">
+        <transformation extension="i18n.js">
+            <transformer key="action-i18n-transformer" />
+        </transformation>
+
+        <resource type="download" name="streams.jira.action.i18n.js" location="/js/inline-actions/streams.jira.action.i18n.js"/>
+        <resource type="download" name="issue-vote.js" location="/js/inline-actions/issue-vote.js"/>
+        <resource type="download" name="issue-watch.js" location="/js/inline-actions/issue-watch.js"/>
+    </streams-action-handlers>
+
+    <resource type="i18n" name="jira-actions-i18n" location="com.atlassian.streams.jira.inline-actions.i18n"/>
+    
+</atlassian-plugin>

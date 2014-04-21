@@ -1,0 +1,106 @@
+#!/bin/sh
+
+
+
+
+# Check for Help command #
+
+if [ $# -ge 1 ]; then
+    case "$1" in
+        "-?" | "-h" | "--help" | "-help" | "help" )
+            echo
+            echo "Usage: atlas-install-plugin [options]"
+            echo
+            echo "Installs the plugin into a running application."
+            echo
+                            echo "The following options are available:"
+                                                                                        echo "-p [value], --http-port [value]"
+                                                                echo "    HTTP port for the servlet container."
+                    echo
+                                                                                        echo "--context-path [value]"
+                                                                echo "    Application context path (include the leading forward slash)."
+                    echo
+                                                                                        echo "--server [value]"
+                                                                echo "    Host name of the application server (default is localhost)."
+                    echo
+                                                                                        echo "--username [value]"
+                                                                echo "    Username of administrator to access the plugin system (default is admin)."
+                    echo
+                                                                                        echo "--password [value]"
+                                                                echo "    Password of administrator to access the plugin system (default is admin)."
+                    echo
+                                                                                        echo "--plugin-key [value]"
+                                                                echo "    Unique key identifying the plugin."
+                    echo
+                                        exit;;
+    esac
+fi
+
+# Determine the location of the script #
+
+# resolve symbolic links
+PRG="${0}"
+
+while [ -h "${PRG}" ] ; do
+  ls=`ls -ld "${PRG}"`
+  link=`expr "${ls}" : '.*-> \(.*\)$'`
+  if expr "${link}" : '/.*' > /dev/null; then
+    PRG="${link}"
+  else
+    PRG=`dirname "${PRG}"`/"${link}"
+  fi
+done
+
+PRGDIR=`dirname "${PRG}"`
+
+# Identify Maven location relative to script #
+
+ATLAS_HOME=`cd "${PRGDIR}" && pwd -P`
+ATLAS_HOME=`dirname "${ATLAS_HOME}"`
+export ATLAS_HOME
+M2_HOME="${ATLAS_HOME}"/apache-maven
+MAVEN_EXECUTABLE="${M2_HOME}"/bin/mvn
+
+
+# Check that target executable exists
+if [ ! -x "${MAVEN_EXECUTABLE}" ]; then
+  echo "Cannot find ${MAVEN_EXECUTABLE}"
+  echo "This file is needed to run this program"
+  exit 1
+fi
+
+# Transform Parameters into Maven Parameters #
+
+MAVEN_OPTS="-Xmx768M -XX:MaxPermSize=256M $ATLAS_OPTS"
+MVN_PARAMS=""
+
+while [ $# -gt 0 ]
+do
+    case "$1" in
+                     "-p" |  "--http-port")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dhttp.port='${2}'"
+                    shift 2;;
+                                     "--context-path")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dcontext.path='${2}'"
+                    shift 2;;
+                                     "--server")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dserver='${2}'"
+                    shift 2;;
+                                     "--username")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dusername='${2}'"
+                    shift 2;;
+                                     "--password")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Dpassword='${2}'"
+                    shift 2;;
+                                     "--plugin-key")
+                                                    MVN_PARAMS="${MVN_PARAMS} -Datlassian.plugin.key='${2}'"
+                    shift 2;;
+                                *)
+                        MVN_PARAMS="${MVN_PARAMS} ${1}"
+            shift 1;;     esac
+done
+
+# Execute Maven #
+
+echo "Executing: ${MAVEN_EXECUTABLE} com.atlassian.maven.plugins:maven-amps-dispatcher-plugin:3.6.1:install ${MVN_PARAMS}"
+sh -c "${MAVEN_EXECUTABLE} com.atlassian.maven.plugins:maven-amps-dispatcher-plugin:3.6.1:install ${MVN_PARAMS}"

@@ -1,0 +1,10 @@
+/* Shift box down to have whitespace match dialog heading height */
+#whats-new-dialog .whats-new-timeout { padding: 33px; }
+/* Centre the throbber */
+#whats-new-dialog .whats-new-throbber { margin: 122px 0 0 320px; }
+#whats-new-dialog iframe { height: 420px; width: 830px; }
+
+/* Override the default dialog tip style which makes text #666*/
+#whats-new-dialog .dialog-tip { color: #000; text-align: left; float: left; margin-left: 17px; font-size: 13px; }
+#whats-new-dialog .dialog-tip input,
+#whats-new-dialog .dialog-tip label { margin-right:0.5em; }

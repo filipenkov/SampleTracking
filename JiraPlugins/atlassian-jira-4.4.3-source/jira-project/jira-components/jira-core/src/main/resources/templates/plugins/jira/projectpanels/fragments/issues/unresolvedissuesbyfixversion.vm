@@ -1,0 +1,71 @@
+#if ($versions)
+#set ($LIMIT = 10)
+#set ($versionKeys = $versions.keySet())
+#set ($irrelevantCount = $versions.irrelevantCount)
+<div class="mod-header">
+    #if ($versionKeys.isEmpty() == false || $irrelevantCount > 0)
+    <ul class="ops">
+        <li><a id="frag${fragid}_more" class="icon icon-view" href="${urlUtil.getAllUrl()}" title="$i18n.getText('browseproject.issues.by.version.more')"><span>$i18n.getText('common.concepts.more')</span></a></li>
+    </ul>
+    #end
+    <h3>
+        $i18n.getText('common.concepts.unresolved'): $i18n.getText('common.concepts.byversion')
+    </h3>
+</div>
+<div class="mod-content">
+    #if ($versionKeys.isEmpty() == true && $irrelevantCount == 0)
+    <p>$i18n.getText('common.concepts.noissues')</p>
+    #else
+        #foreach ($version in $versionKeys)
+            #if($velocityCount % 2 == 0) #set ($cssClass = "rowAlternateLightGray") #else #set ($cssClass = "") #end
+            #if ($version)
+                #if ($version.description && $version.description != '')
+                    #set ($title = "$textutils.htmlEncode($version.name) - $textutils.htmlEncode($version.description)")
+                #else
+                    #set ($title = "$textutils.htmlEncode($version.name)")
+                #end
+                <div class="version ${cssClass}">
+                    <span class="stat">${versions.get($version)}</span>
+                    #versionStatus($version 16)
+                    <a id="version_$version.id" href="${urlUtil.getUrl($version)}" title="${title}">$textutils.htmlEncode($version.name)</a>
+                </div>
+            #else
+                <div class="version ${cssClass}">
+                    <span class="stat">${versions.get($version)}</span>
+                    <a href="${urlUtil.getUrl($version)}" class="none">$i18n.getText("common.concepts.unscheduled")</a>
+                </div>
+            #end
+        #end
+
+        #if ($irrelevantCount > 0)
+            <div class="version">
+                <span class="stat">$irrelevantCount</span>
+                <span title="$i18n.getText('common.concepts.irrelevant.desc')">$i18n.getText('common.concepts.irrelevant')</span>
+            </div>
+        #end
+
+        #if ($versions.size() > $LIMIT)
+            #set ($CSS_LIMIT = $LIMIT - 1)
+            #set ($remaining = ($versions.size() - $LIMIT))
+            <dl id="data_${fragid}">
+                <dt>andMore</dt><dd>$i18n.getText('browseproject.and.x.more', $remaining)</dd>
+                <dt>showFirst</dt><dd>$i18n.getText('browseproject.show.first.x', 10)</dd>
+            </dl>
+            <script type="text/javascript">
+            jQuery(document).ready(function(){
+                var data=jQuery.readData("#data_${fragid}");
+                var more=jQuery("#frag${fragid} .version:gt($CSS_LIMIT)");
+                if (!more || !more.length) return;
+                jQuery('<div id="frag${fragid}_toggle" class="toggle">'+data.andMore+'</div>')
+                    .insertAfter("#frag${fragid} .version:last")
+                    .toggle(
+                        function() { jQuery(this).text(data.showFirst); more.show(); },
+                        function() { jQuery(this).text(data.andMore); more.hide(); }
+                    );
+                more.hide();
+            });
+            </script>
+        #end
+    #end
+</div>
+#end

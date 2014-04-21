@@ -1,0 +1,5 @@
+#if (${nullallowed} == true)
+    $i18n.getText("admin.workflow.validator.user-permission.view.1", "<b>", "${vars-key}", "</b>", "$i18n.getText(${permission})")
+#else
+    $i18n.getText("admin.workflow.validator.user-permission.view.2", "<b>", "${vars-key}", "</b>", "$i18n.getText(${permission})")
+#end

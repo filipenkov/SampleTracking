@@ -1,0 +1,36 @@
+#* @vtlvariable name="directories" type="java.util.List<com.atlassian.crowd.embedded.api.Directory>" *#
+<html>
+<head>
+    <meta name="decorator" content="atl.admin">
+    <meta name="admin.active.section" content="admin_users_menu/users_groups_configuration/embedded_crowd_section"/>
+    <meta name="admin.active.tab" content="user_directories"/>
+	<title>$i18n.getText("embedded.crowd.support.directory.configuration")</title>
+    $webResourceManager.requireResource("com.atlassian.crowd.embedded.admin:web-resources")
+
+    <!-- selected item in Confluence admin menu -->
+    <content tag="selectedWebItem">confluence-user-directories-web-item</content>
+    <!-- Confluence breadcrumbs, TODO: invent a better way of doing this -->
+    <content tag="breadcrumbs">
+        <ol id="breadcrumbs">
+            <li class="first" ><span><a href="#springUrl("/dashboard.action")">$i18n.getText('dashboard.name')</a></span></li>
+            <li><span><a href="#springUrl("/admin/console.action")">$i18n.getText('administration.name')</a></span></li>
+            <li><span><a href="#springUrl("/plugins/servlet/embedded-crowd/directories/list")">$i18n.getText('embedded.crowd.directory.list.title')</a></span></li>
+            <li><span>$i18n.getText("embedded.crowd.support.directory.configuration")</span></li>
+        </ol>
+    </content>
+</head>
+<body>
+<div id="embcwd" class="support-directories">
+    <form class="aui" action="#springUrl("/plugins/servlet/embedded-crowd/support/download")" method="GET">
+        #if ($req.getParameter("timeout") == "true")
+            <div class="aui-message error"><span class="error-icon"></span>$i18n.getText("embedded.crowd.session.expired")</div>
+        #end
+        <div class="page-header">
+            <h3>$i18n.getText("embedded.crowd.support.directory.configuration")</h3>
+            <p class="description">$i18n.getText("embedded.crowd.support.directory.configuration.description", $applicationProperties.displayName)</p>
+        </div>
+        <textarea style="width: 100%; height: 500px" readonly="readonly">$!htmlEncoder.encode($supportInformation)</textarea>
+        <p><input type="submit" value="Download"></p>
+    </form>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<exclusions>
+    <!--
+        This file contains classes, methods and fields that are excluded from api/spi compatability checking
+        You should NOT be putting anything in here without a very very good reason and the knowledge and approval
+        of the Team Lead responsible for JIRA API
+    -->
+
+    <!-- Plugins should never have been using these any way and they have been totally broken for a long time. -->
+    <class name="com/atlassian/jira/config/properties/APKeys">
+        <field name="JIRA_SUBTASK_QUICKCREATE_TEMPLATE" exclude="true"/>
+        <field name="JIRA_SUBTASK_QUICKCREATE_FIELDS" exclude="true"/>
+    </class>
+
+</exclusions>

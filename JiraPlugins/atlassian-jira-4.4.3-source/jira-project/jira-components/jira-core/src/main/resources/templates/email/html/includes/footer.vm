@@ -1,0 +1,13 @@
+#parse("templates/email/html/includes/emailconstants.vm")
+            </table>
+        </td><!-- End #email-page -->
+    </tr>
+    <tr valign="top">
+        <td style="color:${textSubtleColour};font-family:${textFontFamily};font-size:10px;line-height:14px;padding: 0 16px 16px 16px;text-align:center;">
+            $i18n.getText("template.footer.text")<br />
+            $i18n.getText("template.footer.html.incorrect", "<a style='color:${textLinkColour};' href='${baseurl}/secure/ContactAdministrators!default.jspa'>", "</a>")<br />
+            $i18n.getText("template.footer.text.info", "<a style='color:${textLinkColour};' href='http://www.atlassian.com/software/jira'>http://www.atlassian.com/software/jira</a>")
+        </td>
+    </tr>
+</table><!-- End #email-wrap -->
+</div><!-- End #email-body -->

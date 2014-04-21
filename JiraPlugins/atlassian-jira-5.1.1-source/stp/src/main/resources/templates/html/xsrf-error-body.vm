@@ -1,0 +1,33 @@
+#parse ( "/templates/includes/xsrf.vm" )
+
+<div id="stp-container">
+	<div class="stp-content">
+		<div class="stp-panel">
+	        <h2>$i18n.getText('stp.xsrf.title')</h2>
+			<div class="toolBox">
+				<div class="aui-message error">
+					<p class="title">$i18n.getText("stp.xsrf.error")</p>
+					
+					<form class="aui" action="$servletHomePath/$action.getName()/$stage.toString().toLowerCase()" method="POST">
+						#form_xsrfToken()
+						#foreach ($mapEntry in $existingParams.entrySet())
+							#set ($key = $mapEntry.key.toString())
+							#if ( $key != "atl_token")
+								#set ($className = $mapEntry.value.getClass().getName())
+								#if ($className == "java.lang.String")
+									<input type="hidden" name="$key" value="$mapEntry.value.toString()"/>
+								#elseif ($className == "[Ljava.lang.String;")
+									#foreach ($value in $mapEntry.value)
+										<input type="hidden" name="$key" value="$value"/>
+									#end
+								#end
+							#end 
+						#end
+						
+						<input type="submit" class="submit action" value="$i18n.getText("stp.retry")">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

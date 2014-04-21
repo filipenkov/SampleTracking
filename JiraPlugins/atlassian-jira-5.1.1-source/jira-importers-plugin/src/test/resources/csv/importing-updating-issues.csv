@@ -1,0 +1,16 @@
+type,summary,priority,resolution,issue key,assignee,reporter,duedate,created date,status,FixVersion,FixVersion
+bug,Before update bug,blocker,fixed,TT-1,,,,,In Progress,,
+New feature,Before update new feature,major,,TT-2,wseliga,sginter,,,,v1.1,
+,New Summary - After update,,,TT-1,,,,,,,
+,,critical,,TT-1,,,,,,,
+,,trivial,,TT-2,,,,,Closed,,
+,New Summary - After update,<<!clear!>>,,TT-1,,,,,,,
+,New Summary - After update,,invalid,TT-1,,,,,,,
+,,,,TT-2,<<!clear!>>,pslade,,,,,
+,,,,TT-2,,,20120401123310,,,,
+,,,,TT-2,,,,20120701123315,,,
+,,,,TT-1,,,,,Open,,
+,,,Fixed,TT-1,,,,,Resolved,,
+,,,<<!clear!>>,TT-1,,,,,Reopened,,
+,,,,TT-1,,,,,,v1.2,
+,,,,TT-2,,,,,,v1.2,v1.3

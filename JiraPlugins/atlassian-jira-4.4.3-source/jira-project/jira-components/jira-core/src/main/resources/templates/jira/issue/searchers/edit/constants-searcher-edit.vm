@@ -1,0 +1,14 @@
+$!{auiparams.put("controlHeaderClass", "aui-field-constants")}
+#searcherEditHeader ($searcherId ${i18n.getText($searcherNameKey)})
+    <select class="select" id="searcher-${searcherId}" multiple="multiple" name="${searcherId}" size="#minSelectSize ($selectListOptions 1 4)">
+        <option class="headerOption" value="">${i18n.getText('common.filters.any')}</option>
+        #if ($extraOption)
+            <option class="headerOption" #if ($selectedValues && $selectedValues.contains($extraOption.key)) selected="selected"#end value="$extraOption.key">$extraOption.value</option>
+        #end
+        #foreach ($option in $selectListOptions)
+            <option #if ($selectedValues && $selectedValues.contains($option.id)) selected="selected"#end #if ($option.iconUrl) class="imagebacked" style="background-image: url(#getNormalizedUrl($option.iconUrlHtml));"#end value="$option.id">$textutils.htmlEncode($option.nameTranslation)</option>
+        #end
+    </select>
+    #jiraHelpLink ( "${searcherId}_local" '')
+#searcherEditFooter ($searcherId '')
+$!{auiparams.clear()}

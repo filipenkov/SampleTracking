@@ -1,0 +1,18 @@
+<div class="mod-header">
+    <h3>$i18n.getText('common.concepts.issues'): $i18n.getText('browseproject.created.vs.resolved.summary')</h3>
+</div>
+<div class="mod-content">
+    <div class="fullyCentered">
+        #if ($chart)
+            #if ($imagemap)
+                $imagemap
+            #end
+            <img src='$req.contextPath/charts?filename=$chart' border='0' #if ($imagemap) usemap="\#$imagemapName" #end width="$imageWidth" height="$imageHeight" />
+            <br/>
+            $i18n.getText("portlet.createdvsresolved.numissues", "<b><span style='color:#c00;'>$numCreatedIssues</span></b>", "<b><span style='color:#3c3;'>$numResolvedIssues</span></b>")
+            <br/>
+        #else
+            $i18n.getText("portlet.chart.nochart")
+        #end
+    </div>
+</div>

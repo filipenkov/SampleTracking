@@ -1,0 +1,5 @@
+selenium.server.location=localhost
+selenium.server.port=4444
+
+selenium.browser.startstring=*firefox /home/hbarney/dev/firefox-1.5.0.11/firefox-bin
+#selenium.browser.startstring=*opera

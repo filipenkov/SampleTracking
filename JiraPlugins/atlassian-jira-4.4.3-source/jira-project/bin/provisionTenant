@@ -1,0 +1,106 @@
+#! /bin/bash
+
+# This should be run from the JIRA project directory, not the bin directory
+if [ ! -e jira-components ]
+then
+    echo $0 must be run from the JIRA project directory
+    exit 1
+fi
+
+# Defaults
+JIRA_HOST=localhost
+JIRA_PORT=8090
+JIRA_CONTEXT=/jira
+UPDATE_HOSTS="false"
+TENANT_HOST=
+
+usage()
+{
+    echo "Usage: $0 [options] <tenantname>"
+    echo
+    echo "  Valid options are:"
+    echo "      -h      Host for system tenant [$JIRA_HOST]"
+    echo "      -p      Port number [$JIRA_PORT]"
+    echo "      -c      Context [$JIRA_CONTEXT]"
+    echo "      -u      Attempt to update /etc/hosts so <tenantname>.example.org points to 127.0.0.1"
+    echo "      -t      The hostname for the new tenant"
+    exit $1
+}
+
+TENANT_NAME=
+while getopts "h:p:c:ut:" argname
+do
+    case $argname in
+        h)
+            JIRA_HOST="$OPTARG"
+            ;;
+        p)
+            JIRA_PORT="$OPTARG"
+            ;;
+        c)
+            JIRA_CONTEXT="$OPTARG"
+            ;;
+        u)
+            UPDATE_HOSTS="true"
+            ;;
+        t)
+            TENANT_HOST="$OPTARG"
+            ;;
+        ?)
+            usage 1
+            ;;
+        :)
+            echo Missing parameter for \"$OPTARG\"
+            usage 1
+    esac
+done
+
+TENANT_NAME=${!OPTIND}
+
+if [ -z "${TENANT_NAME}" ]
+then
+    usage 1
+fi
+if [ -z "${TENANT_HOST}" ]
+then
+    TENANT_HOST=${TENANT_NAME}.example.org
+fi
+
+if [ $UPDATE_HOSTS == "true" ]
+then
+    if grep -q ${TENANT_HOST}.example.org /etc/hosts
+    then
+        echo "Tenant is already in hosts file"
+    else
+        sudo cp /etc/hosts /etc/hosts.multitenant.old
+        sed "s/127.0.0.1[ \\t].*/\\0 ${TENANT_HOST}/" /etc/hosts.multitenant.old > /tmp/hosts.multitenant.new
+        sudo cp /tmp/hosts.multitenant.new /etc/hosts
+    fi
+fi
+
+TENANT_HOME=`pwd`/jira-ide-support/target/multitenant-homes/$TENANT_NAME
+# Ensure homedir exists
+mkdir -p $TENANT_HOME
+
+curl -H "Content-Type: application/xml" -H "X-Atlassian-Tenant: _jiraSystemTenant" --data "@-" "http://${JIRA_HOST}:${JIRA_PORT}${JIRA_CONTEXT}/multitenant?os_username=admin&os_password=admin" <<TENANTXML
+<tenant name="${TENANT_NAME}">
+    <hostnames>
+        <hostname>${TENANT_HOST}</hostname>
+    </hostnames>
+    <homeDir>${TENANT_HOME}</homeDir>
+    <database>
+        <name>${TENANT_NAME}</name>
+        <database-type>hsql</database-type>
+        <schema-name>PUBLIC</schema-name>
+        <jdbc-datasource>
+            <url>jdbc:hsqldb:${TENANT_HOME}/database</url>
+            <driver-class>org.hsqldb.jdbcDriver</driver-class>
+            <username>sa</username>
+            <password></password>
+            <pool-size>10</pool-size>
+        </jdbc-datasource>
+    </database>
+</tenant>
+TENANTXML
+
+

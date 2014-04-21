@@ -1,0 +1,5 @@
+amps-standalone
+target/
+*.iml
+*.ipr
+*.iws

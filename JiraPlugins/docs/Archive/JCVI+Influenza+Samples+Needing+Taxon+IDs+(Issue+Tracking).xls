@@ -1,0 +1,1866 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:x="urn:schemas-microsoft-com:office:excel"
+xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<title>JCVI Influenza Samples Needing Taxon IDs (Issue Tracking)</title>
+<style type="text/css">
+body
+{
+    margin: 0px;
+    font-size: 12px;
+    font-family: Arial, Sans-Serif, sans-serif;
+    color:black;
+}
+
+</style>
+<META HTTP-EQUIV="Content-Type" Content="application/vnd.ms-excel; charset=UTF-8">
+<!-- JRA-7598 - ensure fields (e.g. description) occupy only one cell - even fields containing newlines. -->
+<!--
+Vertical align all cells to the top, in order to align all issue rows of issuetable to the top,
+since Excel does not use or save the css files it is hardcoded here.
+-->
+<style>
+@page
+{
+mso-page-orientation:landscape;
+margin:.25in .25in .5in .25in;
+mso-header-margin:.5in;
+mso-footer-margin:.25in;
+mso-footer-data:"&R&P of &N";
+mso-horizontal-page-align:center;
+mso-vertical-page-align:center;
+}
+
+br
+{
+    mso-data-placement:same-cell;
+}
+
+td
+{
+    vertical-align: top;
+}
+</style>
+
+<!--[if gte mso 9]><xml>
+<x:ExcelWorkbook>
+<x:ExcelWorksheets>
+<x:ExcelWorksheet>
+<x:Name>general_report</x:Name>
+<x:WorksheetOptions>
+<x:Print>
+<x:ValidPrinterInfo/>
+</x:Print>
+</x:WorksheetOptions>
+</x:ExcelWorksheet>
+</x:ExcelWorksheets>
+</x:ExcelWorkbook>
+</xml><![endif]-->
+</head>
+<body>
+
+<table border="1">
+    <tr bgcolor="#114070" height="60">
+        <td colspan="2">
+            <img src="http://jira/images/jcvi-banner-slim.jpg" width="370" height="60" border="0" alt="JCVI Influenza Samples Needing Taxon IDs (Issue Tracking)">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <a href="http://jira/secure/IssueNavigator.jspa?requestId=13201">JCVI Influenza Samples Needing Taxon IDs (Issue Tracking)</a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            Displaying <strong>290</strong> issues at <strong>02/Dec/13 3:32 PM</strong>.
+        </td>
+    </tr>
+</table>
+
+
+
+
+    
+                                
+        
+        
+                    <table id="issuetable"  border="1" cellpadding="3" cellspacing="1" width="100%">
+                        
+                            <thead>
+    <tr class="rowHeader">
+
+    
+                                    <th class="colHeaderLink headerrow-customfield_10123"
+
+                    
+                        >
+                    Blinded Number
+                                    </th>
+                        
+                                    <th class="colHeaderLink headerrow-customfield_11330"
+
+                    
+                        >
+                    Species Code
+                                    </th>
+                                </tr>
+</thead>
+<tbody>
+
+
+            
+            <tr id="issuerow213708" rel="213708" data-issuekey="ST-31903" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00139
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/unknown/unknown/G444/unknown(H5N2))
+  </td>
+            </tr>
+        <tr id="issuerow213707" rel="213707" data-issuekey="ST-31902" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00138
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/unknown/unknown/G500/unknown(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow213685" rel="213685" data-issuekey="ST-31880" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00116
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2409/1985(H2N3))
+  </td>
+            </tr>
+        <tr id="issuerow213684" rel="213684" data-issuekey="ST-31879" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00115
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1944/1983(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow213683" rel="213683" data-issuekey="ST-31878" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00114
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1129/1982(mixed))
+  </td>
+            </tr>
+        <tr id="issuerow213682" rel="213682" data-issuekey="ST-31877" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00113
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2366/1985(N4))
+  </td>
+            </tr>
+        <tr id="issuerow213681" rel="213681" data-issuekey="ST-31876" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00112
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/143/1981(H7N3))
+  </td>
+            </tr>
+        <tr id="issuerow213679" rel="213679" data-issuekey="ST-31875" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00111
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1135/1982(H2N3))
+  </td>
+            </tr>
+        <tr id="issuerow213677" rel="213677" data-issuekey="ST-31874" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00110
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1120/1982(H2N3))
+  </td>
+            </tr>
+        <tr id="issuerow213676" rel="213676" data-issuekey="ST-31873" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00109
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2810/1985(H3N6))
+  </td>
+            </tr>
+        <tr id="issuerow213675" rel="213675" data-issuekey="ST-31872" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00108
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2791/1985(H3N6))
+  </td>
+            </tr>
+        <tr id="issuerow213674" rel="213674" data-issuekey="ST-31871" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00107
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2736/1985(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow213673" rel="213673" data-issuekey="ST-31870" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00106
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2731/1985(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow213672" rel="213672" data-issuekey="ST-31869" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00105
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1804/1983(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow213671" rel="213671" data-issuekey="ST-31868" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00104
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1793/1983(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow213670" rel="213670" data-issuekey="ST-31867" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00103
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1784/1983(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow213669" rel="213669" data-issuekey="ST-31866" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00102
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1781/1983(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow213668" rel="213668" data-issuekey="ST-31865" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00101
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/333/1981(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow213667" rel="213667" data-issuekey="ST-31864" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00100
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Saskatchewan/68/1981(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow213666" rel="213666" data-issuekey="ST-31863" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00099
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/260/1980(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow213665" rel="213665" data-issuekey="ST-31862" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00090
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2632/1985(H10N3))
+  </td>
+            </tr>
+        <tr id="issuerow213664" rel="213664" data-issuekey="ST-31861" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00097
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2692/1985(H12N5))
+  </td>
+            </tr>
+        <tr id="issuerow213663" rel="213663" data-issuekey="ST-31860" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00096
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2687/1985(H12N5))
+  </td>
+            </tr>
+        <tr id="issuerow213662" rel="213662" data-issuekey="ST-31859" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00095
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2680/1985(H12N5))
+  </td>
+            </tr>
+        <tr id="issuerow213661" rel="213661" data-issuekey="ST-31858" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00094
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2676/1985(H12N5))
+  </td>
+            </tr>
+        <tr id="issuerow213660" rel="213660" data-issuekey="ST-31857" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00093
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1834/1983(H12N5))
+  </td>
+            </tr>
+        <tr id="issuerow213659" rel="213659" data-issuekey="ST-31856" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00092
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/317/1981(H12N5))
+  </td>
+            </tr>
+        <tr id="issuerow213658" rel="213658" data-issuekey="ST-31855" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00091
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/261/1980(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow213657" rel="213657" data-issuekey="ST-31854" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00098
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/109/1980(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow213656" rel="213656" data-issuekey="ST-31853" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00089
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2626/1985(H10N3))
+  </td>
+            </tr>
+        <tr id="issuerow213655" rel="213655" data-issuekey="ST-31852" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00088
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2385/1985(H10N3))
+  </td>
+            </tr>
+        <tr id="issuerow213654" rel="213654" data-issuekey="ST-31851" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00087
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2368/1985(H10N3))
+  </td>
+            </tr>
+        <tr id="issuerow213653" rel="213653" data-issuekey="ST-31850" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00086
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/71/1981(H10N7))
+  </td>
+            </tr>
+        <tr id="issuerow213652" rel="213652" data-issuekey="ST-31849" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00085
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/53/1981(H10N7))
+  </td>
+            </tr>
+        <tr id="issuerow213651" rel="213651" data-issuekey="ST-31848" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00075
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1171/1983(H7N4))
+  </td>
+            </tr>
+        <tr id="issuerow213650" rel="213650" data-issuekey="ST-31847" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00084
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/42/1981(H10N7))
+  </td>
+            </tr>
+        <tr id="issuerow213649" rel="213649" data-issuekey="ST-31846" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00083
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/34/1981(H10N7))
+  </td>
+            </tr>
+        <tr id="issuerow213648" rel="213648" data-issuekey="ST-31845" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00082
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/33/1981(H10N7))
+  </td>
+            </tr>
+        <tr id="issuerow213647" rel="213647" data-issuekey="ST-31844" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00081
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/647/1983(H2N1))
+  </td>
+            </tr>
+        <tr id="issuerow213646" rel="213646" data-issuekey="ST-31843" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00080
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/pintail/Wisconsin/627/1983(H6N8))
+  </td>
+            </tr>
+        <tr id="issuerow213645" rel="213645" data-issuekey="ST-31842" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00079
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/widgeon/Wisconsin/617/1983(H6N8))
+  </td>
+            </tr>
+        <tr id="issuerow213644" rel="213644" data-issuekey="ST-31841" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00078
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/pintail/Wisconsin/606/1983(H6N8))
+  </td>
+            </tr>
+        <tr id="issuerow213643" rel="213643" data-issuekey="ST-31840" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00077
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2086/1984(H8N4))
+  </td>
+            </tr>
+        <tr id="issuerow213642" rel="213642" data-issuekey="ST-31839" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00076
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1177/1983(H7N4))
+  </td>
+            </tr>
+        <tr id="issuerow213641" rel="213641" data-issuekey="ST-31838" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00074
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1169/1983(H7N4))
+  </td>
+            </tr>
+        <tr id="issuerow213640" rel="213640" data-issuekey="ST-31837" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00073
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2790/1985(H6N8))
+  </td>
+            </tr>
+        <tr id="issuerow213639" rel="213639" data-issuekey="ST-31836" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00072
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2728/1985(H6N2))
+  </td>
+            </tr>
+        <tr id="issuerow213638" rel="213638" data-issuekey="ST-31835" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00071
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2722/1985(H6N2))
+  </td>
+            </tr>
+        <tr id="issuerow213637" rel="213637" data-issuekey="ST-31834" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00070
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2712/1985(H6N2))
+  </td>
+            </tr>
+        <tr id="issuerow213636" rel="213636" data-issuekey="ST-31833" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00069
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2711/1985(H6N2))
+  </td>
+            </tr>
+        <tr id="issuerow213635" rel="213635" data-issuekey="ST-31832" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00068
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2077/1984(H6N2))
+  </td>
+            </tr>
+        <tr id="issuerow213634" rel="213634" data-issuekey="ST-31831" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00067
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/772/1982(H6N4))
+  </td>
+            </tr>
+        <tr id="issuerow213633" rel="213633" data-issuekey="ST-31830" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00066
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1623/1983(H5N2))
+  </td>
+            </tr>
+        <tr id="issuerow213632" rel="213632" data-issuekey="ST-31829" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00065
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1622/1983(H5N2))
+  </td>
+            </tr>
+        <tr id="issuerow213631" rel="213631" data-issuekey="ST-31828" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00064
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1616/1983(H5N2))
+  </td>
+            </tr>
+        <tr id="issuerow213630" rel="213630" data-issuekey="ST-31827" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00063
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/598/1983(H5N2))
+  </td>
+            </tr>
+        <tr id="issuerow213629" rel="213629" data-issuekey="ST-31826" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00062
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/568/1983(H5N2))
+  </td>
+            </tr>
+        <tr id="issuerow213628" rel="213628" data-issuekey="ST-31825" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00061
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/widgeon/Wisconsin/493/1983(H5N2))
+  </td>
+            </tr>
+        <tr id="issuerow213627" rel="213627" data-issuekey="ST-31824" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00060
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/99/1982(H5N2))
+  </td>
+            </tr>
+        <tr id="issuerow213626" rel="213626" data-issuekey="ST-31823" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00059
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/996/1982(H5N2))
+  </td>
+            </tr>
+        <tr id="issuerow213625" rel="213625" data-issuekey="ST-31822" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00058
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/994/1982(H5N2))
+  </td>
+            </tr>
+        <tr id="issuerow213624" rel="213624" data-issuekey="ST-31821" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00057
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2322/1984(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow213623" rel="213623" data-issuekey="ST-31820" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00056
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2304/1984(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow213622" rel="213622" data-issuekey="ST-31819" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00055
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2272/1984(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow213621" rel="213621" data-issuekey="ST-31818" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00054
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2263/1984(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow213620" rel="213620" data-issuekey="ST-31817" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00053
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2221/1984(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow213619" rel="213619" data-issuekey="ST-31816" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00052
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2215/1984(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow213618" rel="213618" data-issuekey="ST-31815" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00051
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2211/1984(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow213617" rel="213617" data-issuekey="ST-31814" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00050
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2191/1984(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow213616" rel="213616" data-issuekey="ST-31813" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00049
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2163/1984(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow213615" rel="213615" data-issuekey="ST-31812" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00048
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2134/1984(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow213614" rel="213614" data-issuekey="ST-31811" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00047
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2117/1984(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow213613" rel="213613" data-issuekey="ST-31810" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00046
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2106/1984(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow213612" rel="213612" data-issuekey="ST-31809" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00045
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2090/1984(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow213611" rel="213611" data-issuekey="ST-31808" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00044
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2087/1984(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow213610" rel="213610" data-issuekey="ST-31807" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00043
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2084/1984(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow213609" rel="213609" data-issuekey="ST-31806" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00042
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2083/1984(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow213608" rel="213608" data-issuekey="ST-31805" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00041
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1746/1983(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow213607" rel="213607" data-issuekey="ST-31804" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00040
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1729/1983(H3N6))
+  </td>
+            </tr>
+        <tr id="issuerow213606" rel="213606" data-issuekey="ST-31803" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00039
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/green-winged teal/Wisconsin/496/1983(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow213605" rel="213605" data-issuekey="ST-31802" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00038
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/408/1983(H3N6))
+  </td>
+            </tr>
+        <tr id="issuerow213604" rel="213604" data-issuekey="ST-31801" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00037
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/376/1983(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow213601" rel="213601" data-issuekey="ST-31798" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00034
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/920/1982(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow213600" rel="213600" data-issuekey="ST-31797" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00033
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/908/1982(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow213599" rel="213599" data-issuekey="ST-31796" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00031
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/890/1982(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow213598" rel="213598" data-issuekey="ST-31795" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00032
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/903/1982(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow213597" rel="213597" data-issuekey="ST-31794" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00030
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/868/1982(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow213596" rel="213596" data-issuekey="ST-31793" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00029
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/867/1982(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow213595" rel="213595" data-issuekey="ST-31792" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00028
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/865/1982(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow213594" rel="213594" data-issuekey="ST-31791" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00027
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/857/1982(H6N8))
+  </td>
+            </tr>
+        <tr id="issuerow213593" rel="213593" data-issuekey="ST-31790" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00026
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/851/1982(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow213592" rel="213592" data-issuekey="ST-31789" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00025
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/847/1982(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow213591" rel="213591" data-issuekey="ST-31788" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00024
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/834/1982(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow213590" rel="213590" data-issuekey="ST-31787" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00023
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/830/1982(H4N8))
+  </td>
+            </tr>
+        <tr id="issuerow213589" rel="213589" data-issuekey="ST-31786" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00022
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/827/1982(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow213588" rel="213588" data-issuekey="ST-31785" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00021
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/421/1981(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow213587" rel="213587" data-issuekey="ST-31784" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00020
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/420/1981(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow213586" rel="213586" data-issuekey="ST-31783" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00019
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/415/1981(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow213585" rel="213585" data-issuekey="ST-31782" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00018
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/2697/1985(H12N5))
+  </td>
+            </tr>
+        <tr id="issuerow213584" rel="213584" data-issuekey="ST-31781" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00017
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/986/1982(H12N5))
+  </td>
+            </tr>
+        <tr id="issuerow213583" rel="213583" data-issuekey="ST-31780" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00016
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2293/1984(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow213582" rel="213582" data-issuekey="ST-31779" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00015
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2289/1984(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow213581" rel="213581" data-issuekey="ST-31778" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00014
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2281/1984(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow213580" rel="213580" data-issuekey="ST-31777" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00013
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2269/1984(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow213579" rel="213579" data-issuekey="ST-31776" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00012
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/2256/1984(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow213578" rel="213578" data-issuekey="ST-31775" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00011
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1109/1982(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow213577" rel="213577" data-issuekey="ST-31774" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00010
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1107/1982(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow213576" rel="213576" data-issuekey="ST-31773" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00009
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1102/1982(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow213575" rel="213575" data-issuekey="ST-31772" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00008
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1083/1982(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow213574" rel="213574" data-issuekey="ST-31771" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00007
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1077/1982(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow213572" rel="213572" data-issuekey="ST-31769" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00005
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/thick-billed murre/Alaska/191/1976(H1N6))
+  </td>
+            </tr>
+        <tr id="issuerow213571" rel="213571" data-issuekey="ST-31768" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00004
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/common murre/Alaska/186/1976(H1N6))
+  </td>
+            </tr>
+        <tr id="issuerow213570" rel="213570" data-issuekey="ST-31767" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00003
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/thick-billed murre/Alaska/167/1976(H1N6))
+  </td>
+            </tr>
+        <tr id="issuerow213569" rel="213569" data-issuekey="ST-31766" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00002
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/thick-billed murre/Alaska/145/1976(H1N9))
+  </td>
+            </tr>
+        <tr id="issuerow213568" rel="213568" data-issuekey="ST-31765" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00001
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1873/1983(H12N5))
+  </td>
+            </tr>
+        <tr id="issuerow154753" rel="154753" data-issuekey="ST-30323" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00505
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Saskatchewan/83/1981(H6N8))
+  </td>
+            </tr>
+        <tr id="issuerow154752" rel="154752" data-issuekey="ST-30322" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00504
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/green-winged teal/Wisconsin/585/1983(H1N1))
+  </td>
+            </tr>
+        <tr id="issuerow154751" rel="154751" data-issuekey="ST-30321" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00503
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1683/1983(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow154750" rel="154750" data-issuekey="ST-30320" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00502
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/unknown/USA/unknown(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow154748" rel="154748" data-issuekey="ST-30318" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00500
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/365/1981(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow154747" rel="154747" data-issuekey="ST-30317" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00499
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/24/1974(H9N1))
+  </td>
+            </tr>
+        <tr id="issuerow154746" rel="154746" data-issuekey="ST-30316" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00498
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/23/1974(H6N2))
+  </td>
+            </tr>
+        <tr id="issuerow154745" rel="154745" data-issuekey="ST-30315" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00497
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/green-winged teal/Wisconsin/16/1974(H6N2))
+  </td>
+            </tr>
+        <tr id="issuerow154744" rel="154744" data-issuekey="ST-30314" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00496
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/green-winged teal/Wisconsin/20/1974(H6N8))
+  </td>
+            </tr>
+        <tr id="issuerow154743" rel="154743" data-issuekey="ST-30313" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00495
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/widgeon/WI/27/1978(H6N8))
+  </td>
+            </tr>
+        <tr id="issuerow154742" rel="154742" data-issuekey="ST-30312" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00494
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/145/1978(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow154741" rel="154741" data-issuekey="ST-30311" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00493
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/widgeon/Wisconsin/265/1978(H6N8))
+  </td>
+            </tr>
+        <tr id="issuerow154738" rel="154738" data-issuekey="ST-30308" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00490
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/63/1978(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow154737" rel="154737" data-issuekey="ST-30307" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00489
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/172/1978(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154736" rel="154736" data-issuekey="ST-30306" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00488
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/151/1978(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow154735" rel="154735" data-issuekey="ST-30305" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00487
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/103/1978(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow154734" rel="154734" data-issuekey="ST-30304" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00486
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/123/1978(H3N6))
+  </td>
+            </tr>
+        <tr id="issuerow154733" rel="154733" data-issuekey="ST-30303" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00485
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/13/1974(H6N8))
+  </td>
+            </tr>
+        <tr id="issuerow154732" rel="154732" data-issuekey="ST-30302" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00484
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/14/1974(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow154731" rel="154731" data-issuekey="ST-30301" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00483
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/97/1978(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154730" rel="154730" data-issuekey="ST-30300" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00482
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/15/1974(H6N2))
+  </td>
+            </tr>
+        <tr id="issuerow154728" rel="154728" data-issuekey="ST-30298" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00480
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/widgeon/WI/42/1978(H6N8))
+  </td>
+            </tr>
+        <tr id="issuerow154727" rel="154727" data-issuekey="ST-30297" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00479
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/green-winged teal/WI/282/1978(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154726" rel="154726" data-issuekey="ST-30296" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00478
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/shoveler/Wisconsin/207/1978 (H6N8))
+  </td>
+            </tr>
+        <tr id="issuerow154725" rel="154725" data-issuekey="ST-30295" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00477
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/widgeon/Wisconsin/69/1978(H6N1))
+  </td>
+            </tr>
+        <tr id="issuerow154724" rel="154724" data-issuekey="ST-30294" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00476
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/pintail/Wisconsin/122/1978(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154723" rel="154723" data-issuekey="ST-30293" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00475
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/green-winged teal/Wisconsin/478/1981(H6N6))
+  </td>
+            </tr>
+        <tr id="issuerow154722" rel="154722" data-issuekey="ST-30292" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00474
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/widgeon/Wisconsin/208/1978(mixed))
+  </td>
+            </tr>
+        <tr id="issuerow154721" rel="154721" data-issuekey="ST-30291" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00473
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/widgeon/Wisconsin/86/1978(H6N8))
+  </td>
+            </tr>
+        <tr id="issuerow154720" rel="154720" data-issuekey="ST-30290" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00472
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/gadwall/Wisconsin/80/1978(H6N1))
+  </td>
+            </tr>
+        <tr id="issuerow154719" rel="154719" data-issuekey="ST-30289" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00471
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/widgeon/WI/278/1978(mixed))
+  </td>
+            </tr>
+        <tr id="issuerow154718" rel="154718" data-issuekey="ST-30288" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00470
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/175/1978(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow154717" rel="154717" data-issuekey="ST-30287" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00469
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/pintail/Wisconsin/284/1978(mixed))
+  </td>
+            </tr>
+        <tr id="issuerow154716" rel="154716" data-issuekey="ST-30286" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00468
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/19/1974(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow154715" rel="154715" data-issuekey="ST-30285" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00467
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/18/1974(H6N2))
+  </td>
+            </tr>
+        <tr id="issuerow154714" rel="154714" data-issuekey="ST-30284" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00466
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/widgeon/Wisconsin/88/1978(H6N8))
+  </td>
+            </tr>
+        <tr id="issuerow154713" rel="154713" data-issuekey="ST-30283" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00465
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/scaup/Saskatchewan/9/1981(H10N7))
+  </td>
+            </tr>
+        <tr id="issuerow154712" rel="154712" data-issuekey="ST-30282" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00464
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/widgeon/Saskatchewan/33/1982(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154711" rel="154711" data-issuekey="ST-30281" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00463
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Saskatchewan/14/1982(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154710" rel="154710" data-issuekey="ST-30280" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00462
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Saskatchewan/11/1982(H4N8))
+  </td>
+            </tr>
+        <tr id="issuerow154709" rel="154709" data-issuekey="ST-30279" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00461
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/widgeon/Saskatchewan/10/1982(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154708" rel="154708" data-issuekey="ST-30278" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00460
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/shoveler/Saskatchewan/3/1982(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154707" rel="154707" data-issuekey="ST-30277" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00459
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Saskatchewan/1/1982(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154706" rel="154706" data-issuekey="ST-30276" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00458
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/22/1974(H3N5))
+  </td>
+            </tr>
+        <tr id="issuerow154705" rel="154705" data-issuekey="ST-30275" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00457
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/2/1974(mixed))
+  </td>
+            </tr>
+        <tr id="issuerow154703" rel="154703" data-issuekey="ST-30273" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00455
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/green-winged teal/Wisconsin/7/1974(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154702" rel="154702" data-issuekey="ST-30272" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00454
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/1179/1978(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154701" rel="154701" data-issuekey="ST-30271" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00453
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/1177/1978(mixed))
+  </td>
+            </tr>
+        <tr id="issuerow154700" rel="154700" data-issuekey="ST-30270" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00452
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/1175/1978(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154699" rel="154699" data-issuekey="ST-30269" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00451
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/1173/1978(mixed))
+  </td>
+            </tr>
+        <tr id="issuerow154698" rel="154698" data-issuekey="ST-30268" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00450
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/1168/1978(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154697" rel="154697" data-issuekey="ST-30267" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00449
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/1164/1978(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154696" rel="154696" data-issuekey="ST-30266" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00448
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/1161/1978(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154695" rel="154695" data-issuekey="ST-30265" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00447
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/1159/1978(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154694" rel="154694" data-issuekey="ST-30264" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00446
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/1156/1978(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154693" rel="154693" data-issuekey="ST-30263" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00445
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/1155/1978(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154692" rel="154692" data-issuekey="ST-30262" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00444
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/1152/1978(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154691" rel="154691" data-issuekey="ST-30261" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00443
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/1151/1978(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154690" rel="154690" data-issuekey="ST-30260" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00442
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/1150/1978(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154689" rel="154689" data-issuekey="ST-30259" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00441
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/1149/1978(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154688" rel="154688" data-issuekey="ST-30258" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00440
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Wisconsin/1143/1978(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154687" rel="154687" data-issuekey="ST-30257" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00439
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/wood duck/Wisconsin/158/1980(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154686" rel="154686" data-issuekey="ST-30256" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00438
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/156/1980(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154685" rel="154685" data-issuekey="ST-30255" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00437
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/155/1980(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154684" rel="154684" data-issuekey="ST-30254" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00436
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/widgeon/Wisconsin/15/1980(H6N6))
+  </td>
+            </tr>
+        <tr id="issuerow154683" rel="154683" data-issuekey="ST-30253" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00435
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/145/1980(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow154682" rel="154682" data-issuekey="ST-30252" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00434
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/134/1980(H6N1))
+  </td>
+            </tr>
+        <tr id="issuerow154681" rel="154681" data-issuekey="ST-30251" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00433
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/124/1980(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154680" rel="154680" data-issuekey="ST-30250" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00432
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/green-winged teal/Wisconsin/121/1980(H6N6))
+  </td>
+            </tr>
+        <tr id="issuerow154679" rel="154679" data-issuekey="ST-30249" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00431
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/120/1980(H4N8))
+  </td>
+            </tr>
+        <tr id="issuerow154677" rel="154677" data-issuekey="ST-30247" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00429
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/142/1980(H6N1))
+  </td>
+            </tr>
+        <tr id="issuerow154676" rel="154676" data-issuekey="ST-30246" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00428
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/green-winged teal/Wisconsin/131/1980(H6N1))
+  </td>
+            </tr>
+        <tr id="issuerow154675" rel="154675" data-issuekey="ST-30245" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00427
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/widgeon/Wisconsin/20/1980(H6N1))
+  </td>
+            </tr>
+        <tr id="issuerow154674" rel="154674" data-issuekey="ST-30244" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00426
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/16/1980(H6N1))
+  </td>
+            </tr>
+        <tr id="issuerow154673" rel="154673" data-issuekey="ST-30243" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00425
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/3/1980(H6N1))
+  </td>
+            </tr>
+        <tr id="issuerow154672" rel="154672" data-issuekey="ST-30242" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00424
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/1/1980(H6N1))
+  </td>
+            </tr>
+        <tr id="issuerow154671" rel="154671" data-issuekey="ST-30241" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00423
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/795/1976(H1N1))
+  </td>
+            </tr>
+        <tr id="issuerow154670" rel="154670" data-issuekey="ST-30240" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00422
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/683/1976(H1N1))
+  </td>
+            </tr>
+        <tr id="issuerow154669" rel="154669" data-issuekey="ST-30239" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00421
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/green-winged teal/Wisconsin/535/1976(H1N1))
+  </td>
+            </tr>
+        <tr id="issuerow154668" rel="154668" data-issuekey="ST-30238" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00420
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/12/1975(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154667" rel="154667" data-issuekey="ST-30237" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00419
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/47/1975(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow154666" rel="154666" data-issuekey="ST-30236" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00418
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/36/1975(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154665" rel="154665" data-issuekey="ST-30235" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00417
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/3/1975(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154664" rel="154664" data-issuekey="ST-30234" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00416
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/83/1974(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow154663" rel="154663" data-issuekey="ST-30233" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00415
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/34/1976(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154662" rel="154662" data-issuekey="ST-30232" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00414
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/56/1974(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154661" rel="154661" data-issuekey="ST-30231" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00413
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/54/1974(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154660" rel="154660" data-issuekey="ST-30230" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00412
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/53/1974(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154659" rel="154659" data-issuekey="ST-30229" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00411
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/633/1979(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow154658" rel="154658" data-issuekey="ST-30228" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00410
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/green-winged teal/Wisconsin/562/1979(H9N1))
+  </td>
+            </tr>
+        <tr id="issuerow154657" rel="154657" data-issuekey="ST-30227" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00409
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/gadwall/Wisconsin/555/1976(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow154656" rel="154656" data-issuekey="ST-30226" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00408
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/503/1976(H12N6))
+  </td>
+            </tr>
+        <tr id="issuerow154655" rel="154655" data-issuekey="ST-30225" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00407
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/477/1976(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow154654" rel="154654" data-issuekey="ST-30224" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00406
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/384/1976(H12N5))
+  </td>
+            </tr>
+        <tr id="issuerow154653" rel="154653" data-issuekey="ST-30223" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00405
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/321/1976(H12N5))
+  </td>
+            </tr>
+        <tr id="issuerow154652" rel="154652" data-issuekey="ST-30222" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00404
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/426/1979(H8N4))
+  </td>
+            </tr>
+        <tr id="issuerow154651" rel="154651" data-issuekey="ST-30221" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00403
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/438/1979(H7N3))
+  </td>
+            </tr>
+        <tr id="issuerow154650" rel="154650" data-issuekey="ST-30220" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00402
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/223/1979(H7N3))
+  </td>
+            </tr>
+        <tr id="issuerow154649" rel="154649" data-issuekey="ST-30219" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00401
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/56/1975(H6N1))
+  </td>
+            </tr>
+        <tr id="issuerow154648" rel="154648" data-issuekey="ST-30218" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00400
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/51/1975(H6N2))
+  </td>
+            </tr>
+        <tr id="issuerow154647" rel="154647" data-issuekey="ST-30217" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00399
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/33/1975(H6N5))
+  </td>
+            </tr>
+        <tr id="issuerow154646" rel="154646" data-issuekey="ST-30216" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00398
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/7/1975(H6N2))
+  </td>
+            </tr>
+        <tr id="issuerow154645" rel="154645" data-issuekey="ST-30215" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00397
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/2/1975(H6N1))
+  </td>
+            </tr>
+        <tr id="issuerow154644" rel="154644" data-issuekey="ST-30214" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00396
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Saskatchewan/36/1981(H6N2))
+  </td>
+            </tr>
+        <tr id="issuerow154643" rel="154643" data-issuekey="ST-30213" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00395
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/590/1979(H1N2))
+  </td>
+            </tr>
+        <tr id="issuerow154642" rel="154642" data-issuekey="ST-30212" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00394
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/green-winged teal/Wisconsin/118/1979(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow154641" rel="154641" data-issuekey="ST-30211" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00393
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/557/1976(H6N1))
+  </td>
+            </tr>
+        <tr id="issuerow154640" rel="154640" data-issuekey="ST-30210" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00392
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/green-winged teal/Wisconsin/453/1976(H6N2))
+  </td>
+            </tr>
+        <tr id="issuerow154639" rel="154639" data-issuekey="ST-30209" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00391
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/green-winged teal/Wisconsin/432/1976(H6N2))
+  </td>
+            </tr>
+        <tr id="issuerow154638" rel="154638" data-issuekey="ST-30208" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00390
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/pintail/Wisconsin/424/1976(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154637" rel="154637" data-issuekey="ST-30207" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00389
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/356/1976(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow154636" rel="154636" data-issuekey="ST-30206" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00388
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/widgeon/Wisconsin/230/1976(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow154635" rel="154635" data-issuekey="ST-30205" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00387
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/green-winged teal/Wisconsin/103/1976(H5N2))
+  </td>
+            </tr>
+        <tr id="issuerow154634" rel="154634" data-issuekey="ST-30204" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00386
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/63/1976(H5N2))
+  </td>
+            </tr>
+        <tr id="issuerow154633" rel="154633" data-issuekey="ST-30203" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00385
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/9/1975(H6N5))
+  </td>
+            </tr>
+        <tr id="issuerow154632" rel="154632" data-issuekey="ST-30202" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00384
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/1/1975(H6N9))
+  </td>
+            </tr>
+        <tr id="issuerow154631" rel="154631" data-issuekey="ST-30201" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00383
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/38/1974(mixed))
+  </td>
+            </tr>
+        <tr id="issuerow154630" rel="154630" data-issuekey="ST-30200" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00382
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/793/1976(H2N3))
+  </td>
+            </tr>
+        <tr id="issuerow154629" rel="154629" data-issuekey="ST-30199" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00381
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/44/1975(H4N8))
+  </td>
+            </tr>
+        <tr id="issuerow154628" rel="154628" data-issuekey="ST-30198" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00380
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/A/1975(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow154627" rel="154627" data-issuekey="ST-30197" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00379
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/25/1975(H6N2))
+  </td>
+            </tr>
+        <tr id="issuerow154626" rel="154626" data-issuekey="ST-30196" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00378
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/24/1975(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow154625" rel="154625" data-issuekey="ST-30195" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00377
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/23/1975(mixed))
+  </td>
+            </tr>
+        <tr id="issuerow154624" rel="154624" data-issuekey="ST-30194" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00376
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/110/1974(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow154623" rel="154623" data-issuekey="ST-30193" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00375
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/duck/Minnesota/104/1974(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow154622" rel="154622" data-issuekey="ST-30192" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00374
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/637/1979(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow154621" rel="154621" data-issuekey="ST-30191" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00373
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/440/1979(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow154620" rel="154620" data-issuekey="ST-30190" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00372
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/778/1976(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow154619" rel="154619" data-issuekey="ST-30189" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00371
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/473/1976(H4N8))
+  </td>
+            </tr>
+        <tr id="issuerow154618" rel="154618" data-issuekey="ST-30188" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00370
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/418/1976(H3N6))
+  </td>
+            </tr>
+        <tr id="issuerow154617" rel="154617" data-issuekey="ST-30187" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00369
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/345/1976(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow154616" rel="154616" data-issuekey="ST-30186" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00368
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/340/1976(H6N1))
+  </td>
+            </tr>
+        <tr id="issuerow154615" rel="154615" data-issuekey="ST-30185" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00367
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/251/1976(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow154614" rel="154614" data-issuekey="ST-30184" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00366
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/232/1976(H5N2))
+  </td>
+            </tr>
+        <tr id="issuerow154613" rel="154613" data-issuekey="ST-30183" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00365
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/231/1976(H5N2))
+  </td>
+            </tr>
+        <tr id="issuerow154612" rel="154612" data-issuekey="ST-30182" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00364
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/209/1976(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow154611" rel="154611" data-issuekey="ST-30181" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00363
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/wood duck/Wisconsin/147/1976(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow154610" rel="154610" data-issuekey="ST-30180" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00362
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/94/1976(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow154609" rel="154609" data-issuekey="ST-30179" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00361
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/64/1976(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow154608" rel="154608" data-issuekey="ST-30178" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00360
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/364/1984(H4N6))
+  </td>
+            </tr>
+        <tr id="issuerow154607" rel="154607" data-issuekey="ST-30177" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00359
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/widgeon/Wisconsin/638/1983(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154606" rel="154606" data-issuekey="ST-30176" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00358
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/634/1983(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154605" rel="154605" data-issuekey="ST-30175" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00357
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/619/1983(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow154604" rel="154604" data-issuekey="ST-30174" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00356
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/603/1983(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154603" rel="154603" data-issuekey="ST-30173" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00355
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/pintail/Wisconsin/579/1983(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154602" rel="154602" data-issuekey="ST-30172" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00354
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/477/1981(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow154601" rel="154601" data-issuekey="ST-30171" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00353
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/548/1979(mixed))
+  </td>
+            </tr>
+        <tr id="issuerow154600" rel="154600" data-issuekey="ST-30170" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00352
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/213/1979(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154599" rel="154599" data-issuekey="ST-30169" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00351
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/168/1979(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154597" rel="154597" data-issuekey="ST-30168" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00350
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/144/1979(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154595" rel="154595" data-issuekey="ST-30167" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00349
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/89/1979(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154594" rel="154594" data-issuekey="ST-30166" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00348
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/72/1979(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154593" rel="154593" data-issuekey="ST-30165" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00347
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/31/1979(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154592" rel="154592" data-issuekey="ST-30164" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00346
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/29/1979(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154591" rel="154591" data-issuekey="ST-30163" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00345
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/685/1976(mixed))
+  </td>
+            </tr>
+        <tr id="issuerow154590" rel="154590" data-issuekey="ST-30162" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00344
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/widgeon/Wisconsin/541/1976(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154589" rel="154589" data-issuekey="ST-30161" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00343
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/green-winged teal/Wisconsin/539/1976(H3N1))
+  </td>
+            </tr>
+        <tr id="issuerow154588" rel="154588" data-issuekey="ST-30160" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00342
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/471/1976(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154587" rel="154587" data-issuekey="ST-30159" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00341
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/426/1976(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154586" rel="154586" data-issuekey="ST-30158" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00340
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/383/1976(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154585" rel="154585" data-issuekey="ST-30157" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00339
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/317/1976(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154584" rel="154584" data-issuekey="ST-30156" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00338
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/316/1976(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154583" rel="154583" data-issuekey="ST-30155" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00337
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/blue-winged teal/Wisconsin/314/1976(H3N2))
+  </td>
+            </tr>
+        <tr id="issuerow154582" rel="154582" data-issuekey="ST-30154" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00336
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/pintail/Wisconsin298/1976(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow154581" rel="154581" data-issuekey="ST-30153" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00335
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/283/1976(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154580" rel="154580" data-issuekey="ST-30152" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00334
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/275/1976(H12N5))
+  </td>
+            </tr>
+        <tr id="issuerow154579" rel="154579" data-issuekey="ST-30151" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00333
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/green-winged teal/Wisconsin/228/1976(H9N2))
+  </td>
+            </tr>
+        <tr id="issuerow154578" rel="154578" data-issuekey="ST-30150" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00332
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/225/1976(H4N2))
+  </td>
+            </tr>
+        <tr id="issuerow154577" rel="154577" data-issuekey="ST-30149" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00331
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/73/1976(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154576" rel="154576" data-issuekey="ST-30148" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00330
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/34/1976(H3N8))
+  </td>
+            </tr>
+        <tr id="issuerow154575" rel="154575" data-issuekey="ST-30147" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00329
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/441/1984(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow154574" rel="154574" data-issuekey="ST-30146" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00328
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/green-winged teal/Wisconsin/561/1979(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow154573" rel="154573" data-issuekey="ST-30145" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00327
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/540/1979(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow154572" rel="154572" data-issuekey="ST-30144" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00326
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/538/1979(H11N9))
+  </td>
+            </tr>
+        <tr id="issuerow154571" rel="154571" data-issuekey="ST-30143" class="issuerow         ">
+                                    <td class="nav customfield_10123"  >      NIGSP_SSC_00325
+  </td>
+                                    <td class="nav customfield_11330"  >      Influenza A virus (A/mallard/Wisconsin/443/1979(H11N9))
+  </td>
+            </tr>
+                    
+            </table>
+
+                    
+
+    <table border="1" >
+<tr>
+    <td bgcolor="#dddddd" colspan="2"><font size="1">
+        Generated at Mon Dec 02 15:32:41 EST 2013 by Peter Edworthy using JIRA 4.4.3#663-r165197.
+    </font></td>
+</tr>
+</table>
+
+</body>
+</html>

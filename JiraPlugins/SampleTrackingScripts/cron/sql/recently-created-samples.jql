@@ -1,0 +1,2 @@
+search
+project = ST AND issuetype = Sample AND created >= -2w

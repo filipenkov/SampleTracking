@@ -1,0 +1,377 @@
+package com.atlassian.jira.web.bean;
+
+import com.atlassian.jira.ComponentManager;
+import com.atlassian.jira.bulkedit.operation.BulkMigrateOperation;
+import com.atlassian.jira.bulkedit.operation.BulkMoveOperation;
+import com.atlassian.jira.component.ComponentAccessor;
+import com.atlassian.jira.config.ConstantsManager;
+import com.atlassian.jira.issue.IssueManager;
+import com.atlassian.jira.issue.MutableIssue;
+import com.atlassian.jira.issue.context.IssueContext;
+import com.atlassian.jira.issue.context.IssueContextImpl;
+import com.atlassian.jira.issue.fields.option.IssueConstantOption;
+import com.atlassian.jira.issue.issuetype.IssueType;
+import com.atlassian.jira.security.JiraAuthenticationContext;
+import com.atlassian.jira.util.ErrorCollection;
+import com.atlassian.jira.web.action.admin.issuetypes.ExecutableAction;
+import com.opensymphony.user.User;
+import org.apache.commons.collections.MultiHashMap;
+import org.apache.commons.collections.map.ListOrderedMap;
+import org.apache.log4j.Logger;
+import org.ofbiz.core.entity.GenericValue;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * Implementation of MultiBulkMoveBean.
+ *
+ * @since v4.3
+ */
+public class MultiBulkMoveBeanImpl extends MultiBulkMoveBean
+{
+    // ------------------------------------------------------------------------------------------------------- Constants
+    private static final Logger log = Logger.getLogger(MultiBulkMoveBeanImpl.class);
+    // ------------------------------------------------------------------------------------------------- Type Properties
+    private String operationName;
+
+    private ListOrderedMap regularIssues;
+    private List subTaskIssues;
+    private ListOrderedMap issuesInContext;
+    private ListOrderedMap bulkEditBeans;
+
+    // Post function stuff
+
+    private Collection optionIds;
+    private List regularOptions;
+    private List subTaskOptions;
+
+    private ExecutableAction executableAction;
+    private String finalLocation;
+
+    private int currentBulkEditBeanIndex = 0;
+
+    // ------------------------------------------------------------------------------------------- Calculated Properties
+    private int subTasksDiscarded = 0;
+
+    // ---------------------------------------------------------------------------------------------------- Dependencies
+    private final ConstantsManager constantsManager;
+    private final JiraAuthenticationContext authenticationContext;
+    private final IssueManager issueManager;
+
+    // ---------------------------------------------------------------------------------------------------- Constructors
+    public MultiBulkMoveBeanImpl(String operationName, IssueManager issueManager)
+    {
+        this.operationName = operationName;
+        this.issueManager = issueManager;
+        this.constantsManager = ComponentAccessor.getConstantsManager();
+        this.authenticationContext = ComponentAccessor.getJiraAuthenticationContext();
+    }
+
+    // -------------------------------------------------------------------------------------------------- Action Methods
+    public void initOptionIds(Collection optionIds)
+    {
+        // Set up the options list
+        this.optionIds = optionIds;
+        regularOptions = new ArrayList();
+        subTaskOptions = new ArrayList();
+        for (Iterator iterator = optionIds.iterator(); iterator.hasNext();)
+        {
+            String optionId = (String) iterator.next();
+            final IssueType issueType = constantsManager.getIssueTypeObject(optionId);
+            if (!issueType.isSubTask())
+            {
+                regularOptions.add(new IssueConstantOption(issueType));
+            }
+            else
+            {
+                subTaskOptions.add(new IssueConstantOption(issueType));
+            }
+        }
+    }
+
+    /**
+     * Initialises this MultiBulkMoveBean given a list of issues.
+     * <p>
+     * If this MultiBulkMoveBean links a BulkEditBean with parent issues to BulkEditBeans with subtasks, then include
+     * the parent BulkEditBean in the parentBulkEditBean parameter. Otherwise you can pass null.
+     * </p>
+     * @param issues Issues for this MultiBulkMoveBean.
+     * @param parentBulkEditBean If this MultiBulkMoveBean represents subtasks, then this is the BulkEditBean that
+     *                              contains the parents of the subtasks, otherwise null.
+     */
+    public void initFromIssues(List issues, BulkEditBean parentBulkEditBean)
+    {
+        // Ensure that the order is kept
+        issuesInContext = (ListOrderedMap) ListOrderedMap.decorate(new MultiHashMap());
+        regularIssues = new ListOrderedMap();
+        subTaskIssues = new ArrayList();
+
+        // First pass stores att the
+        for (Iterator iterator = issues.iterator(); iterator.hasNext();)
+        {
+            MutableIssue issue = (MutableIssue) iterator.next();
+            if (!issue.isSubTask())
+            {
+                regularIssues.put(issue.getId(), issue);
+            }
+            else
+            {
+                subTaskIssues.add(issue);
+            }
+        }
+
+        // Split it up by context, also check special rule that you can't move sub tasks & its parent all in the same go
+        for (Iterator iterator = issues.iterator(); iterator.hasNext();)
+        {
+            MutableIssue issue = (MutableIssue) iterator.next();
+            // NOTE: we only do this for the bulk move operation, this is likely the correct behavior for the
+            // bulk move operation but I am certain that it is not correct for the bulk migrate operation JRA-10244.
+            // In bulk move the wizard will prompt the user with subtask information once it has collected the project
+            // information about the parent issues, this is not need in the the issue type scheme migration since you
+            // will never be changing the project
+            // TODO: Why test for operation name?
+            if (BulkMigrateOperation.OPERATION_NAME.equals(operationName) && issue.isSubTask() && regularIssues.containsKey(issue.getParentId()))
+            {
+                log.info("Sub issue: " + issue.getKey() + " : discarded since parent was also present in the bulk move");
+                subTasksDiscarded++;
+            }
+            else
+            {
+                issuesInContext.put(new IssueContextImpl(issue.getProject(), issue.getIssueType()), issue);
+            }
+        }
+
+        // Set the bulk edit bean.. sort the keys by project
+        bulkEditBeans = new ListOrderedMap();
+        List keys = new ArrayList(issuesInContext.keySet());
+        Collections.sort(keys);
+
+        for (Iterator iterator = keys.iterator(); iterator.hasNext();)
+        {
+            IssueContext context = (IssueContext) iterator.next();
+            Collection issuesForContext = (Collection) issuesInContext.get(context);
+
+            BulkEditBean bulkEditBean = new BulkEditBeanImpl(issueManager);
+            bulkEditBean.initSelectedIssues(issuesForContext);
+            bulkEditBean.setOperationName(operationName);
+            bulkEditBean.setTargetProject(context.getProject());
+            bulkEditBean.setTargetIssueTypeId(context.getIssueType() != null ? context.getIssueType().getString("id") : null);
+            // Set the Parent BulkEditBean - used by subtask BulkEditBean's to get to the new version of the subtask's parents.
+            bulkEditBean.setParentBulkEditBean(parentBulkEditBean);
+
+            bulkEditBeans.put(context, bulkEditBean);
+        }
+    }
+
+    /**
+     * This method will remap the current {@link BulkEditBean} Map to be keyed by the <em>target</em>
+     * {@link IssueContext} rather than the originating {@link IssueContext}.
+     */
+    public void remapBulkEditBeansByTargetContext()
+    {
+        Map bulkEditBeans = getBulkEditBeans();
+        ListOrderedMap targetKeyedBulkEditBeans = new ListOrderedMap();
+        Set entries = bulkEditBeans.entrySet();
+        for (Iterator iterator = entries.iterator(); iterator.hasNext();)
+        {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            BulkEditBean bulkEditBean = (BulkEditBean) entry.getValue();
+
+            // Build Target Issue contexts
+            IssueContext targetIssueContext = new IssueContextImpl(bulkEditBean.getTargetProjectGV(), bulkEditBean.getTargetIssueTypeGV());
+
+            if (targetKeyedBulkEditBeans.containsKey(targetIssueContext))
+            {
+                // Add to to the bulk edit bean
+                BulkEditBean finalBulkEditBean = (BulkEditBean) targetKeyedBulkEditBeans.get(targetIssueContext);
+                // We add the top-level issues now. Affected subtasks will be calculated later
+                // by calling BulkMoveOperation().finishChooseContext()
+                finalBulkEditBean.addIssues(bulkEditBean.getSelectedIssues());
+            }
+            else
+            {
+                targetKeyedBulkEditBeans.put(targetIssueContext, bulkEditBean);
+            }
+        }
+
+        // Set the BulkEditBean Map to our new map (keyed by Target Context)
+        setBulkEditBeans(targetKeyedBulkEditBeans);
+    }
+
+
+    public void validate(ErrorCollection errors, BulkMoveOperation bulkMoveOperation, User user)
+    {
+        if (!regularIssues.isEmpty() && regularOptions.isEmpty())
+        {
+            errors.addErrorMessage(authenticationContext.getI18nHelper().getText("admin.errors.bean.issues.affected", "" + regularIssues.size()));
+        }
+
+        if (!subTaskIssues.isEmpty() && subTaskOptions.isEmpty())
+        {
+            errors.addErrorMessage(authenticationContext.getI18nHelper().getText("admin.errors.bean.subtasks.affected", "" + subTaskIssues.size()));
+        }
+
+        // Validate permission
+        Set entries = bulkEditBeans.entrySet();
+        for (Iterator iterator = entries.iterator(); iterator.hasNext();)
+        {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            IssueContext issueContext = (IssueContext) entry.getKey();
+            BulkEditBean bulkEditBean = (BulkEditBean) entry.getValue();
+            if (!bulkMoveOperation.canPerform(bulkEditBean, user))
+            {
+                errors.addErrorMessage(authenticationContext.getI18nHelper().getText("admin.errors.bean.no.permission", "" + issueContext.getProject().getString("name"), "" + issueContext.getIssueType().getString("name")));
+            }
+        }
+    }
+
+
+    // --------------------------------------------------------------------------------------------- View Helper Methods
+    // -------------------------------------------------------------------------------------- Basic accessors & mutators
+    public ListOrderedMap getIssuesInContext()
+    {
+        return issuesInContext;
+    }
+
+    public ListOrderedMap getBulkEditBeans()
+    {
+        return bulkEditBeans;
+    }
+
+    private void setBulkEditBeans(ListOrderedMap bulkEditBeans)
+    {
+        this.bulkEditBeans = bulkEditBeans;
+    }
+
+    public ExecutableAction getExecutableAction()
+    {
+        return executableAction;
+    }
+
+    public void setExecutableAction(ExecutableAction executableAction)
+    {
+        this.executableAction = executableAction;
+    }
+
+
+    public String getFinalLocation()
+    {
+        return finalLocation;
+    }
+
+    public void setFinalLocation(String finalLocation)
+    {
+        this.finalLocation = finalLocation;
+    }
+
+    public Collection getSelectedOptions()
+    {
+        return optionIds;
+    }
+
+    public List getRegularOptions()
+    {
+        return regularOptions;
+    }
+
+    public List getSubTaskOptions()
+    {
+        return subTaskOptions;
+    }
+
+    public int getSubTasksDiscarded()
+    {
+        return subTasksDiscarded;
+    }
+
+    // -------------------------------------------------------------------------------------------------- Static Methods
+
+
+    public int getNumberOfStatusChangeRequired(BulkMoveOperation bulkMoveOperation)
+    {
+        int i = 0;
+        for (Iterator iterator = bulkEditBeans.values().iterator(); iterator.hasNext();)
+        {
+            BulkEditBean bulkEditBean = (BulkEditBean) iterator.next();
+            if (bulkEditBean.getTargetPid() != null && !bulkMoveOperation.isStatusValid(bulkEditBean))
+            {
+                i++;
+            }
+        }
+
+        return i;
+    }
+
+    public BulkEditBean getCurrentBulkEditBean()
+    {
+        if (!getBulkEditBeans().isEmpty())
+        {
+            return (BulkEditBean) getBulkEditBeans().getValue(currentBulkEditBeanIndex);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public void progressToNextBulkEditBean()
+    {
+        if (!isLastBulkEditBean())
+        {
+            currentBulkEditBeanIndex++;
+        }
+        else
+        {
+            throw new IllegalArgumentException("Unable to progress to bulk edit bean with index greater than " + (currentBulkEditBeanIndex) + ". " + getBulkEditBeans().size() + " bulk edit beans available");
+        }
+    }
+
+    public void progressToPreviousBulkEditBean()
+    {
+        if (currentBulkEditBeanIndex > 0)
+        {
+            currentBulkEditBeanIndex--;
+        }
+        else
+        {
+            throw new IllegalArgumentException("Unable to progress to bulk edit bean with index less than 0");
+        }
+    }
+
+    public boolean isLastBulkEditBean()
+    {
+        return currentBulkEditBeanIndex == getBulkEditBeans().size() - 1;
+    }
+
+    public IssueContext getCurrentIssueContext()
+    {
+        if (!getBulkEditBeans().isEmpty())
+        {
+            return (IssueContext) getBulkEditBeans().get(currentBulkEditBeanIndex);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public int getCurrentBulkEditBeanIndex()
+    {
+        return currentBulkEditBeanIndex;
+    }
+
+    public void setTargetProject(GenericValue targetProjectGV)
+    {
+        for (Iterator iterator = getBulkEditBeans().values().iterator(); iterator.hasNext();)
+        {
+            BulkEditBean bulkEditBean = (BulkEditBean) iterator.next();
+            bulkEditBean.setTargetProject(targetProjectGV);
+        }
+    }
+}

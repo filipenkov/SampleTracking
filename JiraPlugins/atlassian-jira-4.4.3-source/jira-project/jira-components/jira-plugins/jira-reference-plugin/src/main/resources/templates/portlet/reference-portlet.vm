@@ -1,0 +1,4 @@
+<div id="userinfo">
+    $i18n.getText('module.portlet.currentuser', '<b>', ${username}, '</b>')
+</div>
+

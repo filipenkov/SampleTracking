@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.atlassian.crowd.model.directory.DirectoryImpl" table="cwd_directory" lazy="true">
+
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="com.atlassian.crowd.util.persistence.hibernate.ResettableTableHiLoGenerator"/>
+        </id>
+
+        <property name="name" column="directory_name" type="string" not-null="true" length="255"/>
+
+        <property name="lowerName" column="lower_directory_name" type="string" not-null="true" length="255"
+                  unique-key="uk_dir_l_name" />
+
+        <property name="createdDate" column="created_date" type="timestamp" not-null="true"/>
+
+        <property name="updatedDate" column="updated_date" type="timestamp" not-null="true"/>
+
+        <property name="active" column="active" type="true_false" not-null="true"
+                  index="idx_dir_active"/>
+
+        <property name="description" column="description" type="string" length="255"/>
+
+        <property name="implementationClass" column="impl_class" type="string" not-null="true" length="255"/>
+
+        <property name="lowerImplementationClass" column="lower_impl_class" type="string" not-null="true" length="255"
+                  index="idx_dir_l_impl_class"/>
+
+        <property name="type" column="directory_type" type="DirectoryType" not-null="true" length="32"
+                  index="idx_dir_type"/>
+
+        <set name="allowedOperations" table="cwd_directory_operation" cascade="all" lazy="false">
+            <key column="directory_id" foreign-key="fk_directory_operation"/>
+            <element column="operation_type" type="OperationType" not-null="true" length="32"/>
+        </set>
+
+        <map name="attributes" table="cwd_directory_attribute" cascade="all" lazy="false">
+            <key column="directory_id" foreign-key="fk_directory_attribute"/>
+            <map-key column="attribute_name" type="string" length="255"/>
+            <element column="attribute_value" type="EmptyString" length="4000" />
+        </map>
+
+    </class>
+
+</hibernate-mapping>

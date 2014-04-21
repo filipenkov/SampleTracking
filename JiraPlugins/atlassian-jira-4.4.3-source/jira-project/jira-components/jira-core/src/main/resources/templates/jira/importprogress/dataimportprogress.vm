@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+## WARNING: DO NOT INCLUDE ANY IMAGES IN THIS PAGE!! Those requests will go throug the filter chain and cause
+## deadlocks in pico!!
+<html>
+<head>
+    <title>${task.getDescription()}</title>
+
+    <meta http-equiv="refresh" content="5">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <style type="text/css">
+    html,body,p,div,h1,img,form,input { margin: 0; padding: 0; }
+    body {background-color:#f0f0f0;color:#000;font:12px/1.4 arial, FreeSans, Helvetica, sans-serif;}
+    h1 { font-size:1.6em; }
+    #header { background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG8AAAAeCAYAAAAiu0AEAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAApZJREFUeNrsW/9xgjAURq//lxHoBNIJihMUN9AJqhOgE9BOIBuUDbQTiBPUDaQTUHL3ck2fSSD8lJDv7p01iaDvy/vxheskyzLLYJiY1visl9s1N8L+d26OcWe3mNSIPExYlNvKuPR+Is/O7ROIWnLmWODICyEyQ+PmlkAiT2Lr7A9XNBdm/+Ezcw6acwvuY6yCPRRwmwj+JtjkdoaIO4JRXHJLITpTMIOWa54DDmeJ8mE8UiTBgVQbo+t58N4Q2jB5VyDvmRNpTWANNZBE6dy4vz+pUAe2cX03abNpmLTZss7bgoMvEiIJ0QG8fuX2LiHEBaN6kEafi9ZdwLyS43hetFlUPzNoqbBErX6I5m2QDixOnDWfSGqwksHLbrGFubLjGHu4r+we7NpBSwVRzYsgkthG48QI8SWnbrnMLvdgvY+kRdLyXlwqHAoM/jhP1rBsmBRHyaGEyBoOknIPyDkrdK22CSxKmRYnZWvXbWKn0+OyGWdtCjUwKLhGkyCSYyGpc48FHa+tM3nU+TEa8wXOwDt910HEpTWiy9WdPEqgar2KIIX2CRxZiU51b6qwu+cKBEZWN4+HHE6apunUEkiR0ZGnQmBXxFHn81K1iJgzej8bC3mUwIWkziRWvw9kL0x9diQRKUqrWpNHHSRqQnY9kkUJOwjIOyqcvmhLnm3dPlWneOuBvA9B1+twxh2dxHoV8vaSdEOctr6T3zbjyIL9mMnzBRqPRXAnDilbz9wxkGcLdm5ach122GvLv81tmORBk8dLl6QJeOIQWJQ+ww7SK++7TjjrXnQnj5cuU5AFqUAeBBVSUtxi1CW6yYWpQtRhbJgTi5gjH2zB6Yeoa6xyBKeSCn90q3kT878K49J5BneCXwEGAGWWWKyCklGTAAAAAElFTkSuQmCC) no-repeat;height:33px; background-color:#036;}
+    #main-content { padding: 14px; }
+    .active-area { background-color: #fff; border: 1px solid #bbb; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; padding:14px ;width:60%;margin:0 auto;}
+    .bar-container { background-color: #fff; border: 1px solid #bbb; overflow:hidden ; margin-top:14px; width:99%; }
+    .bar { background-color:#008004; height:24px; text-indent:-999em; }
+    .status { margin:6px 0 12px 0 ; }
+    .taskinfo { color:#505050; }
+    #refresh_submit { margin:14px 0; }
+    </style>
+    <!--[if IE 7]>
+    <style type="text/css">#header { background:no-repeat;height:33px; background-color:#036;}</style>
+    <![endif]-->
+</head>
+<body id="jira">
+<div id="header">
+    &nbsp;
+</div>
+<div id="main-content">
+    <div class="active-area">
+        <h1>${task.getDescription()}</h1>
+        <div class="bar-container">
+            <div class="bar" style="width:${task.getProgressNumber()}%">progress</div>
+        </div>
+        <p class="status">
+            #if($task.getExceptionCause())
+                ${task.getExceptionCause().getMessage()}
+            #elseif($task.getLastProgressEvent())
+                ${task.getProgressMessage()}
+            #end
+        </p>
+        <p class="progress taskinfo">${task.getFormattedProgress()}</p>
+        #if($task.isStarted())
+            <p class="taskinfo">${task.getFormattedStartDate()}</p>
+        #end
+        <input type="submit" onclick="window.location.reload();" name='${task.getText("admin.common.words.refresh")}' value='${task.getText("admin.common.words.refresh")}' id="refresh_submit" accesskey="s" />
+    </div>
+</div>
+</body>
+</html>

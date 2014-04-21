@@ -1,0 +1,15 @@
+#parse("templates/email/includes/issueplugins.vm")
+     [ ${baseurl}/browse/${issue.getKey()}?page=${tabpanel-all} ]
+
+#if($remoteUser.fullName)
+$i18n.getText("template.issue.reopened.by", $remoteUser.fullName, $issue.getKey())
+#dashes($!remoteUser.fullName)----------#dashes(${issue.getKey()})-
+#end
+
+#changes(["resolution"])
+#comment()
+#visibility()
+
+#parse("templates/email/text/includes/issuesummary.vm")
+
+#parse("templates/email/text/includes/footer.vm")

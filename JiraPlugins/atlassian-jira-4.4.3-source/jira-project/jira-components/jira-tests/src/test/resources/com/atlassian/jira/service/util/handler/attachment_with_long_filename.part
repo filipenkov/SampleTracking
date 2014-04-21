@@ -1,0 +1,25 @@
+Content-Type: message/rfc822;
+ name="SUPPORT Updated (XXXXXXX) get warning message when issue is created from e-mailattachment not added.eml"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline;
+ filename*0="SUPPORT Updated (XXXXXXX) get warning message when issue is ";
+ filename*1="created from e-mail attachment not added.eml"
+
+Return-Path: mtokar@atlassian.com
+Received: from mail.atlassian.com (LHLO mail.atlassian.com) (63.246.22.40)
+ by mail.atlassian.com with LMTP; Mon, 23 Jun 2008 20:33:17 -0500 (CDT)
+Received: from [192.168.168.128] (unknown [203.63.130.33])
+	by mail.atlassian.com (Postfix) with ESMTP id 947F116324F3
+	for <mtokar@atlassian.com>; Mon, 23 Jun 2008 20:33:16 -0500 (CDT)
+Message-ID: <48604ED9.2030604@atlassian.com>
+Date: Tue, 24 Jun 2008 11:33:13 +1000
+From: Michael Tokar Thunderbird XP <mtokar@atlassian.com>
+User-Agent: Thunderbird 2.0.0.14 (Windows/20080421)
+MIME-Version: 1.0
+To: mtokar@atlassian.com
+Subject: SUPPORT Updated (XXXXXXX) get warning message when issue is created
+ from e-mail attachment not added
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Long subject line will hopefully break when we attach it

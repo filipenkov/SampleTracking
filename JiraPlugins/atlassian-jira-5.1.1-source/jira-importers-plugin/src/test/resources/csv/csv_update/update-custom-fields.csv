@@ -1,0 +1,6 @@
+issue key,summary,field1,field2,field3,number,date1,date2
+TT-1,Issue summary,Field One,Field Two,Field Three,1,20110101142000,20110102142000
+TT-1,,Changed Field One,Changed Field Two,Changed Field Three,2,20120101142000,20120102142000
+TT-1,,Changed Field One Again,,,,,
+TT-2,Issue summary,Field One,Field Two,Field Three,1,20110101142021,20110102142022
+TT-2,,<<!clear!>>,<<!clear!>>,<<!clear!>>,<<!clear!>>,<<!clear!>>,<<!clear!>>

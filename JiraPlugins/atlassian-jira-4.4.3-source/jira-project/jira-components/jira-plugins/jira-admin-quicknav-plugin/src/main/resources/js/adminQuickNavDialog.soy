@@ -1,0 +1,18 @@
+{namespace JIRA.Templates}
+
+/**
+*/
+{template .adminQuickNavDialog}
+<h2 class="aui-popup-heading">{getText('admin.quicksearch.title')}</h2>
+<div class="aui-popup-content">
+    <form id="admin-quicknav-dialog-form" class="aui">
+        <div class="content-body">
+            <div id="administration-suggestions" class="aui-list"></div>
+            <div class='description'>{getText('issueactions.start.typing')}</div>
+        </div>
+    </form>
+    <div class="buttons-container content-footer">
+        <div class="buttons"><a href="#" class="cancel" id="aui-dialog-close">{getText('common.words.close')}</a></div>
+    </div>
+</div>
+{/template}

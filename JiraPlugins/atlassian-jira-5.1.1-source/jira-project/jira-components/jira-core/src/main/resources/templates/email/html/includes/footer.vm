@@ -1,0 +1,22 @@
+#disable_html_escaping()
+#* @vtlvariable name="textFontFamily" type="java.lang.String" *#
+#* @vtlvariable name="textLinkColour" type="java.lang.String" *#
+#* @vtlvariable name="textSubtleColour" type="java.lang.String" *#
+##
+#parse("templates/email/html/includes/emailconstants.vm")
+            </table>
+        </td><!-- End #email-page -->
+    </tr>
+    <tr valign="top">
+        <td style="color:${textSubtleColour};font-family:${textFontFamily};font-size:10px;line-height:14px;padding: 0 16px 16px 16px;text-align:center;">
+            $i18n.getText("template.jira.footer.generated.by")<br />
+#if($applicationProperties.getOption("jira.show.contact.administrators.form"))
+            $i18n.getText("template.jira.footer.contact.info", "<a style='color:${textLinkColour};' href='${baseurl}/secure/ContactAdministrators!default.jspa'>", "</a>")<br />
+#else
+            $i18n.getText("template.jira.footer.contact.info", "", "")<br />
+#end
+            $i18n.getText("template.jira.footer.product.info", "<a style='color:${textLinkColour};' href='http://www.atlassian.com/software/jira'>http://www.atlassian.com/software/jira</a>")
+        </td>
+    </tr>
+</table><!-- End #email-wrap -->
+</div><!-- End #email-body -->

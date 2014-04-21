@@ -1,0 +1,340 @@
+#admin-config-content .active-area .tabs-menu { margin-left: 0px; }
+#admin-config-content > .tabs-menu strong { white-space: normal; text-align: center;  }
+#atlas #stp-container { width: 99%; }
+
+#stp-container .aui-tabs-group-menu a { text-decoration: none; }
+
+#stp-container table.aui { clear: none; margin-bottom:1em; }
+#stp-container table.aui tr th.stp-property-category { text-align:center; font-size: 1.5em; }
+#stp-container table.aui tbody tr th { width:30em; }
+
+#stp-container .toolMessage { padding-top: .5em;  padding-left: .5em;}
+
+ul.aui-tabs-group-menu li { list-style-type:none; }
+
+
+.stp-module h2 { margin-bottom: .5em; }
+
+#stp-container .aui-tabs-group { margin: 0.5em 0 2em 0; }
+#stp-container .aui-tabs-group-menu { margin:0 0 0 1em;padding:0; }
+#stp-container .aui-tabs-group-menu > .menu-item:first-child { margin-top: 0.5em; }
+
+#stp-container li.aui-tabs-group strong { font-size: 1.25em; }
+#stp-container li.aui-tabs-group .aui-tabs-group-menu strong { font-size: 1em; }
+#stp-container p { margin-bottom: 1em; }
+
+#hercules form.aui input.button { margin-bottom:.75em;}
+
+#stp-container .menu-item.active-tab a { margin-right: -1px; } /* Join the active tab to the tab pane */
+
+.stp-propertystore .stp-propertystore { margin-left: 5em;}
+#stp-container .stp-propertystore fieldset { display: none;}
+.stp-propertystore h2:hover { cursor: pointer;}
+.stp-propertystore h2.expanded {
+	background: url(../../resources/com.atlassian.support.stp%3Aresources/images/arrow_down.png) 0 0 no-repeat;	
+}
+.stp-propertystore h2 { 
+	padding-left: 18px;
+	background: url(../../resources/com.atlassian.support.stp%3Aresources/images/arrow_right.png) 0 0 no-repeat;	
+}
+
+#stp-container .tabs-pane { min-height: 400px;  z-index: 0; } /* Min height for the tabs pane */
+
+
+#stp-container .tabs-pane { margin-left: 15em; } 
+#stp-container .tabs-menu { width: 15em; } /* Increase the width of the tabs */
+
+h3.stp-property-category { 
+	padding-left: 18px;
+	background: url(../../resources/com.atlassian.support.stp%3Aresources/images/arrow_right.png) 0 0 no-repeat;	
+}
+h3.stp-property-category.expanded { 
+	background: url(../../resources/com.atlassian.support.stp%3Aresources/images/arrow_down.png) 0 0 no-repeat;	
+}
+
+#stp-module-container table.aui { width:100%; }
+
+.stp-module-container-block{
+	float:left;
+	width:100%;
+}
+
+.logo-neighbor {
+	margin-right:200px;
+	overflow:hidden;
+}
+.stp-module-logo-block{
+	text-align:center;
+	float:left;
+	width:200px;
+	margin-left: -200px;
+}
+
+div.plugin #stp-container { padding-left: .25em; } /* fisheye rules to fix padding problems */
+div.plugin li.menu-item { padding-left: .25em; }
+
+#support-zip div.checkbox { padding-left:1em; margin-top: 1em;ve} /* reduce the indentation when the Zip include block is in the standalone form*/
+
+#stp-container form.aui .field-group { clear: right; } /* Required to keep the tab layout from pushing module form content down */
+
+
+#stp-container form.aui div.radio .description, form.aui div.checkbox .description { clear: right; }
+
+.disabled .stp-module-modules .stp-module .stp-module-actions button { display: none; }
+
+.disabled .stp-module-modules .stp-module-actions p { display: inline; }
+
+.stp-module {
+	max-width: 800px;
+	overflow: auto;
+}
+
+#stp-hercules-results .aui-message { width: 80%; }
+
+.stp-module .expanded #stp-container {
+	display: block;
+}
+
+.stp-module .stp-details dd {
+	display: block;
+	margin-bottom: .4em;
+}
+
+.stp-module .stp-details dl {
+	margin-top: 0;
+	padding-left: 150px;
+}
+
+.stp-module .stp-details dt {
+	display: inline;
+	float: left;
+	margin-bottom: .4em;
+	margin-left: -150px;
+}
+
+.stp-module .stp-details h5 {
+	color: #777;
+	font-size: 1.05em;
+	font-weight: normal;
+	margin: .5em 0 1em 0;
+}
+
+.stp-module .stp-details p {
+	color: #222;
+}
+
+.stp-module .stp-module-actions .pipe {
+	color: #999;
+	font-size: 130%;
+}
+
+.stp-module-description ul,.stp-module-description ol {
+	list-style-position: inside;
+}
+
+.stp-module-summary {
+	color: #666;
+	display: inline;
+	float: right;
+	font-size: .95em;
+	line-height: 1.1em;
+	margin: .2em 0 0 0;
+	padding: 0;
+	width: 68%;
+}
+
+.stp-progress-amount {
+	background: #69c;
+	height: 20px;
+	width: 0;
+}
+
+.stp-progress-bar-container {
+	margin-top: 1em;
+	text-align: center;
+}
+
+.stp-progress-bar {
+	background: #f6f6f6;
+	border: 1px solid #ccc;
+	height: 20px;
+	margin: 0 auto;
+	text-align: left;
+	overflow: hidden;
+}
+
+.stp-progress-download .stp-progress-bar-container {
+	visibility: visible;
+}
+
+.stp-progress-text {
+	color: #777;
+	text-align: center;
+}
+
+#hercules-form-inner-div {
+	min-width:355px;
+}
+
+#hercules-details {
+	min-height: 196px;
+}
+
+#hercules-details loading {
+	min-height: 196px;
+}
+
+#hercules-details .stp-message.error.inline {
+	width: 348px;
+}
+
+#stp-container .clearer {
+	clear: both;
+	display: block;
+	font-size: 1px;
+	height: 1px;
+	line-height: 1px;
+	margin-bottom: -1px;
+}
+
+#stp-container {
+	margin-top: .5em;
+    position: relative;
+}
+
+#stp-container .hidden {
+	display: none;
+}
+
+#stp-container .hover {
+	cursor: auto;
+}
+
+#stp-container.loading,.stp-module-main-block.loading, .home-page-wrapper.loading {
+	background-image:
+		url(../../resources/com.atlassian.support.stp%3Aresources/images/in-progress.gif);
+	background-position: center center;
+	background-repeat: no-repeat;
+	min-height: 50px;
+	opacity: 0.6;
+}
+
+.stp-module-main-block.loading {
+	min-height: 200px;
+}
+
+#stp-container .success {
+	background-color: #cfc;
+	border-color: #a4efa4;
+}
+
+#stp-container a img {
+	border: none;
+}
+
+#stp-container a:hover {
+	text-decoration: none;
+}
+
+#stp-container a {
+	color: #036;
+	text-decoration: underline;
+}
+
+#stp-hercules-results-count {
+	display: inline;
+	float: left;
+	font-size: .95em;
+}
+
+#stp-hercules-results-pagination a span {
+	display: none;
+}
+
+#stp-hercules-results-pagination a.disabled {
+	cursor: default;
+}
+
+#stp-hercules-results-pagination a {
+	background: transparent
+		url(../../resources/com.atlassian.support.stp%3Aresources/images/pagination.gif)
+		0 0 no-repeat;
+	display: inline;
+	float: left;
+	height: 14px;
+	margin: 0 .3em 0 .3em;
+	width: 14px;
+}
+
+#stp-hercules-results-pagination {
+	float:right;
+	margin-top:.25em;
+	width: 20em;
+}
+
+#stp-hercules-results {
+	float:left;
+}
+
+#stp-progress img {
+	margin: 1.5em 0 1.5em 0;
+	float: none;
+}
+
+#stp-progress-popup {
+	font-size: 1.2em;
+	width: 400px;
+}
+
+#stp-progress {
+	padding: .5em 1.2em;
+	text-align: center;
+}
+
+a#stp-hercules-results-first:hover {
+	background-position: 0 -14px;
+}
+
+a#stp-hercules-results-first.disabled {
+	background-position: 0 -28px;
+}
+
+a#stp-hercules-results-first {
+	background-position: 0 0;
+}
+
+a#stp-hercules-results-last:hover {
+	background-position: -60px -14px;
+}
+
+a#stp-hercules-results-last.disabled {
+	background-position: -60px -28px;
+}
+
+a#stp-hercules-results-last {
+	background-position: -60px 0;
+}
+
+a#stp-hercules-results-next:hover {
+	background-position: -40px -14px;
+}
+
+a#stp-hercules-results-next.disabled {
+	background-position: -40px -28px;
+}
+
+a#stp-hercules-results-next {
+	background-position: -40px 0;
+}
+
+a#stp-hercules-results-previous:hover {
+	background-position: -20px -14px;
+}
+
+a#stp-hercules-results-previous.disabled {
+	background-position: -20px -28px;
+}
+
+a#stp-hercules-results-previous {
+	background-position: -20px 0;
+}

@@ -1,0 +1,69 @@
+#if ($assignees)
+#set ($LIMIT = 10)
+#set ($assigneeKeys = $assignees.keySet())
+#set ($irrelevantCount = $assignees.irrelevantCount)
+<div class="mod-header">
+    #if ($assigneeKeys.isEmpty() == false || $irrelevantCount > 0)
+    <ul class="ops">
+        <li><a id="frag${fragid}_more" class="icon icon-view" href="${urlUtil.getAllUrl()}" title="$i18n.getText('browseproject.issues.by.assignee.more')"><span>$i18n.getText('common.concepts.more')</span></a></li>
+    </ul>
+    #end
+    <h3>
+        $i18n.getText('common.concepts.unresolved'): $i18n.getText('common.concepts.byassignee')
+    </h3>
+</div>
+<div class="mod-content">
+    #if ($assigneeKeys.isEmpty() == true && $irrelevantCount == 0)
+    <p>$i18n.getText('common.concepts.noissues')</p>
+    #else
+    <table id="assignees" cellpadding="2" cellspacing="0">
+        <tbody>
+        #foreach ($assignee in $assigneeKeys)
+            #set ($rowClass = "assigneeRow")
+            #if ($velocityCount % 2 == 0) #set ($rowClass = "${rowClass} rowAlternateLightGray") #end
+            #if (!$assignee)
+                #set ($assigneeFullName = $i18n.getText('common.concepts.unassigned'))
+            #else
+                #set ($assigneeFullName = $userformat.format($assignee.name, $fragid))
+            #end
+            <tr class="${rowClass}">
+                <td class="name first"><a id="unresolved_assignee_$!textutils.htmlEncode($!assignee.name)" #if ($assignee && $userAvatarEnabled)class="user-hover" rel="$textutils.htmlEncode($!assignee.name)"#end href="${urlUtil.getUrl($assignee)}">$assigneeFullName</a></td>
+                <td class="count">$assignees.get($assignee)</td>
+                <td class="graph last">#histogram($assignees.getPercentage($assignee))</td>
+            </tr>
+        #end
+        #if ($irrelevantCount > 0)
+            <tr class="assigneeRow">
+                <td class="name first"><span title="$i18n.getText('common.concepts.irrelevant.desc')">$i18n.getText('common.concepts.irrelevant')</span></td>
+                <td class="count">$irrelevantCount</td>
+                <td class="graph last">#histogram($assignees.irrelevantPercentage)</td>
+            </tr>
+        #end
+
+        </tbody>
+    </table>
+        #if ($assigneeKeys.size() > $LIMIT)
+            #set ($CSS_LIMIT = $LIMIT - 1)
+            #set ($remaining = ($assigneeKeys.size() - $LIMIT))
+    <dl id="data_${fragid}">
+        <dt>andMore</dt><dd>$i18n.getText('browseproject.and.x.more', $remaining)</dd>
+        <dt>showFirst</dt><dd>$i18n.getText('browseproject.show.first.x', 10)</dd>
+    </dl>
+    <script type="text/javascript">
+    jQuery(document).ready(function(){
+        var data=jQuery.readData("#data_${fragid}");
+        var more = jQuery("#frag${fragid} #assignees .assigneeRow:gt(${CSS_LIMIT})");
+        if (!more || !more.length) return;
+        jQuery('<div id="frag${fragid}_toggle" class="toggle">'+data.andMore+'</div>')
+            .insertAfter("#frag${fragid} #assignees")
+            .toggle(
+                function() { jQuery(this).text(data.showFirst); more.show(); },
+                function() { jQuery(this).text(data.andMore); more.hide(); }
+            );
+        more.hide();
+    });
+    </script>
+        #end
+    #end
+</div>
+#end

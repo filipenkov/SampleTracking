@@ -1,0 +1,8 @@
+type,summary,status,priority,resolution,issue key
+bug,Womble,Closed,blocker,fixed,ABC-23
+New feature,Test,Closed,major,,TT-100
+Task,This is a task,resolved,Trivial,duplicate,ABC-2
+task,This is a second task,Open,Blocker,,ABC-10
+Task,This is a task2,resolved,Trivial,duplicate,ABC-3
+task,This is a second task2,,Blocker,,TT-11
+

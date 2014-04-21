@@ -1,0 +1,4 @@
+dn: o=tpm
+objectclass: top
+objectclass: organization
+o: tpm

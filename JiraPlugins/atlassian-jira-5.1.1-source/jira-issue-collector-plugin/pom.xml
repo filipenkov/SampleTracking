@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.atlassian.jira.collector.plugin</groupId>
+    <artifactId>jira-issue-collector-plugin</artifactId>
+    <version>1.1</version>
+
+    <parent>
+        <groupId>com.atlassian.pom</groupId>
+        <artifactId>atlassian-closedsource-pom</artifactId>
+        <version>25</version>
+    </parent>
+
+    <organization>
+        <name>Atlassian</name>
+        <url>http://www.atlassian.com/</url>
+    </organization>
+
+    <scm>
+        <connection>scm:hg:ssh://hg@bitbucket.org/atlassian/jira-issue-collector-plugin</connection>
+        <developerConnection>scm:hg:ssh://hg@bitbucket.org/atlassian/jira-issue-collector-plugin</developerConnection>
+    </scm>
+
+    <name>JIRA Issue Collector Plugin</name>
+    <description>This plugin provides the ability to create issues from remote applications</description>
+    <packaging>atlassian-plugin</packaging>
+
+    <dependencies>
+		<dependency>
+			<groupId>com.atlassian.analytics</groupId>
+			<artifactId>analytics-api</artifactId>
+			<version>${analytics.api.version}</version>
+		</dependency>
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>atlassian-jira</artifactId>
+            <version>${jira.version}</version>
+            <scope>provided</scope>
+        </dependency>
+		<dependency>
+			<groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-rest-plugin</artifactId>
+            <version>${jira.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-project-config-plugin</artifactId>
+            <version>${jira.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>jsr311-api</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins.rest</groupId>
+            <artifactId>atlassian-rest-module</artifactId>
+            <version>${rest.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins.rest</groupId>
+            <artifactId>atlassian-rest-common</artifactId>
+            <version>${rest.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.3</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.templaterenderer</groupId>
+            <artifactId>atlassian-template-renderer-api</artifactId>
+            <version>${atr.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.templaterenderer</groupId>
+            <artifactId>atlassian-template-renderer-velocity16-plugin</artifactId>
+            <version>${atr.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>2.5.2</version>
+            <scope>test</scope>
+        </dependency>
+	</dependencies>
+
+    <build>
+		<pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>net.sf.alchim</groupId>
+                    <artifactId>yuicompressor-maven-plugin</artifactId>
+                    <version>0.7.1</version>
+                    <configuration>
+                        <encoding>UTF-8</encoding>
+                        <!-- Everything on one line -->
+                        <linebreakpos>-1</linebreakpos>
+                        <!-- Turning off JSlint warnings -->
+                        <jswarn>false</jswarn>
+                        <excludes>
+                            <exclude>**/*-min*</exclude>
+                        </excludes>
+                    </configuration>
+
+                </plugin>
+                <plugin>
+                    <groupId>org.twdata.maven</groupId>
+                    <artifactId>cargo-maven2-plugin</artifactId>
+                    <version>1.0-beta-2-db2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.4.3</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*$*</exclude>
+                        <exclude>it/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>maven-jira-plugin</artifactId>
+                <version>3.9.3</version>
+                <extensions>true</extensions>
+                <configuration>
+					<instructions>
+						<Import-Package>
+							org.codehaus.jackson.map;version="1.4.4",
+							*;resolution:=optional
+						</Import-Package>
+						<Export-Package>
+							com.atlassian.analytics.api.annotations;version="${analytics.api.version}"
+						</Export-Package>
+						<Spring-Context>*;timeout:=60</Spring-Context>
+					</instructions>
+                    <skipManifestValidation>true</skipManifestValidation>
+                    <productVersion>${jira.test.version}</productVersion>
+                    <productDataVersion>${jira.data.version}</productDataVersion>
+                    <pluginArtifacts>
+                        <pluginArtifact>
+                            <groupId>com.atlassian.jira</groupId>
+                            <artifactId>jira-func-test-plugin</artifactId>
+                            <version>${jira.test.version}</version>
+                        </pluginArtifact>
+                    </pluginArtifacts>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+	<properties>
+		<xvfb.enable>false</xvfb.enable>
+		<atr.version>1.2.3</atr.version>
+		<rest.version>2.5.5.1</rest.version>
+		<jira.version>5.0</jira.version>
+		<jira.test.version>${jira.version}</jira.test.version>
+		<jira.data.version>${jira.test.version}</jira.data.version>
+		<analytics.api.version>2.12</analytics.api.version>
+	</properties>
+
+	<profiles>
+		<profile>
+			<id>deploy-snapshot</id>
+			<build>
+				<defaultGoal>deploy:deploy-file</defaultGoal>
+				<plugins>
+					<plugin>
+						<artifactId>maven-deploy-plugin</artifactId>
+						<configuration>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>${project.artifactId}</artifactId>
+							<version>${project.version}</version>
+							<packaging>jar</packaging>
+
+							<file>${build.directory}/${build.finalName}.jar</file>
+							<repositoryId>${project.distributionManagement.snapshotRepository.id}</repositoryId>
+							<url>${project.distributionManagement.snapshotRepository.url}</url>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

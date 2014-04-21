@@ -1,0 +1,5 @@
+#searcherHeader ($customField)
+#if ($valueObject)
+$valueObject.getString('name')
+#end
+#searcherFooter ($customField)

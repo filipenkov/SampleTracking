@@ -1,0 +1,9 @@
+#* @implicitly included *#
+#* @vtlvariable name="action" type="com.atlassian.jira.collector.plugin.web.admin.AddCollector" file="../resources/templates/add-collector.vm" *#
+#* @vtlvariable name="action" type="com.atlassian.jira.collector.plugin.web.admin.InsertCollectorHelp" file="../resources/templates/insert-collector.vm" *#
+#* @vtlvariable name="action" type="com.atlassian.jira.collector.plugin.web.admin.ViewCollectors" file="../resources/templates/view-collectors.vm" *#
+#* @vtlvariable name="action" type="com.atlassian.jira.collector.plugin.web.admin.ViewGlobalCollectors" file="../resources/templates/view-global-collectors.vm" *#
+#* @vtlvariable name="action" type="com.atlassian.jira.collector.plugin.web.admin.ViewCollector" file="../resources/templates/view-collector.vm" *#
+#* @vtlvariable name="textutils" type="com.opensymphony.util.TextUtils" *#
+#* @vtlvariable name="ratingValue" type="com.atlassian.jira.collector.plugin.rest.TemplateResource.Rating" file="../resources/templates/feedback-wiki-markup.vm" *#
+#* @vtlvariable name="webResourceManager" type="com.atlassian.plugin.webresource.WebResourceManager" *#

@@ -1,0 +1,91 @@
+#remote-jira-search-dialog #remote-jira-advanced-search-form
+{
+    display: none;
+}
+
+#remote-jira-search-dialog #simple-search-toggle,
+#remote-jira-search-dialog #advanced-search-toggle
+{
+    padding-right: 10px;
+}
+
+#remote-jira-search-dialog .aui-group
+{
+    min-height: 414px;
+    overflow: auto;
+    display: block;
+    padding: 10px;
+}
+
+#remote-jira-search-dialog fieldset
+{
+    padding-left: 6px;
+    padding-bottom: 0;
+}
+
+#remote-jira-search-dialog fieldset label
+{
+    margin-right: 20px;
+}
+
+#remote-jira-search-dialog #jql-search-text
+{
+    margin-top: 3px;
+    margin-right: 5px;
+    padding: 2px;
+    clear: both;
+}
+
+#remote-jira-search-dialog #autocomplete-loading,
+#remote-jira-search-dialog #autocomplete-failed
+{
+    margin-left: 10px;
+    color: #666;
+}
+
+#remote-jira-search-dialog #search-results-table
+{
+    height: 345px;
+    overflow-x: hidden;
+    overflow-y:  hidden;
+    table-layout: fixed;
+    margin-top: 16px;
+}
+
+#remote-jira-search-dialog #search-results-table th
+{
+    color: #666;
+}
+
+#remote-jira-search-dialog #search-results-table td
+{
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#remote-jira-search-dialog #search-results-table .key
+{
+    color: #326CA6;
+}
+
+#remote-jira-search-dialog #search-results-table .summary
+{
+    text-overflow: ellipsis;
+    max-width: 550px;
+}
+
+#remote-jira-search-dialog #search-results-table tbody tr:hover
+{
+    background-color: #F0F0F0;
+    cursor: pointer;
+}
+
+#remote-jira-search-dialog #search-results-table tbody td
+{
+    padding-left: 6px;
+}
+
+#remote-jira-search-dialog #search-results-table .aui-message
+{
+    margin-top: 10px;
+}

@@ -1,0 +1,137 @@
+.icon-filters {background:url('../../../images/icons/ico_filters.png') no-repeat 2px 2px;padding-left:2.2em;}
+.icon-reports {background:url('../../../images/icons/ico_reports.png') no-repeat 2px 2px;padding-left:2.2em;}
+.icon-add {background:url('../../../images/icons/add_20.png') no-repeat 2px 2px;padding-left:2.2em;}
+.icon-edit {background:url('../../../images/icons/edit_20.png') no-repeat 2px 2px;padding-left:2.2em;}
+.icon-tools {background:url('../../../images/icons/tools_20.png') no-repeat 2px 2px;padding-left:2.2em;}
+.icon-tools-small {background:url('../../../images/icons/tools_12.png') no-repeat 4px 0;padding-left:1.5em;}
+.icon-tools-small span {background-repeat:no-repeat;}
+#issuetable .issue_actions a.icon-tools-small {background-image:url("../../../images/icons/tools_20.png");background-position:0 -1px; background-repeat:no-repeat;}
+#issuetable .issue_actions a.icon-tools-small.loading {background-image:url("../../../images/wait-blue.gif");background-position:1px 1px;}
+.msie-7 .issue_actions a.icon-tools-small,
+.msie-8 .issue_actions a.icon-tools-small {position:relative;}
+.icon-views {background:url('../../../images/icons/view_20.png') no-repeat 3px 3px;padding-left:2.2em;}
+
+.fav-link {display:block;text-indent:-9999px;width:16px;height:16px;}
+.fav-link.enabled {background:url("../../../images/icons/star_yellow.gif") 0 center no-repeat;}
+.fav-link.disabled{background:url("../../../images/icons/star_grey.gif") 0 center no-repeat;}
+a.fav-link.loading {background:url("../../../images/icons/wait.gif") 0 center no-repeat;}
+
+/* new sprite based icons */
+.icon {background:transparent url("../../../images/icons/sprites/icons_module.png") no-repeat 0 0;display:inline-block;height:16px;vertical-align:text-top;width:16px;overflow:hidden;margin:0 0.166em;padding:0;}
+.icon span {display:none;/* this effectively hides the content of the span */text-indent:-9000px;}
+.icon img {background-image:none;height:16px;width:16px;}
+
+    /* position icon sprite */
+    .icon-add16 {background-position:0 -50px}
+    .icon-edit-sml {background-position:3px -699px}
+    .icon-delete {background-position:0 -150px}
+    .icon-delete-sml {background-position:0 -178px}
+    .icon-pagetop {background-position:0 -250px}
+    .icon-previous {background-position:0 -300px}
+    .icon-next {background-position:0 -350px}
+    .icon-first {background-position:0 -400px}
+    .icon-last {background-position:0 -450px}
+    .icon-close {background-position:0 -500px}
+    .icon-sort-down {background-position:0 -550px}
+    .icon-sort-up {background-position:0 -600px}
+    .icon-back {background-position:0 -650px}
+    .butt-edit {background-position:0 -700px}
+    .twixi-opened {background-position:0 -799px}
+    .twixi-closed {background-position:0 -849px}
+    .icon-view {background-position:0 -900px}
+    .icon-manage {background-position:0 -1110px}
+    .icon-perma {background-position:0 -950px}
+    .icon-download {background-position:0 -1000px}
+    .icon-page-prev {background-position:0 -1070px;width:20px}
+    .icon-page-next {background-position:0 -1050px;width:20px}
+    .icon-page-prev-deactivated {background-position:-26px -1025px;width:20px}
+    .icon-page-next-deactivated {background-position:0 -1025px;width:20px}
+    .icon-is-on {background-position:3px -1087px;}
+    .icon-is-off {background-position:-22px -1087px;}
+    .icon-userpicker {background-position: 0 -101px;}
+
+    .icon-watch-on {background-position:0 -1260px}
+    .icon-watch-off {background-position:0 -1180px}
+    .icon-watch-disabled {background-position:0 -1220px}
+    .icon-vote-on {background-position:0 -1360px}
+    .icon-vote-off {background-position:0 -1280px}
+    .icon-vote-disabled {background-position:0 -1320px}
+    .icon-unlocked {background-position:0 -1135px}
+    .icon-locked {background-position:0 -1155px}
+
+    .icon-add16:hover {background-position:-25px -50px}
+    .icon-edit-sml:hover {background-position:-22px -699px}
+    .icon-delete:hover {background-position:-25px -150px}
+    .icon-delete-sml:hover {background-position:-25px -178px}
+    .icon-pagetop:hover {background-position:-25px -250px}
+    .icon-previous:hover {background-position:-25px -300px}
+    .icon-next:hover {background-position:-25px -350px}
+    .icon-first:hover {background-position:-25px -400px}
+    .icon-last:hover {background-position:-25px -450px}
+    .icon-close:hover {background-position:-25px -500px}
+    .icon-sort-down:hover {background-position:-25px -550px}
+    .icon-sort-up:hover {background-position:-25px -600px}
+    .icon-back:hover {background-position:-25px -650px}
+    .icon-view:hover {background-position:-25px -900px}
+    .icon-manage:hover {background-position:-25px -1110px}
+    .icon-perma:hover {background-position:-25px -950px}
+    .icon-download:hover {background-position:-25px -1000px}
+    .icon-page-prev:hover {background-position:-25px -1070px}
+    .icon-page-next:hover {background-position:-25px -1050px}
+    a.icon-watch-on:hover {background-position:-25px -86px}
+    a.icon-watch-off:hover {background-position:-25px -70px}
+    a.icon-vote-on:hover {background-position:-25px -118px}
+    a.icon-vote-off:hover {background-position:-25px -102px}
+    .icon-unlocked:hover {background-position:-25px -1135px}
+    .icon-locked:hover {background-position:-25px -1155px}
+
+    .drop-menu {background-position:0 -199px;margin:0;}
+    .drop-menu:hover {background-position:-25px -199px;margin:0;}
+    .disabled .drop-menu,
+    .disabled .drop-menu:hover {background-position:0 -224px;margin:0;}
+
+.icon-required, .icon-f-required {background-image: url("../../../images/required.png");width:10px;}
+.icon-indent {padding-left:20px;}
+.icon-vgrabber {background-image: url("../../../images/vgrabber.png");margin:0;width:4px;}
+
+/* This is a bit of a hack for the bulk screens until aui icons can be used outside of form.aui (https://studio.atlassian.com/browse/AJS-499) */
+table .aui-field-datepicker .aui-icon.icon-date { background: transparent url("../../../images/icons/cal.gif") no-repeat 0 0; display: inline-block; height: 16px; margin: 0 1px 0 1px; overflow: hidden; vertical-align: middle; width: 16px; }
+
+.streorder .icon {display:block;height:10px;width:12px;}
+.streorder .icon img {display:none;height:0;width:0;}
+.streorder .icon-sort-down {background-position:0 -530px;}
+.streorder .icon-sort-up {background-position:0 -580px;}
+.streorder .icon-sort-down:hover {background-position:-25px -530px;}
+.streorder .icon-sort-up:hover {background-position:-25px -580px;}
+.streorder .subtask-reorder .sortArrow {height:5px;width:5px;}
+
+.jqlerror {background-image: url("../../../images/icons/error.png");background-position: 0 0;}
+.jqlgood {background-image: url("../../../images/icons/accept.png");background-position: 0 0;}
+
+h2 .icon-help {float:right;}
+h3 .icon-help {float:right;}
+
+form.aui .file-input-list div.field-group .loading,
+#stqc_form_container div.field-group .loading {display:block;background:url( "../../../images/icons/wait.gif") 0 center no-repeat;padding-left:18px;}
+
+.action-details .icon.icon-locked,
+.action-details .icon.icon-locked:hover {background-position:-2px -1154px;}
+
+/* admin summary page */
+.icon-users {background-image: url("../../../images/icons/icon_users_16.png")}
+.icon-groups {background-image: url("../../../images/icons/icon_groups_16.png")}
+.icon-roles {background-image: url("../../../images/icons/icon_roles_16.png")}
+
+/* cog dropdown */
+.cog-dd {
+    width:32px;
+    height: 18px;
+    background:transparent url(../../../images/icons/cog-dd.png) scroll no-repeat 0 0;
+}
+.aui-dd-link.cog-dd span {
+    display:none;
+}
+.cog-dd:hover,
+.cog-dd.active {
+    background-color:#3c78b5;background-position: 0 -18px;
+}

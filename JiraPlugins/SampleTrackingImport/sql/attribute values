@@ -1,0 +1,64 @@
+\loop /home/pedworth/workspace/SampleTrackingImport/sql/Find-deprecated.sql
+
+--number of attributes per db
+\for db in giv giv2 giv3 piv swiv rtv gcv hrv2 mpv rsv hpiv1 hpiv3 hadv jev veev yfv vda msl mmp rbl vzv norv barda synflu eeev flumb
+SELECT "${db}", count(a.Extent_id)
+FROM ${db}..ExtentAttribute a
+JOIN ${db}..ExtentAttributeType t
+  ON a.ExtentAttributeType_id = t.ExtentAttributeType_id
+LEFT JOIN #Deprecated_Samples d
+  ON a.Extent_id = d.Extent_id
+WHERE d.Extent_id IS NULL;
+\done
+
+DROP TABLE #GLK_attributes_used;
+CREATE TABLE #GLK_attributes_used
+(dbName VARCHAR(8),
+ attribute_type VARCHAR(80),
+ num NUMERIC(10)
+);
+
+--giv giv2 giv3 piv swiv
+\for db in rtv gcv hrv2 mpv rsv hpiv1 hpiv3 hadv jev veev yfv vda msl mmp rbl vzv norv barda synflu eeev flumb
+INSERT INTO #GLK_attributes_used (dbName, attribute_type, num)
+SELECT "${db}", t.type, a.value, count(a.Extent_id)
+FROM ${db}..ExtentAttribute a
+JOIN ${db}..ExtentAttributeType t
+  ON a.ExtentAttributeType_id = t.ExtentAttributeType_id
+LEFT JOIN #Deprecated_Samples d
+  ON a.Extent_id = d.Extent_id
+WHERE d.Extent_id IS NULL
+GROUP BY a.ExtentAttributeType_id, a.value;
+\done
+
+--number of entries of a particular attribute
+SELECT attribute_type, sum(num)
+FROM #GLK_attributes_used
+GROUP BY attribute_type
+;
+
+DROP TABLE #GLK_attributes_used;
+CREATE TABLE #GLK_attributes_used
+(dbName VARCHAR(8),
+ attribute_type NUMERIC(20),
+ content VARCHAR(80),
+ num NUMERIC(10)
+);
+--rtv gcv hrv2 mpv rsv hpiv1 hpiv3 hadv jev veev yfv vda msl mmp rbl vzv norv barda synflu eeev flumb
+\for db in giv giv2 giv3 piv swiv
+INSERT INTO #GLK_attributes_used (dbName, attribute_type, content, num)
+SELECT "${db}",ExtentAttributeType_id, content, num
+FROM
+  (SELECT ExtentAttributeType_id, value AS content, count(Extent_id) as num
+   FROM ${db}..ExtentAttribute
+   GROUP BY ExtentAttributeType_id, value) a
+WHERE num > 10;
+\done
+
+--number of different values
+SELECT type, content, num, dbName
+FROM #GLK_attributes_used a
+JOIN ExtentAttributeType t
+ON a.attribute_type = t.ExtentAttributeType_id
+GROUP BY a.attribute_type, a.content
+

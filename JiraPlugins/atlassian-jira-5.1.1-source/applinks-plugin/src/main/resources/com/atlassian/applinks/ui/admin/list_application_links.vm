@@ -1,0 +1,165 @@
+#* @vtlvariable name="i18n" type="com.atlassian.sal.api.message.I18nResolver" *#
+#* @vtlvariable name="context" type="com.atlassian.applinks.ui.velocity.ListApplicationLinksContext" *#
+#* @vtlvariable name="docLinker" type="com.atlassian.applinks.core.docs.DocumentationLinker" *#
+#parse("/common/_help_link.vm")
+#parse("/common/_xsrf_token_element.vm")
+<html>
+<head>
+    <title>${i18n.getText("applinks.list.title")}</title>
+    <meta name="decorator" content="atl.admin">
+</head>
+<body>
+<div id="ual" class="ual-$context.applicationType">
+    <script type="text/x-template" title="al-row">
+        <tr class="ual-row" id="ual-row-{rpcUrl}">
+            <td headers="icon" class="ual-cell application-icon">{iconTag}</td>
+            <td headers="name" class="ual-cell application-name">{name}</td>
+            <td headers="type" class="ual-cell application-type">{typeLabel}</td>
+            <td headers="url" class="ual-cell application-url"><a href="{rpcUrl}" target="_blank">{rpcUrl}</a></td>
+            <td headers="incoming-authentication" class="ual-cell application-incoming-authentication">{configuredIncomingAuth}</td>
+            <td headers="outgoing-authentication" class="ual-cell application-outgoing-authentication">{configuredAuth}</td>
+            <td headers="isPrimary" class="ual-cell primary-column"><div class="applinks-primary-{isPrimary}" title="${i18n.getText("applinks.link.primary.application.link")} {typeLabel}">&nbsp;</div></td>
+            <td headers="actions" class="ual-cell application-actions">
+                <ul class="menu app-actions">
+                    <li>
+                        <a href="#" class="app-edit-link">${i18n.getText("applinks.configure")}</a>
+                    </li>
+                    <li>
+                        | <a href="#" class="app-delete-link">${i18n.getText("applinks.delete")}</a>
+                    </li>
+                    <li>
+                        <span class="app-toggleprimary-action"> | <a href="#" class="app-toggleprimary-link">${i18n.getText("applinks.makeprimary")}</a> </span>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </script>
+
+    <script type="text/x-template" title="al-row-application-icon">
+        <img src='{iconUrl}' alt="">
+    </script>
+
+    <script type="text/x-template" title="al-row-op-webitem">
+        <li>
+            | <a {id} href='{url}' {styleClass} {tooltip} {accessKey}>{icon} {label}</a>
+        </li>
+    </script>
+
+    <script type="text/x-template" title="al-row-op-webitem-icon">
+        <img src='{iconUrl}' style='width:{iconWidth}; height:{iconHeight};' alt="">
+    </script>
+
+    <script type="text/javascript">
+        var nonAppLinksApplicationTypes = $context.nonAppLinksApplicationTypes,
+            applicationName = "$context.applicationName";
+
+        var localEntityTypeIdStrings = $context.localEntityTypeIdStrings;
+    </script>
+
+    #parse("com/atlassian/applinks/ui/admin/common_header.vm")
+    <div class="applinks-header">
+        <h2>${i18n.getText("applinks.configure.title")} #help('applinks.docs.adding.application.link')</h2>
+        <ul>
+            <li><a id="add-application-link" class="icon-add">${i18n.getText("applinks.list.add")}</a></li>
+        </ul>
+    </div>
+    #if (!$context.orphanedTrustCertificates.empty)
+        <div class="orphaned-trust-warning aui-message shadowed">
+            ${context.i18nNoEscape.getText("applinks.orphaned.trust.warning")} <a id='show-orphaned-trust' href='#'>${context.i18nNoEscape.getText("applinks.orphaned.trust.warning.action")}</a>
+        </div>
+    #end
+    <table class="aui" style="display: none;" id="application-links-table">
+        <thead>
+        <tr>
+            <th id="icon"><!-- icon --></th>
+            <th id="name">${i18n.getText("applinks.app.name")}</th>
+            <th id="type">${i18n.getText("applinks.app.type")}</th>
+            <th id="url">${i18n.getText("applinks.app.url")}</th>
+            <th id="incoming-authentication">${i18n.getText("applinks.incoming.auth")} #help('applinks.docs.configured.authentication.types') </th>
+            <th id="outgoing-authentication">${i18n.getText("applinks.outgoing.auth")} #help('applinks.docs.configured.authentication.types') </th>
+            <th id="isPrimary" class="primary-column">${i18n.getText("applinks.app.primary")}</th>
+            <th id="actions">${i18n.getText("applinks.actions")}</th>
+        </tr>
+        </thead>
+        <tbody id="applicationsList">
+
+        </tbody>
+    </table>
+    <div style="display: none;" class="no-links aui-message shadowed"></div>
+    <div class="links-loading aui-message shadowed">
+        <div class="links-loading-spinner">&nbsp;</div><div class="links-loading-message">${i18n.getText("applinks.links.loading")}</div>
+    </div>
+
+## the create-new-applink wizard:
+<div id="create-application-link-container" style="display: none;">
+    #parse("com/atlassian/applinks/ui/admin/applinkwizard/urlinput.vm")
+    #parse("com/atlassian/applinks/ui/admin/applinkwizard/nonual.vm")
+    #parse("com/atlassian/applinks/ui/admin/applinkwizard/reciprocal_link.vm")
+    #parse("com/atlassian/applinks/ui/admin/applinkwizard/authentication.vm")
+</div>
+
+## the non-ual to ual upgrade wizard:
+<div id="upgrade-application-link-container" style="display: none;">
+    #parse("com/atlassian/applinks/ui/admin/applinkwizard/upgradeinfo.vm")
+    #parse("com/atlassian/applinks/ui/admin/applinkwizard/reciprocal_link.vm")
+    #parse("com/atlassian/applinks/ui/admin/applinkwizard/authentication.vm")
+</div>
+
+## the upgrade orphaned trust configs wizard:
+<div id="upgrade-orphaned-trust-container" style="display: none;">
+    #set ($title = "applinks.orphaned.trust.upgrade.link")
+    #set ($steps = 2)
+    #parse("com/atlassian/applinks/ui/admin/applinkwizard/urlinput.vm")
+    #parse("com/atlassian/applinks/ui/admin/applinkwizard/nonual.vm")
+    #set ($submit = true)
+    #parse("com/atlassian/applinks/ui/admin/applinkwizard/reciprocal_link.vm")
+</div>
+
+<div id="editAppLinkDialog" style="display: none;">
+    <div id="applinkDetails" title="${i18n.getText('applinks.details.long')}" submit="true">
+        <div id="applinkDetailsPage" title="${i18n.getText('applinks.details.short')}" panel="true">
+            <form action="#" method="post" class="aui" id="application-link-details-form" onSubmit="return false;">
+                #xsrfTokenElement()
+                <div class="field-group">
+                    <label for="applicationName">${i18n.getText("applinks.details.appname")} <span class="aui-icon icon-required"></span></label>
+                    <input class="text medium-field" id="applicationName"  type="text" title="${i18n.getText('applinks.details.appname.description')}" autocomplete='off' />
+                </div>
+                <div class="field-group">
+                    <label for="applicationTypeValue">${i18n.getText("applinks.details.application.type")}</label>
+                    <span class="field-value" id="applicationTypeValue"></span>
+                    <input type="hidden" id="appId" />
+                </div>
+                <div class="field-group">
+                    <label for="rpc-url">${i18n.getText("applinks.app.url")}</label>
+                    <span class="field-value" id="rpc-url" name="rpc-url" title="${i18n.getText('applinks.app.url')}"></span>
+                    <div class="description">${i18n.getText("applinks.details.url")}</div>
+                </div>
+                <div class="field-group">
+                    <label for="display-url">${i18n.getText("applinks.details.display.url")} <span class="aui-icon icon-required"></span></label>
+                    <input class="text long-field" id="display-url"  type="text" title="${i18n.getText('applinks.details.display.url.description')}" autocomplete='off' />
+                    <div class="description">${i18n.getText("applinks.details.display.url.description")}</div>
+                </div>
+                <div class="update-validation-errors"></div>
+            </form>
+        </div>
+        <div id="outgoing-authentication-page" title="${i18n.getText('applinks.outgoing.auth')}" panel="true" class="auth-panel">
+                <iframe id="outgoing-auth" class="auth-frame" frameborder="0"></iframe>
+        </div>
+        <div id="incoming-authentication-page" title="${i18n.getText('applinks.incoming.auth')}" panel="true" class="auth-panel">
+                <iframe id="incoming-auth" class="auth-frame" frameborder="0"></iframe>
+        </div>
+    </div>
+</div>
+
+#parse("com/atlassian/applinks/ui/admin/relocate_link_dialog.vm")
+#parse("com/atlassian/applinks/ui/admin/upgrade_link_dialog.vm")    ## legacy upgrade
+
+#if (!$context.orphanedTrustCertificates.empty)
+    #parse("com/atlassian/applinks/ui/admin/orphaned_trust_dialog.vm")
+#end
+
+    #parse("com/atlassian/applinks/ui/admin/delete_link_dialog.vm")
+    #parse("com/atlassian/applinks/ui/admin/auth_dialog.vm")
+</div>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.atlassian.crowd.model.application.ApplicationImpl" table="cwd_application" lazy="true">
+
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="com.atlassian.crowd.util.persistence.hibernate.ResettableTableHiLoGenerator"/>
+        </id>
+
+        <property name="name" column="application_name" type="string" not-null="true" length="255"/>
+
+        <property name="lowerName" column="lower_application_name" type="string" not-null="true" length="255"
+                  unique-key="uk_app_l_name"/>
+
+        <property name="createdDate" column="created_date" type="timestamp" not-null="true"/>
+
+        <property name="updatedDate" column="updated_date" type="timestamp" not-null="true"/>
+
+        <property name="active" column="active" type="true_false" not-null="true"
+                  index="idx_app_active"/>
+
+        <property name="description" column="description" type="string" length="255"/>
+
+        <property name="type" column="application_type" type="ApplicationType" not-null="true" length="32"
+                  index="idx_app_type"/>
+
+        <component name="credential" class="com.atlassian.crowd.embedded.api.PasswordCredential">
+            <property name="credential" column="credential" length="255" not-null="true"/>
+        </component>
+
+        <map name="attributes" table="cwd_application_attribute" cascade="all" lazy="true">
+            <key column="application_id" foreign-key="fk_application_attribute"/>
+            <map-key column="attribute_name" type="string" length="255"/>
+            <element column="attribute_value" type="string" length="4000"/>
+        </map>
+
+        <list name="directoryMappings" cascade="all,delete-orphan" lazy="true" inverse="false">
+            <key column="application_id" not-null="true"/>
+            <list-index column="list_index"/>
+            <one-to-many class="com.atlassian.crowd.model.application.DirectoryMapping"/>
+        </list>
+
+        <set name="remoteAddresses" cascade="all" lazy="true" table="cwd_application_address">
+            <key column="application_id" not-null="true" foreign-key="fk_application_address"/>
+            <composite-element class="com.atlassian.crowd.model.application.RemoteAddress">
+                <property name="address" column="remote_address" type="string" length="255" not-null="true"/>
+                <!-- Note: re-purposing the 'remote_address_binary' to store encodedBytes. This is to avoid needing hibernate to drop a column -->
+                <property name="encodedAddressBytes" column="remote_address_binary" type="string" length="255" not-null="false"/>
+                <property name="mask" type="int">
+                    <column name="remote_address_mask" default="0" not-null="true"/>
+                </property>
+            </composite-element>
+        </set>
+
+    </class>
+
+    <class name="com.atlassian.crowd.model.application.DirectoryMapping" table="cwd_app_dir_mapping">
+
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="com.atlassian.crowd.util.persistence.hibernate.ResettableTableHiLoGenerator"/>
+        </id>
+
+        <many-to-one name="application" column="application_id" not-null="true" insert="false" update="false"
+                     foreign-key="fk_app_dir_app" unique-key="uk_app_dir" class="com.atlassian.crowd.model.application.ApplicationImpl"/>
+
+        <many-to-one name="directory" column="directory_id" not-null="true"
+                     foreign-key="fk_app_dir_dir" unique-key="uk_app_dir" class="com.atlassian.crowd.model.directory.DirectoryImpl"/>
+
+        <property name="allowAllToAuthenticate" column="allow_all" type="true_false" not-null="true"/>
+
+        <set name="authorisedGroups" cascade="all,delete-orphan" lazy="true" inverse="true">
+            <key column="app_dir_mapping_id" not-null="true"/>
+            <one-to-many class="com.atlassian.crowd.model.application.GroupMapping"/>
+        </set>
+
+        <set name="allowedOperations" table="cwd_app_dir_operation" cascade="all" lazy="true">
+            <key column="app_dir_mapping_id" foreign-key="fk_app_dir_mapping"/>
+            <element column="operation_type" type="OperationType" not-null="true" length="32"/>
+        </set>
+
+    </class>
+
+    <class name="com.atlassian.crowd.model.application.GroupMapping" table="cwd_app_dir_group_mapping">
+
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="com.atlassian.crowd.util.persistence.hibernate.ResettableTableHiLoGenerator"/>
+        </id>
+
+        <many-to-one name="directoryMapping" column="app_dir_mapping_id" not-null="true"
+                     foreign-key="fk_app_dir_group_mapping" unique-key="uk_app_dir_group"/>
+
+        <many-to-one name="application" column="application_id" not-null="true"
+                     foreign-key="fk_app_dir_group_app" class="com.atlassian.crowd.model.application.ApplicationImpl"/>
+
+        <many-to-one name="directory" column="directory_id" not-null="true"
+                     foreign-key="fk_app_dir_group_dir" index="idx_app_dir_group_group_dir" class="com.atlassian.crowd.model.directory.DirectoryImpl"/>
+
+        <property name="groupName" column="group_name" type="string" length="255" not-null="true"
+                  unique-key="uk_app_dir_group" index="idx_app_dir_group_group_dir"/>
+
+    </class>
+
+    <!-- hql queries -->
+
+    <query name="findApplicationsWithDirectoryMapping">
+        select m.application from DirectoryMapping m where m.directory.id = :directoryId
+    </query>
+
+    <!-- cannot do this because HQL deletes do not cascade associations -->
+    <!--<query name="removeDirectoryMappings">-->
+        <!--delete from DirectoryMapping m where m.directory.id = :directoryId-->
+    <!--</query>-->
+
+    <!-- can do this because GroupMapping does not have any dependent associated entities -->
+    <query name="removeAllGroupMappings">
+        delete from GroupMapping m where m.directory.id = :directoryId and m.groupName = :groupName
+    </query>
+
+    <query name="removeGroupMappings">
+        delete from GroupMapping m where m.application.id = :applicationId and m.directory.id = :directoryId and m.groupName = :groupName
+    </query>
+
+    <query name="renameGroupMappings">
+        update GroupMapping set groupName = :newGroupName where directory.id = :directoryId and groupName = :oldGroupName
+    </query>
+
+    <query name="findAuthorisedApplications">
+        select distinct dm.application from DirectoryMapping dm, GroupMapping gm where (dm.directory.id = :directoryId) and ( (dm = gm.directoryMapping and gm.groupName in (:groupNames)) or (dm.allowAllToAuthenticate = true) )
+    </query>
+
+    <!-- hibernate can't handle the in clause with an empty list in the previous query, so we need a specially crafted query to cater for hibernate's incompetence -->
+    <query name="findAuthorisedApplicationsWithoutGroupNames">
+        select distinct dm.application from DirectoryMapping dm where (dm.directory.id = :directoryId) and (dm.allowAllToAuthenticate = true)
+    </query>
+
+</hibernate-mapping>

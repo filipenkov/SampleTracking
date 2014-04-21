@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+	<cases count="1">
+		<case ixBug="3" operations="edit,assign,resolve,email,remind">
+			<ixBug>3</ixBug>
+			<ixBugParent>0</ixBugParent>
+			<fOpen>true</fOpen>
+			<sTitle><![CDATA[New feature request]]></sTitle>
+			<sArea><![CDATA[Misc]]></sArea>
+			<sEmailAssignedTo><![CDATA[wseliga@atlassian.com]]></sEmailAssignedTo>
+			<sStatus><![CDATA[Pending]]></sStatus>
+			<ixPriority>3</ixPriority>
+			<sPriority><![CDATA[Must Fix]]></sPriority>
+			<sFixFor><![CDATA[M3]]></sFixFor>
+			<sVersion><![CDATA[Version 1]]></sVersion>
+			<sCustomerEmail></sCustomerEmail>
+			<dtOpened>2011-01-19T15:09:53Z</dtOpened>
+			<dtClosed></dtClosed>
+			<dtResolved></dtResolved>
+			<hrsOrigEst>45</hrsOrigEst>
+			<hrsElapsed>4.5</hrsElapsed>
+			<hrsCurrEst>45</hrsCurrEst>
+			<ixBugChildren></ixBugChildren>
+			<tags>
+				<tag><![CDATA[dupa]]></tag>
+				<tag><![CDATA[feature]]></tag>
+				<tag><![CDATA[custom]]></tag>
+			</tags>
+			<sCategory><![CDATA[New feature]]></sCategory>
+			<events>
+				<event ixBugEvent="6" ixBug="3">
+					<ixBugEvent>6</ixBugEvent>
+					<evt>1</evt>
+					<sVerb><![CDATA[Opened]]></sVerb>
+					<ixPerson>2</ixPerson>
+					<ixPersonAssignedTo>0</ixPersonAssignedTo>
+					<dt>2011-01-19T15:09:53Z</dt>
+					<s><![CDATA[Testing]]></s>
+					<fEmail>false</fEmail>
+					<fHTML>false</fHTML>
+					<fExternal>false</fExternal>
+					<sChanges></sChanges>
+					<sFormat></sFormat>
+					<rgAttachments></rgAttachments>
+					<evtDescription><![CDATA[Opened by Pawel Niewiadomski]]></evtDescription>
+					<bEmail>false</bEmail>
+					<bExternal>false</bExternal>
+					<sPerson><![CDATA[Pawel Niewiadomski]]></sPerson>
+					<sHtml><![CDATA[Testing]]></sHtml>
+				</event>
+				<event ixBugEvent="7" ixBug="3">
+					<ixBugEvent>7</ixBugEvent>
+					<evt>3</evt>
+					<sVerb><![CDATA[Assigned to Pawel Niewiadomski]]></sVerb>
+					<ixPerson>2</ixPerson>
+					<ixPersonAssignedTo>2</ixPersonAssignedTo>
+					<dt>2011-01-19T15:09:54Z</dt>
+					<s></s>
+					<fEmail>false</fEmail>
+					<fHTML>false</fHTML>
+					<fExternal>false</fExternal>
+					<sChanges><![CDATA[Added tags 'dupa', 'feature', 'custom'.
+]]></sChanges>
+					<sFormat></sFormat>
+					<rgAttachments></rgAttachments>
+					<evtDescription><![CDATA[Assigned to Pawel Niewiadomski by Pawel Niewiadomski]]></evtDescription>
+					<bEmail>false</bEmail>
+					<bExternal>false</bExternal>
+					<sPerson><![CDATA[Pawel Niewiadomski]]></sPerson>
+					<sHtml></sHtml>
+				</event>
+				<event ixBugEvent="8" ixBug="3">
+					<ixBugEvent>8</ixBugEvent>
+					<evt>2</evt>
+					<sVerb><![CDATA[Edited]]></sVerb>
+					<ixPerson>2</ixPerson>
+					<ixPersonAssignedTo>0</ixPersonAssignedTo>
+					<dt>2011-01-19T15:10:13Z</dt>
+					<s></s>
+					<fEmail>false</fEmail>
+					<fHTML>false</fHTML>
+					<fExternal>false</fExternal>
+					<sChanges><![CDATA[Version set to 'Version 1'.
+]]></sChanges>
+					<sFormat></sFormat>
+					<rgAttachments></rgAttachments>
+					<evtDescription><![CDATA[Edited by Pawel Niewiadomski]]></evtDescription>
+					<bEmail>false</bEmail>
+					<bExternal>false</bExternal>
+					<sPerson><![CDATA[Pawel Niewiadomski]]></sPerson>
+					<sHtml></sHtml>
+				</event>
+				<event ixBugEvent="9" ixBug="3">
+					<ixBugEvent>9</ixBugEvent>
+					<evt>2</evt>
+					<sVerb><![CDATA[Edited]]></sVerb>
+					<ixPerson>2</ixPerson>
+					<ixPersonAssignedTo>0</ixPersonAssignedTo>
+					<dt>2011-01-19T15:10:33Z</dt>
+					<s></s>
+					<fEmail>false</fEmail>
+					<fHTML>false</fHTML>
+					<fExternal>false</fExternal>
+					<sChanges><![CDATA[Date due changed from (No Date) to 1/21/2011 2:30 AM (GMT+01:00).
+]]></sChanges>
+					<sFormat></sFormat>
+					<rgAttachments></rgAttachments>
+					<evtDescription><![CDATA[Edited by Pawel Niewiadomski]]></evtDescription>
+					<bEmail>false</bEmail>
+					<bExternal>false</bExternal>
+					<sPerson><![CDATA[Pawel Niewiadomski]]></sPerson>
+					<sHtml></sHtml>
+				</event>
+				<event ixBugEvent="36" ixBug="3">
+					<ixBugEvent>36</ixBugEvent>
+					<evt>3</evt>
+					<sVerb><![CDATA[Assigned]]></sVerb>
+					<ixPerson>2</ixPerson>
+					<ixPersonAssignedTo>3</ixPersonAssignedTo>
+					<dt>2011-01-19T15:19:59Z</dt>
+					<s></s>
+					<fEmail>false</fEmail>
+					<fHTML>false</fHTML>
+					<fExternal>false</fExternal>
+					<sChanges></sChanges>
+					<sFormat></sFormat>
+					<rgAttachments></rgAttachments>
+					<evtDescription><![CDATA[Assigned to Wojtek Seliga by Pawel Niewiadomski]]></evtDescription>
+					<bEmail>false</bEmail>
+					<bExternal>false</bExternal>
+					<sPerson><![CDATA[Pawel Niewiadomski]]></sPerson>
+					<sHtml></sHtml>
+				</event>
+				<event ixBugEvent="37" ixBug="3">
+					<ixBugEvent>37</ixBugEvent>
+					<evt>3</evt>
+					<sVerb><![CDATA[Assigned]]></sVerb>
+					<ixPerson>2</ixPerson>
+					<ixPersonAssignedTo>3</ixPersonAssignedTo>
+					<dt>2011-01-19T15:20:34Z</dt>
+					<s></s>
+					<fEmail>false</fEmail>
+					<fHTML>false</fHTML>
+					<fExternal>false</fExternal>
+					<sChanges></sChanges>
+					<sFormat></sFormat>
+					<rgAttachments></rgAttachments>
+					<evtDescription><![CDATA[Assigned to Wojtek Seliga by Pawel Niewiadomski]]></evtDescription>
+					<bEmail>false</bEmail>
+					<bExternal>false</bExternal>
+					<sPerson><![CDATA[Pawel Niewiadomski]]></sPerson>
+					<sHtml></sHtml>
+				</event>
+				<event ixBugEvent="38" ixBug="3">
+					<ixBugEvent>38</ixBugEvent>
+					<evt>2</evt>
+					<sVerb><![CDATA[Edited]]></sVerb>
+					<ixPerson>2</ixPerson>
+					<ixPersonAssignedTo>0</ixPersonAssignedTo>
+					<dt>2011-01-19T15:22:38Z</dt>
+					<s></s>
+					<fEmail>false</fEmail>
+					<fHTML>false</fHTML>
+					<fExternal>false</fExternal>
+					<sChanges><![CDATA[Estimate set to '45 hours'
+]]></sChanges>
+					<sFormat></sFormat>
+					<rgAttachments></rgAttachments>
+					<evtDescription><![CDATA[Edited by Pawel Niewiadomski]]></evtDescription>
+					<bEmail>false</bEmail>
+					<bExternal>false</bExternal>
+					<sPerson><![CDATA[Pawel Niewiadomski]]></sPerson>
+					<sHtml></sHtml>
+				</event>
+				<event ixBugEvent="39" ixBug="3">
+					<ixBugEvent>39</ixBugEvent>
+					<evt>2</evt>
+					<sVerb><![CDATA[Edited]]></sVerb>
+					<ixPerson>2</ixPerson>
+					<ixPersonAssignedTo>0</ixPersonAssignedTo>
+					<dt>2011-01-19T15:23:21Z</dt>
+					<s><![CDATA[Comment 1]]></s>
+					<fEmail>false</fEmail>
+					<fHTML>false</fHTML>
+					<fExternal>false</fExternal>
+					<sChanges></sChanges>
+					<sFormat></sFormat>
+					<rgAttachments></rgAttachments>
+					<evtDescription><![CDATA[Edited by Pawel Niewiadomski]]></evtDescription>
+					<bEmail>false</bEmail>
+					<bExternal>false</bExternal>
+					<sPerson><![CDATA[Pawel Niewiadomski]]></sPerson>
+					<sHtml><![CDATA[Comment 1]]></sHtml>
+				</event>
+				<event ixBugEvent="40" ixBug="3">
+					<ixBugEvent>40</ixBugEvent>
+					<evt>2</evt>
+					<sVerb><![CDATA[Edited]]></sVerb>
+					<ixPerson>2</ixPerson>
+					<ixPersonAssignedTo>0</ixPersonAssignedTo>
+					<dt>2011-01-19T15:23:44Z</dt>
+					<s><![CDATA[Honky tonky]]></s>
+					<fEmail>false</fEmail>
+					<fHTML>false</fHTML>
+					<fExternal>false</fExternal>
+					<sChanges></sChanges>
+					<sFormat></sFormat>
+					<rgAttachments></rgAttachments>
+					<evtDescription><![CDATA[Edited by Pawel Niewiadomski]]></evtDescription>
+					<bEmail>false</bEmail>
+					<bExternal>false</bExternal>
+					<sPerson><![CDATA[Pawel Niewiadomski]]></sPerson>
+					<sHtml><![CDATA[Honky tonky]]></sHtml>
+				</event>
+			</events>
+		</case>
+		<case ixBug="4" operations="edit,assign,resolve,email,remind">
+			<ixBug>4</ixBug>
+			<ixBugParent>0</ixBugParent>
+			<fOpen>true</fOpen>
+			<sTitle><![CDATA[Attachments]]></sTitle>
+			<sArea><![CDATA[Miscellaneous]]></sArea>
+			<sEmailAssignedTo><![CDATA[pniewiadomski@atlassian.com]]></sEmailAssignedTo>
+			<sStatus><![CDATA[Active]]></sStatus>
+			<ixPriority>3</ixPriority>
+			<sPriority><![CDATA[Must Fix]]></sPriority>
+			<sFixFor><![CDATA[Undecided]]></sFixFor>
+			<sVersion></sVersion>
+			<sCustomerEmail></sCustomerEmail>
+			<dtOpened>2011-01-19T15:14:13Z</dtOpened>
+			<dtClosed></dtClosed>
+			<dtResolved></dtResolved>
+			<hrsOrigEst>2323</hrsOrigEst>
+			<hrsElapsed>0</hrsElapsed>
+			<hrsCurrEst>2323</hrsCurrEst>
+			<ixBugChildren>5</ixBugChildren>
+			<tags>
+				<tag><![CDATA[linux]]></tag>
+				<tag><![CDATA[attachment]]></tag>
+			</tags>
+			<sCategory><![CDATA[Bug]]></sCategory>
+			<events>
+				<event ixBugEvent="10" ixBug="4">
+					<ixBugEvent>10</ixBugEvent>
+					<evt>1</evt>
+					<sVerb><![CDATA[Opened]]></sVerb>
+					<ixPerson>2</ixPerson>
+					<ixPersonAssignedTo>0</ixPersonAssignedTo>
+					<dt>2011-01-19T15:14:13Z</dt>
+					<s><![CDATA[Big and small attachment]]></s>
+					<fEmail>false</fEmail>
+					<fHTML>false</fHTML>
+					<fExternal>false</fExternal>
+					<sChanges></sChanges>
+					<sFormat></sFormat>
+					<rgAttachments>
+						<attachment>
+							<sFileName><![CDATA[JIM-78.csv]]></sFileName>
+							<sURL>
+								<![CDATA[default.asp?pg=pgDownload&amp;pgType=pgFile&amp;ixBugEvent=10&amp;ixAttachment=2&amp;sFileName=JIM-78.csv&sTicket=]]></sURL>
+						</attachment>
+						<attachment>
+							<sFileName><![CDATA[bugzilla_362_dump_with_better_cfg.sql]]></sFileName>
+							<sURL>
+								<![CDATA[default.asp?pg=pgDownload&amp;pgType=pgFile&amp;ixBugEvent=10&amp;ixAttachment=3&amp;sFileName=bugzilla_362_dump_with_better_cfg.sql&sTicket=]]></sURL>
+						</attachment>
+					</rgAttachments>
+					<evtDescription><![CDATA[Opened by Pawel Niewiadomski]]></evtDescription>
+					<bEmail>false</bEmail>
+					<bExternal>false</bExternal>
+					<sPerson><![CDATA[Pawel Niewiadomski]]></sPerson>
+					<sHtml><![CDATA[Big and small attachment]]></sHtml>
+				</event>
+				<event ixBugEvent="11" ixBug="4">
+					<ixBugEvent>11</ixBugEvent>
+					<evt>3</evt>
+					<sVerb><![CDATA[Assigned to Pawel Niewiadomski]]></sVerb>
+					<ixPerson>2</ixPerson>
+					<ixPersonAssignedTo>2</ixPersonAssignedTo>
+					<dt>2011-01-19T15:14:14Z</dt>
+					<s></s>
+					<fEmail>false</fEmail>
+					<fHTML>false</fHTML>
+					<fExternal>false</fExternal>
+					<sChanges><![CDATA[Estimate set to '2323 hours'
+Added tags 'linux', 'attachment'.
+]]></sChanges>
+					<sFormat></sFormat>
+					<rgAttachments></rgAttachments>
+					<evtDescription><![CDATA[Assigned to Pawel Niewiadomski by Pawel Niewiadomski]]></evtDescription>
+					<bEmail>false</bEmail>
+					<bExternal>false</bExternal>
+					<sPerson><![CDATA[Pawel Niewiadomski]]></sPerson>
+					<sHtml></sHtml>
+				</event>
+				<event ixBugEvent="19" ixBug="4">
+					<ixBugEvent>19</ixBugEvent>
+					<evt>2</evt>
+					<sVerb><![CDATA[Edited]]></sVerb>
+					<ixPerson>2</ixPerson>
+					<ixPersonAssignedTo>0</ixPersonAssignedTo>
+					<dt>2011-01-19T15:15:50Z</dt>
+					<s></s>
+					<fEmail>false</fEmail>
+					<fHTML>false</fHTML>
+					<fExternal>false</fExternal>
+					<sChanges><![CDATA[Added subcase 5.
+]]></sChanges>
+					<sFormat></sFormat>
+					<rgAttachments></rgAttachments>
+					<evtDescription><![CDATA[Edited by Pawel Niewiadomski]]></evtDescription>
+					<bEmail>false</bEmail>
+					<bExternal>false</bExternal>
+					<sPerson><![CDATA[Pawel Niewiadomski]]></sPerson>
+					<sHtml></sHtml>
+				</event>
+			</events>
+		</case>
+		<case ixBug="12" operations="edit,spam,assign,resolve,reply,forward,remind">
+			<ixBug>12</ixBug>
+			<ixBugParent>0</ixBugParent>
+			<fOpen>true</fOpen>
+			<sTitle><![CDATA[Testing mail attachments]]></sTitle>
+			<sArea><![CDATA[Undecided]]></sArea>
+			<sEmailAssignedTo><![CDATA[pniewiadomski@atlassian.com]]></sEmailAssignedTo>
+			<sStatus><![CDATA[Active]]></sStatus>
+			<ixPriority>3</ixPriority>
+			<sPriority><![CDATA[Must Fix]]></sPriority>
+			<sFixFor><![CDATA[Undecided]]></sFixFor>
+			<sVersion></sVersion>
+			<sCustomerEmail><![CDATA["Pawel Niewiadomski" <pniewiadomski@atlassian.com>]]></sCustomerEmail>
+			<dtOpened>2011-01-24T11:07:23Z</dtOpened>
+			<dtClosed></dtClosed>
+			<dtResolved></dtResolved>
+			<hrsOrigEst>0</hrsOrigEst>
+			<hrsElapsed>0</hrsElapsed>
+			<hrsCurrEst>0</hrsCurrEst>
+			<ixBugChildren></ixBugChildren>
+			<tags></tags>
+			<sCategory><![CDATA[Inquiry]]></sCategory>
+			<events>
+				<event ixBugEvent="45" ixBug="12">
+					<ixBugEvent>45</ixBugEvent>
+					<evt>11</evt>
+					<sVerb><![CDATA[Incoming Email]]></sVerb>
+					<ixPerson>2</ixPerson>
+					<ixPersonAssignedTo>0</ixPersonAssignedTo>
+					<dt>2011-01-24T11:07:23Z</dt>
+					<s><![CDATA[From: "Pawel Niewiadomski" <pniewiadomski@atlassian.com>
+Date: Mon, 24 Jan 2011 11:56:46 +0100
+To: "cases@jim.fogbugz.com" <cases@jim.fogbugz.com>
+Cc: 
+Subject: Testing mail attachments
+
+]]></s>
+					<fEmail>true</fEmail>
+					<fHTML>true</fHTML>
+					<fExternal>true</fExternal>
+					<sChanges></sChanges>
+					<sFormat></sFormat>
+					<sFrom><![CDATA["Pawel Niewiadomski" <pniewiadomski@atlassian.com>]]></sFrom>
+					<sTo><![CDATA["cases@jim.fogbugz.com" <cases@jim.fogbugz.com>]]></sTo>
+					<sCC></sCC>
+					<sBCC></sBCC>
+					<sReplyTo><![CDATA["Pawel Niewiadomski" <pniewiadomski@atlassian.com>]]></sReplyTo>
+					<sSubject><![CDATA[Testing mail attachments]]></sSubject>
+					<sDate><![CDATA[Mon, 24 Jan 2011 11:56:46 +0100]]></sDate>
+					<sMessageId><![CDATA[<AANLkTimnPqobaNggKJh8S4uGczBQsF-s0H+LoPHPU_9-@mail.gmail.com>]]></sMessageId>
+					<sBodyText></sBodyText>
+					<sBodyHTML></sBodyHTML>
+					<rgAttachments>
+						<attachment>
+							<sFileName><![CDATA[build.properties.sample]]></sFileName>
+							<sURL>
+								<![CDATA[default.asp?pg=pgDownload&amp;pgType=pgFile&amp;ixBugEvent=45&amp;ixAttachment=4&amp;sFileName=build.properties.sample&sTicket=]]></sURL>
+						</attachment>
+						<attachment>
+							<sFileName><![CDATA[build.properties.template]]></sFileName>
+							<sURL>
+								<![CDATA[default.asp?pg=pgDownload&amp;pgType=pgFile&amp;ixBugEvent=45&amp;ixAttachment=5&amp;sFileName=build.properties.template&sTicket=]]></sURL>
+						</attachment>
+					</rgAttachments>
+					<evtDescription><![CDATA[Incoming email received]]></evtDescription>
+					<bEmail>true</bEmail>
+					<bExternal>true</bExternal>
+					<sPerson><![CDATA[Pawel Niewiadomski]]></sPerson>
+				</event>
+				<event ixBugEvent="46" ixBug="12">
+					<ixBugEvent>46</ixBugEvent>
+					<evt>13</evt>
+					<sVerb><![CDATA[NotSorted]]></sVerb>
+					<ixPerson>-1</ixPerson>
+					<ixPersonAssignedTo>0</ixPersonAssignedTo>
+					<dt>2011-01-24T11:07:24Z</dt>
+					<s></s>
+					<fEmail>false</fEmail>
+					<fHTML>false</fHTML>
+					<fExternal>true</fExternal>
+					<sChanges><![CDATA[Remains in 'Undecided' area.
+]]></sChanges>
+					<sFormat></sFormat>
+					<rgAttachments></rgAttachments>
+					<evtDescription><![CDATA[Email not sorted automatically - training in progress]]></evtDescription>
+					<bEmail>false</bEmail>
+					<bExternal>true</bExternal>
+					<sPerson><![CDATA[FogBugz]]></sPerson>
+					<sHtml></sHtml>
+				</event>
+				<event ixBugEvent="47" ixBug="12">
+					<ixBugEvent>47</ixBugEvent>
+					<evt>3</evt>
+					<sVerb><![CDATA[Assigned]]></sVerb>
+					<ixPerson>-1</ixPerson>
+					<ixPersonAssignedTo>2</ixPersonAssignedTo>
+					<dt>2011-01-24T11:07:25Z</dt>
+					<s></s>
+					<fEmail>false</fEmail>
+					<fHTML>false</fHTML>
+					<fExternal>true</fExternal>
+					<sChanges></sChanges>
+					<sFormat></sFormat>
+					<rgAttachments></rgAttachments>
+					<evtDescription><![CDATA[Assigned to Pawel Niewiadomski by FogBugz]]></evtDescription>
+					<bEmail>false</bEmail>
+					<bExternal>true</bExternal>
+					<sPerson><![CDATA[FogBugz]]></sPerson>
+					<sHtml></sHtml>
+				</event>
+			</events>
+		</case>
+	</cases>
+</response>

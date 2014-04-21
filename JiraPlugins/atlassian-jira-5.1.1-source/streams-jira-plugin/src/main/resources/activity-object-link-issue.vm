@@ -1,0 +1,18 @@
+#if($issue.getResolutionDate())
+  #set ($objectHtml = "<span class='resolved-link'>" + $activityObject.title.get() + "</span>")
+#else
+  #set ($objectHtml = $activityObject.title.get())
+#end
+#if($withSummary && $activityObject.summary.isDefined())
+  #if ($activityObject.alternateLinkUri.isDefined())
+    <a href="$activityObject.alternateLinkUri.get().toASCIIString()">$objectHtml - $activityObject.summary.get()</a>
+  #else
+    $objectHtml - $activityObject.summary.get()
+  #end
+#else
+  #if ($activityObject.alternateLinkUri.isDefined())
+    <a href="$activityObject.alternateLinkUri.get().toASCIIString()">$objectHtml</a>
+  #else
+    $objectHtml
+  #end
+#end

@@ -1,0 +1,78 @@
+##disable_html_escaping() TODO REENABLE
+## This template requires the com.atlassian.jira.web.component.webfragment.SystemNavContextLayoutBean to be passed
+
+#set ($mainHeaderLinks = $linkManager.getLinksForSection($location, $user, $helper))
+#if (!$mainHeaderLinks.isEmpty())
+<ul id="main-nav" class="standard-menu-bar">
+    #foreach ($headerLink in $mainHeaderLinks)
+        #set ($shouldBeLazy = $linkManager.shouldLocationBeLazy($headerLink.id, $user, $helper))
+        #if ($shouldBeLazy)
+            #set ($lazy = " lazy")
+        #else
+            #set ($lazy = " nonlazy")
+        #end
+        #if($layout.selectedSection && $layout.selectedSection == $headerLink.id)
+            #set ($selected = " selected")
+        #else
+            #set ($selected = "")
+        #end
+        <li class="aui-dd-parent${lazy}${selected}">
+            <a class="lnk"
+                href="$headerLink.url"
+                #if ($headerLink.id) id="$headerLink.id"#end
+                #if ($headerLink.accessKey) accessKey="$headerLink.accessKey"#end
+                #if ($headerLink.title) title="$headerLink.title"#end
+                >$headerLink.label</a>
+
+        #if($shouldBeLazy)
+            <span class="drop-wrap">
+            <a class="drop aui-dd-link"
+                #if ($headerLink.id)
+                    id="${headerLink.id}_drop"
+                    rel="$headerLink.id"
+                    #if ($i18n.isKeyDefined("menu.accesskey.${headerLink.id}")) accessKey="$i18n.getText("menu.accesskey.${headerLink.id}")"#end
+                    title="$i18n.getText('menu.access.more.options')#safeMenuAccessKey ($i18n $accessKeyHelper ${headerLink.id} ${layout.modifierKey})"
+                #end
+                href="#"><span>$i18n.getText('menu.access.more.options')#safeMenuAccessKey ($i18n $accessKeyHelper ${headerLink.id} ${layout.modifierKey})</span></a></span>
+        #else
+            #set ($dropdownSections = $linkManager.getSectionsForLocation($headerLink.id, $user, $helper))
+            #if (!$dropdownSections.isEmpty())
+                #set ($firstSection = true)
+                #foreach ($section in $dropdownSections)
+                    #set ($sectionKey = "$headerLink.id/$section.id")
+                    #set ($dropdownLinks = $linkManager.getLinksForSection($sectionKey, $user, $helper))
+                    #if (! $dropdownLinks.empty)
+                        #if( $firstSection )
+                            <span class="drop-wrap">
+                            <a class="drop aui-dd-link"
+                                #if ($headerLink.id)
+                                    id="${headerLink.id}_drop"
+                                    #if ($i18n.isKeyDefined("menu.accesskey.${headerLink.id}")) accessKey="$i18n.getText("menu.accesskey.${headerLink.id}")"#end
+                                    rel="$headerLink.id"
+                                    title="$i18n.getText('menu.access.more.options')#safeMenuAccessKey ($i18n $accessKeyHelper ${headerLink.id} ${layout.modifierKey})"
+                                #end
+                                href="#"><span>$i18n.getText('menu.access.more.options')</span></a></span>
+                            <div class="aui-list hidden">
+                        #end
+                        #if ($section.label) <h5>$section.label</h5> #end
+                        <ul id="$section.id" class="#if($firstSection)aui-list-section aui-first #set ($firstSection = false)#end #if($velocityCount == $dropdownSections.size()) aui-last #end #if($section.styleClass) $section.styleClass #end">
+                            #foreach ($dropdownLink in $dropdownLinks)
+                                <li class="aui-list-item"><a
+                                    #if ($dropdownLink.id) id="$dropdownLink.id" #end
+                                    class="aui-list-item-link#if ($dropdownLink.styleClass) $dropdownLink.styleClass #end #if ($dropdownLink.iconUrl) aui-iconised-link #end"
+                                    #if ($dropdownLink.iconUrl) style="background-image:url('$dropdownLink.iconUrl')" #end
+                                    #if ($dropdownLink.title)title="$dropdownLink.title"#end
+                                    href="$dropdownLink.url">$dropdownLink.label</a></li>
+                            #end
+                        </ul>
+                        #if (!$firstSection && !$velocityHasNext)
+                        </div>
+                        #end
+                    #end
+                #end
+            #end
+        #end
+        </li>
+    #end
+</ul>
+#end

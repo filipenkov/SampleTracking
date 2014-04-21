@@ -1,0 +1,37 @@
+<div class="project-config-webpanel-content project-config-icon48-people">
+    <div class="project-config-webpanel-help">
+        <p>${i18n.getText("admin.project.config.summary.people.desc")}</p>
+    </div>
+    <ul class="project-config-list project-config-datalist" id="project-config-summary-people-list">
+        <li>
+            <span class="project-config-list-label">
+                ${i18n.getText("common.concepts.projectlead")}:
+            </span>
+            <span class="project-config-list-value" id="project-config-summary-people-project-lead">
+                #if($userAvatarsEnabled)
+                    <img src="$userAvatarUrl" id="project-config-summary-people-project-lead-avatar" class="project-config-icon-avatar" height="16" width="16" alt="" />
+                #end
+                #if(!$projectLeadExists)
+                    <span class="errLabel">$projectLeadHtml</span>
+                #else
+                    ${projectLeadHtml}
+                #end
+            </span>
+        </li>
+        <li>
+            <span class="project-config-list-label">${i18n.getText("admin.projects.default.assignee")}:</span>
+
+            #if($defaultAssigneeAssignable)
+                <span class="project-config-list-value" id="project-config-summary-people-default-assignee">${i18n.getText($defaultAssignee)}</span>
+            #else
+                <span class="project-config-list-value project-config-invalid" title="${i18n.getText("admin.projects.warning.user.not.assignable")}" id="project-config-summary-people-default-assignee">${i18n.getText($defaultAssignee)}</span>
+            #end
+        </li>
+        <li>
+            <span class="project-config-list-label">Roles:</span>
+            <span class="project-config-list-value"><a href="${baseurl}/plugins/servlet/project-config/${project.key}/people">${i18n.getText("admin.projects.view.project.roles")}</a></span>
+        </li>
+    </ul>
+    <a class="project-config-more-link" href="${baseurl}/plugins/servlet/project-config/${project.key}/people" title="${i18n.getText("admin.project.config.summary.people.manage")}">${i18n.getText("common.concepts.more")}</a>
+
+</div>

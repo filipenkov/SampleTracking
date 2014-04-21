@@ -1,0 +1,162 @@
+#* @vtlvariable name="esc" type="org.apache.velocity.tools.generic.EscapeTool" *#
+#* @vtlvariable name="usageTrackingService" type="com.atlassian.jira.plugins.importer.tracking.UsageTrackingService" *#
+#* @vtlvariable name="action" type="com.atlassian.jira.plugins.importer.web.ExternalImport" *#
+
+#parse("/templates/admin/views/common/html-header.vm")
+
+<script type="text/javascript">
+	## we need to include inactive (no tracking yet) GA object so that we can track opt in / opt out later on
+	#if (!$usageTrackingService.isActive())
+		#parse("/web/javascript/ga-notracking.js")
+	#end
+
+	function trackingOptIn() {
+		_gaq.push(['_trackEvent', 'OptInOptOut', 'OptIn']);
+	}
+
+	function trackingOptOut() {
+		_gaq.push(['_trackEvent', 'OptInOptOut', 'OptOut']);
+	}
+
+</script>
+
+#foreach ($panel in $action.headerPanels)
+	<div>
+		$panel
+	</div>
+#end
+
+<table class="jiraform maxWidth">
+	<tr>
+		<td class="jiraformheader">
+			<h3 class="formtitle">$i18n.getText('jira-importer-plugin.external.import.external.projects')</h3></td>
+	</tr>
+	<tr id="newer-version-available">
+		<td colspan="2">
+			#AUImessage("info" $i18n.getText('jira-importer-plugin.external.import.newer.version.available', $req.contextPath) "" "" "" "" "false")
+		</td>
+	</tr>
+	<tr>
+		<td class="jiraformbody">
+			<div id="importers">
+				#foreach ($importerName in $sorter.sort($action.importerControllerFactory.supportedImporters))
+					<div class="importer">
+						#set ($controller = $action.importerControllerFactory.getController($importerName))
+
+						<div class="body">
+							<img src="$webResourceManager.getStaticPluginResource($controller.logo.first(), $controller.logo.second())" alt="$controller.title">
+
+							<p>
+							$controller.description
+							</p>
+
+							#if ($textutils.stringSet($controller.documentationUrl) == true)
+								$i18n.getText("jira-importer-plugin.external.import.please.read.documentation", $controller.documentationUrl)
+							#end
+						</div>
+						<div class="version">
+							<span style="float: left;">
+							#if ($textutils.stringSet($controller.supportedVersions))
+								$i18n.getText("jira-importer-plugin.external.import.supports.version") <BR>
+								$controller.supportedVersions
+							#end
+							</span>
+							<span style="float: right; font-weight: bold; padding-top: 10px;">
+							#if ($controller.importer.running == false)
+								<input id="import_$importerName" type="button" value="$i18n.getText('jira-importer-plugin.external.import.import')"
+									   onclick="window.location='${controller.firstStep}!default.jspa?externalSystem=$importerName'; return false;">
+							#else
+								<input id="import_$importerName" type="button" value="$i18n.getText('jira-importer-plugin.external.import.view.logs')"
+									   title="$i18n.getText('jira-importer-plugin.importlogs.already.running', $importerName)"
+									   onclick="window.location='ImporterLogsPage!viewLogs.jspa?externalSystem=$importerName'; return false;">
+							#end
+							</span>
+						</div>
+					</div>
+				#end
+
+				<div class="importer">
+					<div class="body">
+						<img src="$webResourceManager.getStaticPluginResource('com.atlassian.jira.plugins.jira-importers-plugin:graphics', 'jelly')" alt="Jelly">
+
+						<p>
+							$i18n.getText('jira-importer-plugin.external.jelly.description')
+						</p>
+					</div>
+					<div class="version">
+						<span style="float: left;">
+						</span>
+						<span style="float: right; font-weight: bold; padding-top: 10px;">
+							<input id="import_jelly" type="button" value="$i18n.getText('jira-importer-plugin.external.import.import')"
+									   onclick="window.location='$req.contextPath/secure/admin/util/JellyRunner!default.jspa'; return false;">
+						</span>
+					</div>
+				</div>
+
+			</div>
+			<div style="clear: both;"></div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div id="helpOut" style="display:#if (!$usageTrackingService.trackingStatusDefined) block #else none #end;">
+					<div class="message">
+						<h2>$i18n.getText('jira-importer-plugin.external.import.help.make')</h2>
+
+						<p>$i18n.getText('jira-importer-plugin.external.import.atlassian.would.like.to.collect')</p>
+
+						<div class="buttons">
+						## as JS engine may stop handling GA object when a href is clicked and the document is changed, we give it some more time
+							<input type="button" value="$i18n.getText('jira-importer-plugin.external.import.tracking.yes')"
+								   onclick="trackingOptIn(); setTimeout(function() { location.href='ExternalImport1!initialOptIn.jspa'; }, 200);return false;">
+							&nbsp;&nbsp;&nbsp;
+							<a href="ExternalImport1!initialOptOut.jspa"
+							   onclick="that=this;trackingOptOut();setTimeout(function() { location.href=that.href }, 200);return false;">
+								$i18n.getText('jira-importer-plugin.external.import.tracking.no')</a>
+						</div>
+					</div>
+			</div>
+
+			#if ($usageTrackingService.trackingStatusDefined)
+				<div>
+					#if ($usageTrackingService.active)
+						$i18n.getText('jira-importer-plugin.usagetracking.tracked')
+						<a href="ExternalImport1!initialOptOut.jspa"
+							   onclick="that=this;trackingOptOut();setTimeout(function() { location.href=that.href }, 200);return false;">
+								$i18n.getText('jira-importer-plugin.external.import.tracking.stop')</a>
+					#else
+						$i18n.getText('jira-importer-plugin.usagetracking.nottracked')
+						<a href="ExternalImport1!initialOptIn.jspa"
+							   onclick="that=this;trackingOptIn();setTimeout(function() { location.href=that.href }, 200);return false;">
+								$i18n.getText('jira-importer-plugin.external.import.tracking.start')</a>
+					#end
+				</div>
+			#end
+		</td>
+	</tr>
+</table>
+
+<script type="text/javascript">
+	AJS.$(document).ready(function() {
+		AJS.$("#newer-version-available").hide();
+		AJS.${esc.getDollar()}.ajax({
+			"url": contextPath + "/rest/jira-importers-plugin/1.0/plugin/upgradeAvailable",
+			"success": function (data) {
+				if (data == true) {
+					AJS.$("#newer-version-available").show();
+				}
+			}
+		});
+	});
+</script>
+
+#foreach ($panel in $action.footerPanels)
+	<div>
+		$panel
+	</div>
+#end
+
+#parse("/templates/admin/views/common/reportBug.vm")
+
+</body>
+</html>

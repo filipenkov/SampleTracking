@@ -1,0 +1,11 @@
+#if ($status)
+#if (!$displayParams.textOnly)
+    #set ($iconurl = $status.iconUrlHtml)
+    #if ($iconurl.startsWith('http://') || $iconurl.startsWith('https://'))
+        <img src="$iconurl" height="16" width="16" alt="$textutils.htmlEncode($status.getNameTranslation(), false)" title="$textutils.htmlEncode($status.getNameTranslation(), false) - $textutils.htmlEncode($!status.getDescTranslation(), false)" />
+    #else
+        <img src="${requestContext.baseUrl}${iconurl}" height="16" width="16" alt="$textutils.htmlEncode($status.getNameTranslation(), false)" title="$textutils.htmlEncode($status.getNameTranslation(), false) - $textutils.htmlEncode($!status.getDescTranslation(), false)" />
+    #end
+#end
+$textutils.htmlEncode($status.getNameTranslation(), false)
+#end

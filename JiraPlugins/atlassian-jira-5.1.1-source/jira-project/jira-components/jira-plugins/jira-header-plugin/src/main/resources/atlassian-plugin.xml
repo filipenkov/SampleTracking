@@ -1,0 +1,37 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="Atlassian" url="http://www.atlassian.com/"/>
+        <application-version min="4.4" max="4.4"/>
+    </plugin-info>
+
+    <top-navigation key="sean-standard-navigation-top" i18n-name-key="top.navigation.plugin.standard.name"
+                    name="Standard Top Navigation Bar"
+                    class="com.atlassian.jira.plugin.headernav.ModernPluggableTopNavigation" state='enabled'>
+        <resource type="velocity" name="view" location="templates/topnav.vm"/>
+        <order>10</order>
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.IsFeatureEnabledCondition">
+            <param name="featureKey">com.atlassian.jira.darkfeature.CommonHeader</param>
+        </condition>
+    </top-navigation>
+
+    <web-resource key="jira-header">
+
+        <context>jira.global</context>
+
+        <transformation extension="less">
+            <transformer key="lessTransformer"/>
+        </transformation>
+
+        <!--<resource type="download" name="appswitcher.css" location="css/appswitcher.less"/>-->
+        <resource type="download" name="buttons.css" location="css/buttons.less"/>
+        <resource type="download" name="utilities.css" location="css/utilities.less"/>
+        <resource type="download" name="navbar.css" location="css/navbar.less"/>
+        <resource type="download" name="dropdown2.css" location="css/dropdown2.css"/>
+        <resource type="download" name="dropdown2-style.css" location="css/dropdown2-style.less"/>
+        <resource type="download" name="dropdown2.js" location="js/dropdown2.js"/>
+        <resource type="download" name="init-dropdown2.js" location="js/init-dropdown2.js"/>
+    </web-resource>
+
+</atlassian-plugin>

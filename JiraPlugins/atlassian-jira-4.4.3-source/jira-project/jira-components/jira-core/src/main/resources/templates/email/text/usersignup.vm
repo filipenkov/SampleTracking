@@ -1,0 +1,7 @@
+$i18n.getText("template.user.signup.singedupforjira")
+
+   $baseurl
+
+#parse("templates/email/text/includes/userdetails_secure.vm")
+
+#parse("templates/email/text/includes/footer.vm")

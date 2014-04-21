@@ -1,0 +1,95 @@
+@import "dynamic:lookandfeel.less";
+@import "variables.less";
+
+/* view issue dialogs */
+.aui-dialog-content form.aui h2 {margin-top:0;}
+.aui-dialog-content .content {margin:0;}
+.aui-dialog-content form.edit-labels .field-group { padding-left: 0; }
+.aui-dialog-content form.edit-labels .aui-field-labelpicker label { display:none; }
+.header-issue-key, .header-issue-key:link, .header-issue-key:visited, .header-issue-key:active{color:#666}
+.header-issue-key, .header-separator{display:none;}
+/* Temp hiding till Sharpy makes it look pretty */
+.aui-popup-heading .header-issue-key, .aui-popup-heading .header-separator{display:inline}
+/*.aui-dialog-content .form-summary {display:block; padding: 0 0 10px; margin: 0 0 1.2em; border-bottom:1px solid #BBB;}*/
+
+/* workflow readonly */
+#view-workflow-readonly-dialog .form-body {overflow-x:hidden;}
+
+#charts-dialog, #charts-dialog h2 {overflow:visible;}
+#charts-dialog .close {position:absolute; text-indent:-9999px; top:-13px; right:-13px; width: 30px; height:30px; background: transparent url( "../../../images/button-close.png") 0 0 no-repeat; padding:0; border:none; cursor:pointer;}
+#charts-dialog .page-menu li.page-menu-item {outline:none;}
+#charts-dialog .page-menu li.page-menu-item button:-moz-focus-inner {border: 0;}
+#charts-dialog .page-menu li.page-menu-item button:hover {cursor:pointer;}
+#charts-dialog .gadget {width:100%; height:80%;}
+#charts-dialog ul {margin:0; list-style-type:none;}
+#charts-dialog .page-menu {margin:0;padding:0;}
+#charts-dialog h3 {background:#F0F0F0 none repeat scroll 0 0; color:#666; font-size:0.9em; height:35px; line-height:35px; margin:0; overflow:hidden; padding:0 1em; position:relative; }
+#charts-dialog .gadgetContent {padding:1em;height:310px;}
+#charts-dialog .warningBox {padding:2px 2px 2px 30px;margin-bottom:2px;}
+#charts-dialog .portalLabels {float:left;}
+#charts-dialog .portalEntry {float:left;padding-left:15px;}
+#charts-dialog .portalButton {float:right;}
+#charts-dialog .page-menu li.page-menu-item.selected.loading {background:#fff url( "../../../images/icons/wait.gif") 95% center no-repeat;}
+#charts-dialog .form-errors {display:none;}
+#charts-dialog .dialogThrobber {display:none;float:right;}
+#charts-dialog .dialogThrobber.loading {display:block; background:#F0F0F0 url(../../../images/icons/wait.gif) no-repeat scroll 100% center;position:absolute; right:20px; top:0; width:20px;}
+
+/* Shortcuts help popup */
+#shortcutsmenu {position:relative;font-size:12px;}
+#shortcutsmenu .module {clear:none;float:left;margin:0 1% 1em;width:48%;}
+#shortcutsmenu ul.item-details li {margin-bottom:0.5em;}
+#shortcutsmenu dl dt {width:38%;padding-top:4px;}
+#shortcutsmenu dl dd {width:60%;}
+#shortcutsmenu .mod-content { padding: 5px 0 0; }
+#shortcutsmenu .module.module-alternate { clear: left; }
+#shortcutsmenu h3 { border-bottom: none;font-size:18px; }
+#shortcutsmenu form.aui,
+#shortcutsmenu form.aui legend span { color: #666; }
+#shortcutsmenu .preferences { margin-bottom: 0; width: 98% }
+#shortcutsmenu .preferences .form-footer {}
+#shortcutsmenu kbd, kbd {line-height:22px;background:#fff url(../../../images/button_bg.png) repeat-x scroll 0 100%;display:inline-block;text-align:center;border:1px solid #ddd;padding:0 6px;min-width:16px;font-family:arial, FreeSans, Helvetica, sans-serif;-moz-border-radius:0.166em;-webkit-border-radius:0.166em;border-radius:0.166em;}
+#shortcut-dialog, #shortcut-dialog h2 {overflow:visible;}
+#shortcut-dialog .close { position:absolute; font-size:0; top:-13px; right:-13px; width: 30px; height:30px; background: transparent url( "../../../images/button-close.png") 0 0 no-repeat; padding:0; border:none; cursor:pointer;}
+.msie-gt-7 #shortcutsmenu dl dt {padding-top:3px;}
+
+/* dialog menu */
+.dialog-menu-group {
+    border-right:1px solid #ddd;
+    width:160px;
+    .dialog-menu {
+        list-style:none;
+        margin:0;
+        padding: 10px 0px 0px 0px;
+        .dialog-menu-item {
+            color:#666;
+            display:block;
+            overflow:hidden;
+            padding: 7px 16px;
+            text-overflow:ellipsis;
+            white-space:nowrap;
+            font-family: arial, FreeSans, Helvetica, sans-serif;
+        &:hover,
+        &.selected {
+            text-decoration:none;
+            }
+        &:hover {
+            background-color:#f5f5f5;
+            cursor:pointer;
+            }
+        &.selected {
+            background-color:#69c;
+            color:#fff;
+            font-weight:bold;
+            }
+        }
+        button.dialog-menu-item {
+            background: none repeat scroll 0 0 transparent;
+            border: medium none;
+            width: 100%;
+            text-align: left;
+            font-size: @basefontsize;
+        }
+    }
+
+}
+.aui-group > .aui-item.dialog-menu-group + .aui-item {padding-left:0;}

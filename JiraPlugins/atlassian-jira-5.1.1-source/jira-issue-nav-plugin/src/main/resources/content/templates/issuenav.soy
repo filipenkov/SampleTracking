@@ -1,0 +1,330 @@
+{namespace JIRA.Templates.IssueNav}
+
+/**
+ * Issue Navigator
+ */
+{template .issueTable}
+    <thead>
+        <tr>
+        
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+{/template}
+
+/**
+ */
+{template .columnHeader_issuetype}
+<th class="issue-type issue-icon-result persist-result"><div>{getText('issue.column.heading.issuetype')}</div></th>
+{/template}
+
+/**
+ * @param issue
+ */
+{template .column_issuetype}
+<td class="issue-type issue-icon-result persist-result"><img src="{$issue.fields.issuetype.iconUrl}" alt="{$issue.fields.issuetype.name}" title="{$issue.fields.issuetype.description}" align="absmiddle" border="0" height="16" width="16"></td>
+{/template}
+
+/**
+ * TODO check the thing about this being two column headers and the data has colspan 2
+ */
+{template .columnHeader_keysummary}
+<th class="issue-key persist-result"><div>{getText('issue.column.heading.issuekey')}</div></th>
+<th class="issue-summary issue-text-result persist-result"><div>{getText('issue.column.heading.summary')}</div></th>
+{/template}
+
+
+
+
+/**
+ * @param issue
+ * @param contextPath
+ */
+{template .column_keysummary}
+<td class="issue-key-summary issue-text-result persist-result" colspan="2">
+    <div>
+        <a href="{$contextPath}/browse/{$issue.key}" class="issue">
+            <span class="secondary-text">{$issue.key}</span>
+            {$issue.fields.summary}
+        </a>
+    </div>
+</td>
+{/template}
+
+/**
+ */
+{template .columnHeader_status}
+<th class="issue-status"><div>{getText('issue.column.heading.status')}</div></th>
+{/template}
+
+/**
+ * @param issue
+ */
+{template .column_status}
+<td class="issue-status"><div class="status-lozenge">{$issue.fields.status.name}</div></td>
+{/template}
+
+/**
+ */
+{template .columnHeader_assignee}
+<th class="issue-user"><div>{getText('issue.column.heading.assignee')}</div></th>
+{/template}
+
+/**
+ * @param issue
+ * @param
+ */
+{template .column_assignee}
+<td class="issue-user">
+    {if $issue.fields.assignee}
+        <img src="{$issue.fields.assignee.avatarUrls['16x16']}" alt="{$issue.fields.assignee.name}" height="16" width="16" />
+        <a class="user-hover" rel="{$issue.fields.assignee.name}" href="#">{$issue.fields.assignee.displayName}</a>
+    {else}
+        {getText('assignee.types.unassigned')}
+    {/if}
+</td>
+{/template}
+
+/**
+ */
+{template .columnHeader_updated}
+<th class="issue-datetime"><div>{getText('issue.column.heading.updated')}</div></th>
+{/template}
+
+/**
+ * @param issue
+ * @param TMP_FORMATTED_DATE
+ */
+{template .column_updated}
+<td class="issue-datetime"><time datetime="{$issue.fields.updated}">{$TMP_FORMATTED_DATE}</time></td>
+{/template}
+
+/**
+ */
+{template .columnHeader_resolution}
+<th class="issue-resolution"><div>{getText('issue.column.heading.resolution')}</div></th>
+{/template}
+
+/**
+ * @param issue
+ */
+{template .column_resolution}
+<td class="issue-resolution">
+{if $issue.fields.resolution}
+    {$issue.fields.resolution.name}
+{else}
+    {getText('common.resolution.unresolved')}
+{/if}
+</td>
+{/template}
+
+/**
+ * @param columnCount
+ * @param errorText
+ */
+{template .issueResultsError}
+    <tr class="error">
+        <td colspan="{$columnCount}">{$errorText}</td>
+    </tr>
+{/template}
+
+
+
+
+/**
+ * @param items
+ */
+{template .searchSwitcher}
+        {foreach $item in $items}
+            {call .searchSwitcherItem}
+                {param id: $item.id /}
+                {param text: $item.text /}
+                {param isActive: isFirst($item) /}
+             {/call}
+        {/foreach}
+{/template}
+
+/**
+ * @param id
+ * @param text
+ * @param isActive
+ */
+{template .searchSwitcherItem}
+    <a href="#" class="switcher-item{$isActive ? ' active' : ''} " data-id='{$id}'>{getText('search.switchto')} {$text}</a>
+{/template}
+
+/**
+ */
+{template .jqlQueryView}
+    <div class="aui-item">
+        <div class="atlassian-autocomplete">
+            {if AJS.params.autocompleteEnabled}
+                <label for="advanced-search">
+                    <span id="jqlerrormsg" class="icon jqlgood"><span>{getText('search.parse')}</span></span> <span class="jql-label">{getText('navigator.advanced.query.label')} <span id="jqlcolrowcount">{getText('navigator.advanced.query.line')}:<span id="jqlrownum">0</span>{getText('navigator.advanced.query.character')}:<span id="jqlcolumnnum">0</span></span></span>
+                </label>
+            {/if}
+            <textarea id="advanced-search" class="search-entry advanced-search ajs-dirty-warning-exempt" name="jql"></textarea>
+        </div>
+    </div>
+    <div class="aui-item search-button-container">
+        <button class="search-button" type="submit">{getText('search.search')}</button>
+    </div>
+{/template}
+
+/**
+ */
+{template .basicQueryView}
+    <div class="aui-item">
+        <input class="search-entry text ajs-dirty-warning-exempt" type="text" name="textQuery" placeholder="{getText('search.placeholder')}" />
+    </div>
+    <div class="aui-item search-button-container">
+        <button class="search-button" type="submit">{getText('search.search')}</button>
+    </div>
+    <div class="aui-item">
+        <div class="lozenges"></div>
+        <div class="clause-buttons"></div>
+    </div>
+{/template}
+
+/**
+ */
+{template .lozengeContainer}
+    <ul class="filter-list">
+    </ul>
+{/template}
+
+/**
+ */
+{template .queryView}
+    <div class="aui-group search-container"></div>
+    <div class="notifications"></div>
+    <div class="switcher"></div>
+{/template}
+
+/**
+ * @param filterName
+ * @param filters
+ */
+{template .searchHeader}
+    {if $filters.length > 0}
+        <h1 class="saved-search-selector">
+            <a class="js-default-dropdown" data-alignment="left" href="#" title="{getText('search.select.saved')}"><span class="saved-search-label">{$filterName}</span><span class="icon drop-menu"></span></a>
+            <div class="aui-list hidden">
+                <ul class="aui-list-section aui-first aui-last saved-search-list">
+                {foreach $filter in $filters}
+                    <li class="aui-list-item"><a href="#" class="aui-list-item-link" data-id="{$filter.id}">{$filter.name}</a></li>
+                {/foreach}
+                </ul>
+            </div>
+        </h1>
+    {else}
+        <h1 class="saved-search-selector">{$filterName}</h1>
+    {/if}
+{/template}
+
+/**
+* @param displayBackButton
+*/
+{template .lozengeDropdownContent}
+    <form id="issue-filter" class="searchfilter aui top-label aui-popup-content">
+        <div class="form-body">
+        </div>
+        {if $displayBackButton}
+            <a href="#" class="back">{getText('issue.nav.back')}</a>
+        {/if}
+        <div class="buttons-container form-footer">
+            <div class="buttons">
+                <input type="submit" name="filter" class="aui-button filter" value="{getText('search.clause.update')}" />
+                <a href="#" class="aui-button-cancel">{getText('issue.nav.close')}</a>
+            </div>
+        </div>
+    </form>
+{/template}
+
+/**
+  * @param name
+  */
+{template .lozengeContent}
+    <div class="lozenge-holder">
+        <span class="fieldLabel">{$name}:</span> {getText('search.all')}
+    </div>
+{/template}
+
+/**
+  *
+  */
+{template .variableLozenge}
+    <li class="variable lozenge drop-arrow">
+        <div class="lozenge-holder">
+            <span class="fieldLabel multilozenge"></span>
+        </div>
+    </li>
+{/template}
+
+/**
+ * Renders Claus Buttons
+ */
+{template .clauseButtonView}
+<ul class="filter-actions filter-list">
+    <li class="add-filter filter-action">&#43; {getText('issue.nav.filter.add.filter')}</li>
+    <li class="clear-filters filter-action">&#45; {getText('issue.nav.filter.clear.filters')}</li>
+</ul>
+{/template}
+
+/**
+ * Displays the list of searchers in the groups
+ * @param searcherGroups
+ */
+{template .searcherDropdownContent}
+    <div class="searcher-groups available">
+        <ul>
+        {foreach $group in $searcherGroups}
+            <li class="twixi-block {if isFirst($group)}expanded{else}collapsed{/if}" data-id="{$group.id}">
+                <div class="twixi-trigger">
+                    {$group.name}
+                </div>
+                <ul class="twixi-content">
+                    {foreach $searcher in $group.searchers}
+                        <li><a href="#" data-id="{$searcher.id}" class="searcher-option" >{$searcher.name}</a></li>
+                    {/foreach}
+                </ul>
+            </li>
+        {/foreach}
+        </ul>
+        <div class="buttons-container">
+            <div class="buttons">
+                <a href="#" class="aui-button-cancel">{getText('issue.nav.close')}</a>
+            </div>
+        </div>
+    </div>
+{/template}
+
+/**
+ * TODO It'd be nice to have one source of truth for dialog structure
+ * @param clauses
+ */
+{template .enabledClauses}
+<div class="searcher-groups clauses">
+    <div class="aui-popup-content">
+        <ul class="clauses">
+        {foreach $clause in $clauses}
+            <li data-id="{$clause.id}"{if not $clause.validSearcher} class="aui-message warning"{/if}>
+                {if $clause.validSearcher}
+                    {$clause.displayValue|noAutoescape}
+                {else}
+                    {$clause.name}: ({getText('searcher.invalid.label')})
+                {/if}
+                <a href="#" class="remove-filter" title="{getText('search.remove.filter')}">x</a>
+            </li>
+        {/foreach}
+        </ul>
+    </div>
+    <div class="buttons-container">
+        <div class="buttons">
+            <a href="#" class="aui-button-cancel">{getText('issue.nav.close')}</a>
+        </div>
+    </div>
+</div>
+{/template}

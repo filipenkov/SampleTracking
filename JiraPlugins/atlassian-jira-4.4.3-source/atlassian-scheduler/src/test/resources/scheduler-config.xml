@@ -1,0 +1,13 @@
+<scheduler>
+
+    <jobs>
+        <job name="FooJob" class="mock.atlassian.scheduler.SimpleJob" durable="true"/>
+    </jobs>
+
+    <triggers>
+        <trigger name="SimpleTrigger" job="FooJob">
+            <period>1h</period>
+        </trigger>
+    </triggers>
+
+</scheduler>

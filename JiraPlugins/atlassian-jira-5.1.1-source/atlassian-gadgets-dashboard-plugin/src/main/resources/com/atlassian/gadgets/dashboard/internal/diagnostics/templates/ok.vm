@@ -1,0 +1,16 @@
+Dashboard Diagnostics: OK
+<a id="learn-more-link">Click here to learn more</a>
+
+#if($isAdmin)
+<a class="close">Close</a>
+#end
+
+<div id="diagnostic-content" class="hidden">
+    <h4>Dashboard Diagnostics: OK</h4>
+
+    <p>
+        No known issues were discovered. If you are having trouble accessing your dashboard, please contact
+        <a href="http://support.atlassian.com">Atlassian Support</a>.
+    </p>
+</div>
+

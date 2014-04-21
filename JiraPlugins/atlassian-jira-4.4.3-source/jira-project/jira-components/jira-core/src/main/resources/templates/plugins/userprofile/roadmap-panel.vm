@@ -1,0 +1,48 @@
+#if ($isAjaxExpand == true)
+    <div class="module isolated">
+        <div class="mod-content">
+            $panelRenderer.getHtml($browsecontext, 'personal_roadmap', $versionManager.getVersionsUnreleased($project.id, false), true)
+        </div>
+    </div>
+#else
+    #if ($project)
+    #set ($projName = $textUtils.htmlEncode(${project.name}))
+    #set ($projKey = $textUtils.htmlEncode(${project.key}))
+    #set ($projUrl = "<a title='$projKey' href='${baseurl}/browse/$projKey'>$projName</a>")
+    <div class="module isolated">
+        <div class="mod-header">
+            <h3>$i18n.getText('roadmap.personal', $projUrl)</h3>
+        </div>
+        <div class="mod-content">
+            <span>$i18n.getText('roadmap.personal.change.project'):</span>
+            <select id="project-selector">
+                #foreach ($proj in $browseableProjects)
+                    <option #if ($proj == $project) selected="true" #end value="$proj.id">$textUtils.htmlEncode($proj.name)</option>
+                #end
+            </select>
+        </div>
+    </div>
+
+    $panelRenderer.getHtml($browsecontext, 'personal_roadmap', $versionManager.getVersionsUnreleased($project.id, false), true)
+
+
+
+    #else
+        #if ($browseableProjects && $browseableProjects.empty == false)
+        <div class="module isolated">
+            <div class="mod-header">
+                <h3>$i18n.getText('roadmap.personal.none.selected')</h3>
+            </div>
+            <div class="mod-content">
+                <span>$i18n.getText('roadmap.personal.change.project'):</span>
+                <select id="project-selector">
+                    <option value=""></option>
+                    #foreach ($proj in $browseableProjects)
+                        <option value="$proj.id">$textUtils.htmlEncode($proj.name)</option>
+                    #end
+                </select>
+            </div>
+        </div>
+        #end
+    #end
+#end

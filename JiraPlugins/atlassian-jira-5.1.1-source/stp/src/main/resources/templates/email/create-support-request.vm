@@ -1,0 +1,14 @@
+## No i18n support necessary (or wanted) since this e-mail is intended for an automated system.
+---------------------------------------------------------------------------------------
+This is an automated request sent using the Support Tools Plugin
+---------------------------------------------------------------------------------------
+
+Problem Description:
+$description
+
+Support Request Sent by: $contactEmail
+Priority: $priority
+
+---------------------------------------------------------------------------------------
+This is the end of an automated request sent using the Support Tools Plugin
+---------------------------------------------------------------------------------------

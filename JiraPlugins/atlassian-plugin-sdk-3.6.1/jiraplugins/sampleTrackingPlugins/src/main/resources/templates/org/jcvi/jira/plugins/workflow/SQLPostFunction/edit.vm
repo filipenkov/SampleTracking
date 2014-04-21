@@ -1,0 +1,336 @@
+## todo: display the contents of the resource to show the sql that will be used?
+## todo: allow field mapping?
+## todo: add $i18n.getText(key)?
+
+## #############################################################################
+## Variables
+## #############################################################################
+##SECTIONS:
+##sqlSource = file  or text
+##catalog   = false or true
+##database  = jndi  or jdbc
+##The first value is the default
+
+#if (! $sqlSource)
+    #set ($sqlSource = "text")
+#end
+
+#if (! $catalog)
+    #set ($catalog = "false")
+#end
+
+#if (! $database)
+    #set ($database = "jndi")
+#end
+
+##pre-filter the descriptors
+#set ($sqlDescriptors = [])
+#foreach ($option in $descriptor.resourceDescriptors)
+    #if (${option.type} == "SQL")
+        #set ($ignoreResult = $sqlDescriptors.add($option))
+    #end
+#end
+
+## #############################################################################
+## Macros
+## #############################################################################
+## Unfortunatly because of the way Velocity works these must be defined first
+## in the file and can't be moved into a seperate file.
+## http://wiki.apache.org/velocity/MacroIssues
+## #############################################################################
+
+## =============================================================================
+## input fields
+## =============================================================================
+## These macros add form inputs to the HTML.
+## They share a common set of parameters:
+##   $label        The text to display next to the input on the web page
+##   $section      The type of information required. The actual information can
+##                 be provided in multiple ways.
+##                 e.g. Database Connection could be provided via
+##                 JNDI or by a JDBC connection.
+##   $sub-section  One of the ways the information can be defined.
+##                 e.g. JNDI
+##   $set          The sub-section currently selected
+##                 e.g. JNDI or JDBC
+##   $field        The name of the field inside a sub-section
+##                 e.g. URI, class, username etc
+##   $allValues    The valid values for the field
+##   $value        The current, possibly default, value
+## =============================================================================
+
+## -----------------------------------------------------------------------------
+## Name:      xxRowLabel
+## Structure: <tr><td><label/></td> NO </tr>
+## Notes:     A second cell containing the input is required.
+##            only called from other macros
+## -----------------------------------------------------------------------------
+#macro (xxRowLabel $label $section $sub-section $set $field)
+<tr class="${section}-${sub-section}">
+    <td>
+        <label for="${section}-${sub-section}-${field}">${label}</label>
+    </td>
+##tr must be closed by the calling code
+#end
+
+## -----------------------------------------------------------------------------
+## Name:      sectionSelect
+## Structure: <p><input/><label/></p>
+## -----------------------------------------------------------------------------
+#macro (sectionSelect $inputType $label $section $sub-section $set)
+#if ($sub-section && $set && $sub-section == $set)
+    #set ($mark-checked = "checked")
+#else
+    #set ($mark-checked = "")
+#end
+<p>
+    <input id="${section}-${sub-section}" type="${inputType}" name="${section}"
+           value="${sub-section}" $!{mark-checked} />
+    <label for="${section}-${sub-section}">${label}</label>
+</p>
+#end
+
+## -----------------------------------------------------------------------------
+## Name:      subSectionTextField
+## Structure: <tr><td><label/></td><td><input/></td></tr>
+## -----------------------------------------------------------------------------
+#macro (subSectionTextField $label $section $sub-section $set $field $value)
+##<tr> opened by xxRowLabel
+    #xxRowLabel($label $section $sub-section $set $field)
+    <td>
+        <input type="text" id="${section}-${sub-section}-${field}"
+               name="${section}-${sub-section}-${field}"
+              value="$!{value}"/>
+    </td>
+</tr>
+#end
+
+## -----------------------------------------------------------------------------
+## Name:      subSectionSelectField
+## Structure: <tr><td><label/></td><td><select><option/>...</select></td></tr>
+## -----------------------------------------------------------------------------
+#macro (subSectionSelectField $label $section $sub-section $set $field $allValues $value)
+##<tr> opened by xxRowLabel
+    #xxRowLabel($label $section $sub-section $set $field)
+    <td>
+        <select id="${section}-${sub-section}-${field}"
+              name="${section}-${sub-section}-${field}" >
+            <option value="false">Default</option>
+        #foreach( $currentField in $allValues)
+            #if ($currentField.id)
+                #set ($fieldValue = $currentField.id)
+            #else
+                #set ($fieldValue = $currentField.name)
+            #end
+            #if ($value && $fieldValue == $value)
+                #set ($selected = "SELECTED")
+            #else
+                #set ($selected = "")
+            #end
+            <option value="${fieldValue}"
+                            ${selected}>${currentField.name}</option>
+        #end
+        </select>
+    </td>
+</tr>##tr was opened in #xxRowLabel
+#end
+
+## =============================================================================
+## CSS styles
+## =============================================================================
+## -----------------------------------------------------------------------------
+## Name:      inputStyle
+## Notes:     See the input fields section for the parameters definitions.
+##            This adds a CSS definition that will display the previously
+##            selected/default sub-section.
+## -----------------------------------------------------------------------------
+#macro (inputStyle $section $set)
+  ##The ".options-table tr." selector is required to make this more specific
+  ##than the "display: none" rule
+  .options-table tr.${section}-${set} {
+      display: table-row;
+  }
+#end
+
+##colSpan/rowSpan seem to only count the cells that are displayed!
+##this adds an extra row that consumes any remaining colSpan before the
+##next section. This is useful as it allows one or all of the options to be
+##displayed without corrupting the layout
+#macro (clearColSpan)
+    <tr class="always-display"></tr>
+#end
+## #############################################################################
+## CSS
+## #############################################################################
+
+<style>
+    .options-table tr{
+        display: none;
+    }
+    #inputStyle("always" "display")
+    #inputStyle("sqlSource" ${sqlSource})
+    #inputStyle("catalog" ${catalog})
+    #inputStyle("database" ${database})
+    .options-table h4 {
+        margin-bottom: 10pt;
+    }
+</style>
+
+## #############################################################################
+## HTML
+## #############################################################################
+
+## does this need to be html encoded? textutils.htmlEncode()
+## This is how the jira-plugin's resourceDescriptor is passed to the
+## OSWorkflow plugin's parameters
+<input type="hidden" name="plugin-resource-key" value="${descriptor.completeKey}"/>
+
+<tr><td colspan="2">
+## we are already in a table, but not in a row. The table has two columns.
+## Three is of more use to us and so we define another table inside a
+## colspan="2" cell
+<table class="options-table">
+    <tr class="always-display">
+        <td>&nbsp;</td>
+        <!-- fixed width to avoid cells jumping around as sub-sections are
+             displayed and hidden -->
+        <td><div style="min-width: 150px">&nbsp;</div></td>
+        <td>&nbsp;</td>
+    </tr>
+
+## =============================================================================
+## SQL Source
+## =============================================================================
+## Form fields / velocity parameters
+## sqlSource = file or text
+## file:
+##   sqlSource-file-value contains the resource name
+## text:
+##   sqlSource-text-value contains the SQL
+
+## HTML stylesheet classes
+## sqlSource-file
+## sqlSource-text
+## =============================================================================
+<tr class="always-display">
+    <td rowspan="3" style="vertical-align: top">
+        <h4>SQL Prepared Statement Source</h4>
+        #sectionSelect( "radio" "From file" "sqlSource" "file" $sqlSource)
+        #sectionSelect( "radio" "Custom"    "sqlSource" "text" $sqlSource)
+<!-- Attach a javascript listener to display a textbox if 'Custom' is selected-->
+    </td><td colspan="2">&nbsp;</td>
+</tr>
+    ## -------------------------------------------------------------------------
+    ## SQL Source - file
+    ## -------------------------------------------------------------------------
+    #subSectionSelectField ("Select File" "sqlSource" "file" $sqlSource "resource" $sqlDescriptors $sqlSource-file-resource)
+
+    ## -------------------------------------------------------------------------
+    ## SQL Source - text
+    ## -------------------------------------------------------------------------
+    <tr class="sqlSource-text" >
+        <td colspan="2">
+            <p><label for="sqlResource-text">Enter SQL</label></p>
+            <textarea id="sqlResource-text" name="sqlSource-text-value" rows="10" cols="80">
+    $!{sqlSource-text-value}
+            </textarea>
+        </td>
+    </tr>
+
+#clearColSpan ()
+
+## =============================================================================
+## Catalog
+## =============================================================================
+## Form fields / velocity parameters
+## catalog = true or false
+## catalog-true-value = id of the field to use
+##
+## HTML stylesheet classes
+## catalog-true
+## =============================================================================
+
+<tr class="always-display"><td rowspan="2">
+    <h4>Catalog</h4>
+    #sectionSelect( "checkbox" "Specify Catalog using a field from the Issue" "catalog" "true" $catalog)
+    <!-- Attach a javascript listener-->
+    </td><td colspan="2">&nbsp;</td>
+</tr>
+    ## -------------------------------------------------------------------------
+    ## Catalog - true
+    ## -------------------------------------------------------------------------
+    #subSectionSelectField ("Field to use for Catalog" "catalog" "true" $catalog "field" $allFields $catalog-true-field)
+#clearColSpan ()
+
+## =============================================================================
+## Database Connection
+## =============================================================================
+## velocity input variables:
+## database = jndi or jdbc
+## jndi:
+##   database-jndi-uri
+## jdbc:
+##   database-jdbc-class
+##   database-jdbc-uri
+##   database-jdbc-user
+##   database-jdbc-password
+##
+## HTML stylesheet classes
+## database-jndi
+## database-jdbc
+## =============================================================================
+<tr class="always-display"><td style="vertical-align: top" rowspan="6">
+    <h4>Database Connection</h4>
+    #sectionSelect( "radio" "Using JNDI" "database" "jndi" $database)
+    #sectionSelect( "radio" "Using JDBC" "database" "jdbc" $database)
+    <!-- Attach a javascript listener-->
+    <td colspan="2">&nbsp;</td>
+</tr>
+    ## -------------------------------------------------------------------------
+    ## Database - jndi
+    ## -------------------------------------------------------------------------
+    #subSectionTextField( "JNDI URI:"    "database" "jndi" $database "uri"      $database-jndi-uri)
+
+    ## -------------------------------------------------------------------------
+    ## Database - jdbc
+    ## -------------------------------------------------------------------------
+    #subSectionTextField( "Driver Class" "database" "jdbc" $database "class"    $database-jdbc-class)
+    #subSectionTextField( "URL"          "database" "jdbc" $database "uri"      $database-jdbc-uri)
+    #subSectionTextField( "Username"     "database" "jdbc" $database "user"     $database-jdbc-user)
+    #subSectionTextField( "Password"     "database" "jdbc" $database "password" $database-jdbc-password)
+
+##These are empty rows to clear any remaining rowspan
+##Commented out as they are not needed if this is the last row in the table
+###clearColSpan (4)
+</table></td></tr>
+
+## #############################################################################
+## Javascript
+## #############################################################################
+<script type="text/javascript">
+    function subSectionSelect( event) {
+        var inputName = event.target.name;
+        //find all inputs in the group, that are not/no-longer checked
+        jQuery("input[name="+inputName+"]:not(:checked)").each(
+            function (number, inputObject) {
+                var subSectionClass = "."+inputName+"-"+inputObject.value;
+                //hide their sub-sections
+                jQuery(subSectionClass).css("display","none");
+            }
+        );
+        var subSectionClass = "."+inputName+"-"+event.target.value;
+
+        //only display the section if this input has been selected
+        //this handles the case where no inputs are selected (only
+        //possible with checkboxes)
+        if (this.checked) {
+            jQuery(subSectionClass).css("display","table-row");
+        } else {
+            jQuery(subSectionClass).css("display","none");
+        }
+    }
+
+    jQuery("input[name=sqlSource]").change(subSectionSelect);
+    jQuery("input[name=catalog]").change(subSectionSelect);
+    jQuery("input[name=database]").change(subSectionSelect);
+</script>

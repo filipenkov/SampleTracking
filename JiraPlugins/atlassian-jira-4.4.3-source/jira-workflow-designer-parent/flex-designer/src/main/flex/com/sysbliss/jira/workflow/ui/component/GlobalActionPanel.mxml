@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns="com.sysbliss.jira.workflow.ui.component.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:arc90="com.arc90.flexlib.containers.*"
+	width="100%" height="100%"
+	title="{niceResourceManager.getString('json','workflow.designer.global.transitions')}">
+	
+	<mx:Script>
+		<![CDATA[
+        import com.sysbliss.jira.plugins.workflow.model.FlexJiraWorkflow;
+        import com.sysbliss.jira.workflow.Il8n.INiceResourceManager;
+        import com.sysbliss.jira.workflow.Il8n.NiceResourceManager;
+        import com.sysbliss.jira.workflow.controller.GlobalActionController;
+        import com.sysbliss.jira.workflow.event.EventTypes;
+
+        import com.sysbliss.jira.workflow.event.GenericDataEvent;
+
+        import org.swizframework.Swiz;
+
+        import com.sysbliss.jira.workflow.controller.JiraStatusController;
+        import com.sysbliss.jira.workflow.utils.WorkflowConstants;
+
+        [Bindable]
+        [Autowire]
+        public var globalActionController:GlobalActionController;
+
+        private const niceResourceManager:INiceResourceManager = NiceResourceManager.getInstance();
+
+        [Mediate(event="${eventTypes.CURRENT_WORKFLOW_CHANGED}", properties="workflow")]
+        public function updateStatusListEnabled(fjw:FlexJiraWorkflow):void
+        {
+
+            if (fjw && fjw.isEditable)
+            {
+                disableButtons();
+                btnAddAction.enabled = true;
+                actionList.enabled = true;
+
+            } else
+            {
+                disableButtons();
+                actionList.enabled = false;
+                btnAddAction.enabled = false;
+            }
+        }
+
+        [Mediate(event="${eventTypes.ALL_WORKFLOWS_CLOSED}")]
+        public function disableStandardList():void
+        {
+            actionList.enabled = false;
+            disableButtons();
+        }
+
+        private function enableButtons():void
+        {
+
+            btnAddAction.enabled = true;
+            btnAddAction.useHandCursor = true;
+            btnAddAction.buttonMode = true;
+
+            btnEditAction.enabled = true;
+            btnEditAction.useHandCursor = true;
+            btnEditAction.buttonMode = true;
+
+            btnDeleteAction.enabled = true;
+            btnDeleteAction.useHandCursor = true;
+            btnDeleteAction.buttonMode = true;
+        }
+
+        private function disableButtons():void
+        {
+
+            btnEditAction.enabled = false;
+            btnEditAction.useHandCursor = false;
+            btnEditAction.buttonMode = false;
+
+            btnDeleteAction.enabled = false;
+            btnDeleteAction.useHandCursor = false;
+            btnDeleteAction.buttonMode = false;
+        }
+
+        private function onEditButton(e:MouseEvent):void
+        {
+            var event:GenericDataEvent = new GenericDataEvent(EventTypes.EDIT_GLOBAL_ACTION, {action:actionList.selectedItem.data});
+
+            Swiz.dispatchEvent(event);
+        }
+
+        private function onAddButton(e:MouseEvent):void
+        {
+            Swiz.dispatch(EventTypes.NEW_GLOBAL_ACTION);
+        }
+
+        private function onDeleteButton(e:MouseEvent):void
+        {
+            var event:GenericDataEvent = new GenericDataEvent(EventTypes.DELETE_GLOBAL_ACTION, {actionId:actionList.selectedItem.data.id});
+
+            Swiz.dispatchEvent(event);
+        }
+		]]>
+	</mx:Script>
+	<mx:VBox width="100%" height="100%" verticalGap="2">
+        <mx:HBox id="buttonBar" width="100%" styleName="buttonBar" horizontalScrollPolicy="auto" verticalScrollPolicy="off">
+			<mx:Button id="btnAddAction" width="20" height="20"
+				styleName="panelButton" 
+				icon="{WorkflowConstants.ICON_ADD}"
+                disabledIcon="{WorkflowConstants.ICON_ADD_DISABLED}"
+				toolTip="{niceResourceManager.getString('json','workflow.designer.add.new.transition')}"
+				buttonMode="true"
+				useHandCursor="true"
+				click="onAddButton(event);"
+				enabled="false"/>
+				
+			<mx:Button id="btnEditAction" width="20" height="20"
+				styleName="panelButton" 
+				icon="{WorkflowConstants.ICON_EDIT}"
+                disabledIcon="{WorkflowConstants.ICON_EDIT_DISABLED}"
+				toolTip="{niceResourceManager.getString('json','workflow.designer.edit.selected.transition')}"
+				buttonMode="true"
+				useHandCursor="true"
+				click="onEditButton(event);"
+				enabled="false"/>
+
+            <mx:Button id="btnDeleteAction" width="20" height="20"
+				styleName="panelButton"
+				icon="{WorkflowConstants.ICON_DELETE}"
+                disabledIcon="{WorkflowConstants.ICON_DELETE_DISABLED}"
+				toolTip="{niceResourceManager.getString('json','workflow.designer.delete.selected.transition')}"
+				buttonMode="true"
+				useHandCursor="true"
+				click="onDeleteButton(event);"
+				enabled="false"/>
+
+		</mx:HBox>
+		
+		<mx:List id="actionList" width="100%" height="100%"
+				enabled="false"
+				dragEnabled="false"
+				dragMoveEnabled="false"
+                change="enableButtons();"
+				dataProvider="{globalActionController.listProvider}"
+				iconFunction="{globalActionController.getListIcon}"/>
+	</mx:VBox>
+	
+</mx:Panel>

@@ -1,0 +1,28 @@
+<div class="wiki-edit">
+    <div id="${fieldId}-wiki-edit" class="wiki-edit-content">
+        #if($!class) #set ($class = " ${class}") #else #set ($class = '') #end
+            #if($singleLine)
+            <input class="text long-field wiki-textfield${class}" id="$fieldId" #if($maxlength)maxlength="$maxlength"#end name="$fieldId" type="text" value="$textutils.htmlEncode($!value)" />
+            #else
+            <textarea #if($accesskey)accesskey="$accesskey"#end class="textarea long-field wiki-textfield${class}" #if($cols)cols="$cols"#end id="$fieldId" name="$fieldId" #if($rows)rows="$rows"#end #if($wrap)wrap="$wrap"#end>$textutils.htmlEncode($!value)</textarea>
+        #end
+        <div class="content-inner">            
+        </div>
+    </div>
+</div>
+<div class="field-tools">
+    <dl id="wiki-prefs" class="wiki-js-prefs" style="display:none">
+        <dt>trigger</dt>
+        <dd>${fieldId}-preview_link</dd>
+        <dt>fieldId</dt>
+        <dd>$!fieldId</dd>
+        <dt>fieldName</dt>
+        <dd>$!fieldName</dd>
+        <dt>rendererType</dt>
+        <dd>$!rendererType</dd>
+        <dt>issueKey</dt>
+        <dd>$!issueKey</dd>
+    </dl>
+    <a class="wiki-renderer fullscreen" href="#" id="${fieldId}-preview_link" title="${i18n.getText("renderer.preview")}">$i18n.getText("renderer.preview")</a>
+    <a class="wiki-renderer help-icon" href="${baseurl}/secure/WikiRendererHelpAction.jspa?section=texteffects" id="viewHelp" onclick="window.open('$baseurl/secure/WikiRendererHelpAction.jspa?section=texteffects', 'wiki_renderer_notation_help', 'width=780, height=575, resizable, scrollbars=yes'); return false;" title="${i18n.getText("renderer.notation-help")}">${i18n.getText("renderer.notation-help")}</a>
+</div>

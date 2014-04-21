@@ -1,0 +1,4 @@
+assign,subject,comment
+User.Name,"Test Case1","01/01/2001 10:10;User.Name; This comment works"
+User.Name,"Test Case2","01/01/2001 10:10;User.Name; This comment
+fails"

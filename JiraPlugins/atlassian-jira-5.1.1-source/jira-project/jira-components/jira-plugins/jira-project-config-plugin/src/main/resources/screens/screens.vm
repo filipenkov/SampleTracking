@@ -1,0 +1,175 @@
+#enable_html_escaping()
+#* @vtlvariable name="issuetypes" type="java.util.List<com.atlassian.jira.projectconfig.contextproviders.ProjectIssueTypeContextProvider.ProjectIssueType>" *#
+<div id="project-config-panel-screens" class="project-config-panel">
+    <div class="project-config-panel-header project-config-icon48-screens">
+        #if ($isAdmin)
+            <ul class="operation-menu">
+                <li class="aui-dd-parent">
+                    <a class="operations-menu-link project-config-operations-trigger" id="project-config-tab-actions" href="#"><span class="project-config-icon project-config-icon-manage"></span>Actions <span class="project-config-icon project-config-icon-drop"></span></a>
+                    <div class="aui-list hidden" id="project-config-tab-actions-list">
+                        <ul class="aui-list-section aui-first aui-last">
+                            <li class="aui-list-item">
+                                <a id="project-config-screens-scheme-edit" class="aui-list-item-link" data-id="${issueTypeScreenScheme.id}" href="${issueTypeScreenScheme.editUrl}">$i18n.getText('admin.project.screens.edit')</a>
+                            </li>
+                            <li class="aui-list-item">
+                                <a id="project-config-screens-scheme-change" class="aui-list-item-link" data-id="${project.id}" href="${baseurl}/secure/project/SelectIssueTypeScreenScheme!default.jspa?projectId=${project.id}">$i18n.getText('admin.project.config.change.scheme')</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        #end
+        <span>$i18n.getText('admin.menu.issuefields.screens')</span>
+        <h2 class="project-config-scheme-heading">
+            #set ($hasSchemeDescription = ${issueTypeScreenScheme.description} && ${issueTypeScreenScheme.description} != "")
+            <span id="project-config-screens-scheme-name" class="project-config-scheme-name"#if($hasSchemeDescription) title="${issueTypeScreenScheme.description}"#end>${issueTypeScreenScheme.name}</span>
+        </h2>
+        <p>$i18n.getText('admin.project.screens.scheme.usage', $screenSchemes.size())</p>
+        <p>
+            $i18n.getText('admin.project.config.summary.screens.desc')
+            <br/>
+            $i18n.getText('admin.project.config.summary.screens.desc.extended')
+        </p>
+    </div>
+    ## Loop over all the individual Screen Schemes
+    #foreach($screenScheme in $screenSchemes)
+    ## If there is more than one we want them to be all collapsed
+    #if ($screenSchemes.size() > 1)
+        #set ($collapsed = " collapsed")
+    #else
+        #set ($collapsed = "")
+    #end
+    <div id="project-config-screens-${screenScheme.id}" class="project-config-scheme-item project-config-webpanel project-config-screenScheme${collapsed}">
+        <div class="project-config-scheme-item-header">
+            <span class="project-config-icon project-config-icon-twixi"></span>
+            #if ($isAdmin)
+                <ul class="ops">
+                    <li><a href="${baseurl}/secure/admin/ConfigureFieldScreenScheme.jspa?id=$screenScheme.id" class="project-config-icon project-config-icon-edit">$i18n.getText('admin.screens.edit')</a></li>
+                </ul>
+            #end
+            <h3>
+                <span class="project-config-icon24-screen project-config-toggle"></span>
+                <span class="project-config-screenscheme-name project-config-scheme-item-name project-config-toggle" title="$!{screenScheme.description}">$screenScheme.name</span>
+                #if(${screenScheme.defaultScreenScheme})
+                    <span class="status-lozenge status-default">$i18n.getText('common.words.default')</span>
+                #end
+            </h3>
+            #if ($screenScheme.schemeProjectList.size() > 1)
+                <span class="shared-by"><em>$i18n.getText('admin.project.shared.by')</em> <a href="#project-config-screens-${screenScheme.id}-shared" class="shared-item-trigger">$i18n.getText('admin.project.shared.projects', ${screenScheme.schemeProjectList.size()})</a></span>
+            #end
+            <input class="project-config-screens-field-screen-scheme-id" type="hidden" value="${screenScheme.id}"/>
+        </div>
+        <div class="project-config-scheme-item-content project-config-screens-association project-config-split-panel">
+            <div class="project-config-split-panel-nav project-config-screens-issuetypes">
+                <h3>$i18n.getText('admin.project.screens.issuetypes.heading', $screenScheme.issueTypes.size())&hellip;</h3>
+                <ul class="project-config-list project-config-itemlist">
+                    #foreach($issueType in $screenScheme.issueTypes)
+                    <li>
+                        <span class="project-config-list-label">
+                            ${issueConstantWebComponent.getHtml(${issueType.constant}, 'project-config-icon-issuetype')}
+                            <span class="project-config-issuetype-name" title="$!{issueType.description}">$issueType.name</span>
+                            #if(${issueType.defaultIssueType})
+                                <span class="project-config-list-default">(${i18n.getText("common.words.default")})</span>
+                            #end
+                        </span>
+                    </li>
+                    #end
+                </ul>
+            </div>
+            <div class="project-config-split-panel-content project-config-screens-definition">
+                <h3>&hellip;$i18n.getText('admin.project.screens.definition.heading', $screenScheme.issueTypes.size())</h3>
+                <table border="0" cellpadding="0" cellspacing="0" class="aui project-config-datatable">
+                    <thead>
+                        <tr>
+                            <th>$i18n.getText("admin.common.words.operation")</th>
+                            <th>$i18n.getText("admin.common.words.screen")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #foreach($screen in $screenScheme.screens)
+                            <tr class="project-config-screens-screen">
+                                <td class="project-config-screens-screen-operation">$i18n.getText($screen.operation.nameKey)</td>
+                                <td class="project-config-screens-screen-name">
+                                    <input class="project-config-screens-field-screen-id" type="hidden" value="${screen.fieldScreen.id}"/>
+                                    #if ($isAdmin)
+                                        <a href="${baseurl}/secure/admin/ConfigureFieldScreen.jspa?id=$screen.fieldScreen.id" class="project-config-screen"><span class="project-config-icon project-config-icon-screen"></span>$screen.fieldScreen.name</a>
+                                    #else
+                                        $screen.fieldScreen.name
+                                    #end
+                                </td>
+                            </tr>
+                        #end
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        #if ($screenScheme.schemeProjectList.size() > 1)
+        <div id="project-config-screens-${screenScheme.id}-shared" class="shared-item-target">
+            <div class="shared-item-content" data-scheme-id="${screenScheme.id}">
+                <h3>$i18n.getText('admin.project.shared.list.heading.scheme'):</h3>
+                <ul class="shared-project-list">
+                    #foreach ($project in $screenScheme.schemeProjectList)
+                    <li><a class="shared-project-name" href="${baseurl}/plugins/servlet/project-config/${project.key}"><img class="shared-project-icon" width="16" height="16" alt="" src="${baseurl}/secure/projectavatar?size=small&amp;pid=${project.id}&amp;avatarId=${project.avatar.id}" /> $project.name</a></li>
+                    #end
+                </ul>
+            </div>
+        </div>
+        #end
+    </div>
+    #end
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

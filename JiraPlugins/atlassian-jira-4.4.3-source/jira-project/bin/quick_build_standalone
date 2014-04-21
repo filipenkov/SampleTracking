@@ -1,0 +1,39 @@
+#!/bin/bash
+printf "________________________________\n"
+printf "Builds a quick and dirty version of JIRA standalone\n"
+printf "________________________________\n\n"
+
+if [ -a bin/standalone.args ]; then
+    printf "Using the following arguments : \n"
+    printf "________________________________\n\n"
+    cat bin/standalone.args	
+	source bin/standalone.args
+else
+   printf "You must edit a personal bin/standalone.args file from bin/standalone.args.template\n"
+   exit 1;
+fi
+JIRA_VERSION=`grep "<currentVersion>" project.xml | sed 's|</currentVersion>||' | sed 's|<currentVersion>||' | awk '{print $1}'`
+
+STANDALONE_LOCATION=target/standalone/enterprise/atlassian-jira-${JIRA_VERSION}-standalone
+
+printf "\nBuilding JIRA Version : %s\n" ${JIRA_VERSION}
+printf "________________________________\n\n"
+
+./mvnInstall $@
+maven $@ clean jira:standalone-enterprise-tomcat -Dmaven.test.skip -Djira.minify.skip=true -Djira.build.bundle.plugins=false -Dstandalone.jira.tomcat.version=${TOMCAT_VERSION} -Dstandalone.tomcat.location=${TOMCAT_LOCATION} &&
+
+#
+# Now run it by chmodding and editing jira home
+#
+
+
+chmod +x ${STANDALONE_LOCATION}/bin/*.sh
+
+cat ${STANDALONE_LOCATION}/bin/setenv.sh  | sed "s|JVM_SUPPORT_RECOMMENDED_ARGS=""|JVM_SUPPORT_RECOMMENDED_ARGS=\"${JVM_ARGS}\"|" > ${STANDALONE_LOCATION}/bin/setenv.sh.new &&
+mv ${STANDALONE_LOCATION}/bin/setenv.sh.new ${STANDALONE_LOCATION}/bin/setenv.sh &&
+
+cat ${STANDALONE_LOCATION}/atlassian-jira/WEB-INF/classes/jira-application.properties  | sed "s:jira.home =:jira.home = ${JIRAHOME}:" > ${STANDALONE_LOCATION}/atlassian-jira/WEB-INF/classes/jira-application.properties.new &&
+mv ${STANDALONE_LOCATION}/atlassian-jira/WEB-INF/classes/jira-application.properties.new ${STANDALONE_LOCATION}/atlassian-jira/WEB-INF/classes/jira-application.properties
+
+${STANDALONE_LOCATION}/bin/catalina.sh run
+

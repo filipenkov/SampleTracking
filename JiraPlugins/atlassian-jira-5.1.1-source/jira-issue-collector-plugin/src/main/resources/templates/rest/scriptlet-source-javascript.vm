@@ -1,0 +1,8 @@
+#set( $D = '$' )
+// Requires jQuery!
+${D}.ajax({
+    url: "$!{bootstrapUrl}?collectorId=${collector.id}",
+    type: "get",
+    cache: true,
+    dataType: "script"
+});

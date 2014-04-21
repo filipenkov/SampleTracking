@@ -1,0 +1,28 @@
+#enable_html_escaping()
+<div class="project-config-webpanel-content project-config-icon48-fields">
+    <div class="project-config-webpanel-help">
+        <p>${i18n.getText("admin.project.config.summary.fields.desc")}</p>
+    </div>
+    <p class="project-config-summary-scheme">
+        <strong>${i18n.getText("common.concepts.scheme")}:</strong>
+        <a href="${fieldConfigScheme.editUrl}" title="$!{fieldConfigScheme.description}">${fieldConfigScheme.name}</a>
+    </p>
+    <ul class="project-config-list project-config-itemlist">
+        #foreach ($fieldConfig in $fieldConfigs)
+            <li>
+                <span class="project-config-list-label">
+                    <span class="project-config-icon project-config-icon-field"></span>
+                    #if(${isAdmin})
+                        <a class="project-config-fieldconfig-name" title="$!{fieldConfig.description}" href="${fieldConfig.url}">${fieldConfig.name}</a>
+                    #else
+                        <span class="project-config-fieldconfig-name" title="$!{fieldConfig.description}">${fieldConfig.name}</span>
+                    #end
+                    #if($fieldConfig.defaultFieldConfig)
+                        <span class="project-config-list-default">(${i18n.getText("common.words.default")})</span>
+                    #end
+                </span>
+            </li>
+        #end
+    </ul>
+    <a class="project-config-more-link" href="${fieldConfigScheme.editUrl}" title="${i18n.getText("admin.project.config.summary.fields.manage")}">${i18n.getText("common.concepts.more")}</a>
+</div>

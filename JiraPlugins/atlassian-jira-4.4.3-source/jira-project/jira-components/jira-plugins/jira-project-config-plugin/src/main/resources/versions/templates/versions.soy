@@ -1,0 +1,348 @@
+{namespace JIRA.Templates.Versions}
+
+/**
+ * Render a version row
+ * @param version
+ */
+{template .versionRow}
+<td class="jira-restfultable-icon project-config-release-status">
+    {if $version.archived and $version.released}
+        <span class="project-config-icon project-config-icon-version-released project-config-icon-version-archived"></span>
+    {elseif $version.archived}
+        <span class="project-config-icon project-config-icon-version-archived"></span>
+    {elseif $version.released}
+        <span class="project-config-icon project-config-icon-version-released"></span>
+    {else}
+        <span class="project-config-icon project-config-icon-version"></span>
+    {/if}
+</td>
+<td class="project-config-version-name">
+    <span class="jira-restfultable-editable" data-field-name="name">
+    <span class="icon icon-edit-sml"></span>
+    {$version.name}
+    </span>
+</td>
+<td class="project-config-version-description{if not $version.description} jira-restfultable-editable-no-value{/if}">
+    <span class="jira-restfultable-editable" data-field-name="description">
+        <span class="icon icon-edit-sml"></span>
+        {if $version.description}
+            {$version.description}
+        {else}
+            <em>{getText('admin.project.add.description')}</em>
+        {/if}
+    </span>
+</td>
+<td class="project-config-version-release-date{if not $version.userReleaseDate} jira-restfultable-editable-no-value{/if}">
+    <span class="jira-restfultable-editable" data-field-name="userReleaseDate">
+        <span class="icon icon-edit-sml"></span>
+        {if $version.userReleaseDate}
+            {$version.userReleaseDate}
+        {else}
+            <em>{getText('admin.project.add.release.date')}</em>
+        {/if}
+    </span>
+</td>
+<td class="project-config-operations">
+    <a id="version-{$version.id}-operations-trigger" class="project-config-operations-trigger" href="#"><span class="project-config-icon project-config-icon-manage"></span><span class="project-config-icon project-config-icon-drop"><em>{getText('common.words.actions')}</em></span></a>
+    <div class="project-config-operations-list aui-list">
+        <ul class="aui-list-section aui-first aui-last">
+            {if $version.operations}
+                {foreach $operation in $version.operations}
+                    {if $operation.href}
+                        <li class="aui-list-item"><a class="aui-list-item-link {$operation.styleClass}" href="{$operation.href}">{$operation.label}</a></li>
+                    {else}
+                        <li class="aui-list-item"><a class="aui-list-item-link {$operation.styleClass}" href="#">{$operation.label}</a></li>
+                    {/if}
+
+                {/foreach}
+            {/if}
+        </ul>
+    </div>
+</td>
+<td class="project-config-throbber"></td>
+{/template}
+
+
+/**
+ * @param project
+ * @param values
+ * @param update
+ * @param released
+ * @param archived
+  */
+{template .editVersionRow}
+<td class="jira-restfultable-icon project-config-release-status">
+    {if $archived and $released}
+        <span class="project-config-icon project-config-icon-version-released project-config-icon-version-archived"></span>
+    {elseif $archived}
+        <span class="project-config-icon project-config-icon-version-archived"></span>
+    {elseif $released}
+        <span class="project-config-icon project-config-icon-version-released"></span>
+    {else}
+        <span class="project-config-icon project-config-icon-version"></span>
+    {/if}
+</td>
+<td class="project-config-version-name">
+    <input name="name" type="text" class="text" value="{$values.name ? $values.name : ''}"  />
+     {if not $update}
+        <input name="project" type="hidden" value="{$project}">
+    {/if}
+</td>
+<td class="project-config-version-description">
+    <input name="description" type="text" class="text" value="{$values.description ? $values.description : ''}"  />
+</td>
+<td class="project-config-version-release-date">
+    <div class="project-config-date-field">
+        <input id="project-config-version-release-date-field" name="userReleaseDate" type="text" class="text short-field" value="{$values.userReleaseDate ? $values.userReleaseDate : ''}" />
+        <a href="#" id="project-config-versions-release-date-trigger" title="{getText('date.picker.select.date')}">
+            <span class="aui-icon icon-date">{getText('date.picker.select.date')}</span>
+        </a>
+    </div>
+</td>
+{/template}
+
+
+/**
+ * Renderer for delete version form
+ *
+ * @param relatedIssueCount
+ * @param versions
+ * @param projectId
+ * @param version
+ */
+{template .deleteForm}
+<h2 class="dialog-title">{getText('common.words.delete')} {getText('admin.systeminfo.version')}: {$version.name}</h2>
+<form class="aui" action="#" method="post">
+
+    <div class="content-body">
+        {if $relatedIssueCount}
+            {if $versions.length}
+                <div class="aui-message info">
+                    <span class="aui-icon icon-info"></span>{getText('admin.project.versions.delete.specify.migration')}
+                </div>
+
+                {if $relatedIssueCount.issuesAffectedCount}
+                    <fieldset class="group">
+
+                        <legend><span>{getText('admin.project.versions.affecting')} (<a id="affects-count" href="{contextPath()}/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;pid={$projectId}&amp;version={$version.id}">{$relatedIssueCount.issuesAffectedCount}</a>)</span></legend>
+
+                        <div class="radio">
+                            <input name="affects" value="swap" id="affects-swap" class="radio" checked="checked" type="radio" /><label for="affects-swap">{getText('admin.project.versions.swap')} </label>
+                            <select id="moveAffectedIssuesTo" name="moveAffectedIssuesTo">
+                            {foreach $version in $versions}
+                                <option value="{$version.id}">{$version.name}</option>
+                            {/foreach}
+                            </select>
+                        </div>
+                        <div class="radio">
+                            <input name="affects" values="remove" id="affects-remove" class="radio" type="radio"><label for="affects-remove">{getText('admin.project.versions.remove')}</label>
+                        </div>
+                    </fieldset>
+                {/if}
+
+                {if $relatedIssueCount.issuesFixedCount}
+                    <fieldset class="group">
+
+                        <legend><span>{getText('admin.project.versions.fixedby')} (<a id="fix-count" href="{contextPath()}/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;pid={$projectId}&amp;fixfor={$version.id}">{$relatedIssueCount.issuesFixedCount}</a>):</span></legend>
+
+                        <div class="radio">
+                            <input name="fix" value="swap" id="fix-swap" class="radio" checked="checked" type="radio" /><label for="fix-swap">{getText('admin.project.versions.swap')} </label>
+                            <select id="moveFixIssuesTo" name="moveFixIssuesTo">
+                            {foreach $version in $versions}
+                                <option value="{$version.id}">{$version.name}</option>
+                            {/foreach}
+                            </select>
+                        </div>
+                        <div class="radio">
+                            <input name="fix" value="remove" id="fix-remove" class="radio" type="radio"><label for="fix-remove">{getText('admin.project.versions.remove')}</label>
+                        </div>
+
+                    </fieldset>
+                {/if}
+
+            {else}
+                <div class="aui-message info">
+                    <span class="aui-icon icon-info"></span> <p>{getText('admin.project.versions.delete.no.migration')} <strong>{getText('admin.project.versions.delete.no.migration.path')}</strong></p>
+                    <ul>
+                        <li>{getText('admin.project.versions.affecting')} (<a href="{contextPath()}/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;pid={$projectId}&amp;version={$version.id}">{$relatedIssueCount.issuesAffectedCount}</a>)</li>
+                        <li>{getText('admin.project.versions.fixedby')} (<a href="{contextPath()}/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;pid={$projectId}&amp;fixfor={$version.id}">{$relatedIssueCount.issuesFixedCount}</a>)</li>
+                    </ul>
+                </div>
+            {/if}
+        {else}
+            <div class="aui-message info">
+                <span class="aui-icon icon-info"></span>
+                {getText('admin.project.versions.delete.no.issues')}
+            </div>
+        {/if}
+    </div>
+    <div class="content-footer buttons-container">
+        <div class="buttons">
+            <input id="submit" class="button" type="submit" value="{getText('common.words.delete')}" />
+            <a href="#" class="cancel">{getText('common.forms.cancel')}</a>
+        </div>
+    </div>
+</form>
+{/template}
+
+
+/**
+ * Renderer for release version form
+ *
+ * @param unresolvedIssueCount
+ * @param versions
+ * @param projectId
+ * @param version
+ * @param errors
+ * @param errorMessages
+   */
+{template .releaseForm}
+<h2 class="dialog-title">{getText('admin.manageversions.release')} {getText('admin.systeminfo.version')}: {$version.name}</h2>
+<form class="aui" action="#" method="post">
+    <div class="content-body">
+
+        {if $errorMessages and $errorMessages.length > 0}
+        <div class="aui-message error">
+            <span class="aui-icon icon-error"></span>
+            <strong>{getText('admin.common.words.error')}</strong>
+            <ul>
+                {foreach $error in $errors.errorMessages}
+                    <li class="error-list-item">{$error}</li>
+                {/foreach}
+            </ul>
+        </div>
+        {/if}
+
+        {if $unresolvedIssueCount and $unresolvedIssueCount.issuesUnresolvedCount}
+            <div class="aui-message warning" id="unresolved-message">
+                <span class="aui-icon icon-warning"></span>
+                {getText('admin.project.versions.release.unresolved.issues.1')} <a id="unresolved-issues-link" href="{contextPath()}/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;pid={$projectId}&amp;fixfor={$version.id}&amp;resolution=-1">{$unresolvedIssueCount.issuesUnresolvedCount} {getText('admin.project.versions.release.unresolved.issues.2')}</a>.
+            </div>
+            <fieldset class="group">
+                <legend><span>{getText('common.concepts.unresolved.issues')}</span></legend>
+                {if $versions.length}
+                <div class="radio">
+                    <input name="unresolved" id="unresolved-ignore" class="radio" checked="checked" type="radio" value="ignore">
+                    <label for="unresolved-ignore" id="unresolved-ignore-label">{getText('admin.projectversions.release.ignore.issues')}</label>
+                </div>
+                <div class="radio">
+                    <input name="unresolved" id="unresolved-move" class="radio" type="radio" value="move">
+                    <label for="unresolved-move" id="unresolved-move-label">{getText('admin.project.versions.release.move.issues.to.version')}: </label>
+                    <select id="moveUnfixedIssuesTo" name="moveUnfixedIssuesTo" class="select short-field">
+                    {foreach $version in $versions}
+                    {$version.nextScheduled}
+                        <option {if $version.nextScheduled}selected="selected"{/if} value="{$version.id}">{$version.name}</option>
+                    {/foreach}
+                    </select>
+                </div>
+                {else}
+                    <div class="radio">
+                        <input name="unresolved" id="unresolved-ignore" class="radio" checked="checked" type="radio" value="ignore">
+                        <label for="unresolved-ignore" id="unresolved-ignore-label">{getText('admin.projectversions.release.ignore.issues.no.other.versions')}</label>
+                    </div>
+                {/if}
+            </fieldset>
+        {/if}
+        <div class="field-group">
+            <label for="project-config-version-release-form-release-date-field">{getText('version.releasedate')}</label>
+            <input id="project-config-version-release-form-release-date-field" name="userReleaseDate" type="text" class="text short-field" value="{$version.userReleaseDate ? $version.userReleaseDate : ''}" />
+            <a href="#" id="project-config-versions-release-form-release-date-trigger" title="{getText('date.picker.select.date')}">
+                <span class="aui-icon icon-date">{getText('date.picker.select.date')}</span>
+            </a>
+            {if $errors.releaseDate}
+                <div class="error project-config-error" id="project-config-versions-release-form-release-date-error">{$errors.releaseDate}</div>
+            {/if}
+        </div>
+    </div>
+
+    <input type="hidden" name="released" value="true" />
+    <div class="content-footer buttons-container">
+        <div class="buttons">
+            <input class="button" type="submit" id="project-config-version-release-form-submit" value="{getText('admin.manageversions.release')}" />
+            <a href="#" class="cancel">{getText('common.forms.cancel')}</a>
+        </div>
+    </div>
+</form>
+{/template}
+
+
+/**
+ * Renderer for merge version form
+ *
+ * @param versions
+ * @param errorMessages
+   */
+{template .mergeForm}
+<h2 class="dialog-title">{getText('admin.manageversions.merge.versions')}</h2>
+<form class="aui" action="#" method="post">
+    <div class="content-body">
+        {if $versions and $versions.length > 0}
+            {if $errorMessages and $errorMessages.length > 0}
+                <div class="aui-message error">
+                    <span class="aui-icon icon-error"></span>
+                    <strong>{getText('admin.common.words.error')}</strong>
+                    <ul>
+                        {foreach $error in $errorMessages}
+                            <li class="error-list-item">{$error}</li>
+                        {/foreach}
+                    </ul>
+                </div>
+            {/if}
+            <div class="aui-message warning">
+                <span class="aui-icon icon-warning"></span>
+                {getText('admin.manageversions.merge.warning')}
+            </div>
+            <div class="field-group">
+                <label>{getText('admin.manageversions.merging.from.versions')}</label>
+                <select multiple id="idsToMerge" name="idsToMerge" class="select">
+                    {foreach $version in $versions}
+                        <option value="{$version.id}">{$version.name}</option>
+                    {/foreach}
+                </select>
+            </div>
+            <div class="field-group">
+                <label>{getText('admin.manageversions.merge.to.version')}</label>
+                <select name="idMergeTo" class="select">
+                    {foreach $version in $versions}
+                        <option value="{$version.id}">{$version.name}</option>
+                    {/foreach}
+                </select>
+            </div>
+        {else}
+            <label id="project-config-versions-merge-form-no-versions">{getText('admin.manageversions.no.versions')}</label>
+        {/if}
+    </div>
+
+    <input type="hidden" name="released" value="true" />
+    <div class="content-footer buttons-container">
+        <div class="buttons">
+            {if $versions and $versions.length > 0}
+                <input class="button" type="submit" id="project-config-version-merge-form-submit" value="{getText('admin.manageversions.merge')}" />
+            {/if}
+            <a href="#" class="cancel">{getText('common.forms.cancel')}</a>
+        </div>
+    </div>
+</form>
+{/template}
+
+/**
+ * @param version
+ */
+{template .unreleaseForm}
+<h2 class="dialog-title">{getText('admin.projectversions.unrelease.title', $version.name)}</h2>
+<form class="aui" action="#" method="post">
+    <input type="hidden" name="released" value="false" />
+    <div class="content-body">
+        <div class="field-group">
+            <label>{getText('version.releasedate')}</label>
+            <input name="releaseDate" type="text" class="text" value="{$version.releaseDate or ''}"  />
+        </div>
+    </div>
+    <div class="content-footer buttons-container">
+        <div class="buttons">
+            <input class="button" type="submit" value="{getText('common.forms.update')}" />
+            <a href="#" class="cancel">{getText('common.forms.cancel')}</a>
+        </div>
+    </div>
+</form>
+{/template}

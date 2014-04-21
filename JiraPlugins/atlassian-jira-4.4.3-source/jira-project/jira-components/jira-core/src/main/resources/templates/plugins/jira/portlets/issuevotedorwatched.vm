@@ -1,0 +1,30 @@
+<tr #if ($velocityCount % 2 == 1) class="rowNormal" #else class="rowAlternate" #end >
+   #parse('templates/plugins/jira/portlets/includes/issuesummary-rowcontents.vm')
+
+<td nowrap width="1%">
+    #displayConstantIcon($issue.getStatusObject())
+</td>
+
+#if ($showTotals == true)
+    <td nowrap width="1%">
+    #if ($portlet.hasViewPermission($issue) == true)
+    <span title="$portlet.getToolTipText($issue.getString('key'), $portlet.getTotalAssociations($issue))">
+        <a href="$req.contextPath$viewAssociationLink?id=$issue.getId()">$portlet.getTotalAssociations($issue)</a>
+    </span>
+    #else
+        $portlet.getTotalAssociations($issue)
+    #end
+    </td>
+    <td nowrap width="1%">
+#else
+    <td nowrap colspan=2 width="1%">
+#end
+
+#if ($portlet.canRemoveAssociation($issue))
+    <a href="$req.contextPath$removeIssueLink$issue.getId()&returnUrl=Dashboard.jspa">$removeIssueText</a>
+#else
+    &nbsp;
+#end
+    </td>
+
+</tr>

@@ -1,0 +1,40 @@
+#enable_html_escaping()
+#* @vtlvariable name="components" type="java.util.List<com.atlassian.jira.projectconfig.contextproviders.ComponentsSummaryPanelContextProvider.SimpleComponent>" *#
+<div class="project-config-webpanel-content project-config-icon48-components">
+    <div class="project-config-webpanel-help">
+        <p>$i18n.getText("admin.project.config.summary.component.desc")</p>
+    </div>
+    #if (!$errors.empty)
+        <div class="aui-message error">
+            <p>$i18n.getText("admin.project.config.summary.component.error"):</p>
+            <ul>
+                #foreach ($error in $errors)
+                    <li>$error</li>
+                #end
+            </ul>
+        </div>
+    #elseif ($totalSize > 0)
+        <ul id="project-config-summary-components-list" class="project-config-list project-config-itemlist">
+            #foreach($component in $components)
+                <li>
+                    <span class="project-config-list-label">
+                        <span class="project-config-icon project-config-icon-component"></span>
+                        ${component.name}
+                    </span>
+                    #if ($component.hasLead)
+                        <span class="project-config-list-value">
+                            ${component.userHoverHtml}
+                        </span>
+                    #end
+                </li>
+            #end
+        </ul>
+        #if ($totalSize > $actualSize)
+            <p class="project-config-list-note"><span>$i18n.getText("admin.project.config.summary.component.some", "$actualSize", "$totalSize")</span> <a href="$manageUrl">$i18n.getText("common.concepts.showall")</a></p>
+        #else
+            <a class="project-config-more-link" href="$manageUrl" title="${i18n.getText("admin.project.config.summary.component.manage")}">${i18n.getText("common.concepts.more")}</a>
+        #end
+    #else
+        <p class="project-config-list-empty"><span>$i18n.getText("admin.project.config.summary.component.none")</span> <a href="$manageUrl">$i18n.getText("admin.project.config.summary.component.add")</a></p>
+    #end
+</div>

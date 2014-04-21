@@ -1,0 +1,18 @@
+#charts-dialog, #charts-dialog h2 {overflow:visible;}
+#charts-dialog .close {position:absolute; text-indent:-9999px; top:-13px; right:-13px; width: 30px; height:30px; background: transparent url( "../../../images/button-close.png") 0 0 no-repeat; padding:0; border:none; cursor:pointer;}
+#charts-dialog .page-menu li.page-menu-item {outline:none;}
+#charts-dialog .page-menu li.page-menu-item button:-moz-focus-inner {border: 0;}
+#charts-dialog .page-menu li.page-menu-item button:hover {cursor:pointer;}
+#charts-dialog .gadget {width:100%; height:80%;}
+#charts-dialog ul {margin:0; list-style-type:none;}
+#charts-dialog .page-menu {margin:0;padding:0;}
+#charts-dialog h3 {background:#F0F0F0 none repeat scroll 0 0; color:#666; font-size:0.9em; height:35px; line-height:35px; margin:0; overflow:hidden; padding:0 1em; position:relative; }
+#charts-dialog .gadgetContent {padding:1em;height:310px;}
+#charts-dialog .warningBox {padding:2px 2px 2px 30px;margin-bottom:2px;}
+#charts-dialog .portalLabels {float:left;}
+#charts-dialog .portalEntry {float:left;padding-left:15px;}
+#charts-dialog .portalButton {float:right;}
+#charts-dialog .page-menu li.page-menu-item.selected.loading {background:#fff url( "../../../images/icons/wait.gif") 95% center no-repeat;}
+#charts-dialog .form-errors {display:none;}
+#charts-dialog .dialogThrobber {display:none;float:right;}
+#charts-dialog .dialogThrobber.loading {display:block; background:#F0F0F0 url(../../../images/icons/wait.gif) no-repeat scroll 100% center;position:absolute; right:20px; top:0; width:20px;}

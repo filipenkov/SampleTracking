@@ -1,0 +1,110 @@
+{namespace JIRA.Templates.ViewIssue.Body}
+
+
+/**
+*/
+{template .issueBody}
+    <div class="content-body aui-panel">
+        <div class="aui-group issue-body">
+            <div class="aui-item issue-main-column"></div>
+            <div id="viewissuesidebar" class="aui-item issue-side-column"></div>
+        </div>
+    </div>
+{/template}
+
+/**
+* @param html
+* @param id
+* @param label
+* @param renderHeader
+* @param headerLinks
+* @param subpanelHtmls
+*/
+{template .issuePanel}
+    {if $renderHeader}
+        <div id="{$id}_heading" class="mod-header">
+            <ul class="ops">
+            {foreach $link in $headerLinks.links}
+                <li>
+                    {call JIRA.Templates.Issues.Util.simpleLink}{param link: $link /}{/call}
+                </li>
+            {/foreach}
+            {if $headerLinks.groups.length > 0}
+                <li class="drop">
+                    <div class="aui-dd-parent">
+                        <a href="#" class="icon drop-menu js-default-dropdown" title="{getText('admin.common.words.options')}">
+                            <span>{getText('admin.common.words.options')}</span>
+                        </a>
+                        <div class="aui-dropdown-content aui-list">
+                            {foreach $group in $headerLinks.groups}
+                                {if $group.header and $group.header.label}
+                                    <h5>{$group.header.label}</h5>
+                                {/if}
+                                <ul {if $group.header and $group.header.id}id="{$group.header.id}"{/if}
+                                    class="aui-list-section{if $group.header and $group.header.styleClass} {$group.header.styleClass}{/if}{if isFirst($group)} aui-first{/if}{if isLast($group)} aui-last{/if}">
+                                {foreach $link in $group.links}
+                                    <li class="aui-list-item">
+                                         {call JIRA.Templates.Issues.Util.simpleLink}{param link: $link /}{param additionalStyleClass: 'aui-list-item-link' /}{/call}
+                                    </li>
+                                {/foreach}
+                                </ul>
+                            {/foreach}
+                        </div>
+                    </div>
+                </li>
+            {/if}
+            </ul>
+            {if $subpanelHtmls.length > 0}
+                <div class="mod-header-panels">
+                {foreach $subPanel in $subpanelHtmls}
+                    <div class="mod-header-panel">
+                        {$subPanel|noAutoescape}
+                    </div>
+                {/foreach}
+                </div>
+            {/if}
+            <h3 class="toggle-title">{$label}</h3>
+        </div>
+        <div class="mod-content">
+            {$html|noAutoescape}
+        </div>
+    {else}
+        {$html|noAutoescape}
+    {/if}
+{/template}
+
+
+/**
+* @param errorMessages
+*/
+{template .errorsLoading}
+{getText('issue.nav.common.server.loadIssue.failed')}
+
+{if $errorMessages}
+    <ul>{foreach $msg in $errorMessages}<li>{$msg}</li>{/foreach}</ul>
+{/if}
+{/template}
+
+/**
+ * The focus shifter dialog.
+ */
+{template .focusShifter}
+<div class="aui-message closeable" id="focus-shifter">
+    <label>
+        <span>{getText('viewissue.focusshifter')}</span>
+        <div id="focus-shifter-content"></div>
+    </label>
+    <span class="aui-icon icon-close"></span>
+</div>
+{/template}
+
+/**
+ * The focus shifter tip.
+ */
+{template .focusShifterTip}
+<div class="aui-message closeable" id="focus-shifter-tip">
+    <strong>{getText('viewissue.focusshifter.tip.label')}</strong> {getText('viewissue.focusshifter.tip.body', '<kbd>,</kbd>')|noAutoescape}<br/>
+    <a href="{contextPath()}/secure/ViewKeyboardShortcuts!default.jspa">{getText('viewissue.focusshifter.tip.shortcuts.link')}</a>
+    <span class="aui-icon icon-close"/>
+</div>
+{/template}

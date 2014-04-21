@@ -1,0 +1,457 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.atlassian.jira</groupId>
+        <artifactId>jira-distribution</artifactId>
+        <version>5.1.1</version>
+    </parent>
+
+    <artifactId>jira-source-distribution</artifactId>
+    <packaging>pom</packaging>
+
+    <name>Atlassian JIRA - zDistribution - Source Distribution</name>
+
+    <properties>
+        <maven.version.source>2.1.0</maven.version.source>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-core</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-webapp-dist</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-common-distribution</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>com.atlassian.jira</groupId>
+          <artifactId>jira-bundled-plugins</artifactId>
+          <version>${project.version}</version>
+          <type>zip</type>
+          <exclusions>
+            <exclusion>
+              <groupId>com.atlassian.jira</groupId>
+              <artifactId>jira-oauth-service-provider-spi-plugin</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>com.atlassian.jira</groupId>
+              <artifactId>jira-oauth-consumer-spi-plugin</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>com.atlassian.jira</groupId>
+              <artifactId>jira-gadgets-plugin</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>com.atlassian.jira</groupId>
+              <artifactId>jira-sal-plugin</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>com.atlassian.jira</groupId>
+              <artifactId>jira-func-test-plugin</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>com.atlassian.jira</groupId>
+              <artifactId>jira-reference-plugin</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>com.atlassian.jira</groupId>
+              <artifactId>jira-reference-language-pack</artifactId>
+            </exclusion>
+             <exclusion>
+              <groupId>com.atlassian.jira</groupId>
+              <artifactId>jira-reference-dependent-plugin</artifactId>
+            </exclusion>             
+          </exclusions>
+        </dependency>
+        <!-- we need this to build jira-sal-plugin from source with an empty repo -->
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-gadgets-plugin</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-sal-plugin</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>apache-maven</artifactId>
+            <version>2.1.0</version>
+            <type>zip</type>
+            <classifier>bin</classifier>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-project</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+          <groupId>com.oopsconsultancy</groupId>
+          <artifactId>xmltask</artifactId>
+          <version>1.14</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>atlassian-jira</finalName>
+		<plugins>
+            <plugin>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>maven-atlassian-source-distribution-plugin</artifactId>
+                <version>1.7.1</version>
+                <executions>
+                    <execution>
+                        <id>source-release</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>source</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <groupId>com.atlassian.jira</groupId>
+                    <artifactId>atlassian-jira-source</artifactId>
+                    <version>${project.version}</version>
+                    <productName>Atlassian Jira</productName>
+                    <productBranchName>atlassian_jira_5_1_1_branch</productBranchName>
+                    <groupIdMask>com.atlassian.</groupIdMask>
+
+					<!-- Build script related -->
+
+					<!-- This makes all mvn commands executed by the build script use a the specified subfolder as the local maven cache, rather
+						 than using ~/.m2 -->
+					<localRepoDirectory>localrepo</localRepoDirectory>
+
+					<!-- Maven commands to actually build the Jira webapp after all it's dependencies are built.
+						 These will be appended to the end of the build script -->
+					<finalMavenBuildCommands>
+						<!-- Build the WAR -->
+						<finalBuildCommand>
+							<useMaven3>false</useMaven3>
+							<cmdArgs>clean install -f jira-project/jira-components/jira-webapp/pom.xml -Dmaven.test.skip -Pbuild-from-source-dist</cmdArgs>
+						</finalBuildCommand>
+
+						<!-- Do the overlays and package -->
+						<finalBuildCommand>
+							<useMaven3>false</useMaven3>
+							<cmdArgs>clean package -Dmaven.test.skip -f jira-project/jira-distribution/jira-webapp-dist/pom.xml</cmdArgs>
+						</finalBuildCommand>
+					</finalMavenBuildCommands>
+
+					<!-- Special Build configurations for artifacts. These are needed if some artifacts use nonstandard methods to build -->
+
+					<!-- We only want to build the jira welcome plugin, not the ondemand one, which needs other ondemand dependencies -->
+					<buildConfigurations>
+						<buildConfiguration>
+							<groupId>com.atlassian.jira.welcome</groupId>
+							<artifactId>jira-welcome-plugin</artifactId>
+
+							<!-- This says it should use maven, and not some other executable -->
+							<maven>true</maven>
+							<useMaven3>false</useMaven3>
+
+							<!-- the source distribution plugin automatically figures out which maven version each artifact needs. Set this flag to true to
+								 override that behaviour (note that it would probably cause the build to fail due to the enforcer plugin if you did)-->
+							<overrideAutoMavenVersion>false</overrideAutoMavenVersion>
+							<cmdArgs>-pl jira-welcome-plugin</cmdArgs>
+							<takesCliArgs>true</takesCliArgs>
+						</buildConfiguration>
+					</buildConfigurations>
+
+                    <!--
+                       - for these artifacts, check out HEAD instead of a tag.
+                       -
+                       - format is [groupId]:[artifactId]:[type]:[version] with wildcard support
+                     -->
+                    <checkoutHeadIncludes>
+                        <!-- any -SNAPSHOT dependency -->                             
+                        <checkoutHeadInclude>:::*-SNAPSHOT</checkoutHeadInclude>
+
+                        <!-- we don't tag until *after* a release, so just export off HEAD -->                             
+                        <checkoutHeadInclude>com.atlassian.jira:jira-project</checkoutHeadInclude>
+                    </checkoutHeadIncludes>
+
+                    <scmPrefixExclusions>
+                        <scmPrefixExclusion>scm:svn:https://svn.atlassian.com/svn/public</scmPrefixExclusion>
+                        <scmPrefixExclusion>scm:svn:https://studio.plugins.atlassian.com/svn/FISH</scmPrefixExclusion>
+                        <scmPrefixExclusion>scm:svn:https://studio.plugins.atlassian.com/svn/JBAM</scmPrefixExclusion>
+                        <scmPrefixExclusion>scm:git:ssh://git@bitbucket.org/atlassian/atlassian-plugins.git</scmPrefixExclusion>
+                        <scmPrefixExclusion>scm:git:ssh://git@bitbucket.org/atlassian/atlassian-oauth.git</scmPrefixExclusion>
+                    </scmPrefixExclusions>
+                    <exclusions>
+                        <!-- IF YOU MAKE AN EXCLUSION be sure to put a comment above it with an explanation -->
+
+                        <!-- oauth bridge 1.0.0 is brought it transitively, but we want to ship ${oauth.version}
+                                                    is this still valid?  safer to keep exclusion because a jira dependency is more important than transitive-->
+                        <exclusion>com.atlassian.oauth:atlassian-oauth-bridge</exclusion>
+
+                        <!-- exclusion velocity has a compilation error with the release we depend on when building the war deps
+                                                second point is that it's a transitive dependency and its public so we can exclude -->
+                        <exclusion>com.atlassian.velocity.htmlsafe:velocity-htmlsafe</exclusion>
+
+                        <!-- exclude private pom because its in private and external devs shouldn't have -->
+                        <exclusion>com.atlassian.pom:atlassian-private-pom</exclusion>
+
+                        <!-- exclusion pacs for UPM transitive dependency on PAC
+                                                    reason is that this transitive glassfish dependency has a hard coded repo to java.net dependency that doesn't exist
+                                                     and jira customer  doesn't need PAC interfaces.  These deps are public -->
+                        <exclusion>com.atlassian.plugins:pacs-shared</exclusion>
+                        <exclusion>com.atlassian.plugins:pacs-client</exclusion>
+
+                        <!-- we don't want to waste their time since multitenancy is disabled and hasn't been removed from our poms-->
+                        <exclusion>com.atlassian.multitenant:multitenant-core</exclusion>
+                        <exclusion>com.atlassian.multitenant:multitenant-utils</exclusion>
+
+                        <!-- excluded because   Atlassian Extras (within the Atlassian License project) has the license encoders and decoders. It is used by JIRA to enforce licenses
+                                                    external people should NOT have this-->
+						<exclusion>com.atlassian.extras:atlassian-extras</exclusion>
+						<exclusion>com.atlassian.extras:atlassian-extras-core</exclusion>
+						<exclusion>com.atlassian.extras:atlassian-extras-common</exclusion>
+						<exclusion>com.atlassian.extras:atlassian-extras-legacy</exclusion>
+						<exclusion>com.atlassian.extras:atlassian-extras-decoder-api</exclusion>
+						<exclusion>com.atlassian.extras:atlassian-extras-api</exclusion>
+						<exclusion>com.atlassian.extras:atlassian-extras-greenhopper</exclusion>
+						<exclusion>com.atlassian.extras:atlassian-extras-test</exclusion>
+                        <exclusion>com.atlassian.extras:atlassian-extras-decoder-v2</exclusion>
+						<exclusion>com.atlassian.extras:atlassian-extras-decoder</exclusion>
+						<exclusion>com.atlassian.upm:licensing-lib</exclusion>
+						<exclusion>com.atlassian.upm:licensing-api</exclusion>
+
+			            <!-- excluded because streams-thirdparty-plugin has an explicit packaging type atlassian-plugin which non-amps maven has no clue about -->
+                        <exclusion>com.atlassian.streams:streams-aggregator-plugin</exclusion>
+                        <exclusion>com.atlassian.streams:streams-thirdparty-api</exclusion>
+                        <exclusion>com.atlassian.streams:streams-thirdparty-plugin</exclusion>
+
+						<!-- Waiting for version bump, the current version has borked scm info in the pom -->
+						<exclusion>com.atlassian.jira:jira-invite-user-plugin</exclusion>
+
+						<!-- This depends on maven-javadoc-plugin version 2.8.1-atlassian-1, which is private -->
+						<exclusion>com.atlassian.upm:upm-api</exclusion>
+
+						<!-- These are causing problems with the 5.1-m2 release, so are being excluded temporarily -->
+						<exclusion>com.atlassian.labs:remoteapps-plugin</exclusion>
+						<exclusion>com.atlassian.labs:remoteapps-api</exclusion>
+                    </exclusions>
+
+                    <!-- fixed for aui 3.5.5, but you will want to remove if you upgrade aui as they fixed their project -->
+                    <releaseArtifactMappings>
+                        <releaseArtifactMapping>
+                             <groupId>com.atlassian.aui</groupId>
+                             <artifactId>auiplugin</artifactId>
+                             <scmTagPrefix>auiplugin</scmTagPrefix>
+                        </releaseArtifactMapping>
+                    </releaseArtifactMappings>
+                    <repositoryMappings>
+                        <repositoryMapping>
+                            <baseRepository>scm:svn:https://studio.atlassian.com/svn/STRM/</baseRepository>
+                            <repositoryModules>
+                                <repositoryModule>streams-api</repositoryModule>
+                                <repositoryModule>streams-gadget-resources</repositoryModule>
+                                <repositoryModule>streams-jira-plugin</repositoryModule>
+                                <repositoryModule>streams-core</repositoryModule>
+                                <repositoryModule>streams-thirdparty-api</repositoryModule>
+                                <repositoryModule>streams-thirdparty-plugin</repositoryModule>
+                            </repositoryModules>
+                            <moduleMapping>
+                                <streams-core-plugin>core-plugin</streams-core-plugin>
+                                <streams-inline-actions-plugin>inline-actions-plugin</streams-inline-actions-plugin>
+                                <streams-jira-inline-actions-plugin>jira-inline-actions-plugin</streams-jira-inline-actions-plugin>
+                                <streams-pageobjects>pageobjects</streams-pageobjects>
+                                <streams-spi>spi</streams-spi>
+                                <streams-aggregator-plugin>aggregator-plugin</streams-aggregator-plugin>
+                                <streams-testing>testing</streams-testing>
+                            </moduleMapping>
+                        </repositoryMapping>
+                        <repositoryMapping>
+                            <baseRepository>scm:svn:https://studio.atlassian.com/svn/AG/</baseRepository>
+                            <moduleMapping>
+                                <atlassian-gadgets-api>api</atlassian-gadgets-api>    
+                                <atlassian-gadgets-spi>spi</atlassian-gadgets-spi>
+                                <atlassian-gadgets-dashboard-plugin>dashboard-plugin</atlassian-gadgets-dashboard-plugin>
+                                <atlassian-gadgets-directory-plugin>directory-plugin</atlassian-gadgets-directory-plugin>
+                                <atlassian-gadgets-embedded-plugin>embedded-plugin</atlassian-gadgets-embedded-plugin>
+                                <atlassian-gadgets-shared>shared</atlassian-gadgets-shared>
+                                <atlassian-gadgets-opensocial-plugin>opensocial-plugin</atlassian-gadgets-opensocial-plugin>
+                                <atlassian-gadgets-publisher-plugin>publisher-plugin</atlassian-gadgets-publisher-plugin>
+                                <atlassian-gadgets-oauth-service-provider-plugin>oauth-service-provider-plugin</atlassian-gadgets-oauth-service-provider-plugin>    
+                                <atlassian-gadgets-shared>shared</atlassian-gadgets-shared>
+                                <atlassian-gadgets-test-framework>test-framework</atlassian-gadgets-test-framework>
+                            </moduleMapping>
+                            <resolveRoot>false</resolveRoot>
+                        </repositoryMapping>
+                        <repositoryMapping>
+                            <baseRepository>scm:svn:https://studio.atlassian.com/svn/ATR/</baseRepository>
+                            <moduleMapping>
+                                <atlassian-template-renderer-api>api</atlassian-template-renderer-api>    
+                                <atlassian-template-renderer-velocity16-plugin>velocity1.6</atlassian-template-renderer-velocity16-plugin>
+                                <atlassian-template-renderer-velocity-common>velocity-common</atlassian-template-renderer-velocity-common>
+                             </moduleMapping>
+                        </repositoryMapping>
+                        <repositoryMapping>
+                            <baseRepository>scm:svn:https://studio.atlassian.com/svn/OAUTH/</baseRepository>
+                            <moduleMapping>
+                                <atlassian-oauth-consumer-core>consumer-core</atlassian-oauth-consumer-core>    
+                                <atlassian-oauth-shared>shared</atlassian-oauth-shared>
+                                <atlassian-oauth-consumer-plugin>consumer-plugin</atlassian-oauth-consumer-plugin>
+                                <atlassian-oauth-admin-plugin>admin-plugin</atlassian-oauth-admin-plugin>
+                                <atlassian-oauth-consumer-spi>consumer-spi</atlassian-oauth-consumer-spi>
+                                <atlassian-oauth-service-provider-plugin>service-provider-plugin</atlassian-oauth-service-provider-plugin>
+                                <atlassian-oauth-service-provider-spi>service-provider-spi</atlassian-oauth-service-provider-spi>
+                                <atlassian-oauth-api>api</atlassian-oauth-api>
+                             </moduleMapping>
+                        </repositoryMapping>
+                       <repositoryMapping>
+                           <baseRepository>scm:git:ssh://git@bitbucket.org/atlassian/jira-workflow-designer.git</baseRepository>
+                           <moduleMapping>
+                               <jira-workflow-gui-model>java-model</jira-workflow-gui-model>
+                               <workflow-designer-plugin>jira-plugin</workflow-designer-plugin>
+                               <jira-workflow-designer-flex>flex-designer</jira-workflow-designer-flex>
+                               <jira-workflow-flex-model>flex-model</jira-workflow-flex-model>
+                            </moduleMapping>
+                           <resolveRoot>true</resolveRoot>
+                       </repositoryMapping>
+                       <repositoryMapping>
+                            <baseRepository>scm:git:hg@bitbucket.org:atlassian/crowd.git</baseRepository>
+                            <moduleMapping>
+                                <atlassian-crowd-components>components</atlassian-crowd-components>
+                            </moduleMapping>
+                            <repositoryModules>
+                                <repositoryModule>atlassian-crowd-components</repositoryModule>
+                                <repositoryModule>crowd-api</repositoryModule>
+                                <repositoryModule>crowd-core</repositoryModule>
+                                <repositoryModule>crowd-events</repositoryModule>
+                                <repositoryModule>crowd-integration-api</repositoryModule>
+                                <repositoryModule>crowd-integration-client-common</repositoryModule>
+                                <repositoryModule>crowd-integration-client-rest</repositoryModule>
+                                <repositoryModule>crowd-integration-seraph25</repositoryModule>
+                                <repositoryModule>crowd-ldap</repositoryModule>
+                                <repositoryModule>crowd-persistence</repositoryModule>
+                                <repositoryModule>crowd-remote</repositoryModule>
+                                <repositoryModule>crowd-password-encoders</repositoryModule>
+                                <repositoryModule>embedded-crowd-api</repositoryModule>
+                                <repositoryModule>embedded-crowd-spi</repositoryModule>
+                                <repositoryModule>embedded-crowd-core</repositoryModule>
+                            </repositoryModules>
+                            <resolveRoot>false</resolveRoot>
+                        </repositoryMapping>
+
+                        <repositoryMapping>
+                            <baseRepository>scm:svn:https://studio.atlassian.com/svn/EMBCWD/</baseRepository>
+                            <repositoryModules>
+                                <repositoryModule>atlassian-embedded-crowd</repositoryModule>
+                                <repositoryModule>atlassian-embedded-crowd-atlassian-user</repositoryModule>
+                                <repositoryModule>atlassian-embedded-crowd-hibernate2</repositoryModule>
+                            </repositoryModules>
+                            <resolveRoot>true</resolveRoot>
+                        </repositoryMapping>
+                        <repositoryMapping>
+                            <baseRepository>scm:svn:https://studio.atlassian.com/svn/WWONE/</baseRepository>
+                            <repositoryModules>
+                                <repositoryModule>atlassian-webwork1</repositoryModule>
+                            </repositoryModules>
+                        </repositoryMapping>
+                        <repositoryMapping>
+                            <baseRepository>scm:svn:https://svn.atlassian.com/svn/public/atlassian/rpc-jira-plugin/</baseRepository>
+                            <repositoryModules>
+                                <repositoryModule>atlassian-jira-rpc-plugin</repositoryModule>
+                            </repositoryModules>
+                            <moduleMapping>
+                                <atlassian-jira-rpc-plugin>rpc-jira-plugin</atlassian-jira-rpc-plugin>
+                            </moduleMapping>
+                        </repositoryMapping>
+                    </repositoryMappings>
+                    <useReactor>false</useReactor>
+                    <delay>0</delay>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <!--
+                            This is needed as jira-distribution inherits from the private pom,
+                            but this is not accessible to non-atlassian consumers. To get around this,
+                            we remove the parent of jira-distribution.
+
+                            We also remove all modules in jira-distribution except for jira-webapp-dist
+                            as consumers of the source distribution should only need to build jira-webapp-dist
+                        -->
+                        <id>modify-distribution-pom</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <tasks>
+                                <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask" classpathref="maven.compile.classpath"/>
+                                <xmltask failWithoutMatch="true" source="${project.build.directory}/checkouts/jira-project/jira-distribution/pom.xml" dest="${project.build.directory}/checkouts/jira-project/jira-distribution/processed-pom.xml">
+                                    <remove path="//*[local-name()='module'][text()!='jira-webapp-dist']"/>
+                                    <remove path="//*[local-name()='parent']"/>
+                                </xmltask>
+                                <move file="${project.build.directory}/checkouts/jira-project/jira-distribution/processed-pom.xml" tofile="${project.build.directory}/checkouts/jira-project/jira-distribution/pom.xml"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <!--
+                            This is needed because we can not distribute the properties-check-maven-plugin To get around
+                            this,we remove the plugin configuration section from jira-languages/default. We also remove
+                            the plugins and build section if they are empty.
+                        -->
+                        <id>exclude-properties-check</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <tasks>
+                            <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask" classpathref="maven.compile.classpath"/>
+                                <xmltask failWithoutMatch="false" source="${project.build.directory}/checkouts/jira-project/jira-components/jira-plugins/jira-languages/pom.xml"
+                                         dest="${project.build.directory}/checkouts/jira-project/jira-components/jira-plugins/jira-languages/processed-pom.xml">
+                                    <remove path="//*[local-name()='plugin']/*[local-name()='artifactId' and text()='properties-check-maven-plugin']/.."/>
+                                    <remove path="//*[local-name()='plugins' and count(./*)=0]"/>
+                                    <remove path="//*[local-name()='build' and count(./*)=0]"/>
+                                </xmltask>
+                                <move file="${project.build.directory}/checkouts/jira-project/jira-components/jira-plugins/jira-languages/processed-pom.xml" tofile="${project.build.directory}/checkouts/jira-project/jira-components/jira-plugins/jira-languages/pom.xml"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                    
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>source</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/main/assembly/source.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

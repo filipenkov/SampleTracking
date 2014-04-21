@@ -1,0 +1,6 @@
+Summary,Reporter,Comment
+"Test Issue 1", "userone", "20110729022414+1000; userone; comment by userone"
+"Test Issue 2", "User Two", "20110730022414+1000; usertwo; comment by User Two"
+"Test Issue 3", "User Three", "20110730022414+1000; User Three; comment by User Three"
+"Test Issue 4",, "20110730022414+1000; userfour; comment by User Four"
+"Test Issue 5",, "20110730022414+1000; User Four; comment by User Four"

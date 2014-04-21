@@ -1,0 +1,132 @@
+/* Functional styles - these are always applied */
+.aui-dropdown2 {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: none;
+    max-width: 256px;
+    min-width: 128px;
+    position: absolute;
+}
+.aui-dropdown2 a {
+    display: block;
+}
+.aui-dropdown2 .aui-list-truncate a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Default style for Dropdown2 */
+.aui-dropdown2.aui-style-default {
+    background-color: #fff;
+    border: 1px solid #bbb;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+}
+.aui-dropdown2.aui-style-default ul {
+    list-style: none;
+    margin: 4px 0;
+    padding-left: 0;
+}
+.aui-style-default .aui-dropdown2-section {
+    border-top: 1px solid #bbb;
+}
+.aui-style-default .aui-dropdown2-section:first-child {
+    border-top-width: 0;
+}
+.aui-dropdown2.aui-style-default strong {
+    color: #000;
+    display: block;
+    font-weight: bold;
+    line-height: 1.5;
+    margin: 5px 8px -1px;
+}
+.aui-dropdown2.aui-style-default a {
+    color: #000;
+    padding: 7px 8px 6px;
+    text-decoration: none;
+}
+.aui-dropdown2.aui-style-default a:focus,
+.aui-dropdown2.aui-style-default a:hover {
+    text-decoration: none;
+}
+.aui-dropdown2.aui-style-default .active {
+    background-color: #326ca6;
+    color: #fff;
+}
+.aui-dropdown2.aui-style-default .disabled {
+    color: #7F7F7F; /* equivalent of opacity: 0.5 without need for IE8 filter */
+    cursor: default;
+}
+.aui-dropdown2.aui-style-default .aui-icon-container,
+.aui-dropdown2.aui-style-default .aui-dropdown2-radio,
+.aui-dropdown2.aui-style-default .aui-dropdown2-checkbox {
+    padding-left: 28px;
+}
+
+.aui-dropdown2.aui-style-default .aui-icon-container,
+.aui-dropdown2.aui-style-default .aui-dropdown2-radio,
+.aui-dropdown2.aui-style-default .aui-dropdown2-checkbox {
+    background-position: 8px 6px;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.aui-dropdown2.aui-style-default .aui-icon-container > img,
+.aui-dropdown2.aui-style-default .aui-icon-container > span {
+    border-width: 0;
+    left: 8px;
+    position: absolute;
+    top: 6px;
+}
+.aui-dropdown2.aui-style-default .aui-icon-container > span {
+    display: block;
+    overflow: hidden;
+    text-indent: -99999px;
+}
+
+.aui-dropdown2.aui-style-default .checked {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnklEQVQ4EWP8//8/AyWAiRLNIL0jzQBGRkYrII5HCTdQLBCDgZqsgPgTEP8AYhmYHgzNQElmINaCKQDRQADT/AvIDkSRQ+ZAFS8EKvoMxNaENIPlsRgQANQMsglkSDoQg5yNYTNMH4YXoLaCDPkGxF/xacbqArjJDAyxUANQ/AyTh9GMYFOAKrEBYJSJAeVfYZODieE1AKYIHz3weQEAj0XgHBaJoWwAAAAASUVORK5CYII=");
+}
+.aui-dropdown2.aui-style-default .checked.active {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAmUlEQVQ4EWP8//8/AyWAiRLNIL0j0AAroLfjUcINFAtEYiuguk9A/AOIZWB6sGlmBkpqwRRAaZjmX0B+ILIcNgMWAhV8BmJrqEKcmkHy2AwIAEqAbAIZkg7EIGdj2AwUA+vFZgBIDGTINyD+CsQ4NQPlsLoAZmgs1AAUP4M0IWNGsCko8YLCEQPyXqGIoHEIGYCmHJM78HkBAF5lPMWA9xtVAAAAAElFTkSuQmCC");
+}
+.aui-dropdown2.aui-style-default .checked.disabled {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwElEQVQ4EWP8//8/AyWAiRLNIL0jzYBJkyZZAXE8crgxEhsLIM1AtTuAmtmYmJhUcnNzn2ANxNWrVzNPnjxZC9kWJM0cjIyMkTDNWA149uzZvH///p2cMGGCNUgBmubwvLy89ciGY0Qj0JkgBexAm3ZMnDgxHepskM0YmkEGYQ0DoO0BQA3LgPKgZMqKSzPIAAwXgAQLCgo2ADWlg9j4NIPkGUCxgAt3d3eL4ZKDiWP1AthkIgmsXiBSL1gZxQYAAIRRewzaTG7XAAAAAElFTkSuQmCC");
+}
+
+
+/* basic in-page dropdown trigger style */
+.aui-dropdown2-trigger.aui-style-default {
+    padding: 5px 8px;
+    text-decoration: none;
+}
+.aui-dropdown2-trigger.aui-style-default:hover,
+.aui-dropdown2-trigger.aui-style-default:focus,
+.aui-dropdown2-trigger.aui-style-default.active {
+    background-color: #326ca6;
+    border-radius: 4px;
+    color: #fff;
+    text-decoration: none;
+}
+.aui-dropdown2-trigger.aui-style-default.active {
+    border-radius: 4px 4px 0 0;
+}
+
+.aui-dropdown2-trigger.aui-style-default[aria-disabled="true"],
+.aui-dropdown2-trigger.aui-style-default[aria-disabled="true"]:hover,
+.aui-dropdown2-trigger.aui-style-default[aria-disabled="true"]:focus,
+.aui-dropdown2-trigger.aui-style-default[aria-disabled="true"]:active {
+    background: inherit;
+    color: #99b6d3; /* equivalent of opacity: 0.5 without need for IE8 filter. */
+    cursor: default;
+}
+
+/* Toolbar integration. Avoid double border: */
+.aui-dropdown2.aui-style-default.aui-dropdown2-in-toolbar {
+    margin-top: -1px;
+}

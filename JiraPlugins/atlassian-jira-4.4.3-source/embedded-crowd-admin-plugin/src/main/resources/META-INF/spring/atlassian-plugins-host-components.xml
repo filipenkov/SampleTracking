@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:osgi="http://www.springframework.org/schema/osgi"
+        xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd ">
+
+    <!-- generic stuff useful in all Spring MVC plugins -->
+    <osgi:reference id="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver"/>
+    <osgi:reference id="helpPathResolver" interface="com.atlassian.sal.api.message.HelpPathResolver"/>
+    <osgi:reference id="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
+    <osgi:reference id="userManager" interface="com.atlassian.sal.api.user.UserManager"/>
+    <osgi:reference id="loginUriProvider" interface="com.atlassian.sal.api.auth.LoginUriProvider"/>
+    <osgi:reference id="webSudoManager" interface="com.atlassian.sal.api.websudo.WebSudoManager"/>
+    <osgi:reference id="webResourceManager" interface="com.atlassian.plugin.webresource.WebResourceManager"/>
+    <osgi:reference id="webInterfaceManager" interface="com.atlassian.plugin.web.WebInterfaceManager"/>
+    <osgi:reference id="transactionTemplate" interface="com.atlassian.sal.api.transaction.TransactionTemplate"/>
+
+    <!-- Embedded Crowd stuff -->
+    <osgi:reference id="crowdService" interface="com.atlassian.crowd.embedded.api.CrowdService"/>
+    <osgi:reference id="crowdDirectoryService" interface="com.atlassian.crowd.embedded.api.CrowdDirectoryService"/>
+    <osgi:reference id="ldapPropertiesMapper" interface="com.atlassian.crowd.directory.ldap.LDAPPropertiesMapper"/>
+    <osgi:reference id="passwordEncoderFactory" interface="com.atlassian.crowd.password.factory.PasswordEncoderFactory"/>
+
+    <osgi:reference id="crowdDirectoryManager" interface="com.atlassian.crowd.manager.directory.DirectoryManager"/>
+    <osgi:reference id="directoryInstanceLoader" interface="com.atlassian.crowd.directory.loader.DirectoryInstanceLoader"/>
+
+</beans>

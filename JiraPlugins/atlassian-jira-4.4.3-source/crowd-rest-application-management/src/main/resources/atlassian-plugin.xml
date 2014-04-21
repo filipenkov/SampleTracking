@@ -1,0 +1,43 @@
+<atlassian-plugin name="Crowd REST API" key="crowd-rest-application-management" pluginsVersion="2">
+
+    <plugin-info>
+        <description>Crowd REST API - Application Management</description>
+        <vendor name="Atlassian Software Systems" url="http://www.atlassian.com"/>
+        <version>1.0</version>
+    </plugin-info>
+
+    <rest key="crowd-rest-application-management" path="/appmanagement" version="1">
+        <description>Provides an application management service for Crowd administrators.</description>
+    </rest>
+
+    <component-import key="directoryManager" interface="com.atlassian.crowd.manager.directory.DirectoryManager"/>
+    <component-import key="applicationService" interface="com.atlassian.crowd.manager.application.ApplicationService"/>
+    <component-import key="applicationManager" interface="com.atlassian.crowd.manager.application.ApplicationManager"/>
+    <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
+    <component-import key="userManager" interface="com.atlassian.sal.api.user.UserManager"/>
+    <component-import key="propertyManager" interface="com.atlassian.crowd.manager.property.PropertyManager"/>
+    <component-import key="trustedProxyManager" interface="com.atlassian.crowd.manager.proxy.TrustedProxyManager"/>
+
+    <servlet-filter name="REST HTTP Basic User Authentication Filter" key="basicUserAuthFilter"
+                    class="com.atlassian.crowd.plugin.rest.filter.BasicUserAuthenticationFilter"
+                    location="before-login" weight="100">
+        <description>Authenticates REST end-points with an admin user using the HTTP Basic Authentication protocol.</description>
+        <url-pattern>/rest/appmanagement/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </servlet-filter>
+
+    <servlet-filter name="REST Service Version Filter" key="restServiceVersionFilter"
+                    class="com.atlassian.crowd.plugin.rest.filter.RestServiceVersionFilter"
+                    location="after-encoding" weight="100">
+        <description>Adds the REST service version to the header.</description>
+        <url-pattern>/rest/appmanagement/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <init-param>
+            <param-name>X-Crowd-Application-Management-Version</param-name>
+            <param-value>1</param-value>
+        </init-param>
+    </servlet-filter>
+
+</atlassian-plugin>

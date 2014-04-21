@@ -1,0 +1,1071 @@
+<atlassian-plugin key="com.atlassian.jira.plugin.system.portlets" i18n-name-key="admin.portlet.plugin.name" name="Portlets Plugin">
+    <plugin-info>
+        <description key="admin.portlet.plugin.desc">JIRA's built in portlets.</description>
+        <version>1.0</version>
+        <application-version min="3.0" max="3.0"/>
+        <vendor name="Atlassian" url="http://www.atlassian.com"/>
+    </plugin-info>
+
+    <portlet key="projects" i18n-name-key="portlet.projects.name" name="Projects" class="com.atlassian.jira.portal.portlets.ProjectsPortlet">
+        <description key="portlet.projects.description">i18n description</description>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/projects.vm"/>
+        <label key="portlet.projects.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/allprojects.gif</thumbnail>
+        <objectdescriptor class="com.atlassian.jira.portal.ProjectCategoriesDescriptor"/>
+        <properties>
+            <property>
+                <key>projectinfo</key>
+                <name>portlet.projects.field.project.info.name</name>
+                <description>portlet.projects.field.project.info.description</description>
+                <type>select</type>
+                <default>full</default>
+                <values>
+                    <value>
+                        <key>brief</key>
+                        <value>portlet.projects.field.project.info.brief</value>
+                    </value>
+                    <value>
+                        <key>full</key>
+                        <value>portlet.projects.field.project.info.full</value>
+                    </value>
+                </values>
+            </property>
+            <property>
+                <key>projectcategoryid</key>
+                <name>portlet.projects.field.project.category.name</name>
+                <description>portlet.projects.field.project.category.description</description>
+                <type>select</type>
+                <i18n>false</i18n>
+                <values class="com.atlassian.jira.portal.ProjectCategoryValuesGenerator"/>
+            </property>
+        </properties>
+    </portlet>
+
+    <portlet key="projecttable" i18n-name-key="portlet.projecttable.name" name="Project Table" class="com.atlassian.jira.portal.portlets.ProjectTablePortlet">
+        <description key="portlet.projecttable.description">i18n description</description>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/projecttables.vm"/>
+        <label key="portlet.projecttable.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/projecttable.gif</thumbnail>
+        <objectdescriptor class="com.atlassian.jira.portal.ProjectTableCategoriesDescriptor"/>
+        <properties>
+            <property>
+                <key>numofcolumns</key>
+                <name>portlet.projecttable.field.numofcolumns.name</name>
+                <description>portlet.projecttable.field.numofcolumns.description</description>
+                <type>long</type>
+                <default>3</default>
+            </property>
+            <property>
+                <key>projectcategoryid</key>
+                <name>portlet.projecttable.field.project.category.name</name>
+                <description>portlet.projecttable.field.project.category.description</description>
+                <type>select</type>
+                <i18n>false</i18n>
+                <values class="com.atlassian.jira.portal.ProjectTableCategoryValuesGenerator"/>
+            </property>
+        </properties>
+    </portlet>
+
+    <portlet key="admin" i18n-name-key="portlet.admin.plugin.name" name="Administration Tools" class="com.atlassian.jira.portal.portlets.AdminPortlet">
+        <description key="portlet.admin.description">i18n description</description>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/admin.vm"/>
+        <label key="portlet.admin.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/admin.gif</thumbnail>
+        <permission>admin</permission>
+        <objectdescriptor key="portlet.admin.display.name"/>
+    </portlet>
+
+    <portlet key="project" i18n-name-key="portlet.project.name" name="Project" class="com.atlassian.jira.portal.portlets.ProjectPortlet">
+        <description key="portlet.project.description">i18n description</description>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/project.vm"/>
+        <label key="portlet.project.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/project.gif</thumbnail>
+        <objectdescriptor class="com.atlassian.jira.portal.ProjectObjectDescriptor"/>
+        <properties>
+            <property>
+                <key>projectid</key>
+                <name>portlet.project.field.project.name</name>
+                <description>portlet.project.field.project.description</description>
+                <type>select</type>
+                <i18n>false</i18n>
+                <values class="com.atlassian.jira.portal.ProjectValuesGenerator"/>
+            </property>
+            <property>
+                <key>projectinfo</key>
+                <name>portlet.project.field.project.info.name</name>
+                <description>portlet.project.field.project.info.description</description>
+                <type>select</type>
+                <default>full</default>
+                <values>
+                    <value>
+                        <key>brief</key>
+                        <value>portlet.project.field.project.info.brief</value>
+                    </value>
+                    <value>
+                        <key>full</key>
+                        <value>portlet.project.field.project.info.full</value>
+                    </value>
+                </values>
+            </property>
+        </properties>
+    </portlet>
+
+    <portlet key="projectstats" i18n-name-key="portlet.projectstats.name" name="Project Statistics" class="com.atlassian.jira.portal.portlets.ProjectStatsPortlet">
+        <description key="portlet.projectstats.description">i18n description</description>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/projectstats.vm"/>
+        <label key="portlet.projectstats.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/projectstats.gif</thumbnail>
+        <properties>
+            <property>
+                <key>projectid</key>
+                <name>portlet.projectstats.field.projectid.name</name>
+                <description>portlet.projectstats.field.projectid.description</description>
+                <type>select</type>
+                <i18n>false</i18n>
+                <values class="com.atlassian.jira.portal.ProjectValuesGenerator"/>
+            </property>
+            <property>
+                <key>statistictype</key>
+                <name>gadget.filterstats.field.statistictype.name</name>
+                <description>gadget.filterstats.field.statistictype.description</description>
+                <type>cascadingselect</type>
+                <values class="com.atlassian.jira.issue.statistics.FilterStatisticsCascadingSelectValuesGenerator"/>
+                <cascade-from>projectid</cascade-from>
+            </property>
+            <property>
+                <key>showclosed</key>
+                <name>gadget.filterstats.field.showclosed.name</name>
+                <description>gadget.filterstats.field.showclosed.description</description>
+                <type>select</type>
+                <default>false</default>
+                <values>
+                    <value>
+                        <key>true</key>
+                        <value>common.words.yes</value>
+                    </value>
+                    <value>
+                        <key>false</key>
+                        <value>common.words.no</value>
+                    </value>
+                </values>
+            </property>
+            <property>
+                <key>sortOrder</key>
+                <name>portlet.projectstats.field.sort.order</name>
+                <description>portlet.projectstats.field.sort.order.desc</description>
+                <type>select</type>
+                <values>
+                    <value>
+                        <key>natural</key>
+                        <value>portlet.twodimenfilterstats.field.yaxis.order.natural</value>
+                    </value>
+                    <value>
+                        <key>total</key>
+                        <value>common.words.total</value>
+                    </value>
+                </values>
+            </property>
+            <property>
+                <key>sortDirection</key>
+                <name>portlet.projectstats.field.sort.direction</name>
+                <description>portlet.projectstats.field.sort.direction.desc</description>
+                <type>select</type>
+                <values>
+                    <value>
+                        <key>asc</key>
+                        <value>portlet.twodimenfilterstats.field.yaxis.direction.asc</value>
+                    </value>
+                    <value>
+                        <key>desc</key>
+                        <value>portlet.twodimenfilterstats.field.yaxis.direction.desc</value>
+                    </value>
+                </values>
+            </property>
+        </properties>
+    </portlet>
+
+    <portlet key="filterstats" i18n-name-key="gadget.filterstats.name" name="Filter Statistics" class="com.atlassian.jira.portal.portlets.StatsPortlet">
+        <description key="gadget.filterstats.description">i18n description</description>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/filterstats.vm"/>
+        <label key="gadget.filterstats.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/filterstats.gif</thumbnail>
+        <properties>
+            <property>
+                <key>filterid</key>
+                <name>gadget.filterstats.field.filterid.name</name>
+                <description>gadget.filterstats.field.filterid.description</description>
+                <type>filterpicker</type>
+                <i18n>false</i18n>
+            </property>
+            <property>
+                <key>statistictype</key>
+                <name>gadget.filterstats.field.statistictype.name</name>
+                <description>gadget.filterstats.field.statistictype.description</description>
+                <type>select</type>
+                <values class="com.atlassian.jira.issue.statistics.FilterStatisticsValuesGenerator"/>
+            </property>
+            <property>
+                <key>sortOrder</key>
+                <name>gadget.filterstats.field.sort.order</name>
+                <description>gadget.filterstats.field.sort.order.desc</description>
+                <type>select</type>
+                <values>
+                    <value>
+                        <key>natural</key>
+                        <value>portlet.twodimenfilterstats.field.yaxis.order.natural</value>
+                    </value>
+                    <value>
+                        <key>total</key>
+                        <value>common.words.total</value>
+                    </value>
+                </values>
+            </property>
+            <property>
+                <key>sortDirection</key>
+                <name>gadget.filterstats.field.sort.direction</name>
+                <description>gadget.filterstats.field.sort.direction.desc</description>
+                <type>select</type>
+                <values>
+                    <value>
+                        <key>asc</key>
+                        <value>portlet.twodimenfilterstats.field.yaxis.direction.asc</value>
+                    </value>
+                    <value>
+                        <key>desc</key>
+                        <value>portlet.twodimenfilterstats.field.yaxis.direction.desc</value>
+                    </value>
+                </values>
+            </property>
+        </properties>
+    </portlet>
+
+    <portlet key="filterstatsdouble" i18n-name-key="portlet.twodimenfilterstats.name" name="Two Way Filter Statistics" class="com.atlassian.jira.portal.portlets.TwoDimensionalStatsPortlet">
+        <description key="portlet.twodimenfilterstats.description">i18n description</description>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/twodimensionalfilterstats.vm"/>
+        <label key="portlet.twodimenfilterstats.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/2dfilterstats.png</thumbnail>
+        <properties>
+            <property>
+                <key>filterid</key>
+                <name>gadget.filterstats.field.filterid.name</name>
+                <description>gadget.filterstats.field.filterid.description</description>
+                <type>filterpicker</type>
+                <i18n>false</i18n>
+            </property>
+            <property>
+                <key>xAxis</key>
+                <name>portlet.twodimenfilterstats.field.xaxis.name</name>
+                <description>portlet.twodimenfilterstats.field.xaxis.description</description>
+                <type>select</type>
+                <values class="com.atlassian.jira.issue.statistics.FilterStatisticsValuesGenerator"/>
+            </property>
+            <property>
+                <key>yAxis</key>
+                <name>portlet.twodimenfilterstats.field.yaxis.name</name>
+                <description>portlet.twodimenfilterstats.field.yaxis.description</description>
+                <type>select</type>
+                <values class="com.atlassian.jira.issue.statistics.FilterStatisticsValuesGenerator"/>
+            </property>
+            <property>
+                <key>yAxisOrder</key>
+                <name>portlet.twodimenfilterstats.field.yaxis.order</name>
+                <description>portlet.twodimenfilterstats.field.yaxis.order.desc</description>
+                <type>select</type>
+                <values>
+                    <value>
+                        <key>natural</key>
+                        <value>portlet.twodimenfilterstats.field.yaxis.order.natural</value>
+                    </value>
+                    <value>
+                        <key>total</key>
+                        <value>common.words.total</value>
+                    </value>
+                </values>
+            </property>
+            <property>
+                <key>yAxisDirection</key>
+                <name>portlet.twodimenfilterstats.field.yaxis.direction</name>
+                <description>portlet.twodimenfilterstats.field.yaxis.direction.description</description>
+                <type>select</type>
+                <values>
+                    <value>
+                        <key>asc</key>
+                        <value>portlet.twodimenfilterstats.field.yaxis.direction.asc</value>
+                    </value>
+                    <value>
+                        <key>desc</key>
+                        <value>portlet.twodimenfilterstats.field.yaxis.direction.desc</value>
+                    </value>
+                </values>
+            </property>
+            <property>
+                <key>showTotals</key>
+                <name>portlet.twodimenfilterstats.field.showtotals.name</name>
+                <description>portlet.twodimenfilterstats.field.showtotals.description</description>
+                <type>select</type>
+                <default>false</default>
+                <values>
+                    <value>
+                        <key>true</key>
+                        <value>common.words.yes</value>
+                    </value>
+                    <value>
+                        <key>false</key>
+                        <value>common.words.no</value>
+                    </value>
+                </values>
+            </property>
+            <property>
+                <key>numberToShow</key>
+                <name>portlet.twodimenfilterstats.field.number.to.show</name>
+                <description>portlet.twodimenfilterstats.field.number.to.show.desc</description>
+                <type>long</type>
+            </property>
+        </properties>
+    </portlet>
+
+    <portlet key="savedfilters" i18n-name-key="portlet.savedfilters.display.name" name="Saved Filters" class="com.atlassian.jira.portal.portlets.SavedFiltersPortlet" lazy="true">
+        <description key="portlet.savedfilters.description">i18n description</description>
+        <resource type="velocity" name="loading" location="templates/plugins/jira/portlets/savedfilters.vm"/>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/savedfilters.vm"/>
+        <label key="portlet.savedfilters.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/favouritefilters.png</thumbnail>
+        <objectdescriptor key="portlet.savedfilters.display.name"/>
+    </portlet>
+
+    <portlet key="assignedtome" i18n-name-key="portlet.assignedtome.plugin.name" name="Assigned Issues" class="com.atlassian.jira.portal.portlets.AssignedToMePortlet">
+        <description key="portlet.assignedtome.description">i18n description</description>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/searchresults.vm"/>
+        <label key="portlet.assignedtome.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/assigned.gif</thumbnail>
+        <permission>assignable</permission>
+        <objectdescriptor key="portlet.assignedtome.display.name"/>
+        <properties>
+            <property>
+                <key>numofentries</key>
+                <name>portlet.assignedtome.field.numofentries.name</name>
+                <description>portlet.assignedtome.field.numofentries.description</description>
+                <type>long</type>
+                <default>10</default>
+            </property>
+            <property>
+                <key>columns</key>
+                <name>portlet.abstractsearchresults.field.columns.name</name>
+                <description>portlet.abstractsearchresults.field.columns.description</description>
+                <type>multiselect</type>
+                <i18n>false</i18n>
+                <default>--default--</default> <!-- matches com.atlassian.jira.portal.ColumnNamesValuesGenerator.Property.DEFAULT_COLUMNS -->
+                <values class="com.atlassian.jira.portal.ColumnNamesValuesGenerator"/>
+            </property>
+            <property>
+                <key>showHeader</key>
+                <name>portlet.abstractsearchresults.field.showheader.name</name>
+                <description>portlet.abstractsearchresults.field.showheader.description</description>
+                <type>select</type>
+                <default>false</default>
+                <values>
+                    <value>
+                        <key>true</key>
+                        <value>common.words.yes</value>
+                    </value>
+                    <value>
+                        <key>false</key>
+                        <value>common.words.no</value>
+                    </value>
+                </values>
+            </property>
+        </properties>
+    </portlet>
+
+    <portlet key="inprogress" i18n-name-key="portlet.inprogress.name" name="In Progress Issues" class="com.atlassian.jira.portal.portlets.InProgressIssuesPortlet">
+        <description key="portlet.inprogress.description">i18n description</description>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/searchresults.vm"/>
+        <label key="portlet.inprogress.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/inprogress.gif</thumbnail>
+        <permission>assignable</permission>
+        <objectdescriptor key="portlet.inprogress.display.name"/>
+        <properties>
+            <property>
+                <key>numofentries</key>
+                <name>portlet.inprogress.field.numofentries.name</name>
+                <description>portlet.inprogress.field.numofentries.description</description>
+                <type>long</type>
+                <default>10</default>
+            </property>
+            <property>
+                <key>columns</key>
+                <name>portlet.abstractsearchresults.field.columns.name</name>
+                <description>portlet.abstractsearchresults.field.columns.description</description>
+                <type>multiselect</type>
+                <i18n>false</i18n>
+                <default>--default--</default> <!-- matches com.atlassian.jira.portal.ColumnNamesValuesGenerator.Property.DEFAULT_COLUMNS -->
+                <values class="com.atlassian.jira.portal.ColumnNamesValuesGenerator"/>
+            </property>
+            <property>
+                <key>showHeader</key>
+                <name>portlet.abstractsearchresults.field.showheader.name</name>
+                <description>portlet.abstractsearchresults.field.showheader.description</description>
+                <type>select</type>
+                <default>false</default>
+                <values>
+                    <value>
+                        <key>true</key>
+                        <value>common.words.yes</value>
+                    </value>
+                    <value>
+                        <key>false</key>
+                        <value>common.words.no</value>
+                    </value>
+                </values>
+            </property>
+        </properties>
+    </portlet>
+
+    <portlet key="mywatches" i18n-name-key="portlet.watches.name" name="Watched Issues" class="com.atlassian.jira.portal.portlets.MyWatchesPortlet">
+        <description key="portlet.watches.description">i18n description</description>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/myvotesorwatches.vm" />
+        <label key="portlet.watches.name" />
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/watched.gif</thumbnail>
+        <objectdescriptor key="portlet.watches.display.name" />
+        <properties>
+            <property>
+                <key>numofentries</key>
+                <name>portlet.votesandwatches.field.numofentries.name</name>
+                <description>portlet.votesandwatches.field.numofentries.description</description>
+                <type>long</type>
+                <default>10</default>
+            </property>
+            <property>
+                <key>showTotals</key>
+                <name>portlet.watches.field.showtotal.name</name>
+                <description>portlet.watches.field.showtotal.description</description>
+                <type>select</type>
+                <default>false</default>
+                <values>
+                    <value>
+                        <key>true</key>
+                        <value>common.words.yes</value>
+                    </value>
+                    <value>
+                        <key>false</key>
+                        <value>common.words.no</value>
+                    </value>
+                </values>
+            </property>
+        </properties>
+    </portlet>
+
+    <portlet key="myvotes" i18n-name-key="portlet.votes.name" name="Voted Issues" class="com.atlassian.jira.portal.portlets.MyVotesPortlet">
+        <description key="portlet.votes.description">i18n description</description>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/myvotesorwatches.vm" />
+        <label key="portlet.votes.name" />
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/voted.gif</thumbnail>
+        <objectdescriptor key="portlet.votes.display.name" />
+        <properties>
+            <property>
+                <key>numofentries</key>
+                <name>portlet.votesandwatches.field.numofentries.name</name>
+                <description>portlet.votesandwatches.field.numofentries.description</description>
+                <type>long</type>
+                <default>10</default>
+            </property>
+            <property>
+                <key>showTotals</key>
+                <name>portlet.votes.field.showtotal.name</name>
+                <description>portlet.votes.field.showtotal.description</description>
+                <type>select</type>
+                <default>true</default>
+                <values>
+                    <value>
+                        <key>true</key>
+                        <value>common.words.yes</value>
+                    </value>
+                    <value>
+                        <key>false</key>
+                        <value>common.words.no</value>
+                    </value>
+                </values>
+            </property>
+            <property>
+                <key>showResolved</key>
+                <name>portlet.votes.field.showResolved.name</name>
+                <description>portlet.votes.field.showResolved.description</description>
+                <type>select</type>
+                <default>true</default>
+                <values>
+                    <value>
+                        <key>true</key>
+                        <value>common.words.yes</value>
+                    </value>
+                    <value>
+                        <key>false</key>
+                        <value>common.words.no</value>
+                    </value>
+                </values>
+            </property>
+        </properties>
+    </portlet>
+
+    <portlet key="searchrequest" i18n-name-key="portlet.searchrequest.name" name="Display saved filter" class="com.atlassian.jira.portal.portlets.SearchRequestPortlet">
+        <description key="portlet.searchrequest.description">i18n description</description>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/searchresults.vm"/>
+        <label key="portlet.searchrequest.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/savedfilter.gif</thumbnail>
+        <objectdescriptor class="com.atlassian.jira.portal.SearchRequestObjectDescriptor"/>
+        <properties>
+            <property>
+                <key>filterid</key>
+                <name>portlet.searchrequest.field.filterid.name</name>
+                <description>portlet.searchrequest.field.filterid.description</description>
+                <type>filterpicker</type>
+                <i18n>false</i18n>
+            </property>
+            <property>
+                <key>numofentries</key>
+                <name>portlet.searchrequest.field.numofentries.name</name>
+                <description>portlet.searchrequest.field.numofentries.description</description>
+                <type>long</type>
+                <default>5</default>
+            </property>
+            <property>
+                <key>showdescription</key>
+                <name>portlet.searchrequest.field.showdescription.name</name>
+                <description>portlet.searchrequest.field.showdescription.description</description>
+                <type>select</type>
+                <default>false</default>
+                <values>
+                    <value>
+                        <key>true</key>
+                        <value>portlet.searchrequest.field.showdescription.true</value>
+                    </value>
+                    <value>
+                        <key>false</key>
+                        <value>portlet.searchrequest.field.showdescription.false</value>
+                    </value>
+                </values>
+            </property>
+            <property>
+                <key>columns</key>
+                <name>portlet.abstractsearchresults.field.columns.name</name>
+                <description>portlet.abstractsearchresults.field.columns.description</description>
+                <type>multiselect</type>
+                <i18n>false</i18n>
+                <default>--default--</default> <!-- matches com.atlassian.jira.portal.ColumnNamesValuesGenerator.Property.DEFAULT_COLUMNS -->
+                <values class="com.atlassian.jira.portal.ColumnNamesValuesGenerator"/>
+            </property>
+            <property>
+                <key>showHeader</key>
+                <name>portlet.abstractsearchresults.field.showheader.name</name>
+                <description>portlet.abstractsearchresults.field.showheader.description</description>
+                <type>select</type>
+                <default>false</default>
+                <values>
+                    <value>
+                        <key>true</key>
+                        <value>common.words.yes</value>
+                    </value>
+                    <value>
+                        <key>false</key>
+                        <value>common.words.no</value>
+                    </value>
+                </values>
+            </property>
+        </properties>
+    </portlet>
+
+    <portlet key="introduction" i18n-name-key="portlet.introduction.name" name="Introduction" class="com.atlassian.jira.portal.portlets.IntroductionPortlet">
+        <description key="portlet.introduction.description">i18n description</description>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/introduction.vm"/>
+        <label key="portlet.introduction.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/introduction.gif</thumbnail>
+        <objectdescriptor key="portlet.introduction.display.name"/>
+    </portlet>
+
+    <portlet key="userissues" i18n-name-key="portlet.userissues.plugin.name" name="User Issues" class="com.atlassian.jira.portal.portlets.UserIssuesPortlet">
+        <description key="portlet.userissues.description">i18n description</description>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/userissues.vm"/>
+        <label key="portlet.userissues.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/quicklinks.gif</thumbnail>
+        <objectdescriptor key="portlet.userissues.display.name"/>
+    </portlet>
+
+    <portlet key="bugzilla" i18n-name-key="portlet.bugzilla.plugin.name" name="Bugzilla" class="com.atlassian.jira.portal.PortletImpl">
+        <description key="portlet.bugzilla.description">i18n description</description>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/bugzilla.vm"/>
+        <label key="portlet.bugzilla.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/bugzillafinder.gif</thumbnail>
+        <objectdescriptor key="portlet.bugzilla.display.name"/>
+        <properties>
+            <property>
+                <key>bugzilla_url</key>
+                <name>portlet.bugzilla.field.bugzilla_url.name</name>
+                <description>portlet.bugzilla.field.bugzilla_url.description</description>
+                <type>string</type>
+                <default>http://localhost/bugzilla</default>
+            </property>
+        </properties>
+    </portlet>
+
+    <portlet key="text" i18n-name-key="portlet.text.name" name="Text" class="com.atlassian.jira.portal.portlets.TextPortlet" state="disabled">
+        <description key="portlet.text.description">i18n description</description>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/textportlet.vm"/>
+        <label key="portlet.text.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/introduction.gif</thumbnail>
+        <objectdescriptor class="com.atlassian.jira.portal.TitleObjectDescriptor"/>
+        <properties>
+            <property>
+                <key>title</key>
+                <name>portlet.text.field.title</name>
+                <description>portlet.text.field.title.description</description>
+                <type>string</type>
+            </property>
+            <property>
+                <key>html</key>
+                <name>portlet.text.field.html</name>
+                <description>portlet.text.field.html.description</description>
+                <type>text</type>
+            </property>
+        </properties>
+    </portlet>
+
+    <portlet key="roadmap" i18n-name-key="portlet.roadmap.name" name="Road Map" class="com.atlassian.jira.portal.portlets.RoadMapPortlet">
+        <description key="portlet.roadmap.description">i18n description</description>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/roadmap.vm"/>
+        <label key="portlet.roadmap.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/roadmap.png</thumbnail>
+        <objectdescriptor key="portlet.roadmap.display.name"/>
+        <properties>
+            <property>
+                <key>projects</key>
+                <name>portlet.roadmap.field.projects</name>
+                <type>multiselect</type>
+                <i18n>false</i18n>
+                <values class="com.atlassian.jira.portal.ProjectAndProjectCategoryValuesGenerator"/>
+                <enabled-condition class="com.atlassian.jira.plugin.report.impl.NonEnterpriseEditionCondition"/>
+            </property>
+            <property>
+                <key>projectsEnt</key>
+                <name>portlet.roadmap.field.projects.and.categories</name>
+                <type>multiselect</type>
+                <i18n>false</i18n>
+                <values class="com.atlassian.jira.portal.ProjectAndProjectCategoryValuesGenerator"/>
+                <enabled-condition class="com.atlassian.jira.plugin.report.impl.EnterpriseEditionCondition"/>
+            </property>
+            <property>
+                <key>days</key>
+                <name>portlet.roadmap.field.period</name>
+                <description>portlet.roadmap.field.period.description</description>
+                <type>long</type>
+                <default>30</default>
+            </property>
+            <property>
+                <key>maxresults</key>
+                <name>portlet.roadmap.field.maxresults</name>
+                <description>portlet.roadmap.field.maxresults.description</description>
+                <type>long</type>
+                <default>10</default>
+            </property>
+        </properties>
+    </portlet>
+
+    <!-- CHARTING -->
+    <portlet key="createdvsresolved" name="Created vs Resolved Issues Chart" class="com.atlassian.jira.charts.portlet.CreatedVsResolvedChartPortlet" lazy="true">
+        <description key="portlet.createdvsresolved.description">i18n description</description>
+        <resource type="velocity" name="loading" location="templates/plugins/jira/portlets/charts/loadingchart.vm"/>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/charts/createdvsresolved.vm"/>
+        <label key="portlet.createdvsresolved.name"/>
+        <objectdescriptor key="portlet.createdvsresolved.display.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/createdvsresolvedportlet.png</thumbnail>
+        <properties>
+            <property>
+                <key>projectOrFilterId</key>
+                <name>portlet.chart.field.project.or.filter.name</name>
+                <description>portlet.chart.field.project.or.filter.description</description>
+                <type>filterprojectpicker</type>
+                <i18n>false</i18n>
+            </property>
+            <property>
+                <!-- These need to match ChartFactory.PeriodName -->
+                <key>periodName</key>
+                <name>portlet.chart.field.periodname.name</name>
+                <description>portlet.chart.field.periodname.description</description>
+                <type>select</type>
+                <default>daily</default>
+                <values>
+                    <value>
+                        <key>hourly</key>
+                        <value>portlet.chart.field.periodname.hourly</value>
+                    </value>
+                    <value>
+                        <key>daily</key>
+                        <value>portlet.chart.field.periodname.daily</value>
+                    </value>
+                    <value>
+                        <key>weekly</key>
+                        <value>portlet.chart.field.periodname.weekly</value>
+                    </value>
+                    <value>
+                        <key>monthly</key>
+                        <value>portlet.chart.field.periodname.monthly</value>
+                    </value>
+                    <value>
+                        <key>quarterly</key>
+                        <value>portlet.chart.field.periodname.quarterly</value>
+                    </value>
+                    <value>
+                        <key>yearly</key>
+                        <value>portlet.chart.field.periodname.yearly</value>
+                    </value>
+                </values>
+            </property>
+            <property>
+                <key>daysprevious</key>
+                <name>portlet.chart.field.daysprevious.name</name>
+                <description>portlet.chart.field.daysprevious.description</description>
+                <type>long</type>
+                <default>30</default>
+            </property>
+            <property>
+                <key>cumulative</key>
+                <name>portlet.chart.field.cumulative.name</name>
+                <description>portlet.chart.field.cumulative.description</description>
+                <type>select</type>
+                <default>true</default>
+                <values>
+                    <value>
+                        <key>true</key>
+                        <value>common.words.yes</value>
+                    </value>
+                    <value>
+                        <key>false</key>
+                        <value>common.words.no</value>
+                    </value>
+                </values>
+            </property>
+            <property>
+                <key>showUnresolvedTrend</key>
+                <name>portlet.chart.field.showUnresolvedTrend.name</name>
+                <description>portlet.chart.field.showUnresolvedTrend.description</description>
+                <type>select</type>
+                <default>false</default>
+                <values>
+                    <value>
+                        <key>true</key>
+                        <value>common.words.yes</value>
+                    </value>
+                    <value>
+                        <key>false</key>
+                        <value>common.words.no</value>
+                    </value>
+                </values>
+            </property>
+            <property>
+                <!-- These need to match ChartFactory.VersionLabel -->
+                <key>versionLabels</key>
+                <name>portlet.chart.field.versionLabels.name</name>
+                <description>portlet.chart.field.versionLabels.description</description>
+                <type>select</type>
+                <default>major</default>
+                <values>
+                    <value>
+                        <key>all</key>
+                        <value>portlet.chart.field.versionLabels.allVersions</value>
+                    </value>
+                    <value>
+                        <key>major</key>
+                        <value>portlet.chart.field.versionLabels.majorVersions</value>
+                    </value>
+                    <value>
+                        <key>none</key>
+                        <value>portlet.chart.field.versionLabels.noVersions</value>
+                    </value>
+                </values>
+            </property>
+        </properties>
+    </portlet>
+
+    <portlet key="resolutiontime" name="Resolution Time Chart" class="com.atlassian.jira.charts.portlet.ResolutionTimeChartPortlet" lazy="true">
+        <description key="portlet.resolutiontime.description">i18n description</description>
+        <resource type="velocity" name="loading" location="templates/plugins/jira/portlets/charts/loadingchart.vm"/>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/charts/resolutiontime.vm"/>
+        <label key="portlet.resolutiontime.name"/>
+        <objectdescriptor key="portlet.resolutiontime.display.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/resolutiontimeportlet.png</thumbnail>
+        <properties>
+            <property>
+                <key>projectOrFilterId</key>
+                <name>portlet.chart.field.project.or.filter.name</name>
+                <description>portlet.chart.field.project.or.filter.description</description>
+                <type>filterprojectpicker</type>
+                <i18n>false</i18n>
+            </property>
+            <property>
+                <!-- These need to match ChartFactory.PeriodName -->
+                <key>periodName</key>
+                <name>portlet.chart.field.periodname.name</name>
+                <description>portlet.chart.field.periodname.description</description>
+                <type>select</type>
+                <default>daily</default>
+                <values>
+                    <value>
+                        <key>hourly</key>
+                        <value>portlet.chart.field.periodname.hourly</value>
+                    </value>
+                    <value>
+                        <key>daily</key>
+                        <value>portlet.chart.field.periodname.daily</value>
+                    </value>
+                    <value>
+                        <key>weekly</key>
+                        <value>portlet.chart.field.periodname.weekly</value>
+                    </value>
+                    <value>
+                        <key>monthly</key>
+                        <value>portlet.chart.field.periodname.monthly</value>
+                    </value>
+                    <value>
+                        <key>quarterly</key>
+                        <value>portlet.chart.field.periodname.quarterly</value>
+                    </value>
+                    <value>
+                        <key>yearly</key>
+                        <value>portlet.chart.field.periodname.yearly</value>
+                    </value>
+                </values>
+            </property>
+            <property>
+                <key>daysprevious</key>
+                <name>portlet.chart.field.daysprevious.name</name>
+                <description>portlet.chart.field.daysprevious.description</description>
+                <type>long</type>
+                <default>30</default>
+            </property>
+        </properties>
+    </portlet>
+
+    <portlet key="pie" name="Pie Chart" class="com.atlassian.jira.charts.portlet.PieChartPortlet" lazy="true">
+        <description key="portlet.singlefieldpie.description">i18n description</description>
+        <resource type="velocity" name="loading" location="templates/plugins/jira/portlets/charts/loadingchart.vm"/>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/charts/pie.vm"/>
+        <label key="portlet.singlefieldpie.name"/>
+        <objectdescriptor key="portlet.singlefieldpie.display.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/piechartportlet.png</thumbnail>
+        <properties>
+            <property>
+                <key>projectOrFilterId</key>
+                <name>portlet.chart.field.project.or.filter.name</name>
+                <description>portlet.chart.field.project.or.filter.description</description>
+                <type>filterprojectpicker</type>
+                <i18n>false</i18n>
+            </property>
+            <property>
+                <key>statistictype</key>
+                <name>gadget.filterstats.field.statistictype.name</name>
+                <description>gadget.filterstats.field.statistictype.description</description>
+                <type>select</type>
+                <values class="com.atlassian.jira.issue.statistics.FilterStatisticsValuesGenerator"/>
+            </property>
+        </properties>
+    </portlet>
+
+    <portlet key="averageage" name="Average Age Chart" class="com.atlassian.jira.charts.portlet.AverageAgeChartPortlet" lazy="true">
+        <description key="portlet.averageage.description">i18n description</description>
+        <resource type="velocity" name="loading" location="templates/plugins/jira/portlets/charts/loadingchart.vm"/>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/charts/averageage.vm"/>
+        <label key="portlet.averageage.name"/>
+        <objectdescriptor key="portlet.averageage.display.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/averageageportlet.png</thumbnail>
+        <properties>
+            <property>
+                <key>projectOrFilterId</key>
+                <name>portlet.chart.field.project.or.filter.name</name>
+                <description>portlet.chart.field.project.or.filter.description</description>
+                <type>filterprojectpicker</type>
+                <i18n>false</i18n>
+            </property>
+            <property>
+                <!-- These need to match ChartFactory.PeriodName -->
+                <key>periodName</key>
+                <name>portlet.chart.field.periodname.name</name>
+                <description>portlet.chart.field.periodname.description</description>
+                <type>select</type>
+                <default>daily</default>
+                <values>
+                    <value>
+                        <key>hourly</key>
+                        <value>portlet.chart.field.periodname.hourly</value>
+                    </value>
+                    <value>
+                        <key>daily</key>
+                        <value>portlet.chart.field.periodname.daily</value>
+                    </value>
+                    <value>
+                        <key>weekly</key>
+                        <value>portlet.chart.field.periodname.weekly</value>
+                    </value>
+                    <value>
+                        <key>monthly</key>
+                        <value>portlet.chart.field.periodname.monthly</value>
+                    </value>
+                    <value>
+                        <key>quarterly</key>
+                        <value>portlet.chart.field.periodname.quarterly</value>
+                    </value>
+                    <value>
+                        <key>yearly</key>
+                        <value>portlet.chart.field.periodname.yearly</value>
+                    </value>
+                </values>
+            </property>
+            <property>
+                <key>daysprevious</key>
+                <name>portlet.chart.field.daysprevious.name</name>
+                <description>portlet.chart.field.daysprevious.description</description>
+                <type>long</type>
+                <default>30</default>
+            </property>
+        </properties>
+    </portlet>
+
+    <portlet key="recentlycreated" name="Recently Created Issues Chart" class="com.atlassian.jira.charts.portlet.RecentlyCreatedChartPortlet" lazy="true">
+        <description key="portlet.recentlycreated.description">i18n description</description>
+        <resource type="velocity" name="loading" location="templates/plugins/jira/portlets/charts/loadingchart.vm"/>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/charts/recentlycreated.vm"/>
+        <label key="portlet.recentlycreated.name"/>
+        <objectdescriptor key="portlet.recentlycreated.display.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/recentlycreatedportlet.png</thumbnail>
+        <properties>
+            <property>
+                <key>projectOrFilterId</key>
+                <name>portlet.chart.field.project.or.filter.name</name>
+                <description>portlet.chart.field.project.or.filter.description</description>
+                <type>filterprojectpicker</type>
+                <i18n>false</i18n>
+            </property>
+            <property>
+                <key>periodName</key>
+                <name>portlet.chart.field.periodname.name</name>
+                <description>portlet.chart.field.periodname.description</description>
+                <type>select</type>
+                <default>daily</default>
+                <values>
+                    <value>
+                        <key>hourly</key>
+                        <value>portlet.chart.field.periodname.hourly</value>
+                    </value>
+                    <value>
+                        <key>daily</key>
+                        <value>portlet.chart.field.periodname.daily</value>
+                    </value>
+                    <value>
+                        <key>weekly</key>
+                        <value>portlet.chart.field.periodname.weekly</value>
+                    </value>
+                    <value>
+                        <key>monthly</key>
+                        <value>portlet.chart.field.periodname.monthly</value>
+                    </value>
+                    <value>
+                        <key>quarterly</key>
+                        <value>portlet.chart.field.periodname.quarterly</value>
+                    </value>
+                    <value>
+                        <key>yearly</key>
+                        <value>portlet.chart.field.periodname.yearly</value>
+                    </value>
+                </values>
+            </property>
+            <property>
+                <key>daysprevious</key>
+                <name>portlet.chart.field.daysprevious.name</name>
+                <description>portlet.chart.field.daysprevious.description</description>
+                <type>long</type>
+                <default>30</default>
+            </property>
+        </properties>
+    </portlet>
+
+    <portlet key="timesince" name="Time Since Chart" class="com.atlassian.jira.charts.portlet.TimeSinceChartPortlet" lazy="true">
+        <description key="portlet.timesince.description">i18n description</description>
+        <resource type="velocity" name="loading" location="templates/plugins/jira/portlets/charts/loadingchart.vm"/>
+        <resource type="velocity" name="view" location="templates/plugins/jira/portlets/charts/timesince.vm"/>
+        <label key="portlet.timesince.name"/>
+        <objectdescriptor key="portlet.timesince.display.name"/>
+        <thumbnail source="webContext">portlets/dashboard/thumbnails/timesinceportlet.png</thumbnail>
+        <properties>
+            <property>
+                <key>projectOrFilterId</key>
+                <name>portlet.chart.field.project.or.filter.name</name>
+                <description>portlet.chart.field.project.or.filter.description</description>
+                <type>filterprojectpicker</type>
+                <i18n>false</i18n>
+            </property>
+            <property>
+                <key>dateField</key>
+                <name>portlet.chart.field.dateField.name</name>
+                <description>portlet.chart.field.dateField.description</description>
+                <type>select</type>
+                <i18n>false</i18n>
+                <values class="com.atlassian.jira.charts.portlet.DateFieldValuesGenerator"/>
+            </property>
+            <property>
+                <key>periodName</key>
+                <name>portlet.chart.field.periodname.name</name>
+                <description>portlet.chart.field.periodname.description</description>
+                <type>select</type>
+                <default>daily</default>
+                <values>
+                    <value>
+                        <key>hourly</key>
+                        <value>portlet.chart.field.periodname.hourly</value>
+                    </value>
+                    <value>
+                        <key>daily</key>
+                        <value>portlet.chart.field.periodname.daily</value>
+                    </value>
+                    <value>
+                        <key>weekly</key>
+                        <value>portlet.chart.field.periodname.weekly</value>
+                    </value>
+                    <value>
+                        <key>monthly</key>
+                        <value>portlet.chart.field.periodname.monthly</value>
+                    </value>
+                    <value>
+                        <key>quarterly</key>
+                        <value>portlet.chart.field.periodname.quarterly</value>
+                    </value>
+                    <value>
+                        <key>yearly</key>
+                        <value>portlet.chart.field.periodname.yearly</value>
+                    </value>
+                </values>
+            </property>
+            <property>
+                <key>daysprevious</key>
+                <name>portlet.chart.field.daysprevious.name</name>
+                <description>portlet.chart.field.daysprevious.description</description>
+                <type>long</type>
+                <default>30</default>
+            </property>
+            <property>
+                <key>cumulative</key>
+                <name>portlet.chart.field.cumulative.name</name>
+                <description>portlet.chart.field.cumulative.description</description>
+                <type>select</type>
+                <default>true</default>
+                <values>
+                    <value>
+                        <key>true</key>
+                        <value>common.words.yes</value>
+                    </value>
+                    <value>
+                        <key>false</key>
+                        <value>common.words.no</value>
+                    </value>
+                </values>
+            </property>
+        </properties>
+    </portlet>
+
+</atlassian-plugin>

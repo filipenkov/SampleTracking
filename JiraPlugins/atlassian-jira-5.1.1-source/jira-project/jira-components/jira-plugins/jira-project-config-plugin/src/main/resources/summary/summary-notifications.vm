@@ -1,0 +1,40 @@
+#enable_html_escaping()
+#* @vtlvariable name="components" type="java.util.List<com.atlassian.jira.projectconfig.contextproviders.NotificationsSummaryPanelContextProvider.SimpleNotificationScheme>" *#
+<div id="project-config-notifications" class="project-config-webpanel-content project-config-icon48-notifications">
+    <div class="project-config-webpanel-help">
+        <p>${i18n.getText("admin.project.config.summary.notification.desc")}</p>
+    </div>
+
+    <ul class="project-config-list project-config-datalist">
+        <li>
+            <span class="project-config-list-label">${i18n.getText("common.concepts.scheme")}:</span>
+            <span class="project-config-list-value">
+                #if (!$notificationScheme)
+                    <a id="project-config-notif" href="${manageUrl}">${i18n.getText("common.words.none")}</a>
+                #else
+                    <a id="project-config-notif" href="${manageUrl}" title="$!{notificationScheme.description}">${notificationScheme.name}</a>
+                #end
+            </span>
+        </li>
+        <li>
+            <span class="project-config-list-label">${i18n.getText("common.words.email")}:</span>
+            <span class="project-config-list-value">
+                #if ($hasConfiguredMailServer)
+                    #if ($isAdmin)
+                        <a id="project-config-email-change" class="project-config-icon project-config-icon-edit" href="${baseurl}/secure/project/ProjectEmail!default.jspa?projectId=${project.id}">${i18n.getText("common.words.change")}</a>
+                    #end
+                    #if ($projectEmail)
+                        <a href="mailto:${projectEmail}" class="project-config-panel-header-value" id="project-config-email">${projectEmail}</a>
+                    #end
+                #else
+                    #if ($isAdmin)
+                        <a id="project-config-mailserver-config" href="${baseurl}/secure/admin/OutgoingMailServers.jspa">${i18n.getText("admin.mailservers.no.server")}</a>
+                    #else
+                        <span id="project-config-mailserver">${i18n.getText("admin.mailservers.no.server")}</span>
+                    #end
+                #end
+            </span>
+        </li>
+    </ul>
+</div>
+<a class="project-config-more-link" href="${manageUrl}" title="${i18n.getText("admin.project.notifications.summary.manage")}">${i18n.getText("common.concepts.more")}</a>

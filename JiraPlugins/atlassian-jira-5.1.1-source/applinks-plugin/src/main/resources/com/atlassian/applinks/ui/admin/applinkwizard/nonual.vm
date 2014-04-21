@@ -1,0 +1,48 @@
+## This wizard page is used in:
+## * create-applink wizard
+#if ($title)
+    #set ($dialogTitle = $title)
+#else
+    #set ($dialogTitle = 'applinks.list.add')
+#end
+<div class="step-2-non-ual" title="${i18n.getText($dialogTitle)}" submit="true">
+    #help('applinks.docs.adding.application.link', '', 'help-step')
+    <ol class="progress-bar two-step step-two">
+        <li>${i18n.getText('applinks.create.step1')}</li>
+        <li class="active">${i18n.getText('applinks.create.step2')}</li>
+    </ol>
+    <h1 class="step-title">${i18n.getText('applinks.create.title.link')}</h1>
+        <div class="image-wrapper-solid">
+          <div class="app-image local-app-image" title="${i18n.getText('applinks.create.local.application')}"><div class="local-app-name">&nbsp;</div></div>
+            <div class="arrows">
+              <div class="left-to-right-arrow">&nbsp;</div>
+            </div>
+          <div class="app-image non-ual-app-image" title="${i18n.getText('applinks.create.remote.application')}">&nbsp;</div>
+        </div>
+        <div class="non-ual-form">
+            <form action="#" method="post" class="aui" onSubmit="return false;">
+                <fieldset>
+                <legend>
+                    <span>${i18n.getText('applinks.create.legend')}</span>
+                </legend>
+                <p class="non-ual-description">${i18n.getText('applinks.create.non.ual.description')}</p>
+                <div class="field-group">
+                    <label>${i18n.getText("applinks.details.appname")} <span class="aui-icon icon-required"></span></label>
+                    <input class="text application-name" type="text" accessKey="n" name="application-name" title="${i18n.getText('applinks.details.appname.description')}">
+                </div>
+                <div class="field-group">
+                    <label for="application-types">${i18n.getText("applinks.details.application.type")} <span class="aui-icon icon-required"></span></label>
+                    <select class="select medium-field application-types" accessKey="t" id="application-types" name="application-types" title="${i18n.getText('applinks.details.application.type')}">
+                        <option value="">${i18n.getText("applinks.details.select.type")}</option>
+                    </select>
+                </div>
+                <div class="field-group">
+                    <label>${i18n.getText("applinks.app.url")}</label>
+                    <span class="field-value non-ual-application-url"></span>
+                </div>
+                </fieldset>
+                <div class="create-non-ual-warning applinks-warning-box"></div>
+                <div class="create-non-ual-errors"></div>
+            </form>
+        </div>
+</div>

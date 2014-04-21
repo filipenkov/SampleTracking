@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+#* @vtlvariable name="i18n" type="com.atlassian.sal.api.message.I18nResolver" *#
+#* @vtlvariable name="tabs" type="java.util.Collection<com.atlassian.applinks.ui.auth.AuthenticatorContainerServlet.ConfigTab>" *#
+#* @vtlvariable name="webResources" type="com.atlassian.applinks.core.util.WebResources" *#
+
+<html>
+<head>
+    ${webResources.get()}
+</head>
+<body class="auth-container">
+<div class="aui-tabs horizontal-tabs">
+    <div class="auth-container-description">
+        #if ($direction == "OUTBOUND")
+            ${i18n.getText('auth.config.outgoing.description', $localApplicationName, $localApplicationType, $remoteApplicationName, $remoteApplicationType)}
+        #else
+            ${i18n.getText('auth.config.incoming.description', $localApplicationName, $localApplicationType, $remoteApplicationName, $remoteApplicationType)}
+        #end
+    </div>
+    <ul class="tabs-menu">
+    #set( $count = 0 )
+    #foreach ($tab in $tabs)
+        ##We skip configuration screens that didn't return a URL.
+        #if ($tab.getUrl())
+            <li class="menu-item#if ($count == 0) active-tab first#end">
+                <a class="auth-config-tab-link $tab.cssClass" id="config-tab-$count" href="#tab-$count"><strong>#if ($tab.isConfigured())<span title="${i18n.getText('auth.config.enabled.authentication.type', "$tab.getName()")}" class="configured-auth-type">&nbsp;</span>#end$tab.name</strong></a>
+                #set( $count = $count +1)
+            </li>
+        #end
+    #end
+    </ul>
+        #set( $count = 0 )
+        #foreach ($tab in $tabs)
+        ##We skip configuration screens that didn't return a URL.
+        #if ($tab.getUrl())
+            <div class="tabs-pane#if ($count == 0) active-pane#end" id="tab-$count">
+                #set( $count = $count +1)
+                  <iframe id="${tab.id}" name="${tab.id}" src="${tab.url}" class="auth-config-frame" frameborder="0"></iframe>
+            </div>
+        #end
+        #end
+</div>
+#if ($count == 0)
+    <div class="aui-message">
+        $i18n.getText('auth.config.no.authentication.providers')
+    </div>
+#end
+</body>
+#*  Unfortunately, the current document is normally embedded in an iFrame, for which Firefox doesn't trigger the $(document).ready() function. Therefore
+ *  we trigger the function manually, even though this not usually recommended.
+ *#
+<script type="text/javascript">
+    atlassianAuthContainerReadyHandler();
+</script>
+
+</html>

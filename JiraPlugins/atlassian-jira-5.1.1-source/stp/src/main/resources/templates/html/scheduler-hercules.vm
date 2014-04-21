@@ -1,0 +1,46 @@
+#parse ( "/templates/includes/xsrf.vm" )
+<div class="stp-module-container-block">
+	<div class="stp-module-main-block logo-neighbor">
+		<form class="aui unsectioned" method="POST" action="$servletHomePath/scheduled-hercules/execute">
+		    #form_xsrfToken()
+	
+			#parse ( "/templates/includes/errors.vm" )
+			#if ($validationLog.hasFeedback())
+				#foreach ($message in $validationLog.feedback)
+					<div class="aui-message success shadowed">
+						$message.body
+					</div>	
+				#end
+			#end
+			
+			<p>$i18n.getText("stp.scheduler.hercules.description")</p>
+	
+			<div class="field-group">
+				<label for="enabled">$i18n.getText("stp.scheduler.enabled")</label>
+				<input type="checkbox" name="enabled" #if ($settings.enabled) checked="true" #end/>
+				
+				<div class="description">$i18n.getText("stp.scheduler.enabled.description")</div>
+			</div>
+	
+			#parse ( "/templates/includes/scheduler-common-params.vm" )		
+			<div class="field-group">
+				<label for="h-recipients">$i18n.getText("stp.scheduler.hercules.recipients")</label>
+				<input class="text" type="text" name="recipients" id="recipients" value="#if ($settings.recipients)$settings.recipients#else$info.userEmail#end"/>
+				
+				<div class="description">$i18n.getText("stp.scheduler.hercules.recipients.description")</div>
+			</div>
+	
+			<div class="buttons">
+				<input type="submit" value="$i18n.getText('stp.scheduler.update.button')"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="stp-module-logo-block">
+		<img src="$webResourceManager.getStaticPluginResource("com.atlassian.support.stp:resources", "images/hercules.png")" class="stp-module-logo" alt="$i18n.getText("stp.hercules.tool.title")"/>
+		<p class="stp-module-logo-caption">$i18n.getText('stp.hercules.tool.description')</p>
+</div>
+<!--end box-model-->
+
+<div class="clearer"></div>

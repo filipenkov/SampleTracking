@@ -1,0 +1,30 @@
+#disable_html_escaping()
+#parse("templates/email/html/includes/header.vm")
+<tr valign="top">
+    <td id="email-banner" style="padding:32px 32px 0 32px;">
+        #set ($authorLink = "#authorlink2($remoteUser.name $linkstyle)")
+        #commonEmailBanner($remoteUser false "jira-share-plugin.email.saved.search.activity" $authorLink $filterName '')
+    </td>
+</tr>
+#if ($comment)
+<tr valign="top">
+    <td id="email-fields" style="padding:0 32px 0 32px;">
+        <table border="0" cellpadding="0" cellspacing="0" style="padding:0;text-align:left;width:100%;" width="100%">
+            <tr valign="top">
+                <td id="email-gutter" style="width:64px;white-space:nowrap;"></td>
+                <td>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        #parse("templates/email/html/includes/fields/comment.vm")
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+#end
+<tr>
+    <td style="padding:0 32px 32px 96px;">
+        <a href="${baseurl}/secure/IssueNavigator.jspa$savedSearchLinkUrlParams">$i18n.getText('jira-share-plugin.email.saved.search.link.view')</a>
+    </td>
+</tr>
+#parse("templates/email/html/includes/footer.vm")

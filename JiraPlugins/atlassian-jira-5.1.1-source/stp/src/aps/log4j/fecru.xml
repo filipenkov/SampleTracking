@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration>
+
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="errorconsole" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out"/>
+        <param name="Threshold" value="warn"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="errorlog" class="com.cenqua.fisheye.logging.DailyRollingFileAppender">
+        <param name="baseFile" value="${fisheye.inst}/var/log/fisheye-error.log"/>
+        <param name="keepDays" value="7"/>
+        <param name="Threshold" value="warn"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p [%t %.20x] %c %C-%M - %m\n"/>
+        </layout>
+    </appender>
+
+    <appender name="debuglog" class="com.cenqua.fisheye.logging.DailyRollingFileAppender">
+        <param name="baseFile" value="${fisheye.inst}/var/log/fisheye-debug.log"/>
+        <param name="keepDays" value="7"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p [%t %.20x] %c{2} %C{1}-%M - %m\n"/>
+        </layout>
+    </appender>
+
+    <appender name="dbdebuglog" class="com.cenqua.fisheye.logging.DailyRollingFileAppender">
+        <param name="baseFile" value="${fisheye.inst}/var/log/fisheye-dbdebug.log"/>
+        <param name="keepDays" value="7"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p [%t] %c{2} %C{1}-%M - %m\n"/>
+        </layout>
+    </appender>
+
+    <appender name="maillog" class="com.cenqua.fisheye.logging.DailyRollingFileAppender">
+        <param name="baseFile" value="${fisheye.inst}/var/log/fisheye-mail.log"/>
+        <param name="keepDays" value="7"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p [%t] %c %C-%M - %m\n"/>
+        </layout>
+    </appender>
+
+
+    <logger name="fisheye">
+        <level value="info"/>
+        <appender-ref ref="debuglog" />
+    </logger>
+
+    <logger name="fisheye.debug">
+        <level value="info"/>
+    </logger>
+
+    <logger name="fisheye.mail" additivity="false">
+        <appender-ref ref="maillog"/>
+    </logger>
+
+    <logger name="fisheye.console">
+        <level value="info"/>
+        <appender-ref ref="console" />
+    </logger>
+
+    <logger name="fisheye.perf">
+        <level value="off"/>
+    </logger>
+
+    <logger name="fisheye.perf.timer">
+        <level value="off"/>
+    </logger>
+
+<!-- JavaSVN logger -->
+    <logger name="fisheye.javasvn">
+        <level value="info"/>
+        <appender-ref ref="debuglog" />
+    </logger>
+
+    <logger name="fisheye.svnkit">
+        <level value="info"/>
+        <appender-ref ref="debuglog" />
+    </logger>
+<!-- crucible hibernate loggers -->
+    <logger name="org.hibernate">
+        <level value="info"/>
+        <appender-ref ref="dbdebuglog" />
+    </logger>
+    <!-- set this to trace to see values of parameters to prepared statements -->
+    <logger name="org.hibernate.type">
+        <level value="info"/>
+        <appender-ref ref="dbdebuglog" />
+    </logger>
+    <logger name="org.hibernate.SQL">
+        <level value="info"/>
+        <appender-ref ref="dbdebuglog" />
+    </logger>
+    <logger name="org.hibernate.tool.hbm2ddl">
+        <level value="info"/>
+        <appender-ref ref="dbdebuglog" />
+    </logger>
+<!-- end crucible hibernate loggers -->
+
+    <!-- crucible notification thread -->
+    <logger name="crucible.notification">
+        <level value="info"/>
+        <appender-ref ref="debuglog" />
+    </logger>
+
+    <logger name="crucible.scm">
+        <level value="info"/>
+        <appender-ref ref="debuglog" />
+    </logger>
+
+ <!--atlassian-plugins logging -->
+    <logger name="com.atlassian.plugin">
+        <level value="warn"/>
+        <appender-ref ref="debuglog" />
+        <appender-ref ref="console" />
+    </logger>
+
+    <logger name="com.atlassian.crucible.plugins.scm">
+        <level value="debug"/>
+        <appender-ref ref="debuglog" />
+    </logger>
+
+    <logger name="atlassian.plugin">
+        <level value="info"/>
+        <appender-ref ref="console" />
+        <appender-ref ref="debuglog" />
+    </logger>
+
+    <logger name="com.atlassian">
+        <level value="warn" />
+        <!-- just fall through to the <root> appenders -->
+    </logger>
+
+    <logger name="httpclient.wire">
+        <level value="FATAL"/>
+        <appender-ref ref="console"/>
+        <appender-ref ref="debuglog"/>
+    </logger>
+
+    <!--<logger name="com.atlassian.plugin.osgi">-->
+        <!--<level value="DEBUG"/>-->
+        <!--<appender-ref ref="console"/>-->
+        <!--<appender-ref ref="debuglog"/>-->
+    <!--</logger>-->
+
+
+    <root>
+        <priority value="error" />
+        <appender-ref ref="errorlog" />
+        <appender-ref ref="errorconsole" />
+    </root>
+
+</log4j:configuration>

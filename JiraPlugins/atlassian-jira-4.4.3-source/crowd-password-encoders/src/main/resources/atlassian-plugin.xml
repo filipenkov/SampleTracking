@@ -1,0 +1,32 @@
+<atlassian-plugin name="Crowd System Password Encoders" key="crowd.system.passwordencoders">
+    <plugin-info>
+        <description>Crowd Password Encoders shipped with Crowd</description>
+        <vendor name="Atlassian Software Systems" url="http://www.atlassian.com"/>
+        <version>1.0</version>
+    </plugin-info>
+
+    <encoder key="md5" name="MD5 Password Encoder" class="com.atlassian.crowd.password.encoder.LdapMd5PasswordEncoder">
+        <description>LDAP based MD5 encoder that pre-appends {MD5} to the password string</description>
+    </encoder>
+
+    <encoder key="des" name="A DES Password Encoder" class="com.atlassian.crowd.password.encoder.DESPasswordEncoder">
+        <description>A password encoder based on thr DES encryption algorithm, please note that this is a two-way algorithm</description>
+    </encoder>
+
+    <encoder key="ssha" name="A SSHA Password Encoder" class="com.atlassian.crowd.password.encoder.LdapSshaPasswordEncoder">
+        <description>A password encoder that uses a SSHA algorithm</description>
+    </encoder>
+
+    <encoder key="sha" name="A SHA Password Encoder" class="com.atlassian.crowd.password.encoder.LdapShaPasswordEncoder">
+        <description>A password encoder that uses a SSHA algorithm</description>
+    </encoder>
+
+    <encoder key="plaintext" name="A Plaintext Encoder" class="com.atlassian.crowd.password.encoder.PlaintextPasswordEncoder">
+        <description>A password encoder that is simply plaintext, meaning no encryption occurs</description>
+    </encoder>
+
+    <encoder key="atlassian-security" name="Atlassian Security Password Encoder" class="com.atlassian.crowd.password.encoder.AtlassianSecurityPasswordEncoder">
+        <description>This password encoder is based on the Atlassian Security Password Encoder and is also backwards compatible with validating atlassian-sha1 hashes.</description>
+    </encoder>
+
+</atlassian-plugin>

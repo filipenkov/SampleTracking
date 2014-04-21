@@ -1,0 +1,29 @@
+#jqlwarning ul {list-style-position:inside;margin:0;padding:0;}
+#jqlcomponent .jqlerror-container {clear:both;margin:0 0 1em 0;}
+#jqlnoresults {border:1px #bbb solid;margin:5px 0 2px 0;padding:4px;}
+ul.queryBox {list-style-type:none;margin:0;padding:0;}
+ul.queryBox li {border-top:1px solid #eee;overflow:hidden;text-indent:15px;white-space:nowrap;}
+ul.queryBox li.first {border-top:none;}
+ul.queryBox li a {display:block;padding:0.2em 4px 0.1em 0;text-decoration:none;}
+.msie-7 ul.queryBox li a,
+.msie-8 ul.queryBox li a {height:1.5em;}
+#jqlform {border-bottom:1px solid #ddd;float:left;padding-bottom:1em;margin-bottom:1em;position:relative;width:100%;}
+#jqlform:after,
+#jqlcomponent:after {content:".";display:block;height:0;clear:both;visibility:hidden;}
+#jqlform label .icon {margin:0;}
+#jqltext {clear:both;color:#036;font-family:arial, FreeSans, Helvetica, sans-serif;font-size:15px;height:57px;line-height:19px;margin:3px auto;padding:3px 4px;width:98%;}
+.jqlundertext {margin-top:3px;}
+#jqlform .atlassian-autocomplete {position:relative!important;}
+#jqlform .atlassian-autocomplete .suggestions {float:left;width:460px!important;margin-top:5px;}
+#jqlform .atlassian-autocomplete .suggestions li {padding:2px 10px;}
+#jqlform .atlassian-autocomplete .suggestions li.groupmarker {border-top:1px solid #ddd;margin:3px 0 0 0;}
+#jqlform .atlassian-autocomplete .suggestions li.active {background-color:#3C78B5;color:#fff;}
+#jqlform .autocomplete-off {font-size:12px;}
+#jqlcolrowcount {color:#999;}
+#jqlcolrowcount span {margin:0 0.5em 0 0.25em;}
+#jqlcomponent p {margin-bottom:0}
+#jqlcomponent .warningBox {margin:1em 0;}
+.page-help {display:block;float:right;}
+.page-help a {text-decoration:none}
+#queryBoxTable .mod-content {padding:0;}
+span.jql-plugin-hints {float:right;}

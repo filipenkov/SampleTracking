@@ -1,0 +1,264 @@
+.templateparameter { color: darkblue; font-size: 9px; }
+table.confluenceTable { border-collapse: collapse; margin: 5px 0 5px 2px; width:auto; }
+td.confluenceTd { border: 1px solid #ccc; padding: 3px 4px 3px 4px; }
+th.confluenceTh { background: #f0f0f0; border: 1px solid #ccc; padding: 3px 4px 3px 4px; text-align: center; }
+.wiki-textarea, .wiki-textfield, form.aui .wiki-textarea,form.aui .wiki-textfield, div.wiki-edit .preformatted, .preformatted, div.wiki-edit div.code, div.code {font-family: monospace;}
+.wiki-textarea, .wiki-textfield {width:100%;}
+
+/* override for aui form styles (stalker comment) */
+div.wiki-edit {margin-bottom:0;padding-bottom:0;}
+div.wiki-edit pre {font-family:monospace;font-size:1.2em;}
+div.wiki-edit p {margin-bottom:1em;padding:0;}
+div.wiki-edit h1 {font-size:2.4em;}
+div.wiki-edit h2 {font-size:1.8em; border:none;}
+div.wiki-edit h3 {font-size:1.3em;}
+div.wiki-edit h4 {font-size:1.2em;}
+div.wiki-edit h5 {font-size:1em;}
+div.wiki-edit h6 {font-size:.9em;}
+div.wiki-edit p {margin-bottom:1em;}
+div.wiki-edit img, div.wiki-edit a img,div.wiki-edit fieldset {border:0;}
+div.wiki-edit ul {margin:0 0 1em 2em;}
+div.wiki-edit ol {list-style-type:decimal;list-style-position:outside;padding-left:2.5em;}
+div.wiki-edit blockquote {border-left: 2px solid #3c78b5;font-size:1em;font-family:arial, FreeSans, Helvetica, sans-serif;margin-left:0;padding-left:1em;}
+div.wiki-edit small, div.wiki-edit .small {font-size:.9em;}
+div.wiki-edit strong, div.wiki-edit b, div.wiki-edit .bolded {font-weight:bold;}
+
+/* All wiki formatted content needs a specific selector prefixed with .wiki-edit also so that it overrides aui form styles */
+div.wiki-edit .preformatted, .preformatted { border: 1px dashed ; font-size: 11px; margin: 10px; line-height: 13px; padding:0; }
+div.wiki-edit pre { background:none; border:none; padding:0; width:100%; }
+div.wiki-edit div.preformattedHeader, div.preformattedHeader { background-color: #f0f0f0; border-bottom: 1px dashed; padding: 3px; text-align: center; }
+div.wiki-edit div.preformattedContent, div.preformattedContent { background-color: #f0f0f0; margin: 0; }
+div.preformattedContent pre, div.codeContent pre { line-height:1.3em; max-height:30em; overflow:auto; word-wrap:normal; }
+div.wiki-edit div.code, div.code { border: 1px dashed; font-size: 11px; line-height: 13px; margin: 10px; }
+div.wiki-edit div.codeHeader, div.codeHeader { background-color: #f0f0f0; border-bottom: 1px dashed; padding: 3px; text-align: center; }
+div.wiki-edit div.codeContent, div.codeContent { background-color: #f0f0f0; overflow:auto; padding: 3px; text-align: left; }
+div.wiki-edit .code-keyword, .code-keyword { background-color: inherit; color: #000091; }
+div.wiki-edit .code-object, .code-object { background-color: inherit; color: #910091; }
+div.wiki-edit .code-quote, .code-quote { background-color: inherit; color: #009100; }
+div.wiki-edit .code-comment, .code-comment { background-color: inherit; color: #808080; }
+div.wiki-edit .code-xml .code-keyword, .code-xml .code-keyword { color: inherit; font-weight: bold; }
+div.wiki-edit .code-tag, .code-tag { background-color: inherit; color: #000091; }
+div.wiki-edit div.panel, div.panel { border: 1px dashed ; margin: 0 1em 1em 1em; }
+div.wiki-edit div.panelHeader, div.panelHeader { background-color: #f0f0f0; border-bottom: 1px dashed ; padding: 3px; text-align: center; }
+div.wiki-edit div.panelContent, div.panelContent { background-color: #f0f0f0; padding: 5px; }
+.linkerror { background-color: #fcc;}
+ul#squaretab { font: bold 8px Verdana, sans-serif; margin-left: 0; padding-left: 0; white-space: nowrap; }
+
+
+/* TODO: Sean
+    - Clean up the below - looks like there was some legacy variable replacement going on but it's no longer working */
+#squaretab li { display: inline; list-style-type: none; }
+#squaretab a {
+padding: 2px 6px;
+border: 1px solid $menuBackgroundColour;
+}
+
+#squaretab a:link, #squaretab a:visited {
+color: #fff;
+background-color: $menuBackgroundColour;
+text-decoration: none;
+}
+
+#squaretab a:hover {
+color: $menuTxtColour;
+background-color: $menuBackgroundColour;
+border-color: $menuBackgroundColour;
+text-decoration: none;
+}
+
+#squaretab li a#current {
+background: white;
+color: black;
+}
+
+.minitab {
+padding: 3px 0px 3px 8px;
+margin-left: 0;
+margin-top: 1px;
+margin-bottom: 0px;
+border-bottom: 1px solid #bbbbbb;
+font: bold 9px Verdana, sans-serif;
+text-decoration: none;
+float:none;
+}
+.selectedminitab {
+padding: 3px 0.5em;
+margin-left: 3px;
+margin-top: 1px;
+border: 1px solid #bbbbbb;
+background: white;
+border-bottom: 1px solid white;
+color: #000000;
+text-decoration: none;
+}
+.unselectedminitab {
+padding: 3px 0.5em;
+margin-left: 3px;
+margin-top: 1px;
+border: 1px solid #bbbbbb;
+border-bottom: none;
+background: #bbbbbb;
+color: #ffffff;
+text-decoration: none;
+}
+
+a.unselectedminitab:hover {
+color: $menuBackgroundColour;
+background: $menuBackgroundColour;
+border-color: $menuBackgroundColour;
+}
+
+a.unselectedminitab:link { color: white; }
+a.unselectedminitab:visited { color: white; }
+
+a.selectedminitab:link { color: black; }
+a.selectedminitab:visited { color: black; }
+
+.editPageInsertLinks, .editPageInsertLinks a
+{
+    font-weight: normal;
+    font-size: 9px;
+}
+
+.helpheading {
+    font-weight: bold;
+    background-color: #DDDDDD;
+        border-bottom: 1px solid $menuBackgroundColour;
+        padding: 4px 4px 2px;
+        margin: 0px;
+}
+
+.helpcontent {
+        padding: 4px 4px 20px 4px;
+    background-color: #ffffff;
+}
+
+
+.gridHover {
+	background-color: #f9f9f9;
+}
+
+.navmenu {
+    border: 1px solid #ccc;
+}
+
+/* side menu highlighting (e.g. space content screen) */
+.optionPadded { padding: 2px; }
+.optionSelected { background-color: #ffffcc; padding: 2px; border: 1px solid #ddd; margin: -1px; }
+.optionSelected a { font-weight: bold; text-decoration: none; color: black; }
+
+.menuheading {
+    font-weight: bold;
+    background-color: #DDDDDD;
+ 	border-bottom: 1px solid $menuBackgroundColour;
+	padding: 4px 4px 2px 4px;
+}
+
+.menuitems {
+	padding: 4px 4px 20px 4px;
+    background-color: #f0f0f0;
+}
+
+.pagetitle {
+	font-size: 22px;
+	font-weight: bold;
+	font-family: Arial, sans-serif;
+	color: #003366;
+}
+
+.wiki-edit {
+    width:100%;
+}
+
+.wiki-edit-content.previewClass {
+    background-color:#E8F1FF;
+    border: 1px solid gray;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow:auto;
+    width:100%;
+}
+
+.wiki-edit-content.previewClass .content-inner {
+    padding: 0 10px;
+}
+
+.wiki-edit-content.previewClass textarea {
+    display:none;
+}
+
+.selectedPreview
+{
+    border: 1px inset #bbbbbb;
+    padding: 0px;
+    background-color: #eeeeee;
+}
+
+.unselectedPreview
+{
+    border: 0px;
+    padding: 1px;
+}
+
+.wiki-renderer {
+    width: 16px;
+    height: 16px;
+    border: none;
+    background-color: transparent;
+    display: block;
+    float: left;
+    text-indent: -9999px;
+    cursor: pointer;
+    margin-right: 5px;
+    overflow: hidden;
+}
+
+.wiki-renderer.fullscreen {
+    background: url( "../../../images/icons/ico_preview.png" ) center no-repeat;
+}
+
+.wiki-renderer.selected {
+    background: url( "../../../images/icons/ico_preview_selected.png" ) center no-repeat;
+}
+
+.wiki-renderer.help-icon {
+    background: url( "../../../images/icons/ico_help.png" ) center no-repeat;
+}
+
+.wiki-renderer.loading {
+    background: url( "../../../images/icons/wait.gif" ) center no-repeat;
+}
+
+form.aui .field-tools,
+.field-tools {float:left; font-size: 10px; clear:left; width:auto; margin-top:5px;}
+
+form.aui .field-tools + .security-level,
+.field-tools + .security-level { padding-left:5px; border-left: 1px solid #eee; margin-left:5px;}
+
+/* security dropdown */
+form.aui .single-select .drop-menu {background-position:-25px -199px;margin:0;}
+.single-select .drop:hover .drop-menu {background-position:0 -199px;}
+form.aui .security-level,
+.security-level {margin-top:5px;}
+.msie-7 form.aui .security-level {width:80%;}
+.aui-field-wikiedit .security-level {float:left;}
+.field-tools {margin-bottom:10px;}
+form.aui .field-tools + .description {margin-top:5px;}
+form.aui .security-level .drop,
+.security-level .drop { display: inline-block;}
+.security-level .select-menu {float:left;}
+.icon-security {background-image:url('../../../images/icons/icn-lock.png');}
+.drop:hover .icon-security {background-position:0 100%;}
+form.aui .security-level .drop .drop-menu {background-position:-29px -199px;}
+form.aui .security-level .drop:hover .drop-menu {background-position:-4px -199px;}
+
+.field-tools .comment-preview_link_div, .field-tools #viewHelp {float:left;}
+
+/* Overrides */
+#issue-comment-add .wiki-edit {float:none;margin-bottom:0;position:static;width:auto;}
+#issue-comment-add .wiki-edit .panel {} /* inserted when using wiki {code} */
+#issue-comment-add .wiki-edit {clear:both;}
+#issue-comment-add .wiki-edit-content.previewClass {font-size:inherit;width:auto;}/* prevents default AUI styles setting it to 13px */

@@ -1,0 +1,33 @@
+#macro(isSelected $value)
+    #foreach($v in $auiparams.value)
+        #if ($v == $value)
+            SELECTED
+            #break
+        #end
+    #end
+#end
+
+<select multiple name="$!textutils.htmlEncode($auiparams.name)"
+    #if ($auiparams.id)
+        id="$!textutils.htmlEncode($auiparams.id)"
+    #else
+        id="$!textutils.htmlEncode($auiparams.name)"
+    #end
+    #parse("/templates/common/select.attrs.vm")
+>
+   #if ($auiparams.headeroptgroup)
+      <optgroup label="$!textutils.htmlEncode($auiparams.headeroptgroup)">
+   #end
+
+    #if ($auiparams.headerrow)
+        <option value="$!textutils.htmlEncode($auiparams.headervalue)" #isSelected($auiparams.headervalue)>$!textutils.htmlEncode($auiparams.headerrow)</option>
+    #end
+
+    #if ($auiparams.headerrow2)
+        <option value="$!textutils.htmlEncode($auiparams.headervalue2)" #isSelected($auiparams.headervalue2)>$!textutils.htmlEncode($auiparams.headerrow2)</option>
+    #end
+
+    #foreach ($entry in $auiparams.map.entrySet())
+		<option value="$!textutils.htmlEncode($!entry.key)" #isSelected($entry.key)>$!textutils.htmlEncode($!entry.value)</option>
+    #end
+</select>

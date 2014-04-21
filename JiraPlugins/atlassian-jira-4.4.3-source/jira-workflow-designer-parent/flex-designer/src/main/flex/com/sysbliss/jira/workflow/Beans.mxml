@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BeanLoader xmlns="org.swizframework.util.*" 
+			xmlns:mx="http://www.adobe.com/2006/mxml"
+			xmlns:service="com.sysbliss.jira.workflow.service.*"
+			xmlns:manager="com.sysbliss.jira.workflow.manager.*"
+			xmlns:controller="com.sysbliss.jira.workflow.controller.*"
+			xmlns:events="com.sysbliss.jira.workflow.event.*"
+			xmlns:utils="com.sysbliss.jira.workflow.utils.*"
+			xmlns:model="com.sysbliss.jira.plugins.workflow.model.*"
+			xmlns:layout="com.sysbliss.jira.workflow.layout.*"
+			xmlns:process="com.sysbliss.jira.workflow.process.*"
+			xmlns:selProcess="com.sysbliss.jira.workflow.process.selection.*"
+			xmlns:transProcess="com.sysbliss.jira.workflow.process.transition.*"
+			xmlns:dialog="com.sysbliss.jira.workflow.ui.dialog.*">
+	
+	<service:JiraServiceConfiguration id="jiraServiceConfiguration" />
+	<!-- <service:TestJiraServiceConfiguration id="jiraServiceConfiguration" /> -->
+
+	<service:ServiceFactoryBean id="jiraServiceRO" />
+	
+	<service:JiraServiceDelegate id="jiraService" />
+	
+	<manager:WorkflowDiagramManagerImpl id="workflowDiagramManager" />
+	<manager:UserTokenManager id="userTokenManager" />
+	
+	<controller:OpenWorkflowController id="openWorkflowController" />
+	<controller:CopyWorkflowController id="copyWorkflowController" />
+	<controller:CreateWorkflowController id="createWorkflowController" />
+	<controller:DraftWorkflowController id="draftWorkflowController" />
+	<controller:DeleteWorkflowController id="deleteWorkflowController" />
+	<controller:ApplicationInitializer id="applicationInitializer" />
+	<controller:WorkflowListController id="workflowListController" />
+	<controller:DiagramController id="diagramController" />
+	<controller:DiagramAddTransitionController id="diagramAddTransitionController" />
+	<controller:DiagramEditTransitionController id="diagramEditTransitionController" />
+	<controller:JiraStatusController id="jiraStatusController" />
+    <controller:GlobalActionController id="globalActionController" />
+	<controller:JiraFieldScreenController id="fieldScreenController" />
+	<controller:ToolToolbarController id="toolToolbarController" />
+	<controller:ZoomToolbarController id="zoomToolbarController" />
+	<controller:LayoutToolbarController id="layoutToolbarController" />
+    <controller:LabelToolbarController id="labelToolbarController" />
+	<controller:AddStatusController id="addStatusController" />
+	<controller:EditStatusController id="editStatusController" />
+	<controller:EditPropertiesController id="editPropertiesController" />
+	<controller:LoginController id="loginController" />
+    <controller:EditTransitionExtras id="editTransitionExtras" />
+    <controller:ToggleIssueEditableController id="toggleIssueEditableController" />
+    <controller:AnnotationController id="annotationController" />
+	
+	<events:EventTypes id="eventTypes" />
+	
+	<utils:StatusUtils id="statusUtils"/>
+	<utils:ContextMenuUtils id="contextMenuUtils" />
+
+	<manager:JiraServerManagerImpl id="jiraServerManager" />
+
+	<dialog:JiraProgressDialog id="jiraProgressDialog"/>
+	<dialog:AddTransitionDialog id="addTransitionDialog" />
+	<dialog:CopyWorkflowDialog id="copyWorkflowDialog" />
+	<dialog:CreateWorkflowDialog id="createWorkflowDialog" />
+	<dialog:PublishWorkflowDialog id="publishWorkflowDialog"/>
+	<dialog:EditTransitionDialog id="editTransitionDialog" />
+	<dialog:CreateStatusDialog id="createStatusDialog" />
+	<dialog:StatusImageDialog id="statusImageDialog" />
+	<dialog:EditStatusDialog id="editStatusDialog" />
+	<dialog:PropertiesDialog id="propertiesDialog" />
+    <dialog:TransitionExtrasDialog id="transisitionExtrasDialog" />
+    <dialog:AddGlobalActionDialog id="addGlobalActionDialog" />
+    <dialog:EditGlobalActionDialog id="editGlobalActionDialog" />
+	
+	<process:WorkflowEditableProcessor id="editableProcessor" />
+	
+	<selProcess:WorkflowSelectionDeleteProcessChain id="deleteChain" />
+	<selProcess:SelectionDeleteDraftProcessor id="draftDeleteProcessor" />
+	<selProcess:SelectionDeleteInitialActionProcessor id="initialActionDeleteProcessor" />
+	<selProcess:SelectionDeleteInitialResultProcessor id="initialResultDeleteProcessor" />
+	<selProcess:SelectionDeleteConfirmProcessor id="confirmDeleteProcessor" />
+	<selProcess:SelectionDeleteDeleteProcessor id="deleteDeleteProcessor" />
+	
+	<transProcess:WorkflowAddTransitionProcessChain id="addTransitionChain" />
+	<transProcess:AddTransitionDraftProcessor id="addTransitionDraftProcessor" />
+	<transProcess:AddTransitionInitialActionProcessor id="addTransitionInitialActionProcessor" />
+	<transProcess:AddTransitionDialogProcessor id="addTransitionDialogProcessor" />
+	<transProcess:WorkflowEditTransitionProcessChain id="editTransitionChain" />
+	<transProcess:EditTransitionInitialActionProcessor id="editTransitionInitialActionProcessor" />
+	<transProcess:EditTransitionDialogProcessor id="editTransitionDialogProcessor" />
+
+	<layout:LayoutImporter id="layoutImporter" />
+	<layout:LayoutExporter id="layoutExporter" />
+
+</BeanLoader>

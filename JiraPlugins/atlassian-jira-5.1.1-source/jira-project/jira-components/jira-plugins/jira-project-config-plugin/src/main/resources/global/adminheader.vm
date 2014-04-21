@@ -1,0 +1,2 @@
+#enable_html_escaping()
+#if($currentHeading)<h1 id="admin-page-heading">${textutils.htmlEncode($currentHeading)}</h1>#end

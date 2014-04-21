@@ -1,0 +1,16 @@
+{
+  "field.issue key" : "issuekey",
+  "project.lead" : "admin",
+  "field.date1" : "customfield_Date Picker Field:com.atlassian.jira.plugin.system.customfieldtypes:datepicker",
+  "field.field1" : "customfield_Free Text Field:com.atlassian.jira.plugin.system.customfieldtypes:textarea",
+  "user.email.suffix" : "@example.com",
+  "field.summary" : "summary",
+  "field.field3" : "customfield_Labels Field:com.atlassian.jira.plugin.system.customfieldtypes:labels",
+  "field.field2" : "customfield_Text Field:com.atlassian.jira.plugin.system.customfieldtypes:textfield",
+  "date.import.format" : "yyyyMMddHHmmss",
+  "field.number" : "customfield_Number Field:com.atlassian.jira.plugin.system.customfieldtypes:float",
+  "project.name" : "Test Test",
+  "field.date2" : "customfield_Date Time Field:com.atlassian.jira.plugin.system.customfieldtypes:datetime",
+  "project.key" : "TT",
+  "mapfromcsv" : "false"
+}

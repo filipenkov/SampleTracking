@@ -1,0 +1,11 @@
+#! /bin/bash
+#! /bin/bash
+
+. bin/removeTenant
+
+TENANT_HOME=`pwd`/jira-ide-support/target/multitenant-homes/$TENANT_NAME
+
+if [ -e "${TENANT_HOME}" ]
+then
+    rm -r "${TENANT_HOME}"
+fi

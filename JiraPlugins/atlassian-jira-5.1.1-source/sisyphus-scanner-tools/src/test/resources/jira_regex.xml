@@ -1,0 +1,2901 @@
+<object-stream>
+  <RegexEntry>
+    <pageName>Cannot View Workflows</pageName>
+    <regex>WorkflowActionsBean.getFieldScreenForView</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Cannot+View+Workflows</URL>
+    <Id>JIRAKB213523714</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot Start JIRA on MySQL</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Cannot+Start+JIRA+on+MySQL</URL>
+    <Id>JIRAKB179444839</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Upgrading JIRA Breaks Subtasks</pageName>
+    <regex>com\.atlassian\.jira\.issue\.fields\.AssigneeSystemField\.makeAssigneeOptionsList</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Upgrading+JIRA+Breaks+Subtasks</URL>
+    <Id>JIRAKB209586583</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Found a &apos;workflow&apos; in the request parameters, but there is no &apos;workflowMode&apos; when Editing a Workflow</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Found+a+%27workflow%27+in+the+request+parameters%2C+but+there+is+no+%27workflowMode%27+when+Editing+a+Workflow</URL>
+    <Id>JIRAKB179444837</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Browse for Users (User Icon is Inactive)</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Browse+for+Users+%28User+Icon+is+Inactive%29</URL>
+    <Id>JIRAKB120521888</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>IE fails to understand Open Office Documents</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/IE+fails+to+understand+Open+Office+Documents</URL>
+    <Id>JIRAKB120521609</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>FileNotFoundException No Segments File Found in org.apache.lucene.store.FSDirectory</pageName>
+    <regex>java\.io\.FileNotFoundException\.*segments.*</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/FileNotFoundException+No+Segments+File+Found+in+org.apache.lucene.store.FSDirectory</URL>
+    <Id>JIRAKB104300834</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Create Issue Using Subtask Quick Creation Form</pageName>
+    <regex>com.atlassian.jira.issue.fields.screen.issuetype.DefaultIssueTypeScreenSchemeManager.getFieldScreenScheme</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Create+Issue+Using+Subtask+Quick+Creation+Form</URL>
+    <Id>JIRAKB162431571</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bugzilla Importer Fails with MySQLSyntaxErrorException</pageName>
+    <regex>com.mysql.jdbc.exceptions.MySQLSyntaxErrorException: You have an error in your SQL syntax near &apos;SESSION VARIABLES&apos;</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Bugzilla+Importer+Fails+with+MySQLSyntaxErrorException</URL>
+    <Id>JIRAKB104300833</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>com.opensymphony.user.ImmutableException</pageName>
+    <regex>com.opensymphony.user.ImmutableException</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/com.opensymphony.user.ImmutableException</URL>
+    <Id>JIRAKB185729430</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JBoss 4.0.2 Start Up Error &quot;java.io.FileNotFoundException ... (Access is Denied)&quot;</pageName>
+    <regex>java\.io\.FileNotFoundException: D:\\data\\FAL\\JbossTest\\jboss-4\.0\.1sp1\\server\\default\\tmp\\deploy\\tmp26768jira-exp\.war\\debug \(Access is denied\)</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=104300830</URL>
+    <Id>JIRAKB104300830</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Subtasks have issue type field set to null</pageName>
+    <regex>workflow.function.issue.TransitionSubtasksFunction\]\s*Field issuetype: No issue type selected</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Subtasks+have+issue+type+field+set+to+null</URL>
+    <Id>JIRAKB193300151</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Plugin System Timeout</pageName>
+    <regex>ERROR &amp;nbsp; &amp;nbsp; [atlassian.plugin.manager.PluginEnabler] Unable to start the following plugins due to timeout while waiting for plugin to enable</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Plugin+System+Timeout</URL>
+    <Id>JIRAKB212173447</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Linked issues in JIRA are shown as being closed with a Strike-Through</pageName>
+    <regex>strike through</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Linked+issues+in+JIRA+are+shown+as+being+closed+with+a+Strike-Through</URL>
+    <Id>JIRAKB133693890</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot Insert Duplicate Key in Object when Adding JIRA Content</pageName>
+    <regex>Cannot insert duplicate key in object</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Cannot+Insert+Duplicate+Key+in+Object+when+Adding+JIRA+Content</URL>
+    <Id>JIRAKB200709825</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Gadgets do not display correctly after upgrade to JIRA 4.0</pageName>
+    <regex>GadgetUrlBuilder: could not parse spec at rest/gadgets</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Gadgets+do+not+display+correctly+after+upgrade+to+JIRA+4.0</URL>
+    <Id>JIRAKB203395408</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Chart plugin fails with &quot;java.lang.UnsatisfiedLinkError&quot;</pageName>
+    <regex>java.lang.NoClassDefFoundError: Could not initialize class com.atlassian.jira.ext.charting.jfreechart.ChartUtils</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=133693889</URL>
+    <Id>JIRAKB133693889</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Dashboard is Rendering Slowly on JIRA 4.x</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Dashboard+is+Rendering+Slowly+on+JIRA+4.x</URL>
+    <Id>JIRAKB214863682</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA back up service running twice at startup - Not sure why</pageName>
+    <regex>An error occured while trying to run service &apos;Backup Service&apos;\. Service: Backup Service id: \d+ is already running!</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-19542</URL>
+    <Id>JRA-19542</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Characters not supported by ASCII are being displayed as  question marks</pageName>
+    <regex>(question.*mark.*umalaut|umalaut.*question.*mark)</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Characters+not+supported+by+ASCII+are+being+displayed+as++question+marks</URL>
+    <Id>JIRAKB120521793</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Indexing Location is Invalid</pageName>
+    <regex>Could\snot\screate\sdirectory</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Indexing+Location+is+Invalid</URL>
+    <Id>JIRAKB203392519</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>IllegalArgumentException when Using the Issue Navigator</pageName>
+    <regex>Action &apos;com.atlassian.jira.web.action.issue.IssueNavigator&apos; could not be instantiated</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/IllegalArgumentException+when+Using+the+Issue+Navigator</URL>
+    <Id>JIRAKB209584377</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>DataAccessException on Issues with Assignees that Have Been Deleted from Crowd</pageName>
+    <regex>com\.atlassian\.jira\.exception\.DataAccessException\: Error occurred while retrieving user with id</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/DataAccessException+on+Issues+with+Assignees+that+Have+Been+Deleted+from+Crowd</URL>
+    <Id>JIRAKB163416532</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Bullet Points or &quot;middot&quot;  are being substituted with a dash ( - ) when inputted into a JIRA field</pageName>
+    <regex>(\b[Bb]ullet\b|[Mm]iddot|\b[Dd]ash\b)</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=167182718</URL>
+    <Id>JIRAKB167182718</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Workflow Actions from View Page Requires an Additional Click from the Drop-Down Menu in 4.1 User Interface</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Workflow+Actions+from+View+Page+Requires+an+Additional+Click+from+the+Drop-Down+Menu+in+4.1+User+Interface</URL>
+    <Id>JIRAKB216432733</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Mail and Backup Services are not Running</pageName>
+    <regex>org.quartz.JobPersistenceException: Error retrieving Job class</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Mail+and+Backup+Services+are+not+Running</URL>
+    <Id>JIRAKB193300284</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>UrlPortMismatchException due to Apache Tomcat Connector</pageName>
+    <regex>com\.atlassian\.gadgets\.dashboard\.internal\.diagnostics\.UrlPortMismatchException</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/UrlPortMismatchException+due+to+Apache+Tomcat+Connector</URL>
+    <Id>JIRAKB218268069</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Email Handlers unable to create Issues</pageName>
+    <regex>\[service\.util\.handler\.CreateIssueHandler\]\sReporter\s\(.*?\)\sdoes\snot\shave\spermission\sto\screate\san\sissue\.\sMessage\srejected\.</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Email+Handlers+unable+to+create+Issues</URL>
+    <Id>JIRAKB154239442</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Can not get issue navigator restriction clause error appears in logs after modifying jira-application.properties</pageName>
+    <regex>Cannot get issue navigator restriction clause for</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Can+not+get+issue+navigator+restriction+clause+error+appears+in+logs+after+modifying+jira-application.properties</URL>
+    <Id>JIRAKB153749074</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>NullPointerException is Occuring in XsrfVulnerabilityDetectionSQLInterceptor</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/NullPointerException+is+Occuring+in+XsrfVulnerabilityDetectionSQLInterceptor</URL>
+    <Id>JIRAKB217743455</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>&apos;WorkflowException Could not load condition&apos; due to The JIRA Suite Utilites Plugin</pageName>
+    <regex>com.opensymphony.workflow.WorkflowException: Could not load condition</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/%27WorkflowException+Could+not+load+condition%27+due+to+The+JIRA+Suite+Utilites+Plugin</URL>
+    <Id>JIRAKB163415869</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA 4.0 Known Issues</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+4.0+Known+Issues</URL>
+    <Id>JIRAKB215485598</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>On Startup JIRA Logs Indicate that There is Already an Object Named</pageName>
+    <regex>There is already an object named in the database</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/On+Startup+JIRA+Logs+Indicate+that+There+is+Already+an+Object+Named</URL>
+    <Id>JIRAKB180290945</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>If you use a screen in a workflow draft (but not a workflow), you are able to delete the screen which makes the Administration --&gt; Workflow screen impossible to access.</pageName>
+    <regex>java.lang.IllegalArgumentException: Cannot find Screen with id</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-19861</URL>
+    <Id>JRA-19861</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SQL Exception on Oracle due to JIRA Charting Plugin</pageName>
+    <regex>ORA-01861: literal does not match format string</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/SQL+Exception+on+Oracle+due+to+JIRA+Charting+Plugin</URL>
+    <Id>JIRAKB136872272</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Browse Projects Tab has no projects</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Browse+Projects+Tab+has+no+projects</URL>
+    <Id>JIRAKB193790109</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA 4.0.1 Known Issues</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+4.0.1+Known+Issues</URL>
+    <Id>JIRAKB215485590</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SQL Exception when Entering, Updating or Importing an Issue in JIRA with MySQL</pageName>
+    <regex>ERROR: character</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/SQL+Exception+when+Entering%2C+Updating+or+Importing+an+Issue+in+JIRA+with+MySQL</URL>
+    <Id>JIRAKB134480131</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Incorrect times displayed in JIRA</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Incorrect+times+displayed+in+JIRA</URL>
+    <Id>JIRAKB148078632</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>_Note About Unsupported Platforms Content</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/_Note+About+Unsupported+Platforms+Content</URL>
+    <Id>JIRAKB215485985</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Incompatible Pre-configurable User Picker Custom Field Breaks JIRA 4 Upgrade</pageName>
+    <regex>com\.atlassian\.jira\.issue\.search\.parameters\.lucene\.PermissionsFilterGeneratorImpl\.userHasPermissionForProjectAndSecurityType\(PermissionsFilterGeneratorImpl\.java:256\)</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Incompatible+Pre-configurable+User+Picker+Custom+Field+Breaks+JIRA+4+Upgrade</URL>
+    <Id>JIRAKB212172837</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Filters Returning Empty Set for Anonymous Users</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Filters+Returning+Empty+Set+for+Anonymous+Users</URL>
+    <Id>JIRAKB182157860</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA breaks in Internet Explorer when URL contains underscore</pageName>
+    <regex>JIRA\sbreaks\sin\sInternet\sExplorer\swhen\sURL\scontains\sunderscore</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+breaks+in+Internet+Explorer+when+URL+contains+underscore</URL>
+    <Id>JIRAKB194806001</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Performing Action Results in &apos;Column ID Cannot be Null&apos;</pageName>
+    <regex>Column &apos;ID&apos; cannot be null</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Performing+Action+Results+in+%27Column+ID+Cannot+be+Null%27</URL>
+    <Id>JIRAKB213520831</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>javax.mail.MessagingException 501 Error</pageName>
+    <regex>javax\.mail\.MessagingException:\s\d*\sSyntax:\sHELO\shostname</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/javax.mail.MessagingException+501+Error</URL>
+    <Id>JIRAKB214863764</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA 4.0.2 Known Issues</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+4.0.2+Known+Issues</URL>
+    <Id>JIRAKB215485587</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Login Screen is Looping Due to No Value in the JIRA Users Group</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Login+Screen+is+Looping+Due+to+No+Value+in+the+JIRA+Users+Group</URL>
+    <Id>JIRAKB211651650</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Issue Creation Fails with &apos;Docs Out of Order&apos; Error</pageName>
+    <regex>java\.lang\.IllegalStateException: docs out of order</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Issue+Creation+Fails+with+%27Docs+Out+of+Order%27+Error</URL>
+    <Id>JIRAKB126910694</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Attach Images Using the Screenshot Applet in Firefox</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Attach+Images+Using+the+Screenshot+Applet+in+Firefox</URL>
+    <Id>JIRAKB208962330</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Not able to create an issue with the same summary using Jelly Script</pageName>
+    <regex>JiraJelly.*CreateIssue.*Duplicate Issue</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Not+able+to+create+an+issue+with+the+same+summary+using+Jelly+Script</URL>
+    <Id>JIRAKB126910697</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Emails containing attachments with non-ASCII names lost</pageName>
+    <regex>Cannot create attachment without a filename</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-12525</URL>
+    <Id>JRA-12525</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Failed to Run Jelly Script as Service</pageName>
+    <regex>Could not parse Jelly script</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Failed+to+Run+Jelly+Script+as+Service</URL>
+    <Id>JIRAKB126910698</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>_Note About Unsupported Plugins</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/_Note+About+Unsupported+Plugins</URL>
+    <Id>JIRAKB215485992</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Time doesn&apos;t match system time</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Time+doesn%27t+match+system+time</URL>
+    <Id>JIRAKB126910699</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Can&apos;t Link to Local Files from within JIRA</pageName>
+    <regex>file://</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Can%27t+Link+to+Local+Files+from+within+JIRA</URL>
+    <Id>JIRAKB216958260</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>&apos;Road Map&apos;, &apos;Change Log&apos; and &apos;Versions&apos; Project Tabs Are Not Visible</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/%27Road+Map%27%2C+%27Change+Log%27+and+%27Versions%27+Project+Tabs+Are+Not+Visible</URL>
+    <Id>JIRAKB131465518</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>ORA-01461 can bind a LONG value only for insert into a LONG column</pageName>
+    <regex>ORA-01461</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/ORA-01461+can+bind+a+LONG+value+only+for+insert+into+a+LONG+column</URL>
+    <Id>JIRAKB191500952</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SQLException in FogBugz import: Ambiguous column name &apos;sFileName&apos;</pageName>
+    <regex>Ambiguous column name &apos;sFileName&apos;</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-13180</URL>
+    <Id>JRA-13180</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Refreshing Data in JIRA</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Refreshing+Data+in+JIRA</URL>
+    <Id>JIRAKB123044129</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot Add Transitions or Delete Steps in Draft Workflows</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Cannot+Add+Transitions+or+Delete+Steps+in+Draft+Workflows</URL>
+    <Id>JIRAKB203392961</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Calendar Plugin is Disabled when Components or Versions are Hidden</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Calendar+Plugin+is+Disabled+when+Components+or+Versions+are+Hidden</URL>
+    <Id>JIRAKB123044124</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Database Connection Failure due to 9.5.x JDBC Drivers for DB2</pageName>
+    <regex>com.ibm.db2.jcc.t4.d.l</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Database+Connection+Failure+due+to+9.5.x+JDBC+Drivers+for+DB2</URL>
+    <Id>JIRAKB194806226</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Compile Class for JSP or Workflow Actions Inaccessible</pageName>
+    <regex>JasperException:\sUnable\sto\scompile\sclass\sfor\sJSP</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Compile+Class+for+JSP+or+Workflow+Actions+Inaccessible</URL>
+    <Id>JIRAKB123044125</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Doesn&apos;t Show Full Time Stamps On Comments</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Doesn%27t+Show+Full+Time+Stamps+On+Comments</URL>
+    <Id>JIRAKB123044122</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Dashboard Fails after Upgrading or Importing</pageName>
+    <regex>com\.atlassian\.jira\.dashboard\.permission\.JiraGadgetPermissionManager\.hasProjectsPermission</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Dashboard+Fails+after+Upgrading+or+Importing</URL>
+    <Id>JIRAKB218270026</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA v4.0.1 does not start on WebSphere v7.0: The plugin key &apos;com.atlassian.auiplugin&apos; must either match the OSGi bundle symb name...</pageName>
+    <regex>The plugin key .com.atlassian.auiplugin</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-19980</URL>
+    <Id>JRA-19980</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JavaScript Rendered when Selecting a Calendar Date in IE 6</pageName>
+    <regex>Contents of the date field is text starting with \&quot;function\(R\)\{return\&quot;</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JavaScript+Rendered+when+Selecting+a+Calendar+Date+in+IE+6</URL>
+    <Id>JIRAKB168004240</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Invalid State, the Connection Object is Closed</pageName>
+    <regex>Invalid state\, the Connection object is closed</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Invalid+State%2C+the+Connection+Object+is+Closed</URL>
+    <Id>JIRAKB153748854</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Download Attachments with Space in File Names</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Download+Attachments+with+Space+in+File+Names</URL>
+    <Id>JIRAKB214863657</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>No Command &apos;configureOption&apos; in Action</pageName>
+    <regex>No command &apos;configureOption&apos; in action</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/No+Command+%27configureOption%27+in+Action</URL>
+    <Id>JIRAKB189890714</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Passed List Had More than One Value when Calling Dashboard</pageName>
+    <regex>Passed\sList\shad\smore\sthan\sone\svalue</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Passed+List+Had+More+than+One+Value+when+Calling+Dashboard</URL>
+    <Id>JIRAKB215486151</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA 4.1 Known Issues</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+4.1+Known+Issues</URL>
+    <Id>JIRAKB215485571</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Logout is not handled properly between Websphere 6.x and IIS server (500 Error)</pageName>
+    <regex>com.atlassian.seraph.logout.LogoutServlet.isRelativeRedirect</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-14204</URL>
+    <Id>JRA-14204</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Browsing Selected Issues Results in an IllegalArgumentException</pageName>
+    <regex>com\.atlassian\.jira\.security\.AbstractPermissionManager\.hasPermission\(AbstractPermissionManager.java:186\)</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Browsing+Selected+Issues+Results+in+an+IllegalArgumentException</URL>
+    <Id>JIRAKB216958272</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JAVA Option &quot;-Dhttp.nonProxyHosts&quot; Does Not Work</pageName>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=214863640</URL>
+    <Id>JIRAKB214863640</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Request-URI Too Large</pageName>
+    <regex>Request.URI.Too.Large</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Request-URI+Too+Large</URL>
+    <Id>JIRAKB213519617</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA does not show direct SQL data modifications</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+does+not+show+direct+SQL+data+modifications</URL>
+    <Id>JIRAKB133268298</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Change JIRA&apos;s URL (EAR WAR installation)</pageName>
+    <regex>IOException while loading persisted sessions: java\.io\.EOFException</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Change+JIRA%27s+URL+%28EAR+WAR+installation%29</URL>
+    <Id>JIRAKB123044131</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>NullPointerException returned when trying to access the &quot;User Browser&quot; administration section</pageName>
+    <regex>UserBrowser\.getBrowsableItems</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=204053369</URL>
+    <Id>JIRAKB204053369</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Connection is reset while downloading attachments</pageName>
+    <regex>ERROR \[jira\.web\.servlet\.ViewAttachmentServlet\] Error finding.*: null</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Connection+is+reset+while+downloading+attachments</URL>
+    <Id>JIRAKB104300809</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SVN user is unable to authenticate against SVN repository</pageName>
+    <regex>svn\: Authentication required for</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/SVN+user+is+unable+to+authenticate+against+SVN+repository</URL>
+    <Id>JIRAKB120521552</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Automatic Escalation of issues</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Automatic+Escalation+of+issues</URL>
+    <Id>JIRAKB123044130</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Deploy JIRA due to MySQL &apos;max_questions&apos; Resource Limit</pageName>
+    <regex>exceeded\sthe\s&apos;max_questions&apos;</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Deploy+JIRA+due+to+MySQL+%27max_questions%27+Resource+Limit</URL>
+    <Id>JIRAKB182158951</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>_Note About Database Operations</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/_Note+About+Database+Operations</URL>
+    <Id>JIRAKB215485978</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>UndeclaredThrowableException Adding Trusted Application in JIRA</pageName>
+    <regex>java\.lang\.IllegalAccessError\s:\scom/atlassian/jira/security/auth/trustedapps/TrustedApplicationData</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/UndeclaredThrowableException+Adding+Trusted+Application+in+JIRA</URL>
+    <Id>JIRAKB152567932</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>_InclusionsLibrary</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/_InclusionsLibrary</URL>
+    <Id>JIRAKB215485976</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SocketException to Announce &quot;Invalid argument&quot; for an Available Port</pageName>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=214863647</URL>
+    <Id>JIRAKB214863647</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>User Should Have Permission to Carry Out Action Via Role Membership but Does Not</pageName>
+    <regex>at\scom\.atlassian\.jira\.security\.roles\.actor\.GroupRoleActorFactory\$GroupRoleActor\.getUsers.GroupRoleActorFactory\.java:60</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/User+Should+Have+Permission+to+Carry+Out+Action+Via+Role+Membership+but+Does+Not</URL>
+    <Id>JIRAKB142115182</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Gadgets Fail with HTTP 401 Malformed Security Token due to Session Expiration</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Gadgets+Fail+with+HTTP+401+Malformed+Security+Token+due+to+Session+Expiration</URL>
+    <Id>JIRAKB215485556</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Some Gadget configurations can&apos;t be saved when running JIRA on Windows and selecting Turkish as region format </pageName>
+    <regex>(Stored state for dashboard .+ is not the same as in memory state|user.language.+tr)</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-20445</URL>
+    <Id>JRA-20445</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>AuthenticationFailedException after Adding an Email Handler</pageName>
+    <regex>javax.mail.AuthenticationFailedException: Logon failure</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/AuthenticationFailedException+after+Adding+an+Email+Handler</URL>
+    <Id>JIRAKB194806451</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Searches and GreenHopper Boards do not Display Issues</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Searches+and+GreenHopper+Boards+do+not+Display+Issues</URL>
+    <Id>JIRAKB215485550</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>The &apos;SimpleWorkflowManager.isEditable&apos; method can throw a NPE when called with an issue without a status.</pageName>
+    <regex>com.atlassian.jira.workflow.SimpleWorkflowManager.isEditable</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-19556</URL>
+    <Id>JRA-19556</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>IE7 does not create horizontal scroll bar when page is too wide</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/IE7+does+not+create+horizontal+scroll+bar+when+page+is+too+wide</URL>
+    <Id>JIRAKB217744740</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Drop-Down Menus Look Broken after JIRA 4 Upgrade</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Drop-Down+Menus+Look+Broken+after+JIRA+4+Upgrade</URL>
+    <Id>JIRAKB203395788</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>How to attach a file during Issue Creation</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/How+to+attach+a+file+during+Issue+Creation</URL>
+    <Id>JIRAKB162431496</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Trouble starting a second instance of Jira Standalone</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Trouble+starting+a+second+instance+of+Jira+Standalone</URL>
+    <Id>JIRAKB104300817</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Duplicate entries for names and groups</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Duplicate+entries+for+names+and+groups</URL>
+    <Id>JIRAKB104300816</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>project Avatar: Trying to create a project with custom avatar and custom permission scheme give java.lang.IllegalStateException error</pageName>
+    <regex>You can not update a project with an invalid validation result.</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-17976</URL>
+    <Id>JRA-17976</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot Access Attachment from URL Outside JIRA</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Cannot+Access+Attachment+from+URL+Outside+JIRA</URL>
+    <Id>JIRAKB123044101</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Slows due to No Space Left On Device</pageName>
+    <regex>java.io.IOException: No space left on device</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Slows+due+to+No+Space+Left+On+Device</URL>
+    <Id>JIRAKB209585656</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Error sending email</pageName>
+    <regex>MailException\:\sjavax\.mail\.AuthenticationFailedException</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Error+sending+email</URL>
+    <Id>JIRAKB151519286</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Printable Link Contains Incorrect Domain Name due to Apache Configuration</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Printable+Link+Contains+Incorrect+Domain+Name+due+to+Apache+Configuration</URL>
+    <Id>JIRAKB104300819</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Problems Sending Email from JIRA - EHLO requires domain address</pageName>
+    <regex>501 5.0.0 [HE|EH]LO requires domain address</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Problems+Sending+Email+from+JIRA+-+EHLO+requires+domain+address</URL>
+    <Id>JIRAKB104300818</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>User has Exceeded the max_user_connections Resource</pageName>
+    <regex>exceeded\sthe\s&apos;max_user_connections&apos;</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/User+has+Exceeded+the+max_user_connections+Resource</URL>
+    <Id>JIRAKB182158946</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>NoSuchFieldError Deploying JIRA on JBoss</pageName>
+    <regex>java\.lang\.NoSuchFieldError:\WANY_HOST_CONFIGURATION\W*at\W*org\.apache\.commons\.httpclient</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/NoSuchFieldError+Deploying+JIRA+on+JBoss</URL>
+    <Id>JIRAKB182158943</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>ClassCastException when Starting JIRA</pageName>
+    <regex>cannot be cast to javax\.sql\.DataSource</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/ClassCastException+when+Starting+JIRA</URL>
+    <Id>JIRAKB104300812</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to login to Perforce</pageName>
+    <regex>java\.io\.IOException: error: Password not allowed at this server security level\, use \&apos;p4 login\&apos;\.</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+login+to+Perforce</URL>
+    <Id>JIRAKB159154429</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Various Problems due to Users with the Same Name</pageName>
+    <regex>Exception getting users: java.lang.RuntimeException: Found more than one user with name</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Various+Problems+due+to+Users+with+the+Same+Name</URL>
+    <Id>JIRAKB104300811</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Some Users Can&apos;t Log in after an Upgrade</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Some+Users+Can%27t+Log+in+after+an+Upgrade</URL>
+    <Id>JIRAKB104300810</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>IndexOutOfBoundsException when Displaying a Pie Chart Portlet</pageName>
+    <regex>java.lang.IndexOutOfBoundsException.+ at com.atlassian.jira.ext.charting</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/IndexOutOfBoundsException+when+Displaying+a+Pie+Chart+Portlet</URL>
+    <Id>JIRAKB162431497</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>CertificateTooOldException when Configuring Trusted Communication</pageName>
+    <regex>com\.atlassian\.security\.auth\.trustedapps\.CertificateTooOldException\: OLD_CERT\; Certificate too old</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/CertificateTooOldException+when+Configuring+Trusted+Communication</URL>
+    <Id>JIRAKB162431099</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Logging Work Done Fails with Exception due to Kaamelot Plugin</pageName>
+    <regex>could not find entity for entityName: WorklogExt</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Logging+Work+Done+Fails+with+Exception+due+to+Kaamelot+Plugin</URL>
+    <Id>JIRAKB180846949</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Error when Logging work</pageName>
+    <regex>java\.lang\.NullPointerException\sat\sjava\.text\.SimpleDateFormat</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Error+when+Logging+work</URL>
+    <Id>JIRAKB180290261</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Transition Issues Imported from Mantis</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Transition+Issues+Imported+from+Mantis</URL>
+    <Id>JIRAKB104300826</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Fails to Run as a Windows Service</pageName>
+    <regex>&quot;javajni.c\] \[error\] The specified module could not be found.&quot;</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Fails+to+Run+as+a+Windows+Service</URL>
+    <Id>JIRAKB104300825</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Due Date Field is Missing</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Due+Date+Field+is+Missing</URL>
+    <Id>JIRAKB189431917</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Attachments are not Created when Importing from Bugzilla 2.22.x</pageName>
+    <regex>atlassian\.jira\.util\.BugzillaImportBean\] Error on importing attachments</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Attachments+are+not+Created+when+Importing+from+Bugzilla+2.22.x</URL>
+    <Id>JIRAKB104300827</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Can&apos;t connect to SQL Server Express</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Can%27t+connect+to+SQL+Server+Express</URL>
+    <Id>JIRAKB104300829</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Blank Page when Starting JIRA after Installation</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Blank+Page+when+Starting+JIRA+after+Installation</URL>
+    <Id>JIRAKB104300820</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>NullPointerException when searching using select options that have the same name as previously deleted ones</pageName>
+    <regex>com\.atlassian\.jira\.jql\.context\.SelectCustomFieldClauseContextFactory\.getContextOptions</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-19422</URL>
+    <Id>JRA-19422</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Migrate Confluence Users to JIRA due to Mismatched Groups</pageName>
+    <regex>com\.atlassian\.jira\.rpc\.exception\.RemoteValidationException</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Migrate+Confluence+Users+to+JIRA+due+to+Mismatched+Groups</URL>
+    <Id>JIRAKB159154437</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot Enable RPC JIRA Plugin</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Cannot+Enable+RPC+JIRA+Plugin</URL>
+    <Id>JIRAKB179441476</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Problems Configuring the Perforce Plugin</pageName>
+    <regex>From\sP\d:error:\sUnicode\sclients\srequire\sa\sunicode\senabled\sserver\.</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Problems+Configuring+the+Perforce+Plugin</URL>
+    <Id>JIRAKB104300822</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to edit comments</pageName>
+    <regex>java\.lang\.NoSuchMethodError\: com\.atlassian\.jira\.web\.action\.issue\.ViewIssue</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+edit+comments</URL>
+    <Id>JIRAKB163415953</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Connect to Database when Missing a Forward Slash in the Driver URL</pageName>
+    <regex>Cannot create JDBC driver of class .* for connect URL</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Connect+to+Database+when+Missing+a+Forward+Slash+in+the+Driver+URL</URL>
+    <Id>JIRAKB104300821</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Connect to Database</pageName>
+    <regex>PoolableConnectionFactory \(Login failed for user</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Connect+to+Database</URL>
+    <Id>JIRAKB104300824</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Outgoing Mail Fails due to Out of Memory in Mail Server</pageName>
+    <regex>com.sun.mail.smtp.SMTPSendFailedException:.+Out of memory</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Outgoing+Mail+Fails+due+to+Out+of+Memory+in+Mail+Server</URL>
+    <Id>JIRAKB148766867</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Perforce Plugin throws &apos;P4 Exited with An Error!&apos;</pageName>
+    <regex>ERROR \[com\.perforce\.api\.Debug\] P4 exited with an Error</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Perforce+Plugin+throws+%27P4+Exited+with+An+Error%21%27</URL>
+    <Id>JIRAKB104300823</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Not able to show the commit messages for issue TST-3 after installed the JIRA Subversion Plugin</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Not+able+to+show+the+commit+messages+for+issue+TST-3+after+installed+the+JIRA+Subversion+Plugin</URL>
+    <Id>JIRAKB154239467</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Incomplete CSV Import when Issue Type is not Properly Defined</pageName>
+    <regex>imports\.importer\.impl\.ImportLogger.*Unable\sto\screate\sissue.*type=null\}$</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Incomplete+CSV+Import+when+Issue+Type+is+not+Properly+Defined</URL>
+    <Id>JIRAKB146407700</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Importing Workflow XML Fails due to Parsing Error</pageName>
+    <regex>Error parsing workflow XML\: The document type declaration for root element type \&quot;workflow\&quot; must end with</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Importing+Workflow+XML+Fails+due+to+Parsing+Error</URL>
+    <Id>JIRAKB154633429</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Dropdown Menus Mess with Background after Upgrading to JIRA 4.*</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Dropdown+Menus+Mess+with+Background+after+Upgrading+to+JIRA+4.*</URL>
+    <Id>JIRAKB218275756</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Error Configuring Perforce Job Integration in JIRA</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Error+Configuring+Perforce+Job+Integration+in+JIRA</URL>
+    <Id>JIRAKB216957805</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Custom Field does not Appear in Simple Search</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Custom+Field+does+not+Appear+in+Simple+Search</URL>
+    <Id>JIRAKB151519413</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Incorrect String Value Errors due to MySQL Encoding</pageName>
+    <regex>Incorrect string value: &apos;</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Incorrect+String+Value+Errors+due+to+MySQL+Encoding</URL>
+    <Id>JIRAKB193299099</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>NoClassDefFoundError when Upgrading to JIRA 4 EAR or WAR Version</pageName>
+    <regex>com\/atlassian\/jira\/web\/tags\/UserTag</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/NoClassDefFoundError+when+Upgrading+to+JIRA+4+EAR+or+WAR+Version</URL>
+    <Id>JIRAKB204049088</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Workflows</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Workflows</URL>
+    <Id>JIRAKB211650858</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>OutOfMemory or Poor Performance due to XML View of a Filter</pageName>
+    <regex>com.atlassian.jira.issue.views.SearchRequestXMLView.writeSearchResults</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/OutOfMemory+or+Poor+Performance+due+to+XML+View+of+a+Filter</URL>
+    <Id>JIRAKB213057719</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Adding a post-function to a workflow step fails with an &quot;invalid key specified&quot; error</pageName>
+    <regex>java.lang.IllegalArgumentException: Invalid complete key specified</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=154633427</URL>
+    <Id>JIRAKB154633427</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Send Email through an SMTP Server via SSL (with error code 530 5.7.0)</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Send+Email+through+an+SMTP+Server+via+SSL+%28with+error+code+530+5.7.0%29</URL>
+    <Id>JIRAKB218269287</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Perforce Job Field is Blank when Viewing an Issue</pageName>
+    <regex>PerforceConfigStoreImpl.getConfig</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Perforce+Job+Field+is+Blank+when+Viewing+an+Issue</URL>
+    <Id>JIRAKB189431935</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Sending Email from JIRA Fails with &apos;Could not create resource factory instance&apos;</pageName>
+    <regex>Could not create resource factory instance</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Sending+Email+from+JIRA+Fails+with+%27Could+not+create+resource+factory+instance%27</URL>
+    <Id>JIRAKB125698053</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>RSS Bandit does not Support  RSS from JIRA</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/RSS+Bandit+does+not+Support++RSS+from+JIRA</URL>
+    <Id>JIRAKB125698054</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SQL Server Database Connection URL Syntax is Invalid</pageName>
+    <regex>The syntax of the connection URL &apos;jdbc:jtds:sqlserver</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/SQL+Server+Database+Connection+URL+Syntax+is+Invalid</URL>
+    <Id>JIRAKB126910732</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Send Email through an SMTP Server via SSL (with javax.net.ssl.SSLException)</pageName>
+    <regex>java.security.InvalidAlgorithmParameterException</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Send+Email+through+an+SMTP+Server+via+SSL+%28with+javax.net.ssl.SSLException%29</URL>
+    <Id>JIRAKB218269293</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Session Abort Errors or Users Log in as Incorrect User due to Apache</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Session+Abort+Errors+or+Users+Log+in+as+Incorrect+User+due+to+Apache</URL>
+    <Id>JIRAKB107184448</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Error Retrieving Dependency of class com.atlassian.jira.toolkit.customfield.MultiProjectSearcher</pageName>
+    <regex>MultiProjectSearcher\. Missing class: org/apache/lucene/document/Fieldable</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Error+Retrieving+Dependency+of+class+com.atlassian.jira.toolkit.customfield.MultiProjectSearcher</URL>
+    <Id>JIRAKB125698057</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Service Does Not Run from Start Menu after Installation</pageName>
+    <regex>ENTER A VALID REGEX OR DELETE THIS LINE</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Service+Does+Not+Run+from+Start+Menu+after+Installation</URL>
+    <Id>JIRAKB217743903</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Error Message &apos;issue.CommentAssignIssue&apos; not Found when Resolving an Issue</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Error+Message+%27issue.CommentAssignIssue%27+not+Found+when+Resolving+an+Issue</URL>
+    <Id>JIRAKB204049076</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Access an Issue Listed in the Issue Navigator</pageName>
+    <regex>[^=] The issue you are trying to view does not exist</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Access+an+Issue+Listed+in+the+Issue+Navigator</URL>
+    <Id>JIRAKB131466263</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Charting Plugin Portlet Titles Are Not Displaying Correctly</pageName>
+    <regex>portlet.filterstats.field.statistictype.customfield.*</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Charting+Plugin+Portlet+Titles+Are+Not+Displaying+Correctly</URL>
+    <Id>JIRAKB181534784</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Configuring SMTP over SSL</pageName>
+    <regex>exception reading response: java.net.SocketTimeoutException: Read timed out</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Configuring+SMTP+over+SSL</URL>
+    <Id>JIRAKB155811945</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Unable to Update MySQL</pageName>
+    <regex>java\.sql\.SQLException\: The MySQL server is running with the \-\-read-only option so it cannot execute this statement</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Unable+to+Update+MySQL</URL>
+    <Id>JIRAKB149324000</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Connect to Mail Server Without Domain Name and User Id</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Connect+to+Mail+Server+Without+Domain+Name+and+User+Id</URL>
+    <Id>JIRAKB125698050</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA home must be an absolute path</pageName>
+    <regex>jira\.home must be an absolute path</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-17655</URL>
+    <Id>JRA-17655</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Office 2007 documents downloaded as zip files</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Office+2007+documents+downloaded+as+zip+files</URL>
+    <Id>JIRAKB200705419</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Trusted application between Confluence and JIRA was working but now is not working</pageName>
+    <regex>WARN\s\[atlassian\.seraph\.filter\.TrustedApplicationsFilter\]\sFailed\sto\slogin\strusted\sapplication:\sconfluence:</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Trusted+application+between+Confluence+and+JIRA+was+working+but+now+is+not+working</URL>
+    <Id>JIRAKB154633430</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JBoss deployment failure - missing DataSource deployer</pageName>
+    <regex>java.lang.NullPointerException\n\s*at\sorg\.ofbiz\.core\.entity\.jdbc\.SQLProcessor\.getConnection</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JBoss+deployment+failure+-+missing+DataSource+deployer</URL>
+    <Id>JIRAKB183468806</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Subversion commits are not visible in JIRA Subversion tab</pageName>
+    <regex>Error indexing changes\: org\.tmatesoft\.svn\.core\.SVNAuthenticationException\:</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Subversion+commits+are+not+visible+in+JIRA+Subversion+tab</URL>
+    <Id>JIRAKB154633432</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Jelly Script Fails as Jelly Service but Executes in the Jelly Runner</pageName>
+    <regex>ERROR \[atlassian\.jira\.jelly\.WebWorkAdaptor\] Could not execute action</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Jelly+Script+Fails+as+Jelly+Service+but+Executes+in+the+Jelly+Runner</URL>
+    <Id>JIRAKB125698069</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Plugins that Look Like JIRA Log Files Fail to Load on Startup</pageName>
+    <regex>atlassian-jira.*The artifact URI file.*is not a valid plugin artifact</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Plugins+that+Look+Like+JIRA+Log+Files+Fail+to+Load+on+Startup</URL>
+    <Id>JIRAKB218276061</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>NoSuchMethodError while Migrating Workflow Schemes</pageName>
+    <regex>de\.phil\.jira\.plugin\.AttachmentSearcher\.index\(AttachmentSearcher.java</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/NoSuchMethodError+while+Migrating+Workflow+Schemes</URL>
+    <Id>JIRAKB136183922</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Clicking the JIRA Charting Portlet Changes JIRA&apos;s URL to Another Site</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Clicking+the+JIRA+Charting+Portlet+Changes+JIRA%27s+URL+to+Another+Site</URL>
+    <Id>JIRAKB125698064</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>MySql Binary Logging Problem with InnoDB when Creating a Workflow</pageName>
+    <regex>Binary logging not possible</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/MySql+Binary+Logging+Problem+with+InnoDB+when+Creating+a+Workflow</URL>
+    <Id>JIRAKB196116927</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Login Gadget Displays Login Failed After Successful Login</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Login+Gadget+Displays+Login+Failed+After+Successful+Login</URL>
+    <Id>JIRAKB218276311</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Installation &amp; Upgrade</pageName>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=200710153</URL>
+    <Id>JIRAKB200710153</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Gadgets</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Gadgets</URL>
+    <Id>JIRAKB211650833</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SQL Exception while Configuring JIRA</pageName>
+    <regex>Data truncation\: Data truncated for column \&apos;NEWSTRING\&apos; at row</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/SQL+Exception+while+Configuring+JIRA</URL>
+    <Id>JIRAKB148767217</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Issue Type with Name &apos;Sub-task&apos; Already Exists</pageName>
+    <regex>Issue\sType\swith\sname\s&apos;Sub-task&apos;\salready\sexists</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Issue+Type+with+Name+%27Sub-task%27+Already+Exists</URL>
+    <Id>JIRAKB198806400</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Jira Starter License Does Not Allow More than Five or Ten Users</pageName>
+    <regex>You have exceeded the number of users allowed to use Jira under your license</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Jira+Starter+License+Does+Not+Allow+More+than+Five+or+Ten+Users</URL>
+    <Id>JIRAKB183470129</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Load a Particular Dashboard</pageName>
+    <regex>AbstractPortalPageImpl.ConfigInfo.putInColumn</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Load+a+Particular+Dashboard</URL>
+    <Id>JIRAKB207486987</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Work Log Disappeared in Issue Operations</pageName>
+    <regex>Work\sLog\sDisappeared\sin\sIssue\sOperations</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Work+Log+Disappeared+in+Issue+Operations</URL>
+    <Id>JIRAKB198806402</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot Start JIRA with -Xmanagement Option</pageName>
+    <regex>Unrecognized option: \-Xmanagement</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Cannot+Start+JIRA+with+-Xmanagement+Option</URL>
+    <Id>JIRAKB130974123</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot View Thumbnails of the Attachments in the Issue</pageName>
+    <regex>Cannot\sView\sThumbnails\sof\sthe\sAttachments\sin\sthe\sIssue</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Cannot+View+Thumbnails+of+the+Attachments+in+the+Issue</URL>
+    <Id>JIRAKB194806351</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SQL Exception While Import XML Backup Using an Oracle Database</pageName>
+    <regex>setString can only process strings of less than 32766 chararacters</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/SQL+Exception+While+Import+XML+Backup+Using+an+Oracle+Database</URL>
+    <Id>JIRAKB213058412</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Workflow transitions are not appearing on after modifying the workflow</pageName>
+    <regex>com.atlassian.jira.workflow.condition.CodeCommittedCondition.passesCondition</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Workflow+transitions+are+not+appearing+on+after+modifying+the+workflow</URL>
+    <Id>JIRAKB198804161</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Warning Message &quot;Changing the attachment, index, backup or restore settings is not allowed for security reasons&quot;</pageName>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=216433402</URL>
+    <Id>JIRAKB216433402</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Upgrade from Versions 3.9 or Below Fails due to Database Schema Change</pageName>
+    <regex>SQL Exception while executing the following:SELECT ID\, trigger_id\, cronExperssion FROM qrtz_cron_triggers \(Invalid column name \&apos;cronExperssion\&apos;\.\)</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Upgrade+from+Versions+3.9+or+Below+Fails+due+to+Database+Schema+Change</URL>
+    <Id>JIRAKB130974127</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SQL Error -7004 DEFAULT Not Allowed when Setting up JIRA for MaxDB 7.6</pageName>
+    <regex>\[-7004\]: DEFAULT not allowed</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/SQL+Error+-7004+DEFAULT+Not+Allowed+when+Setting+up+JIRA+for+MaxDB+7.6</URL>
+    <Id>JIRAKB128286968</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Problems with Perforce Job integration results in Error in job specification.error</pageName>
+    <regex>Error\sin\sjob\sspecification\.error:\sError\sdetected\sat\sline</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Problems+with+Perforce+Job+integration+results+in+Error+in+job+specification.error</URL>
+    <Id>JIRAKB218276720</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to send mail via Exchange, due to invalid SMTP hostname</pageName>
+    <regex>javax\.mail\.MessagingException\: 501 5\.5\.4 Invalid Address</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+send+mail+via+Exchange%2C+due+to+invalid+SMTP+hostname</URL>
+    <Id>JIRAKB119111982</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Wrong updated date in CVS import</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Wrong+updated+date+in+CVS+import</URL>
+    <Id>JIRAKB126910710</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Import CSV File due to Malformed CSV Stream</pageName>
+    <regex>java\.io\.IOException:\sMalformed\sCSV\sstream</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Import+CSV+File+due+to+Malformed+CSV+Stream</URL>
+    <Id>JIRAKB126910711</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Users with Special Characters Cannot be Deleted</pageName>
+    <regex>[Users with Special Characters Cannot be Deleted^=] User .* does not exist please select a user from the User Browser</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Users+with+Special+Characters+Cannot+be+Deleted</URL>
+    <Id>JIRAKB169608290</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SOAP Method getProjects() throws &apos;Servlet Axis-soap Threw Exception Java.lang.OutOfMemoryError&apos;</pageName>
+    <regex>Servlet\.service\(\) for servlet axis-soap threw exception java\.lang\.OutOfMemoryError</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/SOAP+Method+getProjects%28%29+throws+%27Servlet+Axis-soap+Threw+Exception+Java.lang.OutOfMemoryError%27</URL>
+    <Id>JIRAKB125698078</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Error while configuring JIRA with SQL Server 2005</pageName>
+    <regex>java\.io\.IOException: SSO Failed: Native SSPI library not loaded\. Check the java\.library\.path system property</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Error+while+configuring+JIRA+with+SQL+Server+2005</URL>
+    <Id>JIRAKB169608295</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA is Unable to Connect to Subversion 1.6 Repository</pageName>
+    <regex>Unable\sto\sopen\san\sra_local\ssession\sto\sURL</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+is+Unable+to+Connect+to+Subversion+1.6+Repository</URL>
+    <Id>JIRAKB218276727</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Portlets</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Portlets</URL>
+    <Id>JIRAKB211650847</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Edit or Delete Comments after Upgrading to JIRA 4.1.1</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Edit+or+Delete+Comments+after+Upgrading+to+JIRA+4.1.1</URL>
+    <Id>JIRAKB218275762</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Importing CSV data with PVCS command, the owner of the &quot;Comments&quot; fields is the user who did the import</pageName>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=125698073</URL>
+    <Id>JIRAKB125698073</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Logging is not Writing to Specified Location</pageName>
+    <regex>log4j.appender.filelog.File=.*\/</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Logging+is+not+Writing+to+Specified+Location</URL>
+    <Id>JIRAKB196117012</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Users created by Email Handler do not receive issue creation notification</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Users+created+by+Email+Handler+do+not+receive+issue+creation+notification</URL>
+    <Id>JIRAKB125698071</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Group Must not be Null when Adding or Deleting a User</pageName>
+    <regex>Group must not be null if trying to add or delete a user from it</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Group+Must+not+be+Null+when+Adding+or+Deleting+a+User</URL>
+    <Id>JIRAKB197297650</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>A timed out session causes stacktraces in half-completed actions</pageName>
+    <regex>com.atlassian.jira.exception.IssuePermissionException: User &apos;null&apos; does not have permission to see issue</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-9171</URL>
+    <Id>JRA-9171</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA installation fails due to Invalid schema</pageName>
+    <regex>Error was\: java\.sql\.SQLException\: The specified schema name</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+installation+fails+due+to+Invalid+schema</URL>
+    <Id>JIRAKB151519251</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Default Values for Custom Fields Displayed in Issue Navigator</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Default+Values+for+Custom+Fields+Displayed+in+Issue+Navigator</URL>
+    <Id>JIRAKB119111985</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA database is locked upon start-up</pageName>
+    <regex>JIRA is unable to start\, the database has been locked\.</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+database+is+locked+upon+start-up</URL>
+    <Id>JIRAKB152045143</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Timestamp format must be yyyy-mm-dd error while importing</pageName>
+    <regex>Error importing data: java.lang.IllegalArgumentException: Timestamp format must be yyyy-mm-dd hh:mm:ss</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Timestamp+format+must+be+yyyy-mm-dd+error+while+importing</URL>
+    <Id>JIRAKB126910718</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Deployment Fails with MySQL 4.1.x on Ubuntu</pageName>
+    <regex>Incorrect arguments to mysql_stmt_execute</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Deployment+Fails+with+MySQL+4.1.x+on+Ubuntu</URL>
+    <Id>JIRAKB126910715</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>&quot;The string &quot;--&quot; is not permitted within comments&quot; error when restoring JIRA 3.13 backup</pageName>
+    <regex>org\.xml\.sax\.SAXParseException: The string &quot;--&quot; is not permitted within comments</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-15753</URL>
+    <Id>JRA-15753</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Integration with Third-party Applications</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Integration+with+Third-party+Applications</URL>
+    <Id>JIRAKB215485779</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Custom Field not appearing in Issue Navigator Search Criteria</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Custom+Field+not+appearing+in+Issue+Navigator+Search+Criteria</URL>
+    <Id>JIRAKB125698089</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Issue Notifications</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Issue+Notifications</URL>
+    <Id>JIRAKB203394737</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Could not Load Validator Class due to JIRA Suite Utilities</pageName>
+    <regex>java.lang.ClassNotFoundException: com.googlecode.jsu.workflow.validator.FieldsRequiredValidator</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Could+not+Load+Validator+Class+due+to+JIRA+Suite+Utilities</URL>
+    <Id>JIRAKB162038410</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Creating Issues and Comments from Email</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Creating+Issues+and+Comments+from+Email</URL>
+    <Id>JIRAKB203394736</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting User Management</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+User+Management</URL>
+    <Id>JIRAKB203394739</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Could not Load Custom Field Type Plugin</pageName>
+    <regex>ENTER A VALID REGEX OR DELETE THIS LINE</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Could+not+Load+Custom+Field+Type+Plugin</URL>
+    <Id>JIRAKB218268685</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Browsing is Slow on High Latency Connections</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Browsing+is+Slow+on+High+Latency+Connections</URL>
+    <Id>JIRAKB181538995</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Pages don&apos;t render in IE6 when proxied behind Apache server using mod_deflate module</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Pages+don%27t+render+in+IE6+when+proxied+behind+Apache+server+using+mod_deflate+module</URL>
+    <Id>JIRAKB131465401</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>NullPointerException in GreenHopper due to Corrupt JIRA Components</pageName>
+    <regex>nvocation of method &apos;getDisplayValue&apos; in class com.pyxis.greenhopper.jira.fields.Component threw exception class java.lang.NullPointerException</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/NullPointerException+in+GreenHopper+due+to+Corrupt+JIRA+Components</URL>
+    <Id>JIRAKB211652128</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Issues can be viewed but do not appear in search results</pageName>
+    <regex>[Ii]ssues\scan\sbe\sviewed\sbut\sdo\snot\sappear\sin\ssearch\sresults</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Issues+can+be+viewed+but+do+not+appear+in+search+results</URL>
+    <Id>JIRAKB179442056</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Exceeds Max Allowed Packet for MySQL</pageName>
+    <regex>Packet is larger than max_allowed_packet</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Exceeds+Max+Allowed+Packet+for+MySQL</URL>
+    <Id>JIRAKB215486090</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Imports</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Imports</URL>
+    <Id>JIRAKB211651624</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Indexing Failed due to NullPointerException</pageName>
+    <regex>com.atlassian.jira.issue.index.DefaultIndexManager$RuntimeExecutionException: java.util.concurrent.ExecutionException: java.lang.NullPointerException</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Indexing+Failed+due+to+NullPointerException</URL>
+    <Id>JIRAKB216433568</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>How to configure the Jira DataSource on JBoss</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/How+to+configure+the+Jira+DataSource+on+JBoss</URL>
+    <Id>JIRAKB183468788</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>java.lang.NoClassDefFoundError errors thrown for long class names under Websphere</pageName>
+    <regex>java\.lang\.NoClassDefFoundError: com\/atlassian\/jira\/web\/action\/admin\/issuetypes\/AbstractManageIssueTypeOptionsAction</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/java.lang.NoClassDefFoundError+errors+thrown+for+long+class+names+under+Websphere</URL>
+    <Id>JIRAKB145098283</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Fails to Start due to Deadlock with Bamboo Gadget</pageName>
+    <regex>com.atlassian.jira.plugin.ext.bamboo.BambooServerManagerImpl.isGadgetAvailable</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Fails+to+Start+due+to+Deadlock+with+Bamboo+Gadget</URL>
+    <Id>JIRAKB213517363</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Searches in Find Issues Screen Result in &apos;Passed List Had More Than One Value&apos;</pageName>
+    <regex>Passed\sList\shad\smore\sthan\sone\svalue</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Searches+in+Find+Issues+Screen+Result+in+%27Passed+List+Had+More+Than+One+Value%27</URL>
+    <Id>JIRAKB200706163</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Could not Load Custom Field Type Plugin with Key &apos;com.atlassian.jira.plugin.linker linker&apos;</pageName>
+    <regex>com\.atlassian\.jira\.plugin\.linker</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Could+not+Load+Custom+Field+Type+Plugin+with+Key+%27com.atlassian.jira.plugin.linker+linker%27</URL>
+    <Id>JIRAKB204046685</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>IssuePicker ajax queries can use excessive memory</pageName>
+    <regex>org\.apache\.lucene\.search\.BooleanQuery\$TooManyClauses</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-17623</URL>
+    <Id>JRA-17623</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>CSV import causes IndexOutOfBoundsException</pageName>
+    <regex>Exception caught in 500 page Index: .. Size: . java.lang.IndexOutOfBoundsException: Index: .. Size: .</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/CSV+import+causes+IndexOutOfBoundsException</URL>
+    <Id>JIRAKB133693858</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Upgrading from Versions of JIRA Prior to 3.1 Results in &apos;SAXParseException The Character Sequence&apos; Error</pageName>
+    <regex>org.xml/sax.SAXParseException: The character sequence \&quot;\]\]&gt;&quot;</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Upgrading+from+Versions+of+JIRA+Prior+to+3.1+Results+in+%27SAXParseException+The+Character+Sequence%27+Error</URL>
+    <Id>JIRAKB125698091</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>CVS  Connection Cannot Be Made</pageName>
+    <regex>ERROR\s\[action\.admin\.vcs\.AddRepository\]\sError\sauthenticating\swith\sthe\srepository</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/CVS++Connection+Cannot+Be+Made</URL>
+    <Id>JIRAKB125698090</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Resolution Date custom field not set on closed issues</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Resolution+Date+custom+field+not+set+on+closed+issues</URL>
+    <Id>JIRAKB133268210</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>How to modify the footer?</pageName>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=162038405</URL>
+    <Id>JIRAKB162038405</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Jelly</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Jelly</URL>
+    <Id>JIRAKB203394741</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Create Issue Due to Data Corruption</pageName>
+    <regex>org\.ofbiz\.core\.entity\.GenericEntityException:\swhile\sinserting:\s\[GenericEntity:Issue\].*.Duplicate\sentry\s&apos;\d*&apos;\sfor\skey\s\d.</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Create+Issue+Due+to+Data+Corruption</URL>
+    <Id>JIRAKB125698094</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Configuring the Timezone</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Configuring+the+Timezone</URL>
+    <Id>JIRAKB125698093</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Connect to Database due to java.sql.SQLException Closed Connection</pageName>
+    <regex>java.sql.SQLException: Closed Connection</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Connect+to+Database+due+to+java.sql.SQLException+Closed+Connection</URL>
+    <Id>JIRAKB148078602</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Database Issues</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Database+Issues</URL>
+    <Id>JIRAKB203394746</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting RSS</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+RSS</URL>
+    <Id>JIRAKB203394745</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Server Configuration</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Server+Configuration</URL>
+    <Id>JIRAKB203394744</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Sent Email due to Display All Comments in JIRA Emails plugin</pageName>
+    <regex>Method getCommentsForUser threw exception for reference \$allComments</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Sent+Email+due+to+Display+All+Comments+in+JIRA+Emails+plugin</URL>
+    <Id>JIRAKB218277980</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Upgrades</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Upgrades</URL>
+    <Id>JIRAKB203394743</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SSL Does Not Work after upgrading to JIRA 4.1 or Later</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/SSL+Does+Not+Work+after+upgrading+to+JIRA+4.1+or+Later</URL>
+    <Id>JIRAKB215485866</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Crashes and Performance Issues</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Crashes+and+Performance+Issues</URL>
+    <Id>JIRAKB203394749</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting JIRA Administration</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+JIRA+Administration</URL>
+    <Id>JIRAKB203394748</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Authenticate Failed Error when Connecting to Exchange</pageName>
+    <regex>A1\sNO\sAUTHENTICATE</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Authenticate+Failed+Error+when+Connecting+to+Exchange</URL>
+    <Id>JIRAKB185401609</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JBoss deployment failure - missing resource-ref element in jboss-web.xml</pageName>
+    <regex>javax\.naming\.NamingException: resource-ref:.*has no valid JNDI binding</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JBoss+deployment+failure+-+missing+resource-ref+element+in+jboss-web.xml</URL>
+    <Id>JIRAKB183468797</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JBoss deployment failure - missing resource-ref element in web.xml</pageName>
+    <regex>org\.jboss\.deployment\.DeploymentException.\* resource-ref.\* found in jboss-web.xml but not in web.xml</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JBoss+deployment+failure+-+missing+resource-ref+element+in+web.xml</URL>
+    <Id>JIRAKB183468794</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Deadlocks when Running Tomcat 6.0.24</pageName>
+    <regex>(waiting to lock .+a org.apache.catalina.loader.WebappClass|6.0.24)</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Deadlocks+when+Running+Tomcat+6.0.24</URL>
+    <Id>JIRAKB213522380</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Other format Backup &amp; Restore</pageName>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=203394751</URL>
+    <Id>JIRAKB203394751</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting JIRA XML Backup &amp; Restore</pageName>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=203394750</URL>
+    <Id>JIRAKB203394750</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Integration with Third party applications</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Integration+with+Third+party+applications</URL>
+    <Id>JIRAKB203394753</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Searching, Indexing, and Filters</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Searching%2C+Indexing%2C+and+Filters</URL>
+    <Id>JIRAKB203394752</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unprocessed Continuation References</pageName>
+    <regex>Unprocessed Continuation References</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unprocessed+Continuation+References</URL>
+    <Id>JIRAKB143884328</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>MessageHandler WARN messages - &quot;Received message carrying this JIRA instance fingerprint&quot;</pageName>
+    <regex>^.*AbstractMessageHandler]\sReceived\smessage\scarrying\sthis\sJIRA\sinstance\sfingerprint\s\(.*\)$</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=191005382</URL>
+    <Id>JIRAKB191005382</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>CPU Spikes When Running on VMWare</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/CPU+Spikes+When+Running+on+VMWare</URL>
+    <Id>JIRAKB214864861</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Un-supported Plugins</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Un-supported+Plugins</URL>
+    <Id>JIRAKB203394759</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Plugins</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Plugins</URL>
+    <Id>JIRAKB203394758</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting SSL Issues</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+SSL+Issues</URL>
+    <Id>JIRAKB215486482</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Integration with Atlassian Applications (including Trusted Applications)</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Integration+with+Atlassian+Applications+%28including+Trusted+Applications%29</URL>
+    <Id>JIRAKB203394755</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Issues are Editable In Closed State</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Issues+are+Editable+In+Closed+State</URL>
+    <Id>JIRAKB218268664</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Issue Navigator</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Issue+Navigator</URL>
+    <Id>JIRAKB203394757</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Dashboard</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Dashboard</URL>
+    <Id>JIRAKB203394756</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>DataAccessException during JIRA Usage</pageName>
+    <regex>Create disk space by deleting unneeded files</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/DataAccessException+during+JIRA+Usage</URL>
+    <Id>JIRAKB163939192</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot Subscribe to a Filter with Some Non-English Locales</pageName>
+    <regex>[^=] Filter with cron expression.* will never run</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Cannot+Subscribe+to+a+Filter+with+Some+Non-English+Locales</URL>
+    <Id>JIRAKB203391949</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Alias name &apos; &apos; does not identify a key entry</pageName>
+    <regex>Alias\sname\sdoes\snot\sidentify\sa\skey\sentry</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Alias+name+%27+%27+does+not+identify+a+key+entry</URL>
+    <Id>JIRAKB215486485</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>NullPointerException when Viewing or Upgrading Filter in JIRA 4.x</pageName>
+    <regex>(jira.upgrade.tasks.UpgradeTask_Build428\] Could not namify the query: &apos;null&apos;|at com.atlassian.jira.jql.util.JqlSelectOptionsUtil.getFieldFromOption\(JqlSelectOptionsUtil.java:234)</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/NullPointerException+when+Viewing+or+Upgrading+Filter+in+JIRA+4.x</URL>
+    <Id>JIRAKB204046430</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>HTML Email Renders Differently in Outlook 2003 after Upgrading to JIRA 4</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/HTML+Email+Renders+Differently+in+Outlook+2003+after+Upgrading+to+JIRA+4</URL>
+    <Id>JIRAKB218269162</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>550 5.7.1 Unable to Relay Mail From Exchange Server</pageName>
+    <regex>com\.sun\.mail\.smtp\.SMTPAddressFailedException:\s\d*\s\d\.\d\.\d\sUnable\sto\srelay\sfor</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/550+5.7.1+Unable+to+Relay+Mail+From+Exchange+Server</URL>
+    <Id>JIRAKB143884327</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Custom Fields or System Fields are Not Appearing on the Screen</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Custom+Fields+or+System+Fields+are+Not+Appearing+on+the+Screen</URL>
+    <Id>JIRAKB163416168</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Knowledge Base Home</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Knowledge+Base+Home</URL>
+    <Id>JIRAKB71600064</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Miscellaneous Articles</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Miscellaneous+Articles</URL>
+    <Id>JIRAKB203394764</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Internalisation and Encoding</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Internalisation+and+Encoding</URL>
+    <Id>JIRAKB203394762</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Greenhopper</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Greenhopper</URL>
+    <Id>JIRAKB203394760</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Export Users to CSV</pageName>
+    <regex>Export\sUsers\sto\sCSV</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Export+Users+to+CSV</URL>
+    <Id>JIRAKB192053781</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot Change JIRA Logo</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Cannot+Change+JIRA+Logo</URL>
+    <Id>JIRAKB123044099</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Connecting JIRA to MySQL Results in &apos;INSERT Command Denied To User&apos;</pageName>
+    <regex>INSERT command denied to user</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Connecting+JIRA+to+MySQL+Results+in+%27INSERT+Command+Denied+To+User%27</URL>
+    <Id>JIRAKB143884330</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Errors when configuring trust between JIRA and a clustered Confluence</pageName>
+    <regex>com.atlassian.security.auth.trustedapps.InvalidCertificateException</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Errors+when+configuring+trust+between+JIRA+and+a+clustered+Confluence</URL>
+    <Id>JIRAKB152045048</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Notification Aren&apos;t Sent when Events are Trigggered via Workflow Transitions</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Notification+Aren%27t+Sent+when+Events+are+Trigggered+via+Workflow+Transitions</URL>
+    <Id>JIRAKB164495758</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Exception processing TLD when deploying JIRA on Tomcat</pageName>
+    <regex>.*Exception\sprocessing\sTLD\sat\sresource\spath\s/WEB-INF/tld/atlassian-jira-tags\.tld.*</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Exception+processing+TLD+when+deploying+JIRA+on+Tomcat</URL>
+    <Id>JIRAKB193299658</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Start JIRA when Running with Confluence or Crowd in the Same Application Server Container</pageName>
+    <regex>java.io.IOException: No framework context found</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Start+JIRA+when+Running+with+Confluence+or+Crowd+in+the+Same+Application+Server+Container</URL>
+    <Id>JIRAKB216433552</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>OutOfMemoryError due to too Much Memory for Lucene in 32-bit Sun JVMs</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/OutOfMemoryError+due+to+too+Much+Memory+for+Lucene+in+32-bit+Sun+JVMs</URL>
+    <Id>JIRAKB217743425</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Workflow Transition Fails due to Error Retrieving Originating Step</pageName>
+    <regex>[Workflow Transition Fails due to Error Retrieving Originating Step^=] Error retrieving originating step</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Workflow+Transition+Fails+due+to+Error+Retrieving+Originating+Step</URL>
+    <Id>JIRAKB143884332</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Fails to Display Filtered Issues due to Lucene Search Limit</pageName>
+    <regex>org\.apache\.lucene\.search\.BooleanQuery\$TooManyClauses</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Fails+to+Display+Filtered+Issues+due+to+Lucene+Search+Limit</URL>
+    <Id>JIRAKB133693865</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA DB Entity Mismatches with Database Schema</pageName>
+    <regex>Table named .* exists in the database but has no corresponding entity</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+DB+Entity+Mismatches+with+Database+Schema</URL>
+    <Id>JIRAKB215486086</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Changing the row number of unlimited text type Custom Field renderer</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Changing+the+row+number+of+unlimited+text+type+Custom+Field+renderer</URL>
+    <Id>JIRAKB154633798</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Open Unresolved Issues Imported from FogBugz appear as Resolved in JIRA</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Open+Unresolved+Issues+Imported+from+FogBugz+appear+as+Resolved+in+JIRA</URL>
+    <Id>JIRAKB166004916</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Remember My Login</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Remember+My+Login</URL>
+    <Id>JIRAKB216959459</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>java.lang.AssertionError When Sending Mail Via SMTP</pageName>
+    <regex>com.sun.mail.smtp.SMTPTransport.readServerResponse\(SMTPTransport</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/java.lang.AssertionError+When+Sending+Mail+Via+SMTP</URL>
+    <Id>JIRAKB204047843</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Send JIRA Support Request</pageName>
+    <regex>com.atlassian.mail.MailException: com.sun.mail.smtp.SMTPSendFailedException: 552 5.3.4 Message size exceeds fixed maximum message size</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Send+JIRA+Support+Request</URL>
+    <Id>JIRAKB215483346</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unresolved Issues do not Appear in the Outstanding or Issues Due Filter</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unresolved+Issues+do+not+Appear+in+the+Outstanding+or+Issues+Due+Filter</URL>
+    <Id>JIRAKB184549725</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Limit the number of characters entered in a summary field</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Limit+the+number+of+characters+entered+in+a+summary+field</URL>
+    <Id>JIRAKB126517558</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Gadgets do not Display Correctly when Using SSL and Proxy Server</pageName>
+    <regex>Detected URL scheme\, \&apos;http\&apos;\, does not match expected scheme \&apos;https\&apos;</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Gadgets+do+not+Display+Correctly+when+Using+SSL+and+Proxy+Server</URL>
+    <Id>JIRAKB213520306</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>ClassNotFoundException error when configuring JIRA in Websphere</pageName>
+    <regex>java\.lang\.ClassNotFoundException: class com\.atlassian\.jira\.security\.auth.trustedapps\.TrustedApplicationFilter :java\.lang\.NullPointerException</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/ClassNotFoundException+error+when+configuring+JIRA+in+Websphere</URL>
+    <Id>JIRAKB154633380</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Delete Workflow due to MySQL Case Sensitivity</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Delete+Workflow+due+to+MySQL+Case+Sensitivity</URL>
+    <Id>JIRAKB166527574</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Remember My Login Does Not Work due to Accessing JIRA via Different Domains</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Remember+My+Login+Does+Not+Work+due+to+Accessing+JIRA+via+Different+Domains</URL>
+    <Id>JIRAKB217743657</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting JIRA Configurations</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+JIRA+Configurations</URL>
+    <Id>JIRAKB213517043</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Loss of Functionality due to Too Many Open Files Error</pageName>
+    <regex>java\.io\.IOException: Too many open files</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Loss+of+Functionality+due+to+Too+Many+Open+Files+Error</URL>
+    <Id>JIRAKB156862102</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>For some websites, JIRA is giving run time error when user put URL in Trusted applications window</pageName>
+    <regex>java\.lang\.RuntimeException: java\.security\.spec\.InvalidKeySpecException: java\.io\.EOFException: EOF encountered in middle of object</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-15798</URL>
+    <Id>JRA-15798</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Receiving JiraQuartzScheduler Errors When Importing Comments from Email Replies</pageName>
+    <regex>JiraQuartzScheduler_Worker-. WARN .service.util.handler.AbstractCommentHandler. This user is not in jira so can not add a comment</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Receiving+JiraQuartzScheduler+Errors+When+Importing+Comments+from+Email+Replies</URL>
+    <Id>JIRAKB163939647</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>NullPointerException when Selecting the User from the User Picker</pageName>
+    <regex>java\.lang\.RuntimeException\: java\.lang\.NullPointerException at com\.atlassian\.jira\.web\.action\.admin\.user.UserPickerBrowser\.getBrowsableItems\(UserPickerBrowser\.java\:112\)</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/NullPointerException+when+Selecting+the+User+from+the+User+Picker</URL>
+    <Id>JIRAKB163939648</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA does not work on Webpshere 6.1 with the Feature Pack for Web Services </pageName>
+    <regex>com.ibm.ws.metadata.annotations.AnnotationException: Annotation processing failed for class: com/atlassian/jira/issue/Bug.class</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-16753</URL>
+    <Id>JRA-16753</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Gadgets do not Display when Failing to Access Spec XML</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Gadgets+do+not+Display+when+Failing+to+Access+Spec+XML</URL>
+    <Id>JIRAKB218276785</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>How to remove &apos;unknown&apos; option from &apos;Component&apos; and &apos;Fix Versions&apos;?</pageName>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=160792815</URL>
+    <Id>JIRAKB160792815</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Comment Handler Is Unable to Identify Issue</pageName>
+    <regex>[Comment Handler Is Unable to Identify Issue^=] Could\snot\sfind\sa\scorresponding\sissue\sto\scomment\sand\sCreate\sIssue\sHandler\sis\snot\sselected</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Comment+Handler+Is+Unable+to+Identify+Issue</URL>
+    <Id>JIRAKB198804346</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Error when Editing Workflow - Found a &apos;workflow&apos; in the request parameters, but there is no &apos;workflowMode&apos;</pageName>
+    <regex>java\.lang\.IllegalStateException: Found a \&apos;workflow\&apos; in the request parameters\, but there is no \&apos;workflowMode\&apos;</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Error+when+Editing+Workflow+-+Found+a+%27workflow%27+in+the+request+parameters%2C+but+there+is+no+%27workflowMode%27</URL>
+    <Id>JIRAKB169120260</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Error retrieving issues under &apos;Component&apos; category in &apos;Browse Project&apos; menu</pageName>
+    <regex>\[jira\.issue\.statistics\.ComponentStatisticsMapper\]\sIndexes\smay\sbe\scorrupt\s-\sunable\sto\sretrieve\scomponent\swith\sid</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Error+retrieving+issues+under+%27Component%27+category+in+%27Browse+Project%27+menu</URL>
+    <Id>JIRAKB160792817</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>NoClassDefFoundError in Tomcat EAR-WAR</pageName>
+    <regex>java\.lang\.NoClassDefFoundError: org/apache/log4j/Logger</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/NoClassDefFoundError+in+Tomcat+EAR-WAR</URL>
+    <Id>JIRAKB188153889</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA server fails to connect to database on system reboot.</pageName>
+    <regex>org\.apache\.tomcat\.dbcp\.dbcp\.SQLNestedException: Cannot create PoolableConnectionFactory (Network error IOException: Connection refused: connect)</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+server+fails+to+connect+to+database+on+system+reboot.</URL>
+    <Id>JIRAKB158631028</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>ClassCastException on java.util.Date</pageName>
+    <regex>com.atlassian.streams.jira.JiraStreamsActivityProvider.2.compare\(JiraStreamsActivityProvider.java:196\)</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/ClassCastException+on+java.util.Date</URL>
+    <Id>JIRAKB215483335</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Internal Server Error</pageName>
+    <regex>Internal Server Error</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Internal+Server+Error</URL>
+    <Id>JIRAKB213518094</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>XPP3 Pull Parser Library not Present</pageName>
+    <regex>XPP3 pull parser library not present</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/XPP3+Pull+Parser+Library+not+Present</URL>
+    <Id>JIRAKB187433694</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Inconsistent Issue Status &apos;Exception While Executing the Following INSERT INTO&apos;</pageName>
+    <regex>SQL Exception while executing the following:INSERT INTO changeitem \(ID\, groupid\, FIELDTYPE\, FIELD\, OLDVALUE\, OLDSTRING\, NEWVALUE\, NEWSTRING\) VALUES \(\?\, \?\, \?\, \?\, \?\, \?\, \?\, \?\) \(Duplicate entry</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Inconsistent+Issue+Status+%27Exception+While+Executing+the+Following+INSERT+INTO%27</URL>
+    <Id>JIRAKB149717034</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Increasing Permanent Generation Memory does not work</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Increasing+Permanent+Generation+Memory+does+not+work</URL>
+    <Id>JIRAKB218276571</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Closing an Issue Results in &apos;Column &apos;ID&apos; cannot be null&apos; Error</pageName>
+    <regex>Column &apos;ID&apos; cannot be null</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Closing+an+Issue+Results+in+%27Column+%27ID%27+cannot+be+null%27+Error</URL>
+    <Id>JIRAKB200705785</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Update Issue field post-function not working during Create Issue</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Update+Issue+field+post-function+not+working+during+Create+Issue</URL>
+    <Id>JIRAKB166003844</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Dashboard Fails to Display with Cannot Forward after Response has Been Committed Error</pageName>
+    <regex>Cannot forward after response has been committed</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Dashboard+Fails+to+Display+with+Cannot+Forward+after+Response+has+Been+Committed+Error</URL>
+    <Id>JIRAKB218277954</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Dashboard not Loading due to Bamboo Portlet</pageName>
+    <regex>ext\.bamboo\.portlets\.StatusPortlet.*java\.net\.ConnectException: Connection timed out</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Dashboard+not+Loading+due+to+Bamboo+Portlet</URL>
+    <Id>JIRAKB200705788</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Groups Have More than 200 Users Warning Message in Group Browser</pageName>
+    <regex>jira-users\shave\smore\sthan\s\d*\susers\.\sThese\sgroup.s.\shave\sbeen\slimited\sto\sdisplay\sthe\sfirst\s\d*\susers\sonly</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Groups+Have+More+than+200+Users+Warning+Message+in+Group+Browser</URL>
+    <Id>JIRAKB204049737</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Deleting the same permission object twice in a permission scheme throws an exception</pageName>
+    <regex>com\.atlassian\.jira\.scheme\.AbstractSchemeManager\.deleteEntity\(AbstractSchemeManager\.java:471</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-21163</URL>
+    <Id>JRA-21163</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>On backup import you get Network error IOException  Address already in use  connect</pageName>
+    <regex>IOException: Address already in use: connect</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/On+backup+import+you+get+Network+error+IOException++Address+already+in+use++connect</URL>
+    <Id>JIRAKB158630899</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>NullPointerException when authenticating from IE</pageName>
+    <regex>java\.net\.URI\$Parser\.parse\(URI\.java:[0-9]\)</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/NullPointerException+when+authenticating+from+IE</URL>
+    <Id>JIRAKB216959513</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>FishEye Configuration Errors</pageName>
+    <regex>Action &apos;admin.ViewFishEyeConfiguration&apos; not found or could not be initialized</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/FishEye+Configuration+Errors</URL>
+    <Id>JIRAKB200213166</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Causes of OutOfMemoryErrors</pageName>
+    <regex>java.lang.OutOfMemoryError: Java heap space</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Causes+of+OutOfMemoryErrors</URL>
+    <Id>JIRAKB191069</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Lock timout - Waited 30000 Milliseconds Error Message</pageName>
+    <regex>Lock attempt timed out</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Lock+timout+-+Waited+30000+Milliseconds+Error+Message</URL>
+    <Id>JIRAKB192053489</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>CSV File Does Not Exist</pageName>
+    <regex>[CSV File Does Not Exist^=] CSV file does not exist</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/CSV+File+Does+Not+Exist</URL>
+    <Id>JIRAKB133693906</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Session timeout should be handled more gracefully.</pageName>
+    <regex>java.lang.IllegalStateException: getAttribute: Session already invalidated</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-5761</URL>
+    <Id>JRA-5761</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA User Does not Have Permission to Access the Database</pageName>
+    <regex>Cannot create PoolableConnectionFactory \(Access denied for user</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+User+Does+not+Have+Permission+to+Access+the+Database</URL>
+    <Id>JIRAKB214864262</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Start JIRA due to Unresolved Constraint in Bundle</pageName>
+    <regex>Unresolved.constraint.in.bundle.*package=org.apache.xml.serialize</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Start+JIRA+due+to+Unresolved+Constraint+in+Bundle</URL>
+    <Id>JIRAKB204047743</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>The Database is Already in Use by Another Process</pageName>
+    <regex>The database is already in use by another process: org.hsqldb.persist.NIOLockFile.*No such file or directory</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/The+Database+is+Already+in+Use+by+Another+Process</URL>
+    <Id>JIRAKB194805800</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>invalid URL links on Apache Reverse Proxy-ed JIRA instance</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/invalid+URL+links+on+Apache+Reverse+Proxy-ed+JIRA+instance</URL>
+    <Id>JIRAKB131465494</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Notifications Fail Occasionally</pageName>
+    <regex>com.sun.mail.smtp.SMTPAddressFailedException: 452 Too many recipients received this hour</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Notifications+Fail+Occasionally</URL>
+    <Id>JIRAKB215483685</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SearchRequest entity should use a extemely-long field types on Oracle 10g</pageName>
+    <regex>SQL Exception while executing the following:INSERT INTO searchrequest.*ORA-01461: can bind a LONG value only for insert into a LONG column</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-14085</URL>
+    <Id>JRA-14085</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Changing JBoss Logging Level</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Changing+JBoss+Logging+Level</URL>
+    <Id>JIRAKB131465490</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Attaching a file does not work in Safari</pageName>
+    <regex>com\.atlassian\.jira\.web\.JiraMultipartRequestWrapper\.&lt;init&gt;.JiraMultipartRequestWrapper\.java:28</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-13582</URL>
+    <Id>JRA-13582</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Log Work Operation Missing in Time Tracking</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Log+Work+Operation+Missing+in+Time+Tracking</URL>
+    <Id>JIRAKB152043634</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>How to Make a Federated JIRA Instance</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/How+to+Make+a+Federated+JIRA+Instance</URL>
+    <Id>JIRAKB215483015</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to add License with Five User Sprout Promotion</pageName>
+    <regex>\[atlassian\.license\.decoder\.LicenseDecoder\] com\.atlassian\.license\.LicenseException: The license type \(290\) specified is invalid\.</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+add+License+with+Five+User+Sprout+Promotion</URL>
+    <Id>JIRAKB183469702</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Closed Issues Showing as UNRESOLVED</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Closed+Issues+Showing+as+UNRESOLVED</URL>
+    <Id>JIRAKB151126301</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Fails to Deploy on WebSphere due to Missing JNDI ResourceRef</pageName>
+    <regex>Exception caught while initializing context\s*?\S*?: SQL Exception</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Fails+to+Deploy+on+WebSphere+due+to+Missing+JNDI+ResourceRef</URL>
+    <Id>JIRAKB179446389</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Issues or Sub-Tasks Are Out of Order in Planning Board</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Issues+or+Sub-Tasks+Are+Out+of+Order+in+Planning+Board</URL>
+    <Id>JIRAKB213517815</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Searching in Japanese</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Searching+in+Japanese</URL>
+    <Id>JIRAKB151126307</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Starts with Error Could Not Load Custom Field Type Plugin with Key &apos;com.atlassian.jira.ext.charting&apos;</pageName>
+    <regex>Could not load custom field type plugin with key \&apos;com.atlassian.jira.ext.charting\:</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Starts+with+Error+Could+Not+Load+Custom+Field+Type+Plugin+with+Key+%27com.atlassian.jira.ext.charting%27</URL>
+    <Id>JIRAKB193299583</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SqlException No License is Present in DB2</pageName>
+    <regex>Caused by\: com\.ibm\.db2\.jcc\.c\.SqlException\: No license is present</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/SqlException+No+License+is+Present+in+DB2</URL>
+    <Id>JIRAKB160793983</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Installation on Oracle Fails with Error ORA-00955 Name is Already Esed by an Existing Object</pageName>
+    <regex>(ORA-00955|name is already used by an existing object)</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Installation+on+Oracle+Fails+with+Error+ORA-00955+Name+is+Already+Esed+by+an+Existing+Object</URL>
+    <Id>JIRAKB144212317</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Duplicate entry exception while installing JIRA plugin</pageName>
+    <regex>com\.atlassian\.jira\.exception\.DataAccessException:\sorg\.ofbiz\.core\.entity\.GenericEntityException:\swhile\sinserting:\s\[GenericEntity:PluginVersion\]</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Duplicate+entry+exception+while+installing+JIRA+plugin</URL>
+    <Id>JIRAKB193299577</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Remember My Login Does Not Work Correctly Using JIRA 3.12.2 or JIRA 3.12.3 and Tomcat 5.5.26 or Tomcat 6</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Remember+My+Login+Does+Not+Work+Correctly+Using+JIRA+3.12.2+or+JIRA+3.12.3+and+Tomcat+5.5.26+or+Tomcat+6</URL>
+    <Id>JIRAKB217743644</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Remember My Login on this Computer Checkbox is not Visible on the JIRA Login Page</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Remember+My+Login+on+this+Computer+Checkbox+is+not+Visible+on+the+JIRA+Login+Page</URL>
+    <Id>JIRAKB217743642</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Log into JIRA when Proxied Behind IIS</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Log+into+JIRA+when+Proxied+Behind+IIS</URL>
+    <Id>JIRAKB149323864</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Remember My Login Does Not Work due to SSL Redirection</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Remember+My+Login+Does+Not+Work+due+to+SSL+Redirection</URL>
+    <Id>JIRAKB217743647</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Mail</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Mail</URL>
+    <Id>JIRAKB211649643</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA 4.0 Locks up at Startup due to Plugin Loading</pageName>
+    <regex>com\.atlassian\.jira\.InfrastructureException: Error occurred while starting Plugin Manager</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+4.0+Locks+up+at+Startup+due+to+Plugin+Loading</URL>
+    <Id>JIRAKB204048086</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>_Note about Remember My Login</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/_Note+about+Remember+My+Login</URL>
+    <Id>JIRAKB217743640</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Activate Header Row for subtask list in Issue Detail view</pageName>
+    <regex>(header.*sub?task|subtask.*header)</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Activate+Header+Row+for+subtask+list+in+Issue+Detail+view</URL>
+    <Id>JIRAKB165118278</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Throws IllegalArgumentException when using Activity Stream Gadget</pageName>
+    <regex>\[atlassian\.streams\.servlet\.StreamsActivityServlet\]\sError\sgetting\sactivity</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Throws+IllegalArgumentException+when+using+Activity+Stream+Gadget</URL>
+    <Id>JIRAKB217743633</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Excel Word Export Retuns Zero Results (Umlaut)</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Excel+Word+Export+Retuns+Zero+Results+%28Umlaut%29</URL>
+    <Id>JIRAKB151126323</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Restore Backup into MS SQL 2005</pageName>
+    <regex>com.atlassian.jira.upgrade.tasks.UpgradeTask_Build437.doUpgrade</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Restore+Backup+into+MS+SQL+2005</URL>
+    <Id>JIRAKB204048482</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Cannot Perform Bulk-Change Assignee and Reporter</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Cannot+Perform+Bulk-Change+Assignee+and+Reporter</URL>
+    <Id>JIRAKB126910706</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Rendering Problems when using IE7 or IE8</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Rendering+Problems+when+using+IE7+or+IE8</URL>
+    <Id>JIRAKB215486425</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Upgrade Fails due to Invalid Database Configuration</pageName>
+    <regex>Error was: java\.sql\.SQLException: ORA-00902: invalid datatype</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Upgrade+Fails+due+to+Invalid+Database+Configuration</URL>
+    <Id>JIRAKB152045112</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>How to add the Priority Field Into the Email Subject</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/How+to+add+the+Priority+Field+Into+the+Email+Subject</URL>
+    <Id>JIRAKB126910700</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Jira 4.0 fails to re-start with MySQL</pageName>
+    <regex>com.atlassian.jira.upgrade.util.UpgradeUtils.stripSchemaPrefix</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Jira+4.0+fails+to+re-start+with+MySQL</URL>
+    <Id>JIRAKB203396554</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>OutOfMemory Error or Poor Performance due to XML Backup</pageName>
+    <regex>com.atlassian.jira.action.admin.DataExport.execute\(DataExport.java:81\)</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/OutOfMemory+Error+or+Poor+Performance+due+to+XML+Backup</URL>
+    <Id>JIRAKB213057694</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>CSV Import Fails due to sun.io.MalformedInputException</pageName>
+    <regex>com\.atlassian\.jira\.exception\.DataAccessException:\scom\.atlassian\.jira\.imports\.csv\.ImportException:\ssun\.io\.MalformedInputException</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/CSV+Import+Fails+due+to+sun.io.MalformedInputException</URL>
+    <Id>JIRAKB192872680</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA fails to start due to NoClassDefFoundError - javax.servlet.ServletContextListener</pageName>
+    <regex>java\.lang\.ClassNotFoundException: javax\.servlet\.ServletContextListener</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+fails+to+start+due+to+NoClassDefFoundError+-+javax.servlet.ServletContextListener</URL>
+    <Id>JIRAKB168003470</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>NullPointerException on the Dashboard after an Upgrade</pageName>
+    <regex>Exception thrown while rendering portlet of type \&apos;Projects\&apos; with id of \&apos;[\d]+\&apos; on dashboard with id \&apos;[\d]+\&apos; java\.lang\.NullPointerException at com\.atlassian\.jira\.permission\.DefaultPermissionSchemeManager\.hasSchemePermission</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/NullPointerException+on+the+Dashboard+after+an+Upgrade</URL>
+    <Id>JIRAKB168002830</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Generate Support Requests from the Administration User Interface</pageName>
+    <regex>com\.sun\.mail\.smtp\.SMTPSendFailedException\: 552 4\.3\.1 Message size exceeds fixed maximum message size</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Generate+Support+Requests+from+the+Administration+User+Interface</URL>
+    <Id>JIRAKB163414367</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Multiple Services Named &apos;Subversion Revision Indexing Service&apos;</pageName>
+    <regex>Multiple services with name &apos;Subversion Revision Indexing Service&apos;</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Multiple+Services+Named+%27Subversion+Revision+Indexing+Service%27</URL>
+    <Id>JIRAKB154633006</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>NullPointerException when Deleting a Custom Field</pageName>
+    <regex>NullPointerException\swhen\sDeleting\sa\sCustom\sField</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/NullPointerException+when+Deleting+a+Custom+Field</URL>
+    <Id>JIRAKB218272042</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Why does JIRA show multiple UNRESOLVED status?</pageName>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=163938438</URL>
+    <Id>JIRAKB163938438</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Configure Subversion Commit Messages in JIRA</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Configure+Subversion+Commit+Messages+in+JIRA</URL>
+    <Id>JIRAKB191500960</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Mail Queue Must Be Flushed Manually due to OutOfMemoryException</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Mail+Queue+Must+Be+Flushed+Manually+due+to+OutOfMemoryException</URL>
+    <Id>JIRAKB218278808</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Login from Internet Explorer Running Behind IIS</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Login+from+Internet+Explorer+Running+Behind+IIS</URL>
+    <Id>JIRAKB149323886</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>TooManyClauses or OutOfMemoryException for AJAX Issue Picker thanks to PrefixQuery</pageName>
+    <regex>org.apache.lucene.search.BooleanQuery.TooManyClauses</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-13884</URL>
+    <Id>JRA-13884</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Activity Servlet throws stacktrace when project has been deleted - StreamsActivityServlet Error getting activity java.lang.IllegalArgumentException: The Project argument and its backing generic value must not be null</pageName>
+    <regex>java.lang.IllegalArgumentException: The Project argument and its backing generic value must not be null</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-21050</URL>
+    <Id>JRA-21050</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Project Info Panel Does not Display</pageName>
+    <regex>[Project Info Panel Does not Display^=] Note: The &apos;Project Information&apos; panel is not available.</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Project+Info+Panel+Does+not+Display</URL>
+    <Id>JIRAKB166529865</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JVM Segfault (SIGSEGV) After Plugin Initialisation</pageName>
+    <regex>SIGSEGV</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JVM+Segfault+%28SIGSEGV%29+After+Plugin+Initialisation</URL>
+    <Id>JIRAKB200707128</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>&apos;Could not Create Bugzilla User&apos; Error when Importing from Bugzilla</pageName>
+    <regex>Could not create bugzilla user</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/%27Could+not+Create+Bugzilla+User%27+Error+when+Importing+from+Bugzilla</URL>
+    <Id>JIRAKB166529198</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Available Workflow Actions do not Match Workflow Transitions</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Available+Workflow+Actions+do+not+Match+Workflow+Transitions</URL>
+    <Id>JIRAKB158107255</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Indexing Fails due to Classloader Conflict</pageName>
+    <regex>java.lang.NoClassDefFoundError: Could not initialize class org.apache.lucene.index.SegmentReader</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Indexing+Fails+due+to+Classloader+Conflict</URL>
+    <Id>JIRAKB160399463</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>When using Tomcat or JIRA Standalone, Unicode (non-ASCII) characters in HTTPS URL appear incorrect and result in errors in the page</pageName>
+    <regex>characters in an HTTPS URL appear incorrect in the URL</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/When+using+Tomcat+or+JIRA+Standalone%2C+Unicode+%28non-ASCII%29+characters+in+HTTPS+URL+appear+incorrect+and+result+in+errors+in+the+page</URL>
+    <Id>JIRAKB168003342</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Illegal Date Format in CSV File Breaks Project Import</pageName>
+    <regex>java\.lang\.IllegalArgumentException\: Illegal pattern character</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Illegal+Date+Format+in+CSV+File+Breaks+Project+Import</URL>
+    <Id>JIRAKB128287403</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>GC Overhead Limit Exceeded</pageName>
+    <regex>java.lang.OutOfMemoryError: GC overhead limit exceeded</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/GC+Overhead+Limit+Exceeded</URL>
+    <Id>JIRAKB213518857</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>User is Logged Out of JIRA after Confluence Login</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/User+is+Logged+Out+of+JIRA+after+Confluence+Login</URL>
+    <Id>JIRAKB192872663</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Cannot Create Users when Crowd is Configured</pageName>
+    <regex>org.codehaus.xfire.fault.XFireFault.*cause.in.class.java.rmi.RemoteException</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Cannot+Create+Users+when+Crowd+is+Configured</URL>
+    <Id>JIRAKB201851831</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Execution Error in Jelly Script - Invalid Action Name</pageName>
+    <regex>JellyTagException.*&lt;jira:TransitionWorkflow&gt;\sInvalid\saction\sname</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Execution+Error+in+Jelly+Script+-+Invalid+Action+Name</URL>
+    <Id>JIRAKB158106253</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Pages Occassionally throws Invalid LOC Header (Bad Signature)</pageName>
+    <regex>invalid LOC header \(bad signature\)</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Pages+Occassionally+throws+Invalid+LOC+Header+%28Bad+Signature%29</URL>
+    <Id>JIRAKB105185488</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>CachedGenericConfigManager is not thread safe</pageName>
+    <regex>java.lang.NullPointerException[^a-zA-Z]+at org.apache.commons.collections.map.LRUMap.reuseMapping,LRUMap.java</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-12600</URL>
+    <Id>JRA-12600</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Error when clicking on &apos;All&apos; or &apos;Transitions&apos; issue tab panel</pageName>
+    <regex>java\.lang\.NoClassDefFoundError:\sedu/emory/mathcs/backport/java/util/Collections</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Error+when+clicking+on+%27All%27+or+%27Transitions%27+issue+tab+panel</URL>
+    <Id>JIRAKB206865907</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Resolution Time Field Missing and Duplicate Custom Fields</pageName>
+    <regex>Could not find any custom field value with key &apos;com\.atlassian\.jira\.ext\.charting:resolutiondate&apos;</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Resolution+Time+Field+Missing+and+Duplicate+Custom+Fields</URL>
+    <Id>JIRAKB158630202</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Export More Than 1000 Results to Excel</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Export+More+Than+1000+Results+to+Excel</URL>
+    <Id>JIRAKB191500982</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Null project descriptions result in an NPE when loading the project gadget</pageName>
+    <regex>com.atlassian.jira.gadgets.system.ProjectGadgetResource.getProjectDataNoPermissionCheck\(ProjectGadgetResource.java:386\)</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-21143</URL>
+    <Id>JRA-21143</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>The Clone Link Type &apos;Cloners&apos; Does Not Exist</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/The+Clone+Link+Type+%27Cloners%27+Does+Not+Exist</URL>
+    <Id>JIRAKB162431509</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Config.bat Cannot Locate Java on Windows</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Config.bat+Cannot+Locate+Java+on+Windows</URL>
+    <Id>JIRAKB218271944</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Won&apos;t Start due to ConcurrentModificationException Errors  (FishEye Plugin)</pageName>
+    <regex>Caused by\: java\.util\.ConcurrentModificationException</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/JIRA+Won%27t+Start+due+to+ConcurrentModificationException+Errors++%28FishEye+Plugin%29</URL>
+    <Id>JIRAKB215484597</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Sending Email through an SMTP Server via SSL Fails due to Resource Configuration</pageName>
+    <regex>javax\.net\.ssl\.SSLException\: Unrecognized SSL message\, plaintext connection</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Sending+Email+through+an+SMTP+Server+via+SSL+Fails+due+to+Resource+Configuration</URL>
+    <Id>JIRAKB162432050</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Searching Issues Fails due to Incorrectly Compiled JSP File</pageName>
+    <regex>com.atlassian.jira.issue.views.util.SearchRequestHeader.getSearchSortReverseDescriptions</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Searching+Issues+Fails+due+to+Incorrectly+Compiled+JSP+File</URL>
+    <Id>JIRAKB119799992</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Thumbnails Fail to Render when Viewing an Issue due to Oversized PNG Image File</pageName>
+    <regex>query=&quot;/thumbnails&quot;</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Thumbnails+Fail+to+Render+when+Viewing+an+Issue+due+to+Oversized+PNG+Image+File</URL>
+    <Id>JIRAKB218278846</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Create Button is Missing from the &quot;Create Issue&quot; Screen</pageName>
+    <regex>create button missing</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=160793431</URL>
+    <Id>JIRAKB160793431</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Data Size Bigger than Max Size for this Type when Importing on Oracle</pageName>
+    <regex>size\sbigger\sthan\smax\ssize\sfor\sthis\stype\|ORA-17070</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Data+Size+Bigger+than+Max+Size+for+this+Type+when+Importing+on+Oracle</URL>
+    <Id>JIRAKB121340129</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>NPE from null user in bulk mail</pageName>
+    <regex>com\.atlassian\.jira\.web\.action\.admin\.mail\.SendBulkMail\.doExecute\(SendBulkMail.java:214\)</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-20227</URL>
+    <Id>JRA-20227</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Java Crashes</pageName>
+    <regex>SIGSEGV</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Java+Crashes</URL>
+    <Id>JIRAKB39354401</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>MySQL Communication Link Failure</pageName>
+    <regex>com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/MySQL+Communication+Link+Failure</URL>
+    <Id>JIRAKB214338032</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>OutOfMemory due to Tomcat Memory Leak</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/OutOfMemory+due+to+Tomcat+Memory+Leak</URL>
+    <Id>JIRAKB216433911</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to View Issues after Upgrading JIRA</pageName>
+    <regex>The project you are trying to view does not exist. Try browsing for projects\.</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+View+Issues+after+Upgrading+JIRA</URL>
+    <Id>JIRAKB150798359</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>_Note About Splitting Instances</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/_Note+About+Splitting+Instances</URL>
+    <Id>JIRAKB216433915</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>International Characters in Notification Email Subject Lines Are Being Replaced with &apos;?&apos;</pageName>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=127795690</URL>
+    <Id>JIRAKB127795690</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Troubleshooting Security Patches</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Troubleshooting+Security+Patches</URL>
+    <Id>JIRAKB216433396</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>OutOfMemory Errors due to JIRA Plugins</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/OutOfMemory+Errors+due+to+JIRA+Plugins</URL>
+    <Id>JIRAKB216433918</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Workflow Transitions or Issue Edits Fail on Some Browsers</pageName>
+    <regex>webwork.multipart.MultiPartRequestWrapper. java.lang.reflect.InvocationTargetException</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Workflow+Transitions+or+Issue+Edits+Fail+on+Some+Browsers</URL>
+    <Id>JIRAKB158631196</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>The Public View of System Administrators Lists the System Administrator Names</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/The+Public+View+of+System+Administrators+Lists+the+System+Administrator+Names</URL>
+    <Id>JIRAKB216433398</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Authenticating security providers fails due to ClassLoader bugs</pageName>
+    <regex>(JCE cannot authenticate the provider BC|BAD_MAGIC)</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-14012</URL>
+    <Id>JRA-14012</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>JIRA Crashes due to &quot;java.lang.OutOfMemoryError PermGen Space&quot; Error</pageName>
+    <regex>java.lang.OutOfMemoryError: PermGen space</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=216433904</URL>
+    <Id>JIRAKB216433904</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>_Note about OutOfMemory Errors</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/_Note+about+OutOfMemory+Errors</URL>
+    <Id>JIRAKB216433906</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>FishEye Plugin can&apos;t be enabled from Plugin Administration</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/FishEye+Plugin+can%27t+be+enabled+from+Plugin+Administration</URL>
+    <Id>JIRAKB178258914</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>FogBugz attachments not being imported</pageName>
+    <regex>java\.sql\.SQLException\: Ambiguous column name \&apos;sFilename\&apos;\.</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/FogBugz+attachments+not+being+imported</URL>
+    <Id>JIRAKB218271926</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Access Dashboard After Adding a Remote Portlet with a Blank URL Key</pageName>
+    <regex>java\.lang\.IllegalArgumentException:\shost\sparameter\sis\snull\s</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Access+Dashboard+After+Adding+a+Remote+Portlet+with+a+Blank+URL+Key</URL>
+    <Id>JIRAKB158631083</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Can&apos;t Create JIRA Issues after Setting up Integration with FishEye or Crucible</pageName>
+    <regex>Error\screating\ssubtask\sin\sJIRA.*likely\sa\spermission/login\serror</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Can%27t+Create+JIRA+Issues+after+Setting+up+Integration+with+FishEye+or+Crucible</URL>
+    <Id>JIRAKB201294889</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Import due to &apos;Data Too Long for Column&apos; Error</pageName>
+    <regex>Data truncation: Data too long for column</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Import+due+to+%27Data+Too+Long+for+Column%27+Error</URL>
+    <Id>JIRAKB126058767</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Implementing SSL on Apache</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Implementing+SSL+on+Apache</URL>
+    <Id>JIRAKB121045016</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Reset Issue Key for a project</pageName>
+    <regex>ERROR \[atlassian.jira.project.DefaultProjectManager\] Existing issue found for key</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Reset+Issue+Key+for+a+project</URL>
+    <Id>JIRAKB126058762</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>SOAP Issue Created with the Wrong Reporter</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/SOAP+Issue+Created+with+the+Wrong+Reporter</URL>
+    <Id>JIRAKB126058765</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Dashboard gadgets fail with HTTP 401 malformed security token, when left unattended for some time</pageName>
+    <regex>org\.apache\.shindig\.auth\.SecurityTokenException: org\.apache\.shindig\.common\.crypto\.BlobCrypterException: Invalid token signature</regex>
+    <URL>http://jira.atlassian.com/browse/JRA-19248</URL>
+    <Id>JRA-19248</Id>
+    <sourceID>JAC</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>_MultipleAppsInSingleTomcatSupportNote</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/_MultipleAppsInSingleTomcatSupportNote</URL>
+    <Id>JIRAKB218279219</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Missing Class Error while Installing Subversion Plugin</pageName>
+    <regex>Error retrieving dependency of class\: com\.atlassian\.jira\.plugin\.ext\.subversion\.MultipleSubversionRepositoryManagerImpl</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Missing+Class+Error+while+Installing+Subversion+Plugin</URL>
+    <Id>JIRAKB141361416</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Log in to JIRA due to Incorrect LDAP Security Principal</pageName>
+    <regex>javax.naming.AuthenticationException: \[LDAP: error code 49</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Log+in+to+JIRA+due+to+Incorrect+LDAP+Security+Principal</URL>
+    <Id>JIRAKB214865040</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>OutOfMemory due to Remote API</pageName>
+    <regex>ENTER A VALID REGEX OR DELETE THIS LINE</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/OutOfMemory+due+to+Remote+API</URL>
+    <Id>JIRAKB216433936</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Missing Available Workflow Actions</pageName>
+    <regex>The\sworkflow\sentry\swith\sid\s&lt;\s&gt;\sdoes\snot\shave\sa\scorresponding\scurrent\sstep</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Missing+Available+Workflow+Actions</URL>
+    <Id>JIRAKB179441692</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Date Format Changes after Exporting to Excel</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Date+Format+Changes+after+Exporting+to+Excel</URL>
+    <Id>JIRAKB119799961</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>java.lang.NoSuchMethodError com.atlassian.jira.web.action.util.CalendarResourceIncluder.include()V after Upgrading JIRA</pageName>
+    <regex>java\.lang\.NoSuchMethodError: com\.atlassian\.jira\.web\.action\.util\.CalendarResourceIncluder\.include\(\)V</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/java.lang.NoSuchMethodError+com.atlassian.jira.web.action.util.CalendarResourceIncluder.include%28%29V+after+Upgrading+JIRA</URL>
+    <Id>JIRAKB154632979</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Poor Dashboard Performance due to IBM JDK 1.6</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Poor+Dashboard+Performance+due+to+IBM+JDK+1.6</URL>
+    <Id>JIRAKB214863724</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>TransitionWorkflow errors when running Jelly Script</pageName>
+    <regex>org.apache.commons.jelly.JellyTagException: null:16:0: Field</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/TransitionWorkflow+errors+when+running+Jelly+Script</URL>
+    <Id>JIRAKB136872263</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>XML Import Fails During Upgrade with &quot;Cannot find Screen with id&quot;</pageName>
+    <regex>com\.atlassian\.jira\.ext\.fisheye\.upgrade\.perforce\.PerforceUpdateCreateJobFunctionTask\.doUpgrade\(PerforceUpdateCreateJobFunctionTask\.java</regex>
+    <URL>http://confluence.atlassian.com/pages/viewpage.action?pageId=191501030</URL>
+    <Id>JIRAKB191501030</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>ORA-01460 Unimplemented or Unreasonable Conversion Requested when Importing an XML Backup</pageName>
+    <regex>(ORA-01460|unimplemented or unreasonable conversion requested)</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/ORA-01460+Unimplemented+or+Unreasonable+Conversion+Requested+when+Importing+an+XML+Backup</URL>
+    <Id>JIRAKB133693693</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>OutOfMemory due to Custom Services</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/OutOfMemory+due+to+Custom+Services</URL>
+    <Id>JIRAKB216433921</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>notifyTrackBacks Error During Issue Creation</pageName>
+    <regex>com\.atlassian\.jira\.issue\.managers\.DefaultIssueManager\.notifyTrackbacks</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/notifyTrackBacks+Error+During+Issue+Creation</URL>
+    <Id>JIRAKB197298617</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>OutOfMemory due to Mail Loop</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/OutOfMemory+due+to+Mail+Loop</URL>
+    <Id>JIRAKB216433928</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Sub-task View Disappeared in Parent Issue</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Sub-task+View+Disappeared+in+Parent+Issue</URL>
+    <Id>JIRAKB211650698</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Time Fields Contain Inconsistent Data after CSV Import</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Time+Fields+Contain+Inconsistent+Data+after+CSV+Import</URL>
+    <Id>JIRAKB155812465</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Paste Button Missing when Attaching Screenshots</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Paste+Button+Missing+when+Attaching+Screenshots</URL>
+    <Id>JIRAKB178260136</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>OutOfMemory due to Large Mailbox Processing</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/OutOfMemory+due+to+Large+Mailbox+Processing</URL>
+    <Id>JIRAKB216433923</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Notifications for Incorrect Issues</pageName>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Notifications+for+Incorrect+Issues</URL>
+    <Id>JIRAKB121340020</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Error instantiating webwork.multipart.parser.class - com.atlassian.jira.web.JiraMultipartRequestWrapper when Creating an Issue</pageName>
+    <regex>Error instantiating webwork.multipart.parser.class: com.atlassian.jira.web.JiraMultipartRequestWrapper</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Error+instantiating+webwork.multipart.parser.class+-+com.atlassian.jira.web.JiraMultipartRequestWrapper+when+Creating+an+Issue</URL>
+    <Id>JIRAKB216434167</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>Unable to Import Comment Author and Entry Date and Time when Importing CSV File by PvcsComment</pageName>
+    <regex>PvcsComment</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/Unable+to+Import+Comment+Author+and+Entry+Date+and+Time+when+Importing+CSV+File+by+PvcsComment</URL>
+    <Id>JIRAKB217744298</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+  <RegexEntry>
+    <pageName>GenericEntityException when Importing an XML Backup</pageName>
+    <regex>org\.ofbiz\.core\.entity\.GenericEntityException:\swhile\sinserting:\s\[GenericEntity:OSPropertyDecimal\]\[id,\d*\]\[value,NaN\]\s.SQL\sException\swhile\ssetting\svalue:\s*.&apos;NaN&apos;\sis\snot\sa\svalid\snumeric\sor\sapproximate\snumeric\svalue</regex>
+    <URL>http://confluence.atlassian.com/display/JIRAKB/GenericEntityException+when+Importing+an+XML+Backup</URL>
+    <Id>JIRAKB211650357</Id>
+    <sourceID>CACKB</sourceID>
+  </RegexEntry>
+</object-stream>

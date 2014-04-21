@@ -1,0 +1,72 @@
+#if ($hasAdminPermission)
+<a id="manage_versions" href="$baseurl/plugins/servlet/project-config/$textutils.htmlEncode($project.key)/versions" class="show-more" title="$textutils.htmlEncode($i18n.getText('admin.manageversions.manage.versions.mouseover', $project.name))">$i18n.getText('admin.manageversions.manage.versions')</a>
+#end
+<div id="primary" class="column full">
+    <div class="content">
+        <div class="module">
+            <div class="mod-content">
+            #if ($showingAll == false)
+
+                <ul class="paging">
+                    #set ($reportUrl = "$baseurl/browse/${project.key}?selectedTab=com.atlassian.jira.plugin.system.project:versions-panel&subset=")
+                    #if ($subset.intValue() == -1)
+                        #set ($next20 = "<a id='paging-upcoming' href='${reportUrl}20'>$i18n.getText('browseversion.nexttwentyversions')</a>")
+                        #set ($allVersions = "<strong>$i18n.getText('browseversion.allversions')</strong>")
+                    #else
+                        #set ($next20 = "<strong>$i18n.getText('browseversion.nexttwentyversions')</strong>")
+                        #set ($allVersions = "<a id='paging-all' href='${reportUrl}-1'>$i18n.getText('browseversion.allversions')</a>")
+                    #end
+                    <li>${next20}</li>
+                    <li class="last">${allVersions}</li>
+                </ul>
+
+            #end
+
+                <table width="100%" class="projectPanel report" id="versions_panel">
+                <colgroup>
+                    <col />
+                    <col width="150px"/>
+                    <col width="1%"/>
+                    <col />
+                </colgroup>
+                <tbody>
+                #if ($versions.empty == true)
+                <tr>
+                    <td colspan="4">$i18n.getText('projectpanels.versions.no.versions')</td>
+                </tr>
+                #else
+                    #foreach ($version in $versions)
+                        #set ($name = $textutils.htmlEncode($version.name))
+                        #if ($version.description && $version.description != '')
+                            #set ($title = "$name - $textutils.htmlEncode($version.description)")
+                        #else
+                            #set ($title = $name)
+                        #end
+                        #if ($version.releaseDate)
+                            #set ($releaseDateHidden = $outlookdate.formatIso8601($version.releaseDate))
+                            #set ($releaseDate = $outlookdate.formatDMY($version.releaseDate))
+                        #end
+                <tr class="vevent #if($velocityCount % 2 == 0)rowAlternateLightGray#end" data-version-name="${name}">
+                    <td class="icon" data-cell-type="icon">
+                        #versionStatus ($version 16)
+                    </td>
+                    <td data-cell-type="name" class="version-name-cell">
+                        <a id="version_${version.id}" title="${title}" href="${baseurl}/browse/${project.key}/fixforversion/${version.id}" class="summary">$name</a>
+                    </td>
+                    <td class="release-date" data-cell-type="release-date">
+                        #if ($version.releaseDate)
+                            <span>$i18n.getText('version.releasedate'): </span><span class="date">$releaseDate</span> <span class="dtstart dtend mf-hidden">$releaseDateHidden</span>
+                        #end
+                    </td>
+                    <td data-cell-type="description">
+                        <span class="description">$textutils.htmlEncode($!version.description)</span>
+                    </td>
+                </tr>
+                    #end
+                #end
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

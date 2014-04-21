@@ -1,0 +1,9 @@
+#customControlHeader ($action "$!{displayParameters.fieldNamePrefix}$field.id" $i18n.getText($field.nameKey) true $displayParameters $auiparams)
+<select class="select" id="$!{displayParameters.fieldNamePrefix}$field.id" name="$!{displayParameters.fieldNamePrefix}pid">
+    #foreach ($pr in $projects)
+        <option#if ($project && $pr && $project == $pr.getLong('id')) selected="selected"#end value="$!pr.getLong('id')">
+            $textutils.htmlEncode($pr.getString('name'))
+        </option>
+    #end
+</select>
+#customControlFooter ($action "$!{displayParameters.fieldNamePrefix}$field.id" "" $displayParameters $auiparams)

@@ -1,0 +1,91 @@
+/* jQuery UI Date Picker - Header */
+
+.ui-datepicker-header {
+    height: 20px;
+    margin: 16px 10px 8px;
+}
+
+.ui-datepicker-prev,
+.ui-datepicker-next {
+    width: 22px;
+    padding: 0 8px;
+    cursor: default;
+    line-height: 20px;
+    text-align: center;
+}
+
+.ui-datepicker-prev {
+    float: left;
+}
+
+.ui-datepicker-next {
+    float: right;
+}
+
+.ui-datepicker-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    color: #036;
+    line-height: 20px;
+    text-align: center;
+}
+
+/* jQuery UI Date Picker - Calendar */
+
+.ui-datepicker-calendar {
+    width: 280px;
+    margin: 0 10px 8px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+}
+
+.ui-datepicker-calendar th,
+.ui-datepicker-calendar td,
+.ui-datepicker-calendar td a,
+.ui-datepicker-calendar td span {
+    line-height: 20px;
+}
+
+.ui-datepicker-calendar th {
+    text-align: center;
+}
+
+.ui-datepicker-calendar td {
+    text-align: right;
+}
+
+.ui-datepicker-calendar td a,
+.ui-datepicker-calendar td span {
+    padding: 0 8px;
+    cursor: default;
+    display: block;
+}
+
+.ui-datepicker-current-day a {
+    background-color: #326ca6;
+    color: #fff !important; /* sue me; I'll fix it later */
+}
+
+.ui-datepicker-today {
+    font-weight: bold;
+}
+
+.ui-datepicker-unselectable {
+    color: #505050;
+}
+
+/* jQuery UI Date Picker - Common; note that we need the extra specificity for .ui-datepicker-prev and .ui-datepicker-next to override the demo style sheets */
+.ui-datepicker-header .ui-datepicker-prev:hover, .ui-datepicker-header .ui-datepicker-prev:active, .ui-datepicker-header .ui-datepicker-prev:focus,
+.ui-datepicker-header .ui-datepicker-next:hover, .ui-datepicker-header .ui-datepicker-next:active, .ui-datepicker-header .ui-datepicker-next:focus,
+.ui-datepicker-calendar td a:hover, .ui-datepicker-calendar td a:active, .ui-datepicker-calendar td a:focus {
+    outline: 1px solid #bbb;
+    text-decoration: none;
+}
+
+.ui-datepicker-prev.ui-state-disabled, .ui-datepicker-header .ui-datepicker-prev.ui-state-disabled:hover, .ui-datepicker-header .ui-datepicker-prev.ui-state-disabled:active, .ui-datepicker-header .ui-datepicker-prev.ui-state-disabled:focus,
+.ui-datepicker-next.ui-state-disabled, .ui-datepicker-header .ui-datepicker-next.ui-state-disabled:hover, .ui-datepicker-header .ui-datepicker-next.ui-state-disabled:active, .ui-datepicker-header .ui-datepicker-next.ui-state-disabled:focus {
+    outline: none;
+    color: #505050;
+}

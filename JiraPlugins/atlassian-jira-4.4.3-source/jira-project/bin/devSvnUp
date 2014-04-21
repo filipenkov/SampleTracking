@@ -1,0 +1,96 @@
+#!/bin/bash
+# see svnUp and jmake up for callees
+
+SVN_TMP_FILE=./svnupdate.tmp
+MVNSOURCES_TMP_FILE=~/.jiradev/mvnsources.tmp
+
+cleanup() {
+    rm -f "$SVN_TMP_FILE"
+    rm -f "$MVNSOURCES_TMP_FILE"
+    exit
+}
+trap cleanup INT TERM EXIT
+
+function banner {
+   echo "_________________________________________________________________________________"
+   printf "$1\n"
+   echo "_________________________________________________________________________________"
+   echo ""
+}
+
+function exit_if_failed()
+{
+	local result_to_check=${1}
+	if test ${result_to_check} -ne 0; then
+		printf "\e[1;31mRebuilding bundled plugins has failed.\nRerun \e[1;33./jmake bundled-plugins clean\e[00m from the console\n"
+		exit ${result_to_check}
+	fi
+}
+
+function wasPathUpdated() {
+   updatedPath=`grep $1 ${SVN_TMP_FILE}`
+}
+
+function downloadMavenSourcesAsynch() {
+	if [ ! -e $MVNSOURCES_TMP_FILE ]; then
+		touch $MVNSOURCES_TMP_FILE
+		# run a mvn dependency:sources in the background
+		banner "Performing a mvn dependency:sources in the background. Trust in mvn's local repository concurrency."
+		mvn dependency:sources > mvn.dependency.sources.out &
+	else
+		echo "mvn dependency:sources is already running"
+	fi
+}
+
+# source code update
+if [ -d .svn ]; then
+    time svn up | tee ${SVN_TMP_FILE}
+elif [ -d .git ]; then
+    time git svn rebase | tee ${SVN_TMP_FILE}
+fi
+
+wasPathUpdated "jira-plugins"
+needsBuild=$updatedPath
+wasPathUpdated "pom.xml"
+needsReimport=$updatedPath
+wasPathUpdated "jira-ide-support"
+needsIdeaUpdate=$updatedPath
+wasPathUpdated "Jql.g"
+needsJqlBuild=$updatedPath
+
+
+if [ "${needsJqlBuild}" != "" ]; then
+   banner "\e[1;31mJQL grammar has changed.\e[00m\nA build is needed..."
+   ./jmake bundled-plugins cleanall noverifydeps
+   result=$?
+   exit_if_failed $result
+   banner "\e[1;31mJQL grammar changed.\e[00m\nA build was needed."
+fi
+
+if [ "${needsBuild}" != "" ] && [ "${needsJqlBuild}" == "" ]; then
+   banner "\e[1;31mBundled plugins have changed.\e[00m\nA build is needed..."
+   ./jmake bundled-plugins noverifydeps
+   result=$?
+   exit_if_failed $result
+   banner "\e[1;31mBundled plugins changed.\e[00m\nA build was needed."
+fi
+
+# make sure we have the lastest sources in maven land
+downloadMavenSourcesAsynch
+
+
+
+if [ "${needsIdeaUpdate}" != "" ]; then
+   banner "\e[1;31mIDEA templates have been updated.\e[00m\nFor the latest IDEA templates, please:\e[00m\n- Close IDEA\e[00m\n- Run ./jmake idea\e[00m\n- Reopen the project in IDEA"
+elif [ "${needsReimport}" != "" ] || [ "${needsBuild}" != "" ]; then
+   banner "\e[1;31mYou will need to reimport projects in IDEA.\e[00m\nSee https://extranet.atlassian.com/download/attachments/1847001975/ImportMaven.png"
+fi
+
+if [ "${needsBuild}" == "" ] && [ "${needsReimport}" == "" ]; then
+   if [ "${USER}" == "nmenere" ]; then
+       banner "\e[1;31mMANAGERS ARE NOT ALLOWED TO CODE\e[00m"
+   else
+       banner "\e[1;32mCreate awesomeness.\e[00m"
+   fi
+fi
+

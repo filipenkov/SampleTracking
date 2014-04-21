@@ -1,0 +1,12 @@
+##disable_html_escaping() TODO REENABLE
+#searcherHeader ($customField)
+#if ($valueObject)
+   #if ($fieldkey == "multiselect")
+       #foreach ($option in $valueObject)
+       $cfValueEncoder.encodeForHtml($!option.toString())#commaonly($valueObject)
+       #end
+   #else
+       $cfValueEncoder.encodeForHtml($!valueObject.toString())
+   #end
+#end
+#searcherFooter ($customField)

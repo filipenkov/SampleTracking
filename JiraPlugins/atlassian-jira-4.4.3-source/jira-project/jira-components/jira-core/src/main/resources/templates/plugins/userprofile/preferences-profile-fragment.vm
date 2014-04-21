@@ -1,0 +1,78 @@
+<div class="mod-header">
+    <ul class="ops">
+        <li><a id="edit_prefs_lnk" class="icon icon-edit-sml" href="$baseurl/secure/UpdateUserPreferences!default.jspa?username=${urlcodec.encode($user.name)}" title="$i18n.getText('common.words.edit')"><span>$i18n.getText('common.words.edit')</span></a></li>
+    </ul>
+    <h3>$i18n.getText('preferences.title')</h3>
+</div>
+<div class="mod-content">
+    #AUImessage("info" "" "$i18n.getText('preferences.details.updated')" "userprofile-notify" "hidden" "" "false")
+    <ul class="item-details">
+        <li>
+            <dl title="$i18n.getText('preferences.issuesPerPage')">
+                <dt>$i18n.getText('preferences.issuesPerPage.label'):</dt>
+                <dd>
+                    <span id="up-p-pagesize">$pageSize</span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>$i18n.getText('preferences.mailType.label'):</dt>
+                <dd id="up-p-mimetype">
+                    $mimeType
+                </dd>
+            </dl>
+            <dl>
+                <dt>$i18n.getText('preferences.locale'):</dt>
+                <dd id="up-p-locale">
+                    $localeName
+                </dd>
+            </dl>
+            <dl>
+                <dt>$i18n.getText('preferences.timezone'):</dt>
+                <dd id="up-p-timezone">
+                    <span id="up-p-jira-default" #if(!$usesJiraTimeZone) style="display: none;" #end>$i18n.getText('preferences.timezone.uses.jira.timezone')</span>
+                    <span id="up-p-timezone-label">$timezone.getGMTOffset() $timezone.getCity()</span>
+                </dd>
+            </dl>
+            <dl id="up-p-notifications_on" title="$i18n.getText('preferences.notification.on')" #if ($notifyOwnChanges == false)style="display:none"#end>
+                <dt>$i18n.getText('preferences.notification.label'):</dt>
+                <dd>
+                    $i18n.getText('preferences.notification.on.short')
+                </dd>
+            </dl>
+            <dl id="up-p-notifications_off" title="$i18n.getText('preferences.notification.off')" #if ($notifyOwnChanges)style="display:none"#end>
+                <dt >$i18n.getText('preferences.notification.label'):</dt>
+                <dd>
+                    $i18n.getText('preferences.notification.off.short')
+                </dd>
+            </dl>
+            <dl id="up-p-share-private" title="$i18n.getText('preferences.default.share.unshared')" #if ($sharePrivate == false)style="display:none"#end>
+                <dt>$i18n.getText('preferences.default.share.title.long'):</dt>
+                <dd>
+                    $i18n.getText('preferences.default.share.unshared.short')
+                </dd>
+            </dl>
+            <dl id="up-p-share-public" title="$i18n.getText('preferences.default.share.shared')" #if ($sharePrivate)style="display:none"#end>
+                <dt>$i18n.getText('preferences.default.share.title.long'):</dt>
+                <dd>
+                    $i18n.getText('preferences.default.share.shared.short')
+                </dd>
+            </dl>
+            <dl id="up-p-keyboard-shortcuts-enabled" title="$i18n.getText('preferences.keyboard.shortcuts.enabled.desc')"  #if ($keyboardShortcutsEnabled == false)style="display:none"#end>
+                <dt>$i18n.getText('preferences.keyboard.shortcuts.title'):</dt>
+                <dd>
+                    $i18n.getText('preferences.keyboard.shortcuts.enabled')
+                </dd>
+            </dl>
+            <dl id="up-p-keyboard-shortcuts-disabled" title="$i18n.getText('preferences.keyboard.shortcuts.disabled.desc')" #if ($keyboardShortcutsEnabled)style="display:none"#end>
+                <dt >$i18n.getText('preferences.keyboard.shortcuts.title'):</dt>
+                <dd>
+                    $i18n.getText('preferences.keyboard.shortcuts.disabled')
+                </dd>
+            </dl>
+            <dl>
+                <dt>$i18n.getText('common.concepts.navigatorColumns'):</dt>
+                <dd id="up-p-columns" class="description"><a id="view_nav_columns" href="$baseurl/secure/ViewUserIssueColumns!default.jspa">$i18n.getText('webfragments.user.profile.links.item.nav.columns.title')</a></dd>
+            </dl>
+        </li>
+    </ul>
+</div>

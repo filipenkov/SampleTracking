@@ -1,0 +1,12 @@
+<div id="reportBug2">
+
+</div>
+<div id="reportBug">
+	$i18n.getText('jira-importer-plugin.report.bugs')
+</div>
+
+#foreach ($panel in $action.footerPanels)
+	<div>
+		$panel
+	</div>
+#end
