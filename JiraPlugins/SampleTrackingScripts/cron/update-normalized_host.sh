@@ -7,8 +7,21 @@ SQSH_PASSWORD='jira_user99'
 JIRA_USER="sampletracking"
 JIRA_PASSWORD='a2c4e6g8'
 
+export ENV=prod
+
+host=$(hostname)
+export LOGDIR="/usr/local/scratch/VIRAL/ST"
+if [ ! -d "$LOGDIR" ]; then 
+    mkdir ${LOGDIR} 2>/dev/null
+    chmod 0777 ${LOGDIR} 2>/devl/null
+fi
+
+
+JIRA_CSV_INPUT_FILE="${LOGDIR}/ST-jira-normalized_host-${host}-$$.csv"
 #JIRA_CSV_INPUT_FILE="/tmp/ST-jira-cron.csv"
-ERROR_FILE="/tmp/ST-jira-cron.err"
+
+ERROR_FILE="${LOGDIR}/ST-jira-normalized_host-${host}-$$.err"
+
 ###############################################################################
 #update the normalized_host attribute using values from the host attribute
 ###############################################################################

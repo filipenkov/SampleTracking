@@ -10,9 +10,20 @@ export ENV=prod
 JIRA_USER="sampletracking"
 JIRA_PASSWORD='a2c4e6g8'
 
-JIRA_CSV_INPUT_FILE="${DIR}/cron/sql/recently-created-samples.jql"
-JIRA_OUTPUT_FILE="/tmp/ST-jira-new-samples.out"
-ERROR_FILE="/tmp/ST-jira-new-samples.err"
+
+host=$(hostname)
+export LOGDIR="/usr/local/scratch/VIRAL/ST"
+if [ ! -d "$LOGDIR" ]; then 
+    mkdir ${LOGDIR} 2>/dev/null
+    chmod 0777 ${LOGDIR} 2>/devl/null
+fi
+
+
+
+
+JIRA_CSV_INPUT_FILE="${LOGDIR}/cron/sql/recently-created-samples-${host}-$$.jql"
+JIRA_OUTPUT_FILE="${LOGDIR}/ST-jira-new-samples-${host}-$$.out"
+ERROR_FILE="${LOGDIR}/ST-jira-new-samples-${host}-$$.err"
 ###############################################################################
 #Compare a list of recently created samples with the samples in the GLK to
 #find any that have been created in JIRA but not in the GLK

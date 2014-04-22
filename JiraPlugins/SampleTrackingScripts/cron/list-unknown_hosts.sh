@@ -3,7 +3,7 @@
 # Warning to run this from a cron SQSH_USER and SQSH_PASSWORD must be set
 SQSH_USER="access"
 SQSH_PASSWORD='access'
-SYBASE_DB="SYBIL"
+export ENV=prod
 
 ###############################################################################
 #Find host values that do not have a known mapping to a normalized host

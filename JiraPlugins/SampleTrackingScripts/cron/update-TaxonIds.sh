@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export ENV=prod
+
 # Warning Hard coded user info in a script
 # BAD, but I don't know how else it can be done for now
 SQSH_USER="jira_user"
@@ -8,9 +9,18 @@ SQSH_PASSWORD='jira_user99'
 JIRA_USER="sampletracking"
 JIRA_PASSWORD='a2c4e6g8'
 
-JIRA_CSV_INPUT_FILE="/tmp/ST-jira-taxon_id_sync.csv"
-JIRA_OUTPUT_FILE="/tmp/ST-jira-taxon_id_sync.out"
-ERROR_FILE="/tmp/ST-jira-taxon_id_sync.err"
+host=$(hostname)
+export LOGDIR="/usr/local/scratch/VIRAL/ST"
+if [ ! -d "$LOGDIR" ]; then 
+    mkdir ${LOGDIR} 2>/dev/null
+    chmod 0777 ${LOGDIR} 2>/devl/null
+fi
+
+
+
+JIRA_CSV_INPUT_FILE="${LOGDIR}/ST-jira-taxon_id_sync-${host}-$$.csv"
+JIRA_OUTPUT_FILE="${LOGDIR}/ST-jira-taxon_id_sync-${host}-$$.out"
+ERROR_FILE="${LOGDIR}/ST-jira-taxon_id_sync-${host}-$$.err"
 
 #processTaxonIds.pl carries out the logic of the operation. The rest of this script just 
 #passes the results into jira_cli

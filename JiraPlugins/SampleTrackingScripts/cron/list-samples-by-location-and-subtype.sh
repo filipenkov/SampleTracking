@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export ENV=prod
+
 # Uses a readonly user
 SQSH_USER="jira_user"
 SQSH_PASSWORD='jira_user99'
