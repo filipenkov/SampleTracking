@@ -4,9 +4,12 @@
 # jira_cli
 # safe_read
 
-LOGDIR="/usr/local/scratch/VIRAL/ST"
-mkdir ${LOGDIR} 2>/dev/null
-chmod 0777 ${LOGDIR}
+export LOGDIR="/usr/local/scratch/VIRAL/ST"
+if [ ! -d "$LOGDIR" ]; then
+    mkdir ${LOGDIR} 2>/dev/null
+    chmod 0777 ${LOGDIR} 2>/devl/null
+fi
+
 
 host=$(hostname)
 

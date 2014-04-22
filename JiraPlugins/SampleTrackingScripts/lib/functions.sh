@@ -24,9 +24,13 @@ export JIRA_PASSWORD="a2c4e6g8"
 export SQSH_USER="glk_admin"
 export SQSH_PASSWORD="glk_admin99"
 
+host=$(hostname)
+
 export LOGDIR="/usr/local/scratch/VIRAL/ST"
-mkdir ${LOGDIR} 2>/dev/null
-chmod 0777 ${LOGDIR}
+if [ ! -d "$LOGDIR" ]; then
+	mkdir ${LOGDIR} 2>/dev/null
+	chmod 0777 ${LOGDIR} 2>/devl/null
+fi
 
 test_external_dependencies ${SQSH_CMD} ${JAVA_CMD}
 if [ ! -e ${JIRA_CLI_JAR} ]; then 
