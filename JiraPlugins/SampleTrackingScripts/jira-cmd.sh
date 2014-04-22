@@ -2,6 +2,7 @@
 
 
 #ENV=dev
+export ENV=prod
 
 #get the directory that this script is in, needed for all referenced files
 DIR="$( cd "$( dirname "$0" )" && pwd )"

@@ -4,6 +4,7 @@
 # BAD, but using less priviledges than the real user to reduce the damage that can be done
 SQSH_USER="jira_user"
 SQSH_PASSWORD='jira_user99'
+export ENV=prod
 
 ###############################################################################
 #produces a tuple file containing all of the samples that have been published
