@@ -63,13 +63,14 @@ export SQSH_USER SQSH_PASSWORD
 call_sqsh "$SQSH_PASSWORD" "$SQSH_USER" < $DIR/cron/sql/update-normalized_host.sql > /dev/null
 #The output from the update sql isn't important
 #list-unknown-hosts is run to get human readable messages if needed
-unknown_hosts=`$DIR/cron/list-unknown_hosts.sh`
+results=`$DIR/cron/list-unknown_hosts.sh`
+unknown_hosts=`echo $results | tail -n +4`
 if [[ -n "$unknown_hosts" ]]; then
 	echo "WARNING Unknown host(s) found. "
 	echo "Samples with this host cannot be assigned a value for normalized_host"
 	echo 
-	echo "host,number of occurances"
-	echo $unknown_hosts
+	#echo "host,BAC ID,Database"
+	echo $results
 fi
 
 
