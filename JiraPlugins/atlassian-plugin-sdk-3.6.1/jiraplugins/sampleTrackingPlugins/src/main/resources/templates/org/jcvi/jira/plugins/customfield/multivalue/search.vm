@@ -130,7 +130,7 @@ This is used to put the file button over the fake upload button.*/
                                     "\t"+scriptDef.bind + "=\n"+
                                     data+
                                 "}";
-                            //console.log(newData);
+                            console.log(newData);
                             return newData;
                         };
                     }
@@ -141,7 +141,7 @@ This is used to put the file button over the fake upload button.*/
                     }
                     jQuery.ajax({
                             dataType:"script",
-                            cache: true,
+                            cache: false,
                             url: scriptDefinition.path,
                             success: scriptDefinition.callbacks,
                             dataFilter: filterClosure(scriptDefinition),
@@ -159,6 +159,7 @@ This is used to put the file button over the fake upload button.*/
 </script>
 
 <script type="text/javascript">
+	## dummy comment
     ##Includes plugin key to keep test and live versions independent
     var downloadPath = "${req.contextPath}/download/resources/${descriptor.plugin.key}/scripts";
 
@@ -167,6 +168,7 @@ This is used to put the file button over the fake upload button.*/
                     'Values List, used to display the selected options',
                     downloadPath + "/multivalue/ValuesList.js",
                     function() {
+                    	//alert("In ${package}_multivalue_ValuesList callback...");
                         //this only makes sense once the script has been loaded
                         ${package}_multivalue_ValuesList.create("${customField.id}","${req.contextPath}");
 
@@ -187,6 +189,7 @@ This is used to put the file button over the fake upload button.*/
                     'Read File, used to read the tuple file',
                     downloadPath + "/shared/ReadFile.js",
                     function() {
+                     	//alert("In ${package}_shared_Reader callback...");
                         //this only makes sense once the script has been loaded
                         ${package}_shared_Reader.reset('${customField.id}','${req.contextPath}');
                         document.getElementById("fileSelect-section-${customField.id}")
@@ -199,7 +202,8 @@ This is used to put the file button over the fake upload button.*/
      *
      * JCVI Specific: tests for their being 3 columns
      */
-    function org_jcvi_jira_plugins_customfield_shared_ParseFile(fileContent, CustomFieldID) {
+    function ${package}_ParseFile(fileContent, CustomFieldID) {
+    	 //alert("In org_jcvi_jira_plugins_customfield_ParseFile...");
         var lines = fileContent.split('\n');
         //include the first line
         for (var i = 0; i < lines.length; i++) {
@@ -285,6 +289,7 @@ This is used to put the file button over the fake upload button.*/
                     />
         </div>
     </div>
+    
     #if ($displayTextArea)
     <div id="textarea-input-section-${customField.id}"
          class="section-${customField.id}">

@@ -115,13 +115,14 @@ function ActualObject(customFieldID) {
 
         var image = document.createElement("img");
         image.alt = "Remove";
-        image.src = this.contextPath+"download/resources/org.jcvi.jira.plugins.SampleTrackingPlugins/images/remove.png";
+        image.src = "images/remove.png";
         image.id = this.customFieldID + "-" + value;
         image.width = 10;
         image.height = 10;
         image.align = "right";
         image.onclick = function (event) {
-            get_org_jcvi_jira_plugins_customfield_multivalue_ValuesList(customFieldID).removeValue(event.target.id);
+        	
+        	org_jcvi_jira_plugins_customfield_multivalue_ValuesList.get(customFieldID).removeValue(event.target.id);
         };
 
         var input = document.createElement("input");
@@ -167,7 +168,7 @@ function ActualObject(customFieldID) {
         var container = this.getContainerForValues();
         var tag = this.getValuesTag(value);
         if (tag == null) {
-//            alert("value: '"+value+"' didn't match a tag");
+            alert("value: '"+value+"' didn't match a tag");
             return;
         }
         container.removeChild(this.getValuesTag(value));

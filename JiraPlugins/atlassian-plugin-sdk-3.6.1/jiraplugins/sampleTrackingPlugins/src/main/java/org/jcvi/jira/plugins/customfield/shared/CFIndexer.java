@@ -129,6 +129,7 @@ public abstract class CFIndexer<TRANSPORT_TYPE> extends AbstractCustomFieldIndex
         //key += ":";
         key += customField.getName();
         //key += " ";
+        
 //Optional Override getValues
         try {
             Collection<TRANSPORT_TYPE> transportObjects = getValues(issue);
@@ -152,7 +153,7 @@ public abstract class CFIndexer<TRANSPORT_TYPE> extends AbstractCustomFieldIndex
                     //if the value didn't map to anything don't add it
                     continue;
                 }
-                log.debug(key+"Adding value " + value + " to index of " + issue.getSummary());
+                log.debug(key+" Adding value " + value + " to index of " + issue.getSummary());
                 doc.add(new Field(getDocumentFieldId(),
                         value,
                         Field.Store.YES,

@@ -30,6 +30,7 @@ new function() {
        return Reader_Hash[CustomFieldID];
    };
 
+  
    this.setReader = function(customFieldID, value) {
        Reader_Hash[customFieldID] = value;
    };
@@ -40,8 +41,9 @@ new function() {
    this.reset = function(CustomFieldID) {
         function onloadClosure(fieldID) {
             return function (oFREvent) {
-                ParseFile(oFREvent.target.result,fieldID);
-                reset(CustomFieldID);
+            	//alert("Parsing file for field "+fieldID+" with org_jcvi_jira_plugins_customfield_ParseFile then resetting "+CustomFieldID);
+            	org_jcvi_jira_plugins_customfield_ParseFile(oFREvent.target.result,fieldID);
+            	reset(CustomFieldID);
             }
         }
        var reader = new FileReader();
@@ -58,10 +60,14 @@ new function() {
     */
    this.loadFile = function(event, CustomFieldID) {
        var files = event.target.files;
+      //alert("In FileSelector handler 2...");
        if (files.length == 0) {
-           return;
+    	   //alert("No files...");
+    	   return;
        }
-       var reader = get_org_jcvi_jira_plugins_customfield_shared_Reader(CustomFieldID);
+       
+       //var reader = get_org_jcvi_jira_plugins_customfield_shared_Reader(CustomFieldID);
+       var reader = this.getReader(CustomFieldID);
        reader.readAsText(files[0]);
    };
 }
