@@ -17,7 +17,7 @@
 
 =item<jira_id>
 
-=item [-]-f <file_path>
+=item [-]-f[ile] <file_path>
 
 Path to JIRA case name file
 
@@ -25,7 +25,7 @@ Path to JIRA case name file
 
     file_path.type:   readable
     
-=item [-]-env <env>
+=item [-]-e[nv] <env>
 
 Env to use (prod,dev). Default is prod
 
@@ -48,27 +48,30 @@ use FindBin;
 use lib "$FindBin::Bin/lib";
 use Getopt::Euclid 0.2.4 qw(:vars);
 use st_props;
+use st_funcs;
 
 
-our ($ARGV_f,$ARGV_env,$ARGV_jira_id);
+our ($ARGV_file,$ARGV_env,$ARGV_jira_id);
 
-die "Usage:\n\tget_tuple -f <ST-file>\n\tget_tuple <ST-nnn> \n" if (!defined($ARGV_f) && !defined($ARGV_jira_id)) ;
+die "Usage:\n\tget_tuple -f <ST-file>\n\tget_tuple <ST-nnn> \n" if (!defined($ARGV_file) && !defined($ARGV_jira_id)) ;
 die "Cannot find java: $st_props::JAVA_CMD\n" unless ( -e $st_props::JAVA_CMD );
 
 my $env = "prod";
 $env = $ARGV_env if (defined($ARGV_env));
 
-#print "server = $st_props::props{$env}{jira_server}\n";
-
+# print "server = $st_props::props{$env}{jira_server}\n";
 my %props = %{ $st_props::props{$env} };
+
+my $jira_user = $props{jira_user};
+my $jira_password = $props{jira_password};
 
 sub get_one_result
 {
 	my $id = shift;
 	my $result;
 
-	my $command =  "$st_props::JAVA_CMD -jar $st_props::JIRA_CLI_JAR --quiet --action getFieldValue --issue \"$id\" --field \"Sample Id\" --server $props{jira_server}  --password $props{jira_password} --user $props{jira_user} 2>/dev/null";
-	print $command."\n";
+	my $command =  "$st_props::JAVA_CMD -jar $st_props::JIRA_CLI_JAR --quiet --action getFieldValue --issue \"$id\" --field \"Summary\" --server $props{jira_server}  --password '$jira_password' --user '$jira_user' 2>/dev/null";
+	#print $command."\n";
 	my $output = `$command`;
 	chomp $output;
 	#print "Output = $output\n";
@@ -88,9 +91,9 @@ sub get_one_result
 }
 
 my @results;
-if (defined($ARGV_f))
+if (defined($ARGV_file))
 {
-	open(FILE,"< $ARGV_f") || die ("Cannot open $ARGV_f\n");
+	open(FILE,"< $ARGV_file") || die ("Cannot open $ARGV_file\n");
 	while(<FILE>)
 	{
 		chomp;

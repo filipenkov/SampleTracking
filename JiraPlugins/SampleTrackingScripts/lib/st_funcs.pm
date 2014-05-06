@@ -5,6 +5,7 @@ use lib "/usr/local/devel/VIRIFX/software/Elvira/perllib/TIGR";
 use GLKLib;
 use Log::Log4perl qw(:easy);
 use Sys::Hostname;
+use Term::ReadKey;
 
 my  $host = hostname;
 
@@ -31,6 +32,20 @@ sub makeTempfile
 	open (my $fh, "> $filename") || LOGDIE "Cannot open temp file $filename.\n";
 
 	($fh,$filename);
+}
+
+sub getJiraLogin
+{
+	print "Please enter the JIRA username to use: ";
+	my $jira_user  = ReadLine(0);
+	print "Please enter the JIRA user's password to use: ";
+	ReadMode('noecho');
+	my $jira_password = ReadLine(0);
+	chomp $jira_password;
+	ReadMode('normal');
+	print "\n";
+	($jira_user, $jira_password );
+
 }
 
 sub getAttributesForSampleExtentID

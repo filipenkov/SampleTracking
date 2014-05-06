@@ -96,7 +96,7 @@ LOGDIE "Please choose both lot no & database.\n" if ((defined($ARGV_l) && !defin
 LOGDIE "Cannot find java: $st_props::JAVA_CMD\n" unless ( -e $st_props::JAVA_CMD );
 
 ##
-## Change to prod later:
+## Default to prod
 ##
 my $env = "prod";
 my $default_db = "giv";
@@ -266,9 +266,11 @@ close($csv_fh);
 
 die "Nothing to add.\n" if ($add_count == 0);
 
+my ($jira_user, $jira_password) = st_funcs::getJiraLogin();
+
 my $command =  "$st_props::JAVA_CMD -jar $st_props::JIRA_CLI_JAR --action runFromCSV "
 	."--file $csv_filename --common \"--action createIssue\" --continue "
-	."--server $props{jira_server}  --password $props{jira_password} --user $props{jira_user}"
+	."--server $props{jira_server}  --password '$jira_password' --user '$jira_user'"
 	." 2>&1"
 	;
 

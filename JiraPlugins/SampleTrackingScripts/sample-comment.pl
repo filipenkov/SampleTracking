@@ -94,6 +94,7 @@ LOGDIE "Cannot find java: $st_props::JAVA_CMD\n" unless ( -e $st_props::JAVA_CMD
 my $env = "prod";
 
 $env = $ARGV_e if (defined($ARGV_e));
+
 my %props = %{ $st_props::props{$env} };
 
 DEBUG "server = $props{jira_server}\n";
@@ -185,9 +186,10 @@ elsif (defined($ARGV_l))
 
 close($csv_fh);
 
+my ($jira_user, $jira_password) = st_funcs::getJiraLogin();
 my $command =  "$st_props::JAVA_CMD -jar $st_props::JIRA_CLI_JAR --quiet --action runFromCSV "
 	."--file $csv_filename --common \"--action addComment\" --continue "
-	."--server $props{jira_server}  --password $props{jira_password} --user $props{jira_user}"
+	."--server $props{jira_server}  --password '$jira_password' --user '$jira_user'"
 	." 2>&1"
 	;
 
