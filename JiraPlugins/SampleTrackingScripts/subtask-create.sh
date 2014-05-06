@@ -240,7 +240,23 @@ create_ST_jira $DIR/sql/subtasks-create-csv-file.sql "$SQL_OUTPUT_FILE"
 #------------------------------------------------------------------------------
 #Produces: $subtask       The subtasks name
 #------------------------------------------------------------------------------
-safe_read subtask "Please enter the type of sub-task to create"
+#safe_read subtask "Please enter the type of sub-task to create"
+
+  echo "Subtasks available: "
+    for index in  "${!SUBTASK_LIST[@]}"
+    do
+        better_index=$(($index+1))
+        echo " ${better_index}. ${SUBTASK_LIST[$index]}"
+    done
+
+    echo ""
+
+	while [[ -z ${subtask} ]]
+	do
+  		safe_read subtask "Please enter the type of sub-task to create by number"
+    		index=$(($subtask-1))
+    		subtask=${SUBTASK_LIST[$index]};
+	done
 
 
 #------------------------------------------------------------------------------

@@ -12,6 +12,7 @@ if [ ! -d "$LOGDIR" ]; then
     chmod 0777 ${LOGDIR} 2>/devl/null
 fi
 
+
 function find_subtasks() {
 ###############################################################################
 # find_subtasks
@@ -46,7 +47,22 @@ local subtask_output_file=$1
   #----------------------------------------------------------------------------
   #Produces: $subtask       The subtasks name
   #----------------------------------------------------------------------------
-  safe_read subtask "Please enter the type of sub-task to act on"
+
+  echo "Subtasks available: "
+	for index in  "${!SUBTASK_LIST[@]}"
+	do
+		better_index=$(($index+1))
+  		echo " ${better_index}. ${SUBTASK_LIST[$index]}"
+	done
+
+	echo ""
+
+	while [[ -z $subtask ]]
+	do
+  		safe_read subtask "Please enter the type of sub-task to act on by number"
+		index=$(($subtask-1))
+		subtask=${SUBTASK_LIST[$index]};
+	done
 
   if [[ "$file" ]];then
     #--------------------------------------------------------------------------
