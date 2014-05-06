@@ -18,13 +18,28 @@ export PROD_JIRA_SERVER="http://sampletracking.jcvi.org/"
 export PROD_SYBASE="SYBPROD"
 export DEV_JIRA_SERVER="http://sampletracking-dev.jcvi.org:8380/"
 export DEV_SYBASE="SYBIL"
-export JIRA_USER="sampletracking"
-export JIRA_PASSWORD="a2c4e6g8"
+##export JIRA_USER="sampletracking"
+##export JIRA_PASSWORD="a2c4e6g8"
 
 export SQSH_USER="glk_admin"
 export SQSH_PASSWORD="glk_admin99"
 
 host=$(hostname)
+
+declare -a subtasks
+export SUBTASK_LIST=( "454 Sequencing" \
+			"Closure Editing Task"
+			"Custom Closure Task"	\
+			"Illumina Sequencing"	\
+			"In-House Closure Task"	\
+			 "Nextera Task"	\
+			 "PCR Task"	\
+			 "PGM Sequencing"	\
+			 "RPL-PCR Task"	\
+			 "RT-PCR Task"	\
+			 "Sanger Sequencing"	\
+			 "SISPA Task"	\
+			);
 
 export LOGDIR="/usr/local/scratch/VIRAL/ST"
 if [ ! -d "$LOGDIR" ]; then
