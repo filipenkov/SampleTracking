@@ -1,1 +1,0 @@
-jira-cmd.sh
