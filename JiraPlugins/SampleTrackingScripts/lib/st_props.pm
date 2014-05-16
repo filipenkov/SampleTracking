@@ -53,7 +53,8 @@ our %jira_fields = (
 	COMPUTED_SUBTYPE	=>	"Computed Subtype",
 	LOT_LOAD			=>	"Lot (load)",
 	BATCH_ID_LOAD		=>	"Batch Id (load)",
-	EXTENT_ID_LOAD		=>	"Extent Id (load)"
+	EXTENT_ID_LOAD		=>	"Extent Id (load)",
+	REASON_FOR_REJECTING	=>	"Reason for rejecting sample"
 );
 
 our %jira_fields_regex = (
@@ -71,7 +72,8 @@ our %jira_fields_regex = (
 	COMPUTED_SUBTYPE	=>	"Computed Subtype",
 	LOT_LOAD			=>	"Lot \Q(load)\E",
 	BATCH_ID_LOAD		=>	"Batch Id \Q(load)\E",
-	EXTENT_ID_LOAD		=>	"Extent Id \Q(load)\E"
+	EXTENT_ID_LOAD		=>	"Extent Id \Q(load)\E",
+	REASON_FOR_REJECTING	=>	"Reason for rejecting sample"
 );
 
 our %custom_field_ids = (

@@ -15,11 +15,17 @@ my  $host = hostname;
 ##
 mkdir $st_props::LOG_DIR, 0777;
 
+
+my $logging_basename = "";
+my $logger;
+
 sub initLogging
 {
-	my $basename = shift @_;
+	$logging_basename = shift @_;
 
-	Log::Log4perl->easy_init( { level => $DEBUG, file => $st_props::LOG_DIR."/".$basename."_".$host."_$$.log" });
+	Log::Log4perl->easy_init( { level => $DEBUG, file => $st_props::LOG_DIR."/".$logging_basename."_".$host."_$$.log" });
+	$logger = get_logger($logging_basename);
+	$logger->info("Logging initiated for $logging_basename.");
 }
 
 sub makeTempfile
@@ -38,6 +44,7 @@ sub getJiraLogin
 {
 	print "Please enter the JIRA username to use: ";
 	my $jira_user  = ReadLine(0);
+	chomp $jira_user;
 	print "Please enter the JIRA user's password to use: ";
 	ReadMode('noecho');
 	my $jira_password = ReadLine(0);
@@ -47,6 +54,85 @@ sub getJiraLogin
 	($jira_user, $jira_password );
 
 }
+
+sub getIssuesForTuples
+{
+	my $env = shift @_;
+	my %tuples = @_;
+
+	my %props = %{ $st_props::props{$env} };
+
+	my %results;
+	my $attribute_name = "jira_id";
+
+  	my $glk = TIGR::GLKLib::newConnect($props{sybase_server}, "", $props{sybase_ro_user}, $props{sybase_ro_password});
+    $glk->setLogger($logger);
+    foreach my $db ( keys %tuples )
+    {
+        $glk->changeDb($db);
+
+        my @baclist = @{ $tuples{$db} };
+        foreach my $bac ( @baclist )
+        {
+            #print "processing $db $bac\n";
+            my $extent_id = $glk->getExtentByTypeRef( "SAMPLE", $bac ) ;
+            if (defined($extent_id))
+            {
+                my $attribute = $glk->getExtentAttribute($extent_id, $attribute_name);
+                #print "($db,$bac) = $attribute\n";
+                $results{$bac} = $attribute;
+            }
+            else
+            {
+                LOGDIE "ERROR: Cannot find $attribute_name for BAC ID $bac in database $db\!\n";
+            }
+        }
+    }
+
+	%results;
+}
+
+sub getIssuesForDbLot
+{
+ 	my $env = shift @_ ;
+ 	my $db = shift @_ ;
+ 	my $lot = shift @_ ;
+
+	my %props = %{ $st_props::props{$env} };
+
+	my @results;
+	my $attribute_name = "jira_id";
+
+	my $glk = TIGR::GLKLib::newConnect($props{sybase_server}, $db, $props{sybase_ro_user}, $props{sybase_ro_password});
+    $glk->setLogger(get_logger());
+
+    my $lot_extent_id = $glk->getExtentByTypeRef("LOT", $lot);
+
+    LOGDIE "No Lot $lot found in DB $db.\n" unless (defined($lot_extent_id));
+
+	#print "Lot extents = $lot_extent_id\n";
+
+    my @extent_ids = $glk->getExtentChildrenByType($lot_extent_id, "SAMPLE");
+    LOGDIE "No children found for Lot $lot in datavase $db.\n" unless (@extent_ids && $#extent_ids > -1);
+
+    foreach my $extent_id1 (@extent_ids)
+    {
+        foreach my $extent_id (@{ $extent_id1 })
+        {
+            DEBUG "processing child $extent_id\n";
+
+            my $jira_id = $glk->getExtentAttribute($extent_id, $attribute_name);
+            if (defined($jira_id))
+			{
+				push(@results, $jira_id);
+			}
+		}
+	}
+
+	@results;
+
+}
+
 
 sub getAttributesForSampleExtentID
 {
