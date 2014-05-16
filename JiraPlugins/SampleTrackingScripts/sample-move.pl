@@ -10,16 +10,16 @@
     
 =head1 USAGE
 
-    sample_move [-e <env>] -f <tuple_file> -c "Comment"
-    sample_move [-e <env>] -l <lot_number> -d <dbname> -c "Comment"
+    sample_move [-e <env>] -f <tuple_file> [-c "Comment"]
+    sample_move [-e <env>] -l <lot_number> -d <dbname>  [-c "Comment"]
 
 =head1 REQUIRED ARGUMENTS
-
-=item [-]-c <comment>
 
 =over
 
 =head1 OPTIONS
+
+=item [-]-c <comment>
 
 =item [-]-l <lot_no>
 
@@ -111,7 +111,9 @@ get_logger()->debug( "CSV file is $csv_filename\n");
 ##
 ## CSV Header
 ##
-print $csv_fh "issue,comment\n";
+print $csv_fh "issue";
+print $csv_fh ",comment" if ($ARGV_c);
+print $csv_fh "\n";
 
 my $attribute_name = "jira_id";
 
@@ -148,7 +150,9 @@ elsif (defined($ARGV_l))
 die "No issues found.\n" unless (@issueList);
 foreach my $issue (@issueList)
 {
-	print $csv_fh "$issue,\'$ARGV_c\'\n";
+	print $csv_fh "$issue";
+	print $csv_fh ",\'$ARGV_c\'" if ($ARGV_c);
+	print $csv_fh "\n";
 }
 
 close($csv_fh);
