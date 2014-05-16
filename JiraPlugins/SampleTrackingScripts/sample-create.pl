@@ -89,6 +89,7 @@ st_funcs::initLogging("sample-create");
 
 our ($ARGV_f,$ARGV_e,$ARGV_d,$ARGV_l,$ARGV_c);
 
+LOGDIE "Please choose tuple file or lot no & database.\n" if (!defined($ARGV_f) && !defined($ARGV_l) && !defined($ARGV_d));
 LOGDIE "Please choose tuple file or lot no & database, but not both.\n" if (defined($ARGV_f) && (defined($ARGV_l) || defined($ARGV_d)));
 LOGDIE "Please choose tuple file or lot no & database.\n" if (!defined($ARGV_f) && !defined($ARGV_l && !defined($ARGV_d)));
 LOGDIE "Please choose both lot no & database.\n" if ((defined($ARGV_l) && !defined($ARGV_d)) || (!defined($ARGV_l) && defined($ARGV_d)));
@@ -99,7 +100,6 @@ LOGDIE "Cannot find java: $st_props::JAVA_CMD\n" unless ( -e $st_props::JAVA_CMD
 ## Default to prod
 ##
 my $env = "prod";
-my $default_db = "giv";
 
 $env = $ARGV_e if (defined($ARGV_e));
 my %props = %{ $st_props::props{$env} };
@@ -135,7 +135,7 @@ print $csv_fh "$jira_fields{COMMENT}\n";
 my $attribute_name = "jira_id";
 
 my $add_count = 0;
-my $glk = TIGR::GLKLib::newConnect($props{sybase_server}, $default_db, $props{sybase_rw_user}, $props{sybase_rw_password});
+my $glk = TIGR::GLKLib::newConnect($props{sybase_server}, "", $props{sybase_rw_user}, $props{sybase_rw_password});
 $glk->setLogger(get_logger());
 
 

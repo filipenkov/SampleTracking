@@ -134,61 +134,25 @@ if (defined($ARGV_f))
 	}
 	close TFILE;
 
+	##  
+    ## Returns map of bac_id => ST_XXXX issue
+    ##
+    my %issueHash = st_funcs::getIssuesForTuples($env, %tuples);
 
-	foreach my $db ( keys %tuples )
-	{
-		my $glk = TIGR::GLKLib::newConnect($props{sybase_server}, $db, $props{sybase_ro_user}, $props{sybase_ro_password});
-		$glk->changeDb($db);
-
-		my @baclist = @{ $tuples{$db} };
-		foreach my $bac ( @baclist )
-		{
-			#print "processing $db $bac\n";
-			my $extent_id = $glk->getExtentByTypeRef( "SAMPLE", $bac ) ;
-			if (defined($extent_id))
-			{
-				my $attribute = $glk->getExtentAttribute($extent_id, $attribute_name);
-				#print "($db,$bac) = $attribute\n";
-				print $csv_fh "$attribute,\"$ARGV_g\",\"$ARGV_c\"\n";
-			}
-			else
-			{
-				LOGDIE "ERROR: Cannot find $attribute_name for BAC ID $bac in database $db\!\n";
-			}
-		}
-	}
+    foreach my $issue ( values %issueHash )
+    {
+		print $csv_fh "$issue,\"$ARGV_g\",\"$ARGV_c\"\n";
+    }
 }
 elsif (defined($ARGV_l))
 {
 	LOGDIE "-l Lot number also requires -d DB name parameter.\n" unless (defined($ARGV_d));
-	my $glk = TIGR::GLKLib::newConnect($props{sybase_server}, $ARGV_d, $props{sybase_ro_user}, $props{sybase_ro_password});
-
-	my $lot_extent_id = $glk->getExtentByTypeRef("LOT", $ARGV_l);
-
-	LOGDIE "No Lot $ARGV_l found in DB $ARGV_d.\n" unless (defined($lot_extent_id));
-
-#print "Lot extents = $lot_extent_id\n";
-
-	my @extent_ids = $glk->getExtentChildrenByType($lot_extent_id, "SAMPLE");
-	LOGDIE "No children found for Lot $ARGV_l in datavase $ARGV_d.\n" unless (@extent_ids && $#extent_ids > -1);
-
-	foreach my $extent_id1 (@extent_ids)
-	{
-		foreach my $extent_id (@{ $extent_id1 })
-		{	
-			DEBUG "processing child $extent_id\n";
-
-			my $jira_id = $glk->getExtentAttribute($extent_id, $attribute_name);
-			if (defined($jira_id))
-			{
-				print $csv_fh "$jira_id,\"$ARGV_g\",\"$ARGV_c\"\n";
-			}
-			else
-			{
-				LOGDIE "ERROR: Cannot find jira_id for extent $extent_id for lot $ARGV_l in database $ARGV_d\!\n";
-			}
-		}
-	}
+	my @issues = st_funcs::getIssuesForDbLot($env,$ARGV_d, $ARGV_l);
+    die "No issues found.\n" unless (@issues);
+    foreach my $issue (@issues)
+    {       
+		print $csv_fh "$issue,\"$ARGV_g\",\"$ARGV_c\"\n";
+    } 
 }
 
 close($csv_fh);
