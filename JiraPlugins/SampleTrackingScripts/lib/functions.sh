@@ -692,7 +692,7 @@ test_environment \
     -a runFromCSV \
     --server $JIRA_SERVER \
     --user "$JIRA_USER" \
-    --password "$JIRA_PASSWORD" \
+    --password "" \
     --file "$JIRA_CSV_INPUT_FILE" \
     --common "$1" \
     $simulate \

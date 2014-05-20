@@ -104,9 +104,7 @@ my $env = "prod";
 $env = $ARGV_e if (defined($ARGV_e));
 my %props = %{ $st_props::props{$env} };
 
-my %jira_fields = %st_props::jira_fields;
-my %jira_fields_regex = %st_props::jira_fields_regex;
-my %custom_field_ids = %st_props::custom_field_ids;
+my %jira_fields = %st_props::custom_field_names;
 
 DEBUG "server = $props{jira_server}\n";
 
@@ -274,7 +272,9 @@ my $command =  "$st_props::JAVA_CMD -jar $st_props::JIRA_CLI_JAR --action runFro
 	." 2>&1"
 	;
 
-DEBUG "$command\n";
+DEBUG  "$st_props::JAVA_CMD -jar $st_props::JIRA_CLI_JAR --action runFromCSV "
+	."--file $csv_filename --common \"--action createIssue\" --continue "
+	."--server $props{jira_server}  --password '' --user '$jira_user'\n" ;
 
 ## 
 ## Result:
@@ -299,9 +299,9 @@ if (${^CHILD_ERROR_NATIVE} == 0)
 	## update GLK
 	##
 	my $glk_count = 0;
-	my $extent_match = $jira_fields_regex{EXTENT_ID_LOAD}.":";
+	my $extent_match = $jira_fields{EXTENT_ID_LOAD}.":";
 	DEBUG "EXTENT MATCH = $extent_match\n";
-	my $db_match = $jira_fields_regex{DATABASE}.":";
+	my $db_match = $jira_fields{DATABASE}.":";
 
     for my $line (split("\n\n",$output))
     {

@@ -164,7 +164,9 @@ my $command =  "$st_props::JAVA_CMD -jar $st_props::JIRA_CLI_JAR --quiet --actio
 	." 2>&1"
 	;
 
-DEBUG "$command\n";
+DEBUG  "$st_props::JAVA_CMD -jar $st_props::JIRA_CLI_JAR --quiet --action runFromCSV "
+	."--file $csv_filename --common \"--action updateIssue\" --continue "
+	."--server $props{jira_server}  --password '' --user '$jira_user' \n";
 
 my $output = `$command`;
 chomp $output;

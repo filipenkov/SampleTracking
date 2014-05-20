@@ -159,7 +159,7 @@ close($csv_fh);
 
 my ($jira_user, $jira_password) = st_funcs::getJiraLogin();
 
-##java -jar /usr/local/devel/VIRIFX/software/SampleTracking/lib/jira-cli.jar --quiet --common '--action getAvailableSteps' -a runFromCSV   --file /usr/local/scratch/VIRAL/ST/sample-assign_lserver2_23960.csv --server http://sampletracking-dev.jcvi.org:8380  --password 'Andie2k3!' --user 'bbishop'
+##java -jar /usr/local/devel/VIRIFX/software/SampleTracking/lib/jira-cli.jar --quiet --common '--action getAvailableSteps' -a runFromCSV   --file /usr/local/scratch/VIRAL/ST/sample-assign_lserver2_23960.csv --server http://sampletracking-dev.jcvi.org:8380  --password 'password!' --user 'bbishop'
 
 
 my $get_steps_command =  "$st_props::JAVA_CMD -jar $st_props::JIRA_CLI_JAR --quiet -a runFromCSV "
@@ -169,7 +169,10 @@ my $get_steps_command =  "$st_props::JAVA_CMD -jar $st_props::JIRA_CLI_JAR --qui
 	." 2>&1"
 	;
 
-DEBUG "$get_steps_command\n";
+DEBUG   "$st_props::JAVA_CMD -jar $st_props::JIRA_CLI_JAR --quiet -a runFromCSV "
+	."--common '--action getAvailableSteps'  "
+	."--file $csv_filename  --continue "
+	."--server $props{jira_server}  --password '' --user '$jira_user'\n";
 
 my $repeat_step = "Y";
 
@@ -215,11 +218,11 @@ while ("Y" eq $repeat_step)
 				print "Please give a reason for rejecting this sample: ";
 				$reject_reason = ReadLine(0);
     			chomp $reject_reason;
-				$reject_reason_command = "--field \"$st_props::jira_fields{REASON_FOR_REJECTING}\" --values \"$reject_reason\"";
+				$reject_reason_command = "--field \"$st_props::custom_field_names{REASON_FOR_REJECTING}\" --values \"$reject_reason\"";
 			}
 	
 
-##jira-cli.jar --action progressIssue --issue "ST-99166" --comment "test unresolved" --step "9300" --server http://sampletracking-dev.jcvi.org:8380 --user bbishop --password  'Andie2k3!' --field 'Reason for rejecting sample'  --values 'Reject reason 2 here'
+##jira-cli.jar --action progressIssue --issue "ST-99166" --comment "test unresolved" --step "9300" --server http://sampletracking-dev.jcvi.org:8380 --user bbishop --password  'pass' --field 'Reason for rejecting sample'  --values 'Reject reason 2 here'
 
 
 			my $move_steps_command =  "$st_props::JAVA_CMD -jar $st_props::JIRA_CLI_JAR --action runFromCSV "
@@ -229,7 +232,10 @@ while ("Y" eq $repeat_step)
 				." 2>&1"
 				;
 
-				DEBUG "$move_steps_command\n";
+				DEBUG   "$st_props::JAVA_CMD -jar $st_props::JIRA_CLI_JAR --action runFromCSV "
+				."--common '--action progressIssue --step \"$new_state\" $reject_reason_command' "
+				."--file $csv_filename  --continue "
+				."--server $props{jira_server}  --password '' --user '$jira_user'\n";
 
 				print "Moving....\n";
     			my $output = `$move_steps_command`;

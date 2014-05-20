@@ -57,24 +57,24 @@ our %jira_fields = (
 	REASON_FOR_REJECTING	=>	"Reason for rejecting sample"
 );
 
-our %jira_fields_regex = (
-
-	PROJECT				=>	"Project",
-	TYPE				=>	"Type",
-	SUMMARY				=>	"Summary",
-	COMMENT				=>	"Comment",
-	## Custom
-	SAMPLE_ID			=> 	"Sample Id",
-	DATABASE 			=> 	"Database",
-	COLLECTION_CODE_LOAD	=>	"Collection Code \Q(load)\E",
-	BAC_ID_LOAD			=>	"BAC Id \Q(load)\E",
-	BLINDED_NUMBER		=>	"Blinded Number",
-	COMPUTED_SUBTYPE	=>	"Computed Subtype",
-	LOT_LOAD			=>	"Lot \Q(load)\E",
-	BATCH_ID_LOAD		=>	"Batch Id \Q(load)\E",
-	EXTENT_ID_LOAD		=>	"Extent Id \Q(load)\E",
-	REASON_FOR_REJECTING	=>	"Reason for rejecting sample"
-);
+#our %jira_fields_regex = (
+#
+	#PROJECT				=>	"Project",
+	#TYPE				=>	"Type",
+	#SUMMARY				=>	"Summary",
+	#COMMENT				=>	"Comment",
+	### Custom
+	#SAMPLE_ID			=> 	"Sample Id",
+	#DATABASE 			=> 	"Database",
+	#COLLECTION_CODE_LOAD	=>	"Collection Code \Q(load)\E",
+	#BAC_ID_LOAD			=>	"BAC Id \Q(load)\E",
+	#BLINDED_NUMBER		=>	"Blinded Number",
+	#COMPUTED_SUBTYPE	=>	"Computed Subtype",
+	#LOT_LOAD			=>	"Lot \Q(load)\E",
+	#BATCH_ID_LOAD		=>	"Batch Id \Q(load)\E",
+	#EXTENT_ID_LOAD		=>	"Extent Id \Q(load)\E",
+	#REASON_FOR_REJECTING	=>	"Reason for rejecting sample"
+#);
 
 our %custom_field_ids = (
 
@@ -86,7 +86,28 @@ our %custom_field_ids = (
 	COMPUTED_SUBTYPE			=>	10126,
 	LOT_LOAD					=>	10630,
 	BATCH_ID_LOAD				=>	10730,
-	EXTENT_ID_LOAD				=>	10731
+	EXTENT_ID_LOAD				=>	10731,
+	REASON_FOR_REJECTING		=>  10220
+
+);
+
+our %custom_field_names = (
+
+	PROJECT						=>	"Project",
+	TYPE						=>	"Type",
+	SUMMARY						=>	"Summary",
+	COMMENT						=>	"Comment",
+	## Customs:
+	SAMPLE_ID					=>	"customfield_10100",
+	DATABASE					=>	"customfield_10120",
+	COLLECTION_CODE_LOAD		=>	"customfield_10121",
+	BAC_ID_LOAD					=>	"customfield_10122",
+	BLINDED_NUMBER				=>	"customfield_10123",
+	COMPUTED_SUBTYPE			=>	"customfield_10126",
+	LOT_LOAD					=>	"customfield_10630",
+	BATCH_ID_LOAD				=>	"customfield_10730",
+	EXTENT_ID_LOAD				=>	"customfield_10731",
+	REASON_FOR_REJECTING		=>  "customfield_10220"
 
 );
 
