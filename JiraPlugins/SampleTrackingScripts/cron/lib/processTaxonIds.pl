@@ -51,7 +51,7 @@ use Java::Runner;
 
 my $runner = Java::Runner->new();
 
-$runner->useJavaPreset("7");
+$runner->useJavaPreset("8");
 
 $runner->clearClassPath();
 $runner->addClassLocation("$elviraDir/resources");
