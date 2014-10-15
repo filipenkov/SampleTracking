@@ -58,8 +58,10 @@ public class SQLPostFunction extends AbstractPostFunction {
         }
         String catalogFieldName = config.getCatalogFieldName();
 
+        Connection con = null;
+        PreparedStatement ps = null;
         try {
-            Connection con = config.createConnection();
+            con = config.createConnection();
             if (con == null) {
                 log.error("Could not get a Database Connection");
             } else {
@@ -71,7 +73,7 @@ public class SQLPostFunction extends AbstractPostFunction {
                 }
                 NamedParameterSQL sql = new NamedParameterSQL(sqlString);
                 log.debug("parsed SQL = "+sql.getPreparedStatementSQL());
-                PreparedStatement ps = con.prepareStatement(sql.getPreparedStatementSQL());
+                ps = con.prepareStatement(sql.getPreparedStatementSQL());
 
                 for(int i = 1; i <= sql.getNumberOfParameters(); i++) {
                     ps.setString(i,getFieldValue(state, sql.getParameterAt(i)));
@@ -80,10 +82,30 @@ public class SQLPostFunction extends AbstractPostFunction {
                 int updated = ps.executeUpdate();
                 //todo: add an option to error if less than M / more than N updates occurred?
                 log.info("SQL ran successfully, " + updated + " records were updated");
+                
+                
             }
         } catch (SQLException sqle) {
             log.debug("SQL="+sqlString);
             log.error("SQL Failed with: "+sqle);
+        }
+        try
+        {
+        	if (ps != null)
+        		ps.close();
+        }
+        catch(Exception e)
+        {
+        	log.error("Error closing prepared statement: "+e.getLocalizedMessage());
+        }
+        try
+        {
+             if (con != null)   
+            	 con.close();
+        }
+        catch(Exception e)
+        {
+        	log.error("Error closing connection: "+e.getLocalizedMessage());
         }
     }
 
